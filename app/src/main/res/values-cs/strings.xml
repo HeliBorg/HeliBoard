@@ -387,7 +387,7 @@
     <string name="switch_keyboard_after">Přepnout na hlavní klávesnici po…</string>
     <string name="after_clip">Výběr záznamu v historii schránky</string>
     <string name="after_symbol_and_space">Stisknutí klávesy Enter nebo mezerníku v zobrazení znaků</string>
-    <string name="all_colors_warning">Toto nastavení odhalí všechny interně používané barvy. Seznam barev se může kdykoli změnit. Výchozí barva je náhodná a názvy se nepřekládají.</string>
+    <string name="all_colors_warning">Toto nastavení odhalí všechny interně používané barvy. Seznam barev se může kdykoli změnit. Výchozí barva je vytvořená z normálních barev a názvy se nepřekládají.</string>
     <string name="subtype_mns">Mansijština</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funkční klávesy</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funkční klávesy (znaky)</string>
@@ -444,4 +444,35 @@
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Spodní řádek schránky s akční klávesou</string>
     <string name="number_row_in_symbols">Zobrazit číselný řádek na obrazovce znaků</string>
     <string name="custom_emoji_font">Nastavit vlastní písmo emodži ze souboru</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funkční klávesy (Khipro)</string>
+    <string name="emoji_search_title">Hledat emodži</string>
+    <string name="search_field_placeholder">Hledat</string>
+    <string name="gesture_data_screen">Sbírání dat o gestech</string>
+    <string name="gesture_data_info">Co je to?</string>
+    <string name="gesture_data_privacy">Soukromí</string>
+    <string name="gesture_data_get_data">Sdílet soubor s daty o gestech</string>
+    <string name="gesture_data_delete_data">Vymazat data o gestech</string>
+    <string name="gesture_data_send_mail">Odeslat data e-mailem</string>
+    <string name="gesture_data_copy_mail">Kopírovat e-mailovou adresu</string>
+    <string name="gesture_data_mail_use">Upozorňujeme, že e-mailová adresa je určená pro odesílání dat, nemusíte obdržet rychlé nebo konzistentní odpovědi.</string>
+    <string name="gesture_data_please_type">Napište prosím slovo gestem:</string>
+    <string name="gesture_data_next_save">Zjištěno slovo %s. Klepněte, pokud jste si jisti, že gesto bylo správné</string>
+    <string name="gesture_data_next">Přeskočit slovo</string>
+    <string name="gesture_data_active_count">%1$s slov v této relaci, celkem %2$s slov (%3$s slov již odesláno nebo smazáno)</string>
+    <string name="gesture_data_review_screen_title">Zkontrolovat a sdílet data o gestech</string>
+    <string name="gesture_data_words_selected">%s slov</string>
+    <string name="gesture_data_date_range">Rozsah dat</string>
+    <string name="gesture_data_much_data">Máte spoustu neodeslaných dat. Odešlete je prosím a poté odstraňte stará data.</string>
+    <string name="gesture_data_how_to_use">Návod na použití</string>
+    <string name="gesture_data_active_start">Spustit aktivní sbírání</string>
+    <string name="gesture_data_active_stop">Zastavit aktivní sbírání</string>
+    <string name="gesture_data_ends_at">Fáze sbírání dat o gestech skončí %s. Před daným datem prosím odešlete vaše data.</string>
+    <string name="gesture_data_ended">Fáze sbírání dat o gestech skončila %s. Můžete sdílet vaše existující data, ale nemůžete přidávat nová.</string>
+    <string name="gesture_data_share_all">Sdílet všech %s slov</string>
+    <string name="gesture_data_share_new">Sdílet %s dříve neodeslaných slov</string>
+    <string name="gesture_data_delete_dialog">Máte data pro %1$s nových a %2$s již sdílených slov.</string>
+    <string name="gesture_data_delete_dialog_all">Smazat všech %s slov</string>
+    <string name="gesture_data_delete_dialog_confirm">Opravdu? Tato akce smaže %s slov. Ujistěte se, že je vaše sdílené datum odesláno!</string>
+    <string name="gesture_data_delete_dialog_submitted">Smazat %s odeslaných slov</string>
+    <string name="gesture_data_many_not_shared_words">Máte více než %s slov čekajících na odeslání</string>
 </resources>

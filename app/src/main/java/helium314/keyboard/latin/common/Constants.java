@@ -233,6 +233,7 @@ public final class Constants {
         case KeyCode.SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
         case KeyCode.SPLIT_LAYOUT: return "splitLayout";
         case KeyCode.NUMPAD: return "numpad";
+        case KeyCode.EMOJI_SEARCH: return "emojiSearch";
         default:
             if (code < CODE_SPACE) return String.format("\\u%02X", code);
             if (code < 0x100) return String.format("%c", code);

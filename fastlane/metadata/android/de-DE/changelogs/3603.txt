@@ -1,0 +1,12 @@
+* + Inline-Emoji-Suche
+* Optional: Sprache/Subtyp pro App speichern
+* Fix und Verbesserungen für haptisches Feedback
+* Ungepinnten Clipboard-Inhalt bei App-Neustart behalten
+* Optional: angepinnte Clipboard-Einträge zuletzt zeigen
+* + Optional: Emoji- und Clipboard-Zeilen am unteren Rand
+* + Schaltfläche zum Ausblenden von Inline-Vorschlägen
+* + Khipro
+* + Mirandese
+* Workaround: Probleme mit Hardware-Tastaturen
+* Wörterbuch-Links führen direkt zur Datei
+* Kleinere Fixes und Verbesserungen

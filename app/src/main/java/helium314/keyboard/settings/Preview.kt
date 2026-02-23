@@ -11,6 +11,7 @@ import helium314.keyboard.latin.utils.SubtypeSettings
 fun initPreview(context: Context) {
     Settings.init(context)
     SubtypeSettings.init(context)
+    Settings.getInstance().loadSettings(context)
     SettingsActivity.settingsContainer = SettingsContainer(context)
     KeyboardIconsSet.instance.loadIcons(context)
 }

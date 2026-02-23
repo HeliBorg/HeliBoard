@@ -1,6 +1,7 @@
 [
   [
     { "label": "alpha", "width": 0.15 },
+    { "$": "keyboard_state_selector", "emojiSearchAvailable": { "label": "emoji_search", "width": 0.15 }},
     { "label": "space", "width": -1 },
     { "label": "delete", "width": 0.15 }
   ]

@@ -305,7 +305,7 @@
     <string name="show_popup_hints">Mostrar dicas funcionais</string>
     <string name="show_popup_hints_summary">Mostrar dicas se um toque longo numa tecla ativa funcionalidade adicional</string>
     <string name="after_numpad_and_space">Premir Enter ou Espaço após outras teclas no teclado de números</string>
-    <string name="all_colors_warning">Esta configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é aleatória, e os nomes não são traduzidos.</string>
+    <string name="all_colors_warning">Esta configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é derivada das cores normais, e os nomes não são traduzidos.</string>
     <string name="select_color_gesture">Entrada de gesto</string>
     <string name="discussion_section_link">seção de discussão</string>
     <string name="settings_screen_about">Sobre</string>
@@ -440,4 +440,7 @@
     <string name="subtype_khipro_bn">%s (Khipro)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emoji com tecla de ação</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
+    <string name="custom_emoji_font">Definir fonte de emoji a partir de ficheiro</string>
+    <string name="number_row_in_symbols">Mostrar linha de números no ecrã de símbolos</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas funcionais (Khipro)</string>
 </resources>

@@ -306,7 +306,7 @@
     <string name="subtype_generic_extended">%s (Extendido)</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Mostrar máis cores</string>
-    <string name="all_colors_warning">Este axuste expón todas as cores que se usan internamente. A lista de cores pode cambiar en calquera momento. A cor por defecto é aleatoria, e os nomes non serán traduciddos.</string>
+    <string name="all_colors_warning">Este axuste expón todas as cores que se usan internamente. A lista de cores pode cambiar en calquera momento. O valor por defecto deriva das cores normais, e os nomes non estarán traduciddos.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Teclas función</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Teclas función (Máis símbolos)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Teclas función (Símbolos)</string>
@@ -447,4 +447,8 @@
     <string name="save_subtype_per_app">Lembrar idioma por aplicación</string>
     <string name="subtype_mhr">Mari (Eastern)</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="number_row_in_symbols">Mostrar fila de número na vista de símbolos</string>
+    <string name="custom_emoji_font">Escoller emojis persoais desde ficheiro</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emojis coa tecla de acción</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior do portapapeis coa tecla de acción</string>
 </resources>

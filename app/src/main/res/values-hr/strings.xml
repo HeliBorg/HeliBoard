@@ -3,24 +3,24 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_dict">"Potražite imena kontakata"</string>
     <string name="vibrate_on_keypress">"Vibracija pri pritisku na tipku"</string>
     <string name="sound_on_keypress">"Zvuk pri pritisku tipke"</string>
-    <string name="popup_on_keypress">"Povećani font na pritisak tipke"</string>
+    <string name="popup_on_keypress">Skočni prozorčić pri pritisku tipke</string>
     <string name="settings_screen_preferences">"Postavke"</string>
     <string name="settings_screen_gesture">"Pisanje kretnjama"</string>
     <string name="settings_screen_correction">"Ispravljanje teksta"</string>
     <string name="settings_screen_advanced">Napredno</string>
     <string name="settings_screen_theme">"Tema"</string>
     <string name="enable_split_keyboard">"Omogući razdvojenu tipkovnicu"</string>
-    <string name="language_switch_key_switch_input_method">"Prebaci na druge unose"</string>
+    <string name="language_switch_key_switch_input_method">Prebaci na druge načine unosa</string>
     <string name="show_language_switch_key">"Tipka za izmjenjivanje jezika"</string>
     <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">"Zadano sustavom"</string>
-    <string name="use_contacts_dict_summary">"Koristi imena iz Kontakata za prijedloge i ispravke"</string>
+    <string name="use_contacts_dict_summary">Koristi imena iz kontakata za prijedloge i ispravke</string>
     <string name="use_personalized_dicts">"Prilagođeni prijedlozi"</string>
-    <string name="use_double_space_period">"Točka s dva razmaka"</string>
+    <string name="use_double_space_period">Točka unosom dva razmaka</string>
     <string name="use_double_space_period_summary">"Dvostrukim dodirivanjem razmaknice umeću se točka i razmak"</string>
     <string name="auto_cap">"Autom. veliko početno slovo"</string>
     <string name="auto_cap_summary">"Napiši velikim slovom prvu riječ svake rečenice"</string>
@@ -44,12 +44,12 @@
     <string name="gesture_floating_preview_text">"Dinamički plutajući pregled"</string>
     <string name="gesture_space_aware">"Unos izraza kretnjom"</string>
     <string name="gesture_space_aware_summary">"Umećite razmake tijekom izvođenja kretnji kliznuvši prema razmaknici"</string>
-    <string name="subtype_en_GB">"Engleski (UK)"</string>
-    <string name="subtype_en_US">"Engleski (SAD)"</string>
-    <string name="subtype_es_US">Španjolski (SAD)</string>
-    <string name="subtype_hi_Latn">"Hinglish"</string>
-    <string name="subtype_sr_Latn">"Srpski (latinica)"</string>
-    <string name="subtype_generic_traditional">%s (traditionalno)</string>
+    <string name="subtype_en_GB">engleski (UK)</string>
+    <string name="subtype_en_US">engleski (SAD)</string>
+    <string name="subtype_es_US">španjolski (SAD)</string>
+    <string name="subtype_hi_Latn">hinglish</string>
+    <string name="subtype_sr_Latn">srpski (latinica)</string>
+    <string name="subtype_generic_traditional">%s (tradicionalno)</string>
     <string name="subtype_generic_compact">%s (kompaktno)</string>
     <string name="subtype_no_language">Neodređen jezik</string>
     <string name="subtype_emoji">"Emoji"</string>
@@ -57,7 +57,7 @@
     <string name="remove">"Ukloni"</string>
     <string name="save">"Spremi"</string>
     <string name="subtype_locale">"Jezik"</string>
-    <string name="keyboard_layout_set">"Izgled"</string>
+    <string name="keyboard_layout_set">Raspored</string>
     <string name="prefs_keypress_vibration_duration_settings">"Trajanje vibracije pritiska"</string>
     <string name="prefs_keypress_sound_volume_settings">"Glasnoća pritiska tipke"</string>
     <string name="prefs_key_longpress_timeout_settings">"Trajanje dugog pritiska tipke"</string>
@@ -65,25 +65,25 @@
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Fizička tipka Alt prikazuje paletu emojija"</string>
     <string name="button_default">"Zadano"</string>
     <string name="setup_welcome_title">Dobro došli u %s</string>
-    <string name="setup_welcome_additional_description">"s Pisanjem kretnjama"</string>
+    <string name="setup_welcome_additional_description">s pisanjem kretnjama</string>
     <string name="setup_start_action">"Počnite s radom"</string>
     <string name="setup_steps_title">Postavljanje aplikacije %s</string>
-    <string name="setup_step1_title">Aktiviraj %s</string>
-    <string name="setup_step1_instruction">Označi „%s” u postavkama jezika i unosa. Time se omogućuje izvođenje aplikacije na uređaju.</string>
-    <string name="setup_step1_action">Aktiviraj u postavkama</string>
-    <string name="setup_step2_title">Prijeđi na %s</string>
-    <string name="setup_step2_instruction">Zatim odaberi „%s” kao aktivan način unosa teksta.</string>
+    <string name="setup_step1_title">Omogućite %s</string>
+    <string name="setup_step1_instruction">Označite „%s” u postavkama jezika i unosa. Time se omogućuje izvođenje aplikacije na uređaju.</string>
+    <string name="setup_step1_action">Omogući u postavkama</string>
+    <string name="setup_step2_title">Prijeđite na %s</string>
+    <string name="setup_step2_instruction">Zatim odaberite „%s” kao aktivni način unosa teksta.</string>
     <string name="setup_step2_action">Prijeđi na drugi način unosa</string>
     <string name="setup_step3_title">Čestitamo, sve je spremno!</string>
-    <string name="setup_step3_instruction">Sada možeš pisati u svim svojim omiljenim aplikacijama pomoću aplikacije %s.</string>
+    <string name="setup_step3_instruction">Sada možete pisati u svim svojim omiljenim aplikacijama pomoću aplikacije %s.</string>
     <string name="setup_finish_action">"Završeno"</string>
     <string name="show_setup_wizard_icon">"Prikaži ikonu aplikacije"</string>
     <string name="show_setup_wizard_icon_summary">"Prikazivanje ikone aplikacije u pokretaču"</string>
-    <string name="dictionary_category_title">"Rječnici kao dodaci"</string>
+    <string name="dictionary_category_title">Dodatni rječnici</string>
     <string name="dictionary_available">"Dostupan je rječnik"</string>
     <string name="settings">"Postavke"</string>
     <string name="delete">"Izbriši"</string>
-    <string name="version_text">Verzija %1$s</string>
+    <string name="version_text">Verzija %s</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Prečac:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jezik:"</string>
     <string name="user_dict_settings_add_word_hint">"Upišite riječ"</string>
@@ -105,37 +105,342 @@
     <string name="ime_settings">HeliBoard postavke</string>
     <string name="settings_category_input">Unos</string>
     <string name="settings_category_additional_keys">Dodatne tipke</string>
-    <string name="enable_clipboard_history">Aktiviraj povijest međuspremnika</string>
-    <string name="enable_clipboard_history_summary">Ako je deaktivirano, tipka međuspremnika će umetnuti sadržaj međuspremnika, ako ga ima</string>
+    <string name="enable_clipboard_history">Omogući povijest međuspremnika</string>
+    <string name="enable_clipboard_history_summary">Ako je onemogućeno, tipka međuspremnika će umetnuti sadržaj međuspremnika, ako ga ima</string>
     <string name="clipboard_history_retention_time">Vrijeme zadržavanja povijesti</string>
     <string name="delete_swipe">Izbriši povlačenjem</string>
     <string name="delete_swipe_summary">Povuci prstom od tipke za brisanje, za biranje i uklanjanje većih dijelova teksta</string>
-    <string name="prefs_force_incognito_mode_summary">Deaktiviraj učenje novih riječi</string>
+    <string name="prefs_force_incognito_mode_summary">Onemogući učenje novih riječi</string>
     <string name="autospace_after_punctuation">Automatski dodaj razmak nakon interpunkcije</string>
     <string name="autospace_after_punctuation_summary">Automatski dodaj razmak nakon interpunkcije kad pišeš novu riječ</string>
-    <string name="incognito">Prisili inkognito način rada</string>
+    <string name="incognito">Prisili anonimni način rada</string>
     <string name="more_keys_strip_description">Više tipki</string>
-    <string name="number_row_summary">Uvijek pokaži broj retka</string>
-    <string name="show_hints">Pokaži savjete tipki</string>
-    <string name="show_hints_summary">Pokaži savjete pri dugom pritisku tipke</string>
+    <string name="number_row_summary">Uvijek prikaži redak brojeva</string>
+    <string name="show_hints">Pokaži pomoćne oznake tipki</string>
+    <string name="show_hints_summary">Pokazuje pomoćne oznake za dugi pritisak tipki</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Promijeni način unosa s razmaknicom</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Dugi pritisak razmaknice prikazat će izbornik za način unosa</string>
     <string name="prefs_keyboard_height_scale">Visine tipkovnice</string>
-    <string name="key_borders">Tipke s rubovima</string>
+    <string name="key_borders">Rubovi tipki</string>
     <string name="day_night_mode">Automatski danji/noćni način rada</string>
     <string name="day_night_mode_summary">Izgled će slijediti postavke sustava</string>
-    <string name="number_row">Broj retka</string>
+    <string name="number_row">Redak brojeva</string>
     <string name="auto_correction_confidence">Pouzdanje u automatsko ispravljanje</string>
     <string name="select_input_method">"Odabir načina unosa"</string>
     <string name="undo">"Poništi"</string>
     <string name="redo">"Ponovi"</string>
     <string name="use_personalized_dicts_summary">"Upotrijebi poruke i upisane podatke za poboljšanje prijedloga"</string>
-    <string name="label_go_key">"Kreni"</string>
+    <string name="label_go_key">Idi</string>
     <string name="label_next_key">"Dalje"</string>
     <string name="label_previous_key">"Pret."</string>
     <string name="label_done_key">"Got."</string>
-    <string name="label_send_key">"Poš."</string>
+    <string name="label_send_key">Šalji</string>
     <string name="label_search_key">"Traži"</string>
-    <string name="label_pause_key">"Pauz."</string>
+    <string name="label_pause_key">Pauza</string>
     <string name="label_wait_key">"Čekaj"</string>
+    <string name="vibrate_in_dnd_mode">Vibracije tijekom načina „Ne ometaj”</string>
+    <string name="suggest_emojis">Predlaži emojije</string>
+    <string name="suggest_emojis_summary">Koristi rječnik emojija u običnim prijedlozima</string>
+    <string name="inline_emoji_search_summary">Predlaže emojije samo kada se ispred riječi nalazi dvotočka</string>
+    <string name="inline_emoji_search">Pretraživanje emojija unutar teksta</string>
+    <string name="emoji_dictionary_required">Za ovu značajku je potreban rječnik emojija. Rječnici u formatu .dict mogu se preuzeti %s.</string>
+    <string name="show_emoji_descriptions">Prikaži opis emojija dugim pritiskom</string>
+    <string name="settings_category_space">Razmak</string>
+    <string name="enable_split_keyboard_landscape">Omogući razdvojenu tipkovnicu (horizontalno)</string>
+    <string name="split_spacer_scale">Razmak razdvajanja</string>
+    <string name="switch_language">Prebaci jezik</string>
+    <string name="language_switch_key_switch_both">Prebaci oboje</string>
+    <string name="language_switch_key_behavior">Ponašanje tipke za prebacivanje jezika</string>
+    <string name="use_apps_dict">Potraži nazive aplikacija</string>
+    <string name="use_apps_dict_summary">Koristi nazive instaliranih aplikacija za prijedloge i ispravke</string>
+    <string name="disable_personalized_dicts_message">Upozorenje: onemogućavanjem ove postavke izbrisat će se naučeni podaci</string>
+    <string name="add_to_personal_dictionary">Dodaj riječi u osobni rječnik</string>
+    <string name="add_to_personal_dictionary_summary">Koristi osobni rječnik uređaja za pohranjivanje naučenih riječi</string>
+    <string name="prefs_always_show_suggestions">Uvijek prikaži prijedloge</string>
+    <string name="prefs_always_show_suggestions_summary">Ignorira zahtjeve drugih aplikacija da se onemoguće prijedlozi (može uzrokovati probleme)</string>
+    <string name="more_autocorrect">Više automatskog ispravljanja</string>
+    <string name="more_autocorrect_summary">Automatski ispravlja čak i kada polje unosa to nije izričito zatražilo</string>
+    <string name="auto_correct_shortcuts">Automatski ispravljaj kratice</string>
+    <string name="auto_correct_shortcuts_summary">Kada je omogućeno, automatsko ispravljanje možda će proširiti kratice u pune riječi</string>
+    <string name="backspace_reverts_autocorrect">Tipka brisanja vraća automatski ispravljenu riječ</string>
+    <string name="center_suggestion_text_to_enter">Uvijek koristi srednji prijedlog</string>
+    <string name="center_suggestion_text_to_enter_summary">Pritiskom razmaknice ili interpunkcije, umetnut će se srednji prijedlog</string>
+    <string name="suggest_punctuation">Prijedlozi interpunkcije</string>
+    <string name="suggest_punctuation_summary">Prikazuje interpunkciju kada ni jedan drugi prijedlog nije dostupan</string>
+    <string name="suggest_clipboard_content">Predloži sadržaj međuspremnika</string>
+    <string name="suggest_clipboard_content_summary">Prikazuje nedavno kopirani sadržaj međuspremnika kao prijedlog</string>
+    <string name="gesture_floating_preview_static">Plutajući pregled</string>
+    <string name="gesture_floating_preview_static_summary">Prikazuje predloženu riječ tijekom kretnje</string>
+    <string name="gesture_floating_preview_dynamic_summary">Pomiče pregled tijekom kretnje</string>
+    <string name="gesture_trail_fadeout_duration">Trajanje traga kretnji</string>
+    <string name="clipboard_history_pinned_first">Prikaži prikvačene stavke na vrhu</string>
+    <string name="backup_restore_title">Sig. kopiranje i vraćanje</string>
+    <string name="backup_error">Greška kod sig. kopiranja: %s</string>
+    <string name="restore_error">Greška vraćanja sig. kopije: %s</string>
+    <string name="button_backup">Sigurnosno kopiraj</string>
+    <string name="button_restore">Vrati podatke</string>
+    <string name="backup_restored">Sig. kopija je vraćena</string>
+    <string name="secondary_locale">Višejezično pisanje</string>
+    <string name="locales_with_dict">Jezici i rječnici</string>
+    <string name="load_gesture_library_button_load">Učitaj biblioteku</string>
+    <string name="load_gesture_library_button_delete">Izbriši biblioteku</string>
+    <string name="autospace_after_suggestion">Automatski razmak nakon odabira prijedloga</string>
+    <string name="autospace_before_gesture_typing">Automatski razmak prije riječi pisane kretnjom</string>
+    <string name="autospace_after_gesture_typing">Automatski razmak nakon riječi pisane kretnjom</string>
+    <string name="shift_removes_autospace">Bez automatskog razmaka kada se pritisne shift</string>
+    <string name="shift_removes_autospace_summary">Shift uklanja automatski razmak koji čeka svoje umetanje</string>
+    <string name="show_popup_keys_title">Prikaži više slova s dijakritičkim znakovima u skočnom prozorčiću</string>
+    <string name="show_popup_keys_normal">Prikaži varijante definirane u jeziku tipkovnice</string>
+    <string name="show_popup_keys_main">Dodaj vrlo česte varijante (zadano)</string>
+    <string name="show_popup_keys_more">Dodaj česte varijante</string>
+    <string name="show_popup_keys_all">Dodaj sve dostupne varijante</string>
+    <string name="url_detection_title">Otkrivanje URL-a</string>
+    <string name="url_detection_summary">Pokušava otkriti URL-ove i slično kao jednu riječ</string>
+    <string name="language_and_layouts_title">Jezici i rasporedi</string>
+    <string name="number_row_in_symbols">Prikaži redak brojeva u prikazu simbola</string>
+    <string name="localized_number_row">Lokaliziraj redak brojeva</string>
+    <string name="localized_number_row_summary">Preferira lokalizirane brojeve nad latiničnim</string>
+    <string name="number_row_hints">Prikaži pomoćne oznake na retku brojeva</string>
+    <string name="save_subtype_per_app">Zapamti jezik po aplikaciji</string>
+    <string name="popup_order_and_hint_source">Raspored skočnih tipki i izvor pomoćnih oznaka</string>
+    <string name="hint_source">Odaberi izvor pomoćnih oznaka</string>
+    <string name="show_popup_hints">Prikaži funkcionalne pomoćne oznake</string>
+    <string name="show_popup_hints_summary">Prikazuje pomoćne oznake, ako dugi pritisak neke tipke pokreće dodatnu funkcionalnost</string>
+    <string name="select_color_key_hint">Tekst pomoćnih oznaka tipki</string>
+    <string name="gesture_fast_typing_cooldown_instant">Uvijek pokreni odmah</string>
+    <string name="backup_restore_message">Spremi u ili učitaj iz datoteke. Upozorenje: vraćanje podataka će pisati preko postojećih podataka</string>
+    <string name="load_gesture_library">Učitaj biblioteku za pisanje kretnjama</string>
+    <string name="load_gesture_library_summary">Pruža izvornu biblioteku za omogućavanje pisanja kretnjama</string>
+    <string name="load_gesture_library_message">Bit će Vam potrebna biblioteka za „%s”. Nekompatibilne biblioteke mogu se srušiti prilikom pisanja kretnjama. \n\nUpozorenje: učitavanje vanjskog koda može predstavljati sigurnosni rizik. Samo koristite biblioteke iz pouzdanih izvora.</string>
+    <string name="checksum_mismatch_message">Nepoznata datoteka biblioteke. Jeste li sigurni da dolazi iz pouzdanog izvora i da je za „%s”?</string>
+    <string name="popup_order">Odaberi poredak skočnih tipki</string>
+    <string name="show_tld_popup_keys">Prikaži skočne tipke vršnih domena</string>
+    <string name="show_tld_popup_keys_summary">Kada se upisuju URL-ovi i adrese e-pošte, skočni prozorčić za tipku točke prikazivat će vršne domene (TLD)</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Redak brojeva</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Jezik (prioritet)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Raspored</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboli</string>
+    <string name="toolbar_mode">Način rada alatne trake</string>
+    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Prijedlozi i tipke alatne trake</string>
+    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Samo tipke alatne trake</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Samo prijedlozi</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Sakriveno</string>
+    <string name="toolbar_hiding_global">Sakrij i alatne trake međuspremnika i emojija</string>
+    <string name="toolbar_keys">Odaberi tipke alatne trake</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Međuspremnik</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Očisti međuspremnik</string>
+    <string name="voice" tools:keep="@string/voice">Glasovni unos</string>
+    <string name="select_word" tools:keep="@string/select_word">Odaberi riječ</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Jednoručni način rada</string>
+    <string name="split" tools:keep="@string/split">Razdvojena tipkovnica</string>
+    <string name="left" tools:keep="@string/left">Lijevo</string>
+    <string name="right" tools:keep="@string/right">Desno</string>
+    <string name="up" tools:keep="@string/up">Gore</string>
+    <string name="down" tools:keep="@string/down">Dolje</string>
+    <string name="close_history" tools:keep="@string/close_history">Zatvori povijest međuspremnika</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="clipboard_toolbar_keys">Odaberi tipke alatne trake međuspremnika</string>
+    <string name="pinned_toolbar_keys">Odaberi prikvačene tipke alatne trake</string>
+    <string name="quick_pin_toolbar_keys">Prikvači tipke alatne trake pomoću dugog pritiska</string>
+    <string name="quick_pin_toolbar_keys_summary">Ovo će onemogućiti druge radnje za dugi pritisak tipki alatne trake koje nisu prikvačene</string>
+    <string name="remove_redundant_popups">Ukloni suvišne skočne tipke</string>
+    <string name="remove_redundant_popups_summary">Sakriva skočne tipke koje se već nalaze na osnovnom rasporedu tipkovnice</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Ne prikazuj uvijek prijedloge za web-polja za unos teksta</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Web-polja za unos teksta (većinom u preglednicima) vrlo često uzrokuju probleme s postavkom za stalno prikazivanje prijedloga</string>
+    <string name="gesture_fast_typing_cooldown">Vrijeme čekanja brzog tipkanja</string>
+    <string name="timestamp_format_title">Format vremenske tipke</string>
+    <string name="full_left" tools:keep="@string/full_left">Potpuno lijevo</string>
+    <string name="full_right" tools:keep="@string/full_right">Potpuno desno</string>
+    <string name="page_start" tools:keep="@string/page_start">Početak stranice</string>
+    <string name="page_end" tools:keep="@string/page_end">Kraj stranice</string>
+    <string name="word_left" tools:keep="@string/word_left">Riječ lijevo</string>
+    <string name="word_right" tools:keep="@string/word_right">Riječ desno</string>
+    <string name="page_up" tools:keep="@string/page_up">Stranica gore</string>
+    <string name="page_down" tools:keep="@string/page_down">Stranica dolje</string>
+    <string name="prefs_long_press_symbol_for_numpad">Dugi pritisak na tipku simbola za brojčanik</string>
+    <string name="prefs_narrow_key_gaps">Uski razmak tipki</string>
+    <string name="prefs_bottom_padding_scale">Veličina odmaka dna</string>
+    <string name="prefs_side_padding_scale">Veličina odmaka strana</string>
+    <string name="prefs_font_scale">Veličina fonta tipkovnice</string>
+    <string name="prefs_emoji_font_scale">Veličina fonta emojija</string>
+    <string name="prefs_emoji_key_fit">Skaliraj veličinu tipke emojija s veličinom fonta</string>
+    <string name="prefs_emoji_skin_tone">Zadani ton kože emojija</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutralno</string>
+    <string name="prefs_space_bar_text">Prilagođeni tekst na razmaknici</string>
+    <string name="custom_font">Postavi prilagođeni font iz datoteke</string>
+    <string name="custom_emoji_font">Postavi prilagođeni font emojija iz datoteke</string>
+    <string name="subtype_mns">mansijski</string>
+    <string name="subtype_xdq">kajtaški</string>
+    <string name="subtype_dag">dagbani</string>
+    <string name="subtype_st">sesotho</string>
+    <string name="subtype_dru">dargvinski (Urakhi)</string>
+    <string name="subtype_mhr">marijski (istočni)</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_generic_extended">%s (prošireno)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="subtype_generic_phonetic">%s (fonetski)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <string name="subtype_generic_student">%s (student)</string>
+    <string name="load">Učitaj</string>
+    <string name="button_title_add_custom_layout">Dodaj prilagođeni raspored</string>
+    <string name="message_add_custom_layout">Odaberite datoteku kompatibilnog formata. Informacije o formatima dostupne su %s.</string>
+    <string name="button_load_custom">Učitaj datoteku</string>
+    <string name="button_save_file">Spremi dat.</string>
+    <string name="copy_to_clipboard">Kopiraj u međuspremnik</string>
+    <string name="file_read_error">Nije moguće pročitati datoteku</string>
+    <string name="delete_layout">Zaista izbrisati prilagođeni raspored „%s”?</string>
+    <string name="layout_in_use">Upozorenje: raspored se trenutno koristi</string>
+    <string name="layout_error">Greška rasporeda: %s</string>
+    <string name="edit_layout">Dotaknite za uređivanje izvornog rasporeda</string>
+    <string name="settings_screen_secondary_layouts">Sporedni rasporedi</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funkcionalne tipke</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funkcionalne tipke (veliki zaslon)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funkcionalne tipke (simboli)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funkcionalne tipke (više simbola)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Simboli</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simboli (arapski)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Više simbola</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefonski raspored</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Simboli telefona</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Brojevi</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Brojčanik</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Brojčanik (horizontalno)</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Redak brojeva</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Redak brojeva (osnovno)</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Donji redak emojija</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Donji redak emojija s tipkom za radnju</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Donji redak međuspremnika</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Donji redak međuspremnika s tipkom za radnju</string>
+    <string name="customize_background_image">Postavi pozadinsku sliku</string>
+    <string name="customize_background_image_landscape">Postavi pozadinsku sliku (horizontalno)</string>
+    <string name="summary_customize_background_image_landscape">Ako nije postavljeno, koristit će se slika za vertikalni način rada</string>
+    <string name="customize_currencies">Prilagodi valute</string>
+    <string name="customize_currencies_detail">Postavite glavni i do 6 sporednih simbola valuta, odvojenih razmakom</string>
+    <string name="switch_keyboard_after">Prebaci se na glavnu tipkovnicu nakon…</string>
+    <string name="after_emoji">odabira emojija u prikazu emojija</string>
+    <string name="after_clip">odabira stavke iz povijesti međuspremnika</string>
+    <string name="after_symbol_and_space">pritiska entera ili razmaka nakon drugih tipki u prikazu simbola</string>
+    <string name="after_numpad_and_space">pritiska entera ili razmaka nakon drugih tipki u brojčaniku</string>
+    <string name="day_or_night_image">Postaviti sliku za dnevni ili noćni način?</string>
+    <string name="day_or_night_day">Dnevni</string>
+    <string name="day_or_night_night">Noćni</string>
+    <string name="prefs_key_emoji_max_sdk">Nadjačaj verziju emojija</string>
+    <string name="setup_step3_action">Konfiguriraj tipkovnicu</string>
+    <string name="dictionary_settings_category">Rječnici</string>
+    <string name="internal_dictionary_summary">Unutarnji glavni rječnik</string>
+    <string name="add_new_dictionary_title">Dodaj rječnik iz datoteke</string>
+    <string name="button_select_language">Odaberi jezik</string>
+    <string name="replace_dictionary_message">Zaista zamijeniti korisnički rječnik „%1$s”?\n\nTrenutni rječnik:\n%2$s\n\nNovi rječnik:\n%3$s</string>
+    <string name="replace_dictionary">Zamijeni rječnik</string>
+    <string name="remove_dictionary_message">Zaista ukloniti korisnički rječnik „%s”?</string>
+    <string name="no_dictionary_message">"Bez rječnika dobivat ćete samo prijedloge za tekst koji ste prethodno unijeli.&lt;br&gt;\n        Rječnike možete preuzeti %1$s ili možete provjeriti je li rječnik za „%2$s” dostupan za izravno preuzimanje %3$s."</string>
+    <string name="no_dictionary_dont_show_again_button">Ne prikazuj više</string>
+    <string name="add_dictionary">Odaberite rječnik koji će se dodati. Rječnici u formatu .dict mogu se preuzeti %s.</string>
+    <string name="dictionary_link_text">ovdje</string>
+    <string name="available_dictionary_experimental">%s (eksperimentalno)</string>
+    <string name="dictionary_file_error">Greška: odabrana datoteka nije važeći rječnik</string>
+    <string name="dictionary_file_wrong_script">Greška: skripta nije kompatibilna s ovom tipkovnicom</string>
+    <string name="dictionary_load_error">Greška kod učitavanja datoteke rječnika</string>
+    <string name="user_dict_settings_add_weight_value">Težina:</string>
+    <string name="user_dict_word_already_present">Ova riječ već postoji u korisničkom rječniku „%s”. Upišite drugu.</string>
+    <string name="user_dict_add_word_button">Dodaj riječ</string>
+    <string name="theme_style">Stil</string>
+    <string name="icon_style">Stil ikona</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Okruglo</string>
+    <string name="theme_colors">Boje</string>
+    <string name="theme_colors_night">Boje (noćno)</string>
+    <string name="theme_navbar">Oboji navigacijsku traku</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Svijetlo</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo bijelo</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tamno</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tamnije</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Crno</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dinamičke boje</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Plavo-sivo</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Smeđe</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Čokoladno</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Oblačno</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Šuma</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceanski</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rozo</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Pjesak</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Ljubičasto</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Korisnički definirano</string>
+    <string name="auto_user_color">Odaberi boju automatski</string>
+    <string name="main_colors">Prikaži samo glavne boje</string>
+    <string name="more_colors">Prikaži više boja</string>
+    <string name="all_colors">Prikaži sve boje</string>
+    <string name="all_colors_warning">Ova postavka izlaže sve boje koje se koriste interno. Popis boja može se mijenjati kroz vrijeme. Zadani izbor proizlazi iz običnih boja i njihovi nazivi neće biti prevedeni.</string>
+    <string name="select_color_background">Pozadina tipkovnice</string>
+    <string name="select_color_key">Tekst tipki</string>
+    <string name="select_color_suggestion">Tekst trake prijedloga</string>
+    <string name="select_color_key_background">Pozadina tipki</string>
+    <string name="select_color_functional_key_background">Pozadina funkcijskih tipki</string>
+    <string name="select_color_spacebar_background">Pozadina razmaknice</string>
+    <string name="select_color_spacebar_text">Tekst razmaknice</string>
+    <string name="select_color_accent">Akcent</string>
+    <string name="select_color_gesture">Unos kretnjama</string>
+    <string name="get_colors_message">Boje možete pronaći i dijeliti u %s.</string>
+    <string name="get_layouts_message">Rasporede možete pronaći i dijeliti u %s.</string>
+    <string name="discussion_section_link">odjeljku diskusija</string>
+    <string name="settings_screen_about">O aplikaciji</string>
+    <string name="version">Verzija</string>
+    <string name="about_github_link">Pogledaj na GitHubu</string>
+    <string name="about_wiki_link">Idi u Wiki</string>
+    <string name="about_wiki_link_description">Wiki može poboljšati bilo koji korisnik GitHuba!</string>
+    <string name="save_log">Spremi zapisnik</string>
+    <string name="license">Licencije otvorenog koda</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="dialog_close">Zatvori</string>
+    <string name="text_tap_languages">Dotaknite jezik za otvaranje postavki</string>
+    <string name="settings_screen_appearance">Izgled</string>
+    <string name="settings_screen_toolbar">Alatna traka</string>
+    <string name="hidden_features_title">Opis skrivenih značajki</string>
+    <string name="hidden_features_summary">Prikazuje značajke koje mogu proći nezapaženo</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Izbriši</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (aktivno)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Razmak (brojčani raspored)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Zatvori jednoručni način rada</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Promijeni veličinu jednoručnog načina rada</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Prebaci stranu jednoručnog načina rada</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Glasovni unos onemogućen</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Prikaži/sakrij alatnu traku</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Koš</string>
+    <string name="action_none">Nema</string>
+    <string name="space_swipe_move_cursor_entry">Pomakni kursor</string>
+    <string name="space_swipe_toggle_numpad_entry">Prebaci na brojčanik</string>
+    <string name="space_swipe_hide_keyboard_entry">Sakrij tipkovnicu</string>
+    <string name="var_toolbar_direction">Promjenjivi smjer alatne trake</string>
+    <string name="var_toolbar_direction_summary">Mijenja smjer kada je odabran raspored tipkovnice za jezike koji se piše s desna na lijevo</string>
+    <string name="auto_show_toolbar">Automatski prikaz alatne trake</string>
+    <string name="auto_show_toolbar_summary">Prikazuje alatnu traku, ako započne unos ili je označen tekst</string>
+    <string name="auto_hide_toolbar">Automatsko sakrivanje alatne trake</string>
+    <string name="auto_hide_toolbar_summary">Sakriva alatnu traku kada prijedlozi postanu dostupni</string>
+    <string name="toast_msg_clipboard_copy">Sadržaj je kopiran</string>
+    <string name="customize_icons">Prilagodi ikone</string>
+    <string name="customize_icons_reset_message">Zaista ponovno postaviti sve prilagođene ikone?</string>
+    <string name="delete_confirmation">Zaista izbrisati „%s”?</string>
+    <string name="name_invalid">Nevažeći naziv</string>
+    <string name="custom_subtype">Prilagođeni podraspored</string>
+    <string name="landscape">Horizontalno</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Spojnica nulte širine</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Ne-spojnica nulte širine</string>
+    <string name="show_horizontal_space_swipe">Horizontalna gesta razmaknice</string>
+    <string name="show_vertical_space_swipe">Vertikalna gesta razmaknice</string>
+    <string name="prefs_language_swipe_distance">Promijeni duljinu pomaka jezika</string>
+    <string name="customize_toolbar_key_codes">Prilagodi kodove tipki alatne trake</string>
+    <string name="customize_toolbar_key_code_reset_message">Zaista očistiti sve prilagođene kodove tipki?</string>
+    <string name="key_code">Kôd tipke</string>
+    <string name="long_press_code">Kôd dugog pritiska</string>
+    <string name="hidden_features_text">zaštićenu pohranu uređaja</string>
+    <string name="hidden_features_message">► Dugim pritiskom na prikvačene tipke alatne trake daje dodatne funkcije: &lt;br&gt; \n\t• međuspremnik &amp;#65515; lijepljenje &lt;br&gt; \n\t• pomicanje lijevo/desno &amp;#65515; riječ lijevo/desno &lt;br&gt; \n\t• pomicanje gore/dolje &amp;#65515; stranica gore/dolje &lt;br&gt; \n\t• riječ lijevo/desno &amp;#65515; početak/kraj retka &lt;br&gt; \n\t• stranica gore/dolje &amp;#65515; početak/kraj stranice &lt;br&gt; \n\t• kopiranje &amp;#65515; izrezivanje &lt;br&gt; \n\t• označi riječ &amp;#65515; označi sve &lt;br&gt; \n\t• poništi &amp;#65515; ponovi &lt;br&gt; &lt;br&gt; \n► Dugim pritiskom tipki u alatnoj traci prijedloga prikvači ih u traku prijedloga. &lt;br&gt; &lt;br&gt; \n► Dugim pritiskom tipke zareza možete pristupiti međuspremniku, emojijima, jednoručnom načinu rada, postavkama i prebacivanju između jezika: &lt;br&gt; \n\t• prikaz emojija i promjena jezika neće se pojaviti, ako imate uključene njihove tipke u glavnoj tipkovnici; &lt;br&gt; \n\t• za neke rasporede to nije tipka zareza, nego tipka koja se nalazi na istome mjestu (npr. za raspored Dvorak to je tipka q). &lt;br&gt; &lt;br&gt; \n► Kada je omogućen anonimni način, ni jedna riječ neće se naučiti niti će se emojiji pojaviti među nedavnima. &lt;br&gt; &lt;br&gt; \n► Pritisnite ikonu anonimnog načina za pristup alatnoj traci. &lt;br&gt; &lt;br&gt; \n► Unos potezom od tipke: potegnite prstom od tipke Shift do neke druge tipke unijet će jedno veliko slovo: &lt;br&gt; \n\t• ovo funkcionira i za tipku „?123” čime će se unijeti jedan simbol, te i za druge slične tipke. &lt;br&gt; &lt;br&gt; \n► Držite tipku Shift ili tipku simbola, pritisnite jednu ili više tipki i pustite tipku koju ste držali pa ćete se vratiti na prethodnu tipkovnicu. &lt;br&gt; &lt;br&gt; \n► Dugo pritisnite prijedlog u traci prijedloga da biste vidjeli više prijedloga i tipku za brisanje tog prijedloga. &lt;br&gt; &lt;br&gt; \n► Povucite prijedlog prema gore da biste vidjeli više prijedloga i otpustite prst iznad prijedloga koji želite odabrati. &lt;br&gt; &lt;br&gt; \n► Dugo pritisnite stavku u povijesti međuspremnika da biste ju prikvačili (ostat će u međuspremniku do kad ju ne otkvačite). &lt;br&gt; &lt;br&gt; \n► Povucite stavku iz međuspremnika ulijevo da biste ju uklonili (osim ako je prikvačena). &lt;br&gt; &lt;br&gt; \n► Označite tekst i pritišćite Shift da biste mijenjali mala i velika slova. &lt;br&gt; &lt;br&gt; \n► Možete dodati rječnike tako da ih otvorite u pregledniku datoteka: &lt;br&gt; \n\t• ovo funkcionira samo za &lt;i&gt;content-uri&lt;/i&gt;, ali ne i za &lt;i&gt;file_uri&lt;/i&gt;, što znači da ovo možda neće funkcionirati u nekim preglednicima datoteka. &lt;br&gt; &lt;br&gt; \n► Za korisnike koji ručno izrađuju sigurnosne kopije pomoću root pristupa: &lt;br&gt; \n\t• Počevši od Androida 7, dijeljene datoteke postavki ne nalaze se u standardnoj lokaciji jer aplikacija koristi %s. Ovo je nužno kako bi se postavke mogle pročitati prije nego se uređaj otključa, npr. tijekom pokretanja uređaja. &lt;br&gt; \n\t• Datoteka se nalazi u /data/user_de/0/package_id/shared_prefs/ no to može ovisiti o uređaju i verziji Androida. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Način otklanjanja grešaka/ APK za otklanjanje grešaka&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Dugo pritisnite prijedlog za prikaz izvornog rječnika. &lt;br&gt; &lt;br&gt; \n► Kada koristite APK za otklanjanje grešaka, morate nekoliko puta dotaknuti verziju u &lt;i&gt;O aplikaciji&lt;/i&gt;, nakon čega možete pronaći postavke za otklanjanje grešaka u &lt;i&gt;Naprednim postavkama&lt;/i&gt;. &lt;br&gt; \n\t• Kada omogućite &lt;i&gt;Prikaži informacije o prijedlogu&lt;/i&gt;, prijedlozi će imati sitne brojeve na vrhu koji pokazuju njihovu internu vrijednost i izvorni rječnik. &lt;br&gt; &lt;br&gt; \n► Ako se aplikacija sruši, bit ćete upitani želite li zapisnik o rušenju kada otvorite postavke. &lt;br&gt; &lt;br&gt; \n► Kada koristite višejezični unos, razmaknica će prikazati vrijednost pouzdanosti koja se koristi za određivanje korištenog jezika. &lt;br&gt; &lt;br&gt; \n► Prijedlozi će imati sitne brojeve na vrhu koji pokazuju njihovu internu vrijednost i izvorni rječnik (može se onemogućiti).</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funkcionalne tipke (Khipro)</string>
 </resources>

@@ -42,6 +42,7 @@ import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
 import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
+import helium314.keyboard.keyboard.emoji.EmojiSearchActivity;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
@@ -68,6 +69,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
@@ -124,8 +126,9 @@ public class LatinIME extends InputMethodService implements
 
     // UIHandler is needed when creating InputLogic
     public final UIHandler mHandler = new UIHandler(this);
-    private final DictionaryFacilitator mDictionaryFacilitator =
+    private DictionaryFacilitator mDictionaryFacilitator = // non-final for active gesture data gathering, revert when data gathering phase is done (end of 2026 latest)
             DictionaryFacilitatorProvider.getDictionaryFacilitator(false);
+    private final DictionaryFacilitator mOriginalDictionaryFacilitator = mDictionaryFacilitator;
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
 
     // TODO: Move these {@link View}s to {@link KeyboardSwitcher}.
@@ -668,7 +671,9 @@ public class LatinIME extends InputMethodService implements
         mDictionaryFacilitator.resetDictionaries(this, mDictionaryFacilitator.getMainLocale(),
                 settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
                 settingsValues.mUsePersonalizedDicts, true, "", this);
+        mKeyboardSwitcher.setThemeNeedsReload(); // necessary for emoji search
         EmojiPalettesView.closeDictionaryFacilitator();
+        EmojiSearchActivity.Companion.closeDictionaryFacilitator();
     }
 
     // used for debug
@@ -745,7 +750,11 @@ public class LatinIME extends InputMethodService implements
         mInputView = view;
         mInsetsUpdater = ViewOutlineProviderUtilsKt.setInsetsOutlineProvider(view);
         KtxKt.updateSoftInputWindowLayoutParameters(this, mInputView);
-        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN?
+        updateSuggestionStripView(view);
+    }
+
+    public void updateSuggestionStripView(View view) {
+        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN || isEmojiSearch()?
                         null : view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
@@ -830,6 +839,15 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
+
+        // only for active gesture data gathering, remove when data gathering phase is done (end of 2026 latest)
+        if (GestureDataGatheringKt.isInActiveGatheringMode(editorInfo)) {
+            mDictionaryFacilitator = GestureDataGatheringKt.getGestureDataActiveFacilitator();
+        } else {
+            mDictionaryFacilitator = mOriginalDictionaryFacilitator;
+        }
+        GestureDataGatheringKt.showEndNotificationIfNecessary(this); // will do nothing for a long time
+        mInputLogic.setFacilitator(mDictionaryFacilitator);
 
         mDictionaryFacilitator.onStartInput();
         // Switch to the null consumer to handle cases leading to early exit below, for which we
@@ -1166,7 +1184,7 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
-        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
+        int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
 
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
@@ -1183,6 +1201,10 @@ public class LatinIME extends InputMethodService implements
             outInsets.touchableInsets = InputMethodService.Insets.TOUCHABLE_INSETS_REGION;
             outInsets.touchableRegion.set(touchLeft, touchTop, touchRight, touchBottom);
         }
+
+        // Has to be subtracted after calculating touchableRegion
+        visibleTopY -= getEmojiSearchActivityHeight();
+
         outInsets.contentTopInsets = visibleTopY;
         outInsets.visibleTopInsets = visibleTopY;
         mInsetsUpdater.setInsets(outInsets);
@@ -1430,7 +1452,7 @@ public class LatinIME extends InputMethodService implements
                 dismissGestureFloatingPreviewText /* dismissDelayed */);
     }
 
-    private boolean hasSuggestionStripView() {
+    public boolean hasSuggestionStripView() {
         return null != mSuggestionStripView;
     }
 
@@ -1687,6 +1709,39 @@ public class LatinIME extends InputMethodService implements
                 | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void launchEmojiSearch() {
+        Log.d("emoji-search", "before activity launch");
+        startActivity(new Intent().setClass(this, EmojiSearchActivity.class)
+                          .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK));
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null && EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION.equals(intent.getAction()) && ! isEmojiSearch()) {
+            if (intent.getBooleanExtra(EmojiSearchActivity.IME_CLOSED_KEY, false)) {
+                requestHideSelf(0);
+            } else {
+                mHandler.postDelayed(() -> KeyboardSwitcher.getInstance().setEmojiKeyboard(), 100);
+                if (intent.hasExtra(EmojiSearchActivity.EMOJI_KEY)) {
+                     onTextInput(intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY));
+                }
+            }
+
+            stopSelf(startId); // Allow the service to be destroyed when unbound
+            return START_NOT_STICKY;
+        }
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    public boolean isEmojiSearch() {
+        return getEmojiSearchActivityHeight() > 0;
+    }
+
+    private int getEmojiSearchActivityHeight() {
+        return EmojiSearchActivity.Companion.decodePrivateImeOptions(getCurrentInputEditorInfo()).height();
     }
 
     public void dumpDictionaryForDebug(final String dictName) {

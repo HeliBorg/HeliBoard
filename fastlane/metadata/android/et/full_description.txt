@@ -1,0 +1,30 @@
+HeliBoard on privaatsust austav avatud lähtekoodiga klahvistik, mis põhineb AOSP-il / OpenBoardil.
+Ei kasuta interneti luba ning on seega toimib 100% võrguühenduseta.
+
+Funktsionaalsus:
+<ul>
+  <li>Lisa sõnastikke soovituste ja õigekirjakontrolli jaoks</li>
+  <ul>
+    <li>loo enda oma või hangi need <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">siit</a> või <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">katselise</a> valiku seast (kvaliteet võib varieeruda)</li>
+    <li>täiendavaid sõnastikke emotikonide või teadussümbolite jaoks saab kasutada soovituste pakkumiseks (sarnaselt „emoji otsingule“)</li>
+    <li>pane tähele, et korea paigutuste puhul töötavad soovitused ainult <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">selle sõnastikuga</a>; sõnastike lähtekoodihoidla tarvikud ei suuda luua toimivaid sõnastikke</li>
+  </ul>
+  <li>Kohanda klahvistiku välimust (stiil, värvid ja taustapilt)</li>
+  <ul>
+    <li>võib järgida süsteemi päeva/öö seadistust Android 10+ puhul (ja mõnes Android 9 versioonis)</li>
+    <li>võib järgida dünaamilisi värve Android 12+ puhul</li>
+  </ul>
+  <li>Kohanda klahvistiku <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">paigutusi</a> (saadaval ainult siis, kui „kasuta süsteemi keeli“ on keelatud)</li>
+  <li>Kohanda eripaigutusi, nagu sümbolite, numbrite või funktsiooniklahvide paigutus</li>
+  <li>Mitmekeelne sisestus</li>
+  <li>Libistustippimine (<i>ainult suletud lähtekoodiga teegiga</i> ☹️)</li>
+  <ul>
+    <li>teek ei kuulu rakenduse koosseisu, kuna ühilduvat avatud lähtekoodiga teeki pole saadaval</li>
+    <li>selle saab eraldada GApps pakettidest („<i>swypelibs</i>“) või alla laadida <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">siit</a> (klõpsa failil ja seejärel „raw“ või väikesel allalaadimisnupul)</li>
+  </ul>
+  <li>Lõikelaua ajalugu</li>
+  <li>Režiim kasutamiseks ühe käega</li>
+  <li>Jagatud klahvistik (saadaval ainult siis, kui ekraan on piisavalt suur)</li>
+  <li>Numbriklahvistik</li>
+  <li>Varunda ja taasta oma seadistused ning õpitud sõnade / ajaloo andmed</li>
+</ul>

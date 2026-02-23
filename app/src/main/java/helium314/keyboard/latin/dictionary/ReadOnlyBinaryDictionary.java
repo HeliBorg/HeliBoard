@@ -130,4 +130,8 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
             mLock.writeLock().unlock();
         }
     }
+
+    public String getHash() {
+        return mBinaryDictionary.getHash();
+    }
 }

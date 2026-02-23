@@ -377,7 +377,7 @@
     <string name="user_dict_settings_add_weight_value">Peso:</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="user_dict_word_already_present">Essa palavra já existe no dicionário do utilizador %s. Por favor digite outra.</string>
-    <string name="all_colors_warning">Esta definição expõe todas as cores usadas internamente. A lista de cores pode mudar a qualquer hora. A cor padrão é aleatória, e todos os nomes não serão traduzidos.</string>
+    <string name="all_colors_warning">Esta definição expõe todas as cores usadas internamente. A lista de cores pode mudar a qualquer hora. O padrão provém das cores normais, e todos os nomes não serão traduzidos.</string>
     <string name="get_colors_message">Podes encontrar e partilhar cores em %s.</string>
     <string name="select_color_key_hint">Texto da dica da tecla</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido pelo Utilizador</string>
@@ -442,4 +442,5 @@
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
     <string name="number_row_in_symbols">Mostrar fila de números no modo de símbolos</string>
     <string name="custom_emoji_font">Definir fonte de emojis personalizada de ficheiro</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas funcionais (Khipro)</string>
 </resources>

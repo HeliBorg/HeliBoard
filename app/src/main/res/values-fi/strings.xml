@@ -289,4 +289,46 @@
     <string name="show_popup_keys_main">Lisää hyvin yleiset muunnelmat (oletus)</string>
     <string name="remove_redundant_popups">Poista ylimääräiset ponnahdusikkunat</string>
     <string name="number_row_hints">Näytä vihjeet numerorivillä</string>
+    <string name="suggest_emojis">Ehdota emojeja</string>
+    <string name="suggest_emojis_summary">Käytä emojisanastoa normaaleissa ehdotuksissa</string>
+    <string name="backup_restored">Varmuuskopio palautettu</string>
+    <string name="save_subtype_per_app">Muista kieli sovelluskohtaisesti</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Vain ehdotukset</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Piilotettu</string>
+    <string name="toolbar_hiding_global">Piilota myös leikepöytä- ja emojipalkit</string>
+    <string name="prefs_font_scale">Näppäimistön fontin skaalaus</string>
+    <string name="prefs_emoji_font_scale">Emojinäkymän fontin skaalaus</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutraali</string>
+    <string name="prefs_emoji_skin_tone">Emojien oletusarvoinen ihonsävy</string>
+    <string name="custom_font">Aseta mukautettu fontti tiedostosta</string>
+    <string name="custom_emoji_font">Aseta mukautettu emojifontti tiedostosta</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Eteläsotho</string>
+    <string name="subtype_dru">Dargi (urakhi)</string>
+    <string name="subtype_mhr">Niittymari (itäinen)</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_generic_extended">%s (laajennettu)</string>
+    <string name="layout_in_use">Varoitus: asettelu on parhaillaan käytössä</string>
+    <string name="settings_screen_secondary_layouts">Toissijaiset asettelut</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktionäppäimet</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktionäppäimet (suuri näyttö)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktionäppäimet (symbolit)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktionäppäimet (lisää symboleja)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbolit</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Lisää symboleja</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Puhelinsymbolit</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Numeronäppäimistö</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numeronäppäimistö (vaakataso)</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Numerorivi (perus)</string>
+    <string name="customize_background_image_landscape">Aseta taustakuva (vaakataso)</string>
+    <string name="remove_dictionary_message">Haluatko varmasti poistaa käyttäjän lisäämän sanaston \"%s\"?</string>
+    <string name="select_color_spacebar_text">Välilyönnin teksti</string>
+    <string name="about_wiki_link">Siirry wikiin</string>
+    <string name="about_wiki_link_description">Kuka tahansa GitHub-käyttäjä voi parantaa wikiä!</string>
+    <string name="space_swipe_hide_keyboard_entry">Piilota näppäimistö</string>
+    <string name="delete_confirmation">Haluatko varmasti poistaa %s?</string>
+    <string name="name_invalid">Virheellinen nimi</string>
+    <string name="landscape">Vaakataso</string>
 </resources>

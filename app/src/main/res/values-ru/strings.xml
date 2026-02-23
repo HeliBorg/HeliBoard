@@ -309,7 +309,7 @@
     <string name="settings_screen_toolbar">Панель инструментов</string>
     <string name="auto_show_toolbar_summary">Показывать панель инструментов при вводе или при выборе текста</string>
     <string name="more_colors">Показать больше цветов</string>
-    <string name="all_colors_warning">Эта настройка показывает все цвета, используемые внутри приложения. Список цветов может меняться. Цвет по умолчанию является случайным, и имена не будут переведены.</string>
+    <string name="all_colors_warning">Эта настройка открывает доступ ко всем используемым внутренним цветам. Список цветов может быть изменен. Значения по умолчанию формируются на основе стандартных цветов, а их названия не переводятся.</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функциональные клавиши (Дополнительные символы)</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функциональные клавиши</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функциональные клавиши (Символы)</string>
@@ -442,4 +442,5 @@
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Панель буфера обмена внизу с кнопкой действия</string>
     <string name="number_row_in_symbols">Показывать ряд цифр в режиме символов</string>
     <string name="custom_emoji_font">Указать пользовательский шрифт эмодзи из файла</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Функциональные клавиши (Khipro)</string>
 </resources>

@@ -7,6 +7,7 @@
 package com.android.inputmethod.latin;
 
 import android.text.TextUtils;
+import helium314.keyboard.latin.utils.ChecksumCalculator;
 import helium314.keyboard.latin.utils.Log;
 import android.util.SparseArray;
 
@@ -641,6 +642,20 @@ public final class BinaryDictionary extends Dictionary {
             closeNative(mNativeDict);
             mNativeDict = 0;
         }
+    }
+
+    private String mDictFileHash;
+    public String getHash() {
+        if (mDictFileHash != null) return mDictFileHash;
+        final File dict = new File(mDictFilePath);
+        if (!dict.isFile()) {
+            mDictFileHash = "";
+            return mDictFileHash;
+        }
+        mDictFileHash = ChecksumCalculator.INSTANCE.checksum(dict);
+        if (mDictFileHash == null)
+            mDictFileHash = "";
+        return mDictFileHash;
     }
 
     // TODO: Manage BinaryDictionary instances without using WeakReference or something.

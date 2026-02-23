@@ -308,7 +308,7 @@
     <string name="select_color_key">按键文本</string>
     <string name="more_colors">显示更多颜色</string>
     <string name="all_colors">显示所有颜色</string>
-    <string name="all_colors_warning">此设置显示内部使用的所有颜色。颜色列表可能随时更改。默认颜色是随机的，名称不会被翻译。</string>
+    <string name="all_colors_warning">此设置显示内部使用的所有颜色。颜色列表可能随时更改。默认颜色基于常规颜色，名称不会被翻译。</string>
     <string name="customize_background_image">设置背景图片</string>
     <string name="day_or_night_image">为日间或夜间模式设置图片？</string>
     <string name="day_or_night_day">日间</string>
@@ -443,4 +443,7 @@
     <string name="emoji_dictionary_required">此功能需要表情符号词典才能使用。可以下载 .dict 格式的词典 %s。</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">带操作键的表情符号底行</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">带操作键的剪贴板底行</string>
+    <string name="number_row_in_symbols">在符号视图中显示数字行</string>
+    <string name="custom_emoji_font">从文件设置自定义表情符号字体</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">功能键（Khipro）</string>
 </resources>

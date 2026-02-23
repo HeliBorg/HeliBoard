@@ -322,7 +322,7 @@
     <string name="key_code">Codi de tecla</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arrodonit</string>
     <string name="main_colors">Mostra només els colors principals</string>
-    <string name="all_colors_warning">Aquesta configuració exposa tots els colors que s\'utilitzen internament. La llista de colors pot canviar en qualsevol moment. El color predeterminat és aleatori i els noms no es traduiran.</string>
+    <string name="all_colors_warning">Aquesta configuració exposa tots els colors que s\'utilitzen internament. La llista de colors pot canviar en qualsevol moment. El color predeterminat és derivat dels colors normals i els noms no es traduiran.</string>
     <string name="hidden_features_title">Descripció de les característiques ocultes</string>
     <string name="no_dictionary_dont_show_again_button">No tornis a mostrar</string>
     <string name="add_dictionary">Seleccioneu un diccionari per afegir. Els diccionaris en format .dict es poden baixar %s.</string>
@@ -442,4 +442,5 @@
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior del porta-retalls amb tecla d\'acció</string>
     <string name="number_row_in_symbols">Mostra una línia de nombres a la vista de símbols</string>
     <string name="custom_emoji_font">Aplica una font d\'emoticones personalitzada des d\'un fitxer</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Tecles funcionals (Khipro)</string>
 </resources>

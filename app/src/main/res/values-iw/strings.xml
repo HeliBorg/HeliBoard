@@ -139,7 +139,7 @@
     <string name="label_search_key">"חיפוש"</string>
     <string name="label_pause_key">"השהה"</string>
     <string name="label_wait_key">המתנה</string>
-    <string name="all_colors_warning">הגדרה זו חושפת את כל הצבעים שבשימוש פנימי. רשימת הצבעים עשויה להשתנות בכל עת. צבע ברירת המחדל הוא אקראי, והשמות לא יתורגמו.</string>
+    <string name="all_colors_warning">הגדרה זו חושפת את כל הצבעים שבשימוש פנימי. רשימת הצבעים עשויה להשתנות בכל עת. צבע ברירת המחדל נגזר מהצבעים הרגילים, והשמות לא יתורגמו.</string>
     <string name="quick_pin_toolbar_keys">נעיצת כפתור בסרגל הכלים ע\"י לחיצה ממושכת</string>
     <string name="quick_pin_toolbar_keys_summary">השבתת פעולות אחרות בלחיצה ממושכת לכפתורי סרגל הכלים שאינם נעוצים</string>
     <string name="pinned_toolbar_keys">בחירת כפתורים נעוצים בסרגל הכלים</string>

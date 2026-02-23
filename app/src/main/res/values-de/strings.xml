@@ -308,7 +308,7 @@
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Mehr Farben anzeigen</string>
-    <string name="all_colors_warning">Diese Einstellung legt alle intern verwendeten Farben offen. Die Liste der Farben kann sich jederzeit ändern. Die Standardfarbe ist zufällig und die Namen werden nicht übersetzt.</string>
+    <string name="all_colors_warning">Diese Einstellung legt alle intern verwendeten Farben offen. Die Liste der Farben kann sich jederzeit ändern. Der Standard ist von den normalen Farben abgeleitet und die Namen werden nicht übersetzt.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktionstasten</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktionstasten (Symbole)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktionstasten (Mehr Symbole)</string>
@@ -442,4 +442,5 @@
     <string name="clipboard_history_pinned_first">Angeheftete Elemente zuerst anzeigen</string>
     <string name="subtype_mhr">Ostmari</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funktionale Tasten (Khipro)</string>
 </resources>

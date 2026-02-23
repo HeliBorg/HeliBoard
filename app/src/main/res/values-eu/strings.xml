@@ -440,4 +440,15 @@
     <string name="about_wiki_link">Joan Wikira</string>
     <string name="about_wiki_link_description">Edozein erabiltzailek hobetu dezake Wikia!</string>
     <string name="popup_order_and_hint_source">Popup teklen ordena eta iturria</string>
+    <string name="inline_emoji_search">Sareko emojien bilaketa</string>
+    <string name="inline_emoji_search_summary">Iradoki emojiak bakarrik hitz baten aurretik bi puntu daudenean</string>
+    <string name="emoji_dictionary_required">Emoji hiztegia behar da funtzio honek funtziona dezan. .dict formatuan dauden hiztegiak %s deskargatu daitezke.</string>
+    <string name="clipboard_history_pinned_first">Erakutsi ainguratutako elementuak goian</string>
+    <string name="number_row_in_symbols">Erakutsi zenbaki-lerroa sinboloen ikuspegian</string>
+    <string name="save_subtype_per_app">Gororatu hizkuntza aplikazioan</string>
+    <string name="custom_emoji_font">Ezarri emoji iturria fitxategitik</string>
+    <string name="subtype_mhr">Mari (ekialdekoa)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emojien beheko errenkada ekintza-teklarekin</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Arbelaren beheko errenkada ekintza-teklarekin</string>
 </resources>

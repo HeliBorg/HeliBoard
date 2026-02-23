@@ -210,6 +210,7 @@ class KeyboardStateSelector(
     val moreSymbols: AbstractKeyData? = null,
     val alphabet: AbstractKeyData? = null,
     val default: AbstractKeyData? = null,
+    val emojiSearchAvailable: AbstractKeyData? = null,
 ) : AbstractKeyData {
     override fun compute(params: KeyboardParams): KeyData? {
         if (params.mId.mEmojiKeyEnabled)
@@ -222,6 +223,8 @@ class KeyboardStateSelector(
             moreSymbols?.compute(params)?.let { return it }
         if (params.mId.isAlphabetKeyboard)
             alphabet?.compute(params)?.let { return it }
+        if (params.mId.mEmojiSearchAvailable)
+            emojiSearchAvailable?.compute(params)?.let { return it }
 
         return default?.compute(params)
     }

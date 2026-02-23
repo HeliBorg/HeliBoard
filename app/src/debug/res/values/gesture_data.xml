@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<resources>
+    <string name="gesture_data_provider_authority" translatable="false">helium314.keyboard.debug.provider</string>
+</resources>

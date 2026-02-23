@@ -367,7 +367,7 @@
 \n► Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled).</string>
     <string name="subtype_xdq">Kaitagi</string>
     <string name="dialog_close">Sulge</string>
-    <string name="all_colors_warning">See seadistus näitab kõiki rakenduse sisemises töövoos kasutatavaid värve. Värvide loend võib suvalisel ajal muutuda. Vaikimisi värv valitakse juhuslikult ja värvide nimed ei ole tõlgitud.</string>
+    <string name="all_colors_warning">See seadistus näitab kõiki rakenduse sisemises töövoos kasutatavaid värve. Värvide loend võib suvalisel ajal muutuda. Vaikimisi värv tuletatakse tavavärvidest ja värvide nimed ei ole tõlgitud.</string>
     <string name="more_colors">Näita lisavärve</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Sisestusklahv</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulaator</string>
@@ -479,4 +479,5 @@
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Lõikelaua kirjete alumine rida tegevusnupu vajutamisel</string>
     <string name="number_row_in_symbols">Näita sümbolite vaates numbririda</string>
     <string name="custom_emoji_font">Lisa failist endavalitud emojid</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funktsiooniklahvid (khipro)</string>
 </resources>

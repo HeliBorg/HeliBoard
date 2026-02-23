@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gesture_data_provider_authority" translatable="false">helium314.keyboard.provider</string>
+    <string name="gesture_data_directory" translatable="false">gesture_data</string>
+    <string name="gesture_data_json" translatable="false">heliboard_data.gestures.json</string>
+    <string name="gesture_data_zip" translatable="false">gesture_data.zip</string>
+    <string name="gesture_data_mail" translatable="false">jgnkdqctf0iguvwtg0fcvcBro0og</string>
+</resources>

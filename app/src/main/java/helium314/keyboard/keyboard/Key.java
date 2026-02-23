@@ -1167,7 +1167,8 @@ public class Key implements Comparable<Key> {
                 // fallthrough
             case KeyCode.SHIFT, Constants.CODE_ENTER, KeyCode.SHIFT_ENTER, KeyCode.ALPHA, Constants.CODE_SPACE, KeyCode.NUMPAD,
                     KeyCode.SYMBOL, KeyCode.SYMBOL_ALPHA, KeyCode.LANGUAGE_SWITCH, KeyCode.EMOJI, KeyCode.CLIPBOARD,
-                    KeyCode.MOVE_START_OF_LINE, KeyCode.MOVE_END_OF_LINE, KeyCode.MOVE_START_OF_PAGE, KeyCode.MOVE_END_OF_PAGE:
+                    KeyCode.MOVE_START_OF_LINE, KeyCode.MOVE_END_OF_LINE, KeyCode.MOVE_START_OF_PAGE, KeyCode.MOVE_END_OF_PAGE,
+                    KeyCode.EMOJI_SEARCH:
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW; // no preview even if icon!
             }
             if (mCode == KeyCode.SETTINGS || mCode == KeyCode.LANGUAGE_SWITCH)

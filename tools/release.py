@@ -4,6 +4,7 @@ import os
 import subprocess
 import sys
 import zipfile
+import hashlib
 from urllib.request import urlretrieve
 
 
@@ -112,6 +113,35 @@ def check_changelog():
         print("changelog for", version, "does not exist")
 
 
+# this is for active data gathering for gesture typing, remove when data gathering phase is done (end of 2026 latest)
+def update_dict_hashes():
+    # assumes the dictionaries repository is in the folder below
+    dicts_dir = "../dictionaries"
+    if not os.path.isdir(dicts_dir):
+        return
+    hashes = []
+    normal_dicts_dir = dicts_dir + "/dictionaries/"
+    for file in os.listdir(normal_dicts_dir):
+        if not file.startswith("main_"):
+            continue
+        with open(normal_dicts_dir + file, "rb") as f:
+            hashes.append(hashlib.sha256(f.read()).hexdigest())
+    experimental_dicts_dir = dicts_dir + "/dictionaries_experimental/"
+    for file in os.listdir(experimental_dicts_dir):
+        if not file.startswith("main_"):
+            continue
+        with open(experimental_dicts_dir + file, "rb") as f:
+            hashes.append(hashlib.sha256(f.read()).hexdigest())
+    hashes_file = "app/src/main/assets/known_dict_hashes.txt"
+    with open(hashes_file) as f:
+        for line in f:
+            if line.strip() in hashes:
+                hashes.remove(line.strip())
+    with open(hashes_file, "a") as f:
+        for line in hashes:
+            f.write(line + "\n")
+
+
 # update khipro mapping json, see discussion at the bottom of https://github.com/Helium314/HeliBoard/pull/2134
 def update_khipro_mappings():
     source = "https://raw.githubusercontent.com/KhiproTeam/Khipro-Mappings/refs/heads/main/output/touchscreen.json"
@@ -128,6 +158,7 @@ def main():
     update_dict_list()
     update_khipro_mappings()
     check_changelog()
+    update_dict_hashes()
 
 
 if __name__ == "__main__":
