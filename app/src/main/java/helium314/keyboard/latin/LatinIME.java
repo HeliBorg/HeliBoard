@@ -529,16 +529,6 @@ public class LatinIME extends InputMethodService implements
     SensorEventListener hingeListener;
     public LatinIME() {
         super();
-
-        try {
-            Log.i("FOLD", "has hinge sensor: "+getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE));
-            SensorManager sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-            hingeListener = FoldableUtilsKt.getListener();
-            sm.registerListener(hingeListener, sm.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE), SensorManager.SENSOR_DELAY_FASTEST);
-        } catch (Exception e) {
-            Log.i("FOLD", "something went wrong", e);
-        }
-
         mSettings = Settings.getInstance();
         mKeyboardSwitcher = KeyboardSwitcher.getInstance();
         mStatsUtilsManager = StatsUtilsManager.getInstance();
@@ -562,6 +552,15 @@ public class LatinIME extends InputMethodService implements
         loadSettings();
         mClipboardHistoryManager.onCreate();
         mHandler.onCreate();
+        try {
+            Log.i("FOLD", "has hinge sensor: "+getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE));
+            SensorManager sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+            hingeListener = FoldableUtilsKt.getListener();
+            sm.registerListener(hingeListener, sm.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE), SensorManager.SENSOR_DELAY_FASTEST);
+        } catch (Exception e) {
+            Log.i("FOLD", "something went wrong", e);
+        }
+
         FoldableUtils.INSTANCE.registerObserver(this);
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
