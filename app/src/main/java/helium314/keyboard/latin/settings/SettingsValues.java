@@ -224,7 +224,7 @@ public class SettingsValues {
         final float displayWidthDp = TypedValueCompat.pxToDp(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics());
         mIsSplitKeyboardEnabled = Settings.readSplitKeyboardEnabled(prefs, isLandscape);
         // determine spacerWidth from display width and scale setting
-        final boolean isFolded = FoldableUtils.INSTANCE.isFolded(context);
+        final boolean isFolded = FoldableUtils.isFolded;
         mSplitKeyboardSpacerRelativeWidth = mIsSplitKeyboardEnabled
                 ? Math.min(Math.max((displayWidthDp - 600) / 600f + 0.15f, 0.15f), 0.35f) * Settings.readSplitSpacerScale(prefs, isLandscape, isFolded)
                 : 0f;

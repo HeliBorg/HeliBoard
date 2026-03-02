@@ -12,9 +12,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
@@ -71,6 +75,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
 import helium314.keyboard.latin.utils.FoldableUtils;
+import helium314.keyboard.latin.utils.FoldableUtilsKt;
 import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
@@ -521,8 +526,19 @@ public class LatinIME extends InputMethodService implements
         JniUtils.loadNativeLibrary();
     }
 
+    SensorEventListener hingeListener;
     public LatinIME() {
         super();
+
+        try {
+            Log.i("FOLD", "has hinge sensor: "+getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE));
+            SensorManager sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+            hingeListener = FoldableUtilsKt.getListener();
+            sm.registerListener(hingeListener, sm.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE), SensorManager.SENSOR_DELAY_FASTEST);
+        } catch (Exception e) {
+            Log.i("FOLD", "something went wrong", e);
+        }
+
         mSettings = Settings.getInstance();
         mKeyboardSwitcher = KeyboardSwitcher.getInstance();
         mStatsUtilsManager = StatsUtilsManager.getInstance();

@@ -34,7 +34,7 @@ object FoldableUtils {
         }
     }
 
-    fun getFeatureString(context: Context) = Settings.Global.getString(context.contentResolver, "display_features")
+    fun getFeatureString(context: Context): String? = Settings.Global.getString(context.contentResolver, "display_features")
 
     fun registerObserver(ctx: Context) {
         context = ctx
@@ -42,7 +42,11 @@ object FoldableUtils {
         context.contentResolver.registerContentObserver(displayFeaturesUri, false, observer)
     }
 
-    fun checkIt(value: String) {
+    fun checkIt(value: String?) {
+        if (value == null) {
+            Log.i("FOLD", "feature string is null")
+            return
+        }
         try {
             value.split(";").forEach {
                 val matcher = FEATURE_PATTERN.matcher(it)
@@ -81,16 +85,23 @@ object FoldableUtils {
     // apparently there is some information encoded in undocumented "display_features" setting in Settings.Global that requires a whole library to parse?
     // todo: consider alternative by using smallest width >= 600dp (i.e. is tablet)
     fun isFolded(context: Context): Boolean {
-        if (!isFoldable(context)) return false
+        if (!isFoldable(context)) {
+            Log.i("FOLD", "no hinge sensor")
+            return false
+        }
         val sm = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         var angle: Float? = null
         val listener = object : SensorEventListener {
             override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
             override fun onSensorChanged(event: SensorEvent) {
-                angle = event.values[0]
+                angle = event.values?.getOrNull(0)
+                Log.i("FOLD", "sensor changed: ${event.values?.toList()}")
                 sm.unregisterListener(this)
             }
         }
+        val hingeSensor = sm.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE)
+        if (hingeSensor == null) Log.i("FOLD", "no hinge sensor")
+        else Log.i("FOLD", "hinge sensor: ${hingeSensor.name}, mode: ${hingeSensor.reportingMode}")
         sm.registerListener(listener, sm.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE), SensorManager.SENSOR_DELAY_FASTEST)
         var wait = 0
         while (angle == null && wait < 50) {
@@ -99,5 +110,17 @@ object FoldableUtils {
         }
         Log.i("FOLD", "return $angle after $wait")
         return (angle ?: 180f) < 90
+    }
+
+    @JvmField
+    var isFolded = false
+}
+
+val listener = object : SensorEventListener {
+    override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+    override fun onSensorChanged(event: SensorEvent) {
+        val angle = event.values?.getOrNull(0)
+        Log.i("FOLD", "sensor changed: ${event.values?.toList()}")
+        FoldableUtils.isFolded == (angle ?: 180f) < 90
     }
 }
