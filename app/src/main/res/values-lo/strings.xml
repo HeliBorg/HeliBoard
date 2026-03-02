@@ -85,7 +85,6 @@
     <string name="settings">"ການຕັ້ງຄ່າ"</string>
     <string name="delete">"ລຶບ"</string>
     <string name="version_text">"ເວີຊັນ %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"ເພີ່ມໄປທີ່ວັດຈະນານຸກົມ"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ທາງລັດ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ພາສາ:"</string>
     <string name="user_dict_settings_add_word_hint">"ພິມ​ຄໍາ​ສັບ​ໃດ​ນຶ່ງ"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"ແກ້ໄຂຄຳສັບ"</string>
     <string name="user_dict_settings_all_languages">"ສໍາ​ລັບ​ທຸກໆ​ພາ​ສາ"</string>
     <string name="user_dict_settings_more_languages">"ພາສາອື່ນໆ…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"ເລືອກຮູບແບບການປ້ອນ"</string>
     <string name="settings_screen_appearance">"​ຮູບ​ແບບ​ໜ້າ​ຕາ"</string>
     <string name="redo">"ເຮັດໃໝ່"</string>

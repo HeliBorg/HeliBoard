@@ -84,7 +84,6 @@
     <string name="settings">"அமைப்பு"</string>
     <string name="delete">"நீக்கு"</string>
     <string name="version_text">%s பதிப்பு</string>
-    <string name="user_dict_settings_add_dialog_title">"அகராதியில் சேர்"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ஷார்ட்கட்:"</string>
     <string name="user_dict_settings_add_locale_option_name">"மொழி:"</string>
     <string name="user_dict_settings_add_word_hint">"வார்த்தையை உள்ளிடவும்"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"வார்த்தையைத் திருத்து"</string>
     <string name="user_dict_settings_all_languages">"எல்லா மொழிகளுக்கும்"</string>
     <string name="user_dict_settings_more_languages">"மேலும் மொழிகள்…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"உள்ளீட்டு முறையைத் தேர்வுசெய்க"</string>
     <string name="undo">"செயல்தவிர்"</string>
     <string name="redo">"மீண்டும்செய்"</string>
@@ -369,13 +367,11 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">மணல்</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">வயலட்</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">பயனர் வரையறுக்கப்பட்ட</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">பயனர் வரையறுக்கப்பட்ட (இரவு)</string>
     <string name="auto_user_color">தானாக நிறத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="main_colors">முக்கிய வண்ணங்களை மட்டும் காட்டு</string>
     <string name="more_colors">மேலும் வண்ணங்களைக் காட்டு</string>
     <string name="all_colors">அனைத்து வண்ணங்களையும் காட்டு</string>
-    <string name="all_colors_warning">இந்த அமைப்பு உள்நாட்டில் பயன்படுத்தப்படும் அனைத்து வண்ணங்களையும் வெளிப்படுத்துகிறது. வண்ணங்களின் பட்டியல் எந்த நேரத்திலும் மாறலாம். இயல்புநிலை நிறம் சீரற்றது, மேலும் பெயர்கள் மொழிபெயர்க்கப்படாது.</string>
-    <string name="select_user_colors_summary">உரை மற்றும் பின்னணிக்கு வண்ணங்களைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="all_colors_warning">இந்த அமைப்பு உள்நாட்டில் பயன்படுத்தப்படும் அனைத்து வண்ணங்களையும் வெளிப்படுத்துகிறது. வண்ணங்களின் பட்டியல் எந்த நேரத்திலும் மாறலாம். இயல்புநிலையானது சாதாரண வண்ணங்களிலிருந்து பெறப்பட்டது, மேலும் பெயர்கள் மொழிபெயர்க்கப்படாது.</string>
     <string name="select_color_background">விசைப்பலகை பின்னணி</string>
     <string name="select_color_key">முக்கிய உரை</string>
     <string name="select_color_key_hint">முக்கிய குறிப்பு உரை</string>
@@ -396,7 +392,7 @@
     <string name="about_wiki_link_description">விக்கியை எந்த அறிவிலிமையம் பயனரும் மேம்படுத்தலாம்!</string>
     <string name="save_log">பதிவை சேமிக்கவும்</string>
     <string name="license">திறந்த மூல உரிமம்</string>
-    <string name="gnu_gpl">குனு பொது பொதுமக்கள் உரிமம் v3.0</string>
+    <string name="gnu_gpl">குனு பொதுமக்கள் பொது உரிமம் v3.0</string>
     <string name="dialog_close">மூடு</string>
     <string name="text_tap_languages">அமைப்புகளைத் திறக்க மொழியைத் தட்டவும்</string>
     <string name="settings_screen_appearance">தோற்றம்</string>
@@ -444,4 +440,7 @@
     <string name="name_invalid">தவறான பெயர்</string>
     <string name="custom_subtype">தனிப்பயன் துணை வகை</string>
     <string name="landscape">நிலப்பரப்பு</string>
+    <string name="number_row_in_symbols">சின்னங்கள் பார்வையில் எண் வரிசையைக் காட்டு</string>
+    <string name="custom_emoji_font">கோப்பிலிருந்து தனிப்பயன் சின்னம் எழுத்துருவை அமை</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">செயல்பாட்டு விசைகள் (கிப்ரோ)</string>
 </resources>

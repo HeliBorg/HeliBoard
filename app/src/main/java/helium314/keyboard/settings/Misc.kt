@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import helium314.keyboard.latin.utils.ExpandButton
 import helium314.keyboard.latin.utils.dpToPx
 
 @Composable

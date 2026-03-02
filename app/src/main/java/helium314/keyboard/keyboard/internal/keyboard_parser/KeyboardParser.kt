@@ -64,22 +64,26 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         val heightRescale: Float
         if (params.mId.isEmojiClipBottomRow) {
             heightRescale = 4f
+            // to have same height as alpha keyboard we act as if we had the default number of rows
+            val virtualRows = if (Settings.getValues().mShowsNumberRow) 5 else 4
             // params rescale is not perfect, especially mTopPadding may cause 1 pixel offsets because it's already been converted to int once
-            if (Settings.getValues().mShowsNumberRow) {
-                params.mOccupiedHeight /= 5
-                params.mBaseHeight /= 5
-                params.mTopPadding = (params.mTopPadding / 5.0).roundToInt()
-            } else {
-                params.mOccupiedHeight /= 4
-                params.mBaseHeight /= 4
-                params.mTopPadding = (params.mTopPadding / 4.0).roundToInt()
-            }
+            params.mOccupiedHeight /= virtualRows
+            params.mBaseHeight /= virtualRows
+            params.mTopPadding = (params.mTopPadding.toDouble() / virtualRows).roundToInt()
         } else {
             // rescale height if we have anything but the usual 4 rows
             heightRescale = if (keysInRows.size != 4) 4f / keysInRows.size else 1f
         }
         if (heightRescale != 1f) {
             keysInRows.forEach { row -> row.forEach { it.mHeight *= heightRescale } }
+        }
+        // rescale without changing keyboard height
+        if (params.mId.isAlphaOrSymbolKeyboard) {
+            val bottomRowScale = Settings.getValues().mBottomRowScale
+            val otherRowScale = (keysInRows.size - bottomRowScale) / (keysInRows.size - 1)
+            keysInRows.forEachIndexed { i, row ->
+                row.forEach { it.mHeight *= if (i == keysInRows.lastIndex) bottomRowScale else otherRowScale }
+            }
         }
 
         return keysInRows

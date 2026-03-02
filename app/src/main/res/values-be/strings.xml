@@ -85,7 +85,6 @@
     <string name="settings">"Налады"</string>
     <string name="delete">"Выдаліць"</string>
     <string name="version_text">Версія %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">Дадаць ў слоўнік</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Гарачая клавіша:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Мова:"</string>
     <string name="user_dict_settings_add_word_hint">Ўвядзіце слова</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Рэдагаваць слова"</string>
     <string name="user_dict_settings_all_languages">"Для ўсіх моў"</string>
     <string name="user_dict_settings_more_languages">"Іншыя мовы…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ'"</string>
     <string name="settings_category_clipboard_history">Гісторыя буфера абмену</string>
     <string name="settings_category_correction">Выпраўленні</string>
     <string name="settings_category_suggestions">Прапановы</string>
@@ -128,9 +126,7 @@
     <string name="theme_name_darker">Шэрая</string>
     <string name="theme_name_black">Чорная</string>
     <string name="theme_name_user">Карыстацкая</string>
-    <string name="theme_name_user_night">Карыстацкая (цёмная тэма)</string>
     <string name="auto_user_color">Аўтаматычны выбар колеру</string>
-    <string name="select_user_colors_summary">Абярыце колеру для тэксту і фону</string>
     <string name="select_color_background">Фон клавіятуры</string>
     <string name="select_color_key">Тэкст клавіш</string>
     <string name="select_color_key_hint">Тэкст спецзнакаў клавіш</string>

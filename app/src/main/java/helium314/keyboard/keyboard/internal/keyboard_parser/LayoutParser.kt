@@ -74,7 +74,7 @@ object LayoutParser {
     private fun createCacheLambda(layoutType: LayoutType, layoutName: String, context: Context):
                 (KeyboardParams) -> MutableList<MutableList<KeyData>> {
         val layoutFileContent = getLayoutFileContent(layoutType, layoutName.substringBefore("+"), context).trimStart()
-        if (layoutFileContent.startsWith("[") || (LayoutUtilsCustom.isCustomLayout(layoutName) && layoutFileContent.startsWith("/"))) {
+        if (layoutFileContent.startsWith("[") || (LayoutUtilsCustom.isCustomLayout(layoutName) && layoutFileContent.startsWith("//"))) {
             try {
                 val florisKeyData = parseJsonString(layoutFileContent, false)
                 return { params ->

@@ -84,7 +84,6 @@
     <string name="settings">"Поставки"</string>
     <string name="delete">"Избриши"</string>
     <string name="version_text">"Верзија %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Додај во речник"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Кратенка:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Јазик:"</string>
     <string name="user_dict_settings_add_word_hint">"Внесете збор"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Измени збор"</string>
     <string name="user_dict_settings_all_languages">"За сите јазици"</string>
     <string name="user_dict_settings_more_languages">"Повеќе јазици…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Одбери метод на внес"</string>
     <string name="undo">"Врати"</string>
     <string name="redo">"Повтори"</string>

@@ -64,7 +64,6 @@
     <string name="dictionary_available">"অভিধান উপলব্ধ"</string>
     <string name="settings">"ছেটিংসমূহ"</string>
     <string name="delete">"মচক"</string>
-    <string name="user_dict_settings_add_dialog_title">"অভিধানত যোগ কৰক"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"শ্বৰ্টকাট:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ভাষা:"</string>
     <string name="user_dict_settings_add_word_hint">"কোনো শব্দ লিখক"</string>
@@ -72,7 +71,6 @@
     <string name="user_dict_settings_edit_dialog_title">"শব্দ সম্পাদনা কৰক"</string>
     <string name="user_dict_settings_all_languages">"সকলো ভাষাৰ বাবে"</string>
     <string name="user_dict_settings_more_languages">"অধিক ভাষা…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="undo">"আনডু কৰক"</string>
     <string name="redo">"ৰিডু"</string>
 </resources>

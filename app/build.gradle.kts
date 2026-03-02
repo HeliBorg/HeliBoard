@@ -3,8 +3,8 @@ import com.android.build.api.variant.ApplicationVariant
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("plugin.serialization") version "2.2.10"
-    kotlin("plugin.compose") version "2.0.0"
+    kotlin("plugin.serialization") version "2.2.21"
+    kotlin("plugin.compose") version "2.2.21"
 }
 
 android {
@@ -14,8 +14,8 @@ android {
         applicationId = "helium314.keyboard"
         minSdk = 21
         targetSdk = 35
-        versionCode = 3603
-        versionName = "3.6"
+        versionCode = 3701
+        versionName = "3.7"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
@@ -126,13 +126,15 @@ dependencies {
 
     // compose
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
-    implementation(platform("androidx.compose:compose-bom:2025.08.00"))
+    // newer than 2025.11.01 contains androidx.compose.material:material-android:1.10.0, which requires minSdk 23
+    // maybe it's possible to use tools:overrideLibrary="androidx.compose.material" as it's not used explicitly, but probably this is just going to crash
+    implementation(platform("androidx.compose:compose-bom:2025.11.01"))
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.navigation:navigation-compose:2.9.3")
-    implementation("sh.calvin.reorderable:reorderable:2.4.3") // for easier re-ordering
-    implementation("com.github.skydoves:colorpicker-compose:1.1.2") // for user-defined colors
+    implementation("androidx.navigation:navigation-compose:2.9.6")
+    implementation("sh.calvin.reorderable:reorderable:2.4.3") // for easier re-ordering, todo: check 3.0.0
+    implementation("com.github.skydoves:colorpicker-compose:1.1.3") // for user-defined colors
 
     // test
     testImplementation(kotlin("test"))

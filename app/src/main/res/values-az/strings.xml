@@ -84,7 +84,6 @@
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
     <string name="version_text">"%1$s nömrəli versiya"</string>
-    <string name="user_dict_settings_add_dialog_title">"Lüğətə əlavə edin"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Qısayol:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Dil:"</string>
     <string name="user_dict_settings_add_word_hint">"Bir söz yazın"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Sözü redaktə edin"</string>
     <string name="user_dict_settings_all_languages">"Bütün dillər üçün"</string>
     <string name="user_dict_settings_more_languages">"Digər dillər…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Pano keçmişi</string>
     <string name="spell_checker_service_name">HeliBoard Yazı Yoxlayıcısı</string>
     <string name="android_spell_checker_settings">HeliBoard Yazı Yoxlayıcısı Parametrləri</string>

@@ -22,7 +22,6 @@
     <string name="user_dict_settings_add_word_hint">Aru yiwen n wawal</string>
     <string name="label_search_key">Nadi</string>
     <string name="user_dict_settings_add_shortcut_option_name">Anegzum:</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCČDḌEƐFGǦƔHḤIJKLMNPQRṚSṢTṬUWXYZẒ"</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Axuxi</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Aqehwi</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Lexla</string>
@@ -82,7 +81,6 @@
     <string name="subtype_es_US">Taspenyulit (Iwunak Yeddukklen)</string>
     <string name="subtype_en_US">Taglizit (Iwunak Yeddukklen)</string>
     <string name="subtype_no_language">War tutlayt</string>
-    <string name="user_dict_settings_add_dialog_title">Rnu ɣer umawal</string>
     <string name="more_colors">Sken ugar n yiniten</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Kkes</string>
     <string name="voice" tools:keep="@string/voice">Anekcam n taɣect</string>

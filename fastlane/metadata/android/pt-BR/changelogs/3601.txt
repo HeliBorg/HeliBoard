@@ -1,12 +1,12 @@
-- Adicionar busca inline de emoji
-- Lembrar opcionalmente o idioma/subtipo por app
-- Correções e melhorias ao retorno tático
-- Manter área de transferência não fixada ao reiniciar
-- Exibir opcionalmente itens fixados da área de transferência no final
-- Adicionar opcionalmente linhas inferiores de emoji e da área de transferência
-- Adicionar botão para descartar sugestões online
-- Adicionar Bengali Khipro
-- Adicionar Mirandês
+- Foi adicionada a busca inline de emoji
+- Lembra opcionalmente o idioma/subtipo por app
+- Correções e melhorias do retorno tático
+- Mantém a área de transferência não fixada ao reiniciar o app
+- Exibe opcionalmente itens fixados da área de transferência no final
+- Agora, é possível adicionar opcionalmente linhas inferiores de emoji e da área de transferência
+- Adicionado botão para descartar sugestões online
+- Adicionado o idioma bengali de Khipro
+- Adicionado o idioma Mirandês
 - Gambiarra para problemas com teclados físicos
 - Links a dicionários vão diretamente ao arquivo agora
-- Várias outras correções e melhorias menores
+- Várias outras correções e pequenas melhorias

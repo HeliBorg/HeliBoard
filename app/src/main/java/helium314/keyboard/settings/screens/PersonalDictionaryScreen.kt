@@ -141,6 +141,7 @@ private fun EditWordDialog(word: Word, locale: Locale?, onDismissRequest: () -> 
                     onValueChange = { newWord = newWord.copy(word = it) },
                     modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
                     singleLine = true,
+                    label = { Text(stringResource(R.string.user_dict_settings_add_word_hint))},
                     keyboardActions = KeyboardActions {
                         if (newWord.word.isNotBlank() && wordValid) {
                             save()

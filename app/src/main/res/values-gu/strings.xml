@@ -84,7 +84,6 @@
     <string name="settings">"સેટિંગ્સ"</string>
     <string name="delete">"કાઢી નાખો"</string>
     <string name="version_text">"સંસ્કરણ %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"શબ્દકોષમાં ઉમેરો"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"શોર્ટકટ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ભાષા:"</string>
     <string name="user_dict_settings_add_word_hint">"એક શબ્દ લખો"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"શબ્દ સંપાદિત કરો"</string>
     <string name="user_dict_settings_all_languages">"તમામ"</string>
     <string name="user_dict_settings_more_languages">"વધુ ભાષાઓ…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" [અ આ ઇ ઈ ઉ ઊ ઋ એ ઐ ઓ ઔ ક ખ ગ ઘ ઙ ચ છ જ ઝ ઞ ટ ઠ ડ ઢ ણ ત થ દ ધ ન પ ફ બ ભ મ ય ર લ વ શ ષ સ હ ળ]"</string>
     <string name="select_input_method">"ઇનપુટ પદ્ધતિ પસંદ કરો"</string>
     <string name="undo">"પૂર્વવત્ કરો"</string>
     <string name="redo">"ફરી કરો"</string>

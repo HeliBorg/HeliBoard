@@ -6,7 +6,6 @@
 --><resources>
     <string name="settings_category_miscellaneous">ଵିଵିଧ</string>
     <string name="subtype_locale">ଭାଷା</string>
-    <string name="user_dict_settings_add_dialog_title">ଅଭିଧାନରେ ଯୋଡ଼ନ୍ତୁ</string>
     <string name="user_dict_settings_add_locale_option_name">ଭାଷା:</string>
     <string name="user_dict_settings_edit_dialog_title">ଶବ୍ଦ ସମ୍ପାଦନା</string>
     <string name="user_dict_settings_more_languages">ଅଧିକ ଭାଷା…</string>

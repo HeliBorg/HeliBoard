@@ -84,7 +84,6 @@
     <string name="settings">"Configuración"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">"Versión %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Engadir ao dicionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Atallo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Escribe unha palabra"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Editar palabra"</string>
     <string name="user_dict_settings_all_languages">"Para todos os idiomas"</string>
     <string name="user_dict_settings_more_languages">"Máis idiomas…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Escoller método de introdución de texto"</string>
     <string name="undo">"Desfacer"</string>
     <string name="redo">"Refacer"</string>
@@ -132,11 +130,9 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Area</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Persoal</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Persoal (claro)</string>
     <string name="auto_user_color">Elixir cor automáticamente</string>
     <string name="main_colors">Mostrar só cores principais</string>
     <string name="all_colors">Mostrar todas as cores</string>
-    <string name="select_user_colors_summary">Elixe as cores do texto e fondo</string>
     <string name="select_color_background">Fodo do teclado</string>
     <string name="select_color_key">Texto da tecla</string>
     <string name="select_color_key_hint">Suxestión da tecla</string>
@@ -310,7 +306,7 @@
     <string name="subtype_generic_extended">%s (Extendido)</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Mostrar máis cores</string>
-    <string name="all_colors_warning">Este axuste expón todas as cores que se usan internamente. A lista de cores pode cambiar en calquera momento. A cor por defecto é aleatoria, e os nomes non serán traduciddos.</string>
+    <string name="all_colors_warning">Este axuste expón todas as cores que se usan internamente. A lista de cores pode cambiar en calquera momento. O valor por defecto deriva das cores normais, e os nomes non estarán traduciddos.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Teclas función</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Teclas función (Máis símbolos)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Teclas función (Símbolos)</string>
@@ -451,4 +447,8 @@
     <string name="save_subtype_per_app">Lembrar idioma por aplicación</string>
     <string name="subtype_mhr">Mari (Eastern)</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="number_row_in_symbols">Mostrar fila de número na vista de símbolos</string>
+    <string name="custom_emoji_font">Escoller emojis persoais desde ficheiro</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emojis coa tecla de acción</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior do portapapeis coa tecla de acción</string>
 </resources>

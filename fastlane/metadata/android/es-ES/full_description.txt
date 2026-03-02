@@ -1,0 +1,30 @@
+HeliBoard es un teclado de código abierto con la privacidad en mente, basado en AOSP / OpenBoard.
+No necesita acceso a internet y funciona fuera de línea al 100%.
+
+Características:
+<ul>
+  <li>Añade diccionarios para las sugerencias y el corrector</li>
+  <ul>
+    <li>haz los tuyos propios o bájalos desde <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">aquí</a>, también puedes descargar los de la <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">sección experimental</a> (la calidad puede variar)</li>
+    <li>se pueden usar diccionarios adicionales de emoticonos o símbolos científicos para que proporcionen sugerencias (similar a "buscar emoticonos")</li>
+    <li>ten en cuenta que para las disposiciones coreanas solo funcionarán las sugerencias usando <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">este diccionario</a>, las herramientas del repositorio de diccionarios no son capaces de crear diccionarios funcionales.</li>
+  </ul>
+  <li>Personaliza temas para el teclado (estilo, colores e imágenes de fondo)</li>
+  <ul>
+    <li>puede seguir el ajuste día/noche del sistema en Android 10+ (y en algunas versiones de Android 9)</li>
+    <li>puede seguir los colores dinámicos en Android 12+</li>
+  </ul>
+  <li>Personaliza las <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">disposiciones</a> de teclado (solo disponible al desactivar <i>usa el idioma del sistema</i>)</li>
+  <li>Personaliza disposiciones especiales como los símbolos, números y disposiciones con teclas de función</li>
+  <li>Escritura multilingüe</li>
+  <li>Escritura deslizante (<i>solo usando una librería de código cerrado</i> ☹️)</li>
+  <ul>
+    <li>librería no incluida en la aplicación, pues no hay ninguna librería de código abierto disponible</li>
+    <li>puede ser extraída de los paquetes de GApps ("<i>swypelibs</i>"), o descargada desde <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">aquí</a> (pincha en el fichero y luego "raw" o en el botón pequeño de descarga)</li>
+  </ul>
+  <li>Historial del portapapeles</li>
+  <li>Modo de una mano</li>
+  <li>Teclado dividido (solo disponible si la pantalla es lo suficientemente grande)</li>
+  <li>Teclado numérico</li>
+  <li>Haz copias de seguridad o restaura tus ajustes, palabras aprendidas e historial de datos</li>
+</ul>

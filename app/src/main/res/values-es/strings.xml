@@ -84,7 +84,6 @@
     <string name="settings">"Ajustes"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">Versión %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"Añadir al diccionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Acceso directo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Escribe una palabra"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Editar palabra"</string>
     <string name="user_dict_settings_all_languages">"Todos los idiomas"</string>
     <string name="user_dict_settings_more_languages">"Más idiomas…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"</string>
     <string name="day_night_mode_summary">La apariencia seguirá los ajustes del sistema</string>
     <string name="number_row_summary">Mostrar siempre fila de números</string>
     <string name="settings_category_additional_keys">Teclas adicionales</string>
@@ -314,9 +312,7 @@
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Océano</string>
     <string name="auto_show_toolbar_summary">Mostrar la barra de herramientas si se ingresa o selecciona texto</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definido por el usuario (noche)</string>
     <string name="all_colors_warning">Esta configuración muestra todos los colores que se usan internamente. La lista de colores puede cambiar en cualquier momento. El color por defecto es aleatorio y los nombres no serán traducidos.</string>
-    <string name="select_user_colors_summary">Seleccionar colores para el texto y fondos</string>
     <string name="select_color_key_hint">Texto del indicio de tecla</string>
     <string name="select_color_key_background">Fondo de tecla</string>
     <string name="select_color_functional_key_background">Fondo de tecla funcional</string>
@@ -418,4 +414,40 @@
     <string name="layout_in_use">Advertencia: el diseño está en uso actualmente</string>
     <string name="get_colors_message">Puedes encontrar y compartir colores en %s.</string>
     <string name="get_layouts_message">Puedes encontrar y compartir diseños en %s.</string>
+    <string name="suggest_emojis">Sugerir emoticonos</string>
+    <string name="suggest_emojis_summary">Usa el diccionario de emoticonos en las sugerencias normales</string>
+    <string name="inline_emoji_search">Búsqueda integrada de emoticonos</string>
+    <string name="inline_emoji_search_summary">Sugerir solo emoticonos cuando una palabra sea precedida por dos puntos</string>
+    <string name="emoji_dictionary_required">Se necesita un diccionario de emoticonos para que esta característica funcione. Los diccionarios en formato .dict se pueden descargar %s.</string>
+    <string name="show_emoji_descriptions">Muestra la descripción del emoticono al mantener pulsado</string>
+    <string name="use_apps_dict">Busca nombres de aplicación</string>
+    <string name="use_apps_dict_summary">Usa los nombres de las aplicaciones instaladas para sugerir y corregir</string>
+    <string name="suggest_punctuation">Sugerencias de puntuación</string>
+    <string name="suggest_punctuation_summary">Muestra puntuaciones cuando no haya otras sugerencias disponibles</string>
+    <string name="clipboard_history_pinned_first">Muestra los elementos fijados arriba</string>
+    <string name="backup_restored">Copia de seguridad restaurada</string>
+    <string name="save_subtype_per_app">Recuerda el idioma por aplicación</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Sección inferior de emoticonos con tecla de acción</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Sección inferior de portapapeles con tecla de acción</string>
+    <string name="about_wiki_link">Ir a la Wiki</string>
+    <string name="about_wiki_link_description">¡La Wiki puede ser mejorada por cualquier usuario de GitHub!</string>
+    <string name="space_swipe_hide_keyboard_entry">Ocultar el teclado</string>
+    <string name="landscape">Paisaje</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Solo sugerencias</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Oculto</string>
+    <string name="toolbar_hiding_global">Oculta también las barras del portapapeles y los emoticonos</string>
+    <string name="prefs_emoji_key_fit">Escala el tamaño de las teclas de emoticono al tamaño de la fuente</string>
+    <string name="prefs_emoji_skin_tone">Tono de piel de emoticonos por defecto</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="subtype_mhr">Mari (Este)</string>
+    <string name="popup_order_and_hint_source">Orden de las teclas emergentes y fuente de pistas</string>
+    <string name="toolbar_mode">Modo barra de herramientas</string>
+    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Teclas y sugerencias de la barra de herramientas</string>
+    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Solo teclas de la barra de herramientas</string>
+    <string name="number_row_in_symbols">Muestra una línea con números en la vista de símbolos</string>
+    <string name="custom_emoji_font">Aplica una fuente de emoticonos personalizada desde un fichero</string>
 </resources>

@@ -84,7 +84,6 @@
     <string name="settings">"Параметрлер"</string>
     <string name="delete">"Жою"</string>
     <string name="version_text">"%1$s нұсқасы"</string>
-    <string name="user_dict_settings_add_dialog_title">"Сөздікке қосу"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Пернелер тіркесімі:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Тіл:"</string>
     <string name="user_dict_settings_add_word_hint">"Сөзді теріңіз"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Сөзді өңдеу"</string>
     <string name="user_dict_settings_all_languages">"Барлық тілдер үшін"</string>
     <string name="user_dict_settings_more_languages">"Қосымша тілдер…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" АӘБВГҒДЕЁЖЗИЙКҚЛМНҢОӨПРСТУҰҮФХҺЦЧШЩЪЫІЬЭЮЯ"</string>
     <string name="select_input_method">"Енгізу әдісін таңдау"</string>
     <string name="undo">"Қайтару"</string>
     <string name="redo">"Қайтару"</string>

@@ -307,13 +307,7 @@ sealed interface KeyData : AbstractKeyData {
                 && params.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_KEY)) {
             return null
         }
-        // Replace shift with semicolon for Khipro layout (alphabet mode only)
-        if (newLabel == KeyLabel.SHIFT && params.mId.isAlphabetKeyboard) {
-            val combiningRules = params.mId.mSubtype.getExtraValueOf(Constants.Subtype.ExtraValue.COMBINING_RULES)
-            if (combiningRules == "bn_khipro") {
-                return copy(newCode = ';'.code, newLabel = ";", newPopup = SimplePopups(listOf("/")))
-            }
-        }
+
         val newCode = code.checkAndConvertCode()
         val newLabelFlags = if (labelFlags == 0 && params.mId.isNumberLayout) {
             if (type == KeyType.NUMERIC) {
@@ -411,7 +405,7 @@ sealed interface KeyData : AbstractKeyData {
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
             KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.CTRL, KeyLabel.ALT,
-            KeyLabel.FN, KeyLabel.META, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.FN, KeyLabel.META, KeyLabel.EMOJI_SEARCH, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
             KeyLabel.SHIFT -> return Key.BACKGROUND_TYPE_FUNCTIONAL

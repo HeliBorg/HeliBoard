@@ -1,0 +1,12 @@
+* lisandus emojide lõimitud otsing
+* võimalus jätta meelde keel ja alamtüüp rakendusekohaselt
+* haptilise tagasiside parandused
+* esiletõstmata lõikelaud säilib käivitusel
+* võimalus kuvada esiletõstetud lõikelauakirjeid viimasena
+* lisandusid emojide ja lõikelaua read
+* lisandus nupp lõimitud soovituste sulgemiseks
+* lisandus bengali khipro klahvistik
+* lisandus miranda klahvistik
+* välise klahvistiku veaparandused
+* sõnastike lingid viitavad nüüd failidele
+* väiksemad parandused ja täiendused

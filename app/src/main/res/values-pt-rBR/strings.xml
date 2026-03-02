@@ -80,7 +80,6 @@
     <string name="user_dict_settings_edit_dialog_title">Editar palavra</string>
     <string name="user_dict_settings_all_languages">Para todos os idiomas</string>
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="key_borders">Bordas nas teclas</string>
     <string name="spell_checker_service_name">Verificador ortográfico do HeliBoard</string>
     <string name="android_spell_checker_settings">Configurações do verificador ortográfico do HeliBoard</string>
@@ -114,7 +113,6 @@
     <string name="setup_step2_title">Alternar para %s</string>
     <string name="setup_step2_instruction">Em seguida, selecione o \"%s\" como o seu método de entrada ativo.</string>
     <string name="setup_step3_instruction">Agora, você pode usar o %s para digitar nos seus apps favoritos.</string>
-    <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão %s</string>
     <string name="user_dict_settings_add_word_hint">Escreva uma palavra</string>
     <string name="user_dict_settings_add_shortcut_hint">Atalho opcional</string>
@@ -196,7 +194,6 @@
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="no_dictionary_message">"Sem um dicionário, você receberá apenas sugestões para o texto digitado antes.&lt;br&gt;\n        Você pode baixar dicionários %1$s, ou verifique se um dicionário para \"%2$s\" pode ser baixado diretamente %3$s."</string>
     <string name="user_dict_word_already_present">Essa palavra já está presente no dicionário do usuário %s. Digite outra.</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Configurado pelo usuário (noite)</string>
     <string name="select_color_key">Texto da tecla</string>
     <string name="select_color_spacebar_background">Fundo da barra de espaço</string>
     <string name="hidden_features_summary">Mostrar funções que podem passar despercebido</string>
@@ -272,7 +269,6 @@
     <string name="auto_user_color">Escolher cor automaticamente</string>
     <string name="main_colors">Mostrar somente cores principais</string>
     <string name="all_colors">Mostrar todas as cores</string>
-    <string name="select_user_colors_summary">Selecionar cores para texto e fundos</string>
     <string name="select_color_key_hint">Texto da dica da tecla</string>
     <string name="select_color_suggestion">Texto da faixa de sugestão</string>
     <string name="select_color_key_background">Fundo da tecla</string>
@@ -307,7 +303,7 @@
     <string name="close_history" tools:keep="@string/close_history">Fechar histórico da área de transferência</string>
     <string name="clipboard_toolbar_keys">Selecionar teclas da barra de ferramentas de área de transferência</string>
     <string name="subtype_generic_extended">%s (Extendido)</string>
-    <string name="all_colors_warning">Essa configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é aleatória, e os nomes não são traduzidos.</string>
+    <string name="all_colors_warning">Essa configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é derivada das cores normais, e os nomes não são traduzidos.</string>
     <string name="pinned_toolbar_keys">Selecionar teclas fixadas da barra de ferramentas</string>
     <string name="gesture_fast_typing_cooldown_instant">Começar instantaneamente sempre</string>
     <string name="gesture_fast_typing_cooldown">Tempo de espera para digitação rápida</string>
@@ -453,4 +449,6 @@
     <string name="subtype_mhr">Mari (Oriental)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fileira inferior de emojis com tecla de ação</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fileira inferior da área de transferência com tecla de ação</string>
+    <string name="number_row_in_symbols">Mostrar linha de números no modo de símbolos</string>
+    <string name="custom_emoji_font">Definir fonte de emojis personalizada a partir de um arquivo</string>
 </resources>

@@ -85,7 +85,6 @@
     <string name="settings">"Izilungiselelo"</string>
     <string name="delete">"Susa"</string>
     <string name="version_text">"Inguqulo engu-%1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Faka kusichazamazwi"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Isinqamulelo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Ulimi:"</string>
     <string name="user_dict_settings_add_word_hint">"Thayipha igama"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Hlela igama"</string>
     <string name="user_dict_settings_all_languages">"Okwazo zonke izilimi"</string>
     <string name="user_dict_settings_more_languages">"Izilimi eziningi…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Khetha indlela yokufaka"</string>
     <string name="undo">"Hlehlisa"</string>
     <string name="redo">"Yenza futhi"</string>

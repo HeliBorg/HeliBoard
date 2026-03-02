@@ -85,7 +85,6 @@
     <string name="settings">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
     <string name="delete">"ಅಳಿಸಿ"</string>
     <string name="version_text">"ಆವೃತ್ತಿ %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"ನಿಘಂಟಿಗೆ ಸೇರಿಸಿ"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ಶಾರ್ಟ್‌ಕಟ್:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ಭಾಷೆ:"</string>
     <string name="user_dict_settings_add_word_hint">"ಪದವನ್ನು ಟೈಪ್ ಮಾಡಿ"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"ಪದವನ್ನು ಎಡಿಟ್ ಮಾಡಿ"</string>
     <string name="user_dict_settings_all_languages">"ಎಲ್ಲ ಭಾಷೆಗಳಿಗೆ"</string>
     <string name="user_dict_settings_more_languages">"ಇನ್ನಷ್ಟು ಭಾಷೆಗಳು…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"ಇನ್‌ಪುಟ್‌‌ ವಿಧಾನವನ್ನು ಆರಿಸಿ"</string>
     <string name="undo">"ರದ್ದುಗೊಳಿಸಿ"</string>
     <string name="redo">"ಪುನಃ ಮಾಡು"</string>

@@ -42,9 +42,9 @@ import helium314.keyboard.latin.settings.customIconNames
 import helium314.keyboard.latin.utils.dpToPx
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import helium314.keyboard.settings.screens.GetIcon
 import kotlinx.serialization.json.Json
 import androidx.core.content.edit

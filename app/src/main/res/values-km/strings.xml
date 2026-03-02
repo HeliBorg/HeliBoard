@@ -85,7 +85,6 @@
     <string name="settings">"ការ​កំណត់"</string>
     <string name="delete">"លុប"</string>
     <string name="version_text">"កំណែ %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"បន្ថែម​ទៅ​វចនានុក្រម"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ផ្លូវកាត់​៖"</string>
     <string name="user_dict_settings_add_locale_option_name">"ភាសា៖"</string>
     <string name="user_dict_settings_add_word_hint">"វាយ​បញ្ចូល​ពាក្យ​"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"កែ​ពាក្យ"</string>
     <string name="user_dict_settings_all_languages">"សម្រាប់​ភាសា​ទាំងអស់"</string>
     <string name="user_dict_settings_more_languages">"ភាសា​ច្រើន​ទៀត…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"ជ្រើស​វិធីសាស្ត្រ​បញ្ចូល"</string>
     <string name="settings_screen_appearance">"រូបរាង"</string>
     <string name="undo">"មិនធ្វើវិញ"</string>

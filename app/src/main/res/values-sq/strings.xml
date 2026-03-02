@@ -85,7 +85,6 @@
     <string name="settings">"Cilësimet"</string>
     <string name="delete">"Fshi"</string>
     <string name="version_text">"Versioni %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Shto në fjalor"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Shkurtorja:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Gjuha:"</string>
     <string name="user_dict_settings_add_word_hint">"Shkruaj një fjalë"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Redakto fjalën"</string>
     <string name="user_dict_settings_all_languages">"Për të gjitha gjuhët"</string>
     <string name="user_dict_settings_more_languages">"Gjuhë të tjera…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Zgjidh metodën e hyrjes"</string>
     <string name="undo">"Zhbëj"</string>
     <string name="redo">"Ribëj"</string>

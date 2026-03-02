@@ -3,7 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources>
     <string name="use_contacts_dict">"Soek kontakname op"</string>
     <string name="vibrate_on_keypress">"Vibreer met sleuteldruk"</string>
     <string name="sound_on_keypress">"Klank met sleuteldruk"</string>
@@ -84,7 +84,6 @@
     <string name="settings">"Instellings"</string>
     <string name="delete">"Vee uit"</string>
     <string name="version_text">Weergawe %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"Voeg by woordeboek"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Kortpad:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Taal:"</string>
     <string name="user_dict_settings_add_word_hint">"Tik \'n woord in"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Redigeer woord"</string>
     <string name="user_dict_settings_all_languages">"Vir alle tale"</string>
     <string name="user_dict_settings_more_languages">"Nog tale…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Knipbord geskiedenis</string>
     <string name="settings_category_suggestions">Voorstelle</string>
     <string name="settings_category_experimental">Eksperimenteel</string>
@@ -139,4 +137,27 @@
     <string name="label_search_key">"Soek"</string>
     <string name="label_pause_key">"Laat wag"</string>
     <string name="label_wait_key">"Wag"</string>
+    <string name="suggest_emojis">Stel emojis voor</string>
+    <string name="suggest_emojis_summary">Gebruik emoji-woordeboek in gewone voorstelle</string>
+    <string name="inline_emoji_search_summary">Stel alleen emojis voor wanneer \'n woord volg op \'n dubbelpunt</string>
+    <string name="emoji_dictionary_required">Hierdie funksie vereis \'n emoji-woordeboek. Woordeboeke in .dict-formaat kan %s afgelaai word.</string>
+    <string name="dictionary_link_text">hier</string>
+    <string name="switch_language">Wissel taal</string>
+    <string name="language_switch_key_switch_both">Wissel beide</string>
+    <string name="add_to_personal_dictionary">Voeg woorde toe aan persoonlike woordeboek</string>
+    <string name="prefs_always_show_suggestions">Wys altyd voorstelle</string>
+    <string name="center_suggestion_text_to_enter">Gebruik altyd middelste voorstel</string>
+    <string name="suggest_punctuation">Leesteken voorstelle</string>
+    <string name="suggest_punctuation_summary">Wys leestekens wanneer geen ander voorstelle beskikbaar is nie</string>
+    <string name="gesture_fast_typing_cooldown_instant">Begin altyd onmiddelik</string>
+    <string name="locales_with_dict">Tale met woordeboeke</string>
+    <string name="url_detection_summary">Probeer om URLs en soortgelyk te beskou as \'n enkele woord</string>
+    <string name="use_apps_dict_summary">Gebruik name van geinstalleerde apps vir voorstelle en korreksies</string>
+    <string name="prefs_always_show_suggestions_summary">Ignoreer versoeke van ander apps om voorstelle uit te skakel (kan probleme veroorsaak)</string>
+    <string name="save_subtype_per_app">Onthou taal per app</string>
+    <string name="settings_screen_appearance">Voorkoms</string>
+    <string name="gesture_floating_preview_static">Sweefvoorskou</string>
+    <string name="gesture_floating_preview_static_summary">Sien die voorgestelde woord tydens gebaar-tik</string>
+    <string name="gesture_floating_preview_dynamic_summary">Beweeg die voorskou tydens gebaar-tik</string>
+    <string name="gesture_fast_typing_cooldown">Sneltik-afkoelperiode</string>
 </resources>

@@ -86,7 +86,6 @@
     <!-- syntax error in translation for should_download_over_metered_prompt (6737084685073734292) org.xmlpull.v1.XmlPullParserException: expected: /string read: b (position:END_TAG </b>@1:781 in     <string name="should_download_over_metered_prompt">"Pasiekiamas mobiliajame įrenginyje pasirinktos kalbos žodynas.&lt;br/&gt; Rekomenduojame &lt;b&gt;atsisiųsti&lt;/b&gt; %1$s žodyną, kad pagerintumėte savo teksto vedimo įgūdžius.&lt;br/&gt; &lt;br/&gt; Jei naudojamas 3G ryšys, atsisiuntimas truks kelias minutes. Jei neturite &lt;b&gt;neribotų duomenų plano&lt;/b&gt;, gali būti taikomi mokesčiai.&lt;br/&gt; Jei nežinote, kokį duomenų planą naudojate, rekomenduojame prisijungti prie „Wi-Fi“ ryšio, kad atsisiuntimas būtų pradėtas automatiškai.&lt;br/&gt; &lt;br/&gt; Patarimas: žodynus galite atsisiųsti ir pridėti mobiliajame įrenginyje nuėję į meniu <b>Nustatymai</b> skiltį &lt;b&gt;Kalbos ir įvestis</b>."</string>
 )  -->
     <string name="version_text">Versija %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Pridėti prie žodyno"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Spartusis klavišas:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Kalba:"</string>
     <string name="user_dict_settings_add_word_hint">"Įveskite žodį"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Redaguoti žodį"</string>
     <string name="user_dict_settings_all_languages">"Visos kalbos"</string>
     <string name="user_dict_settings_more_languages">"Daugiau kalbų…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" AĄBCČDEĘĖFGHIĮYJKLMNOPRSŠTUŲŪVZŽ"</string>
     <string name="select_input_method">"Pasirinkite įvesties metodą"</string>
     <string name="undo">"Anuliuoti"</string>
     <string name="redo">"Grąžinti"</string>
@@ -369,13 +367,11 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Smėlio</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violetinė</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Naudotojo pasirinkta</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Naudotojo pasirinkta (naktis)</string>
     <string name="auto_user_color">Pasirinkti spalvą automatiškai</string>
     <string name="main_colors">Rodyti tik pagrindines spalvas</string>
     <string name="more_colors">Rodyti daugiau spalvų</string>
     <string name="all_colors">Rodyti visas spalvas</string>
     <string name="all_colors_warning">Šis nustatymas įjungia visas spalvas kurios naudojamos. Spalvų sąrašas gali betkada pasikeisti. Numatytoji spalva yra atsitiktinė ir jų pavadinimai neverčiami.</string>
-    <string name="select_user_colors_summary">Pasirinkti spalvas tekstui ir fonam</string>
     <string name="select_color_background">Klaviatūros fonas</string>
     <string name="select_color_key">Klavišo tekstas</string>
     <string name="select_color_key_hint">Klavišo patarimo tekstas</string>

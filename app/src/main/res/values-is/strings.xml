@@ -84,7 +84,6 @@
     <string name="settings">"Stillingar"</string>
     <string name="delete">"Eyða"</string>
     <string name="version_text">"Útgáfa %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">Bæta við orðasafni</string>
     <string name="user_dict_settings_add_shortcut_option_name">Stytting:</string>
     <string name="user_dict_settings_add_locale_option_name">"Tungumál:"</string>
     <string name="user_dict_settings_add_word_hint">"Sláðu inn orð"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Breyta orði"</string>
     <string name="user_dict_settings_all_languages">"Fyrir öll tungumál"</string>
     <string name="user_dict_settings_more_languages">"Fleiri tungumál…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Veldu innsláttaraðferð"</string>
     <string name="settings_screen_appearance">"Útlit"</string>
     <string name="undo">"Afturkalla"</string>
@@ -210,7 +208,6 @@
     <string name="language_switch_key_behavior">Hegðun lykils til að breyta tungumáli</string>
     <string name="settings_no_limit">Engin takmörk</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Dekkra</string>
-    <string name="select_user_colors_summary">Veldu liti fyrir texta og bakgrunn</string>
     <string name="add_to_personal_dictionary">Bæta orðum við einkaorðasafn</string>
     <string name="enable_clipboard_history">Virkja klippispjaldsferil</string>
     <string name="backup_restore_title">Öryggisafrit og endurheimta</string>
@@ -285,7 +282,6 @@
     <string name="dialog_close">Loka</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blágrátt</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Skilgreint af notanda</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Skilgreint af notanda (nótt)</string>
     <string name="main_colors">Sýna einungis aðalliti</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Súkkulaði</string>
     <string name="select_color_key_hint">Ábendingartexti lykils</string>

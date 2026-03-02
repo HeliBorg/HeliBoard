@@ -85,7 +85,6 @@
     <string name="settings">Налаштування</string>
     <string name="delete">Видалити</string>
     <string name="version_text">Версія %s</string>
-    <string name="user_dict_settings_add_dialog_title">Додати в словник</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Ярлик:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Мова:"</string>
     <string name="user_dict_settings_add_word_hint">Введіть слово</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">Редагувати слово</string>
     <string name="user_dict_settings_all_languages">Для всіх мов</string>
     <string name="user_dict_settings_more_languages">"Інші мови…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"</string>
     <string name="ime_settings">Налаштування HeliBoard</string>
     <string name="day_night_mode_summary">Вигляд наслідує системні налаштування</string>
     <string name="autospace_after_punctuation_summary">Автоматично вставляти пробіл після знаків пунктуації під час введення нового слова</string>
@@ -123,9 +121,7 @@
     <string name="theme_name_darker">Сіра</string>
     <string name="theme_name_black">Чорна</string>
     <string name="theme_name_user">Користувацька</string>
-    <string name="theme_name_user_night">Користувацька (темна)</string>
     <string name="auto_user_color">Автоматичний вибір кольору</string>
-    <string name="select_user_colors_summary">Виберіть кольори для тексту та фону</string>
     <string name="select_color_background">Фон клавіатури</string>
     <string name="select_color_key">Текст клавіш</string>
     <string name="select_color_key_hint">Текст спецсимволів клавіш</string>
@@ -438,4 +434,6 @@
     <string name="name_invalid">Недійсне ім\'я</string>
     <string name="custom_subtype">Власний макет</string>
     <string name="landscape">Горизонтальна</string>
+    <string name="ask_later">Спитати пізніше</string>
+    <string name="clipboard_history_pinned_first">Показувати прикріплені об\'єкти вгорі</string>
 </resources>

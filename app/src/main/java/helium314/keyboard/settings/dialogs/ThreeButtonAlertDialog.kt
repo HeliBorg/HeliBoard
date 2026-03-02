@@ -5,13 +5,16 @@
  */
 package helium314.keyboard.settings.dialogs
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -26,8 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.latin.utils.previewDark
 
 @Composable
 fun ThreeButtonAlertDialog(
@@ -36,6 +39,7 @@ fun ThreeButtonAlertDialog(
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null,
+    scrollContent: Boolean = false,
     onNeutral: () -> Unit = { },
     checkOk: () -> Boolean = { true },
     confirmButtonText: String? = stringResource(android.R.string.ok),
@@ -72,12 +76,23 @@ fun ThreeButtonAlertDialog(
                     }
                     content?.let {
                         CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyMedium) {
-                            Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = if (reducePadding) 2.dp else 8.dp)) {
-                                content()
+                            if (scrollContent) {
+                                val scrollState = rememberScrollState()
+                                Box(Modifier
+                                    .weight(weight = 1f, fill = false)
+                                    .padding(bottom = if (reducePadding) 2.dp else 8.dp)
+                                    .verticalScroll(scrollState)
+                                ) {
+                                    content()
+                                }
+                            } else {
+                                Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = if (reducePadding) 2.dp else 8.dp)) {
+                                    content()
+                                }
                             }
                         }
                     }
-                    Row {
+                    FlowRow(horizontalArrangement = Arrangement.End) {
                         if (neutralButtonText != null)
                             TextButton(
                                 onClick = onNeutral

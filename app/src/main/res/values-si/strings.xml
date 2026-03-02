@@ -84,7 +84,6 @@
     <string name="settings">"සැකසීම්"</string>
     <string name="delete">"මකන්න"</string>
     <string name="version_text">"%1$s අනුවාදය"</string>
-    <string name="user_dict_settings_add_dialog_title">"ශබ්ද කෝෂය වෙත එක් කරන්න"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"කෙටිමග:"</string>
     <string name="user_dict_settings_add_locale_option_name">"භාෂාව:"</string>
     <string name="user_dict_settings_add_word_hint">"වචනයක් ටයිප් කරන්න"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"වචනය සංස්කරණය කරන්න"</string>
     <string name="user_dict_settings_all_languages">"සියලු භාෂාවන් සඳහා"</string>
     <string name="user_dict_settings_more_languages">"තවත් භාෂා…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"ආදාන ක්‍රමයක් තෝරන්න"</string>
     <string name="settings_screen_appearance">"පෙනුම"</string>
     <string name="undo">"අස් කරන්න"</string>

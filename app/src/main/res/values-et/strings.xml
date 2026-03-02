@@ -84,7 +84,6 @@
     <string name="settings">Seadistused</string>
     <string name="delete">"Kustuta"</string>
     <string name="version_text">Versioon %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Sõnaraamatusse lisamine"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Otsetee:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Keel:"</string>
     <string name="user_dict_settings_add_word_hint">"Sisestage sõna"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Sõna muutmine"</string>
     <string name="user_dict_settings_all_languages">"Kõikides keeltes"</string>
     <string name="user_dict_settings_more_languages">"Rohkem keeli …"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSŠZŽTUVWÕÄÖÜXY"</string>
     <string name="select_input_method">"Valige sisestusmeetod"</string>
     <string name="undo">"Võta tagasi"</string>
     <string name="redo">"Tee uuesti"</string>
@@ -303,7 +301,6 @@
     <string name="edit_layout">Kalvistiku paigutuse muutmiseks klõpsi</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Täiendavad sümbolid</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Sinu määratud</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Sinu määratud (öövaade)</string>
     <string name="all_colors">Näita kõiki värve</string>
     <string name="auto_user_color">Vali värv automaatselt</string>
     <string name="main_colors">Näita vaid põhivärve</string>
@@ -370,7 +367,7 @@
 \n► Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled).</string>
     <string name="subtype_xdq">Kaitagi</string>
     <string name="dialog_close">Sulge</string>
-    <string name="all_colors_warning">See seadistus näitab kõiki rakenduse sisemises töövoos kasutatavaid värve. Värvide loend võib suvalisel ajal muutuda. Vaikimisi värv valitakse juhuslikult ja värvide nimed ei ole tõlgitud.</string>
+    <string name="all_colors_warning">See seadistus näitab kõiki rakenduse sisemises töövoos kasutatavaid värve. Värvide loend võib suvalisel ajal muutuda. Vaikimisi värv tuletatakse tavavärvidest ja värvide nimed ei ole tõlgitud.</string>
     <string name="more_colors">Näita lisavärve</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Sisestusklahv</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulaator</string>
@@ -391,7 +388,6 @@
     <string name="key_code">Klahvi kood</string>
     <string name="long_press_code">Pika vajutuse kood</string>
     <string name="customize_icons">Kohanada ikoone</string>
-    <string name="select_user_colors_summary">Vali tekstide ja taustade värvid</string>
     <string name="select_color_key">Klahvi tekst</string>
     <string name="select_color_key_hint">Klahvi vihje tekst</string>
     <string name="select_color_spacebar_background">Tühikuklahvi taust</string>
@@ -481,4 +477,7 @@
     <string name="emoji_dictionary_required">Et see funktsionaalsus toimiks, vajada emojide sõnastikku. Nõutavas .dict vormingus sõnastikke saad alla laadida siit: %s.</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Alumine emojide rida tegevusnupu vajutamisel</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Lõikelaua kirjete alumine rida tegevusnupu vajutamisel</string>
+    <string name="number_row_in_symbols">Näita sümbolite vaates numbririda</string>
+    <string name="custom_emoji_font">Lisa failist endavalitud emojid</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funktsiooniklahvid (khipro)</string>
 </resources>

@@ -84,7 +84,6 @@
     <string name="settings">"ترتیبات"</string>
     <string name="delete">"حذف کریں"</string>
     <string name="version_text">"ورژن %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"لغت میں شامل کریں"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"شارٹ کٹ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"زبان:"</string>
     <string name="user_dict_settings_add_word_hint">"ایک لفظ ٹائپ کریں"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"لفظ میں ترمیم کریں"</string>
     <string name="user_dict_settings_all_languages">"سبھی زبانوں کیلئے"</string>
     <string name="user_dict_settings_more_languages">"مزید زبانیں…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"ان پٹ کا طریقہ منتخب کریں"</string>
     <string name="undo">"کالعدم کریں"</string>
     <string name="redo">"دوبارہ کریں"</string>

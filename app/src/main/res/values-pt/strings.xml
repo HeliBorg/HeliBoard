@@ -84,7 +84,6 @@
     <string name="settings">"Configurações"</string>
     <string name="delete">"Excluir"</string>
     <string name="version_text">Versão %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Adicionar ao dicionário"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Atalho:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Digite uma palavra"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Editar palavra"</string>
     <string name="user_dict_settings_all_languages">"Para todos os idiomas"</string>
     <string name="user_dict_settings_more_languages">"Mais idiomas…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="spell_checker_service_name">Verificação ortográfica HeliBoard</string>
     <string name="android_spell_checker_settings">Definições de verificação ortográfica HeliBoard</string>
     <string name="number_row">Número de linha</string>
@@ -359,10 +357,8 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Areia</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definido pelo Utilizador (noite)</string>
     <string name="auto_user_color">Escolher cor automaticamente</string>
     <string name="all_colors">Mostrar todas as cores</string>
-    <string name="select_user_colors_summary">Selecionar cores para textos e fundos</string>
     <string name="select_color_background">Fundo do teclado</string>
     <string name="select_color_key">Texto da tecla</string>
     <string name="select_color_suggestion">Texto da linha de sugestões</string>
@@ -381,7 +377,7 @@
     <string name="user_dict_settings_add_weight_value">Peso:</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="user_dict_word_already_present">Essa palavra já existe no dicionário do utilizador %s. Por favor digite outra.</string>
-    <string name="all_colors_warning">Esta definição expõe todas as cores usadas internamente. A lista de cores pode mudar a qualquer hora. A cor padrão é aleatória, e todos os nomes não serão traduzidos.</string>
+    <string name="all_colors_warning">Esta definição expõe todas as cores usadas internamente. A lista de cores pode mudar a qualquer hora. O padrão provém das cores normais, e todos os nomes não serão traduzidos.</string>
     <string name="get_colors_message">Podes encontrar e partilhar cores em %s.</string>
     <string name="select_color_key_hint">Texto da dica da tecla</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido pelo Utilizador</string>
@@ -444,4 +440,7 @@
     <string name="subtype_khipro_bn">%s (Khipro)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emojis com tecla de ação</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
+    <string name="number_row_in_symbols">Mostrar fila de números no modo de símbolos</string>
+    <string name="custom_emoji_font">Definir fonte de emojis personalizada de ficheiro</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas funcionais (Khipro)</string>
 </resources>

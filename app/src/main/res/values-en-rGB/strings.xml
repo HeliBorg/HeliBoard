@@ -85,7 +85,6 @@
     <string name="settings">"Settings"</string>
     <string name="delete">"Delete"</string>
     <string name="version_text">Version %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Add to dictionary"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Shortcut:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Language:"</string>
     <string name="user_dict_settings_add_word_hint">"Type a word"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Edit word"</string>
     <string name="user_dict_settings_all_languages">"For all languages"</string>
     <string name="user_dict_settings_more_languages">"More languages…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="spell_checker_service_name">HeliBoard Spell Checker</string>
     <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
     <string name="number_row_summary">Always show number row</string>
@@ -151,7 +149,6 @@
     <string name="more_colors">Show more colours</string>
     <string name="all_colors">Show all colours</string>
     <string name="all_colors_warning">This setting exposes all colours that are used internally. The list of colours may change at any time. The default colour is random, and the names will not be translated.</string>
-    <string name="select_user_colors_summary">Select colours for text and backgrounds</string>
     <string name="get_colors_message">You can find and share colours in the %s.</string>
     <string name="localized_number_row">Localise number row</string>
     <string name="localized_number_row_summary">Prefer localised over latin numbers</string>

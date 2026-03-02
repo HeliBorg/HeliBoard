@@ -84,7 +84,6 @@
     <string name="settings">"Nastavenia"</string>
     <string name="delete">"Odstrániť"</string>
     <string name="version_text">"Verzia %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Pridať do slovníka"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Klávesová skratka"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jazyk:"</string>
     <string name="user_dict_settings_add_word_hint">"Zadajte slovo"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Upraviť slovo"</string>
     <string name="user_dict_settings_all_languages">"pre všetky jazyky"</string>
     <string name="user_dict_settings_more_languages">"Ďalšie jazyky…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="enable_clipboard_history_summary">Ak vypnuté, klávesa schránky vloží jej obsah ak sa tam nejaký nachádza</string>
     <string name="clipboard_history_retention_time">Doba zachovania histórie</string>
     <string name="settings_category_clipboard_history">História schránky</string>

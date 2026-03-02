@@ -36,10 +36,10 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.createPrefKeyForBooleanSettings
 import helium314.keyboard.latin.utils.FoldableUtils
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.WithSmallTitle
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import androidx.core.content.edit
 
 // too specialized for using a more generic dialog

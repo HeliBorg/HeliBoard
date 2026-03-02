@@ -84,7 +84,6 @@
     <string name="settings">"Einstellungen"</string>
     <string name="delete">"Löschen"</string>
     <string name="version_text">Version %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Zum Wörterbuch hinzufügen"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Tastaturkürzel:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Sprache:"</string>
     <string name="user_dict_settings_add_word_hint">"Wort eingeben"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Wort bearbeiten"</string>
     <string name="user_dict_settings_all_languages">"Für alle Sprachen"</string>
     <string name="user_dict_settings_more_languages">"Weitere Sprachen…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Eingabemethode wählen"</string>
     <string name="settings_category_clipboard_history">Zwischenablage-Verlauf</string>
     <string name="settings_category_correction">Korrekturen</string>
@@ -235,12 +233,10 @@
     <string name="delete_layout">Benutzerdefiniertes Layout %s wirklich löschen?</string>
     <string name="dictionary_settings_category">Wörterbücher</string>
     <string name="button_title_add_custom_layout">Benutzerdefiniertes Layout hinzufügen</string>
-    <string name="select_user_colors_summary">Farben für Text und Hintergrund wählen</string>
     <string name="select_color_key_hint">Tasten-Hinweistext</string>
     <string name="setup_step3_action">Tastatur konfigurieren</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbole</string>
     <string name="add_new_dictionary_title">Wörterbuch aus Datei hinzufügen</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Benutzerdefiniert (Nacht)</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Braun</string>
     <string name="replace_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%1$s“ wirklich ersetzt werden? \n \nAktuelles Wörterbuch: \n%2$s \n \nNeues Wörterbuch: \n%3$s</string>
     <string name="url_detection_title">URL-Erkennung</string>
@@ -312,7 +308,7 @@
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Mehr Farben anzeigen</string>
-    <string name="all_colors_warning">Diese Einstellung legt alle intern verwendeten Farben offen. Die Liste der Farben kann sich jederzeit ändern. Die Standardfarbe ist zufällig und die Namen werden nicht übersetzt.</string>
+    <string name="all_colors_warning">Diese Einstellung legt alle intern verwendeten Farben offen. Die Liste der Farben kann sich jederzeit ändern. Der Standard ist von den normalen Farben abgeleitet und die Namen werden nicht übersetzt.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktionstasten</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktionstasten (Symbole)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktionstasten (Mehr Symbole)</string>
@@ -435,4 +431,16 @@
     <string name="suggest_punctuation_summary">Zeige Satzzeichen wenn keine anderen Vorschläge verfügbar sind</string>
     <string name="about_wiki_link_description">Das Wiki kann von jedem Github Nutzer verbessert werden!</string>
     <string name="about_wiki_link">Zum Wiki gehen</string>
+    <string name="inline_emoji_search">Inline Emoji-Suche</string>
+    <string name="inline_emoji_search_summary">Emojis werden nur vorgeschlagen, wenn ein Wort direkt auf einen Doppelpunkt folgt</string>
+    <string name="emoji_dictionary_required">Ein Emoji-Wörterbuch wird für diese Funktion benötigt. Wörterbücher im .dict-Format können %s heruntergeladen werden.</string>
+    <string name="save_subtype_per_app">Sprache pro App merken</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emoji untere Zeile mit Aktions-Taste</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Zwischenablage untere Zeile mit Aktions-Taste</string>
+    <string name="custom_emoji_font">Benutzerdefinierte Emoji-Schriftart aus Datei festlegen</string>
+    <string name="number_row_in_symbols">Zeilenzeile in Symbol-Ansicht anzeigen</string>
+    <string name="clipboard_history_pinned_first">Angeheftete Elemente zuerst anzeigen</string>
+    <string name="subtype_mhr">Ostmari</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funktionale Tasten (Khipro)</string>
 </resources>

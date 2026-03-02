@@ -33,5 +33,7 @@ object ChecksumCalculator {
         return s.toString()
     }
 
-    fun checksum(file: File) = file.inputStream().use { checksum(it) }
+    fun checksum(file: File) = runCatching {
+        file.inputStream().use { checksum(it) }
+    }.getOrNull()
 }

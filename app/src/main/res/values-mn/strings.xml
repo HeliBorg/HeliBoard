@@ -84,7 +84,6 @@
     <string name="settings">"Тохиргоо"</string>
     <string name="delete">"Устгах"</string>
     <string name="version_text">"Хувилбар %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Толь бичигт нэмэх"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Товчилбор:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Хэл:"</string>
     <string name="user_dict_settings_add_word_hint">"Үг оруулна уу"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Үг засах"</string>
     <string name="user_dict_settings_all_languages">"Бүх хэлэнд"</string>
     <string name="user_dict_settings_more_languages">"Өөр хэлүүд…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Оруулах аргыг сонгоно уу"</string>
     <string name="settings_screen_appearance">"Харагдац"</string>
     <string name="undo">"Буцаах"</string>

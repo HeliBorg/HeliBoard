@@ -21,27 +21,27 @@
     <string name="use_contacts_dict_summary">使用联系人中的姓名提供建议和更正</string>
     <string name="use_personalized_dicts">"个性化建议"</string>
     <string name="use_double_space_period">双击空格插入句号</string>
-    <string name="use_double_space_period_summary">双击空格键可插入一个句号，后跟一个空格</string>
+    <string name="use_double_space_period_summary">双击空格键可插入句号并后跟空格</string>
     <string name="auto_cap">"自动大写"</string>
-    <string name="auto_cap_summary">句首单词大写</string>
-    <string name="edit_personal_dictionary">个人词典</string>
-    <string name="main_dictionary">主词典</string>
+    <string name="auto_cap_summary">句首字词大写</string>
+    <string name="edit_personal_dictionary">个人字典</string>
+    <string name="main_dictionary">主字典</string>
     <string name="prefs_show_suggestions">"显示更正建议"</string>
-    <string name="prefs_show_suggestions_summary">输入时显示建议单词</string>
-    <string name="prefs_block_potentially_offensive_title">屏蔽不文明的单词</string>
-    <string name="prefs_block_potentially_offensive_summary">不要建议可能不文明的单词</string>
+    <string name="prefs_show_suggestions_summary">键入时显示建议的字词</string>
+    <string name="prefs_block_potentially_offensive_title">屏蔽不文明的字词</string>
+    <string name="prefs_block_potentially_offensive_summary">屏蔽可能不文明的字词</string>
     <string name="autocorrect">"自动更正"</string>
     <string name="auto_correction_summary">"按空格键和标点可自动更正错别字"</string>
     <string name="auto_correction_threshold_mode_off">"关闭"</string>
     <string name="auto_correction_threshold_mode_modest">"小改"</string>
     <string name="auto_correction_threshold_mode_aggressive">"大幅改动"</string>
     <string name="auto_correction_threshold_mode_very_aggressive">"极大幅度改动"</string>
-    <string name="bigram_prediction">后续单词建议</string>
-    <string name="bigram_prediction_summary">根据上一个单词提供建议</string>
+    <string name="bigram_prediction">后续字词建议</string>
+    <string name="bigram_prediction_summary">根据上一个字词提供建议</string>
     <string name="gesture_input">"启用滑行输入"</string>
-    <string name="gesture_input_summary">以滑行方式写出单词中字母来输入单词</string>
+    <string name="gesture_input_summary">以滑行方式写出字词中字母来输入字词</string>
     <string name="gesture_preview_trail">"显示滑行输入轨迹"</string>
-    <string name="gesture_floating_preview_text">动态浮动预览</string>
+    <string name="gesture_floating_preview_text">动态漂浮预览</string>
     <string name="gesture_space_aware">"词组滑行输入"</string>
     <string name="gesture_space_aware_summary">"滑行输入时，滑过空格键即可输入空格"</string>
     <string name="subtype_en_GB">英语（英国）</string>
@@ -79,20 +79,18 @@
     <string name="setup_finish_action">完成了</string>
     <string name="show_setup_wizard_icon">"显示应用图标"</string>
     <string name="show_setup_wizard_icon_summary">"在启动器中显示应用图标"</string>
-    <string name="dictionary_category_title">附加词典</string>
-    <string name="dictionary_available">词典可供下载</string>
+    <string name="dictionary_category_title">附加字典</string>
+    <string name="dictionary_available">字典可供下载</string>
     <string name="settings">"设置"</string>
     <string name="delete">"删除"</string>
     <string name="version_text">版本 %s</string>
-    <string name="user_dict_settings_add_dialog_title">添加到词典</string>
     <string name="user_dict_settings_add_shortcut_option_name">"快捷键："</string>
     <string name="user_dict_settings_add_locale_option_name">"语言："</string>
-    <string name="user_dict_settings_add_word_hint">输入单词</string>
+    <string name="user_dict_settings_add_word_hint">输入字词</string>
     <string name="user_dict_settings_add_shortcut_hint">可选快捷键</string>
-    <string name="user_dict_settings_edit_dialog_title">编辑单词</string>
+    <string name="user_dict_settings_edit_dialog_title">修改字词</string>
     <string name="user_dict_settings_all_languages">对于所有语言</string>
     <string name="user_dict_settings_more_languages">"更多语言…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_suggestions">建议</string>
     <string name="settings_category_miscellaneous">杂项</string>
     <string name="settings_category_clipboard_history">剪贴板历史</string>
@@ -111,11 +109,11 @@
     <string name="show_emoji_key">表情符号键</string>
     <string name="enable_clipboard_history_summary">如果禁用，剪贴板键将粘贴剪贴板内容（如果有的话）</string>
     <string name="autospace_after_punctuation">标点后面自动插入空格</string>
-    <string name="autospace_after_punctuation_summary">输入新单词时自动在标点后插入空格</string>
+    <string name="autospace_after_punctuation_summary">输入新字词时自动在标点后插入空格</string>
     <string name="spell_checker_service_name">拼写检查</string>
     <string name="android_spell_checker_settings">拼写检查设置</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
-    <string name="prefs_force_incognito_mode_summary">禁用新单词学习</string>
+    <string name="prefs_force_incognito_mode_summary">禁用新字词学习</string>
     <string name="more_keys_strip_description">更多键</string>
     <string name="number_row">数字行</string>
     <string name="key_borders">按键边框</string>
@@ -130,7 +128,7 @@
     <string name="auto_correction_confidence">自动更正置信度</string>
     <string name="select_input_method">"选择输入法"</string>
     <string name="undo">撤销</string>
-    <string name="redo">恢复</string>
+    <string name="redo">重做</string>
     <string name="use_personalized_dicts_summary">从您的交流和输入的数据中学习，以改进建议</string>
     <string name="label_go_key">"前往"</string>
     <string name="label_next_key">下一步</string>
@@ -140,13 +138,13 @@
     <string name="label_search_key">"搜索"</string>
     <string name="label_pause_key">"暂停"</string>
     <string name="label_wait_key">"等待"</string>
-    <string name="gesture_floating_preview_static">浮动预览</string>
-    <string name="gesture_floating_preview_static_summary">滑行输入时看到建议的单词</string>
+    <string name="gesture_floating_preview_static">漂浮预览</string>
+    <string name="gesture_floating_preview_static_summary">在滑行输入过程中显示建议字词</string>
     <string name="gesture_fast_typing_cooldown_instant">始终立即开始</string>
     <string name="gesture_trail_fadeout_duration">滑行输入轨迹寿命</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
-    <string name="dictionary_file_error">错误：所选文件不是有效的词典文件</string>
-    <string name="theme_style">风格</string>
+    <string name="dictionary_file_error">错误：所选文件不是有效的字典文件</string>
+    <string name="theme_style">样式</string>
     <string name="theme_navbar">彩色导航栏</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">浅色</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">沙滩</string>
@@ -161,7 +159,7 @@
     <string name="select_color_key_background">按键背景</string>
     <string name="button_title_add_custom_layout">添加自定义布局</string>
     <string name="day_or_night_night">夜间</string>
-    <string name="internal_dictionary_summary">内部主词典</string>
+    <string name="internal_dictionary_summary">内部主字典</string>
     <string name="user_dict_settings_add_weight_value">权重：</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">粉红色</string>
     <string name="select_color_key_hint">按键提示文本</string>
@@ -180,8 +178,8 @@
     <string name="select_color_suggestion">建议条文本</string>
     <string name="split_spacer_scale">分离距离</string>
     <string name="language_switch_key_switch_both">切换两者</string>
-    <string name="add_to_personal_dictionary">将单词添加到个人词典</string>
-    <string name="add_to_personal_dictionary_summary">使用设备个人词典存储学习到的单词</string>
+    <string name="add_to_personal_dictionary">将字词添加到个人字典</string>
+    <string name="add_to_personal_dictionary_summary">使用设备个人字典存储学习到的字词</string>
     <string name="disable_personalized_dicts_message">警告：禁用此设置将清除学习数据</string>
     <string name="prefs_always_show_suggestions">始终显示建议</string>
     <string name="prefs_always_show_suggestions_summary">忽略其他应用禁用建议的请求（可能会导致问题）</string>
@@ -197,27 +195,27 @@
     <string name="backup_restore_message">保存或从文件加载。警告：还原将覆盖现有数据</string>
     <string name="show_popup_keys_title">弹出显示更多带有变音符号的字母</string>
     <string name="show_popup_keys_normal">显示以键盘语言定义的变体</string>
-    <string name="select_word" tools:keep="@string/select_word">选择单词</string>
+    <string name="select_word" tools:keep="@string/select_word">选择字词</string>
     <string name="one_handed" tools:keep="@string/one_handed">单手模式</string>
     <string name="full_left" tools:keep="@string/full_left">完全左</string>
     <string name="full_right" tools:keep="@string/full_right">完全右</string>
     <string name="file_read_error">无法读取文件</string>
     <string name="layout_error">布局错误：%s</string>
-    <string name="edit_layout">点击以编辑原始布局</string>
+    <string name="edit_layout">点按以编辑原始布局</string>
     <string name="available_dictionary_experimental">%s（实验性）</string>
     <string name="dictionary_link_text">此处</string>
-    <string name="dictionary_load_error">加载词典文件时出错</string>
+    <string name="dictionary_load_error">加载字典文件时出错</string>
     <string name="dictionary_file_wrong_script">错误：脚本与此键盘不兼容</string>
     <string name="theme_colors">配色</string>
     <string name="theme_colors_night">配色（夜间）</string>
     <string name="close_history" tools:keep="@string/close_history">关闭剪贴板历史</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_extended">%s（扩展）</string>
-    <string name="dictionary_settings_category">词典</string>
-    <string name="replace_dictionary_message">是否确定要替换用户添加的词典“%1$s”？\n \n当前词典： \n%2$s \n \n新词典： \n%3$s</string>
-    <string name="replace_dictionary">替换词典</string>
-    <string name="remove_dictionary_message">是否确定要移除用户添加的词典“%s”？</string>
-    <string name="add_dictionary">选择要添加的词典。可以下载 .dict 格式的词典 %s。</string>
+    <string name="dictionary_settings_category">字典</string>
+    <string name="replace_dictionary_message">是否确定要替换用户添加的字典“%1$s”？\n\n当前字典：\n%2$s\n\n新字典：\n%3$s</string>
+    <string name="replace_dictionary">替换字典</string>
+    <string name="remove_dictionary_message">是否确定要移除用户添加的字典“%s”？</string>
+    <string name="add_dictionary">选择要添加的字典。可以下载 .dict 格式的字典 %s。</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">全息白</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">深色</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">更暗</string>
@@ -241,16 +239,16 @@
     <string name="prefs_long_press_symbol_for_numpad">长按数字键盘符号键</string>
     <string name="prefs_bottom_padding_scale">底部边距比例</string>
     <string name="message_add_custom_layout">选择兼容格式的文件。有关格式的信息可用 %s。</string>
-    <string name="word_right" tools:keep="@string/word_right">单词右</string>
+    <string name="word_right" tools:keep="@string/word_right">字词向右</string>
     <string name="page_up" tools:keep="@string/page_up">向上翻页</string>
     <string name="page_down" tools:keep="@string/page_down">向下翻页</string>
     <string name="clipboard_toolbar_keys">选择剪贴板工具栏键</string>
     <string name="page_start" tools:keep="@string/page_start">页面开始</string>
     <string name="page_end" tools:keep="@string/page_end">页面结束</string>
-    <string name="word_left" tools:keep="@string/word_left">单词左</string>
+    <string name="word_left" tools:keep="@string/word_left">字词向左</string>
     <string name="suggest_clipboard_content">建议剪贴板内容</string>
     <string name="url_detection_title">URL 检测</string>
-    <string name="url_detection_summary">尝试检测 URL 和类似的单个单词</string>
+    <string name="url_detection_summary">尝试检测 URL 和类似的单个字词</string>
     <string name="backup_restore_title">备份和还原</string>
     <string name="suggest_clipboard_content_summary">显示最近复制的剪贴板内容作为建议</string>
     <string name="secondary_locale">多语言输入</string>
@@ -271,7 +269,7 @@
     <string name="load">加载</string>
     <string name="button_load_custom">加载文件</string>
     <string name="setup_step3_action">配置键盘</string>
-    <string name="user_dict_word_already_present">此单词已存在于 %s 用户词典中。请再输入一个。</string>
+    <string name="user_dict_word_already_present">此字词已存在于 %s 用户字典中。请再输入一个。</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">圆形</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">海洋</string>
     <string name="auto_user_color">自动选择颜色</string>
@@ -289,30 +287,28 @@
     <string name="delete_layout">确定要删除自定义布局 %s？</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">符号（阿拉伯语）</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">用户自定义</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">用户自定义（夜间）</string>
     <string name="select_color_gesture">滑行输入法</string>
     <string name="switch_keyboard_after">切换到主键盘后…</string>
     <string name="after_emoji">在表情符号视图中选择表情符号</string>
     <string name="after_clip">选择剪贴板历史条目</string>
     <string name="after_symbol_and_space">在符号视图输入内容后按回车键或空格键</string>
-    <string name="add_new_dictionary_title">从文件添加词典</string>
+    <string name="add_new_dictionary_title">从文件添加字典</string>
     <string name="quick_pin_toolbar_keys_summary">这将禁用未固定工具栏键的其他长按操作</string>
     <string name="show_popup_keys_main">添加非常常见的变体（默认）</string>
     <string name="copy_to_clipboard">复制到剪贴板</string>
     <string name="button_select_language">选择语言</string>
-    <string name="no_dictionary_message">"没有词典，您只能得到之前输入的文本的建议。&lt;br&gt;\n        您可以下载词典 %1$s，或检查是否可以直接下载“%2$s”的词典 %3$s。"</string>
-    <string name="user_dict_add_word_button">添加一个单词</string>
+    <string name="no_dictionary_message">"没有字典，您只能得到之前输入的文本的建议。&lt;br&gt;\n        您可以下载字典 %1$s，或检查是否可以直接下载“%2$s”的字典 %3$s。"</string>
+    <string name="user_dict_add_word_button">添加字词</string>
     <string name="remove_redundant_popups_summary">移除基础布局上已存在的弹出键</string>
     <string name="remove_redundant_popups">移除多余弹出</string>
     <string name="subtype_generic_student">%s (Student)</string>
     <string name="subtype_mns">曼西语</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">符号</string>
-    <string name="select_user_colors_summary">为文本和背景选择颜色</string>
     <string name="select_color_background">键盘背景</string>
     <string name="select_color_key">按键文本</string>
     <string name="more_colors">显示更多颜色</string>
     <string name="all_colors">显示所有颜色</string>
-    <string name="all_colors_warning">此设置显示内部使用的所有颜色。颜色列表可能随时更改。默认颜色是随机的，名称不会被翻译。</string>
+    <string name="all_colors_warning">此设置显示内部使用的所有颜色。颜色列表可能随时更改。默认颜色基于常规颜色，名称不会被翻译。</string>
     <string name="customize_background_image">设置背景图片</string>
     <string name="day_or_night_image">为日间或夜间模式设置图片？</string>
     <string name="day_or_night_day">日间</string>
@@ -328,7 +324,7 @@
     <string name="gesture_floating_preview_dynamic_summary">在滑行输入过程中移动预览</string>
     <string name="gesture_fast_typing_cooldown">快速输入冷却</string>
     <string name="checksum_mismatch_message">未知库文件。是否确定是从可信来源获得并且是“%s”的？</string>
-    <string name="text_tap_languages">点击语言以打开设置</string>
+    <string name="text_tap_languages">点按语言以打开设置</string>
     <string name="hidden_features_title">隐藏功能的描述</string>
     <string name="auto_show_toolbar">自动显示工具栏</string>
     <string name="auto_hide_toolbar_summary">建议可用时隐藏工具栏</string>
@@ -344,8 +340,8 @@
     <string name="var_toolbar_direction">可变工具栏方向</string>
     <string name="var_toolbar_direction_summary">选择从右到左的键盘子类型时反转方向</string>
     <string name="auto_hide_toolbar">自动隐藏工具栏</string>
-    <string name="hidden_features_message">► 长按固定的工具栏键会产生其他功能：&lt;br&gt;\n\t• 剪贴板 &amp;#65515; 粘贴 &lt;br&gt;\n\t• 向左/向右移动 &amp;#65515; 单词向左/向右 &lt;br&gt;\n\t• 向上/向下移动 &amp;#65515; 向上/向下翻页 &lt;br&gt;\n\t• 单词向左/向右 &amp;#65515; 行起点/终点 &lt;br&gt;\n\t• 向上/向下翻页 &amp;#65515; 页面开始/结束 &lt;br&gt;\n\t• 复制 &amp;#65515; 剪切 &lt;br&gt;\n\t• 选择单词 &amp;#8596; 全选 &lt;br&gt;\n\t• 撤销 &amp;#8596; 恢复 &lt;br&gt; &lt;br&gt;\n► 长按建议条工具栏中的键将它们固定到建议条上。 &lt;br&gt; &lt;br&gt;\n► 长按逗号键可访问剪贴板视图、表情符号视图、单手模式、设置或切换语言：&lt;br&gt;\n\t• 如果启用了相应的键，表情符号视图和语言切换将消失；&lt;br&gt;\n\t• 对于某些布局，它不是逗号键，而是同一位置的键（例如，对于德沃夏克布局是“q”）。&lt;br&gt; &lt;br&gt;\n► 启用隐身模式后，将不会学习任何单词，也不会在最近的表情中添加任何表情符号。&lt;br&gt; &lt;br&gt;\n► 按隐身图标访问工具栏。&lt;br&gt; &lt;br&gt;\n► 滑动键输入：从 Shift 键滑动到另一个键，输入单个大写键：&lt;br&gt;\n\t• 这也适用于“?123”键从符号键盘输入单个符号，以及相关键。&lt;br&gt; &lt;br&gt;\n► 按住 Shift 或符号键，按一个或多个键，然后松开 Shift 或符号键以返回上一个键盘。&lt;br&gt; &lt;br&gt;\n► 长按建议栏中的建议可显示更多建议，长按删除按钮可移除此建议。&lt;br&gt; &lt;br&gt;\n► 从建议向上滑动以打开更多建议，然后松开建议以选择它。&lt;br&gt; &lt;br&gt;\n► 长按剪贴板历史中的条目将其固定（将其保留在剪贴板中，直到取消固定）。&lt;br&gt; &lt;br&gt;\n► 在剪贴板视图中向左滑动以移除条目（被固定时除外）&lt;br&gt; &lt;br&gt;\n► 选择文本并按 Shift 键在大写、小写和大写单词之间切换。&lt;br&gt; &lt;br&gt;\n► 您可以通过在文件资源管理器中打开词典来添加词典：&lt;br&gt;\n\t• 这只适用于&lt;i&gt;内容 URI&lt;/i&gt;，不适用于&lt;i&gt;文件 URI&lt;/i&gt;，这意味着它可能不适用于某些文件浏览器。&lt;br&gt; &lt;br&gt;\n► 对于使用 Root 权限进行手动备份的用户：&lt;br&gt;\n\t• 从 Android 7 开始，共享首选项文件不在默认位置，因为应用正在使用 %s。这是必要的，这样可以在设备解锁之前读取设置，例如在启动时；&lt;br&gt;\n\t• 该文件位于 /data/user_de/0/package_id/shared_prefs/ 中，但这可能取决于设备和 Android 版本。&lt;br&gt; &lt;br&gt;\n&lt;i&gt;&lt;b&gt;调试模式/调试 APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n► 长按建议显示源词典。&lt;br&gt; &lt;br&gt;\n► 使用调试 APK 时，您可以在高级首选项中找到调试设置，但除了将词典转储到日志中外，其用处有限。&lt;br&gt;\n\t• 对于发布 APK，您需要多次点击&lt;i&gt;关于&lt;/i&gt;中的版本，然后您可以在&lt;i&gt;高级首选项&lt;/i&gt;找到调试设置。&lt;br&gt;\n\t• 当启用&lt;i&gt;显示建议信息&lt;/i&gt;时，建议顶部会有一些小数字，显示一些内部分数和源词典。&lt;br&gt; &lt;br&gt;\n► 如果应用崩溃，打开“设置”时，系统会提示您是否需要崩溃日志。&lt;br&gt; &lt;br&gt;\n► 使用多语言输入时，空格键将显示用于确定当前使用的语言的置信度值。&lt;br&gt; &lt;br&gt;\n► 建议顶部会有一些小数字，显示一些内部分数和源词典（可以禁用）。</string>
-    <string name="icon_style">图标风格</string>
+    <string name="hidden_features_message">► 长按固定的工具栏键会产生其他功能：&lt;br&gt;\n\t• 剪贴板 &amp;#65515; 粘贴 &lt;br&gt;\n\t• 向左/向右移动 &amp;#65515; 字词向左/向右 &lt;br&gt;\n\t• 向上/向下移动 &amp;#65515; 向上/向下翻页 &lt;br&gt;\n\t• 字词向左/向右 &amp;#65515; 行起点/终点 &lt;br&gt;\n\t• 向上/向下翻页 &amp;#65515; 页面开始/结束 &lt;br&gt;\n\t• 复制 &amp;#65515; 剪切 &lt;br&gt;\n\t• 选择字词 &amp;#8596; 全选 &lt;br&gt;\n\t• 撤销 &amp;#8596; 重做 &lt;br&gt; &lt;br&gt;\n► 长按建议条工具栏中的键将它们固定到建议条上。 &lt;br&gt; &lt;br&gt;\n► 长按逗号键可访问剪贴板视图、表情符号视图、单手模式、设置或切换语言：&lt;br&gt;\n\t• 如果启用了相应的键，表情符号视图和语言切换将消失；&lt;br&gt;\n\t• 对于某些布局，它不是逗号键，而是同一位置的键（例如，对于德沃夏克布局是“q”）。&lt;br&gt; &lt;br&gt;\n► 启用隐身模式后，将不会学习任何字词，也不会在最近的表情中添加任何表情符号。&lt;br&gt; &lt;br&gt;\n► 按隐身图标访问工具栏。&lt;br&gt; &lt;br&gt;\n► 滑动键输入：从 Shift 键滑动到另一个键，输入单个大写键：&lt;br&gt;\n\t• 这也适用于“?123”键从符号键盘输入单个符号，以及相关键。&lt;br&gt; &lt;br&gt;\n► 按住 Shift 或符号键，按一个或多个键，然后松开 Shift 或符号键以返回上一个键盘。&lt;br&gt; &lt;br&gt;\n► 长按建议栏中的建议可显示更多建议，长按删除按钮可移除此建议。&lt;br&gt; &lt;br&gt;\n► 从建议向上滑动以打开更多建议，然后松开建议以选择它。&lt;br&gt; &lt;br&gt;\n► 长按剪贴板历史中的条目将其固定（将其保留在剪贴板中，直到取消固定）。&lt;br&gt; &lt;br&gt;\n► 在剪贴板视图中向左滑动以移除条目（被固定时除外）&lt;br&gt; &lt;br&gt;\n► 选择文本并按 Shift 键在大写、小写和首字母大写之间切换。&lt;br&gt; &lt;br&gt;\n► 您可以通过在文件资源管理器中打开字典来添加字典：&lt;br&gt;\n\t• 这只适用于&lt;i&gt;内容 URI&lt;/i&gt;，不适用于&lt;i&gt;文件 URI&lt;/i&gt;，这意味着它可能不适用于某些文件浏览器。&lt;br&gt; &lt;br&gt;\n► 对于使用 Root 权限进行手动备份的用户：&lt;br&gt;\n\t• 从 Android 7 开始，共享首选项文件不在默认位置，因为应用正在使用 %s。这是必要的，这样可以在设备解锁之前读取设置，例如在启动时；&lt;br&gt;\n\t• 该文件位于 /data/user_de/0/package_id/shared_prefs/ 中，但这可能取决于设备和 Android 版本。&lt;br&gt; &lt;br&gt;\n&lt;i&gt;&lt;b&gt;调试模式/调试 APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n► 长按建议显示源字典。&lt;br&gt; &lt;br&gt;\n► 使用调试 APK 时，您可以在高级首选项中找到调试设置，但除了将字典转储到日志中外，其用处有限。&lt;br&gt;\n\t• 对于发布 APK，您需要多次点按&lt;i&gt;关于&lt;/i&gt;中的版本，然后您可以在&lt;i&gt;高级首选项&lt;/i&gt;找到调试设置。&lt;br&gt;\n\t• 当启用&lt;i&gt;显示建议信息&lt;/i&gt;时，建议顶部会有一些小数字，显示一些内部分数和源字典。&lt;br&gt; &lt;br&gt;\n► 如果应用崩溃，打开“设置”时，系统会提示您是否需要崩溃日志。&lt;br&gt; &lt;br&gt;\n► 使用多语言输入时，空格键将显示用于确定当前使用的语言的置信度值。&lt;br&gt; &lt;br&gt;\n► 建议顶部会有一些小数字，显示一些内部分数和源字典（可以禁用）。</string>
+    <string name="icon_style">图标样式</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">数字行</string>
     <string name="prefs_space_bar_text">空格键上的自定义文本</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">表情符号底行</string>
@@ -392,7 +388,7 @@
     <string name="settings_screen_secondary_layouts">次要布局</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">功能键（大屏幕）</string>
     <string name="name_invalid">无效的名称</string>
-    <string name="locales_with_dict">有词典的语言</string>
+    <string name="locales_with_dict">有字典的语言</string>
     <string name="layout_in_use">警告：布局当前正在使用中</string>
     <string name="discussion_section_link">讨论部分</string>
     <string name="get_layouts_message">您可以在 %s 中查找和分享布局。</string>
@@ -406,8 +402,8 @@
     <string name="prefs_always_show_suggestions_except_web_text_summary">Web 编辑字段（主要存在于浏览器中）是导致“始终显示建议”设置出现问题的一个非常常见的原因</string>
     <string name="prefs_always_show_suggestions_except_web_text">不要总是显示对 Web 编辑字段的建议</string>
     <string name="settings_category_space">空格</string>
-    <string name="autospace_before_gesture_typing">手势输入单词前自动插入空格</string>
-    <string name="autospace_after_gesture_typing">手势输入单词后自动插入空格</string>
+    <string name="autospace_before_gesture_typing">滑行输入字词前自动插入空格</string>
+    <string name="autospace_after_gesture_typing">滑行输入字词后自动插入空格</string>
     <string name="shift_removes_autospace">按下 Shift 键不自动插入空格</string>
     <string name="shift_removes_autospace_summary">按 Shift 键移除待插入的自动空格</string>
     <string name="backspace_reverts_autocorrect">退格键恢复自动更正</string>
@@ -432,7 +428,7 @@
     <string name="landscape">横屏</string>
     <string name="show_emoji_descriptions">长按时显示表情符号描述</string>
     <string name="suggest_emojis">建议表情符号</string>
-    <string name="suggest_emojis_summary">在常规建议中使用表情符号词典</string>
+    <string name="suggest_emojis_summary">在常规建议中使用表情符号字典</string>
     <string name="suggest_punctuation">标点建议</string>
     <string name="suggest_punctuation_summary">无其他建议时显示标点</string>
     <string name="space_swipe_hide_keyboard_entry">隐藏键盘</string>
@@ -443,8 +439,51 @@
     <string name="clipboard_history_pinned_first">在顶部显示已固定项目</string>
     <string name="subtype_mhr">东马里语</string>
     <string name="inline_emoji_search">内联表情符号搜索</string>
-    <string name="inline_emoji_search_summary">仅当单词以冒号开头时建议表情符号</string>
-    <string name="emoji_dictionary_required">此功能需要表情符号词典才能使用。可以下载 .dict 格式的词典 %s。</string>
+    <string name="inline_emoji_search_summary">仅当字词以冒号开头时建议表情符号</string>
+    <string name="emoji_dictionary_required">此功能需要表情符号字典才能使用。可以在 %s 下载 .dict 格式的字典。</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">带操作键的表情符号底行</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">带操作键的剪贴板底行</string>
+    <string name="number_row_in_symbols">在符号视图中显示数字行</string>
+    <string name="custom_emoji_font">从文件设置自定义表情符号字体</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">功能键（Khipro）</string>
+    <string name="emoji_search_title">搜索表情符号</string>
+    <string name="search_field_placeholder">搜索</string>
+    <string name="gesture_data_screen">滑行输入数据收集</string>
+    <string name="gesture_data_info">这是什么？</string>
+    <string name="gesture_data_privacy">隐私</string>
+    <string name="gesture_data_get_data">分享滑行输入数据文件</string>
+    <string name="gesture_data_delete_data">清除滑行输入数据</string>
+    <string name="gesture_data_send_mail">通过电子邮件发送数据</string>
+    <string name="gesture_data_copy_mail">复制电子邮件地址</string>
+    <string name="gesture_data_mail_use">请注意，此电子邮件地址仅用于数据提交，可能不会及时或定期回复。</string>
+    <string name="gesture_data_please_type">请滑行输入：</string>
+    <string name="gesture_data_next_save">已输入 %s。如果您确定滑行输入正确，请点击</string>
+    <string name="gesture_data_next">跳过字词</string>
+    <string name="gesture_data_active_count">本次会话已输入 %1$s 个字词，总计 %2$s 个字词（%3$s 个已提交或删除）</string>
+    <string name="gesture_data_review_screen_title">审阅和分享滑行输入数据</string>
+    <string name="gesture_data_words_selected">%s 个字词</string>
+    <string name="gesture_data_date_range">日期范围</string>
+    <string name="gesture_data_much_data">您有大量未提交的数据。请先提交，然后移除旧数据。</string>
+    <string name="gesture_data_how_to_use">使用方法</string>
+    <string name="gesture_data_active_start">开始主动收集</string>
+    <string name="gesture_data_active_stop">停止主动收集</string>
+    <string name="gesture_data_ends_at">滑行输入数据收集阶段将于 %s 结束。请在此日期之前提交您的数据。</string>
+    <string name="gesture_data_ended">滑行输入数据收集阶段已于 %s 结束。您可以分享现有数据，但不能添加任何新数据。</string>
+    <string name="gesture_data_share_all">分享全部 %s 个字词</string>
+    <string name="gesture_data_share_new">分享 %s 个未提交过的字词</string>
+    <string name="gesture_data_delete_dialog">您有 %1$s 个新字词和 %2$s 个已分享字词的数据。</string>
+    <string name="gesture_data_delete_dialog_all">删除全部 %s 个字词</string>
+    <string name="gesture_data_delete_dialog_confirm">您确定吗？这将删除 %s 个字词。请确保您已提交共享数据！</string>
+    <string name="gesture_data_delete_dialog_submitted">删除 %s 个已提交的字词</string>
+    <string name="gesture_data_many_not_shared_words">您有超过 %s 个字词等待提交</string>
+    <string name="ask_later">稍后询问</string>
+    <string name="gesture_data_take_me_there">前往查看</string>
+    <string name="gesture_data_description">欢迎来到滑行输入数据收集界面！&lt;br/&gt;&lt;br/&gt; 这是由 &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet 基金会资助的一个项目&lt;/a&gt;，旨在开发一个完全开源的滑行输入库，以替代闭源的 Google 库。&lt;br/&gt; 最终目标是使其成为基于 AOSP 的键盘的简单替代品，同时也适用于其他键盘，例如 FlorisBoard。&lt;br/&gt;&lt;br/&gt; 为了更好地开发该库，我们需要收集不同语言、不同用户的详细滑行输入数据。&lt;br/&gt; 通过收集和提交滑行输入数据，您可以为用于库开发的开放滑行输入数据集做出贡献。该数据集将于 %s 在数据收集阶段结束后，以 CC BY-SA 4.0 许可协议发布。收集完数据后，您可以使用此屏幕底部的分享图标提交数据。</string>
+    <string name="gesture_data_description_modes">目前仅提供主动收集模式，会显示一个特定字词，您需要使用滑行输入该字词。\n后续会添加被动收集模式，您可从其他应用中提取日常滑行输入的样本数据。由于此模式涉及敏感信息，因此需要用户选择是否启用，并且可以进行配置，在提交数据前提供审阅界面。</string>
+    <string name="gesture_data_description_privacy">隐私\n\n您提交的数据包括目标字词、键盘布局和尺寸、滑行输入（次数和坐标）、当前库的建议、所用字典的哈希值、应用版本、数据收集模式、滑行输入库是否为默认的 Google 库，以及每个滑行输入对应的 ID。\n提交的数据将被下载并从 ProtonMail 邮箱中尽快删除。滑行输入数据收集阶段结束后，所有用户汇总的数据集将根据知识共享署名-相同方式共享 4.0 国际许可协议发布。\n\n为了保护您的隐私，您不会被明确列为作者。您的贡献将统一记作“HeliBoard 滑行输入数据项目贡献者”。您在此界面生成的数据原则上无法与您的身份关联。但是，我们或许可以确定哪些滑行输入是由同一人完成的。例如，可以通过自定义键盘布局、键盘尺寸、语言或个人滑行输入风格来判断。</string>
+    <string name="gesture_data_active_description">点按“开始主动收集”，可选择切换字典，然后开始滑行输入显示的字词。&lt;br/&gt; 如果您的滑行输入与字词匹配，数据将被保存并显示下一个字词。否则，您可以重试、跳过该字词或确认您的滑行输入正确。&lt;br/&gt; 您只能使用应用内置或&lt;a href=%s&gt;字典仓库&lt;/a&gt;中的字典，不会使用其他字词。</string>
+    <string name="gesture_data_email_body">重要提示：\n\n 您好！\n 温馨提醒，您的数据将根据 CC BY-SA 4.0 许可协议公开分享，为保护您的隐私，您不会被列为作者。\n\n 感谢您与我们共享数据使用权，我们会妥善利用这些数据！\n\n 请注意，更改此提示的措辞不会改变我们对您数据的处理方式。本提示并非可修改的合同，仅为友好提醒！\n 如果您想随提交的数据一并给我们留言，请在下方横线处填写。\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">您好！\n 既然您已经安装了滑行输入库，您或许会对 HeliBoard 的完全开源滑行输入库项目感兴趣。您可以贡献滑行输入数据来提供帮助。如需了解详情，请访问滑行输入数据收集界面。</string>
+    <string name="gesture_data_reminder_message">您好！\n 您之前使用过滑行输入数据收集功能，但已经很久没有添加数据了。是否要再次贡献数据？</string>
+    <string name="timestamp_description">您可以使用自定义布局添加时间戳键，使用“timestamp”键或键码 -10043</string>
 </resources>

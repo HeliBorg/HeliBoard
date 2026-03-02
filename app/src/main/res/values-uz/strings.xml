@@ -84,7 +84,6 @@
     <string name="settings">"Sozlamalar"</string>
     <string name="delete">"O‘chirish"</string>
     <string name="version_text">%1$s versiya</string>
-    <string name="user_dict_settings_add_dialog_title">"Lug‘atga kiritish"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Qisqartma:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Til:"</string>
     <string name="user_dict_settings_add_word_hint">"So‘zni kiriting"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"So‘zni tahrirlash"</string>
     <string name="user_dict_settings_all_languages">"Barcha tillar uchun"</string>
     <string name="user_dict_settings_more_languages">"Ko‘proq tillar…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABDEFGHIJKLMNOPQRSTUVXYZO‘G‘SHCH"</string>
     <string name="settings_category_clipboard_history">Bufer tarixi</string>
     <string name="show_emoji_key">Emoji kaliti</string>
     <string name="select_input_method">"Matn kiritish usulini tanlang"</string>

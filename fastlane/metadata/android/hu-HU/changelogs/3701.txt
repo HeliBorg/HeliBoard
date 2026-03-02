@@ -1,0 +1,9 @@
+* emodzsikeresés (emodzsiszótár szükséges)
+* ujjmozdulat-adatok gyűjtése (ujjmodulat-könyvtár szükséges)
+* a kijelölt szöveg zárójelekbe és hasonlóba való beillesztése a szöveg cseréje helyett
+* külön emodzsibetűtípus beállítása
+* számok sorának megjelenítése a szimbólumok elrendezésében (nem kötelező)
+* a rossz automatikus javítások csökkentése az e-mail-címeknél
+* a szóköz-billentyű mozgásának javítása RTL- és nem-RTL-szövegeknél
+
+* És még több hibajavítás - további részletek a bejelentésben

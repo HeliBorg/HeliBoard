@@ -319,7 +319,7 @@
         android:imeSubtypeLocale="bn_BD"
         android:languageTag="bn-BD"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwerty,CombiningRules=bn_khipro,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwerty|FUNCTIONAL:functional_keys_khipro,CombiningRules=bn_khipro,EmojiCapable"
         android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"

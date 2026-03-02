@@ -1,0 +1,12 @@
+* add inline emoji search
+* optionally remember language / subtype per app
+* haptic feedback fixes and improvements
+* keep unpinned clipboard on app restart
+* optionally display pinned clipboard entries last
+* add optional emoji and clipboard bottom rows
+* add button for dismissing inline suggestions
+* add Bengali Khipro
+* add Mirandese
+* workaround for issues with hardware keyboard
+* links to dictionaries now directly go to the file
+* various minor fixes and improvements

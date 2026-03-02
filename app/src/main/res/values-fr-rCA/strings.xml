@@ -84,7 +84,6 @@
     <string name="settings">"Paramètres"</string>
     <string name="delete">"Supprimer"</string>
     <string name="version_text">"Version %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Ajouter au dictionnaire"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Raccourci :"</string>
     <string name="user_dict_settings_add_locale_option_name">"Langue :"</string>
     <string name="user_dict_settings_add_word_hint">"Entrez un mot"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Modifier le mot"</string>
     <string name="user_dict_settings_all_languages">"Pour toutes les langues"</string>
     <string name="user_dict_settings_more_languages">"Plus de langues…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Sélectionnez le mode de saisie"</string>
     <string name="undo">"Annuler"</string>
     <string name="redo">"Répéter"</string>

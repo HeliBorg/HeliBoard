@@ -84,7 +84,6 @@
     <string name="settings">"Tetapan"</string>
     <string name="delete">"Padam"</string>
     <string name="version_text">Versi %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Tambah ke kamus"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Pintasan:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Bahasa:"</string>
     <string name="user_dict_settings_add_word_hint">"Taip perkataan"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Edit perkataan"</string>
     <string name="user_dict_settings_all_languages">"Untuk semua bahasa"</string>
     <string name="user_dict_settings_more_languages">"Lebih banyak bahasa…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Pilih kaedah input"</string>
     <string name="settings_screen_appearance">"Tampilan"</string>
     <string name="undo">"Buat asal"</string>

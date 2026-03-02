@@ -136,6 +136,14 @@ class InputLogicTest {
         assertEquals(8, cursor)
     }
 
+    @Test fun combineHangul() {
+        reset()
+        val ko = SubtypeSettings.getResourceSubtypesForLocale("ko".constructLocale()).first()
+        latinIME.switchToSubtype(ko)
+        chainInput("ㅂㄱㅑ")
+        assertEquals("ㅂ갸", text)
+    }
+
     // todo: make it work, but it might not be that simple because adding is done in combiner
     //  https://github.com/Helium314/HeliBoard/issues/214
     @Test fun insertLetterIntoWordHangulFails() {
@@ -160,8 +168,7 @@ class InputLogicTest {
         assertEquals("ㅛ.", text)
     }
 
-    // see issue 1551 (debug only)
-    @Test fun deleteHangul() {
+    @Test fun deleteHangulInDebugMode() { // issue 1551, later only happened on phone
         reset()
         latinIME.switchToSubtype(SubtypeSettings.getResourceSubtypesForLocale("ko".constructLocale()).first())
         setText("ㅛㅛ ")
@@ -753,7 +760,7 @@ class InputLogicTest {
         latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(codePoint))
         handleMessages()
 
-        if (currentScript != ScriptUtils.SCRIPT_HANGUL // check fails if hangul combiner merges symbols
+        if (!latinIME.prefs().getString(Settings.PREF_SELECTED_SUBTYPE, "")!!.contains("CombiningRules") // check fails if combiner merges symbols
             && !(codePoint == Constants.CODE_SPACE && oldBefore.lastOrNull() == ' ') // check fails when 2 spaces are converted into a period
             && !latinIME.mInputLogic.mSuggestedWords.mWillAutoCorrect // autocorrect obviously creates inconsistencies
             ) {

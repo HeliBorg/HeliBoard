@@ -85,7 +85,6 @@
     <string name="settings">"Mipangilio"</string>
     <string name="delete">"Futa"</string>
     <string name="version_text">"Toleo la %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Ongeza kwenye kamusi"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Njia ya mkato:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lugha:"</string>
     <string name="user_dict_settings_add_word_hint">"Chapa neno"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Badilisha neno"</string>
     <string name="user_dict_settings_all_languages">"Ya lugha zote"</string>
     <string name="user_dict_settings_more_languages">"Lugha zingine…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Chagua njia ya ingizo"</string>
     <string name="undo">"Tendua"</string>
     <string name="redo">"Rejesha"</string>

@@ -86,7 +86,6 @@
     <string name="settings">"Postavke"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">"Verzija %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Dodaj u rječnik"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Prečica:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jezik:"</string>
     <string name="user_dict_settings_add_word_hint">"Unesite riječ"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Uređivanje riječi"</string>
     <string name="user_dict_settings_all_languages">"Za sve jezike"</string>
     <string name="user_dict_settings_more_languages">"Više jezika…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Odaberite način unosa"</string>
     <string name="undo">"Vrati"</string>
     <string name="redo">"Ponovo uradi"</string>

@@ -54,13 +54,13 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.CloseIcon
+import helium314.keyboard.latin.utils.CloseIcon
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.contentTextDirectionStyle
 import helium314.keyboard.settings.dialogs.ColorPickerDialog
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 

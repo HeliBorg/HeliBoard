@@ -84,7 +84,6 @@
     <string name="settings">"Instellingen"</string>
     <string name="delete">"Verwijderen"</string>
     <string name="version_text">Versie %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Toevoegen aan woordenboek"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Sneltoets:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Taal:"</string>
     <string name="user_dict_settings_add_word_hint">"Typ een woord"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Woord bewerken"</string>
     <string name="user_dict_settings_all_languages">"Voor alle talen"</string>
     <string name="user_dict_settings_more_languages">"Meer talen…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="autospace_after_punctuation">Automatische spatie na interpunctie</string>
     <string name="select_input_method">"Invoermethode selecteren"</string>
     <string name="day_night_mode">Automatische dag/nachtmodus</string>
@@ -144,7 +142,6 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roze</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Zand</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Aangepast (nacht)</string>
     <string name="prefs_narrow_key_gaps">Smalle toetsruimte</string>
     <string name="setup_step3_action">Het toetsenbord configureren</string>
     <string name="split_spacer_scale">Scheidingsruimte</string>
@@ -210,7 +207,6 @@
     <string name="button_select_language">Taal kiezen</string>
     <string name="user_dict_word_already_present">Dit woord is al aanwezig in het gebruikerswoordenboek van %s. Typ er nog een.</string>
     <string name="user_dict_add_word_button">Woord toevoegen</string>
-    <string name="select_user_colors_summary">Selecteer kleuren voor tekst en achtergronden</string>
     <string name="switch_language">Taal wisselen</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Taal (prioriteit)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Lay-out</string>

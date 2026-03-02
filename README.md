@@ -16,16 +16,18 @@ Does not use internet permission, and thus is 100% offline.
    * [Code Contribution](CONTRIBUTING.md)
 - [License](#license)
 - [Credits](#credits)
+  * [Funding](#funding)
 
 # Features
 <ul>
   <li>Add dictionaries for suggestions and spell check</li>
   <ul>
-    <li>build your own, or get them  <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">here</a>, or in the <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimental</a> section (quality may vary)</li>
+    <li>build your own, or get them  <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">here</a> (quality may vary)</li>
     <li>additional dictionaries for emojis or scientific symbols can be used to provide suggestions (similar to "emoji search")</li>
     <li>note that for Korean layouts, suggestions only work using <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">this dictionary</a>, the tools in the dictionary repository are not able to create working dictionaries</li>
   </ul>
   <li>Customize keyboard themes (style, colors and background image)</li>
+  <li>Emoji search (inline and separate, requires <a href="https://codeberg.org/Helium314/aosp-dictionaries">emoji dictionary</a>)</li>
   <ul>
     <li>can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)</li>
     <li>can follow dynamic colors for Android 12+</li>
@@ -71,6 +73,7 @@ Some notes on translations
 * the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features. It's been made available in the app on user request/contribution.
 
 ## To Community
+There is the [discussions on GitHub](https://github.com/Helium314/HeliBoard/discussions), or if you prefer a more open network there is [Lemmy](https://lemmy.world/c/Heliboard).
 You can share your themes, layouts and dictionaries with other people:
 * Themes can be saved and loaded using the menu on top-right in the _adjust colors_ screen
   * You can share custom colors in a separate [discussion section](https://github.com/Helium314/HeliBoard/discussions/categories/custom-colors)
@@ -107,3 +110,11 @@ The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.
 - [Indic Keyboard](https://gitlab.com/indicproject/indic-keyboard)
 - [FlorisBoard](https://github.com/florisboard/florisboard/)
 - Our [contributors](https://github.com/Helium314/HeliBoard/graphs/contributors)
+
+## Funding
+
+This project is funded through [NGI Mobifree Fund](https://nlnet.nl/mobifree), a fund established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) program. Learn more at the [NLnet project page](https://nlnet.nl/project/GestureTyping).
+
+[<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo" width="20%" />](https://nlnet.nl)
+
+Further the project benefits from donations provided by many users (thank you all!).

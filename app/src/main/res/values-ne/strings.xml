@@ -84,7 +84,6 @@
     <string name="settings">"सेटिङहरू"</string>
     <string name="delete">"मेट्नुहोस्"</string>
     <string name="version_text">"संस्करण %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"शब्दकोशमा थप्नुहोस्"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"सर्टकट:"</string>
     <string name="user_dict_settings_add_locale_option_name">"भाषा:"</string>
     <string name="user_dict_settings_add_word_hint">"एउटा शब्द टाइप गर्नुहोस्"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"शब्द सम्पादन गर्नुहोस्"</string>
     <string name="user_dict_settings_all_languages">"सबै भाषाहरूका लागि"</string>
     <string name="user_dict_settings_more_languages">"थप भाषाहरू…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"निवेश विधि छान्नुहोस्"</string>
     <string name="settings_screen_appearance">"उपस्थिति"</string>
     <string name="undo">"अनडू गर्नुहोस्"</string>

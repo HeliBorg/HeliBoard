@@ -4,7 +4,10 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+    tools:ignore="MissingTranslation">
     <!-- Name of Android spell checker service. The app name should not be translated. -->
     <string name="spell_checker_service_name">HeliBoard Spell Checker</string>
     <!-- Title for IME settings screen. The app name should not be translated. -->
@@ -219,6 +222,8 @@
     <string name="backup_restored">Backup restored</string>
     <!-- Preferences item for format for timestamp keycode -->
     <string name="timestamp_format_title">Format for timestamp key</string>
+    <!-- Message in preferences how to get timestamp key -->
+    <string name="timestamp_description">You can add the timestamp key using a custom layout with \'timestamp\' key, or key code -10043</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
     <!-- Clarification which locales are available for multilingual typing -->
@@ -377,6 +382,8 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
+    <!-- Title of the setting for setting height of the bottom row -->
+    <string name="prefs_bottom_row_scale">Bottom row scale</string>
     <!-- Title of the setting for setting side padding -->
     <string name="prefs_side_padding_scale">Side padding scale</string>
     <!-- Title of the setting for adjusting font size on the keyboard -->
@@ -488,6 +495,8 @@ language, hence "No language". -->
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functional keys</string>
     <!-- Name for functional keys layout for tablets -->
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Functional keys (large screen)</string>
+    <!-- Name for special functional keys layout for Khipro -->
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Functional keys (Khipro)</string>
     <!-- Name for functional keys layout when showing symbols layout -->
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functional keys (Symbols)</string>
     <!-- Name for functional keys layout when showing more symbols layout -->
@@ -638,8 +647,6 @@ New dictionary:
     <string name="delete">Delete</string>
     <!-- Text for application version -->
     <string name="version_text">Version %s</string>
-    <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
-    <string name="user_dict_settings_add_dialog_title">Add to dictionary</string> <!-- todo: use it or remove it -->
     <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). -->
     <string name="user_dict_settings_add_shortcut_option_name">Shortcut:</string>
     <!-- User dictionary settings. Label to put before the weight field -->
@@ -647,7 +654,7 @@ New dictionary:
     <!-- User dictionary settings. Label to put before the language field. -->
     <string name="user_dict_settings_add_locale_option_name">Language:</string>
     <!-- User dictionary settings. Hint for the text field to type the word to add to the user dictionary. -->
-    <string name="user_dict_settings_add_word_hint">Type a word</string> <!-- todo: use it or remove it -->
+    <string name="user_dict_settings_add_word_hint">Type a word</string>
     <!-- User dictionary settings. Hint for the text field to type the optional shortcut to add to the user dictionary. -->
     <string name="user_dict_settings_add_shortcut_hint">Optional shortcut</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
@@ -656,9 +663,6 @@ New dictionary:
     <string name="user_dict_settings_all_languages">For all languages</string>
     <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one -->
     <string name="user_dict_settings_more_languages">More languages…</string> <!-- todo: use it or remove it -->
-    <!-- User dictionary settings. Index of the user dictionary
-         This resource is copied from packages/apps/Settings/res/values/strings.xml -->
-    <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string> <!-- todo: use it or remove it -->
     <!-- Message in user dictionary dialog -->
     <string name="user_dict_word_already_present">This word is already present in the %s user dictionary. Please type another one.</string>
     <!-- User dictionary settings. Text button to add a word -->
@@ -716,7 +720,6 @@ New dictionary:
     <!-- Theme name for user-defined theme -->
     <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
     <!-- Theme name for user-defined theme night mode theme -->
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">User-Defined (night)</string>
     <!-- Text when determining color automatically -->
     <string name="auto_user_color">Choose color automatically</string>
     <!-- Menu item for showing fewer colors -->
@@ -726,9 +729,7 @@ New dictionary:
     <!-- Menu item for showing all colors -->
     <string name="all_colors">Show all colors</string>
     <!-- Warning message displayed when showing all colors -->
-    <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default color is random, and the names will not be translated.</string>
-    <!-- (currently not used) Description for selection of user-defined colors. -->
-    <string name="select_user_colors_summary">Select colors for text and backgrounds</string> <!-- todo: use it or remove it -->
+    <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default is derived from the normal colors, and the names will not be translated.</string>
     <!-- Selection: background color. -->
     <string name="select_color_background">Keyboard background</string>
     <!-- Selection: key text color. -->
@@ -923,4 +924,161 @@ New dictionary:
     <string name="landscape">Landscape</string>
     <!-- When a foldable phone is folded -->
     <string name="folded">Folded</string>
+    <!-- Emoji search title bar text -->
+    <string name="emoji_search_title">Search emoji</string>
+    <!-- Placeholder text for search field -->
+    <string name="search_field_placeholder">Search</string>
+
+
+    <!-- gesture data gathering, new strings for normal use should go above -->
+
+    <!-- Title for screen to provide gesture data for library development
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_screen">Gesture data gathering</string>
+    <!-- Descriptive text about gesture data gathering (parsed as HTML)
+    string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_description">
+        Welcome to the gesture data gathering screen!&lt;br/&gt;&lt;br/&gt;
+        This is part of an &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-funded project&lt;/a&gt; striving to produce a fully open source gesture typing library capable of replacing the closed source Google library.&lt;br/&gt;
+        The result is planned to be a simple replacement for AOSP-based keyboards, but also usable with other keyboards, e.g. FlorisBoard.&lt;br/&gt;&lt;br/&gt;
+        For developing the library, it is tremendously helpful to have detailed gesture data in different languages and by different users available.&lt;br/&gt;
+        By gathering and submitting gesture typing data you can contribute to an open set of gesture data that will used for library development. The dataset will be published under a CC BY-SA 4.0 license some time after the data gathering phase is finished on %s.
+        Once you have collected data, you can submit it using the share icon on the bottom of this screen.
+    </string>
+    <!-- Button text for showing gesture_data_description and gesture_data_description_modes
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_info">What\'s this?</string>
+    <!-- Descriptive text about gesture data gathering modes
+    string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_description_modes">
+        Currently there is only the "active gathering" mode, where you are shown a specific word, and enter this word using gesture typing.\n
+        Later a "passive gathering" mode will be added, where you can provide samples from your normal gesture typing from other apps.
+        Due to the sensitivity of this approach, this will be opt-in, configurable, and have a review screen for the data you\'re about to submit.
+    </string>
+    <!-- Descriptive text about privacy of gesture data
+    string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_description_privacy">
+        Privacy\n\n
+        The data you submit consists of target word, keyboard layout and dimensions, gesture (times and coordinates), suggestions by the current library, hash of the used dictionaries, app version, data gathering mode, whether the gesture typing library is the "default" Google library, and an ID to go with each gesture.\n
+        Submitted data will be downloaded and deleted from the ProtonMail mailbox where it is stored at our earliest convenience.
+        After the gesture data gathering phase has ended, the accumulated data set from all users will be published under the Creative Commons BY-SA 4.0 license.\n\n
+
+        As part of trying to protect your privacy, you won\'t be listed explicitly as an author. Your credit will be as \"The HeliBoard Gesture Data Project Contributors.\" It should not be possible to connect the data you generate in this screen to your identity. However, it might be possible to determine which gestures were made by the same person.
+        This can be done e.g. from a custom keyboard layout, keyboard dimensions, language, or individual gesturing style.\n\n
+    </string>
+    <!-- Button text for showing gesture_data_description_privacy
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_privacy">Privacy</string>
+    <!-- Button for getting the data file
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_get_data">Share gesture data file</string>
+    <!-- Button for deleting the data file
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_data">Clear gesture data</string>
+    <!-- Button for sending the data file via mail
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_send_mail">Send data via email</string>
+    <!-- Button for copying the target mail address
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_copy_mail">Copy email address</string>
+    <!-- Button for copying the target mail address
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_mail_use">Note that the email address is intended for data submissions, you may not get fast or consistent replies.</string>
+    <!-- Text requesting the user to gesture a word
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_please_type">Please gesture type:</string>
+    <!-- Button for saving data and go to next word (now only shows up when the word %s is not in suggestions)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_next_save">Got "%s". Click if you\'re sure you gestured correctly</string>
+    <!-- Button for next word without saving data
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_next">Skip word</string>
+    <!-- Text stating how many words were written using active data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_active_count">%1$s words in this session, %2$s words total (%3$s already submitted or deleted)</string>
+    <!-- Title for the screen to review and submit gesture data
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_review_screen_title">Review &amp; share gesture data</string>
+    <!-- Short text on how many words are selected
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_words_selected">%s words</string>
+    <!-- Short title for date range display
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_date_range">Date range</string>
+    <!-- Text displayed when the user has more than 10000 gestures waiting to be submitted
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_much_data">You have a lot of unsubmitted data. Please submit and then remove the old data.</string>
+    <!-- Button text for opening an info dialog containing gesture_data_active_description
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_how_to_use">How to use</string>
+    <!-- Explanatory text about active gesture data gathering (parsed as HTML, containing a link to the dictionaries repository)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_active_description">Tap on \"Start active gathering\", optionally switch the dictionary, and start gesture typing the displayed word.&lt;br/&gt;
+        If your gesture matches the word, the data is saved and the next word is displayed. Otherwise you can retry, skip the word, or confirm you gestured correctly.&lt;br/&gt;
+        You can only use dictionaries that are built into the app or available in the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;, no other words will be used.
+    </string>
+    <!-- Text for starting active gesture data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_active_start">Start active gathering</string>
+    <!-- Text for stopping active gesture data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_active_stop">Stop active gathering</string>
+    <!-- Message informing the user about coming end of data gathering (shown 2 weeks in advance, %s is the date)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_ends_at">Gesture data gathering phase will end at %s. Please submit your data before that date.</string>
+    <!-- Message informing the user that gesture data gathering is over
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_ended">Gesture data gathering phase ended at %s. You can share your existing data, but not add anything new.</string>
+    <!-- Text for sharing all available words (%s is number of words)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_share_all">Share all %s words</string>
+    <!-- Text for sharing only words that were not shared previously
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_share_new">Share %s not previously submitted words</string>
+    <!-- Text for delete dialog, offering delete all / shared / cancel options
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog">You have data for %1$s new and %2$s already shared words.</string>
+    <!-- Short text for delete all button (%s is number of words)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog_all">Delete all %s words</string>
+    <!-- Delete confirmation message
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog_confirm">Are you sure? This will delete %s words. Make sure your shared date is submitted!</string>
+    <!-- Short text for delete all button (%s is number of words)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog_submitted">Delete %s submitted words</string>
+    <!-- Message that many words are waiting to be shared (%s is 5000, 10000, ...)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_many_not_shared_words">You have more than %s words waiting to be submitted</string>
+    <!-- Body of the mail for sending gesture data. Translatable because it contains information relevant for the user.
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_email_body">IMPORTANT:\n\n
+        Hey there!\n
+        As a reminder, this data is going to be publicly shared under the CC BY-SA 4.0 license, and you won\'t be listed as an author to protect your privacy.\n\n
+        Thanks for sharing the rights to your data with us. We will put it to good use!\n\n
+        Please note that changing the wording of this notice doesn\'t change what we will do with your data. This isn\'t a contract to be modified, it is just a friendly reminder!\n
+        If you want to send us a message along with your data, write it below the line here.\n
+        ---------------------------------------------\n
+    </string>
+    <!-- Message informing user about the possibility of gesture data gathering (dialog in main settings)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_promotion_message">
+        Hey there!\n
+        Since you installed the gesture typing library, you might be interested in HeliBoard\'s project for creating a fully open gesture typing library.
+        You can help by contributing gesture data. For more information visit the gesture data gathering screen.
+    </string>
+    <!-- Message asking the user to contribute to gesture data gathering again (dialog in main settings)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_reminder_message">
+        Hey there!\n
+        You previously used the gesture data gathering, but did not add data for quite a while. Do you want to contribute again?
+    </string>
+    <!-- Button to show later
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="ask_later">Ask me later</string>
+    <!-- Button to go to gesture data gathering screen
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_take_me_there">Take me there</string>
+
+    <!-- new strings should go above the section for gesture data gathering -->
 </resources>

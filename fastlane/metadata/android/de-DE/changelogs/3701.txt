@@ -1,0 +1,10 @@
+* +Emoji-Suche (benötigt Emoji-Wörterbuch)
+* Optionale Gestendatenerfassung (mit Gesture-Typing-Bibliothek)
+* Markierten Text in Klammern u. ä. einschließen statt ersetzen
+* Separaten Emoji-Font einstellbar
+* Zahlenreihe im Symbol-Layout optional
+* Schlechte Autokorrekturen bei E-Mail-Adressen reduziert
+* Cursorbewegung per Leertaste bei RTL-/Nicht-RTL-Text korrigiert
+* Auswahl bei Groß-/Kleinschreibung bleibt erhalten
+* Khipro-Kombinierer verbessert
+* Kleinere Korrekturen und Verbesserungen

@@ -84,7 +84,6 @@
     <string name="settings">"ቅንብሮች"</string>
     <string name="delete">"ሰርዝ"</string>
     <string name="version_text">"ሥሪት %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"ወደ መዝገበ-ቃላት አክል"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"አቋራጭ፦"</string>
     <string name="user_dict_settings_add_locale_option_name">"ቋንቋ፦"</string>
     <string name="user_dict_settings_add_word_hint">"አንድ ቃል ይተይቡ"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"ቃሉን አርትዕ"</string>
     <string name="user_dict_settings_all_languages">"ለሁሉም ቋንቋዎች"</string>
     <string name="user_dict_settings_more_languages">"ተጨማሪ ቋንቋዎች…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ሀለሐመሠረሰሸቀበቨተቸኀነኘአከኸወዐዘዠየደጀገጠጨጰጸፀፈፐ"</string>
     <string name="select_input_method">"የግቤት ስልት ምረጥ"</string>
     <string name="undo">"ቀልብስ"</string>
     <string name="redo">"ድገም"</string>

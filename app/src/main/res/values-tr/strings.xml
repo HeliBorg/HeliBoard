@@ -84,7 +84,6 @@
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
     <string name="version_text">Sürüm %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"Sözlüğe ekle"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Kısayol:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Dil:"</string>
     <string name="user_dict_settings_add_word_hint">Bir kelime yaz</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Kelimeyi düzenle"</string>
     <string name="user_dict_settings_all_languages">"Tüm diller için"</string>
     <string name="user_dict_settings_more_languages">"Diğer diller…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCÇDEFGĞHIİJKLMNOÖPQRSŞTUÜVWXYZ"</string>
     <string name="settings_category_clipboard_history">Pano geçmişi</string>
     <string name="settings_category_correction">Düzeltmeler</string>
     <string name="settings_category_experimental">Deneysel</string>
@@ -256,7 +254,6 @@
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Mavi Gri</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Kahverengi</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Menekşe</string>
-    <string name="select_user_colors_summary">Metin ve arka planlar için renkleri seç</string>
     <string name="select_color_accent">Vurgu</string>
     <string name="hidden_features_title">Gizli özelliklerin açıklaması</string>
     <string name="hidden_features_message">► Sabitlenmiş araç çubuğu tuşlarına uzun basmak ek işlevsellik sağlar: &lt;br&gt; \n\t• panoya kopyala &amp;#65515; yapıştır &lt;br&gt; \n\t• sola/sağa hareket et &amp;#65515; kelime sola/sağa &lt;br&gt; \n\t• yukarı/aşağı hareket et &amp;#65515; sayfa yukarı/aşağı &lt;br&gt; \n\t• kelime sola/sağa &amp;#65515; satır başı/sonu &lt;br&gt; \n\t• sayfa yukarı/aşağı &amp;#65515; sayfa başı/sonu &lt;br&gt; \n\t• kopyala &amp;#65515; kes &lt;br&gt; \n\t• kelime seç &amp;#8596; tümünü seç &lt;br&gt; \n\t• geri al &amp;#8596; yinele &lt;br&gt; &lt;br&gt; \n► Öneri şeridi araç çubuğundaki tuşlara uzun basmak, onları öneri şeridine sabitler. &lt;br&gt; &lt;br&gt; \n► Virgül tuşuna uzun basarak Pano Görünümü, Emoji Görünümü, Tek El Modu, Ayarlar veya Dil Değiştir\'e erişebilirsin: &lt;br&gt; \n\t• Emoji Görünümü ve Dil Değiştir, ilgili tuşu etkinleştirdiysen kaybolur; &lt;br&gt; \n\t• Bazı düzenler için bu, Virgül tuşu değil, aynı konumdaki başka bir tuş olabilir (örneğin, Dvorak düzeninde bu tuş \'q\'dur). &lt;br&gt; &lt;br&gt; \n► Gizli mod etkinleştirildiğinde, hiçbir kelime öğrenilmeyecek ve son eklenen emojilere yeni bir emoji eklenmeyecektir. &lt;br&gt; &lt;br&gt; \n► Gizli mod simgesine basarak araç çubuğuna erişebilirsin. &lt;br&gt; &lt;br&gt; \n► Kaydırmalı tuş girişi: Shift tuşundan başka bir tuşa kaydırarak tek bir büyük harf yazabilirsin: &lt;br&gt; \n\t• Bu, ayrıca \'123\' tuşu için semboller klavyesinden tek bir sembol yazmak ve ilgili tuşlar için de çalışır. &lt;br&gt; &lt;br&gt; \n► Shift veya sembol tuşunu basılı tut, bir veya daha fazla tuşa bas ve ardından önceki klavyeye dönmek için Shift veya sembol tuşunu bırak. &lt;br&gt; &lt;br&gt; \n► Öneri şeridindeki bir öneriye uzun basarak daha fazla öneriyi ve bu öneriyi kaldırmak için bir silme düğmesini gösterir. &lt;br&gt; &lt;br&gt; \n► Bir öneriye yukarı kaydırarak daha fazla öneriyi aç ve seçmek için öneri üzerinde bırak. &lt;br&gt; &lt;br&gt; \n► Pano geçmişindeki bir girdiye uzun basarak onu sabitleyebilirsin (sabitlediğin sürece panoda kalır). &lt;br&gt; &lt;br&gt; \n► Pano görünümünde bir girdiyi kaldırmak için sola kaydır (sabitlediğin sürece hariç). &lt;br&gt; &lt;br&gt; \n► Metni seç ve büyük/küçük harflerini değiştirmek için Shift tuşuna bas. &lt;br&gt; &lt;br&gt; \n► Sözlükleri bir dosya gezgini ile açarak ekleyebilirsin: &lt;br&gt; \n\t• Bu yalnızca &lt;i&gt;content-uris&lt;/i&gt; ile çalışır, &lt;i&gt;file-uris&lt;/i&gt; ile çalışmaz, yani bazı dosya gezginlerinde çalışmayabilir. &lt;br&gt; &lt;br&gt; \n► Kök erişimiyle manuel yedekleme yapan kullanıcılar için: &lt;br&gt; \n\t• Android 7\'den başlayarak, paylaşılan tercih dosyası varsayılan konumda değildir, çünkü uygulama %s kullanmaktadır. Bu, cihaz kilitlenmeden önce, örneğin açılışta, ayarların okunabilmesi için gereklidir; &lt;br&gt; \n\t• Dosya /data/user_de/0/package_id/shared_prefs/ konumunda bulunur, ancak bu cihaz ve Android sürümüne bağlı olarak değişebilir. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Hata ayıklama modu / hata ayıklama APK\'sı&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Bir öneriye uzun basarak kaynak sözlüğü göster. &lt;br&gt; &lt;br&gt; \n► Hata ayıklama APK\'sı kullanırken, Gelişmiş Tercihler içinde Hata Ayıklama Ayarlarını bulabilirsin, ancak bu yalnızca sözlükleri günlüğe dökmek için sınırlı fayda sağlar. &lt;br&gt; \n\t• Yayın APK\'sı için, &lt;i&gt;Hakkında&lt;/i&gt; kısmındaki sürüme birkaç kez dokunman gerekir, ardından Gelişmiş Tercihler içinde hata ayıklama ayarlarını bulabilirsin. &lt;br&gt; \n\t• &lt;i&gt;Öneri bilgilerini göster&lt;/i&gt; etkinleştirildiğinde, önerilerin üzerinde bazı iç puan ve kaynak sözlük gösteren küçük sayılar olacaktır. &lt;br&gt; &lt;br&gt; \n► Bir uygulama çökmesi durumunda, Ayarları açtığında çökme günlüklerini isteyip istemediğin sorulacaktır. &lt;br&gt; &lt;br&gt; \n► Çok dilli yazım kullanırken, boşluk tuşu şu anda kullanılan dili belirlemek için kullanılan bir güven değerini gösterir. &lt;br&gt; &lt;br&gt; \n► Önerilerin üzerinde bazı iç puan ve kaynak sözlük gösteren küçük sayılar olacaktır (devre dışı bırakılabilir).</string>
@@ -275,7 +272,6 @@
     <string name="theme_colors_night">Renkler (gece)</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Pembe</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Kum</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Kullanıcı tanımlı (gece)</string>
     <string name="auto_user_color">Rengi otomatik olarak seç</string>
     <string name="dialog_close">Kapat</string>
     <string name="text_tap_languages">Ayarları açmak için dile dokun</string>

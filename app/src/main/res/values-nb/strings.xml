@@ -84,7 +84,6 @@
     <string name="settings">"Innstillinger"</string>
     <string name="delete">"Slett"</string>
     <string name="version_text">"Versjon %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Legg til i ordlisten"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Snarvei:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Språk:"</string>
     <string name="user_dict_settings_add_word_hint">"Skriv inn et ord"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Rediger ord"</string>
     <string name="user_dict_settings_all_languages">"For alle språk"</string>
     <string name="user_dict_settings_more_languages">Flere språk…</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"</string>
     <string name="day_night_mode_summary">Basert på systeminnstillinger</string>
     <string name="number_row_summary">Alltid vis tallraden</string>
     <string name="day_night_mode">Automatisk dag/nattmodus</string>
@@ -176,7 +174,6 @@
     <string name="auto_user_color">Velge farge automatisk</string>
     <string name="main_colors">Vi bare hovedfarger</string>
     <string name="all_colors">Vis alle farger</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Brukerdefinert (natt)</string>
     <string name="settings_screen_about">Om</string>
     <string name="text_tap_languages">Trykk på språket for å åpne innstillingene</string>
     <string name="settings_screen_appearance">Utseende</string>
@@ -266,7 +263,6 @@
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fiolett</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Brukerdefinert</string>
-    <string name="select_user_colors_summary">Velg farger for tekst og bakgrunner</string>
     <string name="select_color_background">Tastaturbakgrunn</string>
     <string name="select_color_key">Tastaturtekst</string>
     <string name="version">Versjon</string>

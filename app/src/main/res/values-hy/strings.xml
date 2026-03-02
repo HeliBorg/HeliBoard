@@ -84,7 +84,6 @@
     <string name="settings">"Կարգավորումներ"</string>
     <string name="delete">"Ջնջել"</string>
     <string name="version_text">"Տարբերակ %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Ավելացնել բառարանում"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Դյուրանցումը՝"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lեզուն՝"</string>
     <string name="user_dict_settings_add_word_hint">"Մուտքագրեք բառը"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Խմբագրել բառը"</string>
     <string name="user_dict_settings_all_languages">"Բոլոր լեզուներով"</string>
     <string name="user_dict_settings_more_languages">"Ավելի շատ լեզուներով…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏՐՑՈՒՓՔԵւՕՖ"</string>
     <string name="select_input_method">"Ընտրեք ներածման եղանակը"</string>
     <string name="settings_screen_appearance">"Արտաքին տեսք"</string>
     <string name="undo">"Հետարկել"</string>

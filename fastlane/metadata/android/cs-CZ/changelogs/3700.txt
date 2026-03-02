@@ -1,0 +1,10 @@
+* hledání emoji (potřebuje slovník emodži)
+* volitelná funkcionalita sběru dat o gestech (vyžaduje odpovídající knihovnu)
+* zabalení vybraného textu do závorek apod. namísto jeho nahrazení
+* nastavení vlastního písma pro emodži
+* volitelné zobrazení číselného řádku v rozložení symbolů
+* sníženy nesprávné auto. opravy pro e-mailové adresy
+* opraven pohyb mezerníkem v RTL a ne-RTL textech
+* zrušení oříznutí výběru při změně velkých písmen
+* zlepšen kombinátor khipro
+* menší opravy a vylepšení

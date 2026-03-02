@@ -19,7 +19,7 @@
     <!-- Don't remove the enclosing double quotes, they protect whitespace (not just U+0020) -->
     <string name="symbols_word_separators">"&#x0009;&#x0020;&#x000A;&#x00A0;"()[]{}*&amp;&lt;&gt;+=|.,;:!?/_\"„“</string>
     <!-- Symbols pairs that may appear around text, comma separated. The first codepoint must be unique in the list, and must be a word separator -->
-    <string name="pair_symbols">(),[],{},&lt;&gt;,**,__,\"\",\'\',„“,“”,‚’,‘’,«»,‹›</string>
+    <string name="pair_symbols">(),[],{},&lt;&gt;,**,__,~~,\"\",\'\',„“,“”,‚’,‘’,«»,‹›</string>
     <!-- Word connectors -->
     <string name="symbols_word_connectors">\'-</string>
     <!-- Symbols that may act as word connectors, e.g. in URLs or mail addresses

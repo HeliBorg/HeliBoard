@@ -84,7 +84,6 @@
     <string name="settings">"Жөндөөлөр"</string>
     <string name="delete">"Жок кылуу"</string>
     <string name="version_text">"Версиясы %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Сөздүккө кошуу"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Кыска жол:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Тил:"</string>
     <string name="user_dict_settings_add_word_hint">"Сөз териңиз"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Сөздү түзөтүү"</string>
     <string name="user_dict_settings_all_languages">"Бардык тилдер үчүн"</string>
     <string name="user_dict_settings_more_languages">"Дагы тилдер…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Дайын киргизүү ыкмасын тандаңыз"</string>
     <string name="undo">"Артка кайтаруу"</string>
     <string name="redo">"Кайталоо"</string>

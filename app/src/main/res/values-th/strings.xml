@@ -85,7 +85,6 @@
     <string name="settings">"การตั้งค่า"</string>
     <string name="delete">"ลบ"</string>
     <string name="version_text">"เวอร์ชัน %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"เพิ่มในพจนานุกรม"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ทางลัด:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ภาษา:"</string>
     <string name="user_dict_settings_add_word_hint">"พิมพ์คำ"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"แก้ไขคำ"</string>
     <string name="user_dict_settings_all_languages">"สำหรับทุกภาษา"</string>
     <string name="user_dict_settings_more_languages">"ภาษาเพิ่มเติม…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"เลือกวิธีการป้อนข้อมูล"</string>
     <string name="undo">"เลิกทำ"</string>
     <string name="redo">"ทำซ้ำ"</string>

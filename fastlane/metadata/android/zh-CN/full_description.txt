@@ -3,16 +3,16 @@ HeliBoard 是基于 AOSP / OpenBoard 的注重隐私的开源键盘。
 
 功能：
 <ul>
-  <li>添加词典以获取建议和拼写检查</li>
+  <li>添加字典以获取建议和拼写检查</li>
   <ul>
-    <li>构建自己的，或在<a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">此处</a>或在<a href="https://codeberg.org/Helium314/aosp-dictionaries#experi</a>mental-dictionaries">实验部分获取（质量可能会有所不同）</li>
-    <li>可以使用表情符号或科学符号的附加词典来提供建议（类似于“表情符号搜索”）</li>
-    <li>请注意，对于韩语布局，建议仅适用于<a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">此词典</a>，词典存储库中的工具无法创建可用词典</li>
+    <li>自行构建，或在<a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">此处</a>或在<a href="https://codeberg.org/Helium314/aosp-dictionaries#experi</a>mental-dictionaries">实验部分获取（质量可能会有所不同）</li>
+    <li>可以使用表情符号或科学符号的附加字典来提供建议（类似于“表情符号搜索”）</li>
+    <li>请注意，对于韩语布局，建议仅适用于<a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">此字典</a>，字典仓库中的工具无法创建可用字典</li>
   </ul>
   <li>自定义键盘主题（风格、颜色和背景图片）</li>
   <ul>
     <li>可以在 Android 10+（以及某些版本的 Android 9）上遵循系统的日间/夜间设置</li>
-    <li>可以遵循 Android 12+ 的动态色彩</li>
+    <li>可以遵循 Android 12+ 的动态配色</li>
   </ul>
   <li>自定义键盘<a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">布局</a>（仅在禁用<i>使用系统语言</i>时可用）</li>
   <li>自定义特殊布局，如符号、数字或功能键布局</li>
@@ -20,11 +20,11 @@ HeliBoard 是基于 AOSP / OpenBoard 的注重隐私的开源键盘。
   <li>滑行输入（<i>仅适用于闭源库 ☹️</i>）</li>
   <ul>
     <li>库未包含在应用中，因为没有兼容的开源库可用</li>
-    <li>可以从 GApps 软件包（“<i>swypelibs</i>”）中提取，也可以在<a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">此处</a>下载（单击文件，然后单击“原始”或微型下载按钮）</li>
+    <li>可以从 GApps 软件包（“<i>swypelibs</i>”）中提取，也可以在<a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">此处</a>下载（点击文件，然后点击“原始”或微型下载按钮）</li>
   </ul>
   <li>剪贴板历史</li>
   <li>单手模式</li>
   <li>分离式键盘（仅在屏幕足够大的情况下可用）</li>
   <li>数字键盘</li>
-  <li>备份和还原您的设置和学习的单词/历史数据</li>
+  <li>备份和还原您的设置和学习的字词/历史数据</li>
 </ul>

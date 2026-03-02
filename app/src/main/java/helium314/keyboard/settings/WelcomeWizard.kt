@@ -13,6 +13,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,7 +48,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.JniUtils
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
+import helium314.keyboard.latin.utils.previewDark
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -99,78 +102,85 @@ fun WelcomeWizard(
                 )
         }
     }
+    @Composable
+    fun ColumnScope.Step(step: Int, title: String, instruction: String, actionText: String, icon: Painter, action: () -> Unit) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text("1", color = if (step == 1) titleColor else textColorDim)
+            Text("2", color = if (step == 2) titleColor else textColorDim)
+            Text("3", color = if (step == 3) titleColor else textColorDim)
+        }
+        Column(Modifier
+            .background(color = stepBackgroundColor)
+            .padding(16.dp)
+        ) {
+            Text(title)
+            Text(instruction, style = MaterialTheme.typography.bodyLarge.merge(color = textColor))
+        }
+        Spacer(Modifier.height(4.dp))
+        Row(
+            Modifier.clickable { action() }
+                .background(color = stepBackgroundColor)
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(icon, null, Modifier.padding(end = 6.dp).size(32.dp), tint = textColor)
+            Text(actionText, Modifier.weight(1f))
+        }
+    }
     @Composable fun steps() {
         if (step == 0)
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(painterResource(R.drawable.setup_welcome_image), null)
-                Row(Modifier.clickable { step = 1 }
-                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-                    //.background(color = MaterialTheme.colorScheme.primary)
-                ) {
-                    Spacer(Modifier.weight(1f))
-                    Text(
-                        stringResource(R.string.setup_start_action),
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-                }
-            }
+            Step0 { step = 1 }
         else
             Column {
-                val title: String
-                val instruction: String
-                val icon: Painter
-                val actionText: String
-                val action: () -> Unit
                 val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                     step = determineStep()
                 }
                 if (step == 1) {
-                    title = stringResource(R.string.setup_step1_title, appName)
-                    instruction = stringResource(R.string.setup_step1_instruction, appName)
-                    icon = painterResource(R.drawable.ic_setup_key)
-                    actionText = stringResource(R.string.setup_step1_action)
-                    action = {
+                    Step(
+                        step,
+                        stringResource(R.string.setup_step1_title, appName),
+                        stringResource(R.string.setup_step1_instruction, appName),
+                        stringResource(R.string.setup_step1_action),
+                        painterResource(R.drawable.ic_setup_key)
+                    ) {
                         val intent = Intent()
                         intent.action = Settings.ACTION_INPUT_METHOD_SETTINGS
                         intent.addCategory(Intent.CATEGORY_DEFAULT)
                         launcher.launch(intent)
                     }
                 } else if (step == 2) {
-                    title = stringResource(R.string.setup_step2_title, appName)
-                    instruction = stringResource(R.string.setup_step2_instruction, appName)
-                    icon = painterResource(R.drawable.ic_setup_select)
-                    actionText = stringResource(R.string.setup_step2_action)
-                    action = imm::showInputMethodPicker
+                    Step(
+                        step,
+                        stringResource(R.string.setup_step2_title, appName),
+                        stringResource(R.string.setup_step2_instruction, appName),
+                        stringResource(R.string.setup_step2_action),
+                        painterResource(R.drawable.ic_setup_select),
+                        imm::showInputMethodPicker
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    Row(
+                        Modifier.clickable { close() }
+                            .background(color = stepBackgroundColor)
+                            .padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painterResource(R.drawable.sym_keyboard_language_switch),
+                            null,
+                            Modifier.padding(end = 6.dp).size(32.dp),
+                            tint = textColor
+                        )
+                        Text(stringResource(R.string.setup_step3_action), Modifier.weight(1f))
+                    }
                 } else { // step 3
-                    title = stringResource(R.string.setup_step3_title)
-                    instruction = stringResource(R.string.setup_step3_instruction, appName)
-                    icon = painterResource(R.drawable.sym_keyboard_language_switch)
-                    actionText = stringResource(R.string.setup_step3_action)
-                    action = close
-                }
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("1", color = if (step == 1) titleColor else textColorDim)
-                    Text("2", color = if (step == 2) titleColor else textColorDim)
-                    Text("3", color = if (step == 3) titleColor else textColorDim)
-                }
-                Column(Modifier
-                    .background(color = stepBackgroundColor)
-                    .padding(16.dp)
-                ) {
-                    Text(title)
-                    Text(instruction, style = MaterialTheme.typography.bodyLarge.merge(color = textColor))
-                }
-                Spacer(Modifier.height(4.dp))
-                Row(
-                    Modifier.clickable { action() }
-                        .background(color = stepBackgroundColor)
-                        .padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(icon, null, Modifier.padding(end = 6.dp).size(32.dp), tint = textColor)
-                    Text(actionText, Modifier.weight(1f))
-                }
-                if (step == 3) {
+                    Step(
+                        step,
+                        stringResource(R.string.setup_step3_title),
+                        stringResource(R.string.setup_step3_instruction, appName),
+                        stringResource(R.string.setup_step3_action),
+                        painterResource(R.drawable.sym_keyboard_language_switch),
+                        close
+                    )
                     Spacer(Modifier.height(4.dp))
                     Row(
                         Modifier.clickable { finish() }
@@ -213,6 +223,23 @@ fun WelcomeWizard(
                         steps()
                     }
             }
+        }
+    }
+}
+
+@Composable
+fun Step0(onClick: () -> Unit) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Image(painterResource(R.drawable.setup_welcome_image), null)
+        Row(Modifier.clickable { onClick() }
+            .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+            //.background(color = MaterialTheme.colorScheme.primary)
+        ) {
+            Spacer(Modifier.weight(1f))
+            Text(
+                stringResource(R.string.setup_start_action),
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
         }
     }
 }

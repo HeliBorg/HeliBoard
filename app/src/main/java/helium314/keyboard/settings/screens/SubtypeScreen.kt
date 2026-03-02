@@ -74,12 +74,12 @@ import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.withHtmlLink
 import helium314.keyboard.settings.ActionRow
-import helium314.keyboard.settings.DefaultButton
-import helium314.keyboard.settings.DeleteButton
+import helium314.keyboard.latin.utils.DefaultButton
+import helium314.keyboard.latin.utils.DeleteButton
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.WithSmallTitle
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.LayoutEditDialog
@@ -89,7 +89,7 @@ import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.layoutFilePicker
 import helium314.keyboard.settings.layoutIntent
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import java.util.Locale
 
 @Composable

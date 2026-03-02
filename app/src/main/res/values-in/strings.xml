@@ -84,7 +84,6 @@
     <string name="settings">"Setelan"</string>
     <string name="delete">"Hapus"</string>
     <string name="version_text">Versi %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"Tambahkan ke kamus"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Pintasan:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Bahasa:"</string>
     <string name="user_dict_settings_add_word_hint">"Ketik kata"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Edit kata"</string>
     <string name="user_dict_settings_all_languages">"Untuk semua bahasa"</string>
     <string name="user_dict_settings_more_languages">"Bahasa lainnya…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="prefs_keyboard_height_scale">Skala tinggi keyboard</string>
     <string name="delete_swipe">Gestur hapus</string>
     <string name="delete_swipe_summary">Sentuh dan geser ke kiri pada tombol hapus untuk menghapus beberapa huruf/kata sekaligus</string>
@@ -244,7 +242,6 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Pasir</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Tema yang ditentukan pengguna</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Tema yang ditentukan pengguna (mode malam)</string>
     <string name="replace_dictionary_message">Yakin ingin mengganti kamus bawaan pengguna \"%1$s\"?
 \n
 \nKamus saat ini:
@@ -268,7 +265,6 @@
     <string name="auto_user_color">Pilih warna secara otomatis</string>
     <string name="main_colors">Tampilkan warna utama saja</string>
     <string name="all_colors">Tampilkan semua warna</string>
-    <string name="select_user_colors_summary">Pilih warna untuk teks dan latar belakang</string>
     <string name="select_color_background">Latar belakang papan ketik</string>
     <string name="select_color_key">Tombol teks</string>
     <string name="select_color_key_hint">Tombol teks petunjuk</string>

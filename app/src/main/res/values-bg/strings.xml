@@ -84,7 +84,6 @@
     <string name="settings">"Настройки"</string>
     <string name="delete">"Изтриване"</string>
     <string name="version_text">Версия %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Добавяне в речника"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Пряк път:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Език:"</string>
     <string name="user_dict_settings_add_word_hint">"Напишете дума"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Редактиране на дума"</string>
     <string name="user_dict_settings_all_languages">"За всички езици"</string>
     <string name="user_dict_settings_more_languages">"Още езици…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЪЮЯ"</string>
     <string name="settings_category_input">въвеждане</string>
     <string name="select_input_method">"Избор на метод на въвеждане"</string>
     <string name="undo">"Отмяна"</string>
@@ -277,13 +275,12 @@
     <string name="settings_screen_toolbar">Лента с инструменти</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Облачно</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Виолетово</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Дефиниран от потребителя (нощ)</string>
     <string name="dialog_close">Затвори</string>
     <string name="theme_navbar">Цветна лента за навигация</string>
     <string name="auto_user_color">Изберете цвят автоматично</string>
     <string name="main_colors">Показване само на основните цветове</string>
     <string name="all_colors">Покажи всички цветове</string>
-    <string name="all_colors_warning">Тази настройка показва всички цветове, които се използват вътрешно. Списъкът с цветове може да се промени по всяко време. Цветът по подразбиране е произволен и имената няма да бъдат преведени.</string>
+    <string name="all_colors_warning">Тази настройка показва всички цветове, които се използват вътрешно. Списъкът с цветове може да се промени по всяко време. Стойността по подразбиране е извлечена от нормалните цветове и имената им няма да бъдат преведени.</string>
     <string name="action_none">Няма</string>
     <string name="space_swipe_move_cursor_entry">Преместване на курсора</string>
     <string name="var_toolbar_direction">Променлива посока на лентата с инструменти</string>
@@ -349,7 +346,6 @@
     <string name="toast_msg_clipboard_copy">Съдържанието е копирано</string>
     <string name="customize_icons">Персонализиране на икони</string>
     <string name="icon_style">Стил на иконата</string>
-    <string name="select_user_colors_summary">Изберете цветове за текст и фон</string>
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Гласовото въвеждане е деактивирано</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Несъединител с нулева ширина</string>
     <string name="user_dict_settings_add_weight_value">Тегло:</string>
@@ -481,4 +477,47 @@
     <string name="subtype_mhr">Мари (Източен)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Долен ред емотикони с клавиш за действие</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Долен ред на клипборда с клавиш за действие</string>
+    <string name="number_row_in_symbols">Показване на числовия ред в изглед със символи</string>
+    <string name="custom_emoji_font">Задаване на персонализиран шрифт за емтикони от файл</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Функционални клавиши (Khipro)</string>
+    <string name="emoji_search_title">Търсене на емотикони</string>
+    <string name="search_field_placeholder">Търсене</string>
+    <string name="gesture_data_screen">Събиране на данни за жестове</string>
+    <string name="gesture_data_description">Добре дошли на екрана за събиране на данни за жестове!&lt;br/&gt;&lt;br/&gt; Това е част от &lt;a href=https://nlnet.nl/project/GestureTyping&gt;проект, финансиран от NLnet&lt;/a&gt;, чиято цел е да създаде напълно отворена библиотека за въвеждане чрез жестове, способна да замени библиотеката на Google със затворен код.&lt;br/&gt; Планирано е резултатът да бъде лесен заместител на клавиатури, базирани на AOSP, но също така може да се използва и с други клавиатури, например FlorisBoard.&lt;br/&gt;&lt;br/&gt; За разработването на библиотеката е изключително полезно да имате на разположение подробни данни за въвеждане чрез жестове на различни езици и от различни потребители.&lt;br/&gt; Чрез събиране и изпращане на данни за въвеждане чрез жестове можете да допринесете за отворен набор от данни за жестове, които ще бъдат използвани за разработване на библиотеката. Наборът от данни ще бъде публикуван под лиценз CC BY-SA 4.0 известно време след приключване на фазата на събиране на данни на %s. След като съберете данни, можете да ги изпратите, като използвате иконата за споделяне в долната част на този екран.</string>
+    <string name="gesture_data_info">Какво е това?</string>
+    <string name="gesture_data_description_modes">В момента има само режим на активно събиране, където ви се показва конкретна дума и я въвеждате с помощта на жестово писане.\n По-късно ще бъде добавен пасивен режим на събиране, където можете да предоставяте проби от обичайното си въвеждане с жестове от други приложения. Поради чувствителността на този подход, той ще бъде с възможност за избиране, конфигуриране и ще има екран за преглед на данните, които ще изпратите.</string>
+    <string name="gesture_data_privacy">Поверителност</string>
+    <string name="gesture_data_get_data">Споделяне на файл с данни за жестове</string>
+    <string name="gesture_data_delete_data">Изчистване на данните за жестове</string>
+    <string name="gesture_data_send_mail">Изпращане на данни по имейл</string>
+    <string name="gesture_data_copy_mail">Копиране на имейл адрес</string>
+    <string name="gesture_data_mail_use">Обърнете внимание, че имейл адресът е предназначен за изпращане на данни, е възможно да не получите бързи или последователни отговори.</string>
+    <string name="gesture_data_please_type">Моля, въведете жест:</string>
+    <string name="gesture_data_next_save">Получени са %s. Кликнете, ако сте сигурни, че сте направили правилния жест</string>
+    <string name="gesture_data_next">Пропускане на дума</string>
+    <string name="gesture_data_active_count">%1$s думи в тази сесия, общо %2$s думи (%3$s вече са изпратени или изтрити)</string>
+    <string name="gesture_data_review_screen_title">Преглед и споделяне на данни за жестове</string>
+    <string name="gesture_data_words_selected">%s думи</string>
+    <string name="gesture_data_date_range">Период от време</string>
+    <string name="gesture_data_much_data">Имате много неизпратени данни. Моля, изпратете ги и след това премахнете старите данни.</string>
+    <string name="gesture_data_how_to_use">Как да използвате</string>
+    <string name="gesture_data_active_description">Докоснете „Стартиране на активно събиране“, по желание превключете речника и започнете да пишете показаната дума с жест.&lt;br/&gt; Ако жестът ви съвпада с думата, данните се запазват и се показва следващата дума. В противен случай можете да опитате отново, да пропуснете думата или да потвърдите, че сте направили правилния жест.&lt;br/&gt; Можете да използвате само речници, които са вградени в приложението или са налични в &lt;a href=%s&gt;хранилището с речници&lt;/a&gt;, няма да бъдат използвани други думи.</string>
+    <string name="gesture_data_active_start">Започнете активно събиране</string>
+    <string name="gesture_data_active_stop">Спрете активното събиране</string>
+    <string name="gesture_data_ends_at">Фазата на събиране на данни за жестове ще приключи в %s. Моля, изпратете данните си преди тази дата.</string>
+    <string name="gesture_data_ended">Фазата на събиране на данни за жестове приключи в %s. Можете да споделяте съществуващите си данни, но не и да добавяте нищо ново.</string>
+    <string name="gesture_data_share_all">Споделяне на всички %s думи</string>
+    <string name="gesture_data_share_new">Споделяне на %s думи, които не са били предварително изпратени</string>
+    <string name="gesture_data_delete_dialog">Имате данни за %1$s нови и %2$s вече споделени думи.</string>
+    <string name="gesture_data_delete_dialog_all">Изтрий всички %s думи</string>
+    <string name="gesture_data_delete_dialog_confirm">Сигурни ли сте? Това ще изтрие %s думи. Уверете се, че споделената ви дата е изпратена!</string>
+    <string name="gesture_data_delete_dialog_submitted">Изтриване на %s изпратени думи</string>
+    <string name="gesture_data_many_not_shared_words">Имате повече от %s думи, които чакат да бъдат изпратени</string>
+    <string name="gesture_data_email_body">ВАЖНО:\n\n Здравей!\n Напомняме ви, че тези данни ще бъдат публично споделяни съгласно лиценза CC BY-SA 4.0 и няма да бъдете посочени като автор, за да защитим поверителността ви.\n\n Благодарим ви, че споделихте правата си върху данните си с нас. Ще ги използваме по полезен начин!\n\n Моля, обърнете внимание, че промяната на текста на това известие не променя начина, по който ще използваме вашите данни. Това не е договор, който може да бъде изменен, а просто приятелско напомняне!\n Ако искате да ни изпратите съобщение заедно с вашите данни, напишете го под линията тук.\n ---------------------------------------------</string>
+    <string name="gesture_data_description_privacy">Поверителност\n\n Данните, които изпращате, се състоят от целева дума, подредба и размери на клавиатурата, жест (времена и координати), предложения от текущата библиотека, хеш на използваните речници, версия на приложението, режим на събиране на данни, дали библиотеката за въвеждане с жестове е библиотеката на Google по подразбиране и идентификатор, който да е свързан с всеки жест.\n Изпратените данни ще бъдат изтеглени и изтрити от пощенската кутия на ProtonMail, където се съхраняват, възможно най-скоро. След приключване на фазата на събиране на данни за жестове, натрупаният набор от данни от всички потребители ще бъде публикуван под лиценза Creative Commons BY-SA 4.0.\n\n Като част от опитите за защита на вашата поверителност, няма да бъдете изрично посочени като автор. Авторът ще бъде посочен като „Сътрудници на проекта за данни за жестове на HeliBoard“. Не би трябвало да е възможно да се свържат данните, които генерирате на този екран, с вашата самоличност. Възможно е обаче да се определи кои жестове са направени от едно и също лице. Това може да се направи например от персонализирана подредба на клавиатурата, размери на клавиатурата, език или индивидуален стил на жестове.</string>
+    <string name="timestamp_description">Можете да добавите ключа за времева маркировка, като използвате персонализирано оформление с ключ „времева маркировка“ или код на ключа -10043</string>
+    <string name="gesture_data_promotion_message">Здравей!\n Тъй като сте инсталирали библиотеката за въвеждане чрез жестове, може да се интересувате от проекта на HeliBoard за създаване на напълно отворена библиотека за въвеждане чрез жестове. Можете да помогнете, като предоставите данни за жестове. За повече информация посетете екрана за събиране на данни за жестове.</string>
+    <string name="gesture_data_reminder_message">Здравей!\nПреди използвахте събирането на данни чрез жестове, но не сте добавяли данни от доста време. Искате ли да допринесете отново?</string>
+    <string name="ask_later">Питай ме по-късно</string>
+    <string name="gesture_data_take_me_there">Заведи ме там</string>
 </resources>

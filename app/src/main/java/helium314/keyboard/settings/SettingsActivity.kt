@@ -34,13 +34,19 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.BackButton
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
+import helium314.keyboard.latin.utils.JniUtils
+import helium314.keyboard.latin.utils.GestureDataPromotionReminderDialog
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.NewDictionaryDialog
+import helium314.keyboard.settings.screens.gesturedata.END_DATE_EPOCH_MILLIS
+import helium314.keyboard.settings.screens.gesturedata.TWO_WEEKS_IN_MILLIS
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.BufferedOutputStream
 import java.io.File
@@ -125,6 +131,8 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                                 },
                                 content = { Text("Crash report files found") },
                             )
+                        } else if (JniUtils.sHaveGestureLib && System.currentTimeMillis() < END_DATE_EPOCH_MILLIS + TWO_WEEKS_IN_MILLIS) {
+                            GestureDataPromotionReminderDialog()
                         }
                     }
                     if (dictUri != null) {

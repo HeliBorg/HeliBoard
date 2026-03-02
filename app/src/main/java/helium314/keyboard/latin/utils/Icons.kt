@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
-package helium314.keyboard.settings
+package helium314.keyboard.latin.utils
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column

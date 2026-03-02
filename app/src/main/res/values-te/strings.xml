@@ -84,7 +84,6 @@
     <string name="settings">"సెట్టింగ్‌లు"</string>
     <string name="delete">"తొలగించు"</string>
     <string name="version_text">"వెర్షన్ %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"నిఘంటువుకి జోడించు"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"షార్ట్‌కట్:"</string>
     <string name="user_dict_settings_add_locale_option_name">"భాష:"</string>
     <string name="user_dict_settings_add_word_hint">"పదాన్ని టైప్ చేయండి"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"పదాన్ని సవరించు"</string>
     <string name="user_dict_settings_all_languages">"అన్ని భాషల కోసం"</string>
     <string name="user_dict_settings_more_languages">"మరిన్ని భాషలు…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="number_row_summary">సంఖ్యల వరుసను ఎల్లప్పుడూ చూపండి</string>
     <string name="incognito">అజ్ఞాత పద్దతి ప్రయోగించండి</string>
     <string name="select_input_method">"ఇన్‌పుట్ పద్ధతిని ఎంచుకోండి"</string>

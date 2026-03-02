@@ -40,12 +40,12 @@ import helium314.keyboard.latin.utils.htmlToAnnotated
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.withHtmlLink
 import helium314.keyboard.settings.SearchScreen
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.DictionaryDialog
 import helium314.keyboard.settings.dictionaryFilePicker
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import java.io.File
 import java.util.Locale
 

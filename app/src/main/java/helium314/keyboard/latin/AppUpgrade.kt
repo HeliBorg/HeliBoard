@@ -192,7 +192,7 @@ object AppUpgrade {
                 prefs.edit { putString(Settings.PREF_THEME_COLORS, themeNameDay) }
 
             // same for night colors
-            val themeNameNight = context.getString(R.string.theme_name_user_night)
+            val themeNameNight = "User-Defined (night)"
             val colorsNight = colorPrefsAndResIds.map {
                 val pref = "theme_dark_color_" + it.first
                 val color = if (prefs.contains(pref)) prefs.getInt(pref, 0) else null

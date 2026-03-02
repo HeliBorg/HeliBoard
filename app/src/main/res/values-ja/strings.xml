@@ -84,7 +84,6 @@
     <string name="settings">"設定"</string>
     <string name="delete">"削除"</string>
     <string name="version_text">バージョン %s</string>
-    <string name="user_dict_settings_add_dialog_title">"辞書に追加"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ショートカット:"</string>
     <string name="user_dict_settings_add_locale_option_name">"言語:"</string>
     <string name="user_dict_settings_add_word_hint">"単語を入力します"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"語句の編集"</string>
     <string name="user_dict_settings_all_languages">"すべての言語用"</string>
     <string name="user_dict_settings_more_languages">"その他の言語…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"入力方法の選択"</string>
     <string name="undo">"元に戻す"</string>
     <string name="redo">"やり直し"</string>

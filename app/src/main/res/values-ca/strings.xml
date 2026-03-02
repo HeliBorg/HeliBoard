@@ -84,7 +84,6 @@
     <string name="settings">"Configuració"</string>
     <string name="delete">"Suprimeix"</string>
     <string name="version_text">Versió %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Afegeix al diccionari"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Drecera:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Escriu una paraula"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Edició de la paraula"</string>
     <string name="user_dict_settings_all_languages">"Per a tots els idiomes"</string>
     <string name="user_dict_settings_more_languages">"Més idiomes…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCÇDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Historial del porta-retalls</string>
     <string name="settings_no_limit">Sense límit</string>
     <string name="enable_clipboard_history_summary">Si es desactiva, la tecla del porta-retalls enganxarà el contingut del porta-retalls si n\'hi ha</string>
@@ -293,7 +291,6 @@
     <string name="var_toolbar_direction_summary">Inverteix la direcció quan es selecciona un subtipus de teclat de dreta a esquerra</string>
     <string name="dictionary_load_error">Error en carregar el fitxer del diccionari</string>
     <string name="theme_style">Estil</string>
-    <string name="select_user_colors_summary">Seleccioneu colors per al text i els fons</string>
     <string name="select_color_background">Fons del teclat</string>
     <string name="select_color_key">Text de la tecla</string>
     <string name="show_horizontal_space_swipe">Gest de lliscar la barra espaiadora horitzontal</string>
@@ -325,7 +322,7 @@
     <string name="key_code">Codi de tecla</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arrodonit</string>
     <string name="main_colors">Mostra només els colors principals</string>
-    <string name="all_colors_warning">Aquesta configuració exposa tots els colors que s\'utilitzen internament. La llista de colors pot canviar en qualsevol moment. El color predeterminat és aleatori i els noms no es traduiran.</string>
+    <string name="all_colors_warning">Aquesta configuració exposa tots els colors que s\'utilitzen internament. La llista de colors pot canviar en qualsevol moment. El color predeterminat és derivat dels colors normals i els noms no es traduiran.</string>
     <string name="hidden_features_title">Descripció de les característiques ocultes</string>
     <string name="no_dictionary_dont_show_again_button">No tornis a mostrar</string>
     <string name="add_dictionary">Seleccioneu un diccionari per afegir. Els diccionaris en format .dict es poden baixar %s.</string>
@@ -341,7 +338,6 @@
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Colors dinàmics</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marró</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definit per l\'usuari</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definit per l\'usuari (nit)</string>
     <string name="auto_user_color">Tria el color automàticament</string>
     <string name="more_colors">Mostra més colors</string>
     <string name="all_colors">Mostra tots els colors</string>
@@ -444,4 +440,12 @@
     <string name="subtype_mhr">Mari (Oriental)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior d\'emojis amb tecla d\'acció</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior del porta-retalls amb tecla d\'acció</string>
+    <string name="number_row_in_symbols">Mostra una línia de nombres a la vista de símbols</string>
+    <string name="custom_emoji_font">Aplica una font d\'emoticones personalitzada des d\'un fitxer</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Tecles funcionals (Khipro)</string>
+    <string name="timestamp_description">Podeu afegir la tecla de marca de temps mitjançant un disseny personalitzat amb la tecla «timestamp» o el codi de tecla -10043</string>
+    <string name="emoji_search_title">Cerca emojis</string>
+    <string name="search_field_placeholder">Cerca</string>
+    <string name="gesture_data_screen">Recopilació de dades gestuals</string>
+    <string name="gesture_data_description">Benvinguts a la pantalla de recopilació de dades de gestos!&lt;br/&gt;&lt;br/&gt; Això forma part d\'un &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projecte finançat per NLnet&lt;/a&gt; que s\'esforça per produir una biblioteca de mecanografia gestual de codi obert completament capaç de substituir la biblioteca de codi tancat de Google.&lt;br/&gt; Es preveu que el resultat sigui un substitut senzill per als teclats basats en AOSP, però també utilitzable amb altres teclats, p. ex. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Per desenvolupar la biblioteca, és tremendament útil tenir disponibles dades gestuals detallades en diferents idiomes i per diferents usuaris.&lt;br/&gt; En recopilar i enviar dades de mecanografia gestual, podeu contribuir a un conjunt obert de dades gestuals que s\'utilitzaran per al desenvolupament de la biblioteca. El conjunt de dades es publicarà sota una llicència CC BY-SA 4.0 un temps després que la fase de recopilació de dades s\'hagi finalitzat el %s. Un cop hàgiu recopilat les dades, les podeu enviar mitjançant la icona de compartir a la part inferior d\'aquesta pantalla.</string>
 </resources>

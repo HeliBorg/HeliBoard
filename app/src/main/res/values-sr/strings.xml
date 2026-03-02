@@ -84,7 +84,6 @@
     <string name="settings">"Подешавања"</string>
     <string name="delete">"Избриши"</string>
     <string name="version_text">"Верзија %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Додавање у речник"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Пречица:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Језик:"</string>
     <string name="user_dict_settings_add_word_hint">"Унесите реч"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Измена речи"</string>
     <string name="user_dict_settings_all_languages">"За све језике"</string>
     <string name="user_dict_settings_more_languages">"Још језика…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"</string>
     <string name="select_input_method">"Избор метода уноса"</string>
     <string name="spell_checker_service_name">ХелиБоард провера правописа</string>
     <string name="android_spell_checker_settings">ХелиБоард подешавања провере правописа</string>

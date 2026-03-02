@@ -8,17 +8,17 @@
     <string name="vibrate_on_keypress">"اهتزاز عند ضغط مفتاح"</string>
     <string name="sound_on_keypress">"صوت عند الضغط على مفتاح"</string>
     <string name="popup_on_keypress">"انبثاق عند ضغط مفتاح"</string>
-    <string name="settings_screen_preferences">"الإعدادات المفضّلة"</string>
-    <string name="settings_screen_gesture">"الكتابة بالإشارة"</string>
+    <string name="settings_screen_preferences">التفضيلات</string>
+    <string name="settings_screen_gesture">الكتابة بالإيماءة</string>
     <string name="settings_screen_correction">"تصحيح النص"</string>
-    <string name="settings_screen_advanced">"الإعدادات المتقدمة"</string>
+    <string name="settings_screen_advanced">المتقدّم</string>
     <string name="settings_screen_theme">السمة</string>
     <string name="enable_split_keyboard">فعّل تقسيم لوحة المفاتيح</string>
-    <string name="language_switch_key_switch_input_method">"التبديل إلى أسلوب إدخال آخر"</string>
+    <string name="language_switch_key_switch_input_method">بدّل إلى أسلوب إدخال آخر</string>
     <string name="show_language_switch_key">"مفتاح تبديل اللغة"</string>
     <string name="abbreviation_unit_milliseconds">%s ملي ثانية</string>
-    <string name="settings_system_default">"الضبط التلقائي للنظام"</string>
-    <string name="use_contacts_dict_summary">"استخدام الأسماء من جهات الاتصال للاقتراحات والتصحيحات"</string>
+    <string name="settings_system_default">الإعداد الافتراضي للنظام</string>
+    <string name="use_contacts_dict_summary">استخدم الأسماء من جهات الاتصال للاقتراحات والتصحيحات</string>
     <string name="use_personalized_dicts">"اقتراحات مخصصة"</string>
     <string name="use_double_space_period">"نقطة المسافة المزدوجة"</string>
     <string name="use_double_space_period_summary">"يؤدي النقر مرّتين على مفتاح المسافة إلى إدخال نقطة متبوعة بمسافة"</string>
@@ -28,21 +28,21 @@
     <string name="main_dictionary">"القاموس الرئيسي"</string>
     <string name="prefs_show_suggestions">أظهِر اقتراحات التصحيح</string>
     <string name="prefs_show_suggestions_summary">أظهِر الكلمات المقترحة أثناء الكتابة</string>
-    <string name="prefs_block_potentially_offensive_title">"حظر الكلمات المسيئة"</string>
+    <string name="prefs_block_potentially_offensive_title">احظر الكلمات المسيئة</string>
     <string name="prefs_block_potentially_offensive_summary">"عدم اقتراح كلمات محتمل أن تكون مسيئة"</string>
     <string name="autocorrect">"التصحيح التلقائي"</string>
     <string name="auto_correction_summary">"تؤدي المسافة والترقيم إلى تصحيح الكلمات المكتوبة بشكل غير صحيح"</string>
-    <string name="auto_correction_threshold_mode_off">"إيقاف"</string>
+    <string name="auto_correction_threshold_mode_off">أوقف</string>
     <string name="auto_correction_threshold_mode_modest">"معتدل"</string>
     <string name="auto_correction_threshold_mode_aggressive">"صارم"</string>
     <string name="auto_correction_threshold_mode_very_aggressive">"شديد الصرامة"</string>
     <string name="bigram_prediction">"اقتراحات الكلمات التالية"</string>
-    <string name="bigram_prediction_summary">"استخدام الكلمة السابقة لتقديم الاقتراحات"</string>
-    <string name="gesture_input">"تفعيل الكتابة بالإيماءة"</string>
+    <string name="bigram_prediction_summary">استخدم الكلمة السابقة لتقديم الاقتراحات</string>
+    <string name="gesture_input">فعّل الكتابة بالإيماءة</string>
     <string name="gesture_input_summary">"إدخال كلمة من خلال التمرير على الأحرف"</string>
     <string name="gesture_preview_trail">اعرض مسار الإيماءة</string>
     <string name="gesture_floating_preview_text">"معاينة نصوص متحركة ديناميكية"</string>
-    <string name="gesture_space_aware">"عبارة الإيماء"</string>
+    <string name="gesture_space_aware">عبارة الإيماءة</string>
     <string name="gesture_space_aware_summary">"إدخال مسافات خلال الإيماءات من خلال تمرير مفتاح المسافة"</string>
     <string name="subtype_en_GB">"الإنجليزية (المملكة المتحدة)"</string>
     <string name="subtype_en_US">"الإنجليزية (الولايات المتحدة)"</string>
@@ -84,7 +84,6 @@
     <string name="settings">"إعدادات"</string>
     <string name="delete">احذف</string>
     <string name="version_text">الإصدار %s</string>
-    <string name="user_dict_settings_add_dialog_title">أضف إلى القاموس</string>
     <string name="user_dict_settings_add_shortcut_option_name">"الاختصار:"</string>
     <string name="user_dict_settings_add_locale_option_name">"اللغة:"</string>
     <string name="user_dict_settings_add_word_hint">"اكتب كلمة"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"تعديل كلمة"</string>
     <string name="user_dict_settings_all_languages">"لجميع اللغات"</string>
     <string name="user_dict_settings_more_languages">"مزيد من اللغات…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"</string>
     <string name="show_emoji_key">مفتاح الرموز التعبيرية</string>
     <string name="settings_no_limit">بلا حدود</string>
     <string name="ime_settings">إعدادات HeliBoard</string>
@@ -127,13 +125,13 @@
     <string name="autospace_after_punctuation">ضع مسافةً بعد علامات الترقيم تلقائيًا</string>
     <string name="autospace_after_punctuation_summary">أدرج مسافةً تلقائيًا بعد علامة الترقيم عند كتابة كلمة جديدة</string>
     <string name="incognito">افرض وضع التخفي</string>
-    <string name="abbreviation_unit_minutes">%s min</string>
+    <string name="abbreviation_unit_minutes">%s د</string>
     <string name="auto_correction_confidence">ثقة التصحيح التلقائي</string>
     <string name="undo">"تراجع"</string>
     <string name="redo">"إعادة"</string>
     <string name="use_personalized_dicts_summary">"التعلم من اتصالاتك والبيانات التي تكتبها لتحسين الاقتراحات"</string>
-    <string name="label_go_key">"ذهاب"</string>
-    <string name="label_next_key">"تالٍ"</string>
+    <string name="label_go_key">اذهب</string>
+    <string name="label_next_key">تالي</string>
     <string name="label_previous_key">"سابق"</string>
     <string name="label_done_key">"تم"</string>
     <string name="label_send_key">"إرسال"</string>
@@ -162,7 +160,7 @@
     <string name="settings_screen_appearance">المظهر</string>
     <string name="select_color_key_background">خلفية الأزرار</string>
     <string name="select_color_gesture">إدخال الإيماءة</string>
-    <string name="save_log">حفظ السِجِلّ</string>
+    <string name="save_log">احفظ السجلّ</string>
     <string name="license">رخصة مفتوحة المصدر</string>
     <string name="select_color_spacebar_text">نص زر المسافة البيضاء</string>
     <string name="about_github_link">الرابط إلى جت هب</string>
@@ -172,7 +170,7 @@
     <string name="select_color_spacebar_background">خلفية زر المسافة البيضاء</string>
     <string name="split_spacer_scale">مسافة التقسيم</string>
     <string name="switch_language">غيّر اللغة</string>
-    <string name="more_autocorrect">التصحيح التلقائي المتقدم</string>
+    <string name="more_autocorrect">المزيد من التصحيح التلقائي</string>
     <string name="prefs_always_show_suggestions">اعرض الاقتراحات دائمًا</string>
     <string name="button_backup">حفظ</string>
     <string name="button_restore">استرجاع</string>
@@ -187,7 +185,7 @@
     <string name="up" tools:keep="@string/up">أعلى</string>
     <string name="down" tools:keep="@string/down">أسفل</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">اللغة (أولوية)</string>
-    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">مسح الحافظة</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">امحُ الحافظة</string>
     <string name="voice" tools:keep="@string/voice">الإدخال الصوتي</string>
     <string name="select_word" tools:keep="@string/select_word">اختر كلمة</string>
     <string name="one_handed" tools:keep="@string/one_handed">وضع اليد الواحدة</string>
@@ -210,10 +208,10 @@
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">ألوان ديناميكية</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">محيط</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">وردي</string>
-    <string name="disable_personalized_dicts_message">تحذير: سيؤدي تعطيل هذا الإعداد إلى مسح البيانات التي تم تعلمها</string>
+    <string name="disable_personalized_dicts_message">تحذير: سيؤدي تعطيل هذا الإعداد إلى محُ البيانات التي تم تعلمها</string>
     <string name="add_to_personal_dictionary">أضف كلمات إلى القاموس الشخصي</string>
     <string name="select_color_key_hint">نص تلميح رئيسي</string>
-    <string name="var_toolbar_direction_summary">عكس الاتجاه عند تحديد نوع فرعي من لوحة المفاتيح من اليمين إلى اليسار</string>
+    <string name="var_toolbar_direction_summary">اعكس الاتجاه عند تحديد نوع فرعي من لوحة المفاتيح من اليمين إلى اليسار</string>
     <string name="var_toolbar_direction">اتجاه شريط الأدوات المتغير</string>
     <string name="add_to_personal_dictionary_summary">استخدم القاموس الشخصي للجهاز لتخزين الكلمات التي تم تعلمها</string>
     <string name="more_autocorrect_summary">التصحيح التلقائي حتى عندما لا يطلبه حقل الإدخال بشكل صريح</string>
@@ -233,7 +231,7 @@
     <string name="theme_name_black" tools:keep="@string/theme_name_black">أسود</string>
     <string name="show_horizontal_space_swipe">إيماءة التمرير بشريط المسافة الأفقي</string>
     <string name="show_vertical_space_swipe">إيماءة التمرير بشريط المسافة العمودي</string>
-    <string name="action_none">لاشيء</string>
+    <string name="action_none">لا شيء</string>
     <string name="space_swipe_move_cursor_entry">حرّك المؤشر</string>
     <string name="backup_error">خطأ النسخ الاحتياطي: %s</string>
     <string name="restore_error">خطأ في استعادة النسخة الاحتياطية: %s</string>
@@ -276,7 +274,6 @@
     <string name="select_color_functional_key_background">الخلفية الرئيسية الوظيفية</string>
     <string name="select_color_suggestion">نص شريط الاقتراح</string>
     <string name="main_colors">أظهِر الألوان الرئيسية فقط</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">محدد من قبل المستخدم (ليلا)</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">البنفسج</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">شوكولاتة</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">هولو الأبيض</string>
@@ -291,11 +288,10 @@
     <string name="dictionary_file_wrong_script">خطأ: البرنامج النصي غير متوافق مع لوحة المفاتيح هذه</string>
     <string name="show_popup_keys_normal">أظهِر المتغيرات المحددة بلغات لوحة المفاتيح</string>
     <string name="prefs_bottom_padding_scale">مقياس الحشو السفلي</string>
-    <string name="hidden_features_message">"► يؤدي الضغط لفترة طويلة على مفاتيح شريط الأدوات المثبتة إلى وظائف إضافية: &lt;br&gt;\n\n • الحافظة &amp;#65515; لصق &lt;br&gt;\n\n • تحرك لليسار/ لليمين &amp;#65515; كلمة يسار/يمين &lt;br&gt;\n\n • التحرك لأعلى/لأسفل &amp;#65515; الصفحة لأعلى/لأسفل &lt;br&gt;\n\n • كلمة يسار/يمين &amp;#65515; بداية/نهاية السطر &lt;br&gt;\n\n • صفحة لأعلى/لأسفل &amp;#65515; بداية/نهاية الصفحة &lt;br&gt;\n\n  • نسخة &amp;#65515; قطع &lt;br&gt;\n\n  • اختر كلمة &amp;#8596; حدد الكل &lt;br&gt;\n\n  • التراجع &amp;#8596; إعادة &lt;br&gt; &lt;br&gt;\n\n► يؤدي الضغط لفترة طويلة على المفاتيح في شريط أدوات شريط الاقتراحات إلى تثبيتها على شريط الاقتراحات. &lt;br&gt;&lt;br&gt;\n\n► اضغط لفترة طويلة على مفتاح الفاصلة للوصول إلى عرض الحافظة، أو عرض الرموز التعبيرية، أو الوضع بيد واحدة، أو الإعدادات، أو تبديل اللغة: &lt;br&gt;\n\n  • سيختفي عرض الرموز التعبيرية وتبديل اللغة إذا كان لديك المفتاح المقابل ممكّنًا. &lt;ر&gt;\n\n  • بالنسبة لبعض التخطيطات، فهو ليس مفتاح الفاصلة، ولكنه المفتاح الموجود في نفس الموضع (على سبيل المثال، إنه \\\'q\\\' لتخطيط Dvorak). &lt;br&gt;&lt;br&gt;\n\n► عند تمكين وضع التصفح المتخفي، لن يتم تعلم أي كلمات، ولن تتم إضافة أي رموز تعبيرية إلى الرسائل الأخيرة. &lt;br&gt;&lt;br&gt;\n\n► اضغط على أيقونة التصفح المتخفي للوصول إلى شريط الأدوات. &lt;br&gt;&lt;br&gt;\n\n► إدخال مفتاح منزلق: اسحب من مفتاح Shift إلى مفتاح آخر لكتابة مفتاح واحد كبير: &lt;br&gt;\n\n  • يعمل هذا أيضًا مع المفتاح \\\'?123\\\' لكتابة رمز واحد من لوحة مفاتيح الرموز، وللمفاتيح ذات الصلة. &lt;br&gt;&lt;br&gt;\n\n► اضغط مع الاستمرار على مفتاح Shift أو مفتاح الرمز، واضغط على مفتاح واحد أو أكثر، ثم حرر مفتاح Shift أو مفتاح الرمز للعودة إلى لوحة المفاتيح السابقة. &lt;br&gt;&lt;br&gt;\n\n► اضغط لفترة طويلة على أحد الاقتراحات في شريط الاقتراحات لإظهار المزيد من الاقتراحات، ثم اضغط على زر الحذف لإزالة هذا الاقتراح. &lt;br&gt;&lt;br&gt;\n\n► اسحب لأعلى من أحد الاقتراحات لفتح المزيد من الاقتراحات، ثم حرر الاقتراح لتحديده. &lt;br&gt;&lt;br&gt;\n\n► اضغط لفترة طويلة على أحد الإدخالات في سجل الحافظة لتثبيته (احتفظ به في الحافظة حتى تقوم بإلغاء تثبيته). &lt;br&gt;&lt;br&gt;\n\n► اسحب لليسار في عرض الحافظة لإزالة إدخال (باستثناء عندما يكون مثبتًا) &lt;br&gt; &lt;br&gt;\n\n► حدد النص واضغط على مفتاح Shift للتبديل بين الكلمات الكبيرة والصغيرة والأحرف الكبيرة. &lt;br&gt;&lt;br&gt;\n\n► يمكنك إضافة قواميس عن طريق فتحها في مستكشف الملفات: &lt;br&gt;\n\n  • يعمل هذا فقط مع &lt;i&gt;content-uris&lt;/i&gt; وليس مع &lt;i&gt;file-uris&lt;/i&gt;، مما يعني أنه قد لا يعمل مع بعض مستكشفات الملفات. &lt;br&gt;&lt;br&gt;\n\n► بالنسبة للمستخدمين الذين يقومون بالنسخ الاحتياطي اليدوي مع الوصول إلى الجذر: &lt;br&gt;\n\n  • بدءًا من Android 7، لا يكون ملف التفضيلات المشتركة في الموقع الافتراضي، لأن التطبيق يستخدم %s. يعد ذلك ضروريًا حتى يمكن قراءة الإعدادات قبل إلغاء قفل الجهاز، على سبيل المثال. في التمهيد؛ &lt;ر&gt;\n\n  • الملف موجود في /data/user_de/0/package_id/shared_prefs/ على الرغم من أن هذا قد يعتمد على الجهاز وإصدار Android. &lt;br&gt;&lt;br&gt;\n\n&lt;i&gt;&lt;b&gt;وضع التصحيح / تصحيح APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n\n► اضغط لفترة طويلة على اقتراح لإظهار القاموس المصدر. &lt;br&gt;&lt;br&gt;\n\n► عند استخدام debug APK، يمكنك العثور على إعدادات Debug ضمن التفضيلات المتقدمة، على الرغم من أن الفائدة محدودة باستثناء تفريغ القواميس في السجل. &lt;ر&gt;\n\n  • بالنسبة لإصدار APK، تحتاج إلى النقر على الإصدار في &lt;i&gt;حول&lt;/i&gt; عدة مرات، ثم يمكنك العثور على إعدادات تصحيح الأخطاء في &lt;i&gt;التفضيلات المتقدمة&lt;/i&gt;. &lt;br&gt;\n\n  • عند تمكين &lt;i&gt;إظهار معلومات الاقتراح&lt;/i&gt;، ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر. &lt;br&gt;&lt;br&gt;\n\n► في حالة تعطل التطبيق، سيُطلب منك ما إذا كنت تريد سجلات التعطل عند فتح الإعدادات. &lt;br&gt;&lt;br&gt;\n\n► عند استخدام الكتابة متعددة اللغات، سيُظهر شريط المسافة قيمة الثقة المستخدمة لتحديد اللغة المستخدمة حاليًا. &lt;br&gt;&lt;br&gt;\n\n► ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر (يمكن تعطيله)."</string>
+    <string name="hidden_features_message">"► يؤدي الضغط لفترة طويلة على مفاتيح شريط الأدوات المثبتة إلى وظائف إضافية: &lt;br&gt;\n\n • الحافظة &amp;#65515; لصق &lt;br&gt;\n\n • تحرك لليسار/ لليمين &amp;#65515; كلمة يسار/يمين &lt;br&gt;\n\n • التحرك لأعلى/لأسفل &amp;#65515; الصفحة لأعلى/لأسفل &lt;br&gt;\n\n • كلمة يسار/يمين &amp;#65515; بداية/نهاية السطر &lt;br&gt;\n\n • صفحة لأعلى/لأسفل &amp;#65515; بداية/نهاية الصفحة &lt;br&gt;\n\n • نسخة &amp;#65515; قطع &lt;br&gt;\n\n • اختر كلمة &amp;#8596; حدد الكل &lt;br&gt;\n\n • التراجع &amp;#8596; إعادة &lt;br&gt; &lt;br&gt;\n\n► يؤدي الضغط لفترة طويلة على المفاتيح في شريط أدوات شريط الاقتراحات إلى تثبيتها على شريط الاقتراحات. &lt;br&gt;&lt;br&gt;\n\n► اضغط لفترة طويلة على مفتاح الفاصلة للوصول إلى عرض الحافظة، أو عرض الرموز التعبيرية، أو الوضع بيد واحدة، أو الإعدادات، أو تبديل اللغة: &lt;br&gt;\n\n • سيختفي عرض الرموز التعبيرية وتبديل اللغة إذا كان لديك المفتاح المقابل ممكّنًا. &lt;ر&gt;\n\n  • بالنسبة لبعض التخطيطات، فهو ليس مفتاح الفاصلة، ولكنه المفتاح الموجود في نفس الموضع (على سبيل المثال، إنه \\\'q\\\' لتخطيط Dvorak). &lt;br&gt;&lt;br&gt;\n\n► عند تمكين وضع التصفح المتخفي، لن يتم تعلم أي كلمات، ولن تتم إضافة أي رموز تعبيرية إلى الرسائل الأخيرة. &lt;br&gt;&lt;br&gt;\n\n► اضغط على أيقونة التصفح المتخفي للوصول إلى شريط الأدوات. &lt;br&gt;&lt;br&gt;\n\n► إدخال مفتاح منزلق: اسحب من مفتاح Shift إلى مفتاح آخر لكتابة مفتاح واحد كبير: &lt;br&gt;\n\n  • يعمل هذا أيضًا مع المفتاح \\\'?123\\\' لكتابة رمز واحد من لوحة مفاتيح الرموز، وللمفاتيح ذات الصلة. &lt;br&gt;&lt;br&gt;\n\n► اضغط مع الاستمرار على مفتاح Shift أو مفتاح الرمز، واضغط على مفتاح واحد أو أكثر، ثم حرر مفتاح Shift أو مفتاح الرمز للعودة إلى لوحة المفاتيح السابقة. &lt;br&gt;&lt;br&gt;\n\n► اضغط لفترة طويلة على أحد الاقتراحات في شريط الاقتراحات لإظهار المزيد من الاقتراحات، ثم اضغط على زر الحذف لإزالة هذا الاقتراح. &lt;br&gt;&lt;br&gt;\n\n► اسحب لأعلى من أحد الاقتراحات لفتح المزيد من الاقتراحات، ثم حرر الاقتراح لتحديده. &lt;br&gt;&lt;br&gt;\n\n► اضغط لفترة طويلة على أحد الإدخالات في سجل الحافظة لتثبيته (احتفظ به في الحافظة حتى تقوم بإلغاء تثبيته). &lt;br&gt;&lt;br&gt;\n\n► اسحب لليسار في عرض الحافظة لإزالة إدخال (باستثناء عندما يكون مثبتًا) &lt;br&gt; &lt;br&gt;\n\n► حدد النص واضغط على مفتاح Shift للتبديل بين الكلمات الكبيرة والصغيرة والأحرف الكبيرة. &lt;br&gt;&lt;br&gt;\n\n► يمكنك إضافة قواميس عن طريق فتحها في مستكشف الملفات: &lt;br&gt;\n\n  • يعمل هذا فقط مع &lt;i&gt;content-uris&lt;/i&gt; وليس مع &lt;i&gt;file-uris&lt;/i&gt;، مما يعني أنه قد لا يعمل مع بعض مستكشفات الملفات. &lt;br&gt;&lt;br&gt;\n\n► بالنسبة للمستخدمين الذين يقومون بالنسخ الاحتياطي اليدوي مع الوصول إلى الجذر: &lt;br&gt;\n\n  • بدءًا من Android 7، لا يكون ملف التفضيلات المشتركة في الموقع الافتراضي، لأن التطبيق يستخدم %s. يعد ذلك ضروريًا حتى يمكن قراءة الإعدادات قبل إلغاء قفل الجهاز، على سبيل المثال. في التمهيد؛ &lt;ر&gt;\n\n  • الملف موجود في /data/user_de/0/package_id/shared_prefs/ على الرغم من أن هذا قد يعتمد على الجهاز وإصدار Android. &lt;br&gt;&lt;br&gt;\n\n&lt;i&gt;&lt;b&gt;وضع التصحيح / تصحيح APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n\n► اضغط لفترة طويلة على اقتراح لإظهار القاموس المصدر. &lt;br&gt;&lt;br&gt;\n\n► عند استخدام debug APK، يمكنك العثور على إعدادات Debug ضمن التفضيلات المتقدمة، على الرغم من أن الفائدة محدودة باستثناء تفريغ القواميس في السجل. &lt;ر&gt;\n\n  • بالنسبة لإصدار APK، تحتاج إلى النقر على الإصدار في &lt;i&gt;حول&lt;/i&gt; عدة مرات، ثم يمكنك العثور على إعدادات تصحيح الأخطاء في &lt;i&gt;التفضيلات المتقدمة&lt;/i&gt;. &lt;br&gt;\n\n  • عند تمكين &lt;i&gt;إظهار معلومات الاقتراح&lt;/i&gt;، ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر. &lt;br&gt;&lt;br&gt;\n\n► في حالة تعطل التطبيق، سيُطلب منك ما إذا كنت تريد سجلات التعطل عند فتح الإعدادات. &lt;br&gt;&lt;br&gt;\n\n► عند استخدام الكتابة متعددة اللغات، سيُظهر شريط المسافة قيمة الثقة المستخدمة لتحديد اللغة المستخدمة حاليًا. &lt;br&gt;&lt;br&gt;\n\n► ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر (يمكن تعطيله)."</string>
     <string name="gnu_gpl">رخصة جنو العامة v3.0</string>
     <string name="user_dict_word_already_present">هذه الكلمة موجودة بالفعل في قاموس المستخدم %s. الرجاء كتابة واحدة أخرى.</string>
     <string name="localized_number_row_summary">تفضيل المحلية على الأرقام اللاتينية</string>
-    <string name="select_user_colors_summary">حدد الألوان للنص والخلفيات</string>
     <string name="no_dictionary_message">"بدون قاموس، ستحصل فقط على اقتراحات للنص الذي أدخلته من قبل.&lt;br&gt;\n         يمكنك تنزيل القواميس %1$s، أو التحقق مما إذا كان يمكن تنزيل قاموس لـ \"%2$s\" مباشرةً %3$s."</string>
     <string name="subtype_probhat_bn_BD">%s (بروبهات)</string>
     <string name="subtype_generic_sebeolsik_390">%s (سيبولسيك 390)</string>
@@ -310,19 +306,19 @@
     <string name="subtype_generic_extended">%s (ممتدة)</string>
     <string name="subtype_mns">مانسي</string>
     <string name="more_colors">أظهِر المزيد من الالوان</string>
-    <string name="all_colors_warning">يعرض هذا الإعداد كافة الألوان المستخدمة داخليًا. قد تتغير قائمة الألوان في أي وقت. اللون الافتراضي عشوائي، ولن تتم ترجمة الأسماء.</string>
+    <string name="all_colors_warning">يعرض هذا الإعداد كافة الألوان المستخدمة داخليًا. قد تتغير قائمة الألوان في أي وقت. اللون الافتراضي مشتق من الألوان العادية، ولن تتم ترجمة الأسماء.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">مفاتيح وظيفية</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">المفاتيح الوظيفية (المزيد من الرموز)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">المفاتيح الوظيفية (الرموز)</string>
     <string name="quick_pin_toolbar_keys">تثبيت مفتاح شريط الأدوات عند الضغط لفترة طويلة</string>
     <string name="quick_pin_toolbar_keys_summary">سيؤدي هذا إلى تعطيل إجراءات الضغط لفترة طويلة الأخرى لمفاتيح شريط الأدوات غير المثبتة</string>
     <string name="pinned_toolbar_keys">حدد مفاتيح شريط الأدوات المثبتة</string>
-    <string name="toast_msg_clipboard_copy">تم نسخ المحتوى</string>
+    <string name="toast_msg_clipboard_copy">نُسخ المحتوى</string>
     <string name="language_switch_key_behavior">سلوك مفتاح تبديل اللغة</string>
     <string name="auto_show_toolbar">أظهِر شريط الأدوات تلقائيًا</string>
     <string name="auto_show_toolbar_summary">أظهِر شريط الأدوات في حالة بدء الإدخال أو تحديد النص</string>
-    <string name="auto_hide_toolbar">إخفاء شريط الأدوات تلقائيًا</string>
-    <string name="auto_hide_toolbar_summary">إخفاء شريط الأدوات عندما تصبح الاقتراحات متاحة</string>
+    <string name="auto_hide_toolbar">أخفِ شريط الأدوات تلقائيًا</string>
+    <string name="auto_hide_toolbar_summary">أخفِ شريط الأدوات عندما تصبح الاقتراحات متاحة</string>
     <string name="settings_screen_toolbar">شريط الأدوات</string>
     <string name="emoji" tools:keep="@string/emoji">رمز تعبيري</string>
     <string name="gesture_fast_typing_cooldown">التباطؤ السريع في الكتابة</string>
@@ -338,8 +334,8 @@
     <string name="word_right" tools:keep="@string/word_right">كلمة لليمين</string>
     <string name="page_up" tools:keep="@string/page_up">الصفحة للأعلى</string>
     <string name="page_down" tools:keep="@string/page_down">الصفحة للأسفل</string>
-    <string name="suggest_clipboard_content_summary">أظهِر محتوى الحافظة الذي تم نسخه مؤخرًا كاقتراح</string>
-    <string name="suggest_clipboard_content">اقتراح محتوى الحافظة</string>
+    <string name="suggest_clipboard_content_summary">أظهِر محتوى الحافظة الذي نُسخ مؤخرًا كاقتراح</string>
+    <string name="suggest_clipboard_content">اقترح محتوى الحافظة</string>
     <string name="after_emoji">اختيار الرموز التعبيرية في عرض الرموز التعبيرية</string>
     <string name="after_clip">تحديد إدخال محفوظات الحافظة</string>
     <string name="space_swipe_toggle_numpad_entry">بدّل لوحة الأرقام</string>
@@ -373,19 +369,19 @@
     <string name="long_press_code">رمز الضغطة المطولة</string>
     <string name="customize_icons">تخصيص الأيقونات</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">إدخال</string>
-    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">مسافة(تخطيط الأرقام)</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">مسافة (تخطيط الأرقام)</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">الفاصلة المجازية</string>
     <string name="subtype_dru">درغوة (أوراخي)</string>
     <string name="auto_correct_shortcuts">اختصار التصحيح التلقائي</string>
-    <string name="auto_correct_shortcuts_summary">قد يتم توسيع الاختصارات عند تمكينها بواسطة التصحيح التلقائي</string>
+    <string name="auto_correct_shortcuts_summary">قد يتم توسيع الاختصارات عند تفعيلها بواسطة التصحيح التلقائي</string>
     <string name="custom_font">تعيين خط مخصص من الملف</string>
     <string name="vibrate_in_dnd_mode">اهتزاز في وضع عدم الازعاج</string>
     <string name="subtype_generic_phonetic">%s (صوتي)</string>
-    <string name="customize_icons_reset_message">هل تريد إعادة تعيين جميع الأيقونات المخصصة؟</string>
+    <string name="customize_icons_reset_message">أتريد تصفير جميع الأيقونات المخصّصة؟</string>
     <string name="prefs_key_emoji_max_sdk">تجاوز إصدار الرموز التعبيرية</string>
     <string name="customize_background_image_landscape">عيّن صورة الخلفية (أفقي)</string>
     <string name="summary_customize_background_image_landscape">إذا لم يتم تعيينها، سيتم استخدام الصورة العمودية</string>
-    <string name="customize_toolbar_key_code_reset_message">هل تريد مسح جميع رموز المفاتيح المخصصة؟</string>
+    <string name="customize_toolbar_key_code_reset_message">أتريد محُ جميع رموز المفاتيح المخصّصة؟</string>
     <string name="label_bin" tools:keep="@string/label_bin">سلة</string>
     <string name="prefs_font_scale">مقياس الخط في لوحة المفاتيح</string>
     <string name="prefs_emoji_font_scale">مقياس الخط لعرض الرموز التعبيرية</string>
@@ -424,7 +420,7 @@
     <string name="backup_restored">استُعيدت النسخة الاحتياطية</string>
     <string name="prefs_emoji_key_fit">حجّم مفتاح الإيموجي مع حجم الخط</string>
     <string name="use_apps_dict">ابحث عن أسماء التطبيقات</string>
-    <string name="use_apps_dict_summary">استخدام أسماء التطبيقات المثبتة للاقتراحات والتصحيحات</string>
+    <string name="use_apps_dict_summary">استخدم أسماء التطبيقات المثبتة للاقتراحات والتصحيحات</string>
     <string name="prefs_emoji_skin_tone">لون بشرة الرموز التعبيرية الافتراضي</string>
     <string name="prefs_emoji_skin_tone_neutral">طبيعي</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
@@ -437,12 +433,12 @@
     <string name="popup_order_and_hint_source">ترتيب مفاتيح النوافذ المنبثقة ومصدر التلميحات</string>
     <string name="landscape">أفقي</string>
     <string name="show_emoji_descriptions">أظهر وصف الرموز التعبيرية عند الضغط مطولاً</string>
-    <string name="suggest_emojis">اقتراح رموز التعبيرية</string>
+    <string name="suggest_emojis">اقترح رموز التعبيرية</string>
     <string name="suggest_emojis_summary">استخدم قاموس الرموز التعبيرية في الاقتراحات العادية</string>
     <string name="suggest_punctuation">اقتراحات علامات الترقيم</string>
     <string name="suggest_punctuation_summary">أظهر علامات الترقيم عندما لا تتوفر اقتراحات أخرى</string>
     <string name="space_swipe_hide_keyboard_entry">أخفِ لوحة مفاتيح</string>
-    <string name="about_wiki_link">اذهب إلى الويكي</string>
+    <string name="about_wiki_link">اذهب إلى Github</string>
     <string name="about_wiki_link_description">يمكن تحسين الويكي من خلال أي مستخدم Github!</string>
     <string name="save_subtype_per_app">تذكر اللغة لكل تطبيق</string>
     <string name="subtype_khipro_bn">%s (خيبرو)</string>
@@ -453,4 +449,47 @@
     <string name="subtype_mhr">ماري (شرقي)</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">الصف السفلي للحافظة مع مفتاح الإجراء</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">صف الرموز التعبيرية السفلي مع مفتاح الإجراء</string>
+    <string name="custom_emoji_font">عيِّن خط رموز التعبيرية مخصّص من ملف</string>
+    <string name="number_row_in_symbols">أظهر صف الأرقام في عرض الرموز</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">المفاتيح الوظيفية (خِيبرو)</string>
+    <string name="gesture_data_info">ما هذا؟</string>
+    <string name="gesture_data_screen">جمع بيانات الإيماءات</string>
+    <string name="gesture_data_description">مرحبًا بكم في شاشة جمع بيانات الإيماءات!&lt;br/&gt;&lt;br/&gt; هذا جزء من &lt;a href=https://nlnet.nl/project/GestureTyping&gt;مشروع ممول من مؤسسة NLnet&lt;/a&gt; يسعى لإنتاج مكتبة مفتوحة المصدر بالكامل للكتابة بالإيماءات، قادرة على استبدال مكتبة جوجل مغلقة المصدر.&lt;br/&gt; من المخطط أن تكون النتيجة بديلاً بسيطاً للوحات المفاتيح القائمة على مشروع أندرويد مفتوح المصدر (AOSP)، ولكنها ستكون قابلة للاستخدام أيضًا مع لوحات مفاتيح أخرى، مثل FlorisBoard.&lt;br/&gt;&lt;br/&gt; لتطوير هذه المكتبة، من المفيد جدًا توفر بيانات إيماءات مفصلة بلغات مختلفة ومن مستخدمين مختلفين.&lt;br/&gt; من خلال جمع وتقديم بيانات الكتابة بالإيماءات، يمكنك المساهمة في مجموعة بيانات مفتوحة ستُستخدم لتطوير المكتبة. سيتم نشر مجموعة البيانات بموجب ترخيص CC BY-SA 4.0 بعد فترة من انتهاء مرحلة جمع البيانات في %s. بمجرد جمع البيانات، يمكنك إرسالها باستخدام أيقونة المشاركة الموجودة في أسفل هذه الشاشة.</string>
+    <string name="gesture_data_description_modes">تتوفر حاليًا فقط وضعية التجميع النشط، حيث تظهر لك كلمة مُحدّدة وتقوم بإدخالها باستخدام الكتابة بالإيماءات.\nلاحقًا، ستتم إضافة وضعية التجميع السلبي، والتي تتيح لك تقديم عينات من كتابتك الاعتيادية بالإيماءات في التطبيقات الأخرى. ونظراً لحساسية هذا الأسلوب، ستكون هذه الخاصية اختيارية وقابلة للضبط، وستتضمن شاشة مراجعة للبيانات التي أوشكت على إرسالها.</string>
+    <string name="gesture_data_description_privacy">الخصوصية\n\nتتكون البيانات التي ترسلها من الكلمة المستهدفة، وتخطيط لوحة المفاتيح وأبعادها، والإيماءة (الأوقات والإحداثيات)، والاقتراحات المقدمة من المكتبة الحالية، ورمز التجزئة (hash) للقواميس المستخدمة، وإصدار التطبيق، ووضع جمع البيانات، وما إذا كانت مكتبة الكتابة بالإيماءات هي مكتبة جوجل الافتراضية، ومعرف خاص بكل إيماءة.\nسيتم تنزيل البيانات المُرسلة وحذفها من صندوق بريد ProtonMail حيث تُخزّن في أقرب وقت ممكن. وبعد انتهاء مرحلة جمع بيانات الإيماءات، سيتم نشر مجموعة البيانات المتراكمة من جميع المستخدمين بموجب رخصة المشاع الإبداعي (Creative Commons BY-SA 4.0).\n\nكجزء من محاولة حماية خصوصيتك، لن يتم إدراجك صراحةً كمؤلف. سيكون الفضل لك تحت مسمى \"المساهمون في مشروع بيانات إيماءات HeliBoard\". لا ينبغي أن يكون من الممكن ربط البيانات التي تنشئها في هذه الشاشة بهويتك. ومع ذلك، قد يكون من الممكن تحديد الإيماءات التي قام بها نفس الشخص؛ يمكن القيام بذلك على سبيل المثال من خلال تخطيط لوحة مفاتيح مخصَّص أو أبعاد لوحة المفاتيح أو اللغة أو أسلوب الإيماء الفردي.</string>
+    <string name="gesture_data_privacy">الخصوصيّة</string>
+    <string name="gesture_data_get_data">شارك ملف بيانات الإيماءات</string>
+    <string name="gesture_data_delete_data">امحُ ملف بيانات الإيماءات</string>
+    <string name="gesture_data_send_mail">أرسل البيانات عبر البريد الإلكتروني</string>
+    <string name="gesture_data_copy_mail">انسخ عنوان البريد الإلكتروني</string>
+    <string name="gesture_data_mail_use">يُرجى ملاحظة أن عنوان البريد الإلكتروني مخصَّص لإرسال البيانات، وقد لا تتلقى ردوداً سريعة أو منتظمة.</string>
+    <string name="gesture_data_please_type">رجاءًا اكتب بالسحب:</string>
+    <string name="gesture_data_next_save">حصلت على %s. اضغط إذا كنت متأكدًا من أنك قمت بالإيماءة بشكل صحيح</string>
+    <string name="gesture_data_next">تخطي الكلمة</string>
+    <string name="gesture_data_active_count">%1$s كلمة في هذه الجلسة، %2$s كلمة إجمالاً (%3$s أُرسلت أو حُذفت بالفعل)</string>
+    <string name="gesture_data_review_screen_title">راجع و شارك بيانات الإيماءات</string>
+    <string name="gesture_data_words_selected">%s كلمة</string>
+    <string name="gesture_data_date_range">النطاق الزمني</string>
+    <string name="gesture_data_much_data">لديك الكثير من البيانات غير المُرسلة. يُرجى إرسالها ثم إزالة البيانات القديمة.</string>
+    <string name="gesture_data_how_to_use">كيفية الاستخدام</string>
+    <string name="gesture_data_active_description">انفر على \"ابدأ الجمع النشط\"، وبدّل القاموس إذا أردت، ثم ابدأ بالكتابة بالإيماء للكلمة المعروضة.&lt;br/&gt; إذا تطابقت إيماءتك مع الكلمة، فسيتم حفظ البيانات وعرض الكلمة التالية. بخلاف ذلك، يمكنك المحاولة مرة أخرى، أو تخطي الكلمة، أو التأكيد على أن إيماءتك كانت صحيحة.&lt;br/&gt; يمكنك فقط استخدام القواميس المدمجة في التطبيق أو المتوفرة في &lt;a href=%s&gt;مستودع القواميس&lt;/a&gt;، ولن يتم استخدام أي كلمات أخرى.</string>
+    <string name="gesture_data_active_start">ابدأ الجمع النشط</string>
+    <string name="gesture_data_active_stop">أوقف الجمع النشط</string>
+    <string name="gesture_data_ends_at">ستنتهي مرحلة جمع بيانات الإيماءات في %s. يُرجى تقديم بياناتك قبل ذلك التاريخ.</string>
+    <string name="gesture_data_ended">انتهت مرحلة جمع بيانات الإيماءات في %s. يمكنك مشاركة بياناتك الحالية، ولكن لا يمكنك إضافة أي شيء جديد.</string>
+    <string name="gesture_data_share_all">شارك كل %s كلمة</string>
+    <string name="gesture_data_share_new">شارك %s من الكلمات التي لم تُقدم من قبل</string>
+    <string name="gesture_data_delete_dialog">لديك بيانات لـ %1$s من الكلمات الجديدة و %2$s من الكلمات التي تمت مشاركتها بالفعل.</string>
+    <string name="gesture_data_delete_dialog_all">احذف كل %s كلمة</string>
+    <string name="gesture_data_delete_dialog_confirm">أمتأكد؟ سيؤدي هذا إلى حذف %s من الكلمات. تأكد من تقديم تاريخ مشاركتك!</string>
+    <string name="gesture_data_delete_dialog_submitted">احذف %s من الكلمات المُرسلة</string>
+    <string name="gesture_data_many_not_shared_words">لديك أكثر من %s كلمة بانتظار الإرسال</string>
+    <string name="gesture_data_email_body">هام:\n\nأهلاً بك!\nنود تذكيرك بأن هذه البيانات ستتم مشاركتها علنًا بموجب رخصة المشاع الإبداعي (CC BY-SA 4.0)، ولن يتم إدراج اسمك كمؤلف وذلك لحماية خصوصيتك.\n\nشكرًا لمشاركتنا حقوق بياناتك. سنحرص على استخدامها بشكل جيد!\n\nيُرجى ملاحظة أن تغيير صياغة هذا الإشعار لا يغير ما سنفعله ببياناتك. هذا ليس عقدًا للتعديل، بل هو مجرد تذكير ودي!\nإذا كنت ترغب في إرسال رسالة إلينا مع بياناتك، فاكتبها أسفل الخط هنا.\n---------------------------------------------</string>
+    <string name="emoji_search_title">ابحث في الرموز التعبيرية</string>
+    <string name="search_field_placeholder">ابحث</string>
+    <string name="gesture_data_promotion_message">أهلاً بك!\nبما أنك ثبَّت مكتبة الكتابة بالإيماءات، فقد يهمك مشروع HeliBoard لإنشاء مكتبة كتابة بالإيماءات مفتوحة المصدر بالكامل. يمكنك المساعدة من خلال المساهمة ببيانات الإيماءات. لمزيد من المعلومات، تفضل بزيارة شاشة جمع بيانات الإيماءات.</string>
+    <string name="gesture_data_reminder_message">أهلاً بك!\nلقد سبق لك استخدام خاصية جمع بيانات الإيماءات، ولكنك لم تضف أي بيانات منذ فترة طويلة. أترغب في المساهمة مجددًا؟</string>
+    <string name="ask_later">اسألني لاحقًا</string>
+    <string name="gesture_data_take_me_there">خذني إلى هناك</string>
+    <string name="timestamp_description">يمكنك إضافة مفتاح الطابع الزمني باستخدام تخطيط مخصص مع مفتاح \'timestamp\'، أو رمز المفتاح -10043</string>
 </resources>

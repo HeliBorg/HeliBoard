@@ -84,7 +84,6 @@
     <string name="settings">"ဆက်တင်များ"</string>
     <string name="delete">"ဖျက်ရန်"</string>
     <string name="version_text">"ဗားရှင်း %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"အဘိဓာန်ထဲ ထည့်ပါ"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"အတိုကောက်:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ဘာသာစကား:"</string>
     <string name="user_dict_settings_add_word_hint">"စကားလုံးတစ်လုံး ရိုက်ပါ"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"စာလုံးကို ပြင်ဆင်မည်"</string>
     <string name="user_dict_settings_all_languages">"ဘာသာစကားအားလုံးအတွက်"</string>
     <string name="user_dict_settings_more_languages">"ဘာသာစကားပိုများများ…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">လက်ကွက်စနစ်‌ရွေးမည်</string>
     <string name="undo">"ပြန်ဖျက်ရန်"</string>
     <string name="redo">"ထပ်လုပ်ပါ"</string>
@@ -169,7 +167,6 @@
     <string name="button_restore">ပြန်လည်ထည့်သွင်းခြင်း</string>
     <string name="backup_restored">အရန်သိမ်းဆည်းထားသောအချက်အလက်များကို ဟေလီဘုတ်စနစ်ထံ ပြန်လည်ထည့်သွင်းခြင်းလုပ်ငန်းအောင်မြင်သည်</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">အသုံးပြုသူ သတ်မှတ်သည့်အတိုင်း</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">အသုံးပြုသူသတ်မှတ်သည့်အတိုင်း (အမှောင်)</string>
     <string name="auto_user_color">အလိုလျောက်အရောင်ရွေးချယ်ရန်</string>
     <string name="main_colors">အဓိကအရောင်များကိုသာကြည့်မည်</string>
     <string name="more_colors">အခြားအရောင်များကိုကြည့်မည်</string>

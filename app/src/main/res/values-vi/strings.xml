@@ -84,7 +84,6 @@
     <string name="settings">"Cài đặt"</string>
     <string name="delete">"Xóa"</string>
     <string name="version_text">"Phiên bản %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Thêm vào từ điển"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Phím tắt:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Ngôn ngữ:"</string>
     <string name="user_dict_settings_add_word_hint">"Nhập từ"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Chỉnh sửa từ"</string>
     <string name="user_dict_settings_all_languages">"Cho tất cả ngôn ngữ"</string>
     <string name="user_dict_settings_more_languages">"Ngôn ngữ khác…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Chọn phương thức nhập"</string>
     <string name="undo">"Hoàn tác"</string>
     <string name="redo">"Làm lại"</string>
@@ -150,7 +148,6 @@
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Nâu</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Sô cô la</string>
     <string name="auto_user_color">Tự động chọn màu</string>
-    <string name="select_user_colors_summary">Chọn màu cho chữ và nền</string>
     <string name="get_layouts_message">Bạn có thể tìm và chia sẻ bố cục tại %s.</string>
     <string name="settings_screen_about">Giới thiệu</string>
     <string name="license">Bản quyền về mã nguồn mở</string>

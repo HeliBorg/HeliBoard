@@ -84,7 +84,6 @@
     <string name="settings">"Impostazioni"</string>
     <string name="delete">"Elimina"</string>
     <string name="version_text">Versione %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Aggiungi al dizionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Scorciatoia:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lingua:"</string>
     <string name="user_dict_settings_add_word_hint">"Digita una parola"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Modifica parola"</string>
     <string name="user_dict_settings_all_languages">"Per tutte le lingue"</string>
     <string name="user_dict_settings_more_languages">"Altre lingue…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="prefs_keyboard_height_scale">Altezza tastiera</string>
     <string name="autospace_after_punctuation">Spazio automatico dopo la punteggiatura</string>
     <string name="more_keys_strip_description">Altri tasti</string>
@@ -260,9 +258,7 @@
     <string name="hidden_features_summary">Mostra le funzionalità che potrebbero passare inosservate</string>
     <string name="theme_colors_night">Tema scuro</string>
     <string name="all_colors">Mostra tutti i colori</string>
-    <string name="select_user_colors_summary">Scegli i colori di tasti, caratteri, icone, ecc.</string>
     <string name="select_color_key_hint">Testo degli indicatori di popup</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Personalizzato (tema scuro)</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marrone</string>
     <string name="replace_dictionary_message">Vuoi davvero sostituire il dizionario aggiunto dall\'utente \"%1$s\"?
 \n
@@ -452,4 +448,46 @@
     <string name="subtype_khipro_bn">%s (Khipro)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Riga emoji inferiore con tasto azione</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Riga appunti inferiore con tasto azione</string>
+    <string name="number_row_in_symbols">Mostra la riga dei numeri nel layout simboli</string>
+    <string name="custom_emoji_font">Scegli un font emoji personalizzato</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Tasti funzione (Khipro)</string>
+    <string name="emoji_search_title">Trova emoji</string>
+    <string name="search_field_placeholder">Cerca</string>
+    <string name="gesture_data_screen">Raccolta dati input gestuale</string>
+    <string name="gesture_data_description">Benvenuto nella schermata di raccolta dati sulla digitazione gestuale!&lt;br/&gt;&lt;br/&gt;Questa funzionalità fa parte di un &lt;a href=https://nlnet.nl/project/GestureTyping&gt;progetto finanziato da NLnet&lt;/a&gt; che mira a realizzare una libreria per la digitazione gestuale completamente open source, in grado di sostituire la libreria proprietaria di Google. Il risultato finale sarà una libreria pensata come alternativa per le tastiere basate su AOSP, ma potrà essere utilizzata anche con altre tastiere, come ad esempio FlorisBoard.&lt;br/&gt;&lt;br/&gt;Per lo sviluppo della libreria, è estremamente utile disporre di dati dettagliati sull\'interazione con l\'input gestuale, raccolti da diversi utenti e in varie lingue. Raccogliendo e inviando dati sulla digitazione gestuale, puoi contribuire a creare un set aperto di dati che sarà utilizzato per lo sviluppo della libreria. Il set di dati sarà pubblicato con licenza CC BY-SA 4.0 qualche tempo dopo la fine della fase di raccolta, prevista per %s. Una volta raccolti i dati, puoi inviarli utilizzando il tasto di condivisione nella parte inferiore di questa schermata.</string>
+    <string name="gesture_data_info">Di cosa si tratta?</string>
+    <string name="gesture_data_description_modes">Al momento è disponibile solo la modalità di raccolta attiva: una volta raggiunta la schermata di raccolta, questa mostra – una per volta – una serie di parole da inserire con l\'input gestuale, come contributo alla raccolta dati.\nIn seguito sarà aggiunta una modalità di raccolta passiva, che ti permetterà di fornire (su base volontaria) dei campioni dalla tua normale digitazione gestuale in altre app. Data la sensibilità di questo approccio, la funzionalità sarà attivabile su tua scelta, sarà configurabile, e includerà una schermata di revisione per i dati mostrata prima dell\'invio.</string>
+    <string name="gesture_data_description_privacy">Privacy\n\nI dati che invii includono: parola da inserire, layout e dimensioni della tastiera, info sui gesti (tempi e coordinate), suggerimenti forniti dalla libreria corrente, hash dei dizionari utilizzati, versione dell\'app, modalità di raccolta dati, indicazione se la libreria di digitazione gestuale è quella predefinita di Google e un identificatore associato a ciascun gesto.\nI dati inviati saranno scaricati ed eliminati appena possibile dalla casella di posta ProtonMail di destinazione. Al termine della fase di raccolta, il set di dati accumulato da tutti gli utenti sarà pubblicato con licenza Creative Commons BY-SA 4.0.\n\nNell\'ambito della tutela della tua privacy, non avrai un riconoscimento esplicito come persona che avrà contribuito alla raccolta dati. Questa sarà attribuita collettivamente agli \'HeliBoard Gesture Data Project Contributors\'. Non dovrebbe essere possibile collegare i dati generati in questa schermata alla tua identità. Tuttavia, potrebbe essere possibile determinare quali gesti sono stati eseguiti dalla stessa persona. Ciò potrebbe avvenire, ad esempio, in base al layout personalizzato della tastiera, alle dimensioni della tastiera, alla lingua o allo stile di inserimento gestuale.</string>
+    <string name="gesture_data_privacy">Privacy</string>
+    <string name="gesture_data_get_data">Condividi i dati</string>
+    <string name="gesture_data_delete_data">Azzera i dati raccolti</string>
+    <string name="gesture_data_send_mail">Invia i dati via email</string>
+    <string name="gesture_data_copy_mail">Copia indirizzo email</string>
+    <string name="gesture_data_mail_use">L\'indirizzo di destinazione è usato per una raccolta automatizzata: non scrivere per scopi diversi dalla raccolta dati.</string>
+    <string name="gesture_data_please_type">Digita con un gesto:</string>
+    <string name="gesture_data_next_save">Hai digitato %s. Verifica se il gesto passa sulle lettere giuste</string>
+    <string name="gesture_data_next">Salta</string>
+    <string name="gesture_data_active_count">%1$s parole in questa sessione, %2$s parole complessive (%3$s già inviate o cancellate)</string>
+    <string name="gesture_data_review_screen_title">Verifica e invia i dati</string>
+    <string name="gesture_data_words_selected">%s parole</string>
+    <string name="gesture_data_date_range">Intervallo di date</string>
+    <string name="gesture_data_much_data">Hai molti dati memorizzati e non inviati. Procedi con l\'invio e poi rimuovi i vecchi dati.</string>
+    <string name="gesture_data_how_to_use">Guida</string>
+    <string name="gesture_data_active_description">Tocca \'Avvia raccolta dati\', scegli eventualmente il dizionario e inizia a digitare con i gesti ogni parola visualizzata.&lt;br/&gt;Se il tuo gesto corrisponde alla parola, i dati vengono salvati e viene mostrata la parola successiva. In caso contrario, puoi riprovare, saltare la parola o confermare di aver eseguito il gesto correttamente.&lt;br/&gt;Puoi utilizzare solo i dizionari integrati nell\'app o disponibili nel &lt;a href=%s&gt;repository dei dizionari&lt;/a&gt;. Non saranno proposte altre parole.</string>
+    <string name="gesture_data_active_start">Avvia raccolta dati</string>
+    <string name="gesture_data_active_stop">Fine sessione</string>
+    <string name="gesture_data_ends_at">La fase di raccolta dati terminerà a %s. Se vuoi contribuire, invia i tuoi dati per tempo.</string>
+    <string name="gesture_data_ended">La fase di raccolta dati è terminata (%s). Puoi inviare i dati già raccolti, ma non aggiungerne altri.</string>
+    <string name="gesture_data_share_all">Condividi %s parole</string>
+    <string name="gesture_data_share_new">Condividi %s parole non ancora inviate</string>
+    <string name="gesture_data_delete_dialog">I dati che hai raccolto contengono %1$s parole nuove e %2$s già condivise.</string>
+    <string name="gesture_data_delete_dialog_all">Elimina tutte le %s parole</string>
+    <string name="gesture_data_delete_dialog_confirm">Vuoi davvero eliminare %s parole? Assicurati di averle condivise nella raccolta dati!</string>
+    <string name="gesture_data_delete_dialog_submitted">Elimina %s parole inviate</string>
+    <string name="gesture_data_many_not_shared_words">Più di %s parole sono in attesa di essere inviate per la raccolta dati</string>
+    <string name="gesture_data_email_body">IMPORTANTE:\n\nCarissimo utente,\nti ricordiamo che questi dati saranno condivisi pubblicamente con licenza CC BY-SA 4.0. Per tutelare la tua privacy, il tuo nome non sarà menzionato.\n\nGrazie per aver condiviso con noi i diritti sui tuoi dati. Li utilizzeremo al meglio!\n\nL\'eventuale modifica di questo avviso non cambierà l\'essenza di ciò che faremo con i tuoi dati. Non è un contratto da modificare, ma solo un gentile promemoria!\nSe vuoi inviarci un messaggio insieme ai tuoi dati, scrivilo qui sotto la linea.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Ciao!\nDato che hai installato la libreria di digitazione gestuale, potrebbe interessarti partecipare al progetto promosso da HeliBoard per creare una libreria di input gestuale completamente open source. Puoi dare il tuo contributo fornendo dati sul tuo utilizzo dei gesti. Per maggiori informazioni, visita la schermata di raccolta dati raggiungibile dalle impostazioni di HeliBoard.</string>
+    <string name="gesture_data_reminder_message">Caro utente,\ngrazie per aver contribuito alla raccolta dati per la digitazione gestuale. È passato un po\' di tempo dal tuo ultimo contributo: vuoi partecipare di nuovo?</string>
+    <string name="ask_later">Non adesso</string>
+    <string name="gesture_data_take_me_there">Vai alla raccolta dati</string>
 </resources>

@@ -153,7 +153,6 @@
     <string name="settings">সেটিংস</string>
     <string name="delete">বিলোপ করুন</string>
     <string name="version_text">সংস্করণ %s</string>
-    <string name="user_dict_settings_add_dialog_title">অভিধানে যোগ</string>
     <string name="user_dict_settings_add_shortcut_option_name">শর্টকাট:</string>
     <string name="user_dict_settings_add_locale_option_name">ভাষা:</string>
     <string name="user_dict_settings_add_word_hint">শব্দ টাইপ করুন</string>
@@ -161,7 +160,6 @@
     <string name="user_dict_settings_edit_dialog_title">শব্দ সম্পাদনা</string>
     <string name="user_dict_settings_all_languages">সব ভাষার জন্য</string>
     <string name="user_dict_settings_more_languages">আরও ভাষা…</string>
-    <string name="user_dict_fast_scroll_alphabet">\u0020অআইঈউঊঋএঐওঔংঃকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ</string>
     <string name="theme_style">শৈলী</string>
     <string name="theme_colors">রং</string>
     <string name="theme_colors_night">রং (অন্ধকার)</string>
@@ -175,9 +173,7 @@
     <string name="theme_name_darker">বেশি নিষ্প্রভ</string>
     <string name="theme_name_black">কালো</string>
     <string name="theme_name_user">ব্যবহারকারী নির্ধারিত</string>
-    <string name="theme_name_user_night">ব্যবহারকারী নির্ধারিত (অন্ধকার)</string>
     <string name="auto_user_color">স্বয়ংক্রিয় রং নির্বাচন</string>
-    <string name="select_user_colors_summary">লেখা এবং পটভূমির জন্য রং নির্বাচন</string>
     <string name="select_color_background">কিবোর্ডের পটভূমি</string>
     <string name="select_color_key">বোতামের লেখা</string>
     <string name="select_color_key_hint">বোতামের ইঙ্গিতের লেখা</string>
@@ -315,7 +311,7 @@
     <string name="subtype_mns">মানসি</string>
     <string name="quick_pin_toolbar_keys_summary">পিন করা নেই এমন অন্য টুলবার বোতামের দীর্ঘচাপের কার্যাবলি নিষ্ক্রিয় করবে</string>
     <string name="more_colors">অধিক রং প্রদর্শন</string>
-    <string name="all_colors_warning">এই সেটিংস অভ্যন্তরীণভাবে ব্যবহৃত সকল রং প্রকাশ করে। রঙের তালিকা যেকোনো সময় পরিবর্তিত হতে পারে। ডিফল্ট রং যেকোনো একটি হতে পারে এবং রঙের নাম অনুবাদ করা হবে না।</string>
+    <string name="all_colors_warning">এই সেটিংস অভ্যন্তরীণভাবে ব্যবহৃত সকল রং প্রকাশ করে। রঙের তালিকা যেকোনো সময় পরিবর্তিত হতে পারে। সাধারণ রং থেকে ডিফল্ট উদ্ভূত এবং রঙের নাম অনুবাদ করা হবে না।</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">ফাংশনাল বোতাম</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">ফাংশনাল বোতাম (প্রতীক)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">ফাংশনাল বোতাম (অধিক প্রতীক)</string>
@@ -445,4 +441,42 @@
     <string name="subtype_mhr">মারি (পূর্ব)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">অ্যাকশন বোতামসহ ইমোজির নিম্ন সারি</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">অ্যাকশন বোতামসহ ক্লিপবোর্ডের নিম্ন সারি</string>
+    <string name="number_row_in_symbols">প্রতীক দর্শনে নম্বর সারি প্রদর্শন</string>
+    <string name="custom_emoji_font">ফাইল থেকে নিজস্বীকৃত ইমোজি ফন্ট নির্ধারণ</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">ফাংশনাল বোতাম (ক্ষিপ্র)</string>
+    <string name="gesture_data_screen">অঙ্গুলিহেলনের তথ্য সংগ্রহ</string>
+    <string name="gesture_data_description">অঙ্গুলিহেলন ডেটা সংগ্রহ স্ক্রিনে স্বাগতম!&lt;br/&gt;&lt;br/&gt; এটি একটি &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-অর্থায়িত প্রকল্পের&lt;/a&gt; অংশ, যার লক্ষ্য হলো সম্পূর্ণ উন্মুক্ত উৎসভিত্তিক একটি অঙ্গুলিহেলন টাইপিং লাইব্রেরি তৈরি করা, যা বন্ধ উৎসের Google লাইব্রেরির বিকল্প হিসেবে ব্যবহার করা যাবে।&lt;br/&gt; ফলাফলটি AOSP-ভিত্তিক কিবোর্ডগুলোর জন্য একটি সহজ প্রতিস্থাপন হিসেবে পরিকল্পিত, তবে অন্যান্য কিবোর্ডের সাথেও ব্যবহারযোগ্য হবে, যেমন FlorisBoard।&lt;br/&gt;&lt;br/&gt; লাইব্রেরিটি উন্নয়নের জন্য বিভিন্ন ভাষা ও বিভিন্ন ব্যবহারকারীর বিশদ অঙ্গুলিহেলন ডেটা পাওয়া অত্যন্ত সহায়ক।&lt;br/&gt; অঙ্গুলিহেলন টাইপিং ডেটা সংগ্রহ ও জমা দিয়ে আপনি উন্মুক্ত অঙ্গুলিহেলন ডেটার একটি সেটে অবদান রাখতে পারেন, যা লাইব্রেরি উন্নয়নে ব্যবহার করা হবে। ডেটা সংগ্রহ পর্যায় শেষ হওয়ার কিছু সময় পরে %s তারিখে ডেটাসেটটি CC BY-SA 4.0 লাইসেন্সের অধীনে প্রকাশ করা হবে। আপনি ডেটা সংগ্রহ করার পর, এই স্ক্রিনের নিচে থাকা শেয়ার আইকন ব্যবহার করে তা জমা দিতে পারবেন।</string>
+    <string name="gesture_data_info">এটা কী?</string>
+    <string name="gesture_data_description_modes">বর্তমানে কেবল সক্রিয় সংগ্রহ মোড উপলব্ধ রয়েছে, যেখানে আপনাকে একটি নির্দিষ্ট শব্দ দেখানো হবে এবং আপনি অঙ্গুলিহেলন টাইপিং ব্যবহার করে সেই শব্দটি লিখবেন।\n\n পরে একটি নিষ্ক্রিয় সংগ্রহ মোড যুক্ত করা হবে, যেখানে আপনি অন্যান্য অ্যাপ থেকে আপনার স্বাভাবিক অঙ্গুলিহেলন টাইপিং-এর নমুনা প্রদান করতে পারবেন। এই পদ্ধতির সংবেদনশীলতার কারণে এটি স্বেচ্ছা-নির্বাচিত (opt-in) হবে, কনফিগারযোগ্য হবে, এবং আপনি যে ডেটা জমা দিতে যাচ্ছেন তার জন্য একটি পর্যালোচনা স্ক্রিন থাকবে।</string>
+    <string name="gesture_data_description_privacy">গোপনীয়তা\n\n আপনি যে ডেটা জমা দেন তা অন্তর্ভুক্ত করে: লক্ষ্য শব্দ, কিবোর্ডের লেআউট ও মাত্রা, অঙ্গুলিহেলন (সময় ও স্থানাঙ্ক), বর্তমান লাইব্রেরি প্রদত্ত প্রস্তাবনা, ব্যবহৃত অভিধানগুলোর হ্যাশ, অ্যাপের সংস্করণ, ডেটা সংগ্রহ মোড, অঙ্গুলিহেলন টাইপিং লাইব্রেরিটি ডিফল্ট Google লাইব্রেরি কিনা, এবং প্রতিটি অঙ্গুলিহেলনের সাথে যুক্ত একটি আইডি।\n জমা দেওয়া ডেটা আমাদের সুবিধাজনক প্রথম সুযোগেই যে ProtonMail মেইলবক্সে সংরক্ষিত থাকে সেখান থেকে ডাউনলোড করে মুছে ফেলা হবে। অঙ্গুলিহেলন ডেটা সংগ্রহ পর্যায় শেষ হওয়ার পর, সকল ব্যবহারকারীর সংগৃহীত ডেটাসেট Creative Commons BY-SA 4.0 লাইসেন্সের অধীনে প্রকাশ করা হবে।\n\n আপনার গোপনীয়তা রক্ষার প্রচেষ্টার অংশ হিসেবে, আপনাকে স্পষ্টভাবে লেখক হিসেবে তালিকাভুক্ত করা হবে না। আপনার স্বীকৃতি থাকবে “The HeliBoard Gesture Data Project Contributors” হিসেবে। এই স্ক্রিনে আপনি যে ডেটা তৈরি করেন তা আপনার পরিচয়ের সাথে সরাসরি যুক্ত করা সম্ভব হওয়ার কথা নয়। তবে, কোনগুলো অঙ্গুলিহেলন একই ব্যক্তির দ্বারা করা হয়েছে তা নির্ধারণ করা সম্ভব হতে পারে। উদাহরণস্বরূপ, একটি কাস্টম কিবোর্ড লেআউট, কিবোর্ডের মাত্রা, ভাষা, অথবা ব্যক্তিগত অঙ্গুলিহেলনের ধরন থেকে এটি অনুমান করা যেতে পারে।</string>
+    <string name="gesture_data_privacy">গোপনীয়তা</string>
+    <string name="gesture_data_get_data">অঙ্গুলিহেলন ডেটা ফাইল শেয়ার</string>
+    <string name="gesture_data_delete_data">অঙ্গুলিহেলন ডেটা নিকাশ</string>
+    <string name="gesture_data_send_mail">ইমেইলের মাধ্যমে ডেটা প্রেরণ</string>
+    <string name="gesture_data_copy_mail">ইমেইল ঠিকানা অনুলিপি</string>
+    <string name="gesture_data_mail_use">মনে রাখবেন, ইমেইল ঠিকানাটি ডেটা জমার জন্য নির্ধারিত; আপনি দ্রুত বা নিয়মিত উত্তর পাবেন না।</string>
+    <string name="gesture_data_please_type">অনুগ্রহ করে অঙ্গুলিহেলন টাইপিং করুন:</string>
+    <string name="gesture_data_next_save">%s গৃহীত। যদি আপনি নিশ্চিত হন যে সঠিকভাবে অঙ্গুলিহেলন করেছেন, ক্লিক করুন</string>
+    <string name="gesture_data_next">শব্দ এড়ান</string>
+    <string name="gesture_data_active_count">এই সেশনে %1$sটি শব্দ, মোট %2$sটি শব্দ (%3$s ইতিমধ্যেই জমা দেওয়া বা মুছে ফেলা হয়েছে)</string>
+    <string name="gesture_data_review_screen_title">অঙ্গুলিহেলন ডেটা পর্যালোচনা ও শেয়ার করুন</string>
+    <string name="gesture_data_words_selected">%sটি শব্দ</string>
+    <string name="gesture_data_date_range">তারিখের পরিসীমা</string>
+    <string name="gesture_data_much_data">আপনার অনেক জমা না দেওয়া ডেটা আছে। অনুগ্রহ করে প্রথমে জমা দিন এবং তারপর পুরনো ডেটা মুছে ফেলুন।</string>
+    <string name="gesture_data_how_to_use">ব্যবহারবিধি</string>
+    <string name="gesture_data_active_description">\"সক্রিয় সংগ্রহ শুরু\" এ ট্যাপ করুন, চাইলে অভিধান পরিবর্তন করুন, এবং প্রদর্শিত শব্দটি অঙ্গুলিহেলন টাইপিং দিয়ে লিখতে শুরু করুন।&lt;br/&gt; যদি আপনার অঙ্গুলিহেলন শব্দটির সাথে মিলে যায়, ডেটা সংরক্ষিত হবে এবং পরবর্তী শব্দটি প্রদর্শিত হবে। অন্যথায় আপনি পুনরায় চেষ্টা করতে পারেন, শব্দটি এড়াতে পারেন, বা নিশ্চিত করতে পারেন যে আপনি সঠিকভাবে অঙ্গুলিহেলন করেছেন।&lt;br/&gt; আপনি কেবল অ্যাপে অন্তর্ভুক্ত বা &lt;a href=%s&gt;অভিধান সংগ্রহস্থল&lt;/a&gt; এ পাওয়া অভিধানগুলো ব্যবহার করতে পারবেন, অন্য কোনো শব্দ ব্যবহার করা হবে না।</string>
+    <string name="gesture_data_active_start">সক্রিয় সংগ্রহ শুরু</string>
+    <string name="gesture_data_active_stop">সক্রিয় সংগ্রহ বন্ধ</string>
+    <string name="gesture_data_ends_at">অঙ্গুলিহেলন ডেটা সংগ্রহ পর্যায় %s তারিখে শেষ হবে। অনুগ্রহ করে সেই তারিখের আগে আপনার ডেটা জমা দিন।</string>
+    <string name="gesture_data_ended">অঙ্গুলিহেলন ডেটা সংগ্রহ পর্যায় %s তারিখে শেষ হয়েছে। আপনি আপনার বিদ্যমান ডেটা শেয়ার করতে পারেন, তবে নতুন কিছু যোগ করতে পারবেন না।</string>
+    <string name="gesture_data_share_all">সব %sটি শব্দ শেয়ার করুন</string>
+    <string name="gesture_data_share_new">পূর্বে জমা না দেওয়া %sটি শব্দ শেয়ার করুন</string>
+    <string name="gesture_data_delete_dialog">আপনার কাছে %1$sটি নতুন এবং %2$sটি ইতিমধ্যেই শেয়ার করা শব্দের ডেটা আছে।</string>
+    <string name="gesture_data_delete_dialog_all">সব %sটি শব্দ বিলোপ</string>
+    <string name="gesture_data_delete_dialog_confirm">আপনি কি নিশ্চিত? এটি %sটি শব্দ মুছে ফেলবে। নিশ্চিত করুন যে আপনার শেয়ার করা ডেটা জমা দেওয়া হয়েছে!</string>
+    <string name="gesture_data_delete_dialog_submitted">%sটি জমা দেওয়া শব্দ বিলোপ</string>
+    <string name="gesture_data_many_not_shared_words">আপনার কাছে জমা দেওয়ার জন্য %s এর বেশি শব্দ অপেক্ষমাণ রয়েছে</string>
+    <string name="gesture_data_email_body">গুরুত্বপূর্ণ:\n\n হ্যালো!\n\n স্মরণ করিয়ে দিচ্ছি, এই ডেটা CC BY-SA 4.0 লাইসেন্সের অধীনে পাবলিকভাবে শেয়ার করা হবে, এবং আপনার গোপনীয়তা রক্ষার জন্য আপনাকে লেখক হিসেবে তালিকাভুক্ত করা হবে না।\n\n আমাদের সাথে আপনার ডেটার অধিকার শেয়ার করার জন্য ধন্যবাদ। আমরা এটি সঠিকভাবে ব্যবহার করব!\n\n দয়া করে মনে রাখবেন, এই নোটিশের শব্দ পরিবর্তন করা হলে আপনার ডেটার ব্যবহারের নিয়ম পরিবর্তিত হবে না। এটি একটি পরিবর্তনযোগ্য চুক্তি নয়, এটি কেবল একটি বন্ধুত্বপূর্ণ স্মরণসূচক।\n\n আপনি যদি আপনার ডেটার সাথে আমাদেরকে কোনো বার্তা পাঠাতে চান, এখানে রেখার নিচে লিখুন।\n\n ---------------------------------------------</string>
+    <string name="emoji_search_title">ইমোজি অনুসন্ধান</string>
+    <string name="search_field_placeholder">অনুসন্ধান</string>
 </resources>

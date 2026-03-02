@@ -38,6 +38,7 @@ import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.PointerTracker;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
+import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.dictionary.Dictionary;
@@ -318,7 +319,7 @@ public final class EmojiPalettesView extends LinearLayout
             return null;
         }
 
-        var wordProperty = sDictionaryFacilitator.getWordProperty(emoji);
+        var wordProperty = sDictionaryFacilitator.getWordProperty(EmojiParserKt.getEmojiNeutralVersion(emoji));
         if (wordProperty == null || ! wordProperty.mHasShortcuts) {
             return null;
         }
@@ -343,17 +344,18 @@ public final class EmojiPalettesView extends LinearLayout
         initDictionaryFacilitator();
     }
 
-    private void addRecentKey(final Key key) {
+    void addRecentKey(final Key key) {
         if (Settings.getValues().mIncognitoModeEnabled) {
             // We do not want to log recent keys while being in incognito
             return;
         }
-        if (mEmojiCategory.isInRecentTab()) {
+        if (getVisibility() == VISIBLE && mEmojiCategory.isInRecentTab()) {
             getRecentsKeyboard().addPendingKey(key);
             return;
         }
         getRecentsKeyboard().addKeyFirst(key);
-        mPager.getAdapter().notifyItemChanged(mEmojiCategory.getRecentTabId());
+        if (initialized)
+            mPager.getAdapter().notifyItemChanged(mEmojiCategory.getRecentTabId());
     }
 
     private void setupBottomRowKeyboard(final EditorInfo editorInfo, final KeyboardActionListener keyboardActionListener) {

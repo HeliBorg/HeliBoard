@@ -84,7 +84,6 @@
     <string name="settings">"პარამეტრები"</string>
     <string name="delete">"წაშლა"</string>
     <string name="version_text">ვერსია %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"ლექსიკონში დამატება"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"მალსახმობი:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ენა:"</string>
     <string name="user_dict_settings_add_word_hint">"შიყვანეთ სიტყვა"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"სიტყვის შესწორება"</string>
     <string name="user_dict_settings_all_languages">"ყველა ენისთვის"</string>
     <string name="user_dict_settings_more_languages">"სხვა ენები…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="auto_correction_confidence">ავტოკორექციის სანდოობა</string>
     <string name="enable_clipboard_history">ბუფერის ისტორიის ჩართვა</string>
     <string name="enable_clipboard_history_summary">თუ გამორთულია, ბუფერის ღილაკი ბუფერის შემცველობას ჩასვამს, თუ ის არსებობს</string>

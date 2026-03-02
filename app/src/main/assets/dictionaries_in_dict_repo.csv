@@ -97,6 +97,7 @@ main,de,exp
 main,gom,
 emoji,el,cldr
 main,el,
+main,el2,
 emoji,gu,cldr
 main,gu,
 emoji,ha,cldr
@@ -152,6 +153,7 @@ emoji,dsb,cldr
 emoji,lb,cldr
 main,lb,
 emoji,mk,cldr
+main,mk,
 main,mai,
 emoji,ms,cldr
 addon,ml_ZZ,exp
@@ -207,6 +209,7 @@ main,sa,
 emoji,sat,cldr
 main,sat,
 emoji,sc,cldr
+main,sc,exp
 emoji,gd,cldr
 main,sr_ZZ,
 emoji,sr,cldr

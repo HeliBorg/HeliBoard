@@ -84,7 +84,6 @@
     <string name="settings">"Setări"</string>
     <string name="delete">Șterge</string>
     <string name="version_text">Versiune %s</string>
-    <string name="user_dict_settings_add_dialog_title">Adaugă în dicționar</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Comandă rapidă:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Limbă:"</string>
     <string name="user_dict_settings_add_word_hint">Introdu un cuvânt</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">Editează cuvântul</string>
     <string name="user_dict_settings_all_languages">"Pentru toate limbile"</string>
     <string name="user_dict_settings_more_languages">"Mai multe limbi…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ"</string>
     <string name="select_input_method">"Alege metoda de introducere de text"</string>
     <string name="settings_screen_appearance">"Aspect"</string>
     <string name="undo">Anulează</string>
@@ -212,7 +210,6 @@
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Noros</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Pădure</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
-    <string name="select_user_colors_summary">Selectează culorile pentru text și fundal</string>
     <string name="select_color_background">Fundalul tastaturii</string>
     <string name="hidden_features_title">Descrierea caracteristicilor ascunse</string>
     <string name="hidden_features_summary">Afișează caracteristici care pot trece neobservate</string>
@@ -233,7 +230,6 @@
     <string name="day_night_mode_summary">Aspectul va urma setările sistemului</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roz</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Nisip</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definită de utilizator (noapte)</string>
     <string name="all_colors">Afișează toate culorile</string>
     <string name="auto_user_color">Alege culoarea automat</string>
     <string name="gnu_gpl">Licență GNU General Public v3.0</string>

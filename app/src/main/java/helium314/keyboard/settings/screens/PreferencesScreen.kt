@@ -28,10 +28,10 @@ import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.SwitchPreferenceWithEmojiDictWarning
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 
 @Composable
 fun PreferencesScreen(

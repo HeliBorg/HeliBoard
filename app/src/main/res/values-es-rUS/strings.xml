@@ -84,7 +84,6 @@
     <string name="settings">"Configuración"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">"Versión %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Agregar al diccionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Acceso directo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Escribe una palabra"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Editar palabra"</string>
     <string name="user_dict_settings_all_languages">"Todos los idiomas"</string>
     <string name="user_dict_settings_more_languages">"Más idiomas"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="enable_clipboard_history">Habilitar historial del portapapeles</string>
     <string name="clipboard_history_retention_time">Tiempo para mantener el historial</string>
     <string name="abbreviation_unit_minutes">%smin.</string>
@@ -197,7 +195,6 @@
     <string name="toolbar_keys">Seleccionar teclas de la barra de herramientas</string>
     <string name="clipboard" tools:keep="@string/clipboard">Portapapeles</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido por el usuario</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definido por el usuario (noche)</string>
     <string name="select_color_key">Color del texto de tecla</string>
     <string name="select_color_key_hint">Texto de la pista de la tecla</string>
     <string name="gnu_gpl">Licencia Pública General GNU v3.0</string>
@@ -261,7 +258,6 @@
     <string name="auto_user_color">Escoger colores automáticamente</string>
     <string name="main_colors">Mostrar sólo los colores principales</string>
     <string name="all_colors">Mostrar todos los colores</string>
-    <string name="select_user_colors_summary">Seleccionar colores para el texto y los fondos</string>
     <string name="select_color_background">Fondo del teclado</string>
     <string name="select_color_suggestion">Texto de la tira de sugerencias</string>
     <string name="select_color_key_background">Fondo de la tecla</string>

@@ -85,7 +85,6 @@
     <string name="settings">"Nastavení"</string>
     <string name="delete">"Smazat"</string>
     <string name="version_text">Verze %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Přidat do slovníku"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Zkratka:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jazyk:"</string>
     <string name="user_dict_settings_add_word_hint">"Napište slovo"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Upravit slovo"</string>
     <string name="user_dict_settings_all_languages">"Pro všechny jazyky"</string>
     <string name="user_dict_settings_more_languages">"Další jazyky…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCČDEFGHChIJKLMNOPQRŘSŠTUVWXYZŽ"</string>
     <string name="settings_category_clipboard_history">Historie schránky</string>
     <string name="settings_category_correction">Opravy</string>
     <string name="select_input_method">"Vybrat metodu zadávání"</string>
@@ -293,10 +291,8 @@
     <string name="dialog_close">Zavřít</string>
     <string name="text_tap_languages">Klepnutím na jazyk otevřete nastavení</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
-    <string name="select_user_colors_summary">Výběr barev pro text a pozadí</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fialový</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Uživatelsky definovaný</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Uživatelsky definovaný (noční)</string>
     <string name="auto_user_color">Vybrat barvu automaticky</string>
     <string name="main_colors">Zobrazit pouze hlavní barvy</string>
     <string name="all_colors">Zobrazit všechny barvy</string>
@@ -391,7 +387,7 @@
     <string name="switch_keyboard_after">Přepnout na hlavní klávesnici po…</string>
     <string name="after_clip">Výběr záznamu v historii schránky</string>
     <string name="after_symbol_and_space">Stisknutí klávesy Enter nebo mezerníku v zobrazení znaků</string>
-    <string name="all_colors_warning">Toto nastavení odhalí všechny interně používané barvy. Seznam barev se může kdykoli změnit. Výchozí barva je náhodná a názvy se nepřekládají.</string>
+    <string name="all_colors_warning">Toto nastavení odhalí všechny interně používané barvy. Seznam barev se může kdykoli změnit. Výchozí barva je vytvořená z normálních barev a názvy se nepřekládají.</string>
     <string name="subtype_mns">Mansijština</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funkční klávesy</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funkční klávesy (znaky)</string>
@@ -446,4 +442,47 @@
     <string name="subtype_mhr">Mari (východní)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Spodní řádek emodži s akční klávesou</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Spodní řádek schránky s akční klávesou</string>
+    <string name="number_row_in_symbols">Zobrazit číselný řádek na obrazovce znaků</string>
+    <string name="custom_emoji_font">Nastavit vlastní písmo emodži ze souboru</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funkční klávesy (Khipro)</string>
+    <string name="emoji_search_title">Hledat emodži</string>
+    <string name="search_field_placeholder">Hledat</string>
+    <string name="gesture_data_screen">Sbírání dat o gestech</string>
+    <string name="gesture_data_info">Co je to?</string>
+    <string name="gesture_data_privacy">Soukromí</string>
+    <string name="gesture_data_get_data">Sdílet soubor s daty o gestech</string>
+    <string name="gesture_data_delete_data">Vymazat data o gestech</string>
+    <string name="gesture_data_send_mail">Odeslat data e-mailem</string>
+    <string name="gesture_data_copy_mail">Kopírovat e-mailovou adresu</string>
+    <string name="gesture_data_mail_use">Upozorňujeme, že e-mailová adresa je určená pro odesílání dat, nemusíte obdržet rychlé nebo konzistentní odpovědi.</string>
+    <string name="gesture_data_please_type">Napište prosím slovo gestem:</string>
+    <string name="gesture_data_next_save">Zjištěno slovo %s. Klepněte, pokud jste si jisti, že gesto bylo správné</string>
+    <string name="gesture_data_next">Přeskočit slovo</string>
+    <string name="gesture_data_active_count">%1$s slov v této relaci, celkem %2$s slov (%3$s slov již odesláno nebo smazáno)</string>
+    <string name="gesture_data_review_screen_title">Zkontrolovat a sdílet data o gestech</string>
+    <string name="gesture_data_words_selected">%s slov</string>
+    <string name="gesture_data_date_range">Rozsah dat</string>
+    <string name="gesture_data_much_data">Máte spoustu neodeslaných dat. Odešlete je prosím a poté odstraňte stará data.</string>
+    <string name="gesture_data_how_to_use">Návod na použití</string>
+    <string name="gesture_data_active_start">Spustit aktivní sbírání</string>
+    <string name="gesture_data_active_stop">Zastavit aktivní sbírání</string>
+    <string name="gesture_data_ends_at">Fáze sbírání dat o gestech skončí %s. Před daným datem prosím odešlete vaše data.</string>
+    <string name="gesture_data_ended">Fáze sbírání dat o gestech skončila %s. Můžete sdílet vaše existující data, ale nemůžete přidávat nová.</string>
+    <string name="gesture_data_share_all">Sdílet všech %s slov</string>
+    <string name="gesture_data_share_new">Sdílet %s dříve neodeslaných slov</string>
+    <string name="gesture_data_delete_dialog">Máte data pro %1$s nových a %2$s již sdílených slov.</string>
+    <string name="gesture_data_delete_dialog_all">Smazat všech %s slov</string>
+    <string name="gesture_data_delete_dialog_confirm">Opravdu? Tato akce smaže %s slov. Ujistěte se, že je vaše sdílené datum odesláno!</string>
+    <string name="gesture_data_delete_dialog_submitted">Smazat %s odeslaných slov</string>
+    <string name="gesture_data_many_not_shared_words">Máte více než %s slov čekajících na odeslání</string>
+    <string name="gesture_data_description">Vítejte na obrazovce sbírání dat o gestech!&lt;br/&gt;&lt;br/&gt; Toto je část &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projektu financovaného NLnet&lt;/a&gt; snažící se o vytvoření plně otevřené knihovny psaní pomocí gest schopné nahradit uzavřenou knihovnu společnosti Google.&lt;br/&gt;Výsledkem bude jednoduchá náhrada pro klávesnice založené na AOSP, ale použitelná také s jinými klávesnicemi, např. FlorisBoard&lt;br/&gt;&lt;br/&gt; Při vyvíjení knihovny je nesmírně nápomocné mít dostupná podrobná data o gestech v různých jazycích a od různých uživatelů.&lt;br/&gt; Sbíráním a odesláním dat o psaní gesty můžete přispět do otevřené sady dat o gestech, která bude použita pro vývoj knihovny. Sada dat bude zveřejněna pod licencí CC BY-SA 4.0 chvíli po dokončení fáze sběru dat %s. Jakmile nasbíráte data, můžete je odeslat pomocí ikony sdílení ve spodní části této obrazovky.</string>
+    <string name="gesture_data_description_modes">V současné době existuje pouze metoda aktivního sbírání, kdy vám je zobrazeno určité slovo a vy jej napíšete pomocí gest.\n Později bude přidán režim pasivního sbírání, kdy budete moci poskytovat vzorky z vašeho klasického psaní gesty v jiných aplikacích. Z důvodu citlivosti tohoto přístupu bude tato funkce opt-in, nastavitelná a bude obsahovat obrazovku kontroly dat, která se chystáte odeslat.</string>
+    <string name="gesture_data_description_privacy">Ochrana osobních údajů\n\n Údaje, které zadáváte, zahrnují cílové slovo, rozložení klávesnice a rozměry, gesta (časy a souřadnice), návrhy aktuální knihovny, hash použitých slovníků, verzi aplikace, režim shromažďování údajů, zda je knihovna pro psaní gesty výchozí knihovnou Google, a ID pro každé gesto.\n Odeslaná data budou stažena a smazána z e-mailové schránky Proton Mail, kde jsou uložena, jakmile to bude možné. Po skončení fáze sběru dat o gestech bude souhrnný datový soubor od všech uživatelů zveřejněn pod licencí Creative Commons BY-SA 4.0.\n\n V rámci snahy o ochranu vašeho soukromí nebudete výslovně uvedeni jako autoři. Vaše zásluhy budou uvedeny jako „Přispěvatelé projektu HeliBoard Gesture Data Project“. Nemělo by být možné spojit data, která na této obrazovce generujete, s vaší identitou. Může však být možné určit, která gesta byla provedena stejnou osobou. To lze provést například na základě vlastního rozložení klávesnice, rozměrů klávesnice, jazyka nebo individuálního stylu gestikulace.</string>
+    <string name="gesture_data_active_description">Klepněte na „Spustit aktivní sbírání“, volitelně přepněte slovník a začněte psát zobrazené slovo pomocí gest.&lt;br/&gt; Pokud vaše gesto odpovídá slovu, budou data uložena a bude zobrazeno další slovo. V opačném případě můžete pokus opakovat, přeskočit slovo nebo potvrdit, že jste jej zadali správně&lt;br/&gt; Můžete používat pouze vestavěné slovníky nebo slovníky dostupné v &lt;a href=%s&gt;repozitáři slovníků&lt;/a&gt;, žádná jiná slova nebudou použita.</string>
+    <string name="gesture_data_email_body">DŮLEŽITÉ:\n\n Dobrý den!\n Připomínáme, že tyto údaje budou veřejně sdíleny pod licencí CC BY-SA 4.0 a vy nebudete uvedeni jako autor, aby bylo chráněno vaše soukromí.\n\n Děkujeme, že s námi sdílíte práva k vašim údajům. Využijeme je k dobrému účelu!\n\n Upozorňujeme, že změna znění tohoto oznámení nemění to, co s vašimi údaji uděláme. Nejedná se o smlouvu, kterou lze měnit, pouze o přátelské upozornění!\n Pokud nám chcete spolu s daty poslat zprávu, napište ji pod tuto čáru.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Dobrý den!\n Jelikož jste nainstalovali knihovnu pro psaní gesty, možná vás bude zajímat projekt vývojářů HeliBoard zaměřený na vytvoření plně otevřené knihovny pro psaní gesty. Můžete pomoci tím, že přispějete daty o gestech. Více informací najdete na obrazovce pro shromažďování dat o gestech.</string>
+    <string name="gesture_data_reminder_message">Dobrý den!\n Dříve jste používali shromažďování gest, ale už delší dobu jsi nepřidali žádná data. Chcete znovu přispívat?</string>
+    <string name="ask_later">Zeptat se později</string>
+    <string name="gesture_data_take_me_there">Vezměte mě tam</string>
+    <string name="timestamp_description">Klávesu času můžete přidat pomocí vlastního rozložení s klávesou „čas“ nebo kódem klávesy -10043</string>
 </resources>

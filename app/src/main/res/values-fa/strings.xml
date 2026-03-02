@@ -84,7 +84,6 @@
     <string name="settings">"تنظیمات"</string>
     <string name="delete">"حذف"</string>
     <string name="version_text">نسخه %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"افزودن به واژه‌نامه"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"میان‌بر:"</string>
     <string name="user_dict_settings_add_locale_option_name">"زبان:"</string>
     <string name="user_dict_settings_add_word_hint">"کلمه‌ای تایپ کنید"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"ویرایش کلمه"</string>
     <string name="user_dict_settings_all_languages">"برای همه زبان‌ها"</string>
     <string name="user_dict_settings_more_languages">"زبان‌های بیشتر…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_no_limit">بی‌محدودیت</string>
     <string name="enable_clipboard_history">فعال‌کردن تاریخچهٔ تخته‌گیره</string>
     <string name="select_input_method">"انتخاب روش ورودی"</string>

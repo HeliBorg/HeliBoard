@@ -84,7 +84,6 @@
     <string name="settings">"Nastavitve"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">"Različica %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"Dodaj v slovar"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Bližnjica:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jezik:"</string>
     <string name="user_dict_settings_add_word_hint">"Vnesite besedo"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Uredi besedo"</string>
     <string name="user_dict_settings_all_languages">"Za vse jezike"</string>
     <string name="user_dict_settings_more_languages">"Več jezikov …"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Izberite način vnosa"</string>
     <string name="auto_correction_confidence">Interval zaupanja samodejnih popravkov</string>
     <string name="delete_swipe_summary">Podrsaj z vračalke, da izbereš in izbrišeš večje dele besedila naenkrat</string>

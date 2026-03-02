@@ -84,7 +84,6 @@
     <string name="settings">"Iestatījumi"</string>
     <string name="delete">"Dzēst"</string>
     <string name="version_text">Versija %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Pievienot vārdnīcai"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Saīsne:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Valoda:"</string>
     <string name="user_dict_settings_add_word_hint">Ievadiet vārdu</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Vārda rediģēšana"</string>
     <string name="user_dict_settings_all_languages">"Visās valodās"</string>
     <string name="user_dict_settings_more_languages">"Citas valodas…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Ievades metodes izvēle"</string>
     <string name="undo">"Atsaukt"</string>
     <string name="redo">"Atcelt atsaukšanu"</string>

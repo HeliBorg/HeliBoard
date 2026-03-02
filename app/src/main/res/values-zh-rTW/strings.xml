@@ -84,7 +84,6 @@
     <string name="settings">"設定"</string>
     <string name="delete">"刪除"</string>
     <string name="version_text">"版本 %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"加入字典"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"快速鍵："</string>
     <string name="user_dict_settings_add_locale_option_name">"語言："</string>
     <string name="user_dict_settings_add_word_hint">"輸入字詞"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"編輯字詞"</string>
     <string name="user_dict_settings_all_languages">"所有語言"</string>
     <string name="user_dict_settings_more_languages">"更多語言…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"選擇輸入法"</string>
     <string name="undo">"復原"</string>
     <string name="redo">"重做"</string>

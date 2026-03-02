@@ -164,7 +164,13 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         val allowsToBeAutoCorrected: Boolean
         if (SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION
                 || firstSuggestionInContainer?.isKindOf(SuggestedWordInfo.KIND_WHITELIST) == true
-                || (consideredWord.length > 1 && typedWordInfo?.mSourceDict == null) // more than 1 letter and not in dictionary
+                || (consideredWord.length > 1
+                    && typedWordInfo?.mSourceDict == null // more than 1 letter and not in dictionary
+                    // if the typed word contains @ or ., the suggestion also needs to contain it
+                    // (avoid autocorrecting mail addresses, URLs & similar to something different)
+                    && (!typedWordString.contains('@') || firstSuggestionInContainer?.mWord?.contains('@') == true)
+                    && (!typedWordString.contains('.') || firstSuggestionInContainer?.mWord?.contains('.') == true)
+                    )
             ) {
             allowsToBeAutoCorrected = true
         } else if (firstSuggestionInContainer != null && typedWordString.isNotEmpty()) {

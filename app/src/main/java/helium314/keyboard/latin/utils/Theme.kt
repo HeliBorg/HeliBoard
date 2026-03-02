@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
-package helium314.keyboard.settings
+package helium314.keyboard.latin.utils
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -41,3 +41,5 @@ fun Theme(dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit
         content = content
     )
 }
+
+const val previewDark = true

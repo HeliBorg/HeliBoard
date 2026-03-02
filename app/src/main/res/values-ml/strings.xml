@@ -84,7 +84,6 @@
     <string name="settings">"ക്രമീകരണം"</string>
     <string name="delete">"ഇല്ലാതാക്കുക"</string>
     <string name="version_text">വേർഷൻ %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"നിഘണ്ടുവിൽ ചേർക്കുക"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"കുറുക്കുവഴി:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ഭാഷ:"</string>
     <string name="user_dict_settings_add_word_hint">"ഒരു പദം ടൈപ്പുചെയ്യുക"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"പദം എഡിറ്റുചെയ്യുക"</string>
     <string name="user_dict_settings_all_languages">"എല്ലാ ഭാഷകൾക്കുമായി"</string>
     <string name="user_dict_settings_more_languages">"കൂടുതൽ ഭാഷകൾ…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_miscellaneous">വിവിധ</string>
     <string name="settings_no_limit">പരിധിയില്ല</string>
     <string name="clipboard_history_retention_time">ചരിത്രം സൂക്ഷിക്കുന്ന സമയം</string>

@@ -84,7 +84,6 @@
     <string name="settings">"ਸੈਟਿੰਗਾਂ"</string>
     <string name="delete">"ਮਿਟਾਓ"</string>
     <string name="version_text">"ਰੂਪ %1$s"</string>
-    <string name="user_dict_settings_add_dialog_title">"ਸ਼ਬਦਕੋਸ਼ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ਸ਼ਾਰਟਕੱਟ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ਭਾਸ਼ਾ:"</string>
     <string name="user_dict_settings_add_word_hint">"ਇੱਕ ਸ਼ਬਦ ਟਾਈਪ ਕਰੋ"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"ਸ਼ਬਦ ਦਾ ਸੰਪਾਦਨ ਕਰੋ"</string>
     <string name="user_dict_settings_all_languages">"ਸਾਰੀਆਂ ਭਾਸ਼ਾਵਾਂ ਲਈ"</string>
     <string name="user_dict_settings_more_languages">"ਹੋਰ ਭਾਸ਼ਾਵਾਂ…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"ਇਨਪੁਟ ਵਿਧੀ ਚੁਣੋ"</string>
     <string name="undo">"ਅਣਕੀਤਾ ਕਰੋ"</string>
     <string name="redo">"ਮੁੜ-ਓਹੀ ਕਰੋ"</string>
