@@ -60,6 +60,8 @@ public final class SystemBroadcastReceiver extends BroadcastReceiver {
         } else if (Intent.ACTION_BOOT_COMPLETED.equals(intentAction)) {
             Log.i(TAG, "Boot has been completed");
             toggleAppIcon(context);
+        } else if (Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(intentAction)) {
+            Log.i(TAG, "Locked boot has been completed");
         } else if (Intent.ACTION_LOCALE_CHANGED.equals(intentAction)) {
             Log.i(TAG, "System locale changed");
             KeyboardLayoutSet.onSystemLocaleChanged();
