@@ -64,6 +64,7 @@ object Defaults {
     const val PREF_AUTO_CORRECT_THRESHOLD = 0.185f
     const val PREF_AUTOCORRECT_SHORTCUTS = true
     const val PREF_BACKSPACE_REVERTS_AUTOCORRECT = true
+    const val PREF_SUGGEST_SPLIT_CONCATENATED_WORDS = false
     const val PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = false
     const val PREF_SHOW_SUGGESTIONS = true
     const val PREF_ALWAYS_SHOW_SUGGESTIONS = false

@@ -115,6 +115,11 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                 getSuggestionsInfoListWithDebugInfo(capitalizedTypedWord, suggestionsContainer)
             else suggestionsContainer
 
+        // Detect and suggest corrections for concatenated words with accidental bottom-row key presses
+        if (!resultsArePredictions && typedWordString.length > 4 && Settings.getValues().mSuggestSplitConcatenatedWords) {
+            tryAddConcatenatedWordSuggestions(typedWordString, suggestionsList, firstOccurrenceOfTypedWordInSuggestions)
+        }
+
         val inputStyle = if (resultsArePredictions) {
             if (suggestionResults.mIsBeginningOfSentence) SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION
             else SuggestedWords.INPUT_STYLE_PREDICTION
@@ -258,6 +263,57 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             }
         }
         return allowsToBeAutoCorrected to hasAutoCorrection
+    }
+
+    /**
+     * Detects concatenated words with accidental bottom-row key presses (c, v, b, n, m)
+     * and adds spaced suggestions if both parts are valid dictionary words.
+     * Example: "hellobthere" -> suggests "hello there"
+     */
+    internal fun tryAddConcatenatedWordSuggestions(
+        typedWord: String,
+        suggestions: ArrayList<SuggestedWordInfo>,
+        firstOccurrenceOfTypedWord: Int
+    ) {
+        if (firstOccurrenceOfTypedWord >= 0) return // typed word is already valid
+
+        val bottomRowChars = setOf('c', 'v', 'b', 'n', 'm')
+        val lowerTypedWord = typedWord.lowercase(mDictionaryFacilitator.mainLocale)
+
+        // Try splitting at each bottom-row character position
+        for (i in 2 until lowerTypedWord.length - 2) { // min 2 chars on each side
+            val char = lowerTypedWord[i]
+            if (char !in bottomRowChars) continue
+
+            // Try splitting at this position (removing the accidental character)
+            val part1 = lowerTypedWord.substring(0, i)
+            val part2 = lowerTypedWord.substring(i + 1)
+
+            if (mDictionaryFacilitator.isValidSpellingWord(part1) &&
+                mDictionaryFacilitator.isValidSpellingWord(part2)) {
+
+                val spacedSuggestion = "$part1 $part2"
+                // Add with high score to make it a prominent suggestion
+                val suggestionInfo = SuggestedWordInfo(
+                    spacedSuggestion,
+                    "",
+                    SuggestedWordInfo.MAX_SCORE - 1, // high score but below typed word
+                    SuggestedWordInfo.KIND_CORRECTION,
+                    Dictionary.DICTIONARY_USER_TYPED,
+                    SuggestedWordInfo.NOT_AN_INDEX,
+                    SuggestedWordInfo.NOT_A_CONFIDENCE
+                )
+
+                // Insert at appropriate position
+                if (!suggestions.any { it.mWord == spacedSuggestion }) {
+                    // If there are already suggestions, insert at position 1 (right after typed word)
+                    // Otherwise just add to the list
+                    val insertPosition = if (suggestions.size > 1) 1 else suggestions.size
+                    suggestions.add(insertPosition, suggestionInfo)
+                }
+                return // only add one spaced suggestion
+            }
+        }
     }
 
     // Retrieves suggestions for the batch input

@@ -80,6 +80,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_AUTO_CORRECT_THRESHOLD = "auto_correct_threshold";
     public static final String PREF_AUTOCORRECT_SHORTCUTS = "autocorrect_shortcuts";
     public static final String PREF_BACKSPACE_REVERTS_AUTOCORRECT = "backspace_reverts_autocorrect";
+    public static final String PREF_SUGGEST_SPLIT_CONCATENATED_WORDS = "suggest_split_concatenated_words";
     public static final String PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = "center_suggestion_text_to_enter";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
     public static final String PREF_ALWAYS_SHOW_SUGGESTIONS = "always_show_suggestions";

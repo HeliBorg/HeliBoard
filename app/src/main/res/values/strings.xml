@@ -146,6 +146,10 @@
     <string name="auto_correct_shortcuts_summary">When enabled shortcuts might be expanded by autocorrect</string>
     <!-- Option to undo auto correction with backspace -->
     <string name="backspace_reverts_autocorrect">Backspace reverts autocorrect</string>
+    <!-- Option to suggest split words when accidentally typing bottom row keys instead of space -->
+    <string name="suggest_split_concatenated_words">Suggest split words</string>
+    <!-- Description for suggest_split_concatenated_words -->
+    <string name="suggest_split_concatenated_words_summary">Suggest space-separated words when c, v, b, n, or m is accidentally typed instead of space</string>
     <!-- Option to disable auto correction. -->
     <string name="auto_correction_threshold_mode_off">Off</string> <!-- todo: use it or remove it -->
     <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. -->

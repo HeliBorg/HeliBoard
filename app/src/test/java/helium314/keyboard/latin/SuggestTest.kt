@@ -276,6 +276,124 @@ class SuggestTest {
         assertEquals("word'", result.mWord)
     }
 
+    private fun createMockFacilitatorWithValidWords(vararg validWords: String): DictionaryFacilitator {
+        val mock = org.mockito.Mockito.mock(DictionaryFacilitator::class.java)
+        org.mockito.Mockito.`when`(mock.mainLocale).thenReturn(Locale.ENGLISH)
+        validWords.forEach { word ->
+            org.mockito.Mockito.`when`(mock.isValidSpellingWord(word)).thenReturn(true)
+        }
+        return mock
+    }
+
+    /**
+     * Test helper for concatenated word splitting
+     * @param input The typed word with accidental bottom-row char instead of space (e.g., "hellobthere")
+     * @param validWords Words to mark as valid in the mock dictionary
+     * @param expectedSuggestionCount Expected number of suggestions added (0 or 1)
+     * @param expectedSuggestion The expected suggestion text if count > 0 (e.g., "hello there")
+     * @param firstOccurrence Position of typed word in existing suggestions (-1 = not found/invalid, >=0 = already valid)
+     */
+    private fun testConcatenatedSplit(input: String, validWords: Array<String>,
+                                      expectedSuggestionCount: Int, expectedSuggestion: String? = null,
+                                      firstOccurrence: Int = -1) {
+        val mockFacilitator = createMockFacilitatorWithValidWords(*validWords)
+        val testSuggest = Suggest(mockFacilitator)
+        val suggestions = ArrayList<SuggestedWordInfo>()
+        testSuggest.tryAddConcatenatedWordSuggestions(input, suggestions, firstOccurrence)
+
+        assertEquals(expectedSuggestionCount, suggestions.size)
+        if (expectedSuggestion != null) {
+            assertEquals(expectedSuggestion, suggestions[0].mWord)
+        }
+    }
+
+    @Test fun `all bottom row chars trigger split`() {
+        testConcatenatedSplit("hellobthere", arrayOf("hello", "there"), 1, "hello there")
+        testConcatenatedSplit("goodntimes", arrayOf("good", "times"), 1, "good times")
+        testConcatenatedSplit("lovevlife", arrayOf("love", "life"), 1, "love life")
+        testConcatenatedSplit("bigcdog", arrayOf("big", "dog"), 1, "big dog")
+        testConcatenatedSplit("somemday", arrayOf("some", "day"), 1, "some day")
+    }
+
+    @Test fun `concatenated words with multiple possible splits - only first valid`() {
+        testConcatenatedSplit("hellomworld", arrayOf("hello", "world"), 1, "hello world")
+    }
+
+    @Test fun `no split if typed word already in dictionary`() {
+        // "hellobthere" is already valid (e.g., custom dictionary compound word)
+        // firstOccurrence=0 means it's found in suggestions at position 0
+        testConcatenatedSplit("hellobthere", arrayOf("hello", "there", "hellobthere"), 0, firstOccurrence = 0)
+    }
+
+    @Test fun `no split if only one part is valid word`() {
+        // "hello" is valid but "there" is not (e.g., typing in mixed languages)
+        testConcatenatedSplit("hellobthere", arrayOf("hello"), 0)
+    }
+
+    @Test fun `minimum word length boundaries`() {
+        // Works: 2 chars on each side (minimum)
+        testConcatenatedSplit("atbcat", arrayOf("at", "cat"), 1, "at cat")
+        testConcatenatedSplit("catbat", arrayOf("cat", "at"), 1, "cat at")
+
+        // Fails: less than 2 chars before or after split
+        testConcatenatedSplit("abcat", arrayOf("a", "cat"), 0)
+        testConcatenatedSplit("catba", arrayOf("cat", "a"), 0)
+    }
+
+    @Test fun `no split for strings of bottom row chars only`() {
+        testConcatenatedSplit("bvncm", arrayOf("b", "v", "n", "c", "m"), 0)
+    }
+
+    @Test fun `no split for very short strings`() {
+        testConcatenatedSplit("ab", arrayOf("a", "b"), 0)
+        testConcatenatedSplit("abc", arrayOf("a", "b", "c"), 0)
+        testConcatenatedSplit("abcd", arrayOf("ab", "cd"), 0)
+    }
+
+    @Test fun `split requires exactly 2 chars on each side minimum`() {
+        testConcatenatedSplit("thebcat", arrayOf("the", "cat"), 1, "the cat")
+    }
+
+    @Test fun `no false positive - words containing bottom row chars are not split`() {
+        // "abacus" contains 'c' but should not split to "aba us"
+        testConcatenatedSplit("abacus", arrayOf("abacus", "aba", "us"), 0, firstOccurrence = 0)
+    }
+
+    @Test fun `no false positive - abacus not split when valid`() {
+        testConcatenatedSplit("abacus", arrayOf("abacus"), 0, firstOccurrence = 0)
+    }
+
+    @Test fun `no false positive - banish contains ban but should not split`() {
+        testConcatenatedSplit("banish", arrayOf("banish", "ban", "ish"), 0, firstOccurrence = 0)
+    }
+
+    @Test fun `no false positive - combat contains com and bat`() {
+        testConcatenatedSplit("combat", arrayOf("combat", "com", "bat"), 0, firstOccurrence = 0)
+    }
+
+    @Test fun `no false positive - mania contains bottom row chars`() {
+        testConcatenatedSplit("mania", arrayOf("mania", "ma", "ia"), 0, firstOccurrence = 0)
+    }
+
+    @Test fun `split momscabacus to moms abacus`() {
+        testConcatenatedSplit("momscabacus", arrayOf("moms", "abacus"), 1, "moms abacus")
+    }
+
+    @Test fun `split bannmermaids to ban mermaids`() {
+        testConcatenatedSplit("bannmermaids", arrayOf("ban", "mermaids"), 1, "ban mermaids")
+    }
+
+    @Test fun `split beetlevmania to beetle mania`() {
+        testConcatenatedSplit("beetlevmania", arrayOf("beetle", "mania"), 1, "beetle mania")
+    }
+
+    @Test fun `only first split for multiple concatenated words`() {
+        // "thebboyboughtnthembasketball" would ideally be "the boy bought the basketball"
+        // but algorithm only splits at first valid bottom-row char, giving "the boyboughtnthembasketball"
+        testConcatenatedSplit("thebboyboughtnthembasketball",
+            arrayOf("the", "boyboughtnthembasketball"), 1, "the boyboughtnthembasketball")
+    }
+
     private fun shouldBeAutoCorrected(word: String, // typed word
                               suggestions: List<SuggestedWordInfo>, // suggestions ordered by score, including suggestion for typed word if in dictionary
                               firstSuggestionForEmpty: SuggestedWordInfo?, // first suggestion if typed word would be empty (null if none)

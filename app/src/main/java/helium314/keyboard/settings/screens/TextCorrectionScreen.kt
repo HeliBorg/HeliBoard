@@ -66,6 +66,7 @@ fun TextCorrectionScreen(
         if (autocorrectEnabled) Settings.PREF_AUTOCORRECT_SHORTCUTS else null,
         if (autocorrectEnabled) Settings.PREF_AUTO_CORRECT_THRESHOLD else null,
         if (autocorrectEnabled) Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT else null,
+        if (autocorrectEnabled) Settings.PREF_SUGGEST_SPLIT_CONCATENATED_WORDS else null,
         Settings.PREF_AUTO_CAP,
         R.string.settings_category_space,
         Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD,
@@ -136,6 +137,11 @@ fun createCorrectionSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT, R.string.backspace_reverts_autocorrect) {
         SwitchPreference(it, Defaults.PREF_BACKSPACE_REVERTS_AUTOCORRECT)
+    },
+    Setting(context, Settings.PREF_SUGGEST_SPLIT_CONCATENATED_WORDS,
+        R.string.suggest_split_concatenated_words, R.string.suggest_split_concatenated_words_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_SUGGEST_SPLIT_CONCATENATED_WORDS)
     },
     Setting(context, Settings.PREF_AUTO_CAP,
         R.string.auto_cap, R.string.auto_cap_summary
