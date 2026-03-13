@@ -257,7 +257,6 @@
             <flag name="followKeyLetterRatio" value="0x80" /><!-- 128 -->
             <flag name="followKeyLabelRatio" value="0xC0" /><!-- 192 -->
             <flag name="followKeyHintLabelRatio" value="0x140" /><!-- 320 -->
-            <flag name="hasPopupHint" value="0x200" /><!-- 512 -->
             <flag name="hasShiftedLetterHint" value="0x400" /><!-- 1024 -->
             <flag name="hasHintLabel" value="0x800" /><!-- 2048 -->
             <flag name="autoXScale" value="0x4000" /><!-- 16384 -->
