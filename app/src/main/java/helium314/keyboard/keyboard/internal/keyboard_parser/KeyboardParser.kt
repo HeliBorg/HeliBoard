@@ -141,8 +141,6 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE
                     else 0
-                if (DebugFlags.DEBUG_ENABLED)
-                    Log.d(TAG, "adding key ${key.label}, ${key.code}")
                 key.toKeyParams(params, defaultLabelFlags or extraFlags)
             }
         }
