@@ -53,6 +53,7 @@ android {
             isJniDebuggable = false
             signingConfig = signingConfigs.getByName("debug")
             applicationIdSuffix = ".debug"
+            isDefault = true
         }
         base.archivesBaseName = "HeliBoard_" + defaultConfig.versionName
         // got a little too big for GitHub after some dependency upgrades, so we remove the largest dictionary
