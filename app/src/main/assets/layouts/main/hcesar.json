@@ -12,7 +12,7 @@
     { "$": "shift_state_selector",
       "shifted": { "label": "«" },
       "default": { "label": "," }
-}
+    }
   ],
   [
     { "label": "q" },
@@ -27,7 +27,7 @@
     { "$": "shift_state_selector",
       "shifted": { "label": "»" },
       "default": { "label": "." }
-}
+    }
   ],
   [
     { "label": "ç" },
