@@ -154,7 +154,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public boolean onSwipeDownOnToolbar() {
-        LatinIME.this.requestHideSelf(0);
+        requestHideSelf(0);
         return true;
     }
 

@@ -60,6 +60,7 @@ import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.removePinnedKey
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.math.abs
 import kotlin.math.min
 
 @SuppressLint("InflateParams")
@@ -185,29 +186,19 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             override fun onScroll(down: MotionEvent?, me: MotionEvent, deltaX: Float, deltaY: Float): Boolean {
                 if (down == null) return false
                 val dy = me.y - down.y
+                val dx = me.x - down.x
+
+                if (Settings.getValues().mToolbarSwipeDownToHide && dy > 50.dpToPx(resources) && abs(dy) > abs(dx)) {
+                    listener.onSwipeDownOnToolbar()
+                    return true
+                }
+
                 return if (toolbarContainer.visibility != VISIBLE && deltaY > 0 && dy < (-10).dpToPx(resources)) showMoreSuggestions()
                 else false
             }
         }
         gestureDetector = GestureDetector(context, slidingListener)
     }
-
-    private val swipeDownGestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
-        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            if (e1 == null) return false
-
-            val isEnabled = Settings.getValues().mToolbarSwipeDownToHide
-            val deltaY = e2.y - e1.y
-
-            if (isEnabled && deltaY > 50.dpToPx(resources) && velocityY > 500 && Math.abs(velocityY) > Math.abs(velocityX)) {
-
-                listener.onSwipeDownOnToolbar()
-
-                return true
-            }
-            return false
-        }
-    })
 
     // public stuff
 
@@ -322,7 +313,6 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     override fun onInterceptTouchEvent(motionEvent: MotionEvent): Boolean {
-        swipeDownGestureDetector.onTouchEvent(motionEvent)
         // Disable More Suggestions if external suggestions are visible
         if (isExternalSuggestionVisible) {
             return false
@@ -333,9 +323,6 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
-        if (swipeDownGestureDetector.onTouchEvent(motionEvent)) {
-            return true
-        }
         moreSuggestionsView.touchEvent(motionEvent)
         return true
     }
