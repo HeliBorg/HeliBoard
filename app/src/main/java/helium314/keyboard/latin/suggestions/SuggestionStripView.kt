@@ -75,7 +75,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean)
         fun removeSuggestion(word: String?)
         fun removeExternalSuggestions()
-        fun onSwipeDownOnToolbar(): Boolean
+        fun onSwipeDownOnToolbar()
     }
 
     private val moreSuggestionsContainer: View
