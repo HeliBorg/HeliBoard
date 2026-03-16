@@ -32,7 +32,7 @@
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
     <!-- Option whether the keyboard can be hidden by swiping down on the toolbar -->
-    <string name="toolbar_swipe_down_to_hide">Hide by swipe</string>
+    <string name="toolbar_swipe_down_to_hide">Hide keyboard by swipe</string>
     <!-- Description for toolbar_swipe_down_to_hide -->
     <string name="toolbar_swipe_down_to_hide_summary">Swipe down on the toolbar to close the keyboard</string>
     <!-- Settings screen title for preferences-->
