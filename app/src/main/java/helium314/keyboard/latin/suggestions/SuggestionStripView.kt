@@ -193,7 +193,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
                     return true
                 }
 
-                return if (toolbarContainer.visibility != VISIBLE && deltaY > 0 && dy < (-10).dpToPx(resources)) showMoreSuggestions()
+                return if (!isExternalSuggestionVisible && toolbarContainer.visibility != VISIBLE && deltaY > 0 && dy < (-10).dpToPx(resources)) showMoreSuggestions()
                 else false
             }
         }
@@ -313,10 +313,6 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     override fun onInterceptTouchEvent(motionEvent: MotionEvent): Boolean {
-        // Disable More Suggestions if external suggestions are visible
-        if (isExternalSuggestionVisible) {
-            return false
-        }
         // Detecting sliding up finger to show MoreSuggestionsView.
         return moreSuggestionsView.shouldInterceptTouchEvent(motionEvent)
     }
