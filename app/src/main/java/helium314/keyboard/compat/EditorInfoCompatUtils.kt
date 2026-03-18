@@ -9,6 +9,7 @@ package helium314.keyboard.compat
 import android.os.Build
 import android.text.InputType
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.inputmethod.EditorInfoCompat
 import helium314.keyboard.latin.utils.Log
 import java.util.*
 
@@ -42,6 +43,16 @@ object EditorInfoCompatUtils {
         val sentenceCaps = (editorInfo.inputType and InputType.TYPE_TEXT_FLAG_CAP_SENTENCES) != 0
         val wordCaps = (editorInfo.inputType and InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0
         Log.d(tag, ("All caps: $allCaps, sentence caps: $sentenceCaps, word caps: $wordCaps"))
+    }
+
+    @JvmStatic
+    fun isMimeTypeSupportedByEditor(editorInfo: EditorInfo?, mimeType: String): Boolean {
+        if (editorInfo == null) return false
+        val supportedMimeTypes = EditorInfoCompat.getContentMimeTypes(editorInfo)
+        return supportedMimeTypes.any { supported ->
+            supported == "*/*" || supported == mimeType
+                    || (supported.endsWith("/*") && mimeType.startsWith(supported.removeSuffix("*")))
+        }
     }
 
     @JvmStatic

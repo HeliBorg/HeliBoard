@@ -7,6 +7,7 @@
     android:paddingEnd="12dp"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:clipToOutline="true"
     tools:ignore="RtlSymmetry">
     <TextView
         android:id="@+id/clipboard_suggestion_text"
@@ -22,6 +23,14 @@
         android:ellipsize="end"
         android:textStyle="bold"
         style="?android:attr/textAppearanceSmall" />
+    <ImageView
+        android:id="@+id/clipboard_suggestion_image"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:paddingHorizontal="12dp"
+        android:visibility="gone" />
     <ImageView
         android:id="@+id/clipboard_suggestion_close"
         android:contentDescription="@string/spoken_clipboard_suggestion"

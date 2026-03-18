@@ -660,6 +660,11 @@ public final class InputLogic {
      *
      */
     private void handleClipboardPaste() {
+        final android.net.Uri clipUri = mLatinIME.getClipboardHistoryManager().retrieveClipboardUri();
+        if (clipUri != null) {
+            mLatinIME.onUriInput(clipUri);
+            return;
+        }
         final String clipboardContent = mLatinIME.getClipboardHistoryManager().retrieveClipboardContent().toString();
         if (!clipboardContent.isEmpty()) {
             mLatinIME.onTextInput(clipboardContent);

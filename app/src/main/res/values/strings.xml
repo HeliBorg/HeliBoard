@@ -914,6 +914,8 @@ New dictionary:
     <string name="auto_hide_toolbar_summary">Hide the toolbar when suggestions become available</string>
     <!-- Toast message shown when content is copied to the clipboard -->
     <string name="toast_msg_clipboard_copy">Content copied</string>
+    <!-- Toast message shown when trying to paste a URI that the editor doesn't support -->
+    <string name="toast_msg_unsupported_uri">This app does not support pasting this content type</string>
     <!-- Title of the setting to customize icons for keyboard and toolbar keys -->
     <string name="customize_icons">Customize icons</string>
     <!-- Confirmation message when resetting all custom icons -->

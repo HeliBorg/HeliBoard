@@ -10,6 +10,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -24,6 +25,7 @@ import helium314.keyboard.latin.utils.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.CorrectionInfo;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
@@ -31,6 +33,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.inputmethod.InputConnectionCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
 
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
@@ -1175,5 +1179,18 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final int cursorUpdateMode = (enableMonitor ? InputConnection.CURSOR_UPDATE_MONITOR : 0)
             | (requestImmediateCallback ? InputConnection.CURSOR_UPDATE_IMMEDIATE : 0);
         return mIC.requestCursorUpdates(cursorUpdateMode);
+    }
+
+    public boolean commitContent(@NonNull final Uri uri, @NonNull final String mimeType,
+            @NonNull final EditorInfo editorInfo) {
+        mIC = mParent.getCurrentInputConnection();
+        if (!isConnected()) {
+            return false;
+        }
+        final InputContentInfoCompat contentInfo = new InputContentInfoCompat(uri,
+                new android.content.ClipDescription("clipboard image", new String[]{mimeType}),
+                null);
+        return InputConnectionCompat.commitContent(mIC, editorInfo, contentInfo,
+                InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION, null);
     }
 }

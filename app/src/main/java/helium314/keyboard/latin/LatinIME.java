@@ -9,6 +9,7 @@ package helium314.keyboard.latin;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -17,6 +18,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
@@ -1414,6 +1416,25 @@ public class LatinIME extends InputMethodService implements
         updateStateAfterInputTransaction(completeInputTransaction);
         mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+    }
+
+    public void onUriInput(final Uri uri) {
+        final EditorInfo editorInfo = getCurrentInputEditorInfo();
+        if (editorInfo == null) return;
+
+        String mimeType = getContentResolver().getType(uri);
+        if (mimeType == null) {
+            // ContentResolver may fail for some providers (e.g. Samsung clipboard).
+            // Fall back to the MIME type declared in the system clipboard's ClipDescription.
+            final android.content.ClipData clipData = ((android.content.ClipboardManager)
+                    getSystemService(Context.CLIPBOARD_SERVICE)).getPrimaryClip();
+            if (clipData != null && clipData.getDescription().getMimeTypeCount() > 0) {
+                mimeType = clipData.getDescription().getMimeType(0);
+            }
+        }
+        if (mimeType == null) mimeType = "application/octet-stream";
+
+        mInputLogic.mConnection.commitContent(uri, mimeType, editorInfo);
     }
 
     public void onStartBatchInput() {
