@@ -100,6 +100,7 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
+        freeCompilerArgs = listOf("-XXLanguage:+WhenGuards")
     }
 
     // see https://github.com/Helium314/HeliBoard/issues/477

@@ -24,7 +24,7 @@ public final class KeyboardCodesSet {
         Integer id = sNameToIdMap.get(name);
         if (id == null) {
             try {
-                return KeyCode.INSTANCE.checkAndConvertCode(Integer.parseInt(name));
+                return KeyCode.INSTANCE.checkAndConvertCode(Integer.parseInt(name), false);
             } catch (final Exception e) {
                 throw new RuntimeException("Unknown key code: " + name);
             }

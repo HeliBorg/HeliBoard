@@ -37,6 +37,7 @@ import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.repeatToolbarKey
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 
 @SuppressLint("CustomViewStyleable")
@@ -213,7 +214,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
         if (tag is ToolbarKey) {
             AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_LONG_PRESS)
             val longClickCode = getCodeForToolbarKeyLongClick(tag)
-            if (longClickCode != KeyCode.UNSPECIFIED) {
+            if (longClickCode == KeyCode.KEY_REPEAT) {
+                onClick(view)
+                repeatToolbarKey(view) { onClick(view) }
+            } else if (longClickCode != KeyCode.UNSPECIFIED) {
                 keyboardActionListener.onCodeInput(
                     longClickCode,
                     Constants.NOT_A_COORDINATE,

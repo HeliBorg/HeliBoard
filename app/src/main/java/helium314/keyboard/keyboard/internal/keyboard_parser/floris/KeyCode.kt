@@ -179,6 +179,8 @@ object KeyCode {
     const val EMOJI_SEARCH =              -10050
     const val INLINE_EMOJI_SEARCH_DONE =  -10051
 
+    // Valid for long press only
+    const val KEY_REPEAT =                -11000
 
     // Intents
     const val SEND_INTENT_ONE =            -20000
@@ -186,7 +188,7 @@ object KeyCode {
     const val SEND_INTENT_THREE =          -20002
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
-    fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
+    fun Int.checkAndConvertCode(longPress: Boolean = false): Int = if (this > 0) this else when (this) {
         // working
         CURRENCY_SLOT_1, CURRENCY_SLOT_2, CURRENCY_SLOT_3, CURRENCY_SLOT_4, CURRENCY_SLOT_5, CURRENCY_SLOT_6,
         VOICE_INPUT, LANGUAGE_SWITCH, SETTINGS, DELETE, ALPHA, SYMBOL, EMOJI, CLIPBOARD, CLIPBOARD_CUT, UNDO,
@@ -203,6 +205,8 @@ object KeyCode {
         TIMESTAMP, CTRL_LEFT, CTRL_RIGHT, ALT_LEFT, ALT_RIGHT, META_LEFT, META_RIGHT, SEND_INTENT_ONE, SEND_INTENT_TWO,
         SEND_INTENT_THREE, EMOJI_SEARCH, INLINE_EMOJI_SEARCH_DONE, META_LOCK
         -> this
+
+        KEY_REPEAT if (longPress) -> this
 
         // conversion
         IME_UI_MODE_TEXT -> ALPHA

@@ -58,6 +58,7 @@ import helium314.keyboard.latin.utils.getPinnedToolbarKeys
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.removePinnedKey
+import helium314.keyboard.latin.utils.repeatToolbarKey
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.abs
@@ -369,7 +370,10 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         val tag = view.tag as? ToolbarKey ?: return
         if (!Settings.getValues().mQuickPinToolbarKeys || view.parent === pinnedKeys) {
             val longClickCode = getCodeForToolbarKeyLongClick(tag)
-            if (longClickCode != KeyCode.UNSPECIFIED) {
+            if (longClickCode == KeyCode.KEY_REPEAT) {
+                onClick(view)
+                repeatToolbarKey(view) { onClick(view) }
+            } else if (longClickCode != KeyCode.UNSPECIFIED) {
                 listener.onCodeInput(longClickCode, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false)
             }
         } else if (view.parent === toolbar) {
