@@ -1645,14 +1645,19 @@ public class LatinIME extends InputMethodService implements
             }
             // TODO: Use event time that the last feedback has been generated instead of relying on
             // a repeat count to thin out feedback.
-            if (repeatCount % PERIOD_FOR_AUDIO_AND_HAPTIC_FEEDBACK_IN_KEY_REPEAT == 0) {
+            // Don't thin out feedback for delete key when deleting whole words.
+            final boolean deleteWholeWords = Settings.getValues() != null && Settings.getValues().mDeleteWholeWords;
+            if (!(code == KeyCode.DELETE && deleteWholeWords)
+                    && repeatCount % PERIOD_FOR_AUDIO_AND_HAPTIC_FEEDBACK_IN_KEY_REPEAT == 0) {
                 return;
             }
         }
         final AudioAndHapticFeedbackManager feedbackManager =
                 AudioAndHapticFeedbackManager.getInstance();
         if (repeatCount == 0) {
-            // TODO: Reconsider how to perform haptic feedback when repeating key.
+            feedbackManager.performHapticFeedback(keyboardView, hapticEvent);
+        } else if (code == KeyCode.DELETE && Settings.getValues() != null && Settings.getValues().mDeleteWholeWords) {
+            // Vibrate on every backspace repeat when deleting whole words
             feedbackManager.performHapticFeedback(keyboardView, hapticEvent);
         }
         feedbackManager.performAudioFeedback(code, hapticEvent);
