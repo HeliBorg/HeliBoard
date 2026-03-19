@@ -10,6 +10,7 @@ import android.view.KeyCharacterMap
 import android.view.KeyEvent
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.utils.Log
 
 /**
  * A hardware event decoder for a hardware qwerty-ish keyboard.
@@ -26,6 +27,11 @@ class HardwareKeyboardEventDecoder(val mDeviceId: Int) : HardwareEventDecoder {
         // hence the name "codePointAndFlags". {@see KeyEvent#getUnicodeChar()} for more info.
         val codePointAndFlags = keyEvent.unicodeChar.takeIf { it != 0 }
             ?: Event.NOT_A_CODE_POINT // KeyEvent has 0 if no codePoint, but that's actually valid so we convert it to -1
+
+        // Debug logging to understand hardware keyboard behavior
+        val charFromEvent = if (codePointAndFlags > 0) codePointAndFlags.toChar() else '?'
+        Log.d("HWKeyboard", "keyCode=${keyEvent.keyCode}, unicodeChar=${keyEvent.unicodeChar}, " +
+            "char='$charFromEvent', deviceId=${keyEvent.deviceId}, scanCode=${keyEvent.scanCode}")
 
         // The keyCode is the abstraction used by the KeyEvent to represent different keys that
         // do not necessarily map to a unicode character. This represents a physical key, like

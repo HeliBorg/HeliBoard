@@ -571,6 +571,10 @@ language, hence "No language". -->
     <string name="prefs_enable_emoji_alt_physical_key">Emoji for physical keyboard</string>
     <!-- Description of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards -->
     <string name="prefs_enable_emoji_alt_physical_key_summary">Physical Alt key shows the emoji palette</string>
+    <!-- Title of the setting for enabling hardware keyboard support -->
+    <string name="prefs_enable_hardware_keyboard">Hardware keyboard support</string>
+    <!-- Description of the setting for enabling hardware keyboard support -->
+    <string name="prefs_enable_hardware_keyboard_summary">Enable handling of physical keyboard input (experimental, may have issues)</string>
     <!-- Title of the button to revert to the default value of the device in the settings dialog. Preferably 10 characters or less. -->
     <string name="button_default">Default</string>
     <!-- Title of the setup wizard welcome screen. %s is the application name. -->
