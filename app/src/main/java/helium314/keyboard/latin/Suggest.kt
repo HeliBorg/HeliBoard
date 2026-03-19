@@ -142,7 +142,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         }
         val isTypedWordValid = firstOccurrenceOfTypedWordInSuggestions > -1 || (!resultsArePredictions && !allowsToBeAutoCorrected)
         return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions,
-            typedWordInfo, isTypedWordValid, hasAutoCorrection, false, inputStyle, sequenceNumber)
+            typedWordInfo, isTypedWordValid, hasAutoCorrection && capitalizedTypedWord == wordComposer.typedWord, false, inputStyle,
+            sequenceNumber)
     }
 
     // returns [allowsToBeAutoCorrected, hasAutoCorrection]

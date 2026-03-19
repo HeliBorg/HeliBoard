@@ -592,16 +592,8 @@ public final class InputLogic {
     // TODO: on the long term, this method should become private, but it will be difficult.
     // Especially, how do we deal with InputMethodService.onDisplayCompletions?
     public void setSuggestedWords(final SuggestedWords suggestedWords) {
-        if (!suggestedWords.isEmpty()) {
-            final SuggestedWordInfo suggestedWordInfo;
-            if (suggestedWords.mWillAutoCorrect) {
-                suggestedWordInfo = suggestedWords.getInfo(SuggestedWords.INDEX_OF_AUTO_CORRECTION);
-            } else {
-                // We can't use suggestedWords.getWord(SuggestedWords.INDEX_OF_TYPED_WORD)
-                // because it may differ from mWordComposer.mTypedWord.
-                suggestedWordInfo = suggestedWords.mTypedWordInfo;
-            }
-            mWordComposer.setAutoCorrection(suggestedWordInfo);
+        if (! suggestedWords.isEmpty() && suggestedWords.mWillAutoCorrect) {
+            mWordComposer.setAutoCorrection(suggestedWords.getInfo(SuggestedWords.INDEX_OF_AUTO_CORRECTION));
         }
         mSuggestedWords = suggestedWords;
         final boolean newAutoCorrectionIndicator = suggestedWords.mWillAutoCorrect;
