@@ -22,11 +22,13 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnLongClickListener
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.view.doOnNextLayout
 import androidx.core.view.isVisible
 import helium314.keyboard.compat.isDeviceLocked
 import helium314.keyboard.event.HapticEvent
@@ -252,29 +254,35 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         updateKeys()
     }
 
-    fun setExternalSuggestionView(view: View?, addCloseButton: Boolean) {
+    fun setExternalSuggestionView(view: View, addCloseButton: Boolean) {
         clear()
+        updateKeys()
         isExternalSuggestionVisible = true
 
-        if (addCloseButton) {
-            val wrapper = LinearLayout(context)
-            wrapper.layoutParams = LinearLayout.LayoutParams(suggestionsStrip.width - 30.dpToPx(resources), LayoutParams.MATCH_PARENT)
-            wrapper.addView(view)
-            suggestionsStrip.addView(wrapper)
+        Log.d(TAG, "Display width: ${context.getSystemService(WindowManager::class.java).defaultDisplay.width}, " +
+            "suggestion strip view width: $width, " +
+            "suggestions strip wrapper width: ${findViewById<View>(R.id.suggestions_strip_wrapper).width}, " +
+            "toolbarExpandKey width: ${toolbarExpandKey.width}, pinnedKeys width: ${pinnedKeys.width}, " +
+            "suggestionsStrip width: ${suggestionsStrip.width}, toolbarKeyLayoutParams.width: ${toolbarKeyLayoutParams.width}")
 
+        if (addCloseButton) {
+            view.layoutParams = getExternalSuggestionsLayoutParams()
+            suggestionsStrip.addView(view)
             val closeButton = createToolbarKey(context, ToolbarKey.CLOSE_HISTORY)
             closeButton.layoutParams = toolbarKeyLayoutParams
             setupKey(closeButton, Settings.getValues().mColors)
-            closeButton.setOnClickListener {
-                listener.removeExternalSuggestions()
-            }
+            closeButton.setOnClickListener { listener.removeExternalSuggestions() }
             suggestionsStrip.addView(closeButton)
+            doOnNextLayout { view.layoutParams = getExternalSuggestionsLayoutParams() }
         } else {
             suggestionsStrip.addView(view)
         }
 
         if (Settings.getValues().mAutoHideToolbar) setToolbarVisibility(false)
     }
+
+    private fun getExternalSuggestionsLayoutParams(): LinearLayout.LayoutParams =
+        LinearLayout.LayoutParams(suggestionsStrip.width - toolbarKeyLayoutParams.width, LayoutParams.MATCH_PARENT)
 
     fun setMoreSuggestionsHeight(remainingHeight: Int) {
         layoutHelper.setMoreSuggestionsHeight(remainingHeight)

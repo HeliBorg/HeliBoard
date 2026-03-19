@@ -130,9 +130,6 @@ public class InlineAutofillUtils {
      */
     public static class InlineContentClipView extends FrameLayout {
         @NonNull
-        private final ViewTreeObserver.OnDrawListener mOnDrawListener =
-                this::clipDescendantInlineContentViews;
-        @NonNull
         private final Rect mParentBounds = new Rect();
         @NonNull
         private final Rect mContentBounds = new Rect();
@@ -147,19 +144,19 @@ public class InlineAutofillUtils {
             mBackgroundView.getHolder().setFormat(PixelFormat.TRANSPARENT);
             addView(mBackgroundView);
         }
+
         @Override
-        protected void onAttachedToWindow() {
-            super.onAttachedToWindow();
-            getViewTreeObserver().addOnDrawListener(mOnDrawListener);
+        protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+            super.onLayout(changed, left, top, right, bottom);
+            if (changed) {
+                clipDescendantInlineContentViews();
+            }
         }
-        @Override
-        protected void onDetachedFromWindow() {
-            super.onDetachedFromWindow();
-            getViewTreeObserver().removeOnDrawListener(mOnDrawListener);
-        }
+
         private void clipDescendantInlineContentViews() {
             mParentBounds.right = getWidth();
             mParentBounds.bottom = getHeight();
+            Log.d(InlineContentClipView.class.getSimpleName(), "Clipping to " + mParentBounds);
             clipDescendantInlineContentViews(this);
         }
         private void clipDescendantInlineContentViews(@Nullable View root) {
