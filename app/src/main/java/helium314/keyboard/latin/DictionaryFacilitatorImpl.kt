@@ -475,6 +475,9 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         putWordIntoValidSpellingWordCache("unlearnFromUserHistory", word.lowercase(Locale.getDefault()))
     }
 
+    override fun getAllMainDictionaryWordsWithFrequency(): Map<String, Int> =
+        dictionaryGroups[0].getDict(Dictionary.TYPE_MAIN)?.getAllWordsWithFrequency() ?: emptyMap()
+
     // TODO: Revise the way to fusion suggestion results.
     override fun getSuggestionResults(
         composedData: ComposedData, ngramContext: NgramContext, keyboard: Keyboard,

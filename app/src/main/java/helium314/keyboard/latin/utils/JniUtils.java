@@ -108,6 +108,8 @@ public final class JniUtils {
                 Log.w(TAG, "Could not load native library " + JNI_LIB_NAME, ul);
             }
         }
+        // We have a Java-side gesture engine (SwipeGestureEngine) that doesn't need the native lib.
+        sHaveGestureLib = true;
     }
 
     private JniUtils() {
