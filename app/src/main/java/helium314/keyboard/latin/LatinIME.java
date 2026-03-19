@@ -43,6 +43,7 @@ import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
 import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
 import helium314.keyboard.keyboard.emoji.EmojiSearchActivity;
+import helium314.keyboard.keyboard.emoji.EmojiSearchActivityKt;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
@@ -1717,21 +1718,25 @@ public class LatinIME extends InputMethodService implements
     }
 
     public void launchEmojiSearch() {
-        Log.d("emoji-search", "before activity launch");
+        Log.d(EmojiSearchActivityKt.TAG, "before activity launch");
         startActivity(new Intent().setClass(this, EmojiSearchActivity.class)
                           .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK));
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(EmojiSearchActivityKt.TAG, "after activity closing. isEmojiSearch: " + isEmojiSearch() + ". Intent: " + intent +
+                        (intent != null ? ". imeClosed: " + isImeClosed(intent) + ". selected emoji: " + getSelectedEmoji(intent) : ""));
         if (intent != null && EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION.equals(intent.getAction()) && ! isEmojiSearch()) {
-            if (intent.getBooleanExtra(EmojiSearchActivity.IME_CLOSED_KEY, false)) {
+            if (isImeClosed(intent)) {
                 requestHideSelf(0);
             } else {
-                mHandler.postDelayed(() -> KeyboardSwitcher.getInstance().setEmojiKeyboard(), 100);
-                if (intent.hasExtra(EmojiSearchActivity.EMOJI_KEY)) {
-                     onTextInput(intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY));
-                }
+                mHandler.postDelayed(() -> {
+                    if (intent.hasExtra(EmojiSearchActivity.EMOJI_KEY)) {
+                         onTextInput(getSelectedEmoji(intent));
+                    }
+                    KeyboardSwitcher.getInstance().setEmojiKeyboard();
+                }, 100);
             }
 
             stopSelf(startId); // Allow the service to be destroyed when unbound
@@ -1739,6 +1744,14 @@ public class LatinIME extends InputMethodService implements
         }
 
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    private static boolean isImeClosed(Intent intent) {
+        return intent.getBooleanExtra(EmojiSearchActivity.IME_CLOSED_KEY, false);
+    }
+
+    private static String getSelectedEmoji(Intent intent) {
+        return intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY);
     }
 
     public boolean isEmojiSearch() {
