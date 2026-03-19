@@ -4,6 +4,7 @@ package helium314.keyboard.event
 
 import android.content.Context
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -184,11 +185,31 @@ class BnKhiproCombiner : Combiner {
         if (isValidCodePoint && Character.isWhitespace(codePoint)) {
             return commitAndReset(event)
         } else if (event.isFunctionalKeyEvent) {
+            // Handle DELETE: remove last char from composing text instead of committing
+            if (event.keyCode == KeyCode.DELETE) {
+                val codePointCount = Character.codePointCount(composingText, 0, composingText.length)
+                if (codePointCount > 0) {
+                    if (codePointCount == 1) {
+                        // Last char: commit word and return SPACE
+                        val text = combiningStateFeedback
+                        reset()
+                        return Event.createHardwareKeypressEvent(0x20, Constants.CODE_SPACE, 0, event, event.isKeyRepeat)
+                    }
+                    // Remove last code point from composing buffer (handles surrogate pairs correctly)
+                    val lastCodePoint = composingText.codePointBefore(composingText.length)
+                    val charCount = Character.charCount(lastCodePoint)
+                    composingText.delete(composingText.length - charCount, composingText.length)
+                    return Event.createConsumedEvent(event)
+                }
+                // Composing text empty: let DELETE pass through to text field
+                return event
+            }
+            // Other functional keys trigger commit (enter, etc.)
             return commitAndReset(event)
         } else if (!isValidCodePoint) {
             return Event.createConsumedEvent(event)
         } else {
-            composingText.append(Character.toChars(codePoint))
+            composingText.appendCodePoint(codePoint)
 
             val text = composingText.toString()
             if (text.endsWith(".ff")) {

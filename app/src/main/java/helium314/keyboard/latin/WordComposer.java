@@ -155,6 +155,10 @@ public final class WordComposer {
         // The retained state of the combiner chain may have changed while processing the event,
         // so we need to update our cache.
         refreshTypedWordCache();
+        // Sync cursor position when word becomes empty (prevents crash when combiner commits)
+        if (mCodePointSize == 0) {
+            mCursorPositionWithinWord = 0;
+        }
         mEvents.add(event);
         return processedEvent;
     }
