@@ -2,6 +2,7 @@ package helium314.keyboard.latin
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.core.content.edit
 import helium314.keyboard.compat.isDeviceLocked
 import helium314.keyboard.compat.isUserLocked
@@ -596,6 +597,19 @@ object AppUpgrade {
             prefs.edit {
                 putBoolean(Settings.PREF_SUGGEST_PUNCTUATION,
                     !prefs.getBoolean(Settings.PREF_BIGRAM_PREDICTIONS, Defaults.PREF_BIGRAM_PREDICTIONS))
+            }
+        }
+        if (prefs.contains(Settings.PREF_VIBRATE_ON)) {
+            prefs.edit {
+                if (prefs.getBoolean(Settings.PREF_VIBRATE_ON, false))
+                    if (prefs.getInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, Defaults.PREF_VIBRATION_DURATION_SETTINGS) == -1) {
+                        putString(Settings.PREF_VIBRATION_TYPE, AudioAndHapticFeedbackManager.VibrationType.SYSTEM.toString())
+                        putInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, Defaults.PREF_VIBRATION_DURATION_SETTINGS)
+                    }
+                    else
+                        putString(Settings.PREF_VIBRATION_TYPE, AudioAndHapticFeedbackManager.VibrationType.CUSTOM.toString())
+                else putString(Settings.PREF_VIBRATION_TYPE, AudioAndHapticFeedbackManager.VibrationType.OFF.toString())
+                remove(Settings.PREF_VIBRATE_ON)
             }
         }
         upgradeToolbarPrefs(prefs)

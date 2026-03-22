@@ -69,6 +69,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
+    public static final String PREF_VIBRATION_TYPE = "vibration_type";
     public static final String PREF_VIBRATE_IN_DND_MODE = "vibrate_in_dnd_mode";
     public static final String PREF_SOUND_ON = "sound_on";
     public static final String PREF_SUGGEST_EMOJIS = "suggest_emojis";
@@ -117,6 +118,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SUGGEST_CLIPBOARD_CONTENT = "suggest_clipboard_content";
     public static final String PREF_GESTURE_INPUT = "gesture_input";
     public static final String PREF_VIBRATION_DURATION_SETTINGS = "vibration_duration_settings";
+    public static final String PREF_VIBRATION_AMPLITUDE_SETTINGS = "vibration_amplitude_settings";
     public static final String PREF_KEYPRESS_SOUND_VOLUME = "keypress_sound_volume";
     public static final String PREF_KEY_LONGPRESS_TIMEOUT = "key_longpress_timeout";
     public static final String PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = "enable_emoji_alt_physical_key";
@@ -306,9 +308,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_screen_metrics);
     }
 
-    public static boolean readVibrationEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_VIBRATE_ON, Defaults.PREF_VIBRATE_ON)
-                && AudioAndHapticFeedbackManager.getInstance().hasVibrator();
+    public static AudioAndHapticFeedbackManager.VibrationType readVibrationType(final SharedPreferences prefs) {
+        return AudioAndHapticFeedbackManager.getInstance().hasVibrator()
+            ? AudioAndHapticFeedbackManager.VibrationType.valueOf(
+                prefs.getString(PREF_VIBRATION_TYPE, Defaults.PREF_VIBRATION_TYPE))
+            : AudioAndHapticFeedbackManager.VibrationType.OFF;
     }
 
     public void toggleAutoCorrect() {

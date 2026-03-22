@@ -559,8 +559,13 @@ language, hence "No language". -->
     <string name="day_or_night_day">Day</string>
     <!-- Button for selecting night -->
     <string name="day_or_night_night">Night</string>
+    <string name="prefs_keypress_vibration_mode_off">Off</string>
+    <string name="prefs_keypress_vibration_mode_system">System default</string>
+    <string name="prefs_keypress_vibration_mode_custom">Custom</string>
     <!-- Title of the setting for keypress vibration duration -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
+    <!-- Title of the setting for keypress vibration amplitude -->
+    <string name="prefs_keypress_vibration_amplitude_settings">Keypress vibration intensity</string>
     <!-- Title of the setting for keypress sound volume -->
     <string name="prefs_keypress_sound_volume_settings">Keypress sound volume</string>
     <!-- Title of the setting for key long press delay -->

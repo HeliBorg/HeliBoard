@@ -1645,16 +1645,17 @@ public class LatinIME extends InputMethodService implements
             }
             // TODO: Use event time that the last feedback has been generated instead of relying on
             // a repeat count to thin out feedback.
-            if (repeatCount % PERIOD_FOR_AUDIO_AND_HAPTIC_FEEDBACK_IN_KEY_REPEAT == 0) {
-                return;
-            }
+
+//            if (repeatCount % PERIOD_FOR_AUDIO_AND_HAPTIC_FEEDBACK_IN_KEY_REPEAT == 0) {
+//                return;
+//            }
         }
         final AudioAndHapticFeedbackManager feedbackManager =
                 AudioAndHapticFeedbackManager.getInstance();
-        if (repeatCount == 0) {
+//        if (repeatCount == 0) {
             // TODO: Reconsider how to perform haptic feedback when repeating key.
             feedbackManager.performHapticFeedback(keyboardView, hapticEvent);
-        }
+//        }
         feedbackManager.performAudioFeedback(code, hapticEvent);
     }
 

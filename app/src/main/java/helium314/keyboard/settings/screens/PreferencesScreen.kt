@@ -3,6 +3,7 @@ package helium314.keyboard.settings.screens
 
 import android.content.Context
 import android.media.AudioManager
+import android.os.Build
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -42,6 +43,7 @@ fun PreferencesScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val clipboardHistoryEnabled = prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY)
+    val vibrationType = Settings.readVibrationType(prefs);
     val items = listOf(
         R.string.settings_category_input,
         Settings.PREF_SHOW_HINTS,
@@ -52,10 +54,13 @@ fun PreferencesScreen(
         Settings.PREF_SHOW_TLD_POPUP_KEYS,
         Settings.PREF_POPUP_ON,
         if (AudioAndHapticFeedbackManager.getInstance().hasVibrator())
-            Settings.PREF_VIBRATE_ON else null,
-        if (prefs.getBoolean(Settings.PREF_VIBRATE_ON, Defaults.PREF_VIBRATE_ON))
+            Settings.PREF_VIBRATION_TYPE else null,
+        if (vibrationType == AudioAndHapticFeedbackManager.VibrationType.CUSTOM)
             Settings.PREF_VIBRATION_DURATION_SETTINGS else null,
-        if (prefs.getBoolean(Settings.PREF_VIBRATE_ON, Defaults.PREF_VIBRATE_ON))
+        if (vibrationType == AudioAndHapticFeedbackManager.VibrationType.CUSTOM &&
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            Settings.PREF_VIBRATION_AMPLITUDE_SETTINGS else null,
+        if (vibrationType != AudioAndHapticFeedbackManager.VibrationType.OFF)
             Settings.PREF_VIBRATE_IN_DND_MODE else null,
         Settings.PREF_SOUND_ON,
         if (prefs.getBoolean(Settings.PREF_SOUND_ON, Defaults.PREF_SOUND_ON))
@@ -112,8 +117,16 @@ fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_POPUP_ON, R.string.popup_on_keypress) {
         SwitchPreference(it, Defaults.PREF_POPUP_ON) { KeyboardSwitcher.getInstance().reloadKeyboard() }
     },
-    Setting(context, Settings.PREF_VIBRATE_ON, R.string.vibrate_on_keypress) {
-        SwitchPreference(it, Defaults.PREF_VIBRATE_ON)
+    Setting(context, Settings.PREF_VIBRATION_TYPE, R.string.vibrate_on_keypress) {
+        ListPreference(
+            it,
+            listOf(
+                stringResource(R.string.prefs_keypress_vibration_mode_off) to AudioAndHapticFeedbackManager.VibrationType.OFF.toString(),
+                stringResource(R.string.prefs_keypress_vibration_mode_system) to AudioAndHapticFeedbackManager.VibrationType.SYSTEM.toString(),
+                stringResource(R.string.prefs_keypress_vibration_mode_custom) to AudioAndHapticFeedbackManager.VibrationType.CUSTOM.toString(),
+            ),
+            Defaults.PREF_VIBRATION_TYPE
+        )
     },
     Setting(context, Settings.PREF_VIBRATE_IN_DND_MODE, R.string.vibrate_in_dnd_mode) {
         SwitchPreference(it, Defaults.PREF_VIBRATE_IN_DND_MODE)
@@ -192,8 +205,34 @@ fun createPreferencesSettings(context: Context) = listOf(
                 if (it < 0) stringResource(R.string.settings_system_default)
                 else stringResource(R.string.abbreviation_unit_milliseconds, it.toString())
             },
-            range = -1f..100f,
-            onValueChanged = { it?.let { AudioAndHapticFeedbackManager.getInstance().vibrate(it.toLong()) } }
+            range = 0f..100f,
+            onValueChanged = {
+                it?.let {
+                    AudioAndHapticFeedbackManager.getInstance().vibrate(
+                        it.toLong(),
+                        Settings.getInstance().current.mKeypressVibrationAmplitude
+                    )
+                }
+            }
+        )
+    },
+    Setting(context, Settings.PREF_VIBRATION_AMPLITUDE_SETTINGS, R.string.prefs_keypress_vibration_amplitude_settings) { setting ->
+        SliderPreference(
+            name = setting.title,
+            key = setting.key,
+            default = Defaults.PREF_VIBRATION_AMPLITUDE_SETTINGS,
+            description = {
+                if (it == 255) stringResource(R.string.settings_system_default)
+                else it.toString()
+            },
+            range = 0f..255f,
+            onValueChanged = {
+                it?.let {
+                    AudioAndHapticFeedbackManager.getInstance().vibrate(
+                        Settings.getInstance().current.mKeypressVibrationDuration.toLong(), it.toInt()
+                    )
+                }
+            }
         )
     },
     Setting(context, Settings.PREF_KEYPRESS_SOUND_VOLUME, R.string.prefs_keypress_sound_volume_settings) { setting ->

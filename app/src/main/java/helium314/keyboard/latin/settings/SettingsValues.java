@@ -21,6 +21,7 @@ import androidx.core.util.TypedValueCompat;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.KeyboardTheme;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
+import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
@@ -51,7 +52,7 @@ public class SettingsValues {
     public final int mDisplayOrientation;
     // From preferences
     public final boolean mAutoCap;
-    public final boolean mVibrateOn;
+    public final AudioAndHapticFeedbackManager.VibrationType mVibrationType;
     public final boolean mVibrateInDndMode;
     public final boolean mSoundOn;
     public final boolean mSuggestEmojis;
@@ -143,6 +144,7 @@ public class SettingsValues {
     public final boolean mSuggestionStripHiddenPerUserSettings;
     public final boolean mSecondaryStripVisible;
     public final int mKeypressVibrationDuration;
+    public final int mKeypressVibrationAmplitude;
     public final float mKeypressSoundVolume;
     public final boolean mAutoCorrectionEnabledPerUserSettings;
     public final boolean mAutoCorrectEnabled;
@@ -175,7 +177,7 @@ public class SettingsValues {
         mToolbarSwipeDownToHide = prefs.getBoolean(Settings.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE, Defaults.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE);
         mToolbarHidingGlobal = prefs.getBoolean(Settings.PREF_TOOLBAR_HIDING_GLOBAL, Defaults.PREF_TOOLBAR_HIDING_GLOBAL);
         mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, Defaults.PREF_AUTO_CAP) && ScriptUtils.scriptSupportsUppercase(mLocale);
-        mVibrateOn = Settings.readVibrationEnabled(prefs);
+        mVibrationType = Settings.readVibrationType(prefs);
         mVibrateInDndMode = prefs.getBoolean(Settings.PREF_VIBRATE_IN_DND_MODE, Defaults.PREF_VIBRATE_IN_DND_MODE);
         mSoundOn = prefs.getBoolean(Settings.PREF_SOUND_ON, Defaults.PREF_SOUND_ON);
         mSuggestEmojis = prefs.getBoolean(Settings.PREF_SUGGEST_EMOJIS, Defaults.PREF_SUGGEST_EMOJIS);
@@ -234,6 +236,7 @@ public class SettingsValues {
         // Compute other readable settings
         mKeyLongpressTimeout = prefs.getInt(Settings.PREF_KEY_LONGPRESS_TIMEOUT, Defaults.PREF_KEY_LONGPRESS_TIMEOUT);
         mKeypressVibrationDuration = prefs.getInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, Defaults.PREF_VIBRATION_DURATION_SETTINGS);
+        mKeypressVibrationAmplitude = prefs.getInt(Settings.PREF_VIBRATION_AMPLITUDE_SETTINGS, Defaults.PREF_VIBRATION_AMPLITUDE_SETTINGS);
         mKeypressSoundVolume = prefs.getFloat(Settings.PREF_KEYPRESS_SOUND_VOLUME, Defaults.PREF_KEYPRESS_SOUND_VOLUME);
         mEnableEmojiAltPhysicalKey = prefs.getBoolean(Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, Defaults.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY);
         mGestureInputEnabled = JniUtils.sHaveGestureLib && prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT);
@@ -388,8 +391,8 @@ public class SettingsValues {
         sb.append("" + mSpacingAndPunctuations.dump());
         sb.append("\n   mAutoCap = ");
         sb.append("" + mAutoCap);
-        sb.append("\n   mVibrateOn = ");
-        sb.append("" + mVibrateOn);
+        sb.append("\n   mVibrationType = ");
+        sb.append("" + mVibrationType);
         sb.append("\n   mSoundOn = ");
         sb.append("" + mSoundOn);
         sb.append("\n   mKeyPreviewPopupOn = ");
@@ -424,6 +427,8 @@ public class SettingsValues {
         sb.append("" + mInputAttributes);
         sb.append("\n   mKeypressVibrationDuration = ");
         sb.append("" + mKeypressVibrationDuration);
+        sb.append("\n   mKeypressVibrationAmplitude = ");
+        sb.append("" + mKeypressVibrationAmplitude);
         sb.append("\n   mKeypressSoundVolume = ");
         sb.append("" + mKeypressSoundVolume);
         sb.append("\n   mAutoCorrectEnabled = ");
