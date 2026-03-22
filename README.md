@@ -6,6 +6,10 @@ Does not use internet permission, and thus is 100% offline.
 [<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Get APK from GitHub" height="80">](https://github.com/Helium314/HeliBoard/releases/latest)
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/helium314.keyboard)
 
+Verification info:
+- Package ID: `helium314.keyboard`
+- SHA-256 signing certificate hash: `TODO`
+
 ## Table of Contents
 
 - [Features](#features)
