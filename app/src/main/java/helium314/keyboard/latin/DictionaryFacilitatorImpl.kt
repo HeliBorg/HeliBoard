@@ -499,6 +499,57 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         )
         waitForOtherDicts?.await()
 
+        var indicesToKeep: ArrayList<Int>? = null
+        
+        // Strategy A: Context Detection (The "Previous Word" Approach)
+        // If the previous word exists in Language X but NOT in Language Y, lock to Language X.
+        val prevWord = ngramContext.getNthPrevWord(1)?.toString()
+        if (!prevWord.isNullOrEmpty() && !ngramContext.isNthPrevWordBeginningOfSentence(1)) {
+            val validContextIndices = ArrayList<Int>()
+            for (i in dictionaryGroups.indices) {
+                val group = dictionaryGroups[i]
+                // Check main dictionary of this group for the previous word
+                val mainDict = group.getDict(Dictionary.TYPE_MAIN)
+                // We check if the word is valid in this language
+                if (mainDict?.isValidWord(prevWord) == true || mainDict?.isValidWord(prevWord.lowercase()) == true) {
+                    validContextIndices.add(i)
+                }
+            }
+            // If we found a subset of languages that match the context (and not ALL languages), use them.
+            if (validContextIndices.isNotEmpty() && validContextIndices.size < dictionaryGroups.size) {
+                indicesToKeep = validContextIndices
+            }
+        }
+
+        // Strategy B: Current Word Exact Match (Fallback)
+        // Only runs if Context Strategy failed (e.g. start of sentence, or prev word is in all dicts).
+        if (indicesToKeep == null) {
+            val typedWord = composedData.mTypedWord
+            if (typedWord.isNotEmpty()) {
+                val exactMatchIndices = ArrayList<Int>()
+                for (i in suggestionsArray.indices) {
+                    val suggestions = suggestionsArray[i] ?: continue
+                    // Check if this language offers the exact typed word as a suggestion
+                    if (suggestions.any { it.word.equals(typedWord, ignoreCase = true) }) {
+                        exactMatchIndices.add(i)
+                    }
+                }
+                // If only a subset of languages match the typed word exactly, lock to them.
+                if (exactMatchIndices.isNotEmpty() && exactMatchIndices.size < suggestionsArray.size) {
+                    indicesToKeep = exactMatchIndices
+                }
+            }
+        }
+
+        // Apply Filter: Nullify suggestions from languages that didn't pass the checks
+        if (indicesToKeep != null) {
+            for (i in suggestionsArray.indices) {
+                if (!indicesToKeep.contains(i)) {
+                    suggestionsArray[i] = null
+                }
+            }
+        }
+
         suggestionsArray.forEach {
             if (it == null) return@forEach
             suggestionResults.addAll(it)
