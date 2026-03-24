@@ -7,7 +7,6 @@
 package helium314.keyboard.keyboard;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -26,7 +25,6 @@ import helium314.keyboard.latin.settings.Settings;
  */
 public class PopupTextView extends TextView implements PopupKeysPanel {
     private final int[] mCoordinates = CoordinateUtils.newInstance();
-    private final Typeface mTypeface;
     private Controller mController = EMPTY_CONTROLLER;
     private int mOriginX;
     private int mOriginY;
@@ -40,7 +38,6 @@ public class PopupTextView extends TextView implements PopupKeysPanel {
     public PopupTextView(final Context context, final AttributeSet attrs,
                          final int defStyle) {
         super(context, attrs, defStyle);
-        mTypeface = Settings.getInstance().getCustomTypeface();
     }
 
     public void setKeyDrawParams(Key key, KeyDrawParams drawParams) {
@@ -48,7 +45,7 @@ public class PopupTextView extends TextView implements PopupKeysPanel {
         Settings.getValues().mColors.setBackground(this, ColorType.KEY_PREVIEW_BACKGROUND);
         setTextColor(drawParams.mPreviewTextColor);
         setTextSize(TypedValue.COMPLEX_UNIT_PX, key.selectHintTextSize(drawParams) << 1);
-        setTypeface(mTypeface == null ? key.selectTypeface(drawParams) : mTypeface);
+        KeyboardTypeface.applyToTextView(this, this.getText(), key.selectTypeface(drawParams));
     }
 
     @Override

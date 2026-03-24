@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Paint
 import android.os.Build
 import androidx.core.content.edit
+import helium314.keyboard.keyboard.KeyboardTypeface
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.prefs
 
@@ -26,7 +27,7 @@ object SupportedEmojis {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
         if (context.prefs().contains(Settings.PREF_EMOJI_MAX_SDK)) return
         val paint = Paint()
-        (Settings.getInstance().customEmojiTypeface ?: Settings.getInstance().customTypeface)
+        (KeyboardTypeface.emojiTypeface() ?: KeyboardTypeface.customTypeface())
             ?.let { paint.setTypeface(it) }
         val maxApi = context.assets.open("emoji/minApi.txt").reader().readLines().maxOf {
             val s = it.split(" ")

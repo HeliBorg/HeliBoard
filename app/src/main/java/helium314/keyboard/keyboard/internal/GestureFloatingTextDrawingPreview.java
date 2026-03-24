@@ -16,6 +16,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
+import helium314.keyboard.keyboard.KeyboardTypeface;
 import helium314.keyboard.keyboard.PointerTracker;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
@@ -72,7 +73,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
             mPaint.setAntiAlias(true);
             mPaint.setTextAlign(Align.CENTER);
             mPaint.setTextSize(mGesturePreviewTextSize);
-            mPaint.setTypeface(Settings.getInstance().getCustomTypeface());
+            mPaint.setTypeface(KeyboardTypeface.customTypeface());
             mPaint.setColor(mGesturePreviewTextColor);
             return mPaint;
         }

@@ -13,7 +13,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.ContextThemeWrapper;
@@ -201,10 +200,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     // static cache for background images to avoid potentially slow reload on every settings reload
     private final static Drawable[] sCachedBackgroundImages = new Drawable[4];
-    private static Typeface sCachedTypeface;
-    private static boolean sCustomTypefaceLoaded; // to avoid repeatedly checking custom typeface file when there is no custom typeface
-    private static Typeface sCachedEmojiTypeface;
-    private static boolean sCustomEmojiTypefaceLoaded;
 
     private static final Settings sInstance = new Settings();
 
@@ -578,32 +573,4 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return mPrefs.getBoolean(PREF_SAVE_SUBTYPE_PER_APP, Defaults.PREF_SAVE_SUBTYPE_PER_APP);
     }
 
-    @Nullable
-    public Typeface getCustomTypeface() {
-        if (!sCustomTypefaceLoaded) {
-            try {
-                sCachedTypeface = Typeface.createFromFile(getCustomFontFile(mContext));
-            } catch (Exception ignored) { }
-        }
-        sCustomTypefaceLoaded = true;
-        return sCachedTypeface;
-    }
-
-    @Nullable
-    public Typeface getCustomEmojiTypeface() {
-        if (!sCustomEmojiTypefaceLoaded) {
-            try {
-                sCachedEmojiTypeface = Typeface.createFromFile(getCustomEmojiFontFile(mContext));
-            } catch (Exception ignored) { }
-        }
-        sCustomEmojiTypefaceLoaded = true;
-        return sCachedEmojiTypeface;
-    }
-
-    public static void clearCachedTypeface() {
-        sCachedTypeface = null;
-        sCustomTypefaceLoaded = false;
-        sCachedEmojiTypeface = null;
-        sCustomEmojiTypefaceLoaded = false;
-    }
 }
