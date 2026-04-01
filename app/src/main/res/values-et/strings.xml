@@ -480,4 +480,6 @@
     <string name="number_row_in_symbols">Näita sümbolite vaates numbririda</string>
     <string name="custom_emoji_font">Lisa failist endavalitud emojid</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funktsiooniklahvid (khipro)</string>
+    <string name="toolbar_swipe_down_to_hide">Peida klahvistik viipamisega</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Klahvistiku peitmiseks viipa tööriistaribal ülalt alla</string>
 </resources>

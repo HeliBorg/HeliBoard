@@ -87,6 +87,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiDefaultVersi
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiKeyDimensions
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiNeutralVersion
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiPopupSpec
+import helium314.keyboard.keyboard.internal.keyboard_parser.loadEmojiDefaultVersionsAndPopupSpecs
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
@@ -97,12 +98,12 @@ import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.CloseIcon
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
-import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.latin.utils.CloseIcon
 import helium314.keyboard.latin.utils.SearchIcon
+import helium314.keyboard.latin.utils.prefs
 import kotlin.properties.Delegates
 
 private const val TAG = "emoji-search"
@@ -283,10 +284,6 @@ class EmojiSearchActivity : ComponentActivity() {
         val keyboardWidth = ResourceUtils.getKeyboardWidth(this, Settings.getValues())
         val layoutSet = KeyboardLayoutSet.Builder(this, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
             .setKeyboardGeometry(keyboardWidth, EmojiLayoutParams(resources).emojiKeyboardHeight).build()
-
-        // Initialize default versions and popup specs
-        layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_CATEGORY2)
-
         val keyboard = DynamicGridKeyboard.ofRowCount(prefs(), layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 1 else 2,
             KeyboardId.ELEMENT_EMOJI_CATEGORY16, keyboardWidth)
@@ -303,6 +300,7 @@ class EmojiSearchActivity : ComponentActivity() {
         emojiPageKeyboardView.background = null
         colors.setBackground(emojiPageKeyboardView, ColorType.MAIN_BACKGROUND)
         emojiPageKeyboardView.setPadding(0, 10, 0, 10)
+        loadEmojiDefaultVersionsAndPopupSpecs(this)
 
         emojiPageKeyboardView.setEmojiViewCallback(object : EmojiViewCallback {
             override fun onPressKey(key: Key) {

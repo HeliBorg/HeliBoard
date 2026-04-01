@@ -156,7 +156,7 @@
     <string name="select_color_key">نص الأزرار</string>
     <string name="auto_user_color">اختيار تلقائي للون</string>
     <string name="version">الإصدار</string>
-    <string name="dialog_close">غلق</string>
+    <string name="dialog_close">أغلِق</string>
     <string name="settings_screen_appearance">المظهر</string>
     <string name="select_color_key_background">خلفية الأزرار</string>
     <string name="select_color_gesture">إدخال الإيماءة</string>
@@ -218,7 +218,7 @@
     <string name="backup_restore_message">حفظ أو تحميل من الملف. تحذير: ستؤدي الاستعادة إلى استبدال البيانات الموجودة</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">النيلي</string>
     <string name="subtype_xdq">كايتاج</string>
-    <string name="add_dictionary">حدد القاموس الذي تريد إضافته. يمكن تنزيل القواميس بتنسيق .dict ‏%s.</string>
+    <string name="add_dictionary">حدّد القاموس الذي تريد إضافته. يمكن تنزيل القواميس بتنسيق .dict ‏%s.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">الرموز</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">الرموز(العربية)</string>
     <string name="layout_number" tools:keep="@string/layout_number">ارقام</string>
@@ -256,7 +256,7 @@
     <string name="day_or_night_day">صباح</string>
     <string name="subtype_generic_sebeolsik_final">%s (سيبولسيك النهائي)</string>
     <string name="message_add_custom_layout">حدد ملفًا بتنسيق متوافق. المعلومات حول التنسيقات متاحة %s.</string>
-    <string name="delete_layout">هل تريد حقًا حذف التخطيط المخصص %s؟</string>
+    <string name="delete_layout">أتريد حقًا حذف التخطيط المخصص %s؟</string>
     <string name="layout_error">خطأ في التخطيط: %s</string>
     <string name="edit_layout">انقر لتحرير التخطيط الأولي</string>
     <string name="day_or_night_night">ليل</string>
@@ -301,7 +301,7 @@
     <string name="subtype_generic_student">%s (طالب)</string>
     <string name="center_suggestion_text_to_enter">استخدم دائمًا الاقتراح الأوسط</string>
     <string name="center_suggestion_text_to_enter_summary">عند الضغط على مسافة أو علامات الترقيم، سيتم إدخال الاقتراح الأوسط</string>
-    <string name="close_history" tools:keep="@string/close_history">إغلاق تاريخ الحافظة</string>
+    <string name="close_history" tools:keep="@string/close_history">أغلِق تاريخ الحافظة</string>
     <string name="clipboard_toolbar_keys">حدد مفاتيح شريط أدوات الحافظة</string>
     <string name="subtype_generic_extended">%s (ممتدة)</string>
     <string name="subtype_mns">مانسي</string>
@@ -472,7 +472,7 @@
     <string name="gesture_data_date_range">النطاق الزمني</string>
     <string name="gesture_data_much_data">لديك الكثير من البيانات غير المُرسلة. يُرجى إرسالها ثم إزالة البيانات القديمة.</string>
     <string name="gesture_data_how_to_use">كيفية الاستخدام</string>
-    <string name="gesture_data_active_description">انفر على \"ابدأ الجمع النشط\"، وبدّل القاموس إذا أردت، ثم ابدأ بالكتابة بالإيماء للكلمة المعروضة.&lt;br/&gt; إذا تطابقت إيماءتك مع الكلمة، فسيتم حفظ البيانات وعرض الكلمة التالية. بخلاف ذلك، يمكنك المحاولة مرة أخرى، أو تخطي الكلمة، أو التأكيد على أن إيماءتك كانت صحيحة.&lt;br/&gt; يمكنك فقط استخدام القواميس المدمجة في التطبيق أو المتوفرة في &lt;a href=%s&gt;مستودع القواميس&lt;/a&gt;، ولن يتم استخدام أي كلمات أخرى.</string>
+    <string name="gesture_data_active_description">انقر على \"ابدأ الجمع النشط\"، وبدّل القاموس إذا أردت، ثم ابدأ بالكتابة بالإيماء للكلمة المعروضة.&lt;br/&gt; إذا تطابقت إيماءتك مع الكلمة، فسيتم حفظ البيانات وعرض الكلمة التالية. بخلاف ذلك، يمكنك المحاولة مرة أخرى، أو تخطي الكلمة، أو التأكيد على أن إيماءتك كانت صحيحة.&lt;br/&gt; يمكنك فقط استخدام القواميس المدمجة في التطبيق أو المتوفرة في &lt;a href=%s&gt;مستودع القواميس&lt;/a&gt;، ولن يتم استخدام أي كلمات أخرى.</string>
     <string name="gesture_data_active_start">ابدأ الجمع النشط</string>
     <string name="gesture_data_active_stop">أوقف الجمع النشط</string>
     <string name="gesture_data_ends_at">ستنتهي مرحلة جمع بيانات الإيماءات في %s. يُرجى تقديم بياناتك قبل ذلك التاريخ.</string>
@@ -492,4 +492,10 @@
     <string name="ask_later">اسألني لاحقًا</string>
     <string name="gesture_data_take_me_there">خذني إلى هناك</string>
     <string name="timestamp_description">يمكنك إضافة مفتاح الطابع الزمني باستخدام تخطيط مخصص مع مفتاح \'timestamp\'، أو رمز المفتاح -10043</string>
+    <string name="prefs_bottom_row_scale">مقياس الصف السفلي</string>
+    <string name="gesture_data_links">معلومات حول جمع بيانات الإيماءات في:</string>
+    <string name="toolbar_swipe_down_to_hide">أخفِ لوحة المفاتيح بالسحب</string>
+    <string name="toolbar_swipe_down_to_hide_summary">اسحب شريط الأدوات للأسفل لإغلاق لوحة المفاتيح</string>
+    <string name="gesture_data_please_switch_keyboard">يُرجى التبديل إلى %s</string>
+    <string name="gesture_data_share_limit">لتجنب تجاوز حدود الحجم، سيتم تصدير أول %s كلمة فقط</string>
 </resources>

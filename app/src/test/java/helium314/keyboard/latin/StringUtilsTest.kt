@@ -175,7 +175,7 @@ class StringUtilsTest {
     }
 
     // todo: add tests for emoji detection?
-    //  could help towards fully fixing https://github.com/Helium314/HeliBoard/issues/22
+    //  could help towards fully fixing https://github.com/HeliBorg/HeliBoard/issues/22
     //  though this might be tricky, as some emojis will show as one on new Android versions, and
     //  as two on older versions (also may differ by app)
 

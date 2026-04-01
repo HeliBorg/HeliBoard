@@ -446,4 +446,47 @@
     <string name="emoji_search_title">Pesquisar emoji</string>
     <string name="search_field_placeholder">Pesquisar</string>
     <string name="gesture_data_info">O que é isto?</string>
+    <string name="prefs_bottom_row_scale">Escala da linha inferior</string>
+    <string name="ask_later">Pergunte me depois</string>
+    <string name="gesture_data_screen">Recolha de dados de gestos</string>
+    <string name="timestamp_description">Pode adicionar a tecla de carimbo de tempo usando um esquema personalizado com a tecla ‘timestamp’ ou o código de tecla -10043</string>
+    <string name="gesture_data_description">Bem-vindo ao ecrã de recolha de dados de gestos!&lt;br&gt;&lt;br&gt; Isto faz parte de um &lt;a href=https:nlnet.nlprojectGestureTyping&gt;projeto financiado pela NLnet&lt;a&gt; que se esforça para produzir uma biblioteca de digitação por gestos de código aberto totalmente capaz de substituir a biblioteca de código fechado da Google.&lt;br&gt; O resultado foi planeado para ser um substituto simples para teclados baseados em AOSP, mas também utilizável com outros teclados, ex: FlorisBoard.&lt;br&gt;&lt;br&gt; Para desenvolver a biblioteca, é extremamente útil ter dados de gestos detalhados em diferentes idiomas e por diferentes utilizadores disponíveis.&lt;br&gt; Ao recolher e enviar dados de digitação por gestos, pode contribuir para um conjunto aberto de dados de gestos que será usado para o desenvolvimento da biblioteca. O conjunto de dados será publicado sob uma licença CC BY-SA 4.0 algum tempo após o término da fase de recolha de dados em %s. Depois de recolher os dados, pode enviá-los usando o ícone de partilha na parte inferior deste ecrã.</string>
+    <string name="gesture_data_description_modes">Atualmente, existe apenas o modo de recolha ativa, no qual é exibida uma palavra específica e a digita por meio de gestos.\nPosteriormente, será adicionado um modo de recolha passiva, no qual poderá fornecer amostras da sua digitação por gestos normal em outros aplicativos. Devido à sensibilidade dessa abordagem, ela será opcional, configurável e contará com um ecrã de revisão dos dados que estiver prestes a enviar.</string>
+    <string name="gesture_data_description_privacy">Privacidade\n\nOs dados que envia consistem em palavra-alvo, esquema e dimensões do teclado, gesto (horários e coordenadas), sugestões da biblioteca atual, hash dos dicionários usados, versão da aplicação, modo de recolha de dados, se a biblioteca de digitação de gestos é a biblioteca padrão do Google e um ID para acompanhar cada gesto.\nOs dados enviados serão transferidos e eliminados da caixa de correio do ProtonMail, onde estão armazenados, logo que possível. Depois que a fase de recolha de dados de gestos terminar, o conjunto de dados acumulados de todos os utilizadores será publicado sob a licença Creative Commons BY-SA 4.0.\n\nComo parte da tentativa de proteger a sua privacidade, não será listado explicitamente como autor. O seu crédito será como \"Contribuidores do Projeto de Dados de Gestos do HeliBoard\". Não deve ser possível ligar os dados que gera neste ecrã à sua identidade. No entanto, pode ser possível determinar quais gestos foram feitos pela mesma pessoa. Isso pode ser feito, por exemplo, a partir de um esquema de teclado personalizado, dimensões do teclado, idioma ou estilo de gestos individual.</string>
+    <string name="gesture_data_privacy">Privacidade</string>
+    <string name="gesture_data_get_data">Partilhar ficheiro de dados de gestos</string>
+    <string name="gesture_data_delete_data">Limpar dados de gestos</string>
+    <string name="gesture_data_send_mail">Enviar dados por email</string>
+    <string name="gesture_data_copy_mail">Copiar endereço de email</string>
+    <string name="gesture_data_mail_use">Nota: o endereço de email é destinado ao envio de dados, pode não obter respostas rápidas ou consistentes.</string>
+    <string name="gesture_data_please_type">Digite ao deslizar:</string>
+    <string name="gesture_data_next">Saltar palavra</string>
+    <string name="gesture_data_next_save">Teve %s. Click Clique se tem a certeza que digitou corretamente</string>
+    <string name="gesture_data_active_count">%1$s palavras nesta sessão, %2$s palavras no total (%3$s já enviadas ou eliminadas)</string>
+    <string name="gesture_data_review_screen_title">Rever e partilhar dados de gestos</string>
+    <string name="gesture_data_words_selected">%s palavras</string>
+    <string name="gesture_data_date_range">Intervalo de datas</string>
+    <string name="gesture_data_much_data">Há muitos dados não enviados. Envie-os e, em seguida, remova os dados antigos.</string>
+    <string name="gesture_data_how_to_use">Como usar</string>
+    <string name="gesture_data_active_description">Toque em “Iniciar recolha ativa”, troque de dicionário, se desejar, e comece a digitar por gestos a palavra exibida.&lt;br/&gt; Se o seu gesto corresponder à palavra, os dados são guardados e a próxima palavra é mostrada. Caso contrário, pode tentar novamente, saltar a palavra ou confirmar que fez o gesto correto.&lt;br/&gt; Só pode usar dicionários integrados da aplicação ou disponíveis no &lt;a href=%s&gt;repositório de dicionários&lt;/a&gt;; nenhuma outra palavra será usada.</string>
+    <string name="gesture_data_active_start">Iniciar recolha ativa</string>
+    <string name="gesture_data_active_stop">Parar recolha ativa</string>
+    <string name="gesture_data_ends_at">A fase de recolha de dados de gestos irá terminar em %s. Envie os dados antes dessa data.</string>
+    <string name="gesture_data_ended">A fase de recolha de dados de gestos terminou às %s. Pode partilhar os dados existentes, mas não pode adicionar nada novo.</string>
+    <string name="gesture_data_share_all">Partilhar todas as %s palavras</string>
+    <string name="gesture_data_share_new">Partilhar %s palavras não enviadas anteriormente</string>
+    <string name="gesture_data_delete_dialog">Há dados para %1$s palavras novas e %2$s palavras já partilhadas.</string>
+    <string name="gesture_data_delete_dialog_all">Apagar todas as %s palavras</string>
+    <string name="gesture_data_delete_dialog_confirm">Tem a certeza? Isto irá eliminar %s palavras. Certifique-se de que os dados partilhados foram enviados!</string>
+    <string name="gesture_data_delete_dialog_submitted">Apagar %s palavras enviadas</string>
+    <string name="gesture_data_many_not_shared_words">Há mais de %s palavras à espera para serem enviadas</string>
+    <string name="gesture_data_email_body">IMPORTANTE:\n\nOlá boas!\nLembramos que estes dados serão partilhados publicamente sob a licença CC BY-SA 4.0 e que, para proteger a sua privacidade, não será mencionado(a) como autor(a).\n\nAgradecemos por partilhar conosco os direitos sobre seus dados. Vamos fazer bom uso deles!\n\nObserve que alterar o texto deste aviso não muda o que faremos com seus dados. Este não é um contrato que pode ser modificado, é apenas um lembrete amigável!\nSe nos quiser enviar uma mensagem junto com os seus dados, escreva-a abaixo desta linha.\n---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Olá boas!\n ·Como instalou a biblioteca de digitação por gestos, talvez tenha interesse no projeto do HeliBoard para criar uma biblioteca de digitação por gestos totalmente aberta. Poderá ajudar ao contribuir com dados de gestos. Para obter mais informações, acesse o ecrã de recolha de dados de gestos.</string>
+    <string name="gesture_data_reminder_message">Olá boas!\n­·Usou a recolha de dados dados de gestos anteriormente, mas não adicionou dados desde então. Quer contribuir novamente?</string>
+    <string name="gesture_data_take_me_there">Leve-me lá</string>
+    <string name="gesture_data_links">Informação sobre a recolha de dados de gestos em:</string>
+    <string name="gesture_data_please_switch_keyboard">Por favor altere para %s</string>
+    <string name="toolbar_swipe_down_to_hide">Ocultar teclado com um gesto</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Deslize para baixo na barra de ferramentas para fechar o teclado</string>
+    <string name="gesture_data_share_limit">Para evitar exceder os limites de tamanho, apenas as primeiras %s palavras serão exportadas</string>
 </resources>

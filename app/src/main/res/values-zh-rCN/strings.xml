@@ -212,9 +212,9 @@
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_extended">%s（扩展）</string>
     <string name="dictionary_settings_category">字典</string>
-    <string name="replace_dictionary_message">是否确定要替换用户添加的字典“%1$s”？\n\n当前字典：\n%2$s\n\n新字典：\n%3$s</string>
+    <string name="replace_dictionary_message">确定要替换用户添加的字典“%1$s”？\n\n当前字典：\n%2$s\n\n新字典：\n%3$s</string>
     <string name="replace_dictionary">替换字典</string>
-    <string name="remove_dictionary_message">是否确定要移除用户添加的字典“%s”？</string>
+    <string name="remove_dictionary_message">确定要移除用户添加的字典“%s”？</string>
     <string name="add_dictionary">选择要添加的字典。可以下载 .dict 格式的字典 %s。</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">全息白</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">深色</string>
@@ -323,7 +323,7 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">数字键盘（横屏）</string>
     <string name="gesture_floating_preview_dynamic_summary">在滑行输入过程中移动预览</string>
     <string name="gesture_fast_typing_cooldown">快速输入冷却</string>
-    <string name="checksum_mismatch_message">未知库文件。是否确定是从可信来源获得并且是“%s”的？</string>
+    <string name="checksum_mismatch_message">未知库文件。您确定是从可信来源获得并且是“%s”的？</string>
     <string name="text_tap_languages">点按语言以打开设置</string>
     <string name="hidden_features_title">隐藏功能的描述</string>
     <string name="auto_show_toolbar">自动显示工具栏</string>
@@ -357,8 +357,8 @@
     <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">语言切换</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">零宽连字</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">零宽不连字</string>
-    <string name="customize_toolbar_key_codes">自定义工具栏按键代码</string>
-    <string name="key_code">按键代码</string>
+    <string name="customize_toolbar_key_codes">自定义工具栏键码</string>
+    <string name="key_code">键码</string>
     <string name="long_press_code">长按代码</string>
     <string name="customize_icons">自定义图标</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
@@ -366,7 +366,7 @@
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space（数字布局）</string>
     <string name="label_bin" tools:keep="@string/label_bin">删除</string>
-    <string name="customize_icons_reset_message">确定重置所有自定义图标？</string>
+    <string name="customize_icons_reset_message">确定要重置所有自定义图标？</string>
     <string name="vibrate_in_dnd_mode">在勿扰模式时振动</string>
     <string name="subtype_generic_phonetic">%s（注音）</string>
     <string name="prefs_key_emoji_max_sdk">覆盖表情符号版本</string>
@@ -374,7 +374,7 @@
     <string name="auto_correct_shortcuts">自动更正快捷方式</string>
     <string name="custom_font">从文件设置自定义字体</string>
     <string name="summary_customize_background_image_landscape">如果未设置，将使用纵向图片</string>
-    <string name="customize_toolbar_key_code_reset_message">确定清除所有自定义按键代码？</string>
+    <string name="customize_toolbar_key_code_reset_message">确定要清除所有自定义键码？</string>
     <string name="auto_correct_shortcuts_summary">启用后，快捷方式可能会通过自动更正扩展</string>
     <string name="customize_background_image_landscape">设置背景图片（横屏）</string>
     <string name="prefs_font_scale">键盘字体比例</string>
@@ -384,7 +384,7 @@
     <string name="prefs_language_swipe_distance">切换语言滑动距离</string>
     <string name="split" tools:keep="@string/split">分离式键盘</string>
     <string name="enable_split_keyboard_landscape">启用分离式键盘（横屏）</string>
-    <string name="delete_confirmation">确定删除 %s？</string>
+    <string name="delete_confirmation">确定要删除 %s？</string>
     <string name="settings_screen_secondary_layouts">次要布局</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">功能键（大屏幕）</string>
     <string name="name_invalid">无效的名称</string>
@@ -484,6 +484,12 @@
     <string name="gesture_data_active_description">点按“开始主动收集”，可选择切换字典，然后开始滑行输入显示的字词。&lt;br/&gt; 如果您的滑行输入与字词匹配，数据将被保存并显示下一个字词。否则，您可以重试、跳过该字词或确认您的滑行输入正确。&lt;br/&gt; 您只能使用应用内置或&lt;a href=%s&gt;字典仓库&lt;/a&gt;中的字典，不会使用其他字词。</string>
     <string name="gesture_data_email_body">重要提示：\n\n 您好！\n 温馨提醒，您的数据将根据 CC BY-SA 4.0 许可协议公开分享，为保护您的隐私，您不会被列为作者。\n\n 感谢您与我们共享数据使用权，我们会妥善利用这些数据！\n\n 请注意，更改此提示的措辞不会改变我们对您数据的处理方式。本提示并非可修改的合同，仅为友好提醒！\n 如果您想随提交的数据一并给我们留言，请在下方横线处填写。\n ---------------------------------------------</string>
     <string name="gesture_data_promotion_message">您好！\n 既然您已经安装了滑行输入库，您或许会对 HeliBoard 的完全开源滑行输入库项目感兴趣。您可以贡献滑行输入数据来提供帮助。如需了解详情，请访问滑行输入数据收集界面。</string>
-    <string name="gesture_data_reminder_message">您好！\n 您之前使用过滑行输入数据收集功能，但已经很久没有添加数据了。是否要再次贡献数据？</string>
+    <string name="gesture_data_reminder_message">您好！\n 您之前使用过滑行输入数据收集功能，但已经很久没有添加数据了。要再次贡献数据吗？</string>
     <string name="timestamp_description">您可以使用自定义布局添加时间戳键，使用“timestamp”键或键码 -10043</string>
+    <string name="prefs_bottom_row_scale">底行比例</string>
+    <string name="gesture_data_links">关于滑行输入数据收集的信息：</string>
+    <string name="toolbar_swipe_down_to_hide">滑动隐藏键盘</string>
+    <string name="toolbar_swipe_down_to_hide_summary">在工具栏上向下滑动即可关闭键盘</string>
+    <string name="gesture_data_please_switch_keyboard">请切换到 %s</string>
+    <string name="gesture_data_share_limit">为避免超出大小限制，仅导出前 %s 个字词</string>
 </resources>

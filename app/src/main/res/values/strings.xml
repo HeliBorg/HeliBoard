@@ -34,6 +34,10 @@
     <string name="show_emoji_descriptions">Show emoji description on long press</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
+    <!-- Option whether the keyboard can be hidden by swiping down on the toolbar -->
+    <string name="toolbar_swipe_down_to_hide">Hide keyboard by swipe</string>
+    <!-- Description for toolbar_swipe_down_to_hide -->
+    <string name="toolbar_swipe_down_to_hide_summary">Swipe down on the toolbar to close the keyboard</string>
     <!-- Settings screen title for preferences-->
     <string name="settings_screen_preferences">Preferences</string>
     <!-- Settings screen title for gesture typing preferences -->
@@ -928,6 +932,8 @@ New dictionary:
     <string name="emoji_search_title">Search emoji</string>
     <!-- Placeholder text for search field -->
     <string name="search_field_placeholder">Search</string>
+    <!-- Button to show later -->
+    <string name="ask_later">Ask me later</string>
 
 
     <!-- gesture data gathering, new strings for normal use should go above -->
@@ -987,6 +993,9 @@ New dictionary:
     <!-- Text requesting the user to gesture a word
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_please_type">Please gesture type:</string>
+    <!-- Text requesting the user to switch to HeliBoard, in case a different keyboard app is active
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_please_switch_keyboard">Please switch to %s</string>
     <!-- Button for saving data and go to next word (now only shows up when the word %s is not in suggestions)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_next_save">Got "%s". Click if you\'re sure you gestured correctly</string>
@@ -1038,6 +1047,9 @@ New dictionary:
     <!-- Text for delete dialog, offering delete all / shared / cancel options
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_dialog">You have data for %1$s new and %2$s already shared words.</string>
+    <!-- Text informing about the limit of exporting at most %s words at once
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_share_limit">To avoid exceeding size limits, only the first %s words will be exported</string>
     <!-- Short text for delete all button (%s is number of words)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_dialog_all">Delete all %s words</string>
@@ -1073,12 +1085,12 @@ New dictionary:
         Hey there!\n
         You previously used the gesture data gathering, but did not add data for quite a while. Do you want to contribute again?
     </string>
-    <!-- Button to show later
-     string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="ask_later">Ask me later</string>
     <!-- Button to go to gesture data gathering screen
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_take_me_there">Take me there</string>
+    <!-- Message followed by a list of links
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_links">Information on gesture data gathering on:</string>
 
     <!-- new strings should go above the section for gesture data gathering -->
 </resources>

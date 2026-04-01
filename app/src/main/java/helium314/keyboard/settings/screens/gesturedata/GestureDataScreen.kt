@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -56,10 +57,12 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PlatformImeOptions
@@ -98,6 +101,8 @@ import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.latin.utils.NextScreenIcon
 import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.latin.utils.appendLink
+import helium314.keyboard.latin.utils.dpToPx
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
@@ -145,12 +150,15 @@ fun GestureDataScreen(
     var lastData by remember { mutableStateOf<WordData?>(null) }
     var sessionWordCount by remember { mutableIntStateOf(0) }
     var dbActiveWordCount by remember { mutableIntStateOf(dao.count(activeMode = true)) }
-    var showUploadDialog by rememberSaveable { mutableStateOf(true) }
+    var showMuchDataDialog by rememberSaveable { mutableStateOf(true) }
     var showEndDialog by rememberSaveable { mutableStateOf(true) }
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     val words = remember { mutableListOf<Pair<String, Long>>() }
     val scope = rememberCoroutineScope()
+    var activeGathering by remember { mutableStateOf(false) }
+    var showActiveInfoDialog by remember { mutableStateOf(false) }
+    val maybeNotEnoughSpace = activeGathering && useWideLayout
     fun nextWord(save: Boolean) {
         if (!save) {
             lastData = null
@@ -191,10 +199,10 @@ fun GestureDataScreen(
         }
 
     }
-    if (showUploadDialog) {
-        if (dao.count() < 10000)
-            showUploadDialog = false
-        InfoDialog(stringResource(R.string.gesture_data_much_data)) { showUploadDialog = false }
+    if (showMuchDataDialog) {
+        if (dao.count(exported = false) < 5000)
+            showMuchDataDialog = false
+        InfoDialog(stringResource(R.string.gesture_data_much_data)) { showMuchDataDialog = false }
     }
     @Composable fun activeGathering() {
         val availableDicts = remember { getAvailableDictionaries(ctx) }
@@ -259,10 +267,24 @@ fun GestureDataScreen(
                 }
             }
         }
+        @Composable fun buttons() {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                ButtonWithText(stringResource(R.string.gesture_data_how_to_use)) {
+                    showActiveInfoDialog = true
+                }
+                ButtonWithText(stringResource(R.string.gesture_data_active_stop)) {
+                    activeGathering = false
+                }
+            }
+        }
         @Composable fun ColumnScope.texts() {
             val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             val text = when {
-                !UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm) -> "please switch to HeliBoard"
+                !UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm) -> stringResource(R.string.gesture_data_please_switch_keyboard, stringResource(R.string.english_ime_name))
                 else -> stringResource(R.string.gesture_data_please_type)
             }
             if (useWideLayout) {
@@ -304,7 +326,13 @@ fun GestureDataScreen(
             horizontalArrangement = Arrangement.Center
         ) {
             Column {
-                texts()
+                if (maybeNotEnoughSpace) {
+                    texts()
+                    buttons()
+                } else {
+                    buttons()
+                    texts()
+                }
                 val exportedAndDeletedCount by remember { mutableIntStateOf(getExportedActiveDeletionCount(ctx)) }
                 val oldActiveWords by remember {
                     sessionWordCount = 0
@@ -333,7 +361,6 @@ fun GestureDataScreen(
     }
 
     val scrollState = rememberScrollState()
-    var activeGathering by remember { mutableStateOf(false) }
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = { BottomBar(sessionWordCount + dbActiveWordCount > 0) { dbActiveWordCount = dao.count(activeMode = true) } }
@@ -344,34 +371,26 @@ fun GestureDataScreen(
                 .padding(horizontal = 12.dp)
                 .then(Modifier.padding(innerPadding)),
         ) {
-            var showActiveInfoDialog by remember { mutableStateOf(false) }
             var showInfoDialog by remember { mutableStateOf(false) }
             var showPrivacyDialog by remember { mutableStateOf(false) }
-            TopAppBar(
-                title = { Text(stringResource(R.string.gesture_data_screen)) },
-                navigationIcon = {
-                    IconButton(onClick = { if (activeGathering) activeGathering = false else onClickBack() }) {
-                        Icon(
-                            painterResource(R.drawable.ic_arrow_back),
-                            stringResource(R.string.spoken_description_action_previous)
-                        )
-                    }
-                },
-            )
+            if (maybeNotEnoughSpace) {
+                val top = with(LocalDensity.current) { WindowInsets.statusBars.getTop(this).toDp() }
+                Spacer(Modifier.height(top))
+            } else {
+                TopAppBar(
+                    title = { Text(stringResource(R.string.gesture_data_screen)) },
+                    navigationIcon = {
+                        IconButton(onClick = { if (activeGathering) activeGathering = false else onClickBack() }) {
+                            Icon(
+                                painterResource(R.drawable.ic_arrow_back),
+                                stringResource(R.string.spoken_description_action_previous)
+                            )
+                        }
+                    },
+                )
+            }
             BackHandler(enabled = activeGathering) { activeGathering = false }
             if (activeGathering) { // AnimatedVisibility results in buggy behavior for some reason
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    ButtonWithText(stringResource(R.string.gesture_data_how_to_use)) {
-                        showActiveInfoDialog = true
-                    }
-                    ButtonWithText(stringResource(R.string.gesture_data_active_stop)) {
-                        activeGathering = false
-                    }
-                }
                 activeGathering()
             }
             AnimatedVisibility(!activeGathering) {
@@ -452,6 +471,7 @@ fun GestureDataScreen(
 private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
     var showExportDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
+    var showLinks by remember { mutableStateOf(false) }
     val dao = GestureDataDao.getInstance(LocalContext.current)!!
     BottomAppBar(
         actions = {
@@ -479,6 +499,13 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                         Modifier.size(30.dp)
                     )
                 }
+                IconButton(onClick = { showLinks = true}) {
+                    Icon(
+                        painterResource(R.drawable.ic_link),
+                        "links",
+                        Modifier.size(30.dp)
+                    )
+                }
             }
         }
     )
@@ -497,6 +524,8 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                         ButtonWithText(stringResource(R.string.gesture_data_share_all, totalCount), enabled = totalCount > 0) {
                             shareAll = true
                         }
+                        if (totalCount > 10000)
+                            Text(stringResource(R.string.gesture_data_share_limit, 10000))
                     }
                 } else {
                     val toShare = dao.filterInfos(
@@ -547,6 +576,25 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                 }
             )
         }
+    }
+    if (showLinks) {
+        val text = buildAnnotatedString {
+            appendLine(stringResource(R.string.gesture_data_links))
+            append("• ")
+            appendLink("PeerTube", Links.GESTURE_DATA_VIDEO_PEERTUBE)
+            appendLine()
+            append("• ")
+            appendLink("YouTube", Links.GESTURE_DATA_VIDEO_YOUTUBE)
+            appendLine()
+            append("• ")
+            appendLink("HeliBoard wiki", Links.GESTURE_DATA_WIKI)
+            appendLine()
+            appendLine()
+            append("Tool for visualizing gesture data:")
+            append(" ")
+            appendLink("Swipe-O-Scope", Links.SWIPE_O_SCOPE)
+        }
+        InfoDialog(text) { showLinks = false }
     }
 }
 

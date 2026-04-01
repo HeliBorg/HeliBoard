@@ -3,7 +3,7 @@ HeliBoard is a privacy-conscious and customizable open-source keyboard, based on
 Does not use internet permission, and thus is 100% offline.
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/helium314.keyboard/)
-[<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Get APK from GitHub" height="80">](https://github.com/Helium314/HeliBoard/releases/latest)
+[<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Get APK from GitHub" height="80">](https://github.com/HeliBorg/HeliBoard/releases/latest)
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/helium314.keyboard)
 
 ## Table of Contents
@@ -14,6 +14,7 @@ Does not use internet permission, and thus is 100% offline.
    * [Translations](#translations)
    * [To Community Creation](#to-community)
    * [Code Contribution](CONTRIBUTING.md)
+- [Links](#links)
 - [License](#license)
 - [Credits](#credits)
   * [Funding](#funding)
@@ -32,7 +33,7 @@ Does not use internet permission, and thus is 100% offline.
     <li>can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)</li>
     <li>can follow dynamic colors for Android 12+</li>
   </ul>
-  <li>Customize keyboard <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
+  <li>Customize keyboard <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
   <li>Customize special layouts, like symbols, number,  or functional key layout</li>
   <li>Multilingual typing</li>
   <li>Glide typing (<i>only with closed source library</i> ☹️)</li>
@@ -47,16 +48,16 @@ Does not use internet permission, and thus is 100% offline.
   <li>Backup and restore your settings and learned word / history data</li>
 </ul>
 
-For [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ), [hidden features](https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features) and more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
+For [FAQ](https://github.com/HeliBorg/HeliBoard/wiki/FAQ), [hidden features](https://github.com/HeliBorg/HeliBoard/wiki/9.-Hidden-features) and more information about the app and features, please visit the [wiki](https://github.com/HeliBorg/HeliBoard/wiki)
 
 # Contributing ❤
 
 ## Reporting Issues
 
-Whether you encountered a bug, or want to see a new feature in HeliBoard, you can contribute to the project by opening a new issue [here](https://github.com/Helium314/HeliBoard/issues). Your help is always welcome!
+Whether you encountered a bug, or want to see a new feature in HeliBoard, you can contribute to the project by opening a new issue [here](https://github.com/HeliBorg/HeliBoard/issues). Your help is always welcome!
 
 Before opening a new issue, be sure to check the following:
- - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/HeliBoard/issues?q=). Please search open and closed issues. In case of feature requests you could also check the [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ) and [hidden features](https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features).
+ - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/HeliBorg/HeliBoard/issues?q=). Please search open and closed issues. In case of feature requests you could also check the [FAQ](https://github.com/HeliBorg/HeliBoard/wiki/FAQ) and [hidden features](https://github.com/HeliBorg/HeliBoard/wiki/9.-Hidden-features).
  - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of HeliBoard.
  - **Is it a single topic?** If you want to suggest multiple things, open multiple issues.
  - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
@@ -70,17 +71,17 @@ Updating translations in a PR will not be accepted, as it may cause conflicts wi
 
 Some notes on translations
 * when translating metadata, translating the changelogs is rather useless. It's available as it was requested by translators.
-* the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features. It's been made available in the app on user request/contribution.
+* the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/HeliBorg/HeliBoard/wiki/9.-Hidden-features. It's been made available in the app on user request/contribution.
 
 ## To Community
-There is the [discussions on GitHub](https://github.com/Helium314/HeliBoard/discussions), or if you prefer a more open network there is [Lemmy](https://lemmy.world/c/Heliboard).
+There is the [discussions on GitHub](https://github.com/HeliBorg/HeliBoard/discussions), or if you prefer a more open network there is [Lemmy](https://lemmy.world/c/Heliboard).
 You can share your themes, layouts and dictionaries with other people:
 * Themes can be saved and loaded using the menu on top-right in the _adjust colors_ screen
-  * You can share custom colors in a separate [discussion section](https://github.com/Helium314/HeliBoard/discussions/categories/custom-colors)
+  * You can share custom colors in a separate [discussion section](https://github.com/HeliBorg/HeliBoard/discussions/categories/custom-colors)
 * Custom keyboard layouts are text files whose content you can edit, copy and share
   * this applies to main keyboard layouts and to special layouts adjustable in advanced settings
   * see [layouts.md](layouts.md) for details
-  * You can share custom layouts in a separate [discussion section](https://github.com/Helium314/HeliBoard/discussions/categories/custom-layout)
+  * You can share custom layouts in a separate [discussion section](https://github.com/HeliBorg/HeliBoard/discussions/categories/custom-layout)
 * Creating dictionaries is a little more work
   * first you will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme
   * the you need to compile the dictionary using [external tools](https://github.com/remi0s/aosp-dictionary-tools)
@@ -89,6 +90,21 @@ You can share your themes, layouts and dictionaries with other people:
 
 ## Code Contribution
 See [Contribution Guidelines](CONTRIBUTING.md)
+
+# Links
+* Info
+  * [Wiki](https://github.com/HeliBorg/HeliBoard/wiki), including FAQ, help on customizing layouts, and gesture data gathering
+  * [Layout documentation](layouts.md) (more technical info regarding layout customization)
+  * [For creating custom dictionaries](https://codeberg.org/Helium314/aosp-dictionaries#wordlist-information) (see also top of the linked readme)
+* Community
+  * [Lemmy](https://lemmy.world/c/Heliboard)
+  * [Reddit](https://www.reddit.com/r/HeliBoard)
+  * GitHub [discussions](https://github.com/HeliBorg/HeliBoard/discussions)
+* Other
+  * [Translations](https://translate.codeberg.org/projects/heliboard/)
+  * [Dictionaries](https://codeberg.org/Helium314/aosp-dictionaries)
+  * [k3lp](https://codeberg.org/k3lp/k3lp) is a WIP library for keyboard layout parsing that will be implemented in HeliBoard when ready (created by [FlorisBoard](https://github.com/florisboard/florisboard/) maintainers)
+  * [swipe-o-scope](https://codeberg.org/eclexic/swipe-o-scope) for visualizing gesture data as created when using gesture data gathering
 
 # License
 
@@ -109,7 +125,7 @@ The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.
 - [Simple Keyboard](https://github.com/rkkr/simple-keyboard)
 - [Indic Keyboard](https://gitlab.com/indicproject/indic-keyboard)
 - [FlorisBoard](https://github.com/florisboard/florisboard/)
-- Our [contributors](https://github.com/Helium314/HeliBoard/graphs/contributors)
+- Our [contributors](https://github.com/HeliBorg/HeliBoard/graphs/contributors)
 
 ## Funding
 

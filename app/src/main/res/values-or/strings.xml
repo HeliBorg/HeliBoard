@@ -26,4 +26,7 @@
     <string name="android_spell_checker_settings">ହେଲିବୋର୍ଡ ବନାନ ଯାଞ୍ଚକାରୀ ସେଟିଂସ୍</string>
     <string name="spell_checker_service_name">ହେଲିବୋର୍ଡ ବନାନ ଯାଞ୍ଚକାରୀ</string>
     <string name="suggest_emojis">ଇମୋଜ୍ଜି ସଙ୍କେତ କରିବା</string>
+    <string name="auto_correction_threshold_mode_aggressive">ଉଗ୍ର</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">ଅତୀ ଉଗ୍ର</string>
+    <string name="button_restore">ପୂର୍ବାବସ୍ଥାକୁ ଆଣିବା</string>
 </resources>

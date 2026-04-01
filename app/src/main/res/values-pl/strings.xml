@@ -527,4 +527,5 @@
     <string name="ask_later">Zapytaj mnie później</string>
     <string name="gesture_data_take_me_there">Zabierz mnie tam</string>
     <string name="timestamp_description">Możesz dodać klawisz znacznika czasu, używając niestandardowego układu z klawiszem \"znacznik czasu\" lub kodem klawisza -10043</string>
+    <string name="prefs_bottom_row_scale">Rozmiar dolnego rzędu</string>
 </resources>

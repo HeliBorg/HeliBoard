@@ -1,0 +1,10 @@
+* Se añade búsqueda de emojis (requiere diccionario de emojis)
+* Se añade funcionalidad opcional para recopilar datos de gestos (requiere biblioteca de escritura gestual)
+* El texto seleccionado se envuelve entre llaves y similares en lugar de reemplazarse
+* Se permite configurar una fuente de emojis independiente
+* La fila de números en el diseño de símbolos pasa a ser opcional
+* Se reducen las autocorrecciones erróneas en direcciones de correo
+* Se corrige el movimiento del cursor con la barra espaciadora para texto RTL y no RTL
+* No se recorta la selección al cambiar mayúsculas/minúsculas
+* Se mejora el combinador khipro
+* Mejoras y correcciones menores

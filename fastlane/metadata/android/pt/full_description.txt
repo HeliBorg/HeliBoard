@@ -14,7 +14,7 @@ Funcionalidades:
     <li>pode se adaptar ao tema Escuro/Claro do telemóvel no Android 10+ (e em algumas versões do Android 9)</li>
     <li>pode se adaptar a cores dinâmicas para o Android 12+</li>
   </ul>
-  <li>Personalize <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> do teclado (apenas disponível ao desativar <i>usar idiomas do sistema</i>)</li>
+  <li>Personalize <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">layouts</a> do teclado (apenas disponível ao desativar <i>usar idiomas do sistema</i>)</li>
   <li>Personalize layouts especiais, como símbolos, números, ou layouts de teclas funcionais</li>
   <li>Escrita Multilíngua</li>
   <li>Escrita por gestos (<i>apenas com biblioteca closed source</i> ☹️)</li>

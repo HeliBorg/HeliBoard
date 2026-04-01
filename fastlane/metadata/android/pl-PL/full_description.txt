@@ -14,7 +14,7 @@ Funkcje:
     <li>może śledzić ustawienie dzień/noc w systemie Android 10+ (oraz w niektórych wersjach Androida 9)</li>
     <li>może stosować dynamiczne kolory w systemie Android 12+</li>
   </ul>
-  <li>Dostosuj <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">układy</a> klawiatury (możliwe tylko po wyłączeniu opcji <i>użyj języków systemu</i>)</li>
+  <li>Dostosuj <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">układy</a> klawiatury (możliwe tylko po wyłączeniu opcji <i>użyj języków systemu</i>)</li>
   <li>Dostosuj układy specjalne, takie jak symbole, liczby lub układ klawiszy funkcyjnych</li>
   <li>Pisanie wielojęzyczne</li>
   <li>Pisanie gestami (<i>tylko z zamkniętą biblioteką</i> ☹️)</li>

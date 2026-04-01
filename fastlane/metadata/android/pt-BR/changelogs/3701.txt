@@ -1,0 +1,10 @@
+* adicionar pesquisa de emoji (precisa de dicionário de emoji)
+* adicionar funcionalidade opcional de coleta de dados por gestos (requer biblioteca de digitação por gestos)
+* coloque o texto selecionado entre colchetes e similares em vez de substituir o texto
+* permitir definir uma fonte emoji separada
+* tornar opcional a exibição da linha numérica no layout de símbolos
+* reduza autocorreções ruins para endereços de e-mail
+* corrigir o movimento do cursor da barra de espaço para texto RTL + não RTL
+* não corte a seleção ao recapitalizar
+* melhorar o combinador khipro
+* pequenas correções e melhorias

@@ -16,9 +16,11 @@ import androidx.activity.ComponentActivity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.fromHtml
+import androidx.compose.ui.text.withLink
 import androidx.core.util.TypedValueCompat
 
 // generic extension functions
@@ -140,6 +142,17 @@ fun InputMethodService.updateSoftInputWindowLayoutParameters(inputView: View?) {
 
 @Composable
 fun String.htmlToAnnotated() = AnnotatedString.fromHtml(this, TextLinkStyles(style = SpanStyle(color = MaterialTheme.colorScheme.primary)))
+
+@SuppressLint("ComposableNaming") // same goes for built-in "append"
+@Composable
+fun AnnotatedString.Builder.appendLink(text: String, url: String) =
+    withLink(
+        LinkAnnotation.Url(
+            url,
+            styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colorScheme.primary))
+        )) {
+        append(text)
+    }
 
 fun String.withHtmlLink(link: String) = "<a href='$link'>$this</a>"
 

@@ -1,0 +1,6 @@
+* použití výchozího tónu emodži v návrzích a vyhledávání na řádku
+* povoleno prediktivní zpětné gesto
+* oprava neobracení malých závorek v jazycích zprava do leva
+* přidáno nastavení pro změnu výšky spodního řádku
+* zlepšena interní práce s pozicí kurzoru, důležité převážně pro kombinátory používané v korejštině
+* přidány odkazy na stránku o sběru dat o gestech

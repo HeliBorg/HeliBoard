@@ -4,7 +4,7 @@ There are two distinct formats:
 * the _simple_ format is a text file with one key label per line, and two consecutive line breaks indicating a switch to the next row, [example](app/src/main/assets/layouts/main/qwerty.txt)
 * the _json_ format taken from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout), but only "normal" keys are supported (i.e. no action keys and similar), [example](app/src/main/assets/layouts/main/azerty.json)
 
-You can add both directly in the app, see the related [Wiki page](https://github.com/Helium314/HeliBoard/wiki/2.-Layouts).
+You can add both directly in the app, see the related [Wiki page](https://github.com/HeliBorg/HeliBoard/wiki/2.-Layouts).
 
 ## General notes
 Adding too many keys or too long texts will make the keyboard look awkward or broken, and even crash the app under some specific conditions (popup keys are especially prone for this).

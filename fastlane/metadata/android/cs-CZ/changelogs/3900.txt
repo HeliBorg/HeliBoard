@@ -1,0 +1,6 @@
+* povolení přepínání jazyka aplikace (nastavení) v systémových nastaveních
+* volitelně lze přejetím prstem dolů na panelu nástrojů skrýt klávesnici
+* přidáno rozložení HCESAR
+* upozornění na chybějící slovník emodži při zapnutí návrhů emodži
+* oprava problémů se sběrem dat o aktivních gestech
+* drobné opravy a vylepšení

@@ -109,9 +109,9 @@ public final class WordComposer {
         mIsOnlyFirstCharCapitalized = false;
         mIsResumed = false;
         mIsBatchMode = false;
-        mCursorPositionWithinWord = 0;
         mRejectedBatchModeSuggestion = null;
         refreshTypedWordCache();
+        mCursorPositionWithinWord = 0;
     }
 
     private void refreshTypedWordCache() {
@@ -119,6 +119,9 @@ public final class WordComposer {
         mTypedWordCache = mCombinerChain.getComposingWordWithCombiningFeedback();
         mCodePointSize = Character.codePointCount(mTypedWordCache, 0, mTypedWordCache.length());
         mCursorPositionWithinWord += mCodePointSize - oldSize;
+        // should not be necessary after setting mCursorPositionWithinWord at the end of reset, but still better not crash
+        if (mCursorPositionWithinWord < 0) mCursorPositionWithinWord = 0;
+        else if (mCursorPositionWithinWord > mCodePointSize) mCursorPositionWithinWord = mCodePointSize;
     }
 
     /**

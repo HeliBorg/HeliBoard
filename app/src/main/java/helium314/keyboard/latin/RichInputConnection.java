@@ -697,7 +697,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             mIC.setComposingText(text, newCursorPosition);
             if (!Settings.getValues().mInputAttributes.mShouldShowSuggestions && text.length() > 0) {
                 // We have a field that disables suggestions, but still committed text is set.
-                // This might lead to weird bugs (e.g. https://github.com/Helium314/HeliBoard/issues/225), so better do
+                // This might lead to weird bugs (e.g. https://github.com/HeliBorg/HeliBoard/issues/225), so better do
                 // a sanity check whether the wanted text has been set.
                 // Note that the check may also fail because the text field is not yet updated, so we don't want to check everything!
                 final CharSequence lastChar = mIC.getTextBeforeCursor(1, 0);

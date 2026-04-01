@@ -60,6 +60,7 @@ fun ToolbarScreen(
     val items = listOf(
         Settings.PREF_TOOLBAR_MODE,
         if (toolbarMode == ToolbarMode.HIDDEN) Settings.PREF_TOOLBAR_HIDING_GLOBAL else null,
+        if (toolbarMode != ToolbarMode.HIDDEN) Settings.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE else null,
         if (toolbarMode in listOf(ToolbarMode.EXPANDABLE, ToolbarMode.TOOLBAR_KEYS))
             Settings.PREF_TOOLBAR_KEYS else null,
         if (toolbarMode in listOf(ToolbarMode.EXPANDABLE, ToolbarMode.SUGGESTION_STRIP))
@@ -95,6 +96,9 @@ fun createToolbarSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_TOOLBAR_HIDING_GLOBAL) {
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
+    },
+    Setting(context, Settings.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE, R.string.toolbar_swipe_down_to_hide, R.string.toolbar_swipe_down_to_hide_summary) {
+        SwitchPreference(it, Defaults.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE)
     },
     Setting(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) {
         ReorderSwitchPreference(it, Defaults.PREF_TOOLBAR_KEYS)

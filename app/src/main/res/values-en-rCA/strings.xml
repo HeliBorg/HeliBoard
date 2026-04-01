@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources>
     <string name="use_contacts_dict">"Look up contact names"</string>
     <string name="vibrate_on_keypress">"Vibrate on keypress"</string>
     <string name="sound_on_keypress">"Sound on keypress"</string>
@@ -105,4 +104,11 @@
     <string name="label_search_key">"Search"</string>
     <string name="label_pause_key">"Pause"</string>
     <string name="label_wait_key">"Wait"</string>
+    <string name="spell_checker_service_name">HeliBoard Spell Checker</string>
+    <string name="ime_settings">HeliBoard Settings</string>
+    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
+    <string name="vibrate_in_dnd_mode">Vibrate in do not disturb mode</string>
+    <string name="suggest_emojis">Suggest emojis</string>
+    <string name="suggest_emojis_summary">Use emoji dictionary in normal suggestions</string>
+    <string name="inline_emoji_search">In-line emoji search</string>
 </resources>

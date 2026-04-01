@@ -23,6 +23,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:defaultToDeviceProtectedStorage="true"
             android:directBootAware="true"
             android:enableOnBackInvokedCallback="true"
+            android:localeConfig="@xml/locales_config"
             tools:remove="android:appComponentFactory"
             tools:targetApi="p">
 
@@ -121,7 +122,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
     <queries>
         <!-- To detect other IMEs -->
         <intent>
-            <!-- changed to * as it's supposed to help with finding other keyboard apps, see https://github.com/Helium314/HeliBoard/issues/1340 -->
+            <!-- changed to * as it's supposed to help with finding other keyboard apps, see https://github.com/HeliBorg/HeliBoard/issues/1340 -->
             <!--<action android:name="android.view.InputMethod" />-->
             <action android:name="*" />
         </intent>

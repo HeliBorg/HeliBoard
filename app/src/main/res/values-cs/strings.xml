@@ -485,4 +485,10 @@
     <string name="ask_later">Zeptat se později</string>
     <string name="gesture_data_take_me_there">Vezměte mě tam</string>
     <string name="timestamp_description">Klávesu času můžete přidat pomocí vlastního rozložení s klávesou „čas“ nebo kódem klávesy -10043</string>
+    <string name="prefs_bottom_row_scale">Velikost spodní řady</string>
+    <string name="gesture_data_links">Informace o sběru dat o gestech:</string>
+    <string name="toolbar_swipe_down_to_hide">Skrýt klávesnici posunutím</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Zavřít klávesnici posunutím prstu dolů na panelu nástrojů</string>
+    <string name="gesture_data_please_switch_keyboard">Přepněte prosím na %s</string>
+    <string name="gesture_data_share_limit">Pro zabránění překročení limitů velikosti bude exportováno pouze prvních %s slov</string>
 </resources>

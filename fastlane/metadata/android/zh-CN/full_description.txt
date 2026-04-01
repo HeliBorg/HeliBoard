@@ -14,7 +14,7 @@ HeliBoard 是基于 AOSP / OpenBoard 的注重隐私的开源键盘。
     <li>可以在 Android 10+（以及某些版本的 Android 9）上遵循系统的日间/夜间设置</li>
     <li>可以遵循 Android 12+ 的动态配色</li>
   </ul>
-  <li>自定义键盘<a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">布局</a>（仅在禁用<i>使用系统语言</i>时可用）</li>
+  <li>自定义键盘<a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">布局</a>（仅在禁用<i>使用系统语言</i>时可用）</li>
   <li>自定义特殊布局，如符号、数字或功能键布局</li>
   <li>多语言输入</li>
   <li>滑行输入（<i>仅适用于闭源库 ☹️</i>）</li>

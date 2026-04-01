@@ -14,7 +14,7 @@ Funktsionaalsus:
     <li>võib järgida süsteemi päeva/öö seadistust Android 10+ puhul (ja mõnes Android 9 versioonis)</li>
     <li>võib järgida dünaamilisi värve Android 12+ puhul</li>
   </ul>
-  <li>Kohanda klahvistiku <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">paigutusi</a> (saadaval ainult siis, kui „kasuta süsteemi keeli“ on keelatud)</li>
+  <li>Kohanda klahvistiku <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">paigutusi</a> (saadaval ainult siis, kui „kasuta süsteemi keeli“ on keelatud)</li>
   <li>Kohanda eripaigutusi, nagu sümbolite, numbrite või funktsiooniklahvide paigutus</li>
   <li>Mitmekeelne sisestus</li>
   <li>Libistustippimine (<i>ainult suletud lähtekoodiga teegiga</i> ☹️)</li>

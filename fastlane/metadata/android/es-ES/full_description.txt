@@ -14,7 +14,7 @@ Características:
     <li>puede seguir el ajuste día/noche del sistema en Android 10+ (y en algunas versiones de Android 9)</li>
     <li>puede seguir los colores dinámicos en Android 12+</li>
   </ul>
-  <li>Personaliza las <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">disposiciones</a> de teclado (solo disponible al desactivar <i>usa el idioma del sistema</i>)</li>
+  <li>Personaliza las <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">disposiciones</a> de teclado (solo disponible al desactivar <i>usa el idioma del sistema</i>)</li>
   <li>Personaliza disposiciones especiales como los símbolos, números y disposiciones con teclas de función</li>
   <li>Escritura multilingüe</li>
   <li>Escritura deslizante (<i>solo usando una librería de código cerrado</i> ☹️)</li>

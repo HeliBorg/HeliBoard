@@ -1,6 +1,6 @@
 # Getting Started
 
-HeliBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/HeliBoard) (or git SSH [URL](git@github.com:Helium314/heliboard.git)).
+HeliBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/HeliBorg/HeliBoard) (or git SSH [URL](git@github.com:Helium314/heliboard.git)).
 Of course you can also use any other compatible IDE, or work with text editor and command line.
 Once everything is up correctly, you're ready to go!
 
@@ -27,7 +27,7 @@ Some hints for finding what you're looking for:
 ## Recommended
 
 If you want to contribute, it's a good idea to make sure your idea is actually wanted in HeliBoard.
-Best check related issues before you start working on a PR. If the issue has the [labels](https://github.com/Helium314/HeliBoard/labels) [_PR_](https://github.com/Helium314/HeliBoard/labels/PR) or [_contributor needed_](https://github.com/Helium314/HeliBoard/issues?q=label%3A%22contributor%20needed%22) (even closed ones), contributions are wanted. If you don't find a related issue, it's recommended to open one, but ultimately it's your choice.
+Best check related issues before you start working on a PR. If the issue has the [labels](https://github.com/HeliBorg/HeliBoard/labels) [_PR_](https://github.com/HeliBorg/HeliBoard/labels/PR) or [_contributor needed_](https://github.com/HeliBorg/HeliBoard/issues?q=label%3A%22contributor%20needed%22) (even closed ones), contributions are wanted. If you don't find a related issue, it's recommended to open one, but ultimately it's your choice.
 Asking before starting a PR may help you for getting pointers to potentially relevant code, and deciding how to implement your desired changes.
 
 HeliBoard is a complex application and used by users with a large variety of opinions on how things should be.

@@ -9,7 +9,8 @@ object AppWorkarounds {
     fun adjustInputType(inputType: Int, packageName: String?): Int {
         return when (packageName) {
             "org.mozilla.fennec_fdroid", "org.mozilla.fenix", "org.mozilla.firefox_beta", "org.mozilla.focus",
-            "org.mozilla.klar", "org.mozilla.firefox", "org.ironfoxoss.ironfox", "net.waterfox.android.release",
+            "org.mozilla.klar", "org.mozilla.firefox", "org.ironfoxoss.ironfox", "org.ironfoxoss.ironfox.nightly",
+            "org.torproject.torbrowser", "org.torproject.torbrowser_alpha", "net.waterfox.android.release",
             "io.github.forkmaintainers.iceraven", "com.zen.web.tools.browser" -> {
                 // Firefox and forks (assuming all of them) don't set these flags, so we want to force them for most text fields on websites
                 // missing TYPE_TEXT_VARIATION_WEB_EDIT_TEXT is strange, considering all text fields on web pages should set it
@@ -31,7 +32,7 @@ object AppWorkarounds {
         return when (packageName) {
             // Looks like Google decided to set inputType multiline and imeOptions no_enter_action
             // on their search bar in Pixel launcher, and all keyboards ignore the flags because otherwise
-            // they would actually not perform the search action on action key. See https://github.com/Helium314/HeliBoard/issues/1989
+            // they would actually not perform the search action on action key. See https://github.com/HeliBorg/HeliBoard/issues/1989
             "com.google.android.apps.nexuslauncher" -> if (imeOptions and EditorInfo.IME_FLAG_NO_ENTER_ACTION != 0) imeOptions - EditorInfo.IME_FLAG_NO_ENTER_ACTION else imeOptions
             else -> imeOptions
         }

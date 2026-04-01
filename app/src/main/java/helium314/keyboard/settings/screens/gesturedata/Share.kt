@@ -35,7 +35,6 @@ import helium314.keyboard.settings.filePicker
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.FileInputStream
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -169,14 +168,10 @@ private fun getZipFileUri(context: Context) : Uri =
 @Composable
 private fun getData(ids: List<Long>): ManagedActivityResultLauncher<Intent, ActivityResult> {
     val ctx = LocalContext.current
-    // check if file exists and not size 0, otherwise don't even offer the button
     return filePicker { uri ->
-        val file = getGestureDataFile(ctx)
         val dao = GestureDataDao.getInstance(ctx) ?: return@filePicker
-        val data = dao.getJsonData(ids)
-        file.writeText(makeJsonArrayFromEntries(data))
-        ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use {
-            os -> writeOutputToZipStream(file, os)
+        ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
+            writeOutputToZipStream(dao.getJsonData(ids), getGestureDataFileName(ctx), os)
         }
         dao.markAsExported(ids, ctx)
         gestureIdsBeingExported = null
@@ -185,46 +180,36 @@ private fun getData(ids: List<Long>): ManagedActivityResultLauncher<Intent, Acti
 
 private fun createZipFile(ctx: Context, ids: List<Long>) : File {
     zippedDataPath = ""
-    val jsonFile = getGestureDataFile(ctx)
     val dao = GestureDataDao.getInstance(ctx)!!
-    val data = dao.getJsonData(ids)
-    jsonFile.writeText(makeJsonArrayFromEntries(data))
     val zipFile = getGestureZipFile(ctx)
     zipFile.delete()
-    zipFile.outputStream().use {
-        os -> writeOutputToZipStream(jsonFile, os)
+    zipFile.outputStream().use { os ->
+        writeOutputToZipStream(dao.getJsonData(ids), getGestureDataFileName(ctx), os)
     }
     zippedDataPath = zipFile.absolutePath
     return zipFile
 }
 
-private fun writeOutputToZipStream(jsonFile: File, os: OutputStream) {
+private fun writeOutputToZipStream(jsonEntries: Sequence<String>, fileName: String, os: OutputStream) {
     val zipStream = ZipOutputStream(os)
     zipStream.setLevel(9)
-    val fileStream = FileInputStream(jsonFile).buffered()
-    zipStream.putNextEntry(ZipEntry(jsonFile.name))
-    fileStream.copyTo(zipStream, 1024)
-    fileStream.close()
-    zipStream.closeEntry()
-    zipStream.close()
-}
-
-private fun makeJsonArrayFromEntries(entries: List<String>): String
-    = buildString {
-    val allButLast = entries.subList(0, entries.lastIndex)
-
-    append("[\n")
-    allButLast.forEach {
-        append(it)
-        append(",\n")
+    zipStream.putNextEntry(ZipEntry(fileName))
+    val writer = zipStream.bufferedWriter()
+    writer.append("[\n")
+    var started = false
+    jsonEntries.forEach {
+        if (started)
+            writer.append(",\n")
+        writer.append(it)
+        started = true
     }
-    append(entries.last())
-    append("\n]")
+    writer.append("\n]")
+    writer.close()
 }
 
 private fun getGestureZipFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_zip))
 
-private fun getGestureDataFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_json))
+private fun getGestureDataFileName(context: Context): String = context.getString(R.string.gesture_data_json)
 
 private fun fileGetDelegate(context: Context, filename: String): File {
     // ensure folder exists

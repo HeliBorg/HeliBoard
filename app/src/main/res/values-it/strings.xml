@@ -62,7 +62,7 @@
     <string name="prefs_keypress_sound_volume_settings">Volume del suono dei tasti</string>
     <string name="prefs_key_longpress_timeout_settings">Durata della pressione lunga dei tasti</string>
     <string name="prefs_enable_emoji_alt_physical_key">Tasto fisico per passare alle emoji</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">Il tasto ALT di una tastiera collegata apre il pannello emoji</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Il tasto Alt di una tastiera collegata apre il pannello emoji</string>
     <string name="button_default">"Predefinito"</string>
     <string name="setup_welcome_title">Benvenuto in %s</string>
     <string name="setup_welcome_additional_description">con digitazione gestuale</string>
@@ -133,7 +133,7 @@
     <string name="label_go_key">"Vai"</string>
     <string name="label_next_key">→</string>
     <string name="label_previous_key">←</string>
-    <string name="label_done_key">OK</string>
+    <string name="label_done_key">Fatto</string>
     <string name="label_send_key">"Invia"</string>
     <string name="label_search_key">"Cerca"</string>
     <string name="label_pause_key">"Pausa"</string>
@@ -490,4 +490,11 @@
     <string name="gesture_data_reminder_message">Caro utente,\ngrazie per aver contribuito alla raccolta dati per la digitazione gestuale. È passato un po\' di tempo dal tuo ultimo contributo: vuoi partecipare di nuovo?</string>
     <string name="ask_later">Non adesso</string>
     <string name="gesture_data_take_me_there">Vai alla raccolta dati</string>
+    <string name="timestamp_description">Puoi aggiungere un tasto al tuo layout inserendo come valore \'timestamp\' o il codice -10043</string>
+    <string name="prefs_bottom_row_scale">Altezza dell\'ultima riga</string>
+    <string name="gesture_data_links">Info sulla raccolta dati dell\'input gestuale:</string>
+    <string name="toolbar_swipe_down_to_hide">Nascondi la tastiera con uno swipe</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Scorri verso il basso sulla barra degli strumenti per chiudere la tastiera</string>
+    <string name="gesture_data_please_switch_keyboard">Prego cambiare a %s</string>
+    <string name="gesture_data_share_limit">Per non superare i limiti di dimensione, verranno esportate solo le prime %s parole</string>
 </resources>

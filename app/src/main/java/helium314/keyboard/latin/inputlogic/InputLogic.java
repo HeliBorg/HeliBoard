@@ -1091,7 +1091,7 @@ public final class InputLogic {
                 mSpaceState = SpaceState.WEAK;
             } else if ((settingsValues.mInputAttributes.mInputType & InputType.TYPE_MASK_CLASS) != InputType.TYPE_CLASS_TEXT
                     && codePoint >= '0' && codePoint <= '9') {
-                // weird issue when committing text: https://github.com/Helium314/HeliBoard/issues/585
+                // weird issue when committing text: https://github.com/HeliBorg/HeliBoard/issues/585
                 // but at the same time we don't always want to do it for numbers because it might interfere with url detection
                 // todo: consider always using sendDownUpKeyEvent for non-text-inputType
                 sendDownUpKeyEvent(codePoint - '0' + KeyEvent.KEYCODE_0);
@@ -1305,7 +1305,7 @@ public final class InputLogic {
             }
             // todo: this is currently disabled, as it causes inconsistencies with textInput, depending whether the end
             //  is part of a word (where we start composing) or not (where we end in code below)
-            //  see https://github.com/Helium314/HeliBoard/issues/1019
+            //  see https://github.com/HeliBorg/HeliBoard/issues/1019
             //  with better emoji detection on backspace (getFullEmojiAtEnd), this functionality might not be necessary
             //  -> enable again if there are issues, otherwise delete the code, together with mEnteredText
             if (false && mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
@@ -2687,7 +2687,7 @@ public final class InputLogic {
         for (var suggestion: suggestions) {
             if (suggestion.isEmoji()) {
                 Suggest.addDebugInfo(suggestion, input);
-                suggestedWordInfos.add(suggestion);
+                suggestedWordInfos.add(Suggest.useDefaultEmojiSkinTone(suggestion));
             }
         }
         callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, typedWordInfo,

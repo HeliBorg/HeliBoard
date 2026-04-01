@@ -14,7 +14,7 @@ public class ClipboardManagerCompat {
             try {
                 cm.clearPrimaryClip();
             } catch (Exception e) {
-                // workaround for system-caused crash in https://github.com/Helium314/HeliBoard/issues/203
+                // workaround for system-caused crash in https://github.com/HeliBorg/HeliBoard/issues/203
                 cm.setPrimaryClip(ClipData.newPlainText("", ""));
             }
         } else {

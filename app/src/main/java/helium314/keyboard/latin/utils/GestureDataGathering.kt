@@ -35,6 +35,9 @@ import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.screens.gesturedata.END_DATE_EPOCH_MILLIS
 import helium314.keyboard.settings.screens.gesturedata.TWO_WEEKS_IN_MILLIS
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.text.DateFormat
@@ -81,7 +84,7 @@ fun getExportedActiveDeletionCount(context: Context) = context.prefs().getInt(PR
     val reminderShowNext = ctx.prefs().getLong(PREF_SHOW_REMINDER_DIALOG_NEXT, 0)
     val neverShow = promotionShowNext == Long.MAX_VALUE || reminderShowNext == Long.MAX_VALUE // user selected "don't show again"
         // we only show the dialog if the use actively loaded the gesture typing library (as opposed to having the lib in the system and HeliBoard as a system app)
-        || ctx.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "").isNullOrEmpty()
+        || ctx.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "").isNullOrEmpty() || !JniUtils.sHaveGestureLib
     var shouldShowReminder by remember { mutableStateOf(
         !neverShow && reminderShowNext < System.currentTimeMillis() && reminderShowNext > 0L
     ) }
@@ -154,6 +157,8 @@ const val dictTestImeOption = "useTestDictionaryFacilitator,${BuildConfig.APPLIC
 
 var gestureDataActiveFacilitator: SingleDictionaryFacilitator? = null
 
+private val scope = CoroutineScope(Dispatchers.IO)
+
 // class for storing relevant information
 class WordData(
     val targetWord: String,
@@ -224,7 +229,7 @@ class WordData(
             activeMode,
             null
         )
-        dao.add(data, timestamp)
+        scope.launch { dao.add(data, timestamp) }
         informAboutTooManyPassiveModeWords(context, dao)
     }
 
@@ -317,7 +322,7 @@ data class KeyInfo(val left: Int, val width: Int, val top: Int, val height: Int,
 data class KeyboardInfo(val width: Int, val height: Int, val keys: List<KeyInfo>)
 
 class GestureDataDao(val db: Database) {
-    fun add(data: GestureData, timestamp: Long) {
+    fun add(data: GestureData, timestamp: Long) = synchronized(this) {
         require(data.uuid == null)
         val jsonString = Json.encodeToString(data)
         // if uuid in the resulting string is replaced with null, we should be able to reproduce it
@@ -338,7 +343,7 @@ class GestureDataDao(val db: Database) {
         exported: Boolean? = null,
         activeMode: Boolean? = null,
         limit: Int? = null
-    ): List<GestureDataInfo> {
+    ): List<GestureDataInfo> = synchronized(this) {
         val result = mutableListOf<GestureDataInfo>()
         val query = mutableListOf<String>()
         if (word != null) query.add("LOWER($COLUMN_WORD) like ?||'%'")
@@ -369,8 +374,7 @@ class GestureDataDao(val db: Database) {
         return result
     }
 
-    fun getJsonData(ids: List<Long>): List<String> {
-        val result = mutableListOf<String>()
+    fun getJsonData(ids: List<Long>): Sequence<String> = synchronized(this) { sequence {
         db.readableDatabase.query(
             TABLE,
             arrayOf(COLUMN_DATA),
@@ -381,14 +385,12 @@ class GestureDataDao(val db: Database) {
             null
         ).use {
             while (it.moveToNext()) {
-                result.add(it.getString(0))
+                yield(it.getString(0))
             }
         }
-        return result
-    }
+    }}
 
-    fun getAllJsonData(): List<String> {
-        val result = mutableListOf<String>()
+    fun getAllJsonData(): Sequence<String> = synchronized(this) { sequence {
         db.readableDatabase.query(
             TABLE,
             arrayOf(COLUMN_DATA),
@@ -399,13 +401,12 @@ class GestureDataDao(val db: Database) {
             null
         ).use {
             while (it.moveToNext()) {
-                result.add(it.getString(0))
+                yield(it.getString(0))
             }
         }
-        return result
-    }
+    }}
 
-    fun markAsExported(ids: List<Long>, context: Context) {
+    fun markAsExported(ids: List<Long>, context: Context) = synchronized(this) {
         if (ids.isEmpty()) return
         val cv = ContentValues(1)
         cv.put(COLUMN_EXPORTED, 1)
@@ -414,7 +415,7 @@ class GestureDataDao(val db: Database) {
             context.prefs().edit { remove(PREF_PASSIVE_NOTIFY_COUNT) } // reset if we exported passive data
     }
 
-    fun delete(ids: List<Long>, onlyExported: Boolean, context: Context): Int {
+    fun delete(ids: List<Long>, onlyExported: Boolean, context: Context): Int = synchronized(this) {
         if (ids.isEmpty()) return 0
         val where = "$COLUMN_ID IN (${ids.joinToString(",")})"
         val whereExported = " AND $COLUMN_EXPORTED <> 0"
@@ -433,11 +434,11 @@ class GestureDataDao(val db: Database) {
         return count
     }
 
-    fun deleteAll() {
+    fun deleteAll() = synchronized(this) {
         db.writableDatabase.delete(TABLE, null, null)
     }
 
-    fun deletePassiveWords(words: Collection<String>) {
+    fun deletePassiveWords(words: Collection<String>) = synchronized(this) {
         val wordsString = words.joinToString("','") { it.lowercase() }
         db.writableDatabase.delete(
             TABLE,

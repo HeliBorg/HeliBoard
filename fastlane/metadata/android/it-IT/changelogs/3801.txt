@@ -1,0 +1,6 @@
+* Tonalità di pelle predefinita per suggerimenti e ricerca emoji
+* Gesto 'Indietro' predittivo
+* Bugfix: parentesi piccole non invertite correttamente negli script RTL
+* Novità: regolazione altezza dell'ultima riga
+* Posizionamento del cursore migliorato, specialmente per lingue come il coreano
+* Collegamenti alla schermata della raccolta data per l'input gestuale

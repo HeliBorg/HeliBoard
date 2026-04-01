@@ -14,13 +14,13 @@ Kenmerken:
     <li>Dag/nacht-instelling van het systeem volgen op Android 10+ (en sommige versies van Android 9)</li>
     <li>Dynamische kleuren volgen voor Android 12+</li>
   </ul>
-  <li>Toetsenbord <a href = "https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> aanpassen (alleen beschikbaar bij het uitschakelen van <i> Systeemtalen gebruiken</i>)</li>
+  <li>Toetsenbord <a href = "https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">layouts</a> aanpassen (alleen beschikbaar bij het uitschakelen van <i>Systeemtalen gebruiken</i>)</li>
   <li>Aanpassing van speciale lay-outs, zoals symbolen, cijfers of functionele toetslay-outs</li>
   <li>Meertalige invoer</li>
-  <li>Vegend typen (Glide typing) (<i> alleen m.b.v. gesloten bronbibliotheek </i> ☹️)</li>
+  <li>Vegend typen (Glide typing) (<i>alleen m.b.v. gesloten bronbibliotheek</i> ☹️)</li>
   <ul>
-    <li>bibliotheek niet opgenomen in de app, omdat er geen compatibele open source bibliotheek beschikbaar is </li>
-    <li>kan worden ontleend uit GApps-pakketten ("<i> swypelibs </i>"), of <a href = "https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">hier downloaden</a> (klik op het bestand en klik vervolgens op "raw" of de kleine download-knop)</li>
+    <li>bibliotheek niet opgenomen in de app, omdat er geen compatibele open source bibliotheek beschikbaar is</li>
+    <li>kan worden ontleend uit GApps-pakketten ("<i>swypelibs</i>"), of <a href = "https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">hier downloaden</a> (klik op het bestand en klik vervolgens op "raw" of de kleine download-knop)</li>
   </ul>
   <li>Klembordgeschiedenis</li>
   <li>Bediening met één hand</li>

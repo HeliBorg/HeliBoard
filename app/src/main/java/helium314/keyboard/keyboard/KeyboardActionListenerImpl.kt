@@ -297,7 +297,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         // issues:
         //  * setSelection "will cause the editor to call onUpdateSelection", see: https://developer.android.com/reference/android/view/inputmethod/InputConnection#setSelection(int,%20int)
         //     but Firefox is simply not doing this within the same word... WTF?
-        //     https://github.com/Helium314/HeliBoard/issues/1139#issuecomment-2588169384
+        //     https://github.com/HeliBorg/HeliBoard/issues/1139#issuecomment-2588169384
         //  * inputType is NOT of variant InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT (variant appears to always be 0)
         //     -> this is "fixed" now using AppWorkarounds.adjustInputType
         val variation = InputType.TYPE_MASK_VARIATION and Settings.getValues().mInputAttributes.mInputType

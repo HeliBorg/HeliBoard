@@ -1,12 +1,12 @@
-* add inline emoji search
-* optionally remember language / subtype per app
-* haptic feedback fixes and improvements
-* keep unpinned clipboard on app restart
-* optionally display pinned clipboard entries last
-* add optional emoji and clipboard bottom rows
-* add button for dismissing inline suggestions
-* add Bengali Khipro
-* add Mirandese
-* workaround for issues with hardware keyboard
-* links to dictionaries now directly go to the file
-* various minor fixes and improvements
+* Añadida la búsqueda de emojis en línea
+* Opción para recordar el idioma o subtipo por aplicación
+* Correcciones y mejoras en la respuesta háptica
+* Mantener el portapapeles no fijado al reiniciar la aplicación
+* Opción para mostrar los elementos fijados del portapapeles al final
+* Añadidas filas inferiores opcionales para emojis y portapapeles
+* Añadido botón para descartar sugerencias en línea
+* Añadido bengalí Khipro
+* Añadido mirandés
+* Solución temporal para problemas con teclados físicos
+* Los enlaces a diccionarios ahora dirigen directamente al archivo
+* Diversas correcciones y mejoras menores

@@ -489,4 +489,10 @@ Nouveau dictionnaire:
     <string name="ask_later">Demandez-moi plus tard</string>
     <string name="gesture_data_take_me_there">Y aller</string>
     <string name="timestamp_description">Vous pouvez ajouter la clé d\'horodatage à l\'aide d\'une disposition personnalisée avec la clé « timestamp » ou le code de clé -10043</string>
+    <string name="prefs_bottom_row_scale">Échelle de la rangée du bas</string>
+    <string name="toolbar_swipe_down_to_hide">Masquer le clavier par balayage</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Balayez la barre d\'outils vers le bas pour fermer le clavier</string>
+    <string name="gesture_data_please_switch_keyboard">Veuillez passer à %s</string>
+    <string name="gesture_data_share_limit">Pour éviter de dépasser les limites de taille, seuls les %s premiers mots seront exportés</string>
+    <string name="gesture_data_links">Informations sur la collecte de données gestuelles sur :</string>
 </resources>

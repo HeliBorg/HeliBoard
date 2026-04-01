@@ -467,4 +467,34 @@
     <string name="gesture_data_date_range">טווח תאריכים</string>
     <string name="gesture_data_much_data">יש לכם הרבה נתונים שלא נמסרו. אנא מיסרו אותם ומחקו את הנתונים הישנים.</string>
     <string name="gesture_data_how_to_use">איך להשתמש</string>
+    <string name="gesture_data_description_modes">כעת קיים רק מצב האיסוף הפעיל, בו מוצגת לך מילה מוגדרת שנדרש להקליד בהקלדה ע\"י מחוות.\n בהמשך יתווסף מצב של איסוף סביל, בו יהיה באפשרותך לספק דוגמיות מהשימוש הרגיל שלך בהקלדה ע\"י מחוות מיישומים אחרים. בשל רגישותה של גישה זו, האפשרות תהיה מבחירה, ניתנת להגדרה, ותכלול תצוגה לסקירה של הנתונים שיוגשו מטעמך.</string>
+    <string name="gesture_data_description_privacy">פרטיות\n\nהנתונים שיוגשו מטעמך כוללים מילת יעד, פריסת המקלדת ומידותיה, המחווה (זמנים וקואורדינטות), הצעות מהספרייה הנוכחית, Hash של המילונים שבשימוש, גרסת היישום, מצב איסוף הנתונים, האם הספרייה המשמשת להקלדה ע\"י מחוות היא ספריית ברירת-המחדל של Google, ומזהה לכל מחווה.\n הנתונים שיוגשו יוסרו לאחר הורדתם מתיבת הדואר של ProtonMail שבה הם נשמרים בהקדם האפשרי. לאחר ששלב האיסוף של נתוני הקלדה במחוות הסתיים, המאגר המצטבר של הנתונים שהוגשו ע\"י כל המשתמשים יפורסם תחת רישיון Creative Commons BY-SA 4.0.\n\n במסגרת החתירה לשמירה על פרטיותך, לא יצויין שמך במפורש כמחבר. הקרדיט שלך יוצג כ\"תורמי פרויקט נתוני המחוות של HeliBoard\". לא יתאפשר לקשור את הנתונים שיוגשו על-ידך במסך זה לזהות שלך. עם זאת, עשוי להיות אפשרי לקבוע אילו מחוות בוצעו ע\"י אותו משתמש. הדבר מתאפשר לדוגמה עפ\"י פריסת מקלדת מותאמת, מימדי המקלדת, השפה, או סגנון הקלדה אישי.</string>
+    <string name="gesture_data_privacy">פרטיות</string>
+    <string name="gesture_data_get_data">שיתוף קובץ נתוני ההקלדה במחוות</string>
+    <string name="gesture_data_delete_data">הסרת נתוני ההקלדה במחוות</string>
+    <string name="gesture_data_send_mail">שליחת הנתונים באמצעות דוא\"ל</string>
+    <string name="gesture_data_share_new">שתפו %s מילים שלא שותפו בעבר</string>
+    <string name="gesture_data_delete_dialog">יש לך נתונים עבור %1$s מילים חדשות ו-%2$s מילים שכבר שותפו.</string>
+    <string name="gesture_data_delete_dialog_all">מחיקת כל %s המילים</string>
+    <string name="gesture_data_delete_dialog_confirm">בטוחים? הפעולה תמחק %s מילים. וודאו שהנתונים ששיתפתם נמסרו!</string>
+    <string name="gesture_data_delete_dialog_submitted">מחיקת %s מילים שנמסרו</string>
+    <string name="gesture_data_many_not_shared_words">יש לך יותר מ-%s מילים שממתינות למסירה</string>
+    <string name="ask_later">לשאול אותי מאוחר יותר</string>
+    <string name="timestamp_description">באפשרותך להוסיף את מקש חתימת-הזמן לשימוש בפריסה מותאמת עם מקש \'timestamp\', או קוד מקש -10043</string>
+    <string name="prefs_bottom_row_scale">קנה-מידה של השורה התחתונה</string>
+    <string name="gesture_data_active_description">ליחצו על \"התחלת איסוף פעיל\", ניתן להחליף את המילון, והתחילו להקליד במחוות את המילה המוצגת.&lt;br/&gt; אם המחווה שלך תואמת למילה, הנתונים נשמרים והמילה הבאה תוצג. אחרת באפשרותך לנסות שוב, לפסוח על המילה, או לאשר שהמחווה שביצעת תקינה.&lt;br/&gt; ניתן להשתמש רק במילונים המובנים ביישום או בכאלה שזמינים ב-&lt;a href=%s&gt;dictionaries repository&lt;/a&gt;, לא יהיה שימוש במילים אחרות.</string>
+    <string name="gesture_data_active_start">התחלת איסוף פעיל</string>
+    <string name="gesture_data_active_stop">עצירת האיסוף הפעיל</string>
+    <string name="gesture_data_ends_at">שלב איסוף נתוני המחוות יסתיים ב-%s. אנא שילחו את הנתונים שלכם לפני מועד זה.</string>
+    <string name="gesture_data_ended">שלב איסוף נתוני המחוות הסתיים ב-%s. באפשרותך לשתף את הנתונים הקיימים, אך לא להוסיף חדשים.</string>
+    <string name="gesture_data_share_all">שיתוף כל %s המילים</string>
+    <string name="gesture_data_email_body">חשוב:\n\n היי לך!\nלתזכורת, הנתונים הללו ישותפו ציבורית תחת רישיון CC BY-SA 4.0, ושמך לא יצויין ברשימת יוצרי הנתונים כדי לשמור על פרטיותך.\n\nתודה על שיתוף הזכויות לנתונים שלך איתנו. נעשה בהם שימוש טוב!\n\nיודגש ששינויים בניסוח הודעה זו לא משנים את השימוש שנעשה בעזרת הנתונים שלך. זה איננו חוזה שעובר שינוי, זו רק תזכורת ידידותית!\n אם ברצונך לשלוח לנו מסר ביחד עם הנתונים שלך, נא לכתוב אותו מתחת לקו כאן.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">היי לך!\n מאחר והתקנת את ספריית ההקלדה במחוות, עשוי לעניין אותך גם המיזם של HeliBoard ליצירת ספריית הקלדה במחוות פתוחה במלואה. באפשרותך לסייע ע\"י נידוב נתוני הקלדה במחוות. למידע נוסף ניתן לבקר במסך איסוף נתוני ההקלדה במחוות.</string>
+    <string name="gesture_data_reminder_message">היי לך!\n בעבר השתמשת באיסוף נתוני המחוות, אך לא הוספת נתונים מזה זמן מה. האם ברצונך לנדב נתונים שוב?</string>
+    <string name="gesture_data_take_me_there">מעבר למסך כעת</string>
+    <string name="gesture_data_links">מידע על איסוף נתוני שימוש במחוות:</string>
+    <string name="gesture_data_share_limit">כדי למנוע חריגה ממגבלות הגודל, רק %s המילים הראשונות ייכללו בייצוא הנתונים</string>
+    <string name="toolbar_swipe_down_to_hide">הסתרת המקלדת ע\"י החלקה</string>
+    <string name="toolbar_swipe_down_to_hide_summary">החלקה למטה על סרגל הכלים לסגירת המקלדת</string>
+    <string name="gesture_data_please_switch_keyboard">נא לעבור אל %s</string>
 </resources>

@@ -1,0 +1,6 @@
+* lehetővé teszi az alkalmazás (beállítások) nyelvének megváltoztatását a rendszerbeállításokban
+* lefelé csúsztatva az eszköztáron elrejthető a billentyűzet
+* HCESAR billentyűzetkiosztás hozzáadva
+* figyelmeztetés az emodzsiszótár hiányáról az emodzsijavaslatok engedélyezésekor
+* aktív ujjmozdulat-gyűjtéssel kapcsolatos problémák kijavítása
+* kisebb hibajavítások és fejlesztések

@@ -451,4 +451,47 @@
     <string name="custom_emoji_font">Escoller emojis persoais desde ficheiro</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emojis coa tecla de acción</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior do portapapeis coa tecla de acción</string>
+    <string name="timestamp_description">Podes engadir a telca de marca de tempo usando unha disposición persoal coa tecla \'marca de tempo\', ou código de tecla -10043</string>
+    <string name="prefs_bottom_row_scale">Escala da fila inferior</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas de función (Khipro)</string>
+    <string name="emoji_search_title">Buscar emoji</string>
+    <string name="search_field_placeholder">Buscar</string>
+    <string name="ask_later">Preguntar máis tarde</string>
+    <string name="gesture_data_screen">Obtendo datos dos xestos</string>
+    <string name="gesture_data_description">Esta é a pantalla de obtención dos datos para os xestos de escritura!&lt;br/&gt;&lt;br/&gt; É parte dun &lt;a href=https://nlnet.nl/project/GestureTyping&gt;proxecto financiado por NLnet&lt;/a&gt; que intenta producir unha biblioteca de escritura por xestos totalmente de código aberto e capaz de substituír a biblioteca de código oculto de Google.&lt;b/&gt; O resultado proxectado pretende ser unha substitución simple para teclados baseados en AOSP, pero tamén utilizable por outros teclados, ex. FloriBoard.&lt;br/&gt;&lt;br/&gt; Para desenvolver a biblioteca, é tremendamente útil ter datos de xestos en diferentes idiomas e diferentes persoas usuarias.&lt;br/&gt; Ao obter e enviar datos de xestos ao escribir contribúes ao conxunto de datos aberto que se usarán para o desenvolvemento. O conxunto de datos vaise publicar con licenza CC BY-SA 4.0 cando finalice a etapa de obtención de datos en %s. Unha vez recollidos os datos, podes envialos usando a icona compartir ao pé desta pantalla.</string>
+    <string name="gesture_data_info">Que é isto?</string>
+    <string name="gesture_data_description_modes">Actualmente só hai un modo de obtención activo, onde se mostra unha palabra concreta e escribes esta palabra usando a escritura con xestos.\nMáis tarde engadiremos o modo de obtención pasiva, onde podes engadir mostras desde a túa escritura corrente con cestos en outras apps. Debido a sensibilidade desta opción, terás que activar o acceso, será configurable e terá unha pantalla de revisión dos datos que vas a enviar.</string>
+    <string name="gesture_data_description_privacy">Privacidade\n\nOs datos enviados consisten nunha palabra clave, disposición do teclado e tamaño, xesto (marca temporal e coordenadas), suxestións da biblioteca actual, suma de comprobación do dicionario usado, versión da app, mode obtención dos datos, se o xesto está na biblioteca predeterminada de Google, así como un ID para cada xesto.\nOs datos enviados vanse descargar e eliminar dunha caixa de correo de ProtonMail onde se almacenan para facilitarnos o traballo. Após rematar a fase de obtención de datos, os datos acumulados durante todo o proceso van ser publicados baixo a licenza Creative Commons BY-SA 4.0.\n\nComo parte do intento de protexer a túa privacidade non se publicará explícitamente a túa autoría. O crédito outorgado vai ser \"Colaboradoras do Proxecto Heliboard de Datos de Xestos\". Non será posible ligar os datos que creaches nesta pantalla coa túa identidade. Emporiso, podería ser posible determinar que xestos foron creados pola mesma persoa. Isto pódese facer por exemplo tendo en conta se é un teclado cunha disposición de teclas persoal, tamaño do teclado, idioma ou estilo propio de xestos.</string>
+    <string name="gesture_data_privacy">Privacidade</string>
+    <string name="gesture_data_get_data">Compartir ficheiro de datos cos xestos</string>
+    <string name="gesture_data_delete_data">Limpar datos dos xestos</string>
+    <string name="gesture_data_send_mail">Enviar datos por correo</string>
+    <string name="gesture_data_copy_mail">Copiar enderezo de correo</string>
+    <string name="gesture_data_mail_use">Ten en conta que o enderezo de correo serve para o envío dos datos, pode que non teñas unha resposta pronta ou consistente.</string>
+    <string name="gesture_data_please_type">Por favor escribe cun xesto:</string>
+    <string name="gesture_data_next_save">Obtivemos %s. Preme se cres que o fixeches correctamente</string>
+    <string name="gesture_data_next">Omitir palabra</string>
+    <string name="gesture_data_active_count">%1$s palabras nesta sesión, %2$s palabras en total (%3$s xa enviadas ou eliminadas)</string>
+    <string name="gesture_data_review_screen_title">Revisar e compartir os datos dos xestos</string>
+    <string name="gesture_data_words_selected">%s palabras</string>
+    <string name="gesture_data_date_range">Rango de datas</string>
+    <string name="gesture_data_much_data">Tes moitos datos sen enviar. Por favor envíaos e despois elimina os datos antigos.</string>
+    <string name="gesture_data_how_to_use">Como se utiliza</string>
+    <string name="gesture_data_active_description">Toca en «Comezar a obtención activa», optativamente podes cambiar o dicionario, e comezar a escribir a palabra suxerida.&lt;br/&gt; Se o xesto concorda coa palabra, gárdanse os datos e móstrase a seguinte palabra. Se non, podes volver a intentalo ou omitir a palabra, ou confirmar que o xesto é correcto.&lt;br/&gt; Só podes usar dicionarios que están incluídos na app ou dispoñibles no &lt;a href=%s&gt;repositorio de dicionarios&lt;/a&gt;, non se poden usar outras palabras.</string>
+    <string name="gesture_data_active_start">Comezar a obtención activa</string>
+    <string name="gesture_data_active_stop">Deter a obtención activa</string>
+    <string name="gesture_data_ends_at">A fase de obtención de datos remata o %s. Por favor envía os teus datos antes desta data.</string>
+    <string name="gesture_data_ended">A fase de obtención de datos rematou o %s. Podes compartir os teus datos existentes, pero non engadir ningún novo.</string>
+    <string name="gesture_data_share_all">Comparte as %s palabras</string>
+    <string name="gesture_data_share_new">Comparte as %s palabras que aínda non enviaches</string>
+    <string name="gesture_data_delete_dialog">Tes datos de %1$s palabras novas e %2$s xa compartidas.</string>
+    <string name="gesture_data_delete_dialog_all">Eliminar todas as %s palabras</string>
+    <string name="gesture_data_delete_dialog_confirm">Tes certeza? Isto vai eliminar %s palabras. Comproba que enviaches os datos!</string>
+    <string name="gesture_data_delete_dialog_submitted">Eliminar %s palabras enviadas</string>
+    <string name="gesture_data_many_not_shared_words">Tes máis de %s palabras agardando a ser enviadas</string>
+    <string name="gesture_data_email_body">IMPORTANTE:\n\nOla!\nLembra que estes datos vanse publicar baixo licenza CC BY-SA 4.0, e por privacidade non mostraremos a túa autoría.\n\nGrazas por compartir con nós a propiedade dos teus datos. Faremos bo uso deles!\n\nTen en conta que cambiar a redacción deste aviso non cambia o que imos facer cos teus datos. Isto non é un contrato que se modifique, é só un recordatorio amigable!\nSe queres enviarnos unha mensaxe xunto cos teus datos, escribe aquí abaixo unhas liñas.\n-------------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Ola!\nComo instalaches a biblioteca de escritura con xestos, pode que che interese colaborar co proxecto de HeliBoard para crear unha biblioteca de código aberto para escritura con xestos. Podes colaborar enviando datos de escritura. Para máis información visita a pantalla de obtención de datos de xestos.</string>
+    <string name="gesture_data_reminder_message">Ola!\nCon anterioridade usaches a obtención de datos de xestos, pero non engadiches ningún dato desde hai tempo. Queres volver a colaborar?</string>
+    <string name="gesture_data_take_me_there">Imos aló</string>
+    <string name="gesture_data_links">Información sobre a obtención de datos de xestos en:</string>
 </resources>

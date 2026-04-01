@@ -204,7 +204,7 @@ object LocaleUtils {
 
         val localeDisplayName = getDisplayName(displayLocale ?: resources.configuration.locale())
         return if (localeDisplayName == languageTag) {
-            getDisplayName(Locale.US) // try fallback to English name, relevant e.g. fpr pms, see https://github.com/Helium314/HeliBoard/pull/748
+            getDisplayName(Locale.US) // try fallback to English name, relevant e.g. fpr pms, see https://github.com/HeliBorg/HeliBoard/pull/748
         } else {
             localeDisplayName
         }

@@ -1,0 +1,10 @@
+* adicionar busca emoji (dicionário de emoji)
+* função opcional de coleta de gestos (usa biblioteca de digitação gestos)
+* texto selecionado entre chaves e similares em vez de substituir o texto
+* permite fonte de emojis separada
+* linha numérica no layout de símbolos opcional
+* reduz as autocorreções erradas pra e-mails
+* corrige o movimento do cursor da barra de espaço para texto RTL + não RTL
+* não cortar a seleção ao recapitalizar
+* melhora o combinador khipro
+* correções e melhorias menores

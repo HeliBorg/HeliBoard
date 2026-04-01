@@ -14,7 +14,7 @@ Ominaisuudet:
  <li>voi seurata järjestelmän päivä/yö-asetuksia Android 10+ -versiossa (ja joissakin Android 9:n versioissa)</li>
  <li>voi seurata dynaamisia värejä Android 12+:lle</li>
  </ul>
- <li>Muokkaa näppäimistön <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">asetteluja</a> (käytettävissä vain, kun <i>käytä järjestelmäkieliä</i>)</li>
+ <li>Muokkaa näppäimistön <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">asetteluja</a> (käytettävissä vain, kun <i>käytä järjestelmäkieliä</i>)</li>
  <li>Muokkaa erikoisasetteluja, kuten symboleja, numeroita tai toiminnallisten näppäinten asettelua.</li>
  <li>Monikielinen kirjoittaminen</li>
  <li>Liukukirjoitus (<i>vain suljetun lähdekoodin kirjastossa</i> ☹️)</li>

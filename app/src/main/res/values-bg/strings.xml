@@ -520,4 +520,10 @@
     <string name="gesture_data_reminder_message">Здравей!\nПреди използвахте събирането на данни чрез жестове, но не сте добавяли данни от доста време. Искате ли да допринесете отново?</string>
     <string name="ask_later">Питай ме по-късно</string>
     <string name="gesture_data_take_me_there">Заведи ме там</string>
+    <string name="prefs_bottom_row_scale">Мащаб на долния ред</string>
+    <string name="gesture_data_links">Информация за събиране на данни за жестове на:</string>
+    <string name="toolbar_swipe_down_to_hide">Скриване на клавиатурата чрез плъзване</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Плъзнете надолу по лентата с инструменти, за да затворите клавиатурата</string>
+    <string name="gesture_data_please_switch_keyboard">Моля, превключете към %s</string>
+    <string name="gesture_data_share_limit">За да се избегне превишаване на ограниченията за размер, ще бъдат експортирани само първите %s думи</string>
 </resources>

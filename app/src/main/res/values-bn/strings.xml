@@ -479,4 +479,9 @@
     <string name="gesture_data_email_body">গুরুত্বপূর্ণ:\n\n হ্যালো!\n\n স্মরণ করিয়ে দিচ্ছি, এই ডেটা CC BY-SA 4.0 লাইসেন্সের অধীনে পাবলিকভাবে শেয়ার করা হবে, এবং আপনার গোপনীয়তা রক্ষার জন্য আপনাকে লেখক হিসেবে তালিকাভুক্ত করা হবে না।\n\n আমাদের সাথে আপনার ডেটার অধিকার শেয়ার করার জন্য ধন্যবাদ। আমরা এটি সঠিকভাবে ব্যবহার করব!\n\n দয়া করে মনে রাখবেন, এই নোটিশের শব্দ পরিবর্তন করা হলে আপনার ডেটার ব্যবহারের নিয়ম পরিবর্তিত হবে না। এটি একটি পরিবর্তনযোগ্য চুক্তি নয়, এটি কেবল একটি বন্ধুত্বপূর্ণ স্মরণসূচক।\n\n আপনি যদি আপনার ডেটার সাথে আমাদেরকে কোনো বার্তা পাঠাতে চান, এখানে রেখার নিচে লিখুন।\n\n ---------------------------------------------</string>
     <string name="emoji_search_title">ইমোজি অনুসন্ধান</string>
     <string name="search_field_placeholder">অনুসন্ধান</string>
+    <string name="timestamp_description">নিজস্বীকৃত লেআউটে \'timestamp\' key বা key code - 10043 ব্যবহার করে timestamp key সংযুক্ত করা যেতে পারে</string>
+    <string name="prefs_bottom_row_scale">নিম্ন সারির স্কেল</string>
+    <string name="ask_later">পরে জিজ্ঞেসা করুন</string>
+    <string name="toolbar_swipe_down_to_hide">অভিস্পর্শের মাধ্যমে কিবোর্ড আড়ালকরণ</string>
+    <string name="toolbar_swipe_down_to_hide_summary">টুলবারে নিচের দিকে অভিস্পর্শ করলে কিবোর্ড বন্ধ হবে</string>
 </resources>

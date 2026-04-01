@@ -14,7 +14,7 @@ Eiginleikar:
     <li>getur fylgt dags-/nætur stillingum kerfisins á Android 10+ (og á sumum útgáfum Android 9)</li>
     <li>getur fylgt breytilegum litum á Android 12+</li>
   </ul>
-  <li>Sérsníddu <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">framsetningar</a> lyklaborðsins (einungis tiltækt þegar <i>nota tungumál kerfis</i> hefur verið gert óvirkt)</li>
+  <li>Sérsníddu <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">framsetningar</a> lyklaborðsins (einungis tiltækt þegar <i>nota tungumál kerfis</i> hefur verið gert óvirkt)</li>
   <li>Sérsníddu sérstakar framsetningar, eins og tákn, tölur eða framsetningu aðgerðalykla</li>
   <li>Fjöltyngdur innsláttur</li>
   <li>Glide-innsláttur (<i>einungis með lokuðu séreignar-aðgerðasafni</i> ☹️)</li>
