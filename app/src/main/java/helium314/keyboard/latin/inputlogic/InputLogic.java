@@ -1264,6 +1264,9 @@ public final class InputLogic {
                     mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
             // When we exit this if-clause, mWordComposer.isComposingWord() will return false.
         }
+        final boolean deleteWholeWordsComposing = event.isKeyRepeat()
+                && inputTransaction.getSettingsValues().mDeleteWholeWords;
+
         if (mWordComposer.isComposingWord()) {
             if (mWordComposer.isBatchMode()) {
                 final String rejectedSuggestion = mWordComposer.getTypedWord();
@@ -1274,6 +1277,14 @@ public final class InputLogic {
                             Constants.EVENT_REJECTION);
                 }
                 StatsUtils.onBackspaceWordDelete(rejectedSuggestion.length());
+            } else if (deleteWholeWordsComposing) {
+                // Delete entire composing word at once on hold-backspace
+                final String removedWord = mWordComposer.getTypedWord();
+                mWordComposer.reset();
+                if (!TextUtils.isEmpty(removedWord)) {
+                    unlearnWord(removedWord, inputTransaction.getSettingsValues(),
+                            Constants.EVENT_BACKSPACE);
+                }
             } else {
                 mWordComposer.applyProcessedEvent(event);
                 StatsUtils.onBackspacePressed(1);
@@ -1403,14 +1414,47 @@ public final class InputLogic {
                         // TODO: Add a new StatsUtils method onBackspaceWhenNoText()
                         return;
                     }
-                    final int lengthToDelete = codePointBeforeCursor > 0xFE00 || StringUtils.mightBeEmoji(codePointBeforeCursor)
+                    final boolean deleteWholeWords = event.isKeyRepeat()
+                            && inputTransaction.getSettingsValues().mDeleteWholeWords;
+
+                    int lengthToDelete = codePointBeforeCursor > 0xFE00 || StringUtils.mightBeEmoji(codePointBeforeCursor)
                             ? mConnection.getCharCountToDeleteBeforeCursor() : 1;
+
+                    // Use BreakIterator to determine deletion boundary
+                    final CharSequence textBeforeCursor = mConnection.getTextBeforeCursor(
+                            deleteWholeWords ? 48 : 8, 0);
+                    if (textBeforeCursor != null && textBeforeCursor.length() > 0) {
+                        final java.text.BreakIterator breakIterator;
+                        if (deleteWholeWords) {
+                            breakIterator = java.text.BreakIterator.getWordInstance();
+                        } else {
+                            breakIterator = java.text.BreakIterator.getCharacterInstance();
+                        }
+                        breakIterator.setText(textBeforeCursor.toString());
+                        final int end = breakIterator.last();
+                        int start = breakIterator.previous();
+
+                        // If deleting whole words and we're on a space, skip back one more
+                        // boundary to get the actual word
+                        if (deleteWholeWords && start != java.text.BreakIterator.DONE
+                                && textBeforeCursor.subSequence(start, end).toString().trim().isEmpty()) {
+                            start = breakIterator.previous();
+                        }
+
+                        if (start != java.text.BreakIterator.DONE) {
+                            lengthToDelete = end - start;
+                        }
+                    }
+
+                    if (deleteWholeWords) {
+                        hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(
+                                inputTransaction.getSettingsValues(), currentKeyboardScript);
+                    }
+
                     mConnection.deleteTextBeforeCursor(lengthToDelete);
                     int totalDeletedLength = lengthToDelete;
-                    if (mDeleteCount > Constants.DELETE_ACCELERATE_AT) {
-                        // If this is an accelerated (i.e., double) deletion, then we need to
-                        // consider unlearning here because we may have already reached
-                        // the previous word, and will lose it after next deletion.
+                    if (!deleteWholeWords && mDeleteCount > Constants.DELETE_ACCELERATE_AT) {
+                        // Character-level acceleration (only when not in word-delete mode)
                         hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(
                                 inputTransaction.getSettingsValues(), currentKeyboardScript);
                         final int codePointBeforeCursorToDeleteAgain =

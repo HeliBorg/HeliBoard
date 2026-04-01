@@ -150,6 +150,8 @@
     <string name="auto_correct_shortcuts_summary">When enabled shortcuts might be expanded by autocorrect</string>
     <!-- Option to undo auto correction with backspace -->
     <string name="backspace_reverts_autocorrect">Backspace reverts autocorrect</string>
+    <string name="delete_whole_words">Hold backspace deletes whole words</string>
+    <string name="delete_whole_words_summary">When holding the backspace key, delete entire words instead of individual characters</string>
     <!-- Option to disable auto correction. -->
     <string name="auto_correction_threshold_mode_off">Off</string> <!-- todo: use it or remove it -->
     <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. -->
