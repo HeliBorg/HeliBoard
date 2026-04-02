@@ -6,6 +6,7 @@ import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.FoldableUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
@@ -14,6 +15,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         DebugFlags.init(this)
+        FoldableUtils.init(this)
         Settings.init(this)
         SubtypeSettings.init(this)
         RichInputMethodManager.init(this)

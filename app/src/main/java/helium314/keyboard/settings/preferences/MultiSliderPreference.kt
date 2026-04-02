@@ -98,9 +98,9 @@ private fun MultiSliderDialog(
     positionString: (Float) -> String,
 ) {
     val (variants, keys) = createVariantsAndKeys(dimensions, baseKey)
-    val foldedString = stringResource(R.string.folded)
+    val foldedString = stringResource(R.string.folded) // better folded treatment, and folded shouldn't even be available on non-foldables
     val ctx = LocalContext.current
-    var checked by remember { mutableStateOf(dimensions.map { FoldableUtils.isFoldable(ctx) || !it.contains(foldedString) }) }
+    var checked by remember { mutableStateOf(dimensions.map { FoldableUtils.isFoldable || !it.contains(foldedString) }) }
     val prefs = ctx.prefs()
     val done = remember { mutableMapOf<String, () -> Unit>() }
 
