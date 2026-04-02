@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Message;
 import android.os.Process;
-import android.util.DisplayMetrics;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
 import android.view.KeyEvent;
@@ -713,8 +712,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onConfigurationChanged(final Configuration conf) {
         SettingsValues settingsValues = mSettings.getCurrent();
-        final DisplayMetrics dm = getResources().getDisplayMetrics();
-        Log.i("FOLD", "onConfigurationChanged, display "+dm.widthPixels+" x "+dm.heightPixels+", "+dm.density+"/"+dm.xdpi+"/"+dm.ydpi);
+        Log.i(TAG, "onConfigurationChanged");
         SubtypeSettings.INSTANCE.reloadSystemLocales(this);
         if (settingsValues.mDisplayOrientation != conf.orientation) {
             mHandler.startOrientationChanging();

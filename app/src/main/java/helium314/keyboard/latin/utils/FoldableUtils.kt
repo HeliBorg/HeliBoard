@@ -31,6 +31,7 @@ object FoldableUtils {
     var isFolded = false
         private set
 
+    /** set [isFoldable] */
     fun init(context: Context) {
         isFoldable = getFeatureString(context) != null || hasFoldSensor(context)
         Log.i(TAG, if (isFoldable) "foldable" else "not foldable")

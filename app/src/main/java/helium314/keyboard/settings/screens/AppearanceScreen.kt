@@ -229,7 +229,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         MultiSliderPreference(
             name = setting.title,
             baseKey = setting.key,
-            dimensions = listOf(stringResource(R.string.landscape)),
+            dimensions = listOf(stringResource(R.string.landscape), stringResource(R.string.folded)),
             defaults = Defaults.PREF_BOTTOM_ROW_SCALE,
             range = 0.5f..2f,
             description = { "${(100 * it).toInt()}%" }

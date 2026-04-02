@@ -425,39 +425,39 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(pref, isLandscape ? Defaults.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE : Defaults.PREF_ENABLE_SPLIT_KEYBOARD);
     }
 
-    public static float readSplitSpacerScale(final SharedPreferences prefs, final boolean landscape, boolean folded) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, folded);
+    public static float readSplitSpacerScale(SharedPreferences prefs, boolean landscape, boolean folded) {
+        int index = SettingsKt.findIndexOfDefaultSetting(landscape, folded);
         final Float[] defaults = Defaults.PREF_SPLIT_SPACER_SCALE;
         final float defaultValue = defaults[index];
         return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SPLIT_SPACER_SCALE_PREFIX, index, 2), defaultValue);
     }
 
-    public static float readBottomPaddingScale(final SharedPreferences prefs, final boolean landscape, boolean folded) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, folded);
+    public static float readBottomPaddingScale(SharedPreferences prefs, boolean landscape, boolean folded) {
+        int index = SettingsKt.findIndexOfDefaultSetting(landscape, folded);
         final Float[] defaults = Defaults.PREF_BOTTOM_PADDING_SCALE;
         final float defaultValue = defaults[index];
         return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_BOTTOM_PADDING_SCALE_PREFIX, index, 2), defaultValue);
     }
 
-    public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape, final boolean split, boolean folded) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, split, folded);
+    public static float readSidePaddingScale(SharedPreferences prefs, boolean landscape, boolean split, boolean folded) {
+        int index = SettingsKt.findIndexOfDefaultSetting(landscape, split, folded);
         final Float[] defaults = Defaults.PREF_SIDE_PADDING_SCALE;
         final float defaultValue = defaults[index];
         return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SIDE_PADDING_SCALE_PREFIX, index, 3), defaultValue);
     }
 
-    public static float readHeightScale(final SharedPreferences prefs, final boolean landscape, boolean folded) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, folded);
+    public static float readHeightScale(SharedPreferences prefs, boolean landscape, boolean folded) {
+        int index = SettingsKt.findIndexOfDefaultSetting(landscape, folded);
         final Float[] defaults = Defaults.PREF_KEYBOARD_HEIGHT_SCALE;
         final float defaultValue = defaults[index];
         return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, index, 2), defaultValue);
     }
 
-    public static float readBottomRowScale(final SharedPreferences prefs, final boolean landscape) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+    public static float readBottomRowScale(SharedPreferences prefs, boolean landscape, boolean folded) {
+        int index = SettingsKt.findIndexOfDefaultSetting(landscape, folded);
         final Float[] defaults = Defaults.PREF_BOTTOM_ROW_SCALE;
         final float defaultValue = defaults[index];
-        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_BOTTOM_ROW_SCALE_PREFIX, index, 1), defaultValue);
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_BOTTOM_ROW_SCALE_PREFIX, index, 2), defaultValue);
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
