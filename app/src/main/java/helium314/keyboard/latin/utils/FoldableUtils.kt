@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin.utils
 
 import android.content.Context
@@ -18,28 +19,80 @@ import kotlin.text.split
 object FoldableUtils {
     private const val TAG = "FoldableUtils"
 
+    // we could reload the keyboard at this point, but according to a user testing this is not necessary
+    // https://github.com/HeliBorg/HeliBoard/issues/1063#issuecomment-4178571414
     var isFoldable = false
-        private set
+        private set(value) {
+            if (field == value) return
+            Log.v(TAG, "set isFoldable to $value")
+            field = value
+        }
 
     var isFolded = false
         private set
 
     fun init(context: Context) {
-        isFoldable = hasDisplayFeatureString(context) || hasFoldSensor(context)
-        Log.i(TAG, "isFoldable: $isFoldable")
+        isFoldable = getFeatureString(context) != null || hasFoldSensor(context)
+        Log.i(TAG, if (isFoldable) "foldable" else "not foldable")
     }
 
+    private fun hasFoldSensor(context: Context) = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+        && context.packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE)
+
+    /*
+     * much of the code related to display_features is modified from https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/libs/WindowManager/Jetpack/src/androidx/window
+     * apparently there is some information encoded in undocumented "display_features" setting in Settings.Global
+     * found values
+     *  null (we assume this means not foldable)
+     *  empty (when folded, at least according to the user who posted the logs)
+     *   ca 40° hinge both directions
+     *  fold-[1124,0,1124,2480]-half-opened -> AFTER configuration change (regex no match, but why?)
+     *   at ca 40° hinge when opening, 140° when closing
+     *  fold-[1124,0,1124,2480]-flat -> no configuration change
+     *   at ca 160° hinge
+     */
+    private const val DISPLAY_FEATURES = "display_features"
+    private val displayFeaturesUri = Settings.Global.getUriFor(DISPLAY_FEATURES)
+    private val FEATURE_PATTERN = Pattern.compile("([a-z]+)-\\[(\\d+),(\\d+),(\\d+),(\\d+)]-?(flat|half-opened)?")
+    private const val FEATURE_TYPE_FOLD = "fold"
+    private const val FEATURE_TYPE_HINGE = "hinge"
+    private const val PATTERN_STATE_FLAT = "flat"
+    private const val PATTERN_STATE_HALF_OPENED = "half-opened"
+
+    fun getFeatureString(context: Context): String? = Settings.Global.getString(context.contentResolver, DISPLAY_FEATURES)
+
+    private fun extractFoldedState(displayFeatures: String): Boolean {
+        if (displayFeatures.isEmpty()) return true
+        displayFeatures.split(";").forEach {
+            try {
+                val matcher = FEATURE_PATTERN.matcher(it)
+                if (!matcher.matches()) return@forEach
+                val featureType = matcher.group(1) // should be FEATURE_TYPE_FOLD or FEATURE_TYPE_HINGE
+                val state = matcher.group(6)
+
+                // do we have use for anything other than state? featureType might be useful for debugging
+                Log.d(TAG, "found: type $featureType, state $state")
+                return (state != PATTERN_STATE_FLAT && state != PATTERN_STATE_HALF_OPENED)
+            } catch (e: Exception) {
+                Log.w(TAG, "error when checking $it", e)
+            }
+        }
+
+        return false
+    }
+
+    /** Observes changes to [DISPLAY_FEATURES] or hinge angle, and updates [isFolded] on changes */
     class FoldableObserver(context: Context) {
         private val featureStringObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
             override fun onChange(selfChange: Boolean, uri: Uri?) {
                 if (uri != displayFeaturesUri) return
                 val featuresString = getFeatureString(context)
                 if (featuresString == null) {
-                    Log.w(TAG, "$DISPLAY_FEATURES should not be null")
+                    Log.w(TAG, "$DISPLAY_FEATURES are unexpectedly null")
                     return
                 }
+                Log.i(TAG, "$DISPLAY_FEATURES changed: $featuresString")
                 isFolded = extractFoldedState(featuresString)
-                Log.i(TAG, "$DISPLAY_FEATURES changed: $featuresString, setting to $isFolded")
             }
         }
 
@@ -47,13 +100,17 @@ object FoldableUtils {
             override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
             override fun onSensorChanged(event: SensorEvent) {
                 val angle = event.values?.getOrNull(0)
-                isFolded == (angle ?: 180f) < 90
-                Log.i(TAG, "sensor changed: ${event.values?.toList()}, setting to $isFolded")
+                // logs from a user showed that
+                // * 40° is the change between folded and half-open
+                // * 160° is the change between half-open and flat
+                // maybe we should use the sensor range? wait for bug reports + logs
+                isFolded == (angle ?: 180f) < 40
+                Log.i(TAG, "sensor changed: ${event.values?.toList()}")
             }
         }
 
         init {
-            // which method is better?
+            // is one of the methods clearly better? wait for bug reports + logs
             val featureString = getFeatureString(context)
             if (featureString != null) {
                 context.contentResolver.registerContentObserver(displayFeaturesUri, false, featureStringObserver)
@@ -73,62 +130,5 @@ object FoldableUtils {
             val sm = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
             sm.unregisterListener(sensorListener)
         }
-    }
-
-    private fun hasFoldSensor(context: Context): Boolean {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
-                && context.packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE))
-            return true
-        // maybe we have a differently named sensor, later try https://github.com/ryosoftware/folds/blob/a9c974046298a94e23733bb57d5d42aeaff424b2/app/src/main/java/com/ryosoftware/unfolds/UnfoldsCounterService.kt#L63-L83
-        return false
-    }
-
-    // using code from https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/libs/WindowManager/Jetpack/src/androidx/window
-    // apparently there is some information encoded in undocumented "display_features" setting in Settings.Global that requires a whole library to parse?
-    private const val DISPLAY_FEATURES = "display_features"
-    private val FEATURE_PATTERN = Pattern.compile("([a-z]+)-\\[(\\d+),(\\d+),(\\d+),(\\d+)]-?(flat|half-opened)?")
-    private val FEATURE_TYPE_FOLD = "fold"
-    private val FEATURE_TYPE_HINGE = "hinge"
-    private val PATTERN_STATE_FLAT = "flat"
-    private val PATTERN_STATE_HALF_OPENED = "half-opened"
-
-    // not sure if this is correct
-    private fun hasDisplayFeatureString(context: Context) = getFeatureString(context) != null
-
-    private val displayFeaturesUri = Settings.Global.getUriFor(DISPLAY_FEATURES)
-
-    fun getFeatureString(context: Context): String? = Settings.Global.getString(context.contentResolver, DISPLAY_FEATURES)
-
-    // found values
-    //  null (not foldable?)
-    //  empty (when folded it seems)
-    //   ca 40° hinge both directions
-    //  fold-[1124,0,1124,2480]-half-opened -> AFTER configuration change (regex no match, but why?)
-    //   ca 40° hinge when opening, 140° when closing
-    //  fold-[1124,0,1124,2480]-flat -> no configuration change
-    //   ca 160° hinge
-    private fun extractFoldedState(displayFeatures: String): Boolean {
-        if (displayFeatures.isEmpty()) return false
-        displayFeatures.split(";").forEach {
-            try {
-                val matcher = FEATURE_PATTERN.matcher(it)
-                if (!matcher.matches()) return@forEach
-                val featureType = matcher.group(1) // should be FEATURE_TYPE_FOLD or FEATURE_TYPE_HINGE
-                // screen dimensions? or what is it?
-                val left = matcher.group(2)
-                val top = matcher.group(3)
-                val right = matcher.group(4)
-                val bottom = matcher.group(5)
-                val state = matcher.group(6)
-
-                // todo: do we have use for anything other than state?
-                Log.d(TAG, "found: type $featureType, state $state, featureRect $left, $right, $top, $bottom")
-                return (state != PATTERN_STATE_FLAT && state != PATTERN_STATE_HALF_OPENED)
-            } catch (e: Exception) {
-                Log.w(TAG, "error when checking $it", e)
-            }
-        }
-
-        return false
     }
 }
