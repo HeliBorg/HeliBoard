@@ -98,7 +98,7 @@ private fun MultiSliderDialog(
     positionString: (Float) -> String,
 ) {
     val (variants, keys) = createVariantsAndKeys(dimensions, baseKey)
-    val foldedString = stringResource(R.string.folded) // better folded treatment, and folded shouldn't even be available on non-foldables
+    val foldedString = stringResource(R.string.folded) // we want to hide foldable settings for non-foldable phones
     val ctx = LocalContext.current
     var checked by remember { mutableStateOf(dimensions.map { FoldableUtils.isFoldable || !it.contains(foldedString) }) }
     val prefs = ctx.prefs()
@@ -117,9 +117,11 @@ private fun MultiSliderDialog(
                 Column(Modifier.verticalScroll(state)) {
                     if (dimensions.size > 1) {
                         dimensions.forEachIndexed { i, dimension ->
-                            DimensionCheckbox(checked[i], dimension) {
-                                checked = checked.mapIndexed { j, c -> if (i == j) it else c }
-                            }
+                            // hide "folded" box for non-foldables
+                            if (FoldableUtils.isFoldable || !dimension.contains(foldedString))
+                                DimensionCheckbox(checked[i], dimension) {
+                                    checked = checked.mapIndexed { j, c -> if (i == j) it else c }
+                                }
                         }
                     }
                     variants.forEachIndexed { i, variant ->
