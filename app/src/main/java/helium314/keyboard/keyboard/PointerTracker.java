@@ -173,6 +173,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // Touchpad mode for cursor control
     private static boolean sTouchpadModeActive = false;
     private boolean mInTouchpadMode = false;
+    private long mTouchpadActivationTime = 0;
     private int mTouchpadLastX = 0;
     private int mTouchpadLastY = 0;
     // Accumulators for fractional movement
@@ -964,12 +965,18 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 mTouchpadLastY = y;
                 mTouchpadAccX = 0;
                 mTouchpadAccY = 0;
+                mTouchpadActivationTime = System.currentTimeMillis();
                 // Signal start of touchpad mode for visual feedback (dimming)
                 sListener.onCustomRequest(KeyboardActionListener.CODE_TOUCHPAD_ON);
                 return;
             }
 
             if (mInTouchpadMode) {
+                if (System.currentTimeMillis() - mTouchpadActivationTime < 200) {
+                    mTouchpadLastX = x;
+                    mTouchpadLastY = y;
+                    return;
+                }
                 // In touchpad mode - track both horizontal and vertical movement for 2D cursor
                 // control
                 int deltaX = x - mTouchpadLastX;
@@ -978,16 +985,28 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 mTouchpadLastX = x;
                 mTouchpadLastY = y;
 
-                mTouchpadLastX = x;
-                mTouchpadLastY = y;
+//                mTouchpadLastX = x;
+//                mTouchpadLastY = y;
 
                 // Apply velocity-based acceleration
                 // Faster swipes (larger delta) get a higher multiplier
-                float accFactorX = 1.0f + (Math.abs(deltaX) / TOUCHPAD_ACCELERATION_FACTOR);
-                float accFactorY = 1.0f + (Math.abs(deltaY) / TOUCHPAD_ACCELERATION_FACTOR);
+//                float accFactorX = 1.0f + (Math.abs(deltaX) / TOUCHPAD_ACCELERATION_FACTOR);
+//                float accFactorY = 1.0f + (Math.abs(deltaY) / TOUCHPAD_ACCELERATION_FACTOR);
 
-                mTouchpadAccX += (int) (deltaX * accFactorX);
-                mTouchpadAccY += (int) (deltaY * accFactorY);
+//                mTouchpadAccX += (int) (deltaX * accFactorX);
+//                mTouchpadAccY += (int) (deltaY * accFactorY);
+
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    // Рух по горизонталі сильніший - працюємо тільки з X
+                    float accFactorX = 1.0f + (Math.abs(deltaX) / TOUCHPAD_ACCELERATION_FACTOR);
+                    mTouchpadAccX += (int) (deltaX * accFactorX);
+                    mTouchpadAccY = 0; // Скидаємо Y, щоб не було випадкових стрибків вгору/вниз
+                } else {
+                    // Рух по вертикалі сильніший - працюємо тільки з Y
+                    float accFactorY = 1.0f + (Math.abs(deltaY) / TOUCHPAD_ACCELERATION_FACTOR);
+                    mTouchpadAccY += (int) (deltaY * accFactorY);
+                    mTouchpadAccX = 0; // Скидаємо X, щоб не було випадкових стрибків вліво/вправо
+                }
 
                 // Handle horizontal movement with accumulator
                 // Calculate dynamic threshold based on sensitivity setting (0-100)
