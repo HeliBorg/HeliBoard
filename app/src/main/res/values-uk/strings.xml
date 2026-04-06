@@ -430,6 +430,8 @@
     <string name="about_wiki_link">Переглянути Вікі</string>
     <string name="about_wiki_link_description">Вікі може бути покращена будь-яким користувачем GitHub!</string>
     <string name="space_swipe_hide_keyboard_entry">Приховати клавіатуру</string>
+    <string name="space_swipe_touchpad_mode_entry">Режим тачпада</string>
+    <string name="touchpad_sensitivity">Чутливість тачпада</string>
     <string name="delete_confirmation">Ви насправді хочете видалити %s ?</string>
     <string name="name_invalid">Недійсне ім\'я</string>
     <string name="custom_subtype">Власний макет</string>

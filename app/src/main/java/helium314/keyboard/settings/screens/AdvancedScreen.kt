@@ -70,6 +70,8 @@ fun AdvancedSettingsScreen(
         if (Settings.readHorizontalSpaceSwipe(prefs) == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
             || Settings.readVerticalSpaceSwipe(prefs) == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE)
             Settings.PREF_LANGUAGE_SWIPE_DISTANCE else null,
+        if (Settings.readVerticalSpaceSwipe(prefs) == KeyboardActionListener.SWIPE_TOUCHPAD_MODE)
+            Settings.PREF_TOUCHPAD_SENSITIVITY else null,
         Settings.PREF_DELETE_SWIPE,
         Settings.PREF_SPACE_TO_CHANGE_LANG,
         Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD,
@@ -128,6 +130,7 @@ fun createAdvancedSettings(context: Context) = listOf(
             stringResource(R.string.switch_language) to "switch_language",
             stringResource(R.string.space_swipe_toggle_numpad_entry) to "toggle_numpad",
             stringResource(R.string.space_swipe_hide_keyboard_entry) to "hide_keyboard",
+            stringResource(R.string.space_swipe_touchpad_mode_entry) to "touchpad_mode",
             stringResource(R.string.action_none) to "none",
         )
         ListPreference(it, items, Defaults.PREF_SPACE_VERTICAL_SWIPE)
@@ -139,6 +142,15 @@ fun createAdvancedSettings(context: Context) = listOf(
             default = Defaults.PREF_LANGUAGE_SWIPE_DISTANCE,
             range = 2f..18f,
             description = { it.toString() }
+        )
+    },
+    Setting(context, Settings.PREF_TOUCHPAD_SENSITIVITY, R.string.touchpad_sensitivity) {
+        SliderPreference(
+            name = it.title,
+            key = it.key,
+            default = Defaults.PREF_TOUCHPAD_SENSITIVITY,
+            range = 0f..100f,
+            description = { value -> value.toInt().toString() }
         )
     },
     Setting(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe, R.string.delete_swipe_summary) {
