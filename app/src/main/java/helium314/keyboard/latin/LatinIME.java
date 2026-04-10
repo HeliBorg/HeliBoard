@@ -1719,7 +1719,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent != null && EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION.equals(intent.getAction()) && ! isEmojiSearch()) {
+        if (intent != null && EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION.equals(intent.getAction())) {
             if (intent.getBooleanExtra(EmojiSearchActivity.IME_CLOSED_KEY, false)) {
                 requestHideSelf(0);
             } else {
