@@ -14,7 +14,7 @@ enum class HapticEvent(@JvmField val feedbackConstant: Int, @JvmField val allowC
 //        ?
 //    ),
     KEY_LONG_PRESS(HapticFeedbackConstants.LONG_PRESS, true),
-//    KEY_REPEAT(HapticFeedbackConstants.?, ?),
+    KEY_REPEAT(HapticFeedbackConstants.KEYBOARD_TAP, allowCustomDuration = false),
 //    GESTURE_START(
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 //            HapticFeedbackConstants.GESTURE_START

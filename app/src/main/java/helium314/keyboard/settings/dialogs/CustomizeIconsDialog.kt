@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.dialogs
 
-import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -28,18 +27,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.customIconNames
-import helium314.keyboard.latin.utils.dpToPx
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.Theme
@@ -48,6 +42,7 @@ import helium314.keyboard.latin.utils.previewDark
 import helium314.keyboard.settings.screens.GetIcon
 import kotlinx.serialization.json.Json
 import androidx.core.content.edit
+import helium314.keyboard.settings.painterResourceCompat
 
 @Composable
 fun CustomizeIconsDialog(
@@ -142,7 +137,6 @@ fun CustomizeIconsDialog(
                     state = gridState
                 ) {
                     items(icons, key = { it }) { resId ->
-                        val drawable = ContextCompat.getDrawable(ctx, resId)?.mutate() ?: return@items
                         val color = if (resId == selectedIcon) MaterialTheme.colorScheme.primary
                             else MaterialTheme.colorScheme.onSurface
                         CompositionLocalProvider(
@@ -152,12 +146,7 @@ fun CustomizeIconsDialog(
                                 Modifier.size(40.dp).clickable { selectedIcon = resId },
                                 contentAlignment = Alignment.Center
                             ) {
-                                if (drawable is VectorDrawable)
-                                    Icon(painterResource(resId), null, Modifier.fillMaxSize(0.8f))
-                                else {
-                                    val px = 40.dpToPx(ctx.resources)
-                                    Icon(drawable.toBitmap(px, px).asImageBitmap(), null, Modifier.fillMaxSize(0.8f))
-                                }
+                                Icon(painterResourceCompat(resId), null, Modifier.fillMaxSize(0.8f))
                             }
                         }
                     }

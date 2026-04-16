@@ -48,12 +48,38 @@ import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set
 
-object AppUpgrade {
-    fun checkVersionUpgrade(context: Context) {
+fun checkVersionUpgrade(context: Context) {
+    val prefs = context.prefs()
+    val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
+    if (oldVersion != BuildConfig.VERSION_CODE)
+        AppUpgrade.onUpgrade(context)
+}
+
+fun transferOldPinnedClips(context: Context) {
+    @Serializable
+    data class OldClipboardHistoryEntry (
+        var timeStamp: Long,
+        val content: String,
+        var isPinned: Boolean = false
+    )
+    if (isUserLocked(context) || isDeviceLocked(context)) return
+    try {
+        val pinnedClipString = context.protectedPrefs().getString("pinned_clips", "")
+        if (pinnedClipString.isNullOrBlank())
+            return
+        val pinnedClips: List<OldClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
+        val dao = ClipboardDao.getInstance(context) ?: return
+        pinnedClips.forEach { dao.addClip(it.timeStamp, it.isPinned, it.content) }
+        context.protectedPrefs().edit { remove("pinned_clips") }
+    } catch (e: Throwable) {
+        Log.e("upgrade", "error transferring old pinned clips", e)
+    }
+}
+
+private object AppUpgrade {
+    fun onUpgrade(context: Context) {
         val prefs = context.prefs()
         val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
-        if (oldVersion == BuildConfig.VERSION_CODE)
-            return
         // clear extracted dictionaries, in case updated version contains newer ones
         DictionaryInfoUtils.getCacheDirectories(context).forEach {
             for (file in it.listFiles()!!) {
@@ -601,28 +627,6 @@ object AppUpgrade {
         upgradeToolbarPrefs(prefs)
         LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
         prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
-    }
-
-    // not only on upgrade, because this might also be called when db is locked
-    fun transferOldPinnedClips(context: Context) {
-        @Serializable
-        data class OldClipboardHistoryEntry (
-            var timeStamp: Long,
-            val content: String,
-            var isPinned: Boolean = false
-        )
-        if (isUserLocked(context) || isDeviceLocked(context)) return
-        try {
-            val pinnedClipString = context.protectedPrefs().getString("pinned_clips", "")
-            if (pinnedClipString.isNullOrBlank())
-                return
-            val pinnedClips: List<OldClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
-            val dao = ClipboardDao.getInstance(context) ?: return
-            pinnedClips.forEach { dao.addClip(it.timeStamp, it.isPinned, it.content) }
-            context.protectedPrefs().edit { remove("pinned_clips") }
-        } catch (e: Throwable) {
-            Log.e("upgrade", "error transferring old pinned clips", e)
-        }
     }
 
     // old variant for old folder structure

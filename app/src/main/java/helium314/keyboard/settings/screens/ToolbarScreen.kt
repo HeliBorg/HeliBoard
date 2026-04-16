@@ -2,7 +2,6 @@
 package helium314.keyboard.settings.screens
 
 import android.content.Context
-import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -16,14 +15,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
@@ -45,6 +40,7 @@ import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.ReorderSwitchPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.latin.utils.previewDark
+import helium314.keyboard.settings.painterResourceCompat
 
 @Composable
 fun ToolbarScreen(
@@ -143,15 +139,8 @@ fun createToolbarSettings(context: Context) = listOf(
 
 @Composable
 fun KeyboardIconsSet.GetIcon(name: String?) {
-    val ctx = LocalContext.current
-    val drawable = getNewDrawable(name, ctx)
     Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
-        if (drawable is VectorDrawable)
-            Icon(painterResource(iconIds[name?.lowercase()]!!), name, Modifier.fillMaxSize(0.8f))
-        else if (drawable != null) {
-            val px = with(LocalDensity.current) { 40.dp.toPx() }.toInt()
-            Icon(drawable.toBitmap(px, px).asImageBitmap(), name, Modifier.fillMaxSize(0.8f))
-        }
+        Icon(painterResourceCompat(iconIds[name?.lowercase()]!!), name, Modifier.fillMaxSize(0.8f))
     }
 }
 

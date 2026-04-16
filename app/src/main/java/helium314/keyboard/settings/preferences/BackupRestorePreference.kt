@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.emoji.SupportedEmojis
-import helium314.keyboard.latin.AppUpgrade
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.database.Database
@@ -48,6 +47,8 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 import androidx.core.content.edit
+import helium314.keyboard.latin.checkVersionUpgrade
+import helium314.keyboard.latin.transferOldPinnedClips
 
 @Composable
 fun BackupRestorePreference(setting: Setting) {
@@ -220,8 +221,8 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
             }
         }
         wait.await()
-        AppUpgrade.checkVersionUpgrade(ctx)
-        AppUpgrade.transferOldPinnedClips(ctx)
+        checkVersionUpgrade(ctx)
+        transferOldPinnedClips(ctx)
         Settings.getInstance().startListener()
         SubtypeSettings.reloadEnabledSubtypes(ctx)
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)

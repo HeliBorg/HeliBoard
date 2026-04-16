@@ -28,6 +28,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.R
@@ -79,6 +80,8 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         crashReportFiles.value = findCrashReports(!BuildConfig.DEBUG && !DebugFlags.DEBUG_ENABLED)
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        if (!UncachedInputMethodManagerUtils.isThisImeCurrent(this, imm))
+            KeyboardIconsSet.instance.loadIcons(this) // otherwise we may crash when displaying toolbar keys
 
         settingsContainer = SettingsContainer(this)
 

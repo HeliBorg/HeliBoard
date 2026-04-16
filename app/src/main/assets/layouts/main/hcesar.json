@@ -11,7 +11,18 @@
     { "label": "z" },
     { "$": "shift_state_selector",
       "shifted": { "label": "«" },
-      "default": { "label": "," }
+      "default": { 
+          "label": ",",
+          "popup": {
+          "relevant": [
+            { "label": "}"},
+            { "label": "0" },
+            { "label": ";" },
+            { "label": "!" },
+            { "label": "!fixedColumnOrder!4" }
+          ]
+        }
+      }        
     }
   ],
   [
@@ -26,7 +37,17 @@
     { "label": "x" },
     { "$": "shift_state_selector",
       "shifted": { "label": "»" },
-      "default": { "label": "." }
+      "default": { 
+          "label": ".",
+          "popup": {
+          "relevant": [
+            { "label": "/" },
+            { "label": ":" },
+            {"label": "?" },
+            { "label": "!fixedColumnOrder!3" }
+          ]
+        }
+      }
     }
   ],
   [
