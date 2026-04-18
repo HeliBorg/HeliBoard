@@ -626,9 +626,9 @@ private object AppUpgrade {
         }
         if (oldVersion <= 3901) {
             prefs.edit {
-                val prefixes = listOf(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX,
+                val prefixes2 = listOf(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX,
                     Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, Settings.PREF_BOTTOM_ROW_SCALE_PREFIX)
-                prefixes.forEach { prefix ->
+                prefixes2.forEach { prefix ->
                     for (i in 0..1) {
                         val key = createPrefKeyForBooleanSettings(prefix, i, 1)
                         if (prefs.contains(key)) {
@@ -638,15 +638,31 @@ private object AppUpgrade {
                         }
                     }
                 }
-                for (i in 0..3) {
-                    val key = createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, i, 2)
-                    if (prefs.contains(key)) {
-                        val newKey = createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, i, 3)
-                        putFloat(newKey, prefs.getFloat(key, 0f))
-                        remove(key)
+                val prefixes3 = listOf(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, Settings.PREF_ONE_HANDED_SCALE_PREFIX)
+                prefixes3.forEach { prefix ->
+                    for (i in 0..3) {
+                        val key = createPrefKeyForBooleanSettings(prefix, i, 2)
+                        if (prefs.contains(key)) {
+                            val newKey = createPrefKeyForBooleanSettings(prefix, i, 3)
+                            putFloat(newKey, prefs.getFloat(key, 0f))
+                            remove(key)
+                        }
                     }
                 }
-                // todo: one-handed mode
+                for (i in 0..3) {
+                    val keyA = createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, i, 2)
+                    val keyB = createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, i, 2)
+                    if (prefs.contains(keyA)) {
+                        val newKey = createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, i, 3)
+                        putBoolean(newKey, prefs.getBoolean(keyA, false))
+                        remove(keyA)
+                    }
+                    if (prefs.contains(keyB)) {
+                        val newKey = createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, i, 3)
+                        putInt(newKey, prefs.getInt(keyB, 0))
+                        remove(keyB)
+                    }
+                }
             }
         }
         upgradeToolbarPrefs(prefs)

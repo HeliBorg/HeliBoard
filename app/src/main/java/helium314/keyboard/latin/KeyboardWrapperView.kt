@@ -18,6 +18,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.FoldableUtils
 import helium314.keyboard.latin.utils.prefs
 import kotlin.math.abs
 
@@ -80,7 +81,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
                     x = motionEvent.rawX
                     val landscape = Settings.getValues().mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE
                     val split = Settings.getValues().mIsSplitKeyboardEnabled
-                    val oldScale = Settings.readOneHandedModeScale(context.prefs(), landscape, split)
+                    val oldScale = Settings.readOneHandedModeScale(context.prefs(), landscape, split, FoldableUtils.isFolded)
                     val newScale = (oldScale + changePercent / 100f).coerceAtMost(2.5f).coerceAtLeast(0.5f)
                     if (newScale == oldScale) return@setOnTouchListener true
                     Settings.getInstance().writeOneHandedModeScale(newScale)
