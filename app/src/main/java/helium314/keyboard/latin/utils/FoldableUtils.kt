@@ -38,8 +38,19 @@ object FoldableUtils {
         Log.i(TAG, if (isFoldable) "foldable" else "not foldable")
     }
 
-    private fun hasFoldSensor(context: Context) = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
-        && context.packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE)
+    private fun hasFoldSensor(context: Context): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+                && context.packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE))
+            return true
+        if (DebugFlags.DEBUG_ENABLED) {
+            val sm = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+            sm.getSensorList(Sensor.TYPE_ALL).forEach {
+                if (it.name.contains("hinge", true) || it.name.contains("fold", true))
+                    Log.v(TAG, "no default hinge sensor, but found ${it.name} with range ${it.maximumRange}")
+            }
+        }
+        return false
+    }
 
     /*
      * much of the code related to display_features is modified from https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/libs/WindowManager/Jetpack/src/androidx/window
