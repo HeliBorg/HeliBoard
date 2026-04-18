@@ -16,6 +16,7 @@ import android.provider.Settings
 import java.util.regex.Pattern
 import kotlin.text.split
 
+// todo: more logging if debug, maybe even use both ways simultaneously
 object FoldableUtils {
     private const val TAG = "FoldableUtils"
 
@@ -105,7 +106,7 @@ object FoldableUtils {
                 // * 40° is the change between folded and half-open
                 // * 160° is the change between half-open and flat
                 // maybe we should use the sensor range? wait for bug reports + logs
-                isFolded == (angle ?: 180f) < 40
+                isFolded = (angle ?: 180f) < 40
                 Log.i(TAG, "sensor changed: ${event.values?.toList()}")
             }
         }
