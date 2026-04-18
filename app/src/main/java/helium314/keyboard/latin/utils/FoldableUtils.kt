@@ -20,14 +20,14 @@ import kotlin.text.split
 object FoldableUtils {
     private const val TAG = "FoldableUtils"
 
-    // we could reload the keyboard at this point, but according to a user testing this is not necessary
-    // https://github.com/HeliBorg/HeliBoard/issues/1063#issuecomment-4178571414
     var isFoldable = false
         private set
 
     var isFolded = false
         private set(value) {
             if (field == value) return
+            // we could reload the keyboard at this point, but according to a user this is not necessary
+            // https://github.com/HeliBorg/HeliBoard/issues/1063#issuecomment-4178571414
             Log.v(TAG, "set isFolded to $value")
             field = value
         }
@@ -56,7 +56,7 @@ object FoldableUtils {
      * much of the code related to display_features is modified from https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/libs/WindowManager/Jetpack/src/androidx/window
      * apparently there is some information encoded in undocumented "display_features" setting in Settings.Global
      * found values
-     *  null (we assume this means not foldable)
+     *  null (we assume this means not foldable, and otherwise the device is foldable -> would need more testing)
      *  empty (when folded, at least according to the user who posted the logs)
      *   ca 40° hinge both directions
      *  fold-[1124,0,1124,2480]-half-opened -> AFTER configuration change (regex no match, but why?)
@@ -84,8 +84,9 @@ object FoldableUtils {
                 val state = matcher.group(6)
 
                 // do we have use for anything other than state? featureType might be useful for debugging
-                Log.d(TAG, "found: type $featureType, state $state")
-                return (state != PATTERN_STATE_FLAT && state != PATTERN_STATE_HALF_OPENED)
+                if (DebugFlags.DEBUG_ENABLED)
+                    Log.d(TAG, "found: type $featureType, state $state")
+                return (state != PATTERN_STATE_FLAT && state != PATTERN_STATE_HALF_OPENED) // or go for FEATURE_TYPE_FOLD/HINGE?
             } catch (e: Exception) {
                 Log.w(TAG, "error when checking $it", e)
             }

@@ -203,7 +203,6 @@ fun createAppearanceSettings(context: Context) = listOf(
         BackgroundImagePref(it, true)
     },
     Setting(context, Settings.PREF_ENABLE_SPLIT_KEYBOARD, R.string.enable_split_keyboard) {
-        // todo: remove enable_split_keyboard_landscape string (update strings in main, merge main, remove, merge this)
         var show by remember { mutableStateOf(false) }
         val prefAndName = listOfNotNull(
             Settings.PREF_ENABLE_SPLIT_KEYBOARD to stringResource(R.string.button_default),
@@ -228,11 +227,7 @@ fun createAppearanceSettings(context: Context) = listOf(
                 content = {
                     Column {
                         prefAndName.forEach {
-                            SwitchPreference(
-                                name = it.second,
-                                key = it.first,
-                                default = Defaults.PREF_ENABLE_SPLIT_KEYBOARD
-                            )
+                            SwitchPreference(name = it.second, key = it.first, default = Defaults.PREF_ENABLE_SPLIT_KEYBOARD)
                         }
                     }
                 }
@@ -249,7 +244,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
-    // todo: also for landscape + folded, but maybe consider this variable gap setting first
+    // todo: also for landscape + folded, but maybe consider this variable gap setting first so it could be a scale setting (was in some PR)
     Setting(context, Settings.PREF_NARROW_KEY_GAPS, R.string.prefs_narrow_key_gaps) {
         SwitchPreference(it, Defaults.PREF_NARROW_KEY_GAPS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
