@@ -972,6 +972,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
 
             if (mInTouchpadMode) {
+                // Debounce: ignore initial movement to prevent cursor jump from swipe momentum
                 if (System.currentTimeMillis() - mTouchpadActivationTime < 200) {
                     mTouchpadLastX = x;
                     mTouchpadLastY = y;
@@ -985,27 +986,16 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 mTouchpadLastX = x;
                 mTouchpadLastY = y;
 
-//                mTouchpadLastX = x;
-//                mTouchpadLastY = y;
-
-                // Apply velocity-based acceleration
-                // Faster swipes (larger delta) get a higher multiplier
-//                float accFactorX = 1.0f + (Math.abs(deltaX) / TOUCHPAD_ACCELERATION_FACTOR);
-//                float accFactorY = 1.0f + (Math.abs(deltaY) / TOUCHPAD_ACCELERATION_FACTOR);
-
-//                mTouchpadAccX += (int) (deltaX * accFactorX);
-//                mTouchpadAccY += (int) (deltaY * accFactorY);
-
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    // Рух по горизонталі сильніший - працюємо тільки з X
+                    // Horizontal move, X only
                     float accFactorX = 1.0f + (Math.abs(deltaX) / TOUCHPAD_ACCELERATION_FACTOR);
                     mTouchpadAccX += (int) (deltaX * accFactorX);
-                    mTouchpadAccY = 0; // Скидаємо Y, щоб не було випадкових стрибків вгору/вниз
+                    mTouchpadAccY = 0;
                 } else {
-                    // Рух по вертикалі сильніший - працюємо тільки з Y
+                    // Vertical move, Y only
                     float accFactorY = 1.0f + (Math.abs(deltaY) / TOUCHPAD_ACCELERATION_FACTOR);
                     mTouchpadAccY += (int) (deltaY * accFactorY);
-                    mTouchpadAccX = 0; // Скидаємо X, щоб не було випадкових стрибків вліво/вправо
+                    mTouchpadAccX = 0;
                 }
 
                 // Handle horizontal movement with accumulator
