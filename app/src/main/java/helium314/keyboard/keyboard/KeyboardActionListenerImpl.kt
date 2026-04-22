@@ -175,7 +175,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             val requiredSteps = 8
 
             if (Math.abs(steps) >= requiredSteps) {
-                PointerTracker.setTouchpadModeActive(true)
+                TouchpadHandler.setTouchpadModeActive(true)
                 true
             } else {
                 false

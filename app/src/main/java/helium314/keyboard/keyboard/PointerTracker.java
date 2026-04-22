@@ -171,26 +171,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private static boolean sInKeySwipe = false;
 
     // Touchpad mode for cursor control
-    private static boolean sTouchpadModeActive = false;
-    private boolean mInTouchpadMode = false;
-    private long mTouchpadActivationTime = 0;
-    private int mTouchpadLastX = 0;
-    private int mTouchpadLastY = 0;
-    // Accumulators for fractional movement
-    private int mTouchpadAccX = 0;
-    private int mTouchpadAccY = 0;
-    // Tuned: Increased threshold (slower base) and reduced acceleration (higher
-    // factor)
-
-    private static final float TOUCHPAD_ACCELERATION_FACTOR = 50.0f; // Lower = more acceleration
-
-    public static void setTouchpadModeActive(boolean active) {
-        sTouchpadModeActive = active;
-    }
-
-    public static boolean isTouchpadModeActive() {
-        return sTouchpadModeActive;
-    }
+    private final TouchpadHandler mTouchpadHandler = new TouchpadHandler();
 
     private final BatchInputArbiter mBatchInputArbiter;
     private final GestureStrokeDrawingPoints mGestureStrokeDrawingPoints;
@@ -958,71 +939,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             int dX = x - mStartX;
             int dY = y - mStartY;
 
-            if (sTouchpadModeActive && !mInTouchpadMode) {
-                // Just entered touchpad mode - initialize
-                mInTouchpadMode = true;
-                mTouchpadLastX = x;
-                mTouchpadLastY = y;
-                mTouchpadAccX = 0;
-                mTouchpadAccY = 0;
-                mTouchpadActivationTime = System.currentTimeMillis();
-                // Signal start of touchpad mode for visual feedback (dimming)
-                sListener.onCustomRequest(KeyboardActionListener.CODE_TOUCHPAD_ON);
-                return;
-            }
-
-            if (mInTouchpadMode) {
-                // Debounce: ignore initial movement to prevent cursor jump from swipe momentum
-                if (System.currentTimeMillis() - mTouchpadActivationTime < 200) {
-                    mTouchpadLastX = x;
-                    mTouchpadLastY = y;
-                    return;
-                }
-                // In touchpad mode - track both horizontal and vertical movement for 2D cursor
-                // control
-                int deltaX = x - mTouchpadLastX;
-                int deltaY = y - mTouchpadLastY;
-
-                mTouchpadLastX = x;
-                mTouchpadLastY = y;
-
-                if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    // Horizontal move, X only
-                    float accFactorX = 1.0f + (Math.abs(deltaX) / TOUCHPAD_ACCELERATION_FACTOR);
-                    mTouchpadAccX += (int) (deltaX * accFactorX);
-                    mTouchpadAccY = 0;
-                } else {
-                    // Vertical move, Y only
-                    float accFactorY = 1.0f + (Math.abs(deltaY) / TOUCHPAD_ACCELERATION_FACTOR);
-                    mTouchpadAccY += (int) (deltaY * accFactorY);
-                    mTouchpadAccX = 0;
-                }
-
-                // Handle horizontal movement with accumulator
-                // Calculate dynamic threshold based on sensitivity setting (0-100)
-                // Higher sensitivity = Lower threshold (faster cursor)
-                // 0 -> 70px (Very Slow)
-                // 50 -> 40px (Default)
-                // 100 -> 10px (Very Fast)
-                final int sensitivity = Settings.getInstance().getCurrent().mTouchpadSensitivity;
-                final int moveThreshold = 70 - (int) (sensitivity * 0.6f);
-
-                while (Math.abs(mTouchpadAccX) >= moveThreshold) {
-                    boolean positive = mTouchpadAccX > 0;
-                    int direction = positive ? KeyCode.ARROW_RIGHT : KeyCode.ARROW_LEFT;
-                    sListener.onCodeInput(direction, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-                    mTouchpadAccX -= (positive ? moveThreshold : -moveThreshold);
-                }
-
-                // Handle vertical movement with accumulator
-                while (Math.abs(mTouchpadAccY) >= moveThreshold) {
-                    boolean positive = mTouchpadAccY > 0;
-                    int direction = positive ? KeyCode.ARROW_DOWN : KeyCode.ARROW_UP;
-                    sListener.onCodeInput(direction, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-                    mTouchpadAccY -= (positive ? moveThreshold : -moveThreshold);
-                }
-                return;
-            }
+            // Touchpad mode
+            mTouchpadHandler.enableTouchpadMove(x, y, sListener);
 
             // Vertical movement
             int stepsY = dY / sPointerStep;
@@ -1167,13 +1085,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             mKeySwipeAllowed = false;
             sInKeySwipe = false;
 
-            // Exit touchpad mode if active
-            if (mInTouchpadMode) {
-                mInTouchpadMode = false;
-                sTouchpadModeActive = false;
-                sListener.onCustomRequest(KeyboardActionListener.CODE_TOUCHPAD_OFF);    // Signal end of touchpad mode
-                                                                                        // (restore visuals)
-            }
+            // Touchpad mode
+            mTouchpadHandler.disableTouchpadMode(sListener);
 
             if (mInHorizontalSwipe || mInVerticalSwipe) {
                 mInHorizontalSwipe = false;
