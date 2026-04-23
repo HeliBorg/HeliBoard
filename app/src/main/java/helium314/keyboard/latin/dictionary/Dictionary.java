@@ -7,7 +7,9 @@
 package helium314.keyboard.latin.dictionary;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
+import java.util.Map;
 
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
@@ -97,6 +99,16 @@ public abstract class Dictionary {
      * Checks if the given word is in the dictionary regardless of it being valid or not.
      */
     abstract public boolean isInDictionary(final String word);
+
+    /**
+     * Returns all words stored in this dictionary.
+     * The default implementation returns an empty list; override in concrete dictionaries
+     * that support full enumeration (e.g. ReadOnlyBinaryDictionary).
+     */
+    @androidx.annotation.NonNull
+    public Map<String, Integer> getAllWordsWithFrequency() {
+        return Collections.emptyMap();
+    }
 
     /**
      * Get the frequency of the word.

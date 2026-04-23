@@ -15,7 +15,9 @@ import helium314.keyboard.latin.makedict.WordProperty;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -107,6 +109,30 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
             }
         }
         return NOT_A_PROBABILITY;
+    }
+
+    @Override
+    @androidx.annotation.NonNull
+    public Map<String, Integer> getAllWordsWithFrequency() {
+        Map<String, Integer> words = new HashMap<>();
+        if (!mLock.readLock().tryLock()) return words;
+        try {
+            int token = 0;
+            do {
+                BinaryDictionary.GetNextWordPropertyResult result =
+                        mBinaryDictionary.getNextWordProperty(token);
+                if (result.mWordProperty == null) break;
+                if (!result.mWordProperty.mIsNotAWord && !result.mWordProperty.mIsPossiblyOffensive) {
+                    String word = result.mWordProperty.mWord;
+                    if (word != null && !word.isEmpty())
+                        words.put(word, result.mWordProperty.mProbabilityInfo.mProbability);
+                }
+                token = result.mNextToken;
+            } while (token != 0);
+        } finally {
+            mLock.readLock().unlock();
+        }
+        return words;
     }
 
     @Override
