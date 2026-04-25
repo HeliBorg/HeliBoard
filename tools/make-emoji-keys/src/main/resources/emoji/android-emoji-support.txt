@@ -15,6 +15,52 @@
 # releasing new emojis through its Noto font, it might be more complicated to
 # keep track of new additions though Noto font.
 
+@36 # As per emojipedia Unicode 17.0 would be Android 16 (API level 36) -- expected to also be for API 37
+U+1FAEA # distorted face
+U+1FAEF # fight cloud
+U+1FAC8 # hairy creature
+U+1FACD # orca
+U+1F6D8 # landslide
+U+1FA8A # trombone
+U+1FA8E # treasure chest
+U+1F9D1 U+200D U+1FA70 # ballet dancer
+U+1F9D1 U+1F3FB U+200D U+1FA70 # ballet dancer: light skin tone
+U+1F9D1 U+1F3FC U+200D U+1FA70 # ballet dancer: medium-light skin tone
+U+1F9D1 U+1F3FD U+200D U+1FA70 # ballet dancer: medium skin tone
+U+1F9D1 U+1F3FE U+200D U+1FA70 # ballet dancer: medium-dark skin tone
+U+1F9D1 U+1F3FF U+200D U+1FA70 # ballet dancer: dark skin tone
+U+1F46F U+1F3FB # people with bunny ears: light skin tone
+U+1F46F U+1F3FC # people with bunny ears: medium-light skin tone
+U+1F46F U+1F3FD # people with bunny ears: medium skin tone
+U+1F46F U+1F3FE # people with bunny ears: medium-dark skin tone
+U+1F46F U+1F3FF # people with bunny ears: dark skin tone
+U+1F46F U+1F3FB U+200D U+2642 U+FE0F # men with bunny ears: light skin tone
+U+1F46F U+1F3FC U+200D U+2642 U+FE0F # men with bunny ears: medium-light skin tone
+U+1F46F U+1F3FD U+200D U+2642 U+FE0F # men with bunny ears: medium skin tone
+U+1F46F U+1F3FE U+200D U+2642 U+FE0F # men with bunny ears: medium-dark skin tone
+U+1F46F U+1F3FF U+200D U+2642 U+FE0F # men with bunny ears: dark skin tone
+U+1F46F U+1F3FB U+200D U+2640 U+FE0F # women with bunny ears: light skin tone
+U+1F46F U+1F3FC U+200D U+2640 U+FE0F # women with bunny ears: medium-light skin tone
+U+1F46F U+1F3FD U+200D U+2640 U+FE0F # women with bunny ears: medium skin tone
+U+1F46F U+1F3FE U+200D U+2640 U+FE0F # women with bunny ears: medium-dark skin tone
+U+1F46F U+1F3FF U+200D U+2640 U+FE0F # women with bunny ears: dark skin tone
+U+1F93C U+1F3FB # people wrestling: light skin tone
+U+1F93C U+1F3FC # people wrestling: medium-light skin tone
+U+1F93C U+1F3FD # people wrestling: medium skin tone
+U+1F93C U+1F3FE # people wrestling: medium-dark skin tone
+U+1F93C U+1F3FF # people wrestling: dark skin tone
+U+1F93C U+1F3FB U+200D U+2642 U+FE0F # men wrestling: light skin tone
+U+1F93C U+1F3FC U+200D U+2642 U+FE0F # men wrestling: medium-light skin tone
+U+1F93C U+1F3FD U+200D U+2642 U+FE0F # men wrestling: medium skin tone
+U+1F93C U+1F3FE U+200D U+2642 U+FE0F # men wrestling: medium-dark skin tone
+U+1F93C U+1F3FF U+200D U+2642 U+FE0F # men wrestling: dark skin tone
+U+1F93C U+1F3FB U+200D U+2640 U+FE0F # women wrestling: light skin tone
+U+1F93C U+1F3FC U+200D U+2640 U+FE0F # women wrestling: medium-light skin tone
+U+1F93C U+1F3FD U+200D U+2640 U+FE0F # women wrestling: medium skin tone
+U+1F93C U+1F3FE U+200D U+2640 U+FE0F # women wrestling: medium-dark skin tone
+U+1F93C U+1F3FF U+200D U+2640 U+FE0F # women wrestling: dark skin tone
+# Above emojis are presumably supported from Android 16 (API level 36), but maybe also for older versions with upgraded font
+
 @35 # Didn't find proper info from which Android version below emojis are supported, but judging by date, unicode 16.0 would be Android 15 (API level 35)
 U+1FAE9 # face with bags under eyes
 U+1FAC6 # fingerprint
