@@ -76,7 +76,7 @@ public class TouchpadHandler {
             mHasVibrated = true;
         }
 
-        if (handleEdgeScrolling(x, y, sv)) {
+        if (sv.mTouchpadEdgeScroll && handleEdgeScrolling(x, y)) {
             return;
         }
 
@@ -145,11 +145,7 @@ public class TouchpadHandler {
         }
     };
 
-    private boolean handleEdgeScrolling(int x, int y, SettingsValues sv) {
-        if (!sv.mTouchpadEdgeScroll) {
-            return false;
-        }
-
+    private boolean handleEdgeScrolling(int x, int y) {
         Keyboard currentKeyboard = KeyboardSwitcher.getInstance().getKeyboard();
         if (currentKeyboard == null) return false;
 
