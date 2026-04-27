@@ -150,6 +150,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             keyboardSwitcher.mainKeyboardView?.alpha = 1.0f
             return true
         }
+        if (requestCode == Constants.CODE_PERFORM_HAPTIC) {
+            performHapticFeedback(HapticEvent.KEY_LONG_PRESS)
+            return true
+        }
         return false
     }
 

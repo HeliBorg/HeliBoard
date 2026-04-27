@@ -12,6 +12,7 @@ public class TouchpadHandler {
     private KeyboardActionListener mListener;
     private static boolean sTouchpadModeActive = false;
     private boolean mInTouchpadMode = false;
+    private boolean mHasVibrated = false;
     private static final float TOUCHPAD_ACCELERATION_FACTOR = 50.0f; // Lower = more acceleration
     private long mTouchpadActivationTime;
     private int mTouchpadLastX, mTouchpadLastY;
@@ -24,6 +25,8 @@ public class TouchpadHandler {
     private static final int SCROLL_DELAY_MS = 100; // Edge scroll speed
     private static final int DIRECTION_UP = 1;
     private static final int DIRECTION_DOWN = 2;
+    private static final int DIRECTION_LEFT = 3;
+    private static final int DIRECTION_RIGHT = 4;
     private int mCurrentScrollDirection = 0;
 
     public static void setTouchpadModeActive(boolean active) {
@@ -32,6 +35,7 @@ public class TouchpadHandler {
 
     public void disableTouchpadMode() {
         if (!mInTouchpadMode) return;
+        stopEdgeScrolling();
         mInTouchpadMode = false;
         sTouchpadModeActive = false;
         mListener.onCustomRequest(Constants.CODE_TOUCHPAD_OFF);
@@ -46,6 +50,7 @@ public class TouchpadHandler {
         if (!mInTouchpadMode) {
             mListener = listener;
             mInTouchpadMode = true;
+            mHasVibrated = false;
             mTouchpadLastX = x;
             mTouchpadLastY = y;
             mTouchpadActivationTime = SystemClock.elapsedRealtime();
@@ -58,12 +63,6 @@ public class TouchpadHandler {
 
     private void onMove(int x, int y) {
         SettingsValues sv = Settings.getValues();
-        Keyboard currentKeyboard = KeyboardSwitcher.getInstance().getKeyboard();
-
-        if (currentKeyboard == null) return;
-
-        int keyboardHeight = currentKeyboard.mBaseHeight;
-        int threshold = 50;
 
         // Debounce
         if (SystemClock.elapsedRealtime() - mTouchpadActivationTime < sv.mKeyLongpressTimeout) {
@@ -72,18 +71,13 @@ public class TouchpadHandler {
             return;
         }
 
-        if (y <= threshold) {
-            mCurrentScrollDirection = DIRECTION_UP;
-            startEdgeScrolling();
-            return;
+        if (!mHasVibrated) {
+            mListener.onCustomRequest(Constants.CODE_PERFORM_HAPTIC);
+            mHasVibrated = true;
         }
-        else if (y >= (keyboardHeight - threshold)) {
-            mCurrentScrollDirection = DIRECTION_DOWN;
-            startEdgeScrolling();
+
+        if (handleEdgeScrolling(x, y, sv)) {
             return;
-        }
-        else {
-            stopEdgeScrolling();
         }
 
         // In touchpad mode - track both horizontal and vertical movement for 2D cursor control
@@ -134,12 +128,56 @@ public class TouchpadHandler {
         @Override
         public void run() {
             if (mIsScrolling && mListener != null) {
-                int keyCode = (mCurrentScrollDirection == DIRECTION_UP) ? KeyCode.ARROW_UP : KeyCode.ARROW_DOWN;
+                int keyCode = KeyCode.UNSPECIFIED;
+
+                if (mCurrentScrollDirection == DIRECTION_UP) {
+                    keyCode = KeyCode.ARROW_UP;
+                } else if (mCurrentScrollDirection == DIRECTION_DOWN) {
+                    keyCode = KeyCode.ARROW_DOWN;
+                } else if (mCurrentScrollDirection == DIRECTION_LEFT) {
+                    keyCode = KeyCode.ARROW_LEFT;
+                } else if (mCurrentScrollDirection == DIRECTION_RIGHT) {
+                    keyCode = KeyCode.ARROW_RIGHT;
+                }
                 mListener.onCodeInput(keyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
                 mEdgeHandler.postDelayed(this, SCROLL_DELAY_MS);
             }
         }
     };
+
+    private boolean handleEdgeScrolling(int x, int y, SettingsValues sv) {
+        if (!sv.mTouchpadEdgeScroll) {
+            return false;
+        }
+
+        Keyboard currentKeyboard = KeyboardSwitcher.getInstance().getKeyboard();
+        if (currentKeyboard == null) return false;
+
+        int keyboardHeight = currentKeyboard.mBaseHeight;
+        int keyboardWidth = currentKeyboard.mBaseWidth;
+        int threshold = 50;
+
+        if (y <= threshold) {
+            mCurrentScrollDirection = DIRECTION_UP;
+            startEdgeScrolling();
+            return true;
+        } else if (y >= (keyboardHeight - threshold)) {
+            mCurrentScrollDirection = DIRECTION_DOWN;
+            startEdgeScrolling();
+            return true;
+        } else if (x <= threshold * 2) {
+            mCurrentScrollDirection = DIRECTION_LEFT;
+            startEdgeScrolling();
+            return true;
+        } else if (x >= (keyboardWidth - threshold * 2)) {
+            mCurrentScrollDirection = DIRECTION_RIGHT;
+            startEdgeScrolling();
+            return true;
+        } else {
+            stopEdgeScrolling();
+            return false;
+        }
+    }
 
     private void startEdgeScrolling() {
         if (!mIsScrolling) {

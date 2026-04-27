@@ -431,6 +431,8 @@
     <string name="space_swipe_hide_keyboard_entry">Приховати клавіатуру</string>
     <string name="space_swipe_touchpad_mode_entry">Режим сенсорної панелі</string>
     <string name="touchpad_sensitivity">Чутливість сенсорної панелі</string>
+    <string name="touchpad_edge_scroll">Прокрутка біля країв</string>
+    <string name="touchpad_edge_scroll_description">Автоматична прокрутка при проведенні до країв клавіатури</string>
     <string name="delete_confirmation">Ви насправді хочете видалити %s ?</string>
     <string name="name_invalid">Недійсне ім\'я</string>
     <string name="custom_subtype">Власний макет</string>

@@ -894,6 +894,8 @@ New dictionary:
     <string name="space_swipe_touchpad_mode_entry">Touchpad mode</string>
     <!-- Option to adjust spacebar-touchpad sensitivity -->
     <string name="touchpad_sensitivity">Touchpad sensitivity</string>
+    <string name="touchpad_edge_scroll">Edge scrolling</string>
+    <string name="touchpad_edge_scroll_description">Automatically scroll when sliding to the edge of the keyboard</string>
     <!-- Title of the setting for variable toolbar direction -->
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->

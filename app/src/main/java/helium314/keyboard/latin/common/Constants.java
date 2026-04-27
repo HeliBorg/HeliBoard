@@ -174,6 +174,7 @@ public final class Constants {
     // Codes for touchpad mode
     public static final int CODE_TOUCHPAD_ON = 1000;
     public static final int CODE_TOUCHPAD_OFF = 1001;
+    public static final int CODE_PERFORM_HAPTIC = 1002;
 
     /**
      * Some common keys code. Must be positive.
