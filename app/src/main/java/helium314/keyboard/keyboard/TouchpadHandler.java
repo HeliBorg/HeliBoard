@@ -19,6 +19,13 @@ public class TouchpadHandler {
     private int mTouchpadAccX = 0;
     private int mTouchpadAccY = 0;
 
+    private final android.os.Handler mEdgeHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+    private boolean mIsScrolling = false;
+    private static final int SCROLL_DELAY_MS = 100; // Edge scroll speed
+    private static final int DIRECTION_UP = 1;
+    private static final int DIRECTION_DOWN = 2;
+    private int mCurrentScrollDirection = 0;
+
     public static void setTouchpadModeActive(boolean active) {
         sTouchpadModeActive = active;
     }
@@ -28,6 +35,7 @@ public class TouchpadHandler {
         mInTouchpadMode = false;
         sTouchpadModeActive = false;
         mListener.onCustomRequest(Constants.CODE_TOUCHPAD_OFF);
+        stopEdgeScrolling();
         mListener = null;
     }
 
@@ -50,12 +58,32 @@ public class TouchpadHandler {
 
     private void onMove(int x, int y) {
         SettingsValues sv = Settings.getValues();
+        Keyboard currentKeyboard = KeyboardSwitcher.getInstance().getKeyboard();
+
+        if (currentKeyboard == null) return;
+
+        int keyboardHeight = currentKeyboard.mBaseHeight;
+        int threshold = 50;
 
         // Debounce
         if (SystemClock.elapsedRealtime() - mTouchpadActivationTime < sv.mKeyLongpressTimeout) {
             mTouchpadLastX = x;
             mTouchpadLastY = y;
             return;
+        }
+
+        if (y <= threshold) {
+            mCurrentScrollDirection = DIRECTION_UP;
+            startEdgeScrolling();
+            return;
+        }
+        else if (y >= (keyboardHeight - threshold)) {
+            mCurrentScrollDirection = DIRECTION_DOWN;
+            startEdgeScrolling();
+            return;
+        }
+        else {
+            stopEdgeScrolling();
         }
 
         // In touchpad mode - track both horizontal and vertical movement for 2D cursor control
@@ -100,5 +128,29 @@ public class TouchpadHandler {
             mListener.onCodeInput(direction, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
             mTouchpadAccY -= (positive ? moveThreshold : -moveThreshold);
         }
+    }
+
+    private final Runnable mScrollRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mIsScrolling && mListener != null) {
+                int keyCode = (mCurrentScrollDirection == DIRECTION_UP) ? KeyCode.ARROW_UP : KeyCode.ARROW_DOWN;
+                mListener.onCodeInput(keyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+                mEdgeHandler.postDelayed(this, SCROLL_DELAY_MS);
+            }
+        }
+    };
+
+    private void startEdgeScrolling() {
+        if (!mIsScrolling) {
+            mIsScrolling = true;
+            mEdgeHandler.removeCallbacks(mScrollRunnable);
+            mEdgeHandler.post(mScrollRunnable);
+        }
+    }
+
+    private void stopEdgeScrolling() {
+        mIsScrolling = false;
+        mEdgeHandler.removeCallbacks(mScrollRunnable);
     }
 }
