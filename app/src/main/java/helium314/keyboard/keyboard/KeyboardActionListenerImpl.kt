@@ -142,12 +142,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER) {
             return latinIME.showInputPickerDialog()
         }
-        if (requestCode == KeyboardActionListener.CODE_TOUCHPAD_ON) {
-            keyboardSwitcher.getMainKeyboardView()?.alpha = 0.5f
+        if (requestCode == Constants.CODE_TOUCHPAD_ON) {
+            keyboardSwitcher.mainKeyboardView?.alpha = 0.5f
             return true
         }
-        if (requestCode == KeyboardActionListener.CODE_TOUCHPAD_OFF) {
-            keyboardSwitcher.getMainKeyboardView()?.alpha = 1.0f
+        if (requestCode == Constants.CODE_TOUCHPAD_OFF) {
+            keyboardSwitcher.mainKeyboardView?.alpha = 1.0f
             return true
         }
         return false

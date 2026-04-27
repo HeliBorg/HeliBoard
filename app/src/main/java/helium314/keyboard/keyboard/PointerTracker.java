@@ -1086,7 +1086,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             sInKeySwipe = false;
 
             // Touchpad mode
-            mTouchpadHandler.disableTouchpadMode(sListener);
+            mTouchpadHandler.disableTouchpadMode();
 
             if (mInHorizontalSwipe || mInVerticalSwipe) {
                 mInHorizontalSwipe = false;

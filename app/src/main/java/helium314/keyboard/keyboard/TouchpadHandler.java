@@ -1,11 +1,14 @@
 package helium314.keyboard.keyboard;
 
+import android.os.SystemClock;
+
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 
 public class TouchpadHandler {
+    private KeyboardActionListener mListener;
     private static boolean sTouchpadModeActive = false;
     private boolean mInTouchpadMode = false;
     private static final float TOUCHPAD_ACCELERATION_FACTOR = 50.0f; // Lower = more acceleration
@@ -19,11 +22,12 @@ public class TouchpadHandler {
         sTouchpadModeActive = active;
     }
 
-    public void disableTouchpadMode(KeyboardActionListener listener) {
+    public void disableTouchpadMode() {
         if (!mInTouchpadMode) return;
         mInTouchpadMode = false;
         sTouchpadModeActive = false;
-        listener.onCustomRequest(KeyboardActionListener.CODE_TOUCHPAD_OFF);
+        mListener.onCustomRequest(Constants.CODE_TOUCHPAD_OFF);
+        mListener = null;
     }
 
     public void enableTouchpadMove(int x, int y, KeyboardActionListener listener) {
@@ -31,22 +35,23 @@ public class TouchpadHandler {
 
         // Initialize
         if (!mInTouchpadMode) {
+            mListener = listener;
             mInTouchpadMode = true;
             mTouchpadLastX = x;
             mTouchpadLastY = y;
-            mTouchpadActivationTime = System.currentTimeMillis();
-            listener.onCustomRequest(KeyboardActionListener.CODE_TOUCHPAD_ON);
+            mTouchpadActivationTime = SystemClock.elapsedRealtime();
+            mListener.onCustomRequest(Constants.CODE_TOUCHPAD_ON);
             return;
         }
 
-        onMove(x, y, listener);
+        onMove(x, y);
     }
 
-    private void onMove(int x, int y, KeyboardActionListener sListener) {
+    private void onMove(int x, int y) {
         SettingsValues sv = Settings.getValues();
 
         // Debounce
-        if (System.currentTimeMillis() - mTouchpadActivationTime < sv.mKeyLongpressTimeout) {
+        if (SystemClock.elapsedRealtime() - mTouchpadActivationTime < sv.mKeyLongpressTimeout) {
             mTouchpadLastX = x;
             mTouchpadLastY = y;
             return;
@@ -83,7 +88,7 @@ public class TouchpadHandler {
         while (Math.abs(mTouchpadAccX) >= moveThreshold) {
             boolean positive = mTouchpadAccX > 0;
             int direction = positive ? KeyCode.ARROW_RIGHT : KeyCode.ARROW_LEFT;
-            sListener.onCodeInput(direction, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            mListener.onCodeInput(direction, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
             mTouchpadAccX -= (positive ? moveThreshold : -moveThreshold);
         }
 
@@ -91,7 +96,7 @@ public class TouchpadHandler {
         while (Math.abs(mTouchpadAccY) >= moveThreshold) {
             boolean positive = mTouchpadAccY > 0;
             int direction = positive ? KeyCode.ARROW_DOWN : KeyCode.ARROW_UP;
-            sListener.onCodeInput(direction, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            mListener.onCodeInput(direction, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
             mTouchpadAccY -= (positive ? moveThreshold : -moveThreshold);
         }
     }

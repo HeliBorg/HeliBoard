@@ -171,6 +171,10 @@ public final class Constants {
     // The code to show input method picker.
     public static final int CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER = 1;
 
+    // Codes for touchpad mode
+    public static final int CODE_TOUCHPAD_ON = 1000;
+    public static final int CODE_TOUCHPAD_OFF = 1001;
+
     /**
      * Some common keys code. Must be positive.
      */

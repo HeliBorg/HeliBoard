@@ -125,9 +125,6 @@ public interface KeyboardActionListener {
     int SWIPE_HIDE_KEYBOARD = 4;
     int SWIPE_TOUCHPAD_MODE = 5;
 
-    int CODE_TOUCHPAD_ON = 1000;
-    int CODE_TOUCHPAD_OFF = 1001;
-
     class Adapter implements KeyboardActionListener {
         @Override
         public void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer, HapticEvent hapticEvent) {}
