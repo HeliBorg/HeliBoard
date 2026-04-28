@@ -10,19 +10,23 @@ import helium314.keyboard.latin.settings.SettingsValues;
 
 public class TouchpadHandler {
     private KeyboardActionListener mListener;
+    private final android.os.Handler mHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+
     private static boolean sTouchpadModeActive = false;
     private boolean mInTouchpadMode = false;
     private boolean mHasVibrated = false;
+    private boolean mIsScrolling = false;
+
     private static final float TOUCHPAD_ACCELERATION_FACTOR = 50.0f; // Lower = more acceleration
     private long mTouchpadActivationTime;
     private int mTouchpadLastX, mTouchpadLastY;
+
     // Accumulators for fractional movement
     private int mTouchpadAccX = 0;
     private int mTouchpadAccY = 0;
 
-    private final android.os.Handler mEdgeHandler = new android.os.Handler(android.os.Looper.getMainLooper());
-    private boolean mIsScrolling = false;
     private static final int SCROLL_DELAY_MS = 100; // Edge scroll speed
+
     private static final int DIRECTION_UP = 1;
     private static final int DIRECTION_DOWN = 2;
     private static final int DIRECTION_LEFT = 3;
@@ -36,6 +40,8 @@ public class TouchpadHandler {
     public void disableTouchpadMode() {
         if (!mInTouchpadMode) return;
         stopEdgeScrolling();
+        stopHapticRunnable();
+        mHandler.removeCallbacks(mHapticRunnable);
         mInTouchpadMode = false;
         sTouchpadModeActive = false;
         mListener.onCustomRequest(Constants.CODE_TOUCHPAD_OFF);
@@ -54,6 +60,8 @@ public class TouchpadHandler {
             mTouchpadLastY = y;
             mTouchpadActivationTime = SystemClock.elapsedRealtime();
             mListener.onCustomRequest(Constants.CODE_TOUCHPAD_ON);
+            SettingsValues sv = Settings.getValues();
+            mHandler.postDelayed(mHapticRunnable, sv.mKeyLongpressTimeout);
             return;
         }
 
@@ -70,11 +78,7 @@ public class TouchpadHandler {
             return;
         }
 
-        if (!mHasVibrated) {
-            mListener.onCustomRequest(Constants.CODE_PERFORM_HAPTIC);
-            mHasVibrated = true;
-        }
-
+        // Edge Scrolling
         if (sv.mTouchpadEdgeScroll && handleEdgeScrolling(x, y)) {
             return;
         }
@@ -123,6 +127,18 @@ public class TouchpadHandler {
         }
     }
 
+    private final Runnable mHapticRunnable = () -> {
+        if (!mHasVibrated) {
+            mListener.onCustomRequest(Constants.CODE_PERFORM_HAPTIC);
+            mHasVibrated = true;
+        }
+    };
+
+    private void stopHapticRunnable() {
+        mHasVibrated = false;
+        mHandler.removeCallbacks(mHapticRunnable);
+    }
+
     private final Runnable mScrollRunnable = new Runnable() {
         @Override
         public void run() {
@@ -139,7 +155,7 @@ public class TouchpadHandler {
                     keyCode = KeyCode.ARROW_RIGHT;
                 }
                 mListener.onCodeInput(keyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-                mEdgeHandler.postDelayed(this, SCROLL_DELAY_MS);
+                mHandler.postDelayed(this, SCROLL_DELAY_MS);
             }
         }
     };
@@ -177,13 +193,13 @@ public class TouchpadHandler {
     private void startEdgeScrolling() {
         if (!mIsScrolling) {
             mIsScrolling = true;
-            mEdgeHandler.removeCallbacks(mScrollRunnable);
-            mEdgeHandler.post(mScrollRunnable);
+            mHandler.removeCallbacks(mScrollRunnable);
+            mHandler.post(mScrollRunnable);
         }
     }
 
     private void stopEdgeScrolling() {
         mIsScrolling = false;
-        mEdgeHandler.removeCallbacks(mScrollRunnable);
+        mHandler.removeCallbacks(mScrollRunnable);
     }
 }
