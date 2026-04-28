@@ -39,7 +39,6 @@ public class TouchpadHandler {
         mInTouchpadMode = false;
         sTouchpadModeActive = false;
         mListener.onCustomRequest(Constants.CODE_TOUCHPAD_OFF);
-        stopEdgeScrolling();
         mListener = null;
     }
 

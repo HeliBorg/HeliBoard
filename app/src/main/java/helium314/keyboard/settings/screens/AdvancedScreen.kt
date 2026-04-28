@@ -72,7 +72,7 @@ fun AdvancedSettingsScreen(
             Settings.PREF_LANGUAGE_SWIPE_DISTANCE else null,
         if (Settings.readVerticalSpaceSwipe(prefs) == KeyboardActionListener.SwipeAction.TOUCHPAD_MODE)
             Settings.PREF_TOUCHPAD_SENSITIVITY else null,
-        if (Settings.readVerticalSpaceSwipe(prefs) == KeyboardActionListener.SWIPE_TOUCHPAD_MODE)
+        if (Settings.readVerticalSpaceSwipe(prefs) == KeyboardActionListener.SwipeAction.TOUCHPAD_MODE)
             Settings.PREF_TOUCHPAD_EDGE_SCROLL else null,
         Settings.PREF_DELETE_SWIPE,
         Settings.PREF_SPACE_TO_CHANGE_LANG,
