@@ -41,7 +41,6 @@ public class TouchpadHandler {
         if (!mInTouchpadMode) return;
         stopEdgeScrolling();
         stopHapticRunnable();
-        mHandler.removeCallbacks(mHapticRunnable);
         mInTouchpadMode = false;
         sTouchpadModeActive = false;
         mListener.onCustomRequest(Constants.CODE_TOUCHPAD_OFF);
