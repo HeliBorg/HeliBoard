@@ -17,15 +17,18 @@ public class TouchpadHandler {
     private boolean mHasVibrated = false;
     private boolean mIsScrolling = false;
 
-    private static final float TOUCHPAD_ACCELERATION_FACTOR = 50.0f; // Lower = more acceleration
+    private static final float EDGE_THRESHOLD_PERCENTAGE = 0.1f;        // Screen edge threshold percentage
+    private static final float TOUCHPAD_ACCELERATION_FACTOR = 50.0f;    // Lower = more acceleration
+    private static final float EDGE_ACCELERATION_FACTOR = 0.95f;
+    private static final int MIN_EDGE_ACCELERATION_DELAY = 20;
+
     private long mTouchpadActivationTime;
     private int mTouchpadLastX, mTouchpadLastY;
+    private long mCurrentScrollDelay;
 
     // Accumulators for fractional movement
     private int mTouchpadAccX = 0;
     private int mTouchpadAccY = 0;
-
-    private static final int SCROLL_DELAY_MS = 100; // Edge scroll speed
 
     private static final int DIRECTION_UP = 1;
     private static final int DIRECTION_DOWN = 2;
@@ -142,19 +145,13 @@ public class TouchpadHandler {
         @Override
         public void run() {
             if (mIsScrolling && mListener != null) {
-                int keyCode = KeyCode.UNSPECIFIED;
+                int keyCode = getKeyCodeForDirection(mCurrentScrollDirection);
 
-                if (mCurrentScrollDirection == DIRECTION_UP) {
-                    keyCode = KeyCode.ARROW_UP;
-                } else if (mCurrentScrollDirection == DIRECTION_DOWN) {
-                    keyCode = KeyCode.ARROW_DOWN;
-                } else if (mCurrentScrollDirection == DIRECTION_LEFT) {
-                    keyCode = KeyCode.ARROW_LEFT;
-                } else if (mCurrentScrollDirection == DIRECTION_RIGHT) {
-                    keyCode = KeyCode.ARROW_RIGHT;
-                }
                 mListener.onCodeInput(keyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-                mHandler.postDelayed(this, SCROLL_DELAY_MS);
+
+                mCurrentScrollDelay = Math.max(MIN_EDGE_ACCELERATION_DELAY, (long) (mCurrentScrollDelay * EDGE_ACCELERATION_FACTOR));
+
+                mHandler.postDelayed(this, mCurrentScrollDelay);
             }
         }
     };
@@ -165,21 +162,22 @@ public class TouchpadHandler {
 
         int keyboardHeight = currentKeyboard.mBaseHeight;
         int keyboardWidth = currentKeyboard.mBaseWidth;
-        int threshold = 50;
+        int thresholdX = (int) (keyboardWidth * EDGE_THRESHOLD_PERCENTAGE);
+        int thresholdY = (int) (keyboardHeight * EDGE_THRESHOLD_PERCENTAGE);
 
-        if (y <= threshold) {
+        if (y <= thresholdY) {
             mCurrentScrollDirection = DIRECTION_UP;
             startEdgeScrolling();
             return true;
-        } else if (y >= (keyboardHeight - threshold)) {
+        } else if (y >= (keyboardHeight - thresholdY)) {
             mCurrentScrollDirection = DIRECTION_DOWN;
             startEdgeScrolling();
             return true;
-        } else if (x <= threshold * 2) {
+        } else if (x <= thresholdX) {
             mCurrentScrollDirection = DIRECTION_LEFT;
             startEdgeScrolling();
             return true;
-        } else if (x >= (keyboardWidth - threshold * 2)) {
+        } else if (x >= (keyboardWidth - thresholdX)) {
             mCurrentScrollDirection = DIRECTION_RIGHT;
             startEdgeScrolling();
             return true;
@@ -192,6 +190,7 @@ public class TouchpadHandler {
     private void startEdgeScrolling() {
         if (!mIsScrolling) {
             mIsScrolling = true;
+            mCurrentScrollDelay = getBaseScrollDelay();
             mHandler.removeCallbacks(mScrollRunnable);
             mHandler.post(mScrollRunnable);
         }
@@ -200,5 +199,23 @@ public class TouchpadHandler {
     private void stopEdgeScrolling() {
         mIsScrolling = false;
         mHandler.removeCallbacks(mScrollRunnable);
+    }
+
+    private long getBaseScrollDelay() {
+        int sensitivity = Settings.getInstance().getCurrent().mTouchpadSensitivity;
+
+        // Calculates the base scroll delay based on user sensitivity (range: 0-100).
+        // Maps sensitivity 0 to 300ms (slowest) and 100 to 50ms (fastest).
+        return 300 - (long) (sensitivity * 2.5f);
+    }
+
+    private int getKeyCodeForDirection(int direction) {
+        return switch (direction) {
+            case DIRECTION_UP -> KeyCode.ARROW_UP;
+            case DIRECTION_DOWN -> KeyCode.ARROW_DOWN;
+            case DIRECTION_LEFT -> KeyCode.ARROW_LEFT;
+            case DIRECTION_RIGHT -> KeyCode.ARROW_RIGHT;
+            default -> KeyCode.UNSPECIFIED;
+        };
     }
 }
