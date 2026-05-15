@@ -90,6 +90,17 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:theme="@style/TransparentActivityTheme" android:excludeFromRecents="true" android:noHistory="true"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible" android:configChanges="orientation|screenSize"/>
 
+        <activity android:name="helium314.keyboard.latin.media.MediaReceiverActivity"
+            android:theme="@style/TransparentActivityTheme"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="helium314.keyboard.action.SEND_MEDIA_TO_IME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <!-- Broadcast receivers -->
         <receiver android:name="SystemBroadcastReceiver"
                 android:exported="true">
@@ -117,6 +128,16 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/gesture_data_path"/>
         </provider>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.mediafileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/media_file_provider_paths" />
+        </provider>
     </application>
 
     <queries>
@@ -131,6 +152,11 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <intent>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+
+        <!-- To detect media provider plugins -->
+        <intent>
+            <action android:name="com.heliboard.intent.MEDIA_PROVIDER" />
         </intent>
     </queries>
 </manifest>

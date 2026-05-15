@@ -17,6 +17,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
@@ -32,7 +33,9 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.Toast;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.compat.ConfigurationCompatKt;
@@ -62,6 +65,11 @@ import helium314.keyboard.latin.common.InputPointers;
 import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.inputlogic.InputLogic;
+import helium314.keyboard.latin.media.MediaInsertionController;
+import helium314.keyboard.latin.media.MediaInsertionDispatcher;
+import helium314.keyboard.latin.media.MediaPluginContract;
+import helium314.keyboard.latin.media.provider.MediaPickerPopup;
+import helium314.keyboard.latin.media.provider.MediaProviderItem;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
@@ -114,7 +122,6 @@ public class LatinIME extends InputMethodService implements
     private static final int PENDING_IMS_CALLBACK_DURATION_MILLIS = 800;
     static final long DELAY_WAIT_FOR_DICTIONARY_LOAD_MILLIS = TimeUnit.SECONDS.toMillis(2);
     static final long DELAY_DEALLOCATE_MEMORY_MILLIS = TimeUnit.SECONDS.toMillis(10);
-
     /**
      * The name of the scheme used by the Package Manager to warn of a new package installation,
      * replacement or removal.
@@ -149,6 +156,10 @@ public class LatinIME extends InputMethodService implements
     // Used for re-initialize keyboard layout after onConfigurationChange.
     @Nullable
     private Context mDisplayContext;
+    private final MediaInsertionController mMediaInsertionController =
+            new MediaInsertionController(this);
+    @Nullable
+    private MediaPickerPopup mActiveMediaPickerPopup;
 
     // Object for reacting to adding/removing a dictionary pack.
     private final BroadcastReceiver mDictionaryPackInstallReceiver =
@@ -577,6 +588,7 @@ public class LatinIME extends InputMethodService implements
             restartAfterUnlockFilter.addAction(Intent.ACTION_USER_UNLOCKED);
         registerReceiver(mRestartAfterDeviceUnlockReceiver, restartAfterUnlockFilter);
 
+        MediaInsertionDispatcher.register(this);
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
     }
 
@@ -698,6 +710,7 @@ public class LatinIME extends InputMethodService implements
         unregisterReceiver(mDictionaryPackInstallReceiver);
         unregisterReceiver(mDictionaryDumpBroadcastReceiver);
         unregisterReceiver(mRestartAfterDeviceUnlockReceiver);
+        MediaInsertionDispatcher.unregister(this);
         mStatsUtilsManager.onDestroy(this /* context */);
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
@@ -1721,6 +1734,64 @@ public class LatinIME extends InputMethodService implements
         Log.d("emoji-search", "before activity launch");
         startActivity(new Intent().setClass(this, EmojiSearchActivity.class)
                           .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK));
+    }
+
+    public void launchMediaPicker() {
+        if (!mSettings.getCurrent().mMediaPluginsEnabled) {
+            Log.d(MediaPluginContract.LOG_TAG, "Media plugins disabled");
+            return;
+        }
+        if (mActiveMediaPickerPopup != null) {
+            mActiveMediaPickerPopup.dismiss();
+            return;
+        }
+        if (mInputView == null) {
+            Toast.makeText(this, "Open a text field first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        new MediaPickerPopup(this, mInputView, getPreferredMediaMaxBytes()).show();
+    }
+
+    public void setActiveMediaPickerPopup(final MediaPickerPopup popup) {
+        mActiveMediaPickerPopup = popup;
+    }
+
+    public void clearActiveMediaPickerPopup(final MediaPickerPopup popup) {
+        if (mActiveMediaPickerPopup == popup) {
+            mActiveMediaPickerPopup = null;
+        }
+    }
+
+    public boolean consumeMediaPickerCodeInput(final int primaryCode) {
+        return mActiveMediaPickerPopup != null
+                && mActiveMediaPickerPopup.handleCodeInput(primaryCode);
+    }
+
+    public boolean consumeMediaPickerTextInput(@Nullable final String text) {
+        return mActiveMediaPickerPopup != null
+                && mActiveMediaPickerPopup.handleTextInput(text);
+    }
+
+    public void onExternalMediaRequested(final Uri uri, final String mime, final String label) {
+        insertExternalMedia(uri, mime, label);
+    }
+
+    public void insertExternalMedia(final Uri uri, final String mime, final String label) {
+        final EditorInfo editorInfo = getCurrentInputEditorInfo();
+        mMediaInsertionController.insertMedia(getCurrentInputConnection(), editorInfo, uri, mime,
+                label, -1, editorInfo == null ? null : editorInfo.packageName,
+                mMediaInsertionController.getPreferredMediaMaxBytes(editorInfo));
+    }
+
+    public void insertExternalMedia(final MediaProviderItem item) {
+        final EditorInfo editorInfo = getCurrentInputEditorInfo();
+        mMediaInsertionController.insertMedia(getCurrentInputConnection(), editorInfo, item,
+                editorInfo == null ? null : editorInfo.packageName,
+                mMediaInsertionController.getPreferredMediaMaxBytes(editorInfo));
+    }
+
+    private long getPreferredMediaMaxBytes() {
+        return mMediaInsertionController.getPreferredMediaMaxBytes(getCurrentInputEditorInfo());
     }
 
     @Override

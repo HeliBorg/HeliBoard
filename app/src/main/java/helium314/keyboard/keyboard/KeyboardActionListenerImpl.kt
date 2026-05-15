@@ -97,6 +97,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
+        if (latinIME.consumeMediaPickerCodeInput(primaryCode)) return
         when (primaryCode) {
             KeyCode.TOGGLE_AUTOCORRECT -> return settings.toggleAutoCorrect()
             KeyCode.TOGGLE_INCOGNITO_MODE -> return settings.toggleAlwaysIncognitoMode()
@@ -119,7 +120,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         metaAfterCodeInput(primaryCode)
     }
 
-    override fun onTextInput(text: String?) = latinIME.onTextInput(text)
+    override fun onTextInput(text: String?) {
+        if (latinIME.consumeMediaPickerTextInput(text)) return
+        latinIME.onTextInput(text)
+    }
+
+    override fun onMediaPickerRequested() = latinIME.launchMediaPicker()
 
     override fun onStartBatchInput() = latinIME.onStartBatchInput()
 

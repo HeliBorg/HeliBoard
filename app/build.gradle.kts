@@ -77,6 +77,7 @@ android {
         viewBinding = true
         buildConfig = true
         compose = true
+        aidl = true
     }
 
     externalNativeBuild {

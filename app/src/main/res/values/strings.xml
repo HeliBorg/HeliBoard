@@ -80,6 +80,22 @@
     <string name="language_switch_key_behavior">Language switch key behavior</string>
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
+    <!-- Option to show external media plugin picker in the emoji toolbar -->
+    <string name="enable_media_plugins">Media plugins</string>
+    <!-- Description for option to show external media plugin picker in the emoji toolbar -->
+    <string name="enable_media_plugins_summary">Show media picker button in the emoji toolbar</string>
+    <!-- Preference screen for enabling individual external media plugins -->
+    <string name="manage_media_plugins">Manage media plugins</string>
+    <!-- Description for preference screen for enabling individual external media plugins -->
+    <string name="manage_media_plugins_summary">Choose which installed media plugins HeliBoard can use</string>
+    <!-- Empty state title shown when no media plugins are installed -->
+    <string name="media_plugins_no_plugins">No media plugins installed</string>
+    <!-- Empty state description shown when no media plugins are installed -->
+    <string name="media_plugins_no_plugins_summary">Install an app that provides HeliBoard media plugins, then return here to enable it.</string>
+    <!-- Option to allow public MediaStore fallback for media sharing compatibility -->
+    <string name="media_public_storage_fallback">Public media fallback for sharing</string>
+    <!-- Description for public MediaStore fallback option -->
+    <string name="media_public_storage_fallback_summary">Allows public MediaStore fallback when private media sharing fails. May create temporary public media files.</string>
     <!-- Units abbreviation for the duration (milliseconds) -->
     <string name="abbreviation_unit_milliseconds">%s ms</string>
     <!-- Units abbreviation for the duration (minutes) -->

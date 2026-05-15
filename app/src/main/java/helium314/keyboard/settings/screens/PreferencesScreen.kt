@@ -21,8 +21,12 @@ import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.NextScreenIcon
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.Setting
+import helium314.keyboard.settings.SettingsDestination
+import helium314.keyboard.settings.SettingsWithoutKey
+import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.ReorderSwitchPreference
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
@@ -74,6 +78,9 @@ fun PreferencesScreen(
         Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY,
         Settings.PREF_LANGUAGE_SWITCH_KEY,
         Settings.PREF_SHOW_EMOJI_KEY,
+        Settings.PREF_ENABLE_MEDIA_PLUGINS,
+        SettingsWithoutKey.MEDIA_PLUGINS,
+        Settings.PREF_MEDIA_PUBLIC_STORAGE_FALLBACK,
         Settings.PREF_REMOVE_REDUNDANT_POPUPS,
         R.string.settings_category_clipboard_history,
         Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
@@ -155,6 +162,25 @@ fun createPreferencesSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_SHOW_EMOJI_KEY, R.string.show_emoji_key) {
         SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_KEY) { KeyboardSwitcher.getInstance().reloadKeyboard() }
+    },
+    Setting(context, Settings.PREF_ENABLE_MEDIA_PLUGINS,
+        R.string.enable_media_plugins, R.string.enable_media_plugins_summary)
+    {
+        SwitchPreference(it, Defaults.PREF_ENABLE_MEDIA_PLUGINS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+    },
+    Setting(context, SettingsWithoutKey.MEDIA_PLUGINS,
+        R.string.manage_media_plugins, R.string.manage_media_plugins_summary)
+    {
+        Preference(
+            name = it.title,
+            description = it.description,
+            onClick = { SettingsDestination.navigateTo(SettingsDestination.MediaPlugins) }
+        ) { NextScreenIcon() }
+    },
+    Setting(context, Settings.PREF_MEDIA_PUBLIC_STORAGE_FALLBACK,
+        R.string.media_public_storage_fallback, R.string.media_public_storage_fallback_summary)
+    {
+        SwitchPreference(it, Defaults.PREF_MEDIA_PUBLIC_STORAGE_FALLBACK)
     },
     Setting(context, Settings.PREF_REMOVE_REDUNDANT_POPUPS,
         R.string.remove_redundant_popups, R.string.remove_redundant_popups_summary)

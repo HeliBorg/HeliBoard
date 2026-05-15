@@ -67,6 +67,8 @@ public interface KeyboardActionListener {
      */
     void onTextInput(String text);
 
+    void onMediaPickerRequested();
+
     /**
      * Called when user started batch input.
      */
@@ -135,6 +137,8 @@ public interface KeyboardActionListener {
         public void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat) {}
         @Override
         public void onTextInput(String text) {}
+        @Override
+        public void onMediaPickerRequested() {}
         @Override
         public void onStartBatchInput() {}
         @Override

@@ -69,6 +69,7 @@ import static helium314.keyboard.latin.common.Constants.NOT_A_COORDINATE;
  */
 public final class EmojiPalettesView extends LinearLayout
         implements View.OnClickListener, EmojiViewCallback {
+    private static final String MEDIA_TAB_TAG = "media";
     private static final class PagerViewHolder extends RecyclerView.ViewHolder {
         private long mCategoryId;
 
@@ -245,6 +246,19 @@ public final class EmojiPalettesView extends LinearLayout
         iconView.setOnClickListener(this);
     }
 
+    private void addMediaTab(final LinearLayout host) {
+        final ImageView iconView = new ImageView(getContext());
+        mColors.setBackground(iconView, ColorType.STRIP_BACKGROUND);
+        mColors.setColor(iconView, ColorType.EMOJI_CATEGORY);
+        iconView.setScaleType(ImageView.ScaleType.CENTER);
+        iconView.setImageResource(R.drawable.ic_image);
+        iconView.setContentDescription("Media");
+        iconView.setTag(MEDIA_TAB_TAG);
+        host.addView(iconView);
+        iconView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
+        iconView.setOnClickListener(this);
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     public void initialize() { // needs to be delayed for access to EmojiTabStrip, which is not a child of this view
         if (initialized) return;
@@ -253,6 +267,9 @@ public final class EmojiPalettesView extends LinearLayout
         if (Settings.getValues().mSecondaryStripVisible) {
             for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
                 addTab(mTabStrip, properties.mCategoryId);
+            }
+            if (Settings.getValues().mMediaPluginsEnabled) {
+                addMediaTab(mTabStrip);
             }
         }
 
@@ -281,6 +298,9 @@ public final class EmojiPalettesView extends LinearLayout
                 setCurrentCategoryId(categoryId, false);
                 updateEmojiCategoryPageIdView();
             }
+        } else if (MEDIA_TAB_TAG.equals(tag)) {
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_PRESS);
+            mKeyboardActionListener.onMediaPickerRequested();
         }
     }
 
@@ -336,6 +356,7 @@ public final class EmojiPalettesView extends LinearLayout
     public void startEmojiPalettes(final KeyVisualAttributes keyVisualAttr,
                final EditorInfo editorInfo, final KeyboardActionListener keyboardActionListener) {
         initialize();
+        mKeyboardActionListener = keyboardActionListener;
 
         setupBottomRowKeyboard(editorInfo, keyboardActionListener);
         final KeyDrawParams params = new KeyDrawParams();

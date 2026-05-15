@@ -1,0 +1,27 @@
+<!--
+    icon based on Material Icons
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+            M4,7
+            C4,5.9 4.9,5 6,5
+            H9.2
+            C9.8,5 10.1,5.2 10.5,5.6
+            L11.6,7
+            H18
+            C19.1,7 20,7.9 20,9
+            V17
+            C20,18.1 19.1,19 18,19
+            H6
+            C4.9,19 4,18.1 4,17
+            Z" />
+
+</vector>
