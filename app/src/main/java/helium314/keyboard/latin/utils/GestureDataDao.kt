@@ -98,7 +98,7 @@ class GestureDataDao(val db: Database) {
     }}
 
     fun markAsExported(ids: List<Long>, context: Context) = synchronized(this) {
-        if (ids.isEmpty()) return
+        if (ids.isEmpty()) return@synchronized
         val cv = ContentValues(1)
         cv.put(COLUMN_EXPORTED, 1)
         db.writableDatabase.update(TABLE, cv, "$COLUMN_ID IN (${ids.joinToString(",")})", null)
@@ -188,7 +188,7 @@ class GestureDataDao(val db: Database) {
                 try {
                     instance = GestureDataDao(Database.getInstance(context))
                 } catch (e: Throwable) {
-                    Log.e(TAG, "can't create ClipboardDao", e)
+                    Log.e(TAG, "can't create GestureDataDao", e)
                 }
             return instance
         }
