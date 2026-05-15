@@ -160,7 +160,8 @@ public final class KeySpecParser {
             return null;
         }
         final String outputText = getOutputTextInternal(keySpec, labelEnd);
-        if (outputText != null) {
+        // don't set output text if there is an actual code, because the text will not be used in that case
+        if (outputText != null && (code == KeyCode.UNSPECIFIED || code == KeyCode.MULTIPLE_CODE_POINTS)) {
             if (StringUtils.codePointCount(outputText) == 1) {
                 // If output text is one code point, it should be treated as a code.
                 // See {@link #getCode(Resources, String)}.

@@ -53,6 +53,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalConfiguration
@@ -348,7 +349,7 @@ fun GestureDataScreen(
                     mutableIntStateOf(dbActiveWordCount + exportedAndDeletedCount)
                 }
                 Text(stringResource(R.string.gesture_data_active_count, sessionWordCount, sessionWordCount + oldActiveWords, exportedAndDeletedCount))
-                Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
+                Box(Modifier.size(1.dp).alpha(0f)) { // box hides the field, but we can still interact with it
                     TextField(
                         value = TextFieldValue(),
                         enabled = wordFromDict != null,

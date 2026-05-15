@@ -153,6 +153,27 @@ def update_khipro_mappings():
     urlretrieve(source, target)
 
 
+# update localesWithLocalizedNumberRow
+def update_localized_number_row():
+    locales = []
+    folder = "app/src/main/assets/locale_key_texts/"
+    for file in os.listdir(folder):
+        with open(folder + file, "r") as f:
+            if "[number_row]" in f.read():
+                locales.append(file.split(".")[0].split("-")[0])
+    locales = list(dict.fromkeys(locales)) # for bn-BD and bn-IN
+    prefs = "app/src/main/java/helium314/keyboard/settings/screens/PreferencesScreen.kt"
+    with open(prefs, "r") as f:
+        lines = f.readlines()
+    for i, line in enumerate(lines):
+        if not line.startswith("private val localesWithLocalizedNumberRow"):
+            continue
+        localetext = "\", \"".join(locales)
+        lines[i] = "private val localesWithLocalizedNumberRow = listOf(\"" + localetext + "\")\n"
+    with open(prefs, "w") as f:
+        f.writelines(lines)
+
+
 def main():
     if os.getcwd().endswith("tools"):
         os.chdir("../")
@@ -163,6 +184,7 @@ def main():
     update_khipro_mappings()
     check_changelog()
     update_dict_hashes()
+    update_localized_number_row()
 
 
 if __name__ == "__main__":

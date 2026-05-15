@@ -91,6 +91,8 @@ object Defaults {
     val PREF_BOTTOM_PADDING_SCALE = arrayOf(DEFAULT_SIZE_SCALE, 0f, DEFAULT_SIZE_SCALE, 0f)
     @JvmField
     val PREF_SIDE_PADDING_SCALE = Array(8) { 0f }
+    @JvmField
+    val PREF_KEY_GAP_SCALE = Array(4) { DEFAULT_SIZE_SCALE }
     const val PREF_FONT_SCALE = DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_FONT_SCALE = DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_KEY_FIT = true
@@ -151,7 +153,6 @@ object Defaults {
     const val PREF_ADD_TO_PERSONAL_DICTIONARY = false
     @JvmField
     val PREF_NAVBAR_COLOR = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-    const val PREF_NARROW_KEY_GAPS = false
     const val PREF_ENABLED_SUBTYPES = ""
     const val PREF_SELECTED_SUBTYPE = ""
     const val PREF_URL_DETECTION = false

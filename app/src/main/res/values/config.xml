@@ -28,10 +28,8 @@
 
     <fraction name="config_keyboard_top_padding_holo">2.335%p</fraction>
     <fraction name="config_keyboard_bottom_padding_holo">4.669%p</fraction>
-    <fraction name="config_key_vertical_gap_holo">6.127%p</fraction>
-    <fraction name="config_key_horizontal_gap_holo">1.739%p</fraction>
-    <fraction name="config_key_vertical_gap_holo_narrow">3.527%p</fraction>
-    <fraction name="config_key_horizontal_gap_holo_narrow">1.089%p</fraction>
+    <fraction name="config_key_vertical_gap_holo">3.527%p</fraction>
+    <fraction name="config_key_horizontal_gap_holo">1.089%p</fraction>
     <!-- config_popup_keys_keyboard_key_height x -0.5 -->
     <dimen name="config_popup_keys_keyboard_vertical_correction_holo">-26.4dp</dimen>
     <dimen name="config_key_preview_offset_holo">40.0dp</dimen>

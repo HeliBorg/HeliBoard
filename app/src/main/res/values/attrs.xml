@@ -209,12 +209,8 @@
         <attr name="rowHeight" format="dimension|fraction" />
         <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
         <attr name="horizontalGap" format="fraction" />
-        <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
-        <attr name="horizontalGapNarrow" format="fraction" />
         <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
         <attr name="verticalGap" format="fraction" />
-        <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
-        <attr name="verticalGapNarrow" format="fraction" />
         <!-- Popup keys keyboard layout template -->
         <attr name="popupKeysTemplate" format="reference" />
     </declare-styleable>

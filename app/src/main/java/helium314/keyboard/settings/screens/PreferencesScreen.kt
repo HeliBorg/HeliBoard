@@ -212,8 +212,7 @@ fun createPreferencesSettings(context: Context) = listOf(
     },
 )
 
-// todo (later): not good to have it hardcoded, but reading a bunch of files may be noticeably slow
-private val localesWithLocalizedNumberRow = listOf("ar", "bn", "fa", "gu", "hi", "kn", "mr", "ne", "ur")
+private val localesWithLocalizedNumberRow = listOf("ar", "bn", "ckb", "fa", "gu", "hi", "kn", "mr", "ne", "th", "ur")
 
 @Preview
 @Composable

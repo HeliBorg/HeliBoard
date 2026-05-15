@@ -155,6 +155,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
     // returns [allowsToBeAutoCorrected, hasAutoCorrection]
     // public for testing
+    // todo: now we can do better tests, maybe make it private again and test via getSuggestedWords (and simplify if possible)
     fun shouldBeAutoCorrected(
         trailingSingleQuotesCount: Int,
         typedWordString: String,
@@ -201,18 +202,13 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // the setting "Auto-correction" is "off": we still suggest, but we don't auto-correct.
         val hasAutoCorrection: Boolean
         if (!isCorrectionEnabled
-            // todo: can some parts be moved to isCorrectionEnabled? e.g. keyboardIdMode only depends on input type
-            //  i guess then not mAutoCorrectionEnabledPerUserSettings should be read, but rather some isAutocorrectEnabled()
-            // If the word does not allow to be auto-corrected, then we don't auto-correct.
-            || !allowsToBeAutoCorrected // If we are doing prediction, then we never auto-correct of course
-            || !wordComposer.isComposingWord // If we don't have suggestion results, we can't evaluate the first suggestion
-            // for auto-correction
-            || suggestionResults.isEmpty() // If the word has digits, we never auto-correct because it's likely the word
-            // was type with a lot of care
-            || wordComposer.hasDigits() // If the word is mostly caps, we never auto-correct because this is almost
-            // certainly intentional (and careful input)
-            || wordComposer.isMostlyCaps // We never auto-correct when suggestions are resumed because it would be unexpected
-            || wordComposer.isResumed // If we don't have a main dictionary, we never want to auto-correct. The reason
+            || !allowsToBeAutoCorrected // If the word does not allow to be auto-corrected, then we don't auto-correct.
+            || !wordComposer.isComposingWord // If we are doing prediction, then we never auto-correct of course
+            || suggestionResults.isEmpty() // If we don't have suggestion results, we can't evaluate the first suggestion for auto-correction
+            || wordComposer.hasDigits() // If the word has digits, we never auto-correct because it's likely the word was type with a lot of care // todo: but what if user touched the number row?
+            || (wordComposer.isMostlyCaps && !wordComposer.isAllUpperCase) // If the word is mostly caps, we never auto-correct because this is almost certainly intentional
+            || wordComposer.isResumed // We never auto-correct when suggestions are resumed because it would be unexpected
+            // If we don't have a main dictionary, we never want to auto-correct. The reason
             // for this is, the user may have a contact whose name happens to match a valid
             // word in their language, and it will unexpectedly auto-correct. For example, if
             // the user types in English with no dictionary and has a "Will" in their contact
@@ -550,14 +546,14 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             if (pseudoTypedWordInfo == null || !Settings.getValues().mUsePersonalizedDicts
                 || pseudoTypedWordInfo.mSourceDict.mDictType != Dictionary.TYPE_MAIN || suggestionsContainer.size < 2
             ) return pseudoTypedWordInfo
-            nextWordSuggestions.removeAll { info: SuggestedWordInfo -> info.mScore < 170 } // we only want reasonably often typed words, value may require tuning
-            if (nextWordSuggestions.isEmpty()) return pseudoTypedWordInfo
+            val goodNextSuggestions = nextWordSuggestions.filter { it.mScore >= 170 } // we only want reasonably often typed words, value may require tuning
+            if (goodNextSuggestions.isEmpty()) return pseudoTypedWordInfo
 
             // for each suggestion, check whether the word was already typed in this ngram context (i.e. is nextWordSuggestion)
             for (suggestion in suggestionsContainer) {
                 if (suggestion.mScore < pseudoTypedWordInfo.mScore * 0.93) break // we only want reasonably good suggestions, value may require tuning
                 if (suggestion === rejected) continue  // ignore rejected suggestions
-                for (nextWordSuggestion in nextWordSuggestions) {
+                for (nextWordSuggestion in goodNextSuggestions) {
                     if (nextWordSuggestion.mWord != suggestion.mWord) continue
                     // if we have a high scoring suggestion in next word suggestions, take it (because it's expected that user might want to type it again)
                     suggestionsContainer.remove(suggestion)

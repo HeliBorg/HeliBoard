@@ -4,6 +4,7 @@ package helium314.keyboard
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodSubtype
 import com.android.inputmethod.keyboard.ProximityInfo
+import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardId
@@ -31,7 +32,6 @@ import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.io.File
 import java.util.Locale
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -53,8 +53,6 @@ class ParserTest {
         params.mPopupKeyOrder.add(POPUP_KEYS_LAYOUT)
         addLocaleKeyTextsToParams(latinIME, params, POPUP_KEYS_NORMAL)
     }
-
-    // todo: add tests for background type, also consider e.g. emoji key has functional bg by default
 
     @Test fun simpleParser() {
         val layoutStrings = listOf(
@@ -138,7 +136,6 @@ f""", // no newline at the end
 
     @Test fun labelAndImplicitText() {
         assertIsExpected("""[[{ "$": "text_key" "label": "a|bb" }]]""", Expected(KeyCode.MULTIPLE_CODE_POINTS, "a", text = "bb"))
-        // todo: should this actually work?
         assertIsExpected("""[[{ "$": "text_key" "label": "a|" }]]""", Expected(KeyCode.MULTIPLE_CODE_POINTS, "a", text = ""))
     }
 
@@ -147,12 +144,11 @@ f""", // no newline at the end
         assertIsExpected("""[[{ "code": 32, "label": "a|!code/key_delete" }]]""", Expected(' '.code, "a"))
         assertIsExpected("""[[{ "code": 32, "label": "a|!code/-1" }]]""", Expected(' '.code, "a"))
         assertIsExpected("""[[{ "code": -1, "label": "a|!code/key_delete" }]]""", Expected(KeyCode.CTRL, "a"))
-        // todo: should text be null? it's not used at all (it could be, but it really should not)
-        assertIsExpected("""[[{ "code": 32, "label": "a|bb" }]]""", Expected(' '.code, "a", text = "bb"))
-        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": 32, "label": "!icon/undo|!code/key_delete" } } }]]""", Expected(' '.code, "a", text = "bb", popups = listOf(null to ' '.code)))
-        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": -1, "label": "!icon/undo|!code/key_delete" } } }]]""", Expected(' '.code, "a", text = "bb", popups = listOf(null to KeyCode.CTRL)))
-        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": 32, "label": "a|!code/key_delete" } } }]]""", Expected(' '.code, "a", text = "bb", popups = listOf("a" to ' '.code)))
-        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": -1, "label": "a|!code/key_delete" } } }]]""", Expected(' '.code, "a", text = "bb", popups = listOf("a" to KeyCode.CTRL)))
+        assertIsExpected("""[[{ "code": 32, "label": "a|bb" }]]""", Expected(' '.code, "a"))
+        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": 32, "label": "!icon/undo|!code/key_delete" } } }]]""", Expected(' '.code, "a", popups = listOf(null to ' '.code)))
+        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": -1, "label": "!icon/undo|!code/key_delete" } } }]]""", Expected(' '.code, "a", popups = listOf(null to KeyCode.CTRL)))
+        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": 32, "label": "a|!code/key_delete" } } }]]""", Expected(' '.code, "a", popups = listOf("a" to ' '.code)))
+        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": -1, "label": "a|!code/key_delete" } } }]]""", Expected(' '.code, "a", popups = listOf("a" to KeyCode.CTRL)))
     }
 
     @Test fun keyWithIconAndExplicitCode() {
@@ -198,11 +194,11 @@ f""", // no newline at the end
     }
 
     @Test fun currencyKey() {
-        assertIsExpected("""[[{ "label": "$$$" }]]""", Expected('$'.code, "$", popups = listOf("£", "€", "¢", "¥", "₱").map { it to it.first().code }))
+        assertIsExpected("""[[{ "label": "$$$" }]]""", Expected('$'.code, "$", popups = listOf("£", "¢", "€", "¥", "₱").map { it to it.first().code }))
     }
 
     @Test fun currencyKeyWithOtherCurrencyCode() {
-        assertIsExpected("""[[{ "label": "$$$", code: -805 }]]""", Expected('¥'.code, "$", popups = listOf("£", "€", "¢", "¥", "₱").map { it to it.first().code }))
+        assertIsExpected("""[[{ "label": "$$$", code: -805 }]]""", Expected('¥'.code, "$", popups = listOf("£", "¢", "€", "¥", "₱").map { it to it.first().code }))
     }
 
     @Test fun currencyPopup() {
@@ -221,7 +217,7 @@ f""", // no newline at the end
         { "code": -805, "label": "currency_slot_5" },
         { "code": -804, "label": "$$$4" }
       ]
-    } }]]""", Expected('$'.code, "$", popups = listOf("£" to '£'.code, "₱" to '₱'.code, "€" to '€'.code, "¢" to '¢'.code, "¥" to '¥'.code, "¥" to '€'.code)))
+    } }]]""", Expected('$'.code, "$", popups = listOf("£" to '£'.code, "₱" to '₱'.code, "¢" to '¢'.code, "€" to '€'.code, "¥" to '¥'.code, "¥" to '€'.code)))
     }
 
     @Test fun caseSelector() {
@@ -311,18 +307,22 @@ f""", // no newline at the end
     }
 
     @Test fun negativeCode() {
-        assertIsExpected("""[[{ "code":   -7, "label": "delete" }]]""", Expected(-7, icon = "delete_key"))
+        assertIsExpected("""[[{ "code":   -7, "label": "delete" }]]""", Expected(-7, icon = "delete_key", background = Key.BACKGROUND_TYPE_FUNCTIONAL))
     }
 
     @Test fun keyWithType() {
         assertIsExpected("""[[{ "code":   57, "label": "9", "type": "numeric" }]]""", Expected(57, "9"))
-        assertIsExpected("""[[{ "code":   -7, "label": "delete", "type": "enter_editing" }]]""", Expected(-7, icon = "delete_key"))
+        assertIsExpected("""[[{ "code":   -7, "label": "delete", "type": "enter_editing" }]]""", Expected(-7, icon = "delete_key", background = Key.BACKGROUND_TYPE_ACTION))
         // -207 gets translated to -202 in Int.toKeyEventCode
-        assertIsExpected("""[[{ "code": -207, "label": "view_phone2", "type": "system_gui" }]]""", Expected(-202, "?123"))
+        assertIsExpected("""[[{ "code": -207, "label": "view_phone2", "type": "system_gui" }]]""", Expected(-202, "?123", background = Key.BACKGROUND_TYPE_FUNCTIONAL))
     }
 
     @Test fun spaceKey() {
-        assertIsExpected("""[[{ "code":   32, "label": "space" }]]""", Expected(32, icon = "space_key"))
+        assertIsExpected("""[[{ "code":   32, "label": "space" }]]""", Expected(32, icon = "space_key", background = Key.BACKGROUND_TYPE_SPACEBAR))
+    }
+
+    @Test fun emojiKey() {
+        assertIsExpected("""[[{ "label": "emoji" }]]""", Expected(KeyCode.EMOJI, icon = "emoji", background = Key.BACKGROUND_TYPE_FUNCTIONAL))
     }
 
     @Test fun invalidKeys() {
@@ -507,7 +507,14 @@ f""", // no newline at the end
         assertEquals(KeyCode.TIMESTAMP, keys[6].mPopupKeys?.first()?.mCode)
     }
 
-    private data class Expected(val code: Int, val label: String? = null, val icon: String? = null, val text: String? = null, val popups: List<Pair<String?, Int>>? = null)
+    private data class Expected(
+        val code: Int,
+        val label: String? = null,
+        val icon: String? = null,
+        val text: String? = null,
+        val popups: List<Pair<String?, Int>>? = null,
+        val background: Int = Key.BACKGROUND_TYPE_NORMAL
+    )
 
     private fun assertIsExpected(json: String, expected: Expected) {
         assertAreExpected(json, listOf(expected))
@@ -523,9 +530,9 @@ f""", // no newline at the end
             assertEquals(expected[index].label, keyParams.mLabel)
             assertEquals(expected[index].icon, keyParams.mIconName)
             assertEquals(expected[index].code, keyParams.mCode)
-            // todo (later): what's wrong with popup order?
-            assertEquals(expected[index].popups?.sortedBy { it.first }, keyParams.mPopupKeys?.mapNotNull { it.mLabel to it.mCode }?.sortedBy { it.first })
+            assertEquals(expected[index].popups, keyParams.mPopupKeys?.mapNotNull { it.mLabel to it.mCode })
             assertEquals(expected[index].text, keyParams.outputText)
+            assertEquals(expected[index].background, keyParams.mBackgroundType)
             assertTrue(LayoutUtilsCustom.checkKeys(listOf(listOf(keyParams))))
         }
     }

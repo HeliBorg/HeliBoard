@@ -24,6 +24,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 ## Json format
 * Normal json layout with [lenient](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/is-lenient.html) parsing, and ignoring lines starting with `//`.
   * For anything else than small changes and copy/pasting text the in-app editor is unsuitable. A proper text editor (e.g. Kate or Notepad++) can significantly simplify work on json files.
+  * Roccobot's Layout Maker is a browser-based editor for json layout files. You can find it [here](https://roccobot.github.io/HeliBoard-RLM/), or in the [discussion section](https://github.com/HeliBorg/HeliBoard/discussions/2494).
 * Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
 * You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
   * Support is not 100% there yet, notably `kana_selector` and `char_width_selector` do not work.

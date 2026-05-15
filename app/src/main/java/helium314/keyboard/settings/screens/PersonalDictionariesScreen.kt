@@ -37,7 +37,6 @@ import java.util.TreeSet
 fun PersonalDictionariesScreen(
     onClickBack: () -> Unit,
 ) {
-    // todo: consider adding "add word" button like old settings (requires additional navigation parameter, should not be hard)
     val ctx = LocalContext.current
     val locales: MutableList<Locale?> = getSortedDictionaryLocales().toMutableList()
     locales.add(0, null)

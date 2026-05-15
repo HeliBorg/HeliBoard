@@ -14,6 +14,8 @@ import helium314.keyboard.latin.common.isSingleGrapheme
 import helium314.keyboard.latin.common.moveStepsToCharCount
 import helium314.keyboard.latin.common.nonWordCodePointAndNoSpaceBeforeCursor
 import helium314.keyboard.latin.common.splitOnWhitespace
+import helium314.keyboard.latin.common.stripTrailingSeparatorsAndConnectors
+import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.TextRange
@@ -202,7 +204,6 @@ class StringUtilsTest {
 
         val brokenDetectionAtStart = listOf("〰️", "〽️", "©️", "®️", "#️⃣", "*️⃣", "0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "㊗️", "㊙️")
         allEmojis.forEach {
-            if (it == "🀄" || it == "🃏") return@forEach // todo: should be fixed, ideally in the regex
             assert(isEmoji(it))
             assert(StringUtils.mightBeEmoji(it.codePointBefore(it.length)))
             if (it !in brokenDetectionAtStart)
@@ -210,10 +211,19 @@ class StringUtilsTest {
         }
     }
 
-    // todo: add tests for emoji detection?
-    //  could help towards fully fixing https://github.com/HeliBorg/HeliBoard/issues/22
-    //  though this might be tricky, as some emojis will show as one on new Android versions, and
-    //  as two on older versions (also may differ by app)
+    @Test fun `strip trailing separators and connectors`() {
+        val ctx = ApplicationProvider.getApplicationContext<App>()
+        val svfs = SpacingAndPunctuations(ctx.resources, false)
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word)", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word\"", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word:", svfs))
+        assertEquals("wor:d", stripTrailingSeparatorsAndConnectors("wor:d:", svfs))
+        assertEquals("", stripTrailingSeparatorsAndConnectors(":", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word-", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word'", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word'-'", svfs))
+    }
 
     private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, script: String, wordStart: Int, wordEnd: Int) {
         val got = getTouchedWordRange(before, after, script, sp)

@@ -78,7 +78,7 @@ fun AppearanceScreen(
             )
             Settings.PREF_SPLIT_SPACER_SCALE_PREFIX else null,
         if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS))
-            Settings.PREF_NARROW_KEY_GAPS else null,
+            Settings.PREF_KEY_GAP_SCALE_PREFIX else null,
         Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX,
         Settings.PREF_BOTTOM_ROW_SCALE_PREFIX,
         Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX,
@@ -244,9 +244,15 @@ fun createAppearanceSettings(context: Context) = listOf(
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
-    // todo: also for landscape + folded, but maybe consider this variable gap setting first so it could be a scale setting (was in some PR)
-    Setting(context, Settings.PREF_NARROW_KEY_GAPS, R.string.prefs_narrow_key_gaps) {
-        SwitchPreference(it, Defaults.PREF_NARROW_KEY_GAPS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+    Setting(context, Settings.PREF_KEY_GAP_SCALE_PREFIX, R.string.prefs_narrow_key_gaps) { setting ->
+        KeyboardScalePreference(
+            name = setting.title,
+            baseKey = setting.key,
+            dimensions = listOf(stringResource(R.string.landscape), stringResource(R.string.folded)),
+            defaults = Defaults.PREF_KEY_GAP_SCALE,
+            range = 0.5f..2f,
+            description = { "${(100 * it).toInt()}%" }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, R.string.prefs_keyboard_height_scale) { setting ->
         KeyboardScalePreference(

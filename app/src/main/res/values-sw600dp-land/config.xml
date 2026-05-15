@@ -18,8 +18,6 @@
     <fraction name="config_keyboard_bottom_padding_holo">2.0%p</fraction>
     <fraction name="config_key_vertical_gap_holo">4.5%p</fraction>
     <fraction name="config_key_horizontal_gap_holo">0.9%p</fraction>
-    <fraction name="config_key_vertical_gap_holo_narrow">4.5%p</fraction>
-    <fraction name="config_key_horizontal_gap_holo_narrow">0.9%p</fraction>
 
     <fraction name="config_key_letter_ratio_holo">50%</fraction>
     <fraction name="config_key_letter_ratio_lxx">50%</fraction>

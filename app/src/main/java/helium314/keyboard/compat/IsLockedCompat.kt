@@ -7,7 +7,8 @@ import android.os.Build
 import android.os.UserManager
 
 fun isDeviceLocked(context: Context): Boolean {
-    val keyguardManager = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+    val keyguardManager = runCatching { context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager }
+        .getOrNull() ?: return false // necessary so things can work in preview mode
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
         keyguardManager.isDeviceLocked
     else

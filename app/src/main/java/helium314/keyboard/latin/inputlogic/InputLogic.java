@@ -1704,8 +1704,8 @@ public final class InputLogic {
         // mInputTypeNoAutoCorrect changed to !isSuggestionsEnabledPerUserSettings because this was cancelling learning way too often
         if (!settingsValues.isSuggestionsEnabledPerUserSettings() || TextUtils.isEmpty(suggestion))
             return;
-        final boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
-        final String word = stripWordSeparatorsFromEnd(suggestion, settingsValues);
+        boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
+        String word = StringUtilsKt.stripTrailingSeparatorsAndConnectors(suggestion, settingsValues.mSpacingAndPunctuations);
         if (settingsValues.mIncognitoModeEnabled) {
             // still adjust confidences, otherwise incognito input fields can be very annoying when wrong language is active
             mDictionaryFacilitator.adjustConfidences(word, wasAutoCapitalized);
@@ -1722,20 +1722,6 @@ public final class InputLogic {
         final int timeStampInSeconds = (int)TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         mDictionaryFacilitator.addToUserHistory(word, wasAutoCapitalized, ngramContext,
                 timeStampInSeconds, settingsValues.mBlockPotentiallyOffensive);
-    }
-
-    // strip word separators from end (may be necessary for urls, e.g. when the user has typed
-    //  "go to example.com, and" -> we don't want the ",")
-    private String stripWordSeparatorsFromEnd(final String word, final SettingsValues settingsValues) {
-        final String result;
-        if (settingsValues.mSpacingAndPunctuations.isWordSeparator(word.codePointBefore(word.length()))) {
-            int endIndex = word.length() - 1;
-            while (endIndex != 0 && settingsValues.mSpacingAndPunctuations.isWordSeparator(word.codePointBefore(endIndex)))
-                --endIndex;
-            result = (endIndex > 0) ? word.substring(0, endIndex) : word;
-        } else
-            result = word;
-        return result;
     }
 
     public void performUpdateSuggestionStripSync(final SettingsValues settingsValues, final int inputStyle) {

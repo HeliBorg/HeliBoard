@@ -20,6 +20,8 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.settings.Settings;
+import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
@@ -210,11 +212,10 @@ public class KeyboardParams {
     public void readAttributes(final Context context, @Nullable final AttributeSet attr) {
         final TypedArray keyboardAttr = context.obtainStyledAttributes(
                 attr, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
-        final TypedArray keyAttr;
-        if (attr == null)
-            keyAttr = context.obtainStyledAttributes(attr, R.styleable.Keyboard_Key);
-        else
-            keyAttr = context.getResources().obtainAttributes(attr, R.styleable.Keyboard_Key);
+        TypedArray keyAttr = attr == null
+            ? context.obtainStyledAttributes(attr, R.styleable.Keyboard_Key)
+            : context.getResources().obtainAttributes(attr, R.styleable.Keyboard_Key);
+        SettingsValues sv = Settings.getValues();
         try {
             final int height = mId.mHeight;
             final int width = mId.mWidth;
@@ -224,13 +225,13 @@ public class KeyboardParams {
                     R.styleable.Keyboard_keyboardTopPadding, height, height, 0);
             mBottomPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardBottomPadding, height, height, 0)
-                    * Settings.getValues().mBottomPaddingScale);
+                    * sv.mBottomPaddingScale);
             mLeftPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardLeftPadding, width, width, 0)
-                    * Settings.getValues().mSidePaddingScale);
+                    * sv.mSidePaddingScale);
             mRightPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardRightPadding, width, width, 0)
-                    * Settings.getValues().mSidePaddingScale);
+                    * sv.mSidePaddingScale);
 
             mBaseWidth = mOccupiedWidth - mLeftPadding - mRightPadding;
             final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2 ? 0.9f : 1f;
@@ -240,20 +241,10 @@ public class KeyboardParams {
             mDefaultAbsoluteKeyWidth = (int) (mDefaultKeyWidth * mBaseWidth);
             mAbsolutePopupKeyWidth = (int) (alphaSymbolKeyWidth * mBaseWidth);
 
-            if (Settings.getValues().mNarrowKeyGaps) {
-                mRelativeHorizontalGap = keyboardAttr.getFraction(
-                        R.styleable.Keyboard_horizontalGapNarrow, 1, 1, 0);
-                mRelativeVerticalGap = keyboardAttr.getFraction(
-                        R.styleable.Keyboard_verticalGapNarrow, 1, 1, 0);
-            } else {
-                mRelativeHorizontalGap = keyboardAttr.getFraction(
-                        R.styleable.Keyboard_horizontalGap, 1, 1, 0);
-                mRelativeVerticalGap = keyboardAttr.getFraction(
-                        R.styleable.Keyboard_verticalGap, 1, 1, 0);
-                // TODO: Fix keyboard geometry calculation clearer. Historically vertical gap between
-                //  rows are determined based on the entire keyboard height including top and bottom
-                //  paddings.
-            }
+            mRelativeHorizontalGap = keyboardAttr.getFraction(
+                    R.styleable.Keyboard_horizontalGap, 1, 1, 0) * sv.mKeyGapScale;
+            mRelativeVerticalGap = keyboardAttr.getFraction(
+                    R.styleable.Keyboard_verticalGap, 1, 1, 0) * sv.mKeyGapScale;
             mHorizontalGap = (int) (mRelativeHorizontalGap * width);
             mVerticalGap = (int) (mRelativeVerticalGap * height);
 

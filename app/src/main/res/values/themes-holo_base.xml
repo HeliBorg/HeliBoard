@@ -95,7 +95,6 @@
         <item name="keyboardLeftPadding">0%p</item>
         <item name="keyboardRightPadding">0%p</item>
         <item name="horizontalGap">0%p</item>
-        <item name="horizontalGapNarrow">0%p</item>
         <item name="touchPositionCorrectionData">@null</item>
     </style>
     <style

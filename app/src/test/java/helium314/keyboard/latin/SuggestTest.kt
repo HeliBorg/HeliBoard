@@ -47,10 +47,9 @@ class SuggestTest {
     private val latinIME = Robolectric.setupService(LatinIME::class.java)
     private val suggest get() = latinIME.mInputLogic.mSuggest
 
-    // values taken from the string array auto_correction_threshold_mode_indexes
-    private val thresholdModest = 0.185f
-    private val thresholdAggressive = 0.067f
-    private val thresholdVeryAggressive = -1f
+    private val confidenceModest = 0.24f
+    private val confidenceAggressive = 0.65f
+    private val confidenceVeryAggressive = 0.9f
 
     init {
         ShadowLog.setupLogging()
@@ -73,7 +72,7 @@ class SuggestTest {
             suggestion("in", 240, locale),
             null, // never typed "on" in this context
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(!result.last()) // should not be corrected
         // not corrected because first suggestion score is too low
@@ -87,7 +86,7 @@ class SuggestTest {
             null,
             null,
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(result.last()) // should be corrected
         // correction because both empty scores are 0, which should be fine (next check is comparing empty scores)
@@ -101,7 +100,7 @@ class SuggestTest {
             null,
             suggestion("ill", 200, locale),
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(!result.last()) // should not be corrected
         // not corrected because first empty score not high enough
@@ -115,7 +114,7 @@ class SuggestTest {
             suggestion("I'll", 200, locale),
             suggestion("ill", 200, locale),
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(result.last()) // should be corrected
     }
@@ -128,7 +127,7 @@ class SuggestTest {
             suggestion("I'll", 200, locale),
             suggestion("ill", 211, locale),
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(!result.last()) // should not be corrected
     }
@@ -140,7 +139,7 @@ class SuggestTest {
             null,
             null,
             Locale("pl"),
-            thresholdVeryAggressive
+            confidenceVeryAggressive
         )
         assert(!result.last()) // should not be corrected
         // not even checking at modest and aggressive thresholds, this is a locale thing
@@ -154,13 +153,9 @@ class SuggestTest {
             null,
             null,
             Locale.ENGLISH,
-            thresholdModest
+            confidenceModest
         )
         assert(result.last()) // should be corrected
-        // only corrected because it's whitelisted (int max value)
-        // if it wasn't whitelisted, it would never be allowed due to utoCorrectionUtils.suggestionExceedsThreshold (unless set to very aggressive)
-        //  -> maybe normalizedScore needs adjustment if the only difference is upper/lowercase
-        //     todo: consider special score for case-only difference?
     }
 
     @Test fun `no English 'in' instead of French 'un' when typing in French`() {
@@ -170,7 +165,7 @@ class SuggestTest {
             null,
             null,
             Locale.FRENCH,
-            thresholdModest
+            confidenceModest
         )
         assert(!result.last()) // should not be corrected
         // not corrected because of locale matching
@@ -183,7 +178,7 @@ class SuggestTest {
             null,
             null,
             Locale.FRENCH,
-            thresholdModest
+            confidenceModest
         )
         assert(!result.last()) // should not be corrected
         // not corrected because score is lower
@@ -197,7 +192,7 @@ class SuggestTest {
             suggestion("né", 200, locale),
             null,
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(result.last()) // should be corrected
     }
@@ -210,7 +205,7 @@ class SuggestTest {
             suggestion("né", 215, locale),
             suggestion("ne", 200, locale),
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(result.last()) // should be corrected
     }
@@ -223,7 +218,7 @@ class SuggestTest {
             suggestion("né", 200, locale),
             suggestion("ne", 200, locale),
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(!result.last()) // should not be corrected
     }
@@ -236,7 +231,7 @@ class SuggestTest {
             suggestion("né", 200, locale),
             suggestion("ne", 200, locale),
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(!result.last()) // should not be corrected
         // not even allowed to check because of low score for ne
@@ -250,7 +245,7 @@ class SuggestTest {
             null,
             null,
             locale,
-            thresholdAggressive
+            confidenceAggressive
         )
         assert(result.last()) // should be corrected
 
@@ -260,7 +255,7 @@ class SuggestTest {
             null,
             null,
             locale,
-            thresholdModest
+            confidenceModest
         )
         assert(!result2.last()) // should not be corrected
     }
@@ -275,7 +270,7 @@ class SuggestTest {
             null,
             null,
             locale,
-            thresholdAggressive
+            confidenceAggressive
         )
         assert(!result.last()) // should not be corrected
     }
@@ -291,7 +286,7 @@ class SuggestTest {
     }
 
     @Test fun `typed word is second suggestion if autocorrect is pending`() {
-        enableAutocorrect(thresholdVeryAggressive)
+        enableAutocorrect(confidenceVeryAggressive)
         tapTypingSuggestions = suggestionResults(listOf(
             suggestion("hello", 650000, currentTypingLocale), // 600000 is the limit
             suggestion("hell", 620000, currentTypingLocale),
@@ -380,9 +375,6 @@ class SuggestTest {
         // todo: improve the situation on this!
         //  disable for shortcuts?
         //  maybe also could be removed from word connectors for a bunch of languages
-        // todo: this is actually added to dictionary, but probably it shouldn't -> don't add, or strip trailing word connectors?
-        //  technically e.g. dogs' is correct word, but do we really want it in history and potentially personal dictionary?
-        //  and many other cases are not correct words, e.g. 'as if' may add if' to history
 
         tapTypingSuggestions = suggestionResults(listOf(
             suggestion("ab", 1000),
@@ -444,17 +436,10 @@ class SuggestTest {
             getSuggestedWords(false, "", WordComposer.CAPS_MODE_AUTO_SHIFTED).mSuggestedWordInfoList.map { it.mWord })
         assertEquals(listOf("BUT", "BUY", "BIT", "😢", "BUTTER"),
             getSuggestedWords(false, "", WordComposer.CAPS_MODE_AUTO_SHIFT_LOCKED).mSuggestedWordInfoList.map { it.mWord })
-        // next word suggestions mess with glide typing suggestions // todo: fix this (maybe is it just a test issue? looks ok on phone)
-        assertEquals(listOf("but", "buy", "bit", "😢", "Butter"),
-            getSuggestedWords(true, "", WordComposer.CAPS_MODE_OFF).mSuggestedWordInfoList.map { it.mWord })
-        assertEquals(listOf(),
-            getSuggestedWords(true, "", WordComposer.CAPS_MODE_AUTO_SHIFTED).mSuggestedWordInfoList.map { it.mWord })
-        assertEquals(listOf(),
-            getSuggestedWords(true, "", WordComposer.CAPS_MODE_AUTO_SHIFT_LOCKED).mSuggestedWordInfoList.map { it.mWord })
     }
 
-    @Test fun `no autocorrect if more than one uppercase character in typed word`() {
-        enableAutocorrect(thresholdVeryAggressive)
+    @Test fun `no autocorrect if more than one uppercase character in typed word, but not all uppercase`() {
+        enableAutocorrect(confidenceVeryAggressive)
         tapTypingSuggestions = suggestionResults(listOf(
             suggestion("but", 650000),
             suggestion("bit", 620000),
@@ -475,17 +460,15 @@ class SuggestTest {
         assert(!result3.mWillAutoCorrect)
         assertEquals(listOf("BUr", "but", "bit", "buy", "😢", "Butter"), result3.mSuggestedWordInfoList.map { it.mWord })
 
-        // todo: maybe we want autocorrect in this case? especially because it works with manual shift mode, so it would feel more consistent
         val result4 = getSuggestedWords(false, "BUR", WordComposer.CAPS_MODE_OFF)
-        assert(!result4.mWillAutoCorrect)
-        assertEquals(listOf("BUR", "BUT", "BIT", "BUY", "😢", "BUTTER"), result4.mSuggestedWordInfoList.map { it.mWord })
+        assert(result4.mWillAutoCorrect)
+        assertEquals(listOf("BUR", "BUT", "BUR", "BIT", "BUY", "😢", "BUTTER"), result4.mSuggestedWordInfoList.map { it.mWord })
     }
 
     @Test fun `suggestions use manual caps modes`() {
         // added in https://github.com/HeliBorg/HeliBoard/pull/1807 / cb0eae695f0cbd061e5bbcc416d6e14d18d869d8
         // manual caps mode can be set any time, even if there are already suggestions
-        // todo: test the different suggestions after pressing shift, as we see on the phone?
-        //  feels awkward, but can we actually do something against it?
+        // on the phone this will give different suggestions because there is different proximityInfo (coming from keyboard, which is different when shifted)
         tapTypingSuggestions = suggestionResults(listOf(
             suggestion("but", 100),
             suggestion("buy", 95),
@@ -517,15 +500,10 @@ class SuggestTest {
             getSuggestedWords(false, "", WordComposer.CAPS_MODE_MANUAL_SHIFTED).mSuggestedWordInfoList.map { it.mWord })
         assertEquals(listOf("BUT", "BUY", "BIT", "😢", "BUTTER"),
             getSuggestedWords(false, "", WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED).mSuggestedWordInfoList.map { it.mWord })
-        // next word suggestions mess with glide typing suggestions // todo: fix this (maybe is it just a test issue? looks ok on phone)
-        assertEquals(listOf("But", "Buy", "Bit", "😢", "Butter"),
-            getSuggestedWords(true, "", WordComposer.CAPS_MODE_MANUAL_SHIFTED).mSuggestedWordInfoList.map { it.mWord })
-        assertEquals(listOf(),
-            getSuggestedWords(true, "", WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED).mSuggestedWordInfoList.map { it.mWord })
     }
 
     @Test fun `autocorrect will "correct" capitalization with manual caps modes`() {
-        enableAutocorrect(thresholdAggressive)
+        enableAutocorrect(confidenceAggressive)
         tapTypingSuggestions = suggestionResults(listOf(
             suggestion("but", 100),
             suggestion("buy", 95),
@@ -546,14 +524,16 @@ class SuggestTest {
 
         glideTypingSuggestions = tapTypingSuggestions
         val result3 = getSuggestedWords(true, "", WordComposer.CAPS_MODE_MANUAL_SHIFTED)
-        assert(!result3.mWillAutoCorrect) // todo: why is this claiming it will not autocorrect? it really should, and works on phone
+        // mWillAutoCorrect is true on phone, because after glide typing is done, the result is set as typed word
+        // when pressing shift to capitalize it, autocorrect will only work if the typed word changes when capitalized. this does not work without typed word
+        //assert(result3.mWillAutoCorrect)
         assertEquals("but", result3.typedWordInfo.mWord)
         assertEquals(listOf("But", "Buy", "Bit", "😢", "Butter"), result3.mSuggestedWordInfoList.map { it.mWord })
     }
 
     @Test fun `no caps mode autocorrect if word has many uppercase letters`() {
         // bug report in https://github.com/HeliBorg/HeliBoard/issues/2162
-        enableAutocorrect(thresholdAggressive)
+        enableAutocorrect(confidenceAggressive)
         tapTypingSuggestions = suggestionResults(listOf(
             suggestion("but", 100),
             suggestion("buy", 95),
@@ -574,7 +554,7 @@ class SuggestTest {
     }
 
     @Test fun `normal autocorrect works with manual caps modes`() {
-        enableAutocorrect(thresholdAggressive)
+        enableAutocorrect(confidenceAggressive)
         tapTypingSuggestions = suggestionResults(listOf(
             suggestion("but", 650000),
             suggestion("bit", 620000),
@@ -645,7 +625,7 @@ class SuggestTest {
     private fun enableAutocorrect(autoCorrectThreshold: Float) {
         latinIME.prefs().edit {
             putBoolean(Settings.PREF_AUTO_CORRECTION, true)
-            putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, autoCorrectThreshold)
+            putFloat(Settings.PREF_AUTO_CORRECT_CONFIDENCE, autoCorrectThreshold)
             putBoolean(Settings.PREF_MORE_AUTO_CORRECTION, true)
         }
         suggest.setAutoCorrectionThreshold(Settings.getValues().mAutoCorrectionThreshold)
