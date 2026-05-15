@@ -728,6 +728,10 @@ public final class InputLogic {
                 if (mSpaceState == SpaceState.PHANTOM && inputTransaction.getSettingsValues().mShiftRemovesAutospace)
                     mSpaceState = SpaceState.NONE;
                 break;
+            case KeyCode.CAPS_LOCK:
+                if (KeyboardSwitcher.getInstance().getKeyboard() == null || KeyboardSwitcher.getInstance().getKeyboard().mId.isAlphabetKeyboard())
+                    inputTransaction.setRequiresUpdateSuggestions();
+                break;
             case KeyCode.SETTINGS:
                 onSettingsKeyPressed();
                 break;
@@ -864,12 +868,6 @@ public final class InputLogic {
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
             case KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
-                break;
-            case KeyCode.CAPS_LOCK:
-                if (KeyboardSwitcher.getInstance().getKeyboard() == null
-                            || KeyboardSwitcher.getInstance().getKeyboard().mId.isAlphabetKeyboard()) {
-                    inputTransaction.setRequiresUpdateSuggestions();
-                }
                 break;
             default:
                 if (KeyCode.INSTANCE.isModifier(keyCode))

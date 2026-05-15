@@ -37,13 +37,13 @@ import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.preferences.SwitchPreferenceWithEmojiDictWarning
 import helium314.keyboard.latin.utils.previewDark
 import androidx.core.content.edit
 import helium314.keyboard.keyboard.internal.PopupKeySpec
+import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.TextInputPreference
 
 @Composable
@@ -65,7 +65,7 @@ fun TextCorrectionScreen(
         Settings.PREF_AUTO_CORRECTION,
         if (autocorrectEnabled) Settings.PREF_MORE_AUTO_CORRECTION else null,
         if (autocorrectEnabled) Settings.PREF_AUTOCORRECT_SHORTCUTS else null,
-        if (autocorrectEnabled) Settings.PREF_AUTO_CORRECT_THRESHOLD else null,
+        if (autocorrectEnabled) Settings.PREF_AUTO_CORRECT_CONFIDENCE else null,
         if (autocorrectEnabled) Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT else null,
         Settings.PREF_AUTO_CAP,
         R.string.settings_category_space,
@@ -130,14 +130,21 @@ fun createCorrectionSettings(context: Context) = listOf(
     ) {
         SwitchPreference(it, Defaults.PREF_AUTOCORRECT_SHORTCUTS)
     },
-    Setting(context, Settings.PREF_AUTO_CORRECT_THRESHOLD, R.string.auto_correction_confidence) {
-        val items = listOf(
-            stringResource(R.string.auto_correction_threshold_mode_modest) to 0.185f,
-            stringResource(R.string.auto_correction_threshold_mode_aggressive) to 0.067f,
-            stringResource(R.string.auto_correction_threshold_mode_very_aggressive) to -1f,
+    Setting(context, Settings.PREF_AUTO_CORRECT_CONFIDENCE, R.string.auto_correction_confidence) { setting ->
+        SliderPreference(
+            name = setting.title,
+            key = setting.key,
+            default = Defaults.PREF_AUTO_CORRECT_CONFIDENCE,
+            range = 0f..1f,
+            description = {
+                val text = when (it) {
+                    in 0f..0.40f -> stringResource(R.string.auto_correction_threshold_mode_modest)
+                    in 0f..0.80f -> stringResource(R.string.auto_correction_threshold_mode_aggressive)
+                    else -> stringResource(R.string.auto_correction_threshold_mode_very_aggressive)
+                }
+                "${(it * 1000).toInt().toFloat() / 1000} ($text)"
+            }
         )
-        // todo: consider making it a slider, and maybe somehow adjust range so we can show %
-        ListPreference(it, items, Defaults.PREF_AUTO_CORRECT_THRESHOLD)
     },
     Setting(context, Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT, R.string.backspace_reverts_autocorrect) {
         SwitchPreference(it, Defaults.PREF_BACKSPACE_REVERTS_AUTOCORRECT)

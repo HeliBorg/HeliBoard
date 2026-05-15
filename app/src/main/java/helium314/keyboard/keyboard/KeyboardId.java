@@ -317,7 +317,7 @@ public final class KeyboardId {
                 : EditorInfoCompatUtils.imeActionName(actionId);
     }
 
-    public int getKeyboardCapsMode() {
+    public int getCapsMode() {
         return switch (mElementId) {
             case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED ->
                 WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED;

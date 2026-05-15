@@ -19,7 +19,6 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLog
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -29,14 +28,12 @@ import kotlin.test.assertTrue
     ShadowInputMethodManager2::class
 ])
 class SubtypeTest {
-    private lateinit var latinIME: LatinIME
-    private lateinit var params: KeyboardParams
+    private val latinIME = Robolectric.setupService(LatinIME::class.java)
+    private val params = KeyboardParams()
 
-    @BeforeTest fun setUp() {
-        latinIME = Robolectric.setupService(LatinIME::class.java)
+    init {
         ShadowLog.setupLogging()
         ShadowLog.stream = System.out
-        params = KeyboardParams()
         params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
         params.mPopupKeyOrder.add(POPUP_KEYS_LAYOUT)
         addLocaleKeyTextsToParams(latinIME, params, POPUP_KEYS_NORMAL)

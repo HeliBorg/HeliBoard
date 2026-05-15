@@ -28,6 +28,7 @@ import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.WordData
 import helium314.keyboard.latin.utils.usePassiveGathering
 import java.util.Locale
+import kotlin.math.max
 import kotlin.math.min
 
 /**
@@ -61,7 +62,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                           inputStyle: Int, sequenceNumber: Int): SuggestedWords =
         if (wordComposer.isBatchMode) {
             getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
-                inputStyle, sequenceNumber)
+                inputStyle, isCorrectionEnabled, sequenceNumber)
         } else {
             getSuggestedWordsForNonBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
                 inputStyle, isCorrectionEnabled, sequenceNumber)
@@ -79,14 +80,14 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             else mDictionaryFacilitator.getSuggestionResults(wordComposer.composedDataSnapshot, ngramContext, keyboard,
                 settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction)
         val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
-        val suggestionsContainer = getTransformedSuggestedWordInfoList(wordComposer, suggestionResults,
-            trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale, keyboard)
-        val keyboardShiftMode = keyboard.mId.keyboardCapsMode
-        val capitalizedTypedWord = capitalize(typedWordString, keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED,
-            keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED, mDictionaryFacilitator.mainLocale)
+        val capsMode = getCapsModeForTyping(wordComposer, keyboard)
+        val suggestionsContainer = getTransformedSuggestedWordInfoList(capsMode, suggestionResults,
+            trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale)
+        val capitalizedTypedWord = capitalize(typedWordString, capsMode, mDictionaryFacilitator.mainLocale)
 
         // store the original SuggestedWordInfo for typed word, as it will be removed
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
+        // we check against the capitalizedTypedWord because getTransformedSuggestedWordInfoList adjusts for capsMode
         val typedWordFirstOccurrenceWordInfo = suggestionsContainer.firstOrNull { it.mWord == capitalizedTypedWord }
         val firstOccurrenceOfTypedWordInSuggestions = SuggestedWordInfo.removeDupsAndTypedWord(capitalizedTypedWord, suggestionsContainer)
         makeFirstTwoSuggestionsNonEmoji(suggestionsContainer)
@@ -108,10 +109,10 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             firstOccurrenceOfTypedWordInSuggestions,
             typedWordFirstOccurrenceWordInfo
         )
-         val typedWordInfo = SuggestedWordInfo(capitalizedTypedWord, "", SuggestedWordInfo.MAX_SCORE,
+        val typedWordInfo = SuggestedWordInfo(typedWordString, "", SuggestedWordInfo.MAX_SCORE,
             SuggestedWordInfo.KIND_TYPED, typedWordFirstOccurrenceWordInfo?.mSourceDict ?: Dictionary.DICTIONARY_USER_TYPED,
             SuggestedWordInfo.NOT_AN_INDEX , SuggestedWordInfo.NOT_A_CONFIDENCE)
-        if (!TextUtils.isEmpty(capitalizedTypedWord)) {
+        if (typedWordString.isNotEmpty()) {
             suggestionsContainer.add(0, typedWordInfo)
         }
         val suggestionsList = if (SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty())
@@ -129,10 +130,14 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
         // If there is an incoming autocorrection, make sure typed word is shown, so user is able to override it.
         // Otherwise, if the relevant setting is enabled, show the typed word in the middle.
-        val indexOfTypedWord = if (hasAutoCorrection) 2 else 1
-        if ((hasAutoCorrection || (Settings.getValues().mCenterSuggestionTextToEnter && !wordComposer.isResumed)
-                || capitalizedTypedWord != wordComposer.typedWord)
-            && suggestionsList.size >= indexOfTypedWord && !TextUtils.isEmpty(capitalizedTypedWord)) {
+        val typedWordWasCapitalized = capitalizedTypedWord != wordComposer.typedWord
+        val correctToCapitalizedWord = typedWordWasCapitalized && isCorrectionEnabled && wordComposer.typedWord.drop(1).none { it.isUpperCase() }
+        val indexOfTypedWord = 1 + if (hasAutoCorrection) SuggestedWords.INDEX_OF_AUTO_CORRECTION else SuggestedWords.INDEX_OF_TYPED_WORD
+        if (
+            (hasAutoCorrection
+                || (Settings.getValues().mCenterSuggestionTextToEnter && !wordComposer.isResumed)
+                || typedWordWasCapitalized
+            ) && suggestionsList.size >= indexOfTypedWord && capitalizedTypedWord.isNotEmpty()) {
             if (typedWordFirstOccurrenceWordInfo != null) {
                 addDebugInfo(typedWordFirstOccurrenceWordInfo, capitalizedTypedWord)
                 suggestionsList.add(indexOfTypedWord, typedWordFirstOccurrenceWordInfo)
@@ -144,8 +149,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             }
         }
         val isTypedWordValid = firstOccurrenceOfTypedWordInSuggestions > -1 || (!resultsArePredictions && !allowsToBeAutoCorrected)
-        return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions,
-            typedWordInfo, isTypedWordValid, hasAutoCorrection, false, inputStyle, sequenceNumber)
+        return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, typedWordInfo,
+            isTypedWordValid, hasAutoCorrection || correctToCapitalizedWord, false, inputStyle, sequenceNumber)
     }
 
     // returns [allowsToBeAutoCorrected, hasAutoCorrection]
@@ -269,7 +274,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         wordComposer: WordComposer,
         ngramContext: NgramContext, keyboard: Keyboard,
         settingsValuesForSuggestion: SettingsValuesForSuggestion,
-        inputStyle: Int, sequenceNumber: Int
+        inputStyle: Int, isCorrectionEnabled: Boolean, sequenceNumber: Int
     ): SuggestedWords {
         val suggestionResults = mDictionaryFacilitator.getSuggestionResults(
             wordComposer.composedDataSnapshot, ngramContext, keyboard,
@@ -278,28 +283,13 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
         // For transforming words that don't come from a dictionary, because it's our best bet
         val locale = mDictionaryFacilitator.mainLocale
-        val suggestionsContainer = ArrayList(suggestionResults)
+        val capsMode = getCapsModeForGesture(wordComposer, keyboard)
+        val suggestionsContainer = getTransformedSuggestedWordInfoList(capsMode, suggestionResults, 0, locale)
         replaceSingleLetterFirstSuggestion(suggestionsContainer)
-        val suggestionsCount = suggestionsContainer.size
-        val keyboardShiftMode = keyboard.mId.keyboardCapsMode
-        val shouldMakeSuggestionsOnlyFirstCharCapitalized = wordComposer.wasShiftedNoLock()
-            || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED
-        val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase
-            || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
-        if (shouldMakeSuggestionsOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase) {
-            for (i in 0 until suggestionsCount) {
-                val wordInfo = suggestionsContainer[i]
-                val wordLocale = wordInfo!!.mSourceDict.mLocale
-                val transformedWordInfo = getTransformedSuggestedWordInfo(
-                    wordInfo, wordLocale ?: locale, shouldMakeSuggestionsAllUpperCase,
-                    shouldMakeSuggestionsOnlyFirstCharCapitalized, 0
-                )
-                suggestionsContainer[i] = transformedWordInfo
-            }
-        }
+
         val rejected: SuggestedWordInfo?
         if (SHOULD_REMOVE_PREVIOUSLY_REJECTED_SUGGESTION && suggestionsContainer.size > 1 && TextUtils.equals(
-                suggestionsContainer[0]!!.mWord,
+                suggestionsContainer[0].mWord,
                 wordComposer.rejectedBatchModeSuggestion
             )
         ) {
@@ -314,14 +304,14 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // For some reason some suggestions with MIN_VALUE are making their way here.
         // TODO: Find a more robust way to detect distracters.
         for (i in suggestionsContainer.indices.reversed()) {
-            if (suggestionsContainer[i]!!.mScore < SUPPRESS_SUGGEST_THRESHOLD) {
+            if (suggestionsContainer[i].mScore < SUPPRESS_SUGGEST_THRESHOLD) {
                 suggestionsContainer.removeAt(i)
             }
         }
 
-        val capitalizedTypedWord = capitalize(wordComposer.typedWord, keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED,
-            keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED, locale)
-        if (capitalizedTypedWord != wordComposer.typedWord && suggestionsContainer.drop(1).none { it.mWord == capitalizedTypedWord }) {
+        val capitalizedTypedWord = capitalize(wordComposer.typedWord, capsMode, locale)
+        val addCapitalizedSuggestion = capitalizedTypedWord != wordComposer.typedWord && suggestionsContainer.drop(1).none { it.mWord == capitalizedTypedWord }
+        if (addCapitalizedSuggestion) {
             suggestionsContainer.add(min(1, suggestionsContainer.size),
                 SuggestedWordInfo(capitalizedTypedWord, "", 0, SuggestedWordInfo.KIND_TYPED,
                     Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE)
@@ -332,10 +322,11 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
         // In the batch input mode, the most relevant suggested word should act as a "typed word"
         // (typedWordValid=true), not as an "auto correct word" (willAutoCorrect=false).
+        // Exception is when using shift to change capitalization of suggestions.
         // Note that because this method is never used to get predictions, there is no need to
         // modify inputType such in getSuggestedWordsForNonBatchInput.
         val pseudoTypedWordInfo = preferNextWordSuggestion(
-            suggestionsContainer.firstOrNull(),
+            suggestionResults.firstOrNull(), // (pseudo)typed word is unchanged first suggestion
             suggestionsContainer, getNextWordSuggestions(ngramContext, keyboard, inputStyle, settingsValuesForSuggestion), rejected
         )
         val suggestionsList = if (SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty()) {
@@ -351,7 +342,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         }
 
         return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,
-            false, false, inputStyle, sequenceNumber)
+            addCapitalizedSuggestion && isCorrectionEnabled, false, inputStyle, sequenceNumber)
     }
 
     private fun useDefaultEmojiSkinTone(suggestionsList: ArrayList<SuggestedWordInfo>) {
@@ -387,24 +378,16 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         private val sLanguageToMaximumAutoCorrectionWithSpaceLength = hashMapOf(Locale.GERMAN.language to MAXIMUM_AUTO_CORRECT_LENGTH_FOR_GERMAN)
 
         private fun getTransformedSuggestedWordInfoList(
-            wordComposer: WordComposer, results: SuggestionResults,
-            trailingSingleQuotesCount: Int, defaultLocale: Locale, keyboard: Keyboard
+            capsMode: Int, results: SuggestionResults, trailingSingleQuotesCount: Int, defaultLocale: Locale
         ): ArrayList<SuggestedWordInfo> {
-            val keyboardShiftMode = keyboard.mId.keyboardCapsMode
-            val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase && !wordComposer.isResumed
-                || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
-            val shouldMakeSuggestionsOnlyFirstCharCapitalized = wordComposer.isOrWillBeOnlyFirstCharCapitalized
-                || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED
             val suggestionsContainer = ArrayList(results)
             val suggestionsCount = suggestionsContainer.size
-            if (shouldMakeSuggestionsOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase || 0 != trailingSingleQuotesCount) {
+            if (capsMode != WordComposer.CAPS_MODE_OFF || 0 != trailingSingleQuotesCount) {
                 for (i in 0 until suggestionsCount) {
                     val wordInfo = suggestionsContainer[i]
                     val wordLocale = wordInfo.mSourceDict.mLocale
                     val transformedWordInfo = getTransformedSuggestedWordInfo(
-                        wordInfo, wordLocale ?: defaultLocale,
-                        shouldMakeSuggestionsAllUpperCase, shouldMakeSuggestionsOnlyFirstCharCapitalized,
-                        trailingSingleQuotesCount
+                        wordInfo, wordLocale ?: defaultLocale, capsMode, trailingSingleQuotesCount
                     )
                     suggestionsContainer[i] = transformedWordInfo
                 }
@@ -478,20 +461,15 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                     || -1 == info.mWord.indexOf(Constants.CODE_SPACE.toChar()))
         }
 
-        // public for testing
-        fun getTransformedSuggestedWordInfo(
-            wordInfo: SuggestedWordInfo, locale: Locale, isAllUpperCase: Boolean,
-            isOnlyFirstCharCapitalized: Boolean, trailingSingleQuotesCount: Int
+        private fun getTransformedSuggestedWordInfo(
+            wordInfo: SuggestedWordInfo, locale: Locale, capsMode: Int, trailingSingleQuotesCount: Int
         ): SuggestedWordInfo {
-            var capitalizedWord = capitalize(wordInfo.mWord, isAllUpperCase, isOnlyFirstCharCapitalized, locale)
+            var capitalizedWord = capitalize(wordInfo.mWord, capsMode, locale)
             // Appending quotes is here to help people quote words. However, it's not helpful
             // when they type words with quotes toward the end like "it's" or "didn't", where
             // it's more likely the user missed the last character (or didn't type it yet).
-            val quotesToAppend = (trailingSingleQuotesCount
-                    - if (-1 == wordInfo.mWord.indexOf(Constants.CODE_SINGLE_QUOTE.toChar())) 0 else 1)
-            for (i in quotesToAppend - 1 downTo 0) {
-                capitalizedWord = "$capitalizedWord'"
-            }
+            val quotesToAppend = trailingSingleQuotesCount - if (wordInfo.mWord.contains('\'')) 1 else 0
+            repeat(max(0, quotesToAppend)) { capitalizedWord += '\'' }
             return SuggestedWordInfo(
                 capitalizedWord, wordInfo.mPrevWordsContext,
                 wordInfo.mScore, wordInfo.mKindAndFlags,
@@ -500,14 +478,34 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             )
         }
 
-        private fun capitalize(word: String, isAllUpperCase: Boolean, isOnlyFirstCharCapitalized: Boolean, locale: Locale) =
-            if (isAllUpperCase) {
-                word.uppercase(locale)
-            } else if (isOnlyFirstCharCapitalized) {
-                StringUtils.capitalizeFirstCodePoint(word, locale)
-            } else {
-                word
-            }
+        /** returns CAPS_MODE_MANUAL_SHIFTED, CAPS_MODE_MANUAL_SHIFT_LOCKED, or CAPS_MODE_OFF */
+        private fun getCapsModeForTyping(wordComposer: WordComposer, keyboard: Keyboard): Int {
+            val capsMode = keyboard.mId.capsMode
+            if (capsMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED || capsMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED)
+                return capsMode
+            // we have some auto-mode which we ignore
+            // instead we determine mode from the typed word (that's how it was done for a long time, todo: maybe adjust if necessary?)
+            if (wordComposer.isAllUpperCase && !wordComposer.isResumed) return WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
+            if (wordComposer.isOrWillBeOnlyFirstCharCapitalized) return WordComposer.CAPS_MODE_MANUAL_SHIFTED
+            return WordComposer.CAPS_MODE_OFF
+        }
+
+        /** returns CAPS_MODE_MANUAL_SHIFTED, CAPS_MODE_MANUAL_SHIFT_LOCKED, or CAPS_MODE_OFF */
+        // maybe could check the details in differences to getCapsModeForTyping and unify?
+        private fun getCapsModeForGesture(wordComposer: WordComposer, keyboard: Keyboard): Int {
+            val capsMode = keyboard.mId.capsMode
+            if (capsMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED || capsMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED)
+                return capsMode
+            if (wordComposer.isAllUpperCase) return WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
+            if (wordComposer.wasShiftedNoLock()) return WordComposer.CAPS_MODE_MANUAL_SHIFTED
+            return WordComposer.CAPS_MODE_OFF
+        }
+
+        private fun capitalize(word: String, capsMode: Int, locale: Locale) = when (capsMode) {
+            WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED -> word.uppercase(locale)
+            WordComposer.CAPS_MODE_MANUAL_SHIFTED -> StringUtils.capitalizeFirstCodePoint(word, locale)
+            else -> word
+        }
 
         private fun makeFirstTwoSuggestionsNonEmoji(words: MutableList<SuggestedWordInfo>) {
             for (i in 0..1) {

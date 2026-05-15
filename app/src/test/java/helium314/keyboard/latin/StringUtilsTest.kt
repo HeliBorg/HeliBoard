@@ -11,7 +11,6 @@ import helium314.keyboard.latin.common.getFullEmojiAtEnd
 import helium314.keyboard.latin.common.getTouchedWordRange
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.common.isSingleGrapheme
-import helium314.keyboard.latin.common.lastGrapheme
 import helium314.keyboard.latin.common.moveStepsToCharCount
 import helium314.keyboard.latin.common.nonWordCodePointAndNoSpaceBeforeCursor
 import helium314.keyboard.latin.common.splitOnWhitespace
@@ -21,7 +20,6 @@ import helium314.keyboard.latin.utils.TextRange
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import kotlin.system.measureTimeMillis
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -159,7 +157,7 @@ class StringUtilsTest {
 
     @Test fun detectEmojisAtEndFails() {
         if (BuildConfig.BUILD_TYPE == "runTests") return
-        // fails, but unlikely enough that we leave it unfixed
+        // fails, but unlikely enough that we leave it unfixed (issue is that 🏼 is not a standalone emoji, but combining with 🎄 doesn't merge)
         assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd("\uD83C\uDF84\uD83C\uDFFC")) // 🎄🏼
     }
 

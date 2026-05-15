@@ -541,7 +541,7 @@ private object AppUpgrade {
                     "2" -> -1f
                     else -> 0.185f
                 }
-                prefs.edit { remove("auto_correction_confidence").putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, value) }
+                prefs.edit { remove("auto_correction_confidence").putFloat("auto_correct_threshold", value) }
             }
         }
         if (oldVersion <= 2310) {
@@ -669,6 +669,17 @@ private object AppUpgrade {
                     putString(Settings.PREF_SPACE_HORIZONTAL_SWIPE, prefs.getString(Settings.PREF_SPACE_HORIZONTAL_SWIPE, "")!!.uppercase())
                 if (prefs.contains(Settings.PREF_SPACE_VERTICAL_SWIPE))
                     putString(Settings.PREF_SPACE_VERTICAL_SWIPE, prefs.getString(Settings.PREF_SPACE_VERTICAL_SWIPE, "")!!.uppercase())
+            }
+            if (prefs.contains("auto_correct_threshold")) {
+                val newValue = when (prefs.getFloat("auto_correct_threshold", 0f)) {
+                    in -2f..0f -> 1f
+                    in 0f..0.1f -> 0.65f
+                    else -> 0.24f
+                }
+                prefs.edit {
+                    remove("auto_correct_threshold")
+                    putFloat(Settings.PREF_AUTO_CORRECT_CONFIDENCE, newValue)
+                }
             }
         }
         upgradeToolbarPrefs(prefs)
