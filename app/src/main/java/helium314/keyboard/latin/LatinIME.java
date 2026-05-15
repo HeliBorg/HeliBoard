@@ -798,6 +798,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onFinishInput() {
         mHandler.onFinishInput();
+        PassiveGatheringCache.saveOrClear(this);
     }
 
     @Override

@@ -210,7 +210,6 @@ public final class InputLogic {
      * Clean up the input logic after input is finished.
      */
     public void finishInput() {
-        PassiveGatheringCache.saveOrClear(mLatinIME);
         if (mWordComposer.isComposingWord()) {
             mConnection.finishComposingText();
             StatsUtils.onWordCommitUserTyped(mWordComposer.getTypedWord(), mWordComposer.isBatchMode());
