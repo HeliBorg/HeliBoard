@@ -295,6 +295,8 @@ class WordData(
             return false // don't save in incognito mode
         if (!activeMode && !GestureDataGatheringSettings.isPassiveGatheringEnabled(context.prefs()))
             return false
+        if ((targetWord ?: usedWord)?.contains(' ') == true) // no support for SPACE_AWARE_GESTURE
+            return false
         if (!activeMode && GestureDataGatheringSettings.isForbiddenForDataGathering(packageName, context))
             return false // package ignored (we should never come here for blocked apps, but better be safe)
         val inputAttributes = InputAttributes(keyboard.mId.mEditorInfo, false, "")
