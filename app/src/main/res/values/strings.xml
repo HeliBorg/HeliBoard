@@ -1135,7 +1135,8 @@ New dictionary:
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_passive_gathering_info_message">
         Turning on passive data gathering may potentially record any word you enter using gesture typing.
-        This is very useful for the gesture typing project as it can produce a considerable amount of data, but at the same time has high potential of giving away data you may consider be too sensitive even for anonymized publishing.
+        This is very useful for the gesture typing project as it can produce a considerable amount of data, albeit at lower quality than active gathering.\n
+        Passive gathering has high potential of giving away data you may consider be too sensitive even for anonymized publishing.
         For this reason we want to clarify when gesture data is being gathered, and how you can influence it.
     </string>
     <!-- Title for info dialog section about passive data gathering indicator
@@ -1193,6 +1194,7 @@ New dictionary:
         Using &lt;i&gt;%1$s&lt;/i&gt; you can check and filter the gathered data, delete data you consider too sensitive, and share data.
         The delete and share buttons will operate on the filtered data, or on the selection if you use long-press to select words.
         (Note that the \"normal\" share icon at the bottom will only share data from active gathering.)&lt;br&gt;
+        The order of shared data is randomized, so nothing more than the individual words can be deduced.&lt;br&gt;
         If you want to view the full data that is stored for a gesture, you can share it to a file, and load the file in &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.
     </string>
     <!-- Button for opening app selection for passive data gathering
