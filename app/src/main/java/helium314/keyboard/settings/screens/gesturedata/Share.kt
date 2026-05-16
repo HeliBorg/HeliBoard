@@ -96,6 +96,7 @@ fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Un
     } else if (exportStarted) {
         Text(stringResource(R.string.gesture_data_saving, exportedPercent))
     } else {
+        Text(stringResource(R.string.gesture_data_share_duplicate))
         // share file, but only to mail apps
         ButtonWithText(
             stringResource(R.string.gesture_data_send_mail),
@@ -108,13 +109,11 @@ fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Un
                 ctx.startActivity(createSendIntentChooser(ctx))
             }
         }
-
         // get file
         ButtonWithText(stringResource(R.string.gesture_data_get_data), enabled = hasData) {
             getDataPicker.launch(getDataIntent)
             exportStarted = true
         }
-
         // copy mail address to clipboard, in case user doesn't use the mail intent
         val clip = LocalClipboard.current
         ButtonWithText(stringResource(R.string.gesture_data_copy_mail)) {

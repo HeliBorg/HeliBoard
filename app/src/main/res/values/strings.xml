@@ -1001,9 +1001,14 @@ New dictionary:
     <!-- Button for copying the target mail address
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_copy_mail">Copy email address</string>
-    <!-- Button for copying the target mail address
+    <!-- Comment about mail address shown when sharing data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_mail_use">Note that the email address is intended for data submissions, you may not get fast or consistent replies.</string>
+    <!-- Info text shown when sharing data
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_share_duplicate">You can share already submitted data again, in case you\'re not sure it was received correctly.
+        We detect and remove duplicates when processing the data.
+    </string>
     <!-- Text requesting the user to gesture a word
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_please_type">Please gesture type:</string>
