@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -387,10 +385,6 @@ private fun BottomBar(
                         { onChanged() },
                         { onChanged(); showExportDialog = false }
                     )
-                    if (ids.size >= 10000) {
-                        Spacer(Modifier.height(6.dp))
-                        Text(stringResource(R.string.gesture_data_share_limit, 10000))
-                    }
                 }
             },
             cancelButtonText = stringResource(R.string.dialog_close),

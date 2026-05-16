@@ -12,18 +12,23 @@ import android.os.ParcelFileDescriptor
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
@@ -56,21 +61,41 @@ fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Un
     var exportStarted by remember { mutableStateOf(false) }
     var exportDone by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope { Dispatchers.IO }
+    var exportedPercent by remember { mutableIntStateOf(0) }
     LaunchedEffect(exportStarted) {
         if (exportStarted) {
             // wait until exported data is marked, then offer to delete
             gestureIdsBeingExported = ids
             scope.launch {
                 while (gestureIdsBeingExported != null) {
+                    exportedPercent = (100 * progress) / (gestureIdsBeingExported?.size ?: 100)
                     delay(50)
                 }
                 exportDone = true
+                exportStarted = false
                 onShared()
             }
         }
     }
 
-    if (!exportDone) {
+    if (exportDone) {
+        // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
+        var confirmDelete by remember { mutableStateOf(false) }
+        ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_submitted, ids.size), enabled = hasData) {
+            confirmDelete = true
+        }
+        if (confirmDelete) {
+            ConfirmationDialog(
+                onDismissRequest = { confirmDelete = false },
+                onConfirmed = { dao.delete(ids, true, ctx); onDeleted() },
+                content = {
+                    Text(stringResource(R.string.delete_confirmation, ids.size))
+                }
+            )
+        }
+    } else if (exportStarted) {
+        Text(stringResource(R.string.gesture_data_saving, exportedPercent))
+    } else {
         // share file, but only to mail apps
         ButtonWithText(
             stringResource(R.string.gesture_data_send_mail),
@@ -96,20 +121,9 @@ fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Un
             scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", deobfuscateEmail(ctx)))) }
         }
         Text(stringResource(R.string.gesture_data_mail_use))
-    } else {
-        // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
-        var confirmDelete by remember { mutableStateOf(false) }
-        ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_submitted, ids.size), enabled = hasData) {
-            confirmDelete = true
-        }
-        if (confirmDelete) {
-            ConfirmationDialog(
-                onDismissRequest = { confirmDelete = false },
-                onConfirmed = { dao.delete(ids, true, ctx); onDeleted() },
-                content = {
-                    Text(stringResource(R.string.delete_confirmation, ids.size))
-                }
-            )
+        if (ids.size >= 10000) {
+            Spacer(Modifier.height(6.dp))
+            Text(stringResource(R.string.gesture_data_share_limit, 10000))
         }
     }
 }
@@ -171,13 +185,17 @@ private fun getZipFileUri(context: Context) : Uri =
 @Composable
 private fun getData(ids: List<Long>): ManagedActivityResultLauncher<Intent, ActivityResult> {
     val ctx = LocalContext.current
+    val scope = rememberCoroutineScope { Dispatchers.IO }
     return filePicker { uri ->
         val dao = GestureDataDao.getInstance(ctx) ?: return@filePicker
-        ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
-            writeOutputToZipStream(dao.getJsonData(ids, ctx), getGestureDataFileName(ctx), os)
+        scope.launch {
+            ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
+                writeOutputToZipStream(dao.getJsonData(ids, ctx), getGestureDataFileName(ctx), os)
+            }
+            dao.markAsExported(ids, ctx)
+            gestureIdsBeingExported = null
+            progress = 0
         }
-        dao.markAsExported(ids, ctx)
-        gestureIdsBeingExported = null
     }
 }
 
@@ -205,6 +223,7 @@ private fun writeOutputToZipStream(jsonEntries: Sequence<String>, fileName: Stri
             writer.append(",\n")
         writer.append(it)
         started = true
+        ++progress
     }
     writer.append("\n]")
     writer.close()
@@ -254,6 +273,8 @@ class GestureFileProvider : FileProvider() {
 }
 
 private var gestureIdsBeingExported: List<Long>? = null
+
+private var progress: Int = 0
 
 private var zippedDataPath = "" // set after writing the file
 

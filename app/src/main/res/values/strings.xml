@@ -1227,6 +1227,10 @@ New dictionary:
     <!-- Review screen text indicating the word is already submitted
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_shared">submitted</string>
+    <!-- Text shown while gesture data is being written, may take up to 30s with 10000 words and a slow phone
+     %s is percent already written
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_saving">Saving… %s%</string>
 
     <!-- new strings should go above the section for gesture data gathering -->
 </resources>

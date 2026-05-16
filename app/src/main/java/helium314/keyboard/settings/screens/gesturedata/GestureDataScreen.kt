@@ -537,8 +537,6 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                         ButtonWithText(stringResource(R.string.gesture_data_share_all, totalCount), enabled = totalCount > 0) {
                             shareAll = true
                         }
-                        if (totalCount > 10000)
-                            Text(stringResource(R.string.gesture_data_share_limit, 10000))
                     }
                 } else {
                     val toShare = dao.filterInfos(
