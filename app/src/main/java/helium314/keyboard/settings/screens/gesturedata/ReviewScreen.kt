@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -130,7 +132,7 @@ fun ReviewScreen(
             {
                 val toShare = if (selected.isEmpty()) gestureDataInfos else gestureDataInfos.filter { it.id in selected }
                 val toIgnore = GestureDataGatheringSettings.getWordExclusions(ctx)
-                toShare.filterNot { it.targetWord in toIgnore }.map { it.id }
+                toShare.filterNot { it.targetWord in toIgnore }.map { it.id }.take(10000)
             },
             ::reloadGestureDataInfos,
             {
@@ -378,11 +380,18 @@ private fun BottomBar(
         ThreeButtonAlertDialog(
             onDismissRequest = { showExportDialog = false },
             content = {
-                Column { ShareGestureData(
-                    getExportIds(),
-                    { onChanged() },
-                    { onChanged(); showExportDialog = false }
-                ) }
+                Column {
+                    val ids = getExportIds()
+                    ShareGestureData(
+                        ids,
+                        { onChanged() },
+                        { onChanged(); showExportDialog = false }
+                    )
+                    if (ids.size >= 10000) {
+                        Spacer(Modifier.height(6.dp))
+                        Text(stringResource(R.string.gesture_data_share_limit, 10000))
+                    }
+                }
             },
             cancelButtonText = stringResource(R.string.dialog_close),
             onConfirmed = { },
