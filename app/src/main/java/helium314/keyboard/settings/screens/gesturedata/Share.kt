@@ -47,7 +47,7 @@ import java.util.zip.ZipOutputStream
 // will be removed once the project is finished
 
 @Composable
-fun ShareGestureData(ids: List<Long>, onShared: () -> Unit) {
+fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Unit) {
     val ctx = LocalContext.current
     val dao = GestureDataDao.getInstance(ctx)!!
     val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
@@ -105,7 +105,7 @@ fun ShareGestureData(ids: List<Long>, onShared: () -> Unit) {
         if (confirmDelete) {
             ConfirmationDialog(
                 onDismissRequest = { confirmDelete = false },
-                onConfirmed = { dao.delete(ids, true, ctx) },
+                onConfirmed = { dao.delete(ids, true, ctx); onDeleted() },
                 content = {
                     Text(stringResource(R.string.delete_confirmation, ids.size))
                 }

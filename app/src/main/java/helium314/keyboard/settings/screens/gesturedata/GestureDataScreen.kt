@@ -188,7 +188,7 @@ fun GestureDataScreen(
                     Column {
                         Text(message)
                         if (infos.isNotEmpty())
-                            ShareGestureData(infos.map { it.id }) { }
+                            ShareGestureData(infos.map { it.id }, {}) { dbActiveWordCount = dao.count(activeMode = true) }
                     }
                 },
                 cancelButtonText = stringResource(android.R.string.ok),
@@ -546,7 +546,7 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                         exported = if (shareAll == true) null else false,
                         limit = 10000 // export no more than 10k words at once due to possibly hitting mail size limits
                     )
-                    Column { ShareGestureData(toShare.map { it.id }) { } }
+                    Column { ShareGestureData(toShare.map { it.id }, {}, { onDeleted(); showExportDialog = false }) }
                 }
             },
             cancelButtonText = stringResource(R.string.dialog_close),

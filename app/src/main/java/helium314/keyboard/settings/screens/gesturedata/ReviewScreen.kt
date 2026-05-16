@@ -129,8 +129,9 @@ fun ReviewScreen(
             {
                 val toShare = if (selected.isEmpty()) gestureDataInfos else gestureDataInfos.filter { it.id in selected }
                 val toIgnore = GestureDataGatheringSettings.getWordExclusions(ctx)
-                Column { ShareGestureData(toShare.filterNot { it.targetWord in toIgnore }.map { it.id }, ::reloadGestureDataInfos) }
+                toShare.filterNot { it.targetWord in toIgnore }.map { it.id }
             },
+            ::reloadGestureDataInfos,
             {
                 val ids = selected.ifEmpty { gestureDataInfos.map { it.id } }
                 dao.delete(ids, false, ctx)
@@ -298,7 +299,8 @@ private fun BottomBar(
     setSortByName: (Boolean) -> Unit,
     reverseSort: Boolean,
     setReverseSort: (Boolean) -> Unit,
-    export: @Composable () -> Unit,
+    getExportIds: () -> List<Long>,
+    onChanged: () -> Unit,
     delete: () -> Unit
 ) {
     var showExportDialog by remember { mutableStateOf(false) }
@@ -373,7 +375,13 @@ private fun BottomBar(
     if (showExportDialog) {
         ThreeButtonAlertDialog(
             onDismissRequest = { showExportDialog = false },
-            content = export,
+            content = {
+                Column { ShareGestureData(
+                    getExportIds(),
+                    { onChanged() },
+                    { onChanged(); showExportDialog = false }
+                ) }
+            },
             cancelButtonText = stringResource(R.string.dialog_close),
             onConfirmed = { },
             confirmButtonText = null
