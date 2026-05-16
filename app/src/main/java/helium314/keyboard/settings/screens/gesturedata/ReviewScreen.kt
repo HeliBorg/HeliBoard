@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -23,8 +22,6 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,10 +33,8 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -105,7 +100,7 @@ fun ReviewScreen(
 
     // all that filtering stuff
     var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
-    var reverseSort: Boolean by rememberSaveable { mutableStateOf(false) }
+    var reverseSort: Boolean by rememberSaveable { mutableStateOf(true) }
     var includeActive by rememberSaveable { mutableStateOf(false) }
     var includePassive by rememberSaveable { mutableStateOf(true) }
     var includeExported by rememberSaveable { mutableStateOf(false) }
@@ -427,50 +422,6 @@ private fun GestureDataEntry(
                     }
                 }
             )
-    }
-}
-
-// copied from https://developer.android.com/develop/ui/compose/components/datepickers
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun DateRangePickerModal(
-    onDateRangeSelected: (Pair<Long?, Long?>) -> Unit,
-    onDismiss: () -> Unit
-) {
-    val pickerState = rememberDateRangePickerState()
-
-    DatePickerDialog(
-        onDismissRequest = onDismiss,
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    onDateRangeSelected(pickerState.selectedStartDateMillis to pickerState.selectedEndDateMillis)
-                    onDismiss()
-                }
-            ) {
-                Text(stringResource(android.R.string.ok))
-            }
-        },
-        dismissButton = {
-            Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth(0.7f)) {
-                TextButton(onClick = { onDateRangeSelected(null to null); onDismiss() }) {
-                    Text(stringResource(R.string.delete))
-                }
-                TextButton(onClick = onDismiss) {
-                    Text(stringResource(android.R.string.cancel))
-                }
-            }
-        }
-    ) {
-        DateRangePicker(
-            state = pickerState,
-            title = { Text(stringResource(R.string.gesture_data_date_range)) },
-            showModeToggle = false,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(500.dp)
-                .padding(16.dp)
-        )
     }
 }
 
