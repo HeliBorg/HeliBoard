@@ -90,7 +90,6 @@ fun ReviewScreen(
     var selected by rememberSaveable { mutableStateOf(listOf<Long>()) }
     var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
-    val wordcount = if (selected.isNotEmpty()) selected.size else gestureDataInfos.size
 
     // all that filtering stuff
     var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
@@ -123,7 +122,7 @@ fun ReviewScreen(
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = { BottomBar(
-            wordcount,
+            if (selected.isNotEmpty()) selected.size else gestureDataInfos.size,
             sortByName,
             { sortByName = it },
             reverseSort,
