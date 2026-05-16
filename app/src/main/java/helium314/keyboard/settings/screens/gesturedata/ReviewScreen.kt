@@ -77,22 +77,12 @@ import java.util.Date
 // functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
 // will be removed once the project is finished
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReviewScreen(
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
     val dao = GestureDataDao.getInstance(ctx)!!
-    val buttonColors = ButtonColors(
-        containerColor = Color.Transparent,
-        contentColor = MaterialTheme.colorScheme.onSurface,
-        disabledContainerColor = Color.Transparent,
-        disabledContentColor = MaterialTheme.colorScheme.surfaceVariant
-    )
-    var showExportDialog by remember { mutableStateOf(false) }
-    var showDeleteDialog by remember { mutableStateOf(false) }
-    var infoDialog by remember { mutableStateOf(false) }
     var selected by rememberSaveable { mutableStateOf(listOf<Long>()) }
     var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
@@ -128,69 +118,24 @@ fun ReviewScreen(
     }
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
-        bottomBar = {
-            BottomAppBar(
-                actions = {
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Button(
-                            { showDeleteDialog = true},
-                            colors = buttonColors,
-                            modifier = Modifier.weight(1f),
-                            enabled = wordcount > 0
-                        ) {
-                            Column {
-                                Icon(
-                                    painterResource(R.drawable.ic_bin),
-                                    stringResource(R.string.delete),
-                                    Modifier.align(Alignment.CenterHorizontally).size(30.dp)
-                                )
-                                Text(stringResource(R.string.gesture_data_words_selected, wordcount))
-                            }
-                        }
-                        Button(
-                            { showExportDialog = true},
-                            colors = buttonColors,
-                            modifier = Modifier.weight(1f),
-                            enabled = wordcount > 0
-                        ) {
-                            Column {
-                                Icon(
-                                    painterResource(R.drawable.ic_share),
-                                    "share",
-                                    Modifier.align(Alignment.CenterHorizontally).size(30.dp)
-                                )
-                                Text(stringResource(R.string.gesture_data_words_selected, wordcount))
-                            }
-                        }
-                        IconButton(
-                            onClick = {
-                                if (sortByName) reverseSort = !reverseSort
-                                else sortByName = true
-                            }
-                        ) {
-                            Icon(
-                                painterResource(R.drawable.ic_sort_alphabetically),
-                                "sort alphabetically"
-                            )
-                        }
-                        IconButton(
-                            onClick = {
-                                if (!sortByName) reverseSort = !reverseSort
-                                else sortByName = false
-                            }
-                        ) {
-                            Icon(
-                                painterResource(R.drawable.ic_sort_chronologically),
-                                "sort chronologically"
-                            )
-                        }
-                    }
-                }
-            )
-        }
+        bottomBar = { BottomBar(
+            wordcount,
+            sortByName,
+            { sortByName = it },
+            reverseSort,
+            { reverseSort = it },
+            {
+                val toShare = if (selected.isEmpty()) gestureDataInfos else gestureDataInfos.filter { it.id in selected }
+                val toIgnore = GestureDataGatheringSettings.getWordExclusions(ctx)
+                Column { ShareGestureData(toShare.filterNot { it.targetWord in toIgnore }.map { it.id }) }
+                reloadGestureDataInfos()
+            },
+            {
+                val ids = selected.ifEmpty { gestureDataInfos.map { it.id } }
+                dao.delete(ids, false, ctx)
+                reloadGestureDataInfos()
+            }
+        )}
     ) { innerPadding ->
         @Composable fun dataColumn() {
             val wordListState = LazyListState()
@@ -234,57 +179,14 @@ fun ReviewScreen(
                 LaunchedEffect(reverseSort, sortByName) {
                     setAndSortWords(gestureDataInfos)
                 }
-                TopAppBar( // not in the scaffold, thus will not cover data column in wide screen layout
-                    title = { Text(stringResource(R.string.gesture_data_review_screen_title)) },
-                    navigationIcon = {
-                        IconButton(onClick = onClickBack) {
-                            Icon(
-                                painterResource(R.drawable.ic_arrow_back),
-                                stringResource(R.string.spoken_description_action_previous)
-                            )
-                        }
-                    },
-                    actions = {
-                        Box {
-                            var showMenu by remember { mutableStateOf(false) }
-                            IconButton(
-                                onClick = { showMenu = true }
-                            ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
-                            DropdownMenu(
-                                expanded = showMenu,
-                                onDismissRequest = { showMenu = false }
-                            ) {
-                                DropdownMenuItem(
-                                    text = { Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Checkbox(includeActive, { includeActive = it })
-                                        Text(stringResource(R.string.gesture_data_show_active))
-                                    } },
-                                    onClick = { showMenu = false; includeActive = !includeActive }
-                                )
-                                DropdownMenuItem(
-                                    text = { Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Checkbox(includePassive, { includePassive = it })
-                                        Text(stringResource(R.string.gesture_data_show_passive))
-                                    } },
-                                    onClick = { showMenu = false; includePassive = !includePassive }
-                                )
-                                DropdownMenuItem(
-                                    text = { Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Checkbox(includeExported, { includeExported = it })
-                                        Text(stringResource(R.string.gesture_data_include_shared))
-                                    } },
-                                    onClick = { showMenu = false; includeExported = !includeExported }
-                                )
-                                DropdownMenuItem(
-                                    text = { Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Checkbox(false, { showMenu = false; infoDialog = true }, Modifier.alpha(0f)) // just for alignment
-                                        Text(stringResource(R.string.gesture_data_passive_gathering_info))
-                                    } },
-                                    onClick = { showMenu = false; infoDialog = true }
-                                )
-                            }
-                        }
-                    }
+                TopBar(
+                    onClickBack,
+                    includeActive,
+                    { includeActive = it },
+                    includePassive,
+                    { includePassive = it },
+                    includeExported,
+                    { includeExported = it }
                 )
                 var showDateRangePicker by remember { mutableStateOf(false) }
                 val df = DateFormat.getDateInstance(DateFormat.SHORT)
@@ -319,41 +221,6 @@ fun ReviewScreen(
             HorizontalDivider()
             dataColumn()
         }
-        if (showExportDialog) {
-            ThreeButtonAlertDialog(
-                onDismissRequest = { showExportDialog = false },
-                content = {
-                    val toShare = if (selected.isEmpty()) gestureDataInfos else gestureDataInfos.filter { it.id in selected }
-                    val toIgnore = GestureDataGatheringSettings.getWordExclusions(ctx)
-                    Column { ShareGestureData(toShare.filterNot { it.targetWord in toIgnore }.map { it.id }) }
-                    reloadGestureDataInfos()
-                },
-                cancelButtonText = stringResource(R.string.dialog_close),
-                onConfirmed = { },
-                confirmButtonText = null
-            )
-        }
-        if (showDeleteDialog) {
-            ConfirmationDialog(
-                onDismissRequest = { showDeleteDialog = false },
-                onConfirmed = {
-                    val ids = selected.ifEmpty { gestureDataInfos.map { it.id } }
-                    dao.delete(ids, false, ctx)
-                    reloadGestureDataInfos()
-                },
-                content = {
-                    Text(stringResource(R.string.gesture_data_delete_dialog_all, wordcount))
-                }
-            )
-        }
-        if (infoDialog) {
-            val text = stringResource(
-                R.string.gesture_data_passive_gathering_review_message,
-                stringResource(R.string.gesture_data_review_screen_title),
-                Links.SWIPE_O_SCOPE
-            )
-            InfoDialog(AnnotatedString.fromHtml(text)) { infoDialog = false }
-        }
     }
 }
 
@@ -385,17 +252,14 @@ private fun GestureDataEntry(
         )
         val time = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM)
             .format(Date(gestureDataInfo.timestamp))
+        // todo: resource strings
         val mode = if (gestureDataInfo.activeMode) "active" else "passive"
         val exportedExtra = if (gestureDataInfo.exported) ", exported" else ""
-        // CompositionLocalProvider vs setting style?
         CompositionLocalProvider(
             LocalTextStyle provides MaterialTheme.typography.bodySmall,
             LocalContentColor provides if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
         ) {
-            Text(
-                text = "$time, $mode$exportedExtra",
-                modifier = Modifier.padding(top = 2.dp)
-            )
+            Text(text = "$time, $mode$exportedExtra", modifier = Modifier.padding(top = 2.dp))
         }
     }
     if (showDetails) {
@@ -422,6 +286,179 @@ private fun GestureDataEntry(
                     }
                 }
             )
+    }
+}
+
+@Composable
+private fun BottomBar(
+    wordcount: Int,
+    sortByName: Boolean,
+    setSortByName: (Boolean) -> Unit,
+    reverseSort: Boolean,
+    setReverseSort: (Boolean) -> Unit,
+    export: @Composable () -> Unit,
+    delete: () -> Unit
+) {
+    var showExportDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    BottomAppBar(
+        actions = {
+            val buttonColors = ButtonColors(
+                containerColor = Color.Transparent,
+                contentColor = MaterialTheme.colorScheme.onSurface,
+                disabledContainerColor = Color.Transparent,
+                disabledContentColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(
+                    { showDeleteDialog = true },
+                    colors = buttonColors,
+                    modifier = Modifier.weight(1f),
+                    enabled = wordcount > 0
+                ) {
+                    Column {
+                        Icon(
+                            painterResource(R.drawable.ic_bin),
+                            stringResource(R.string.delete),
+                            Modifier.align(Alignment.CenterHorizontally).size(30.dp)
+                        )
+                        Text(stringResource(R.string.gesture_data_words_selected, wordcount))
+                    }
+                }
+                Button(
+                    { showExportDialog = true },
+                    colors = buttonColors,
+                    modifier = Modifier.weight(1f),
+                    enabled = wordcount > 0
+                ) {
+                    Column {
+                        Icon(
+                            painterResource(R.drawable.ic_share),
+                            "share",
+                            Modifier.align(Alignment.CenterHorizontally).size(30.dp)
+                        )
+                        Text(stringResource(R.string.gesture_data_words_selected, wordcount))
+                    }
+                }
+                IconButton(
+                    onClick = {
+                        if (sortByName) setReverseSort(!reverseSort)
+                        else setSortByName(true)
+                    }
+                ) {
+                    Icon(
+                        painterResource(R.drawable.ic_sort_alphabetically),
+                        "sort alphabetically"
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        if (!sortByName) setReverseSort(!reverseSort)
+                        else setSortByName(false)
+                    }
+                ) {
+                    Icon(
+                        painterResource(R.drawable.ic_sort_chronologically),
+                        "sort chronologically"
+                    )
+                }
+            }
+        }
+    )
+    if (showExportDialog) {
+        ThreeButtonAlertDialog(
+            onDismissRequest = { showExportDialog = false },
+            content = export,
+            cancelButtonText = stringResource(R.string.dialog_close),
+            onConfirmed = { },
+            confirmButtonText = null
+        )
+    }
+    if (showDeleteDialog) {
+        ConfirmationDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            onConfirmed = delete,
+            content = {
+                Text(stringResource(R.string.gesture_data_delete_dialog_all, wordcount))
+            }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TopBar(
+    onClickBack: () -> Unit,
+    includeActive: Boolean,
+    setIncludeActive: (Boolean) -> Unit,
+    includePassive: Boolean,
+    setIncludePassive: (Boolean) -> Unit,
+    includeExported: Boolean,
+    setIncludeExported: (Boolean) -> Unit,
+) {
+    var infoDialog by remember { mutableStateOf(false) }
+    TopAppBar( // not in the scaffold, thus will not cover data column in wide screen layout
+        title = { Text(stringResource(R.string.gesture_data_review_screen_title)) },
+        navigationIcon = {
+            IconButton(onClick = onClickBack) {
+                Icon(
+                    painterResource(R.drawable.ic_arrow_back),
+                    stringResource(R.string.spoken_description_action_previous)
+                )
+            }
+        },
+        actions = {
+            Box {
+                var showMenu by remember { mutableStateOf(false) }
+                IconButton(
+                    onClick = { showMenu = true }
+                ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
+                DropdownMenu(
+                    expanded = showMenu,
+                    onDismissRequest = { showMenu = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(includeActive, setIncludeActive)
+                            Text(stringResource(R.string.gesture_data_show_active))
+                        } },
+                        onClick = { showMenu = false; setIncludeActive(!includeActive) }
+                    )
+                    DropdownMenuItem(
+                        text = { Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(includePassive, setIncludePassive)
+                            Text(stringResource(R.string.gesture_data_show_passive))
+                        } },
+                        onClick = { showMenu = false; setIncludePassive(!includePassive) }
+                    )
+                    DropdownMenuItem(
+                        text = { Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(includeExported, setIncludeExported)
+                            Text(stringResource(R.string.gesture_data_include_shared))
+                        } },
+                        onClick = { showMenu = false; setIncludeExported(!includeExported) }
+                    )
+                    DropdownMenuItem(
+                        text = { Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(false, { showMenu = false; infoDialog = true }, Modifier.alpha(0f)) // just for alignment
+                            Text(stringResource(R.string.gesture_data_passive_gathering_info))
+                        } },
+                        onClick = { showMenu = false; infoDialog = true }
+                    )
+                }
+            }
+        }
+    )
+    if (infoDialog) {
+        val text = stringResource(
+            R.string.gesture_data_passive_gathering_review_message,
+            stringResource(R.string.gesture_data_review_screen_title),
+            Links.SWIPE_O_SCOPE
+        )
+        InfoDialog(AnnotatedString.fromHtml(text)) { infoDialog = false }
     }
 }
 
