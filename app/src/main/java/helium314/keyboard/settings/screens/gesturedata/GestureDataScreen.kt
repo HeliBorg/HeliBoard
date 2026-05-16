@@ -148,17 +148,17 @@ fun GestureDataScreen(
     // ideally we'd move all the active gathering stuff into a separate (non-local) function,
     // but either it has issues with the floating button positioning (if they are in the function)
     // or the keyboard flashes during recomposition if they are outside the function
-    var wordFromDict by rememberSaveable { mutableStateOf<String?>(null) } // some word from the dictionary
+    var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var lastData by remember { mutableStateOf<WordData?>(null) }
-    var sessionWordCount by rememberSaveable { mutableIntStateOf(0) }
-    var dbActiveWordCount by rememberSaveable { mutableIntStateOf(dao.count(activeMode = true)) }
+    var sessionWordCount by remember { mutableIntStateOf(0) }
+    var dbActiveWordCount by remember { mutableIntStateOf(dao.count(activeMode = true)) }
     var showMuchDataDialog by rememberSaveable { mutableStateOf(true) }
     var showEndDialog by rememberSaveable { mutableStateOf(true) }
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
-    val words = rememberSaveable { mutableListOf<Pair<String, Long>>() }
+    val words = remember { mutableListOf<Pair<String, Long>>() }
     val scope = rememberCoroutineScope { Dispatchers.IO }
-    var activeGathering by rememberSaveable { mutableStateOf(false) }
+    var activeGathering by remember { mutableStateOf(false) }
     var showActiveInfoDialog by remember { mutableStateOf(false) }
     val maybeNotEnoughSpace = activeGathering && useWideLayout
     fun nextWord(save: Boolean) {
