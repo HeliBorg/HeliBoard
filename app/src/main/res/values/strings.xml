@@ -1223,7 +1223,10 @@ New dictionary:
     <string name="gesture_data_show_passive">Show passively gathered data</string>
     <!-- Review screen menu entry to display shared but not deleted gathered data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_include_shared">Include already shared data</string>
+    <string name="gesture_data_include_shared">Include already submitted data</string>
+    <!-- Review screen text indicating the word is already submitted
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_shared">submitted</string>
 
     <!-- new strings should go above the section for gesture data gathering -->
 </resources>

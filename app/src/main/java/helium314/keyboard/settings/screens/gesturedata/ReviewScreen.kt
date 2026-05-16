@@ -57,10 +57,12 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Links
+import helium314.keyboard.latin.common.decapitalize
 import helium314.keyboard.latin.utils.GestureData
 import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings
@@ -253,16 +255,17 @@ private fun GestureDataEntry(
             text = gestureDataInfo.targetWord,
             color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
         )
-        val time = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM)
-            .format(Date(gestureDataInfo.timestamp))
-        // todo: resource strings
-        val mode = if (gestureDataInfo.activeMode) "active" else "passive"
-        val exportedExtra = if (gestureDataInfo.exported) ", exported" else ""
+        val infos = listOfNotNull(
+            DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM)
+                .format(Date(gestureDataInfo.timestamp)),
+            if (gestureDataInfo.activeMode) stringResource(R.string.gesture_data_active).decapitalize(Locale.current.platformLocale) else null,
+            if (gestureDataInfo.exported) stringResource(R.string.gesture_data_shared) else null
+        ).joinToString(", ")
         CompositionLocalProvider(
             LocalTextStyle provides MaterialTheme.typography.bodySmall,
             LocalContentColor provides if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
         ) {
-            Text(text = "$time, $mode$exportedExtra", modifier = Modifier.padding(top = 2.dp))
+            Text(text = infos, modifier = Modifier.padding(top = 2.dp))
         }
     }
     if (showDetails) {
