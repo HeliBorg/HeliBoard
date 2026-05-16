@@ -153,8 +153,8 @@ object GestureDataGatheringSettings {
 
     // show a toast every 5k words, to avoid having to upload multiple files at a time because they are over their email attachment size limit
     // but don't check on every word, because getting count from DB is not free
-    fun informAboutTooManyPassiveModeWords(activeMode: Boolean, context: Context, dao: GestureDataDao) {
-        if (!activeMode || Random.nextInt() % 20 != 0) return
+    fun informAboutTooManyPassiveModeWords(context: Context, dao: GestureDataDao) {
+        if (Random.nextInt() % 20 != 0) return
         val count = dao.count(exported = false, activeMode = false)
         val nextNotifyCount = context.prefs().getInt(PREF_PASSIVE_NOTIFY_COUNT, 5000)
         if (count <= nextNotifyCount) return

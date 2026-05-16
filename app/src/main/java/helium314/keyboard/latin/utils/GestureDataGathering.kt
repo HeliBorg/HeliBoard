@@ -283,7 +283,8 @@ class WordData(
             null
         )
         scope.launch { dao.add(data, targetWord ?: usedWord, timestamp) }
-        GestureDataGatheringSettings.informAboutTooManyPassiveModeWords(activeMode, context, dao)
+        if (!activeMode)
+            scope.launch(Dispatchers.Main) { GestureDataGatheringSettings.informAboutTooManyPassiveModeWords(context, dao) }
     }
 
     // find when we should NOT save
