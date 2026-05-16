@@ -127,8 +127,7 @@ fun ReviewScreen(
             {
                 val toShare = if (selected.isEmpty()) gestureDataInfos else gestureDataInfos.filter { it.id in selected }
                 val toIgnore = GestureDataGatheringSettings.getWordExclusions(ctx)
-                Column { ShareGestureData(toShare.filterNot { it.targetWord in toIgnore }.map { it.id }) }
-                reloadGestureDataInfos()
+                Column { ShareGestureData(toShare.filterNot { it.targetWord in toIgnore }.map { it.id }, ::reloadGestureDataInfos) }
             },
             {
                 val ids = selected.ifEmpty { gestureDataInfos.map { it.id } }

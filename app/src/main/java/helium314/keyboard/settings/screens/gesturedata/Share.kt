@@ -47,10 +47,11 @@ import java.util.zip.ZipOutputStream
 // will be removed once the project is finished
 
 @Composable
-fun ShareGestureData(ids: List<Long>) {
+fun ShareGestureData(ids: List<Long>, onShared: () -> Unit) {
     val ctx = LocalContext.current
     val dao = GestureDataDao.getInstance(ctx)!!
     val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
+    val ids = remember { ids }
     val getDataPicker = getData(ids)
     var exportStarted by remember { mutableStateOf(false) }
     var exportDone by remember { mutableStateOf(false) }
@@ -64,6 +65,7 @@ fun ShareGestureData(ids: List<Long>) {
                     delay(50)
                 }
                 exportDone = true
+                onShared()
             }
         }
     }

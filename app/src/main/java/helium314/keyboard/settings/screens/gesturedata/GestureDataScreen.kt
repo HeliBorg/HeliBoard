@@ -188,7 +188,7 @@ fun GestureDataScreen(
                     Column {
                         Text(message)
                         if (infos.isNotEmpty())
-                            ShareGestureData(infos.map { it.id })
+                            ShareGestureData(infos.map { it.id }) { }
                     }
                 },
                 cancelButtonText = stringResource(android.R.string.ok),
@@ -502,7 +502,7 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                     )
                 }
                 IconButton(
-                    onClick = { showExportDialog = true},
+                    onClick = { showExportDialog = true },
                     enabled = hasWords
                 ) {
                     Icon(
@@ -511,7 +511,7 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                         Modifier.size(30.dp)
                     )
                 }
-                IconButton(onClick = { showLinks = true}) {
+                IconButton(onClick = { showLinks = true }) {
                     Icon(
                         painterResource(R.drawable.ic_link),
                         "links",
@@ -546,7 +546,7 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                         exported = if (shareAll == true) null else false,
                         limit = 10000 // export no more than 10k words at once due to possibly hitting mail size limits
                     )
-                    Column { ShareGestureData(toShare.map { it.id }) }
+                    Column { ShareGestureData(toShare.map { it.id }) { } }
                 }
             },
             cancelButtonText = stringResource(R.string.dialog_close),
