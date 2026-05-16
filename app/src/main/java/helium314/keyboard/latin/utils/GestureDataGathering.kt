@@ -182,6 +182,7 @@ private fun isPassiveGatheringUsed(context: Context, editorInfo: EditorInfo): Bo
     val isEmailField = InputTypeUtils.isEmailVariation(inputAttributes.mInputType and InputType.TYPE_MASK_VARIATION)
     if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning || isEmailField) return false
     if (GestureDataGatheringSettings.isForbiddenForDataGathering(editorInfo.packageName, context)) return false
+    if (editorInfo.privateImeOptions == "noPassive") return false // meant for review screen
     // we might not have a known dictionary, but I guess that's acceptable
     return true
 }

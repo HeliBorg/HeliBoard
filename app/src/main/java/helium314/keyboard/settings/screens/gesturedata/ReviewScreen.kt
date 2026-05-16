@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -54,6 +55,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.fromHtml
+import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -196,7 +198,8 @@ fun ReviewScreen(
                         value = filter,
                         onValueChange = { filter = it},
                         modifier = Modifier.weight(0.7f),
-                        label = { Text(stringResource(R.string.label_search_key)) }
+                        label = { Text(stringResource(R.string.label_search_key)) },
+                        keyboardOptions = KeyboardOptions(platformImeOptions = PlatformImeOptions("noPassive"))
                     )
                     Column(Modifier
                         .clickable { showDateRangePicker = true }
