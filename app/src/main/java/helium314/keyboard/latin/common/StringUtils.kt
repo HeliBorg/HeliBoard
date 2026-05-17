@@ -303,6 +303,42 @@ fun moveStepsToCharCount(text: CharSequence, steps: Int): Int {
     }
 }
 
+/** translates a move of [steps] words in [text] to character count, skipping whitespace/punctuation tokens */
+fun moveWordStepsToCharCount(text: CharSequence, steps: Int): Int {
+    if (steps == 0) return 0
+    val str = text.toString()
+    val iterator = BreakIterator.getWordInstance(Locale.ROOT)
+    iterator.setText(str)
+    if (steps > 0) {
+        var wordsLeft = steps
+        var segStart = 0
+        var segEnd = iterator.next()
+        while (segEnd != BreakIterator.DONE) {
+            if (str.substring(segStart, segEnd).any { it.isLetterOrDigit() }) {
+                wordsLeft--
+                if (wordsLeft <= 0) return segEnd
+            }
+            segStart = segEnd
+            segEnd = iterator.next()
+        }
+        return str.length
+    } else {
+        var wordsLeft = -steps
+        var segEnd = str.length
+        iterator.last()
+        var segStart = iterator.previous()
+        while (segStart != BreakIterator.DONE) {
+            if (str.substring(segStart, segEnd).any { it.isLetterOrDigit() }) {
+                wordsLeft--
+                if (wordsLeft <= 0) return segStart - str.length
+            }
+            segEnd = segStart
+            segStart = iterator.previous()
+        }
+        return -str.length
+    }
+}
+
 fun String.splitOnWhitespace() = SpacedTokens(this).toList()
 
 fun stripTrailingSeparatorsAndConnectors(word: String, spacingAndPunctuations: SpacingAndPunctuations): String {
