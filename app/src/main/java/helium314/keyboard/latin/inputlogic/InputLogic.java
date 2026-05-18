@@ -801,8 +801,11 @@ public final class InputLogic {
         if (kv != null) kv.setCombiningMode(false, 0L, 0);
         final SettingsValues sv = Settings.getInstance().getCurrent();
         if (!mWordComposer.isComposingWord()) return;
-        // Snapshot cursor BEFORE the commit so we know how many chars to undo if the user
-        // picks an alternative from the strip (keep_alternatives / alternatives_then_next_word).
+        // Snapshot the typed word's length BEFORE commit — the composing text is already in
+        // the editor (added via setComposingTextInternal during the tap/gesture path), so the
+        // commit itself doesn't move the cursor. We need the typed-word length plus whatever
+        // chars the autospace path writes to know how much to undo on a suggestion-pick.
+        final String typedWordAtCommit = mWordComposer.getTypedWord();
         final int cursorBefore = mConnection.getExpectedSelectionEnd();
         mConnection.beginBatchEdit();
         if (sv.mCombiningAutocorrectOnAutospace) {
@@ -818,7 +821,18 @@ public final class InputLogic {
         mSpaceState = SpaceState.NONE;
         mConnection.endBatchEdit();
         final int cursorAfter = mConnection.getExpectedSelectionEnd();
-        final int writtenChars = Math.max(0, cursorAfter - cursorBefore);
+        // The commit doesn't move the cursor for the composing text itself (it was already
+        // on-screen via setComposingTextInternal). The only cursor delta is from autospace
+        // (0 or 1 char). We additionally need to undo the COMMITTED word, whose length comes
+        // from mLastComposedWord.mCommittedWord — that captures the autocorrect-applied
+        // value correctly (e.g. "teh" → "the" gives 3-char committed; "u" → "you" gives
+        // 3-char committed). Fall back to the typed-word length if for any reason the last
+        // commit didn't populate mCommittedWord.
+        final int autospaceChars = Math.max(0, cursorAfter - cursorBefore);
+        final int committedLen = (mLastComposedWord != null && mLastComposedWord.mCommittedWord != null)
+                ? mLastComposedWord.mCommittedWord.length()
+                : typedWordAtCommit.length();
+        final int writtenChars = committedLen + autospaceChars;
         // Behavior selection for the suggestion strip after auto-commit:
         //   "next_word"                    : drop the just-committed-word alternatives and
         //                                     ask for next-word predictions, like a normal space.
