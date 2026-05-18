@@ -65,4 +65,20 @@ public interface DrawingProxy {
      * Dismiss a gesture floating preview text without delay.
      */
     void dismissGestureFloatingPreviewTextWithoutDelay();
+
+    /**
+     * Update the debug-points overlay (feature #2.1, gated by
+     * {@code PREF_GESTURE_DEBUG_DRAW_POINTS}). Implementations may no-op when the pref is off.
+     *
+     * @param raw the unprocessed batch pointers as seen by the keyboard layer; must not be
+     *     {@code null}.
+     * @param synthetic only the points added by {@link DualThumbHinter} on top of {@code raw}.
+     *     Pass an empty (zero-size) {@link helium314.keyboard.latin.common.InputPointers} when
+     *     no hinting was applied — the overlay then draws only the raw stream.
+     */
+    void setGestureDebugPoints(@NonNull helium314.keyboard.latin.common.InputPointers raw,
+            @NonNull helium314.keyboard.latin.common.InputPointers synthetic);
+
+    /** Clear the debug-points overlay (e.g. on gesture start or cancel). */
+    void clearGestureDebugPoints();
 }

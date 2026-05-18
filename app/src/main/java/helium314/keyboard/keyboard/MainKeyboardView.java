@@ -35,6 +35,7 @@ import helium314.keyboard.accessibility.MainKeyboardAccessibilityDelegate;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.internal.DrawingPreviewPlacerView;
 import helium314.keyboard.keyboard.internal.DrawingProxy;
+import helium314.keyboard.keyboard.internal.GestureDebugPointsDrawingPreview;
 import helium314.keyboard.keyboard.internal.GestureFloatingTextDrawingPreview;
 import helium314.keyboard.keyboard.internal.GestureTrailsDrawingPreview;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
@@ -114,6 +115,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private final GestureFloatingTextDrawingPreview mGestureFloatingTextDrawingPreview;
     private final GestureTrailsDrawingPreview mGestureTrailsDrawingPreview;
     private final SlidingKeyInputDrawingPreview mSlidingKeyInputDrawingPreview;
+    // Debug overlay for two-thumb point hinting (#2.1), toggled by PREF_GESTURE_DEBUG_DRAW_POINTS.
+    private final GestureDebugPointsDrawingPreview mGestureDebugPointsDrawingPreview;
 
     // Key preview
     private final KeyPreviewDrawParams mKeyPreviewDrawParams;
@@ -218,6 +221,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
         mSlidingKeyInputDrawingPreview = new SlidingKeyInputDrawingPreview(mainKeyboardViewAttr);
         mSlidingKeyInputDrawingPreview.setDrawingView(drawingPreviewPlacerView);
+        // Debug overlay last so it draws ON TOP of the gesture trail / floating preview.
+        mGestureDebugPointsDrawingPreview = new GestureDebugPointsDrawingPreview();
+        mGestureDebugPointsDrawingPreview.setDrawingView(drawingPreviewPlacerView);
         mainKeyboardViewAttr.recycle();
 
         mDrawingPreviewPlacerView = drawingPreviewPlacerView;
@@ -472,6 +478,10 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             final boolean isGestureFloatingPreviewTextEnabled) {
         mGestureFloatingTextDrawingPreview.setPreviewEnabled(isGestureFloatingPreviewTextEnabled);
         mGestureTrailsDrawingPreview.setPreviewEnabled(isGestureTrailEnabled);
+        // The debug overlay tracks its own pref and is independent of the user-visible trail —
+        // enable the preview whenever the pref is on so the drawing pass actually runs.
+        mGestureDebugPointsDrawingPreview.setPreviewEnabled(
+                Settings.getValues().mGestureDebugDrawPoints);
     }
 
     public void showGestureFloatingPreviewText(@NonNull final SuggestedWords suggestedWords,
@@ -498,6 +508,22 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             mGestureFloatingTextDrawingPreview.setPreviewPosition(tracker);
         }
         mGestureTrailsDrawingPreview.setPreviewPosition(tracker);
+    }
+
+    // Implements {@link DrawingProxy#setGestureDebugPoints} (feature #2.1). The preview itself
+    // gates on its own {@code isPreviewEnabled}, but we double-check here to avoid copying the
+    // pointers array when the user hasn't opted in.
+    @Override
+    public void setGestureDebugPoints(@NonNull final helium314.keyboard.latin.common.InputPointers raw,
+            @NonNull final helium314.keyboard.latin.common.InputPointers synthetic) {
+        if (!Settings.getValues().mGestureDebugDrawPoints) return;
+        locatePreviewPlacerView();
+        mGestureDebugPointsDrawingPreview.updateSnapshot(raw, synthetic);
+    }
+
+    @Override
+    public void clearGestureDebugPoints() {
+        mGestureDebugPointsDrawingPreview.clear();
     }
 
     // Note that this method is called from a non-UI thread.
