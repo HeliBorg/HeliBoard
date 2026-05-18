@@ -264,6 +264,17 @@
     <!-- Description for combining_tap_extra. -->
     <string name="combining_tap_extra_summary">Add this much time on top of the base grace when the last input was a tap (peck-typists often need more time between letters than swipers between gestures).</string>
 
+    <!-- Title of the post-autospace suggestion-strip behavior pref. -->
+    <string name="combining_autospace_suggestions">After auto-space, show…</string>
+    <!-- Description of the post-autospace suggestion-strip behavior pref. -->
+    <string name="combining_autospace_suggestions_summary">What the suggestion strip shows once the grace timer has auto-committed a word and inserted a space.</string>
+    <!-- Option: keep showing alternatives for the word the timer just committed. -->
+    <string name="combining_autospace_suggestions_keep">Keep word alternatives</string>
+    <!-- Option: show next-word predictions, like after a normal space tap. -->
+    <string name="combining_autospace_suggestions_next">Show next-word predictions</string>
+    <!-- Option: keep alternatives, but the very next space tap swaps to next-word predictions (instead of inserting a second space). A second space then types the actual space. -->
+    <string name="combining_autospace_suggestions_keep_then_next">Alternatives, then next-word on space</string>
+
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->

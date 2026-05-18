@@ -708,6 +708,9 @@ public final class InputLogic {
      *     only the base grace applies.
      */
     private void enterCombiningMode(final SettingsValues settingsValues, final boolean fromTap) {
+        // Any new input that arms combining mode also invalidates the "next space swaps to
+        // next-word predictions" one-shot — the user moved on to typing the next word.
+        mAutospaceAlternativesPending = false;
         final int baseGraceMs = settingsValues.mCombiningGraceMs;
         if (baseGraceMs <= 0) return;
         // We only arm the timer if there's actually a composing word — for tap-only events on
@@ -732,6 +735,9 @@ public final class InputLogic {
      */
     void cancelCombiningMode() {
         cancelCombiningTimerOnly();
+        // Backspace / separator / cursor-move / cancel paths also drop the one-shot — they
+        // represent the user explicitly leaving the just-auto-committed context.
+        mAutospaceAlternativesPending = false;
         if (mInCombiningMode) {
             mInCombiningMode = false;
             final MainKeyboardView kv = KeyboardSwitcher.getInstance().getMainKeyboardView();
@@ -750,6 +756,12 @@ public final class InputLogic {
     public boolean isInCombiningMode() {
         return mInCombiningMode;
     }
+
+    /** One-shot flag set by {@link #onCombiningGraceExpired} when the user picked behavior #3
+     *  ("alternatives_then_next_word"): the strip currently shows the just-committed word's
+     *  alternatives, and the NEXT space tap should switch to next-word predictions instead
+     *  of inserting a second space. Consumed in {@link #handleSeparatorEvent} for CODE_SPACE. */
+    private boolean mAutospaceAlternativesPending;
 
     /**
      * Fired by the Handler when the grace timer expires. Commit the current composing word
@@ -776,11 +788,26 @@ public final class InputLogic {
         insertAutomaticSpaceIfOptionsAndTextAllow(sv);
         mSpaceState = SpaceState.NONE;
         mConnection.endBatchEdit();
-        // Refresh suggestions / shift state so the strip clears and the next letter is
-        // properly auto-capped if appropriate.
-        if (mSuggestionStripViewAccessor != null) {
-            setSuggestedWords(SuggestedWords.getEmptyInstance());
+        // Behavior selection for the suggestion strip after auto-commit:
+        //   "next_word"                    : drop the just-committed-word alternatives and
+        //                                     ask for next-word predictions, like a normal space.
+        //   "keep_alternatives"            : leave whatever the gesture/typing strip showed —
+        //                                     user can tap one to revert the auto-correction.
+        //   "alternatives_then_next_word"  : keep alternatives for now, but arm a one-shot so
+        //                                     the next space tap swaps to next-word predictions
+        //                                     instead of inserting a second space.
+        mAutospaceAlternativesPending = false;
+        final String mode = sv.mCombiningAutospaceSuggestions;
+        if ("next_word".equals(mode)) {
+            if (mSuggestionStripViewAccessor != null) {
+                setSuggestedWords(SuggestedWords.getEmptyInstance());
+            }
+            mLatinIME.mHandler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_NONE);
+        } else if ("alternatives_then_next_word".equals(mode)) {
+            // Leave the strip alone; arm the swap-on-next-space behavior.
+            mAutospaceAlternativesPending = true;
         }
+        // "keep_alternatives" — fall through, do nothing.
     }
 
     /**
@@ -1351,6 +1378,22 @@ public final class InputLogic {
      */
     private void handleSeparatorEvent(final Event event, final InputTransaction inputTransaction,
             final LatinIME.UIHandler handler) {
+        // Combining mode behavior #3: if the prior auto-commit left the strip showing the
+        // just-committed word's alternatives, the FIRST space tap after that should swap to
+        // next-word predictions instead of inserting a second space. Check this BEFORE
+        // cancelCombiningMode() so the flag survives long enough to be consumed.
+        final int rawCodePoint = event.getCodePoint();
+        if (Constants.CODE_SPACE == rawCodePoint && mAutospaceAlternativesPending) {
+            mAutospaceAlternativesPending = false;
+            // Don't cancel combining mode visuals — there are none active, but be safe.
+            cancelCombiningMode();
+            if (mSuggestionStripViewAccessor != null) {
+                setSuggestedWords(SuggestedWords.getEmptyInstance());
+            }
+            handler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_NONE);
+            // Eat the keystroke entirely — no second space, no shift update, no commit.
+            return;
+        }
         // Combining mode: explicit separator (space, punctuation, Enter) supersedes the
         // grace timer — the user is committing the word themselves.
         cancelCombiningMode();

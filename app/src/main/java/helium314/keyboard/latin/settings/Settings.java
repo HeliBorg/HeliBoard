@@ -161,6 +161,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // Additional grace added on top of PREF_COMBINING_GRACE_MS when the most recent input
     // was a tap (peck-typists need more headroom than swipers between letters). 0 = no extra.
     public static final String PREF_COMBINING_TAP_EXTRA_MS = "combining_tap_extra_ms";
+    // What the suggestion strip shows after the combining grace timer auto-commits a word.
+    // Values: "keep_alternatives" (1) | "next_word" (2, default) | "alternatives_then_next_word" (3).
+    public static final String PREF_COMBINING_AUTOSPACE_SUGGESTIONS = "combining_autospace_suggestions";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
     public static final String PREF_USE_APPS = "use_apps";

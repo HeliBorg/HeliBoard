@@ -20,6 +20,7 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.previewDark
@@ -65,6 +66,7 @@ fun TwoThumbTypingScreen(
         if (prefs.getInt(Settings.PREF_COMBINING_GRACE_MS, Defaults.PREF_COMBINING_GRACE_MS) > 0) {
             add(Settings.PREF_COMBINING_TAP_EXTRA_MS)
             add(Settings.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE)
+            add(Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS)
         }
         add(Settings.PREF_GESTURE_MANUAL_SPACING)
         val manualSpacing = prefs.getBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, Defaults.PREF_GESTURE_MANUAL_SPACING)
@@ -126,6 +128,15 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE,
         R.string.combining_autocorrect_on_autospace, R.string.combining_autocorrect_on_autospace_summary) {
         SwitchPreference(it, Defaults.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE)
+    },
+    Setting(context, Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS,
+        R.string.combining_autospace_suggestions, R.string.combining_autospace_suggestions_summary) { def ->
+        val items = listOf(
+            stringResource(R.string.combining_autospace_suggestions_next) to "next_word",
+            stringResource(R.string.combining_autospace_suggestions_keep) to "keep_alternatives",
+            stringResource(R.string.combining_autospace_suggestions_keep_then_next) to "alternatives_then_next_word",
+        )
+        ListPreference(def, items, Defaults.PREF_COMBINING_AUTOSPACE_SUGGESTIONS)
     },
     Setting(context, Settings.PREF_COMBINING_TAP_EXTRA_MS,
         R.string.combining_tap_extra, R.string.combining_tap_extra_summary) { def ->
