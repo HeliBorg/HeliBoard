@@ -843,9 +843,28 @@ public final class InputLogic {
         } else {
             commitTyped(sv, LastComposedWord.NOT_A_SEPARATOR);
         }
-        // Now insert the autospace. The existing helper performs the URL / e-mail / phantom
-        // checks; we want a real space after the (now-committed) word.
+        // Track whether the helper actually wrote a space (skipped for URL / e-mail / phantom).
+        final int beforeSpace = mConnection.getExpectedSelectionEnd();
         insertAutomaticSpaceIfOptionsAndTextAllow(sv);
+        final boolean autospaceInserted = mConnection.getExpectedSelectionEnd() > beforeSpace;
+        // If we DID insert an autospace, fix up mLastComposedWord so revertCommit (backspace +
+        // PREF_BACKSPACE_REVERTS_AUTOCORRECT) deletes the space along with the word. Without
+        // this the existing revert code's `deleteLength = cancelLength + separatorLength`
+        // would only delete the word, and in DEBUG builds the bundled assertion against
+        // `getTextBeforeCursor(...).subSequence(0, cancelLength) equals committedWord` throws
+        // because the last cancelLength chars now include the trailing space, not the word.
+        if (autospaceInserted && mLastComposedWord != null
+                && mLastComposedWord != LastComposedWord.NOT_A_COMPOSED_WORD
+                && Constants.STRING_SPACE.equals(mLastComposedWord.mSeparatorString) == false) {
+            mLastComposedWord = new LastComposedWord(
+                    mLastComposedWord.mEvents,
+                    mLastComposedWord.mInputPointers,
+                    mLastComposedWord.mTypedWord,
+                    mLastComposedWord.mCommittedWord,
+                    Constants.STRING_SPACE,
+                    mLastComposedWord.mNgramContext,
+                    mLastComposedWord.mCapitalizedMode);
+        }
         mSpaceState = SpaceState.NONE;
         mConnection.endBatchEdit();
         final int cursorAfter = mConnection.getExpectedSelectionEnd();
