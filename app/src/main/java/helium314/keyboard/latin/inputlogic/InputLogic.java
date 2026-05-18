@@ -319,6 +319,23 @@ public final class InputLogic {
         if (isInlineEmojiSearchAction()) {
             deleteTextReplacedByEmoji();
         }
+        // Combining-mode revert: if the strip is still showing alternatives for a word that
+        // the grace timer just auto-committed (keep_alternatives / alternatives_then_next_word
+        // modes), the suggestion the user picked is meant to REPLACE that word, not append
+        // after it. Delete the auto-committed text (word + autospace) before continuing into
+        // the normal pick path, so commitChosenWord lands at the original word's position.
+        if (mAutoCommitRevertLength > 0 && !mWordComposer.isComposingWord()) {
+            mConnection.beginBatchEdit();
+            mConnection.deleteTextBeforeCursor(mAutoCommitRevertLength);
+            mConnection.endBatchEdit();
+            mAutoCommitRevertLength = 0;
+            // The autocommit's autospace got deleted along with the word. Clear PHANTOM so
+            // commitChosenWord doesn't try to insert another one in addition to the one
+            // re-inserted at the bottom of this method by mAutospaceAfterSuggestion.
+            mSpaceState = SpaceState.NONE;
+            // The suggestion-pick will both commit the picked word AND set PHANTOM (via
+            // mAutospaceAfterSuggestion) for the next character. Net effect: word + space.
+        }
 
         final SuggestedWords suggestedWords = mSuggestedWords;
         final String suggestion = suggestionInfo.mWord;
@@ -711,6 +728,7 @@ public final class InputLogic {
         // Any new input that arms combining mode also invalidates the "next space swaps to
         // next-word predictions" one-shot — the user moved on to typing the next word.
         mAutospaceAlternativesPending = false;
+        mAutoCommitRevertLength = 0;
         final int baseGraceMs = settingsValues.mCombiningGraceMs;
         if (baseGraceMs <= 0) return;
         // We only arm the timer if there's actually a composing word — for tap-only events on
@@ -738,6 +756,7 @@ public final class InputLogic {
         // Backspace / separator / cursor-move / cancel paths also drop the one-shot — they
         // represent the user explicitly leaving the just-auto-committed context.
         mAutospaceAlternativesPending = false;
+        mAutoCommitRevertLength = 0;
         if (mInCombiningMode) {
             mInCombiningMode = false;
             final MainKeyboardView kv = KeyboardSwitcher.getInstance().getMainKeyboardView();
@@ -762,6 +781,13 @@ public final class InputLogic {
      *  alternatives, and the NEXT space tap should switch to next-word predictions instead
      *  of inserting a second space. Consumed in {@link #handleSeparatorEvent} for CODE_SPACE. */
     private boolean mAutospaceAlternativesPending;
+    /** Number of characters the timer-driven auto-commit wrote into the editor (typed word +
+     *  optional autospace). When greater than zero AND the strip is showing the
+     *  just-auto-committed word's alternatives, picking a suggestion should REPLACE the
+     *  auto-committed text instead of appending — we delete this many chars before re-committing.
+     *  Cleared on any new input that arms combining mode, on cancel, on the next space tap,
+     *  and after a suggestion-pick. */
+    private int mAutoCommitRevertLength;
 
     /**
      * Fired by the Handler when the grace timer expires. Commit the current composing word
@@ -775,6 +801,9 @@ public final class InputLogic {
         if (kv != null) kv.setCombiningMode(false, 0L, 0);
         final SettingsValues sv = Settings.getInstance().getCurrent();
         if (!mWordComposer.isComposingWord()) return;
+        // Snapshot cursor BEFORE the commit so we know how many chars to undo if the user
+        // picks an alternative from the strip (keep_alternatives / alternatives_then_next_word).
+        final int cursorBefore = mConnection.getExpectedSelectionEnd();
         mConnection.beginBatchEdit();
         if (sv.mCombiningAutocorrectOnAutospace) {
             // Use the same path as a regular space-commit: it runs autocorrect when the
@@ -788,6 +817,8 @@ public final class InputLogic {
         insertAutomaticSpaceIfOptionsAndTextAllow(sv);
         mSpaceState = SpaceState.NONE;
         mConnection.endBatchEdit();
+        final int cursorAfter = mConnection.getExpectedSelectionEnd();
+        final int writtenChars = Math.max(0, cursorAfter - cursorBefore);
         // Behavior selection for the suggestion strip after auto-commit:
         //   "next_word"                    : drop the just-committed-word alternatives and
         //                                     ask for next-word predictions, like a normal space.
@@ -797,6 +828,7 @@ public final class InputLogic {
         //                                     the next space tap swaps to next-word predictions
         //                                     instead of inserting a second space.
         mAutospaceAlternativesPending = false;
+        mAutoCommitRevertLength = 0;
         final String mode = sv.mCombiningAutospaceSuggestions;
         if ("next_word".equals(mode)) {
             if (mSuggestionStripViewAccessor != null) {
@@ -804,8 +836,13 @@ public final class InputLogic {
             }
             mLatinIME.mHandler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_NONE);
         } else if ("alternatives_then_next_word".equals(mode)) {
-            // Leave the strip alone; arm the swap-on-next-space behavior.
+            // Leave the strip alone; arm the swap-on-next-space behavior AND the revert window.
             mAutospaceAlternativesPending = true;
+            mAutoCommitRevertLength = writtenChars;
+        } else if ("keep_alternatives".equals(mode)) {
+            // Arm the revert window so the next suggestion pick replaces the auto-committed
+            // word rather than appending to it.
+            mAutoCommitRevertLength = writtenChars;
         }
         // "keep_alternatives" — fall through, do nothing.
     }
