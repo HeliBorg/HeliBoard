@@ -333,8 +333,10 @@ public final class InputLogic {
             // commitChosenWord doesn't try to insert another one in addition to the one
             // re-inserted at the bottom of this method by mAutospaceAfterSuggestion.
             mSpaceState = SpaceState.NONE;
-            // The suggestion-pick will both commit the picked word AND set PHANTOM (via
-            // mAutospaceAfterSuggestion) for the next character. Net effect: word + space.
+            // Re-insert the trailing space ourselves at the bottom of this method (after
+            // commitChosenWord). PHANTOM-via-mAutospaceAfterSuggestion would only fire on the
+            // next character; the user expects the cursor to land past the space immediately.
+            mInsertTrailingSpaceAfterPick = true;
         }
 
         final SuggestedWords suggestedWords = mSuggestedWords;
@@ -387,11 +389,20 @@ public final class InputLogic {
 
         commitChosenWord(settingsValues, suggestion, LastComposedWord.COMMIT_TYPE_MANUAL_PICK, LastComposedWord.NOT_A_SEPARATOR);
         mConnection.endBatchEdit();
+        // Combining-mode revert: the auto-committed word's trailing space was wiped along
+        // with the word at the top of this method; re-insert it now so cursor lands at
+        // "the |" rather than "the|". Uses the same helper as the timer's autospace so
+        // URL / e-mail / phantom guards apply consistently.
+        if (mInsertTrailingSpaceAfterPick) {
+            mInsertTrailingSpaceAfterPick = false;
+            insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
+            // Don't ALSO set PHANTOM below — we already inserted a real space.
+            mSpaceState = SpaceState.NONE;
+        } else if (settingsValues.mAutospaceAfterSuggestion) {
+            mSpaceState = SpaceState.PHANTOM;
+        }
         // Don't allow cancellation of manual pick
         mLastComposedWord.deactivate();
-        // Space state must be updated before calling updateShiftState
-        if (settingsValues.mAutospaceAfterSuggestion)
-            mSpaceState = SpaceState.PHANTOM;
         inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
         setInlineEmojiSearchAction(false);
 
@@ -788,6 +799,10 @@ public final class InputLogic {
      *  Cleared on any new input that arms combining mode, on cancel, on the next space tap,
      *  and after a suggestion-pick. */
     private int mAutoCommitRevertLength;
+    /** Set in {@link #onPickSuggestionManually} when the picker reverted an auto-committed
+     *  word; consumed at the bottom of the same method to insert a visible trailing space so
+     *  the cursor lands at "the |" instead of "the|". */
+    private boolean mInsertTrailingSpaceAfterPick;
 
     /**
      * Fired by the Handler when the grace timer expires. Commit the current composing word
