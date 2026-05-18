@@ -740,6 +740,7 @@ public final class InputLogic {
         // next-word predictions" one-shot — the user moved on to typing the next word.
         mAutospaceAlternativesPending = false;
         mAutoCommitRevertLength = 0;
+        mLastGestureCommittedLength = 0;
         final int baseGraceMs = settingsValues.mCombiningGraceMs;
         if (baseGraceMs <= 0) return;
         // We only arm the timer if there's actually a composing word — for tap-only events on
@@ -768,6 +769,7 @@ public final class InputLogic {
         // represent the user explicitly leaving the just-auto-committed context.
         mAutospaceAlternativesPending = false;
         mAutoCommitRevertLength = 0;
+        mLastGestureCommittedLength = 0;
         if (mInCombiningMode) {
             mInCombiningMode = false;
             final MainKeyboardView kv = KeyboardSwitcher.getInstance().getMainKeyboardView();
@@ -799,6 +801,13 @@ public final class InputLogic {
      *  Cleared on any new input that arms combining mode, on cancel, on the next space tap,
      *  and after a suggestion-pick. */
     private int mAutoCommitRevertLength;
+    /** Length of the most recent gesture-driven commit (typed word + autospace). Set in
+     *  {@link #onCombiningGraceExpired} when {@code mWordComposer.isBatchMode()} was true at
+     *  commit time. Consumed by the first backspace tap when
+     *  {@code PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD} is on, deleting the whole word
+     *  + space in one keystroke (unless an autocorrect-revert applies first — that always
+     *  wins). Cleared on any new input that arms combining mode. */
+    private int mLastGestureCommittedLength;
     /** Set in {@link #onPickSuggestionManually} when the picker reverted an auto-committed
      *  word; consumed at the bottom of the same method to insert a visible trailing space so
      *  the cursor lands at "the |" instead of "the|". */
@@ -816,6 +825,10 @@ public final class InputLogic {
         if (kv != null) kv.setCombiningMode(false, 0L, 0);
         final SettingsValues sv = Settings.getInstance().getCurrent();
         if (!mWordComposer.isComposingWord()) return;
+        // Capture whether the word being committed by this timer came from a gesture. We
+        // use this AFTER commit to decide whether to arm the "backspace deletes whole word"
+        // behavior. Tap-only words don't qualify — char-by-char backspace is fine for those.
+        final boolean wasBatchMode = mWordComposer.isBatchMode();
         // Snapshot the typed word's length BEFORE commit — the composing text is already in
         // the editor (added via setComposingTextInternal during the tap/gesture path), so the
         // commit itself doesn't move the cursor. We need the typed-word length plus whatever
@@ -872,6 +885,12 @@ public final class InputLogic {
             // Arm the revert window so the next suggestion pick replaces the auto-committed
             // word rather than appending to it.
             mAutoCommitRevertLength = writtenChars;
+        }
+        // Independent of the strip behavior: if the timer just committed a GESTURE word,
+        // arm "first backspace deletes the whole word" — see handleBackspaceEvent. Stays
+        // 0 for tap-only commits, where char-by-char delete is the right behavior.
+        if (wasBatchMode) {
+            mLastGestureCommittedLength = writtenChars;
         }
         // "keep_alternatives" — fall through, do nothing.
     }
@@ -1586,6 +1605,10 @@ public final class InputLogic {
      * @param inputTransaction The transaction in progress.
      */
     private void handleBackspaceEvent(final Event event, final InputTransaction inputTransaction) {
+        // Combining mode: snapshot the gesture-word-length flag BEFORE cancelCombiningMode
+        // clears it. If non-zero (the previous commit was a gesture), this backspace MIGHT
+        // delete the whole word — see further down, after the autocorrect-revert branch.
+        final int gestureCommittedLen = mLastGestureCommittedLength;
         // Combining mode: a backspace always cancels the pending commit. The user is
         // explicitly retracting input; we don't want the timer to fire mid-correction.
         cancelCombiningMode();
@@ -1665,11 +1688,30 @@ public final class InputLogic {
                 }
                 return;
             }
-            // todo: this is currently disabled, as it causes inconsistencies with textInput, depending whether the end
-            //  is part of a word (where we start composing) or not (where we end in code below)
-            //  see https://github.com/HeliBorg/HeliBoard/issues/1019
-            //  with better emoji detection on backspace (getFullEmojiAtEnd), this functionality might not be necessary
-            //  -> enable again if there are issues, otherwise delete the code, together with mEnteredText
+            // Combining mode: if no autocorrect-revert applied and the last commit was a
+            // gesture word, this backspace deletes the whole word + autospace in one go
+            // (gated by PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, default on). Tap
+            // words don't qualify — gestureCommittedLen is 0 for those. We delete via
+            // deleteTextBeforeCursor instead of the usual single-char path so the user
+            // doesn't have to mash backspace to undo a swiped word.
+            if (gestureCommittedLen > 0
+                    && inputTransaction.getSettingsValues().mCombiningBackspaceDeletesGestureWord) {
+                mConnection.beginBatchEdit();
+                mConnection.deleteTextBeforeCursor(gestureCommittedLen);
+                mConnection.endBatchEdit();
+                StatsUtils.onBackspaceWordDelete(gestureCommittedLen);
+                inputTransaction.setRequiresUpdateSuggestions();
+                return;
+            }
+            // todo: this is currently disabled, as it causes inconsistencies with
+            // textInput, depending whether the end
+            // is part of a word (where we start composing) or not (where we end in code
+            // below)
+            // see https://github.com/Helium314/HeliBoard/issues/1019
+            // with better emoji detection on backspace (getFullEmojiAtEnd), this
+            // functionality might not be necessary
+            // -> enable again if there are issues, otherwise delete the code, together with
+            // mEnteredText
             if (false && mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
                 // Cancel multi-character input: remove the text we just entered.
                 // This is triggered on backspace after a key that inputs multiple characters,

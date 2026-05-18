@@ -67,6 +67,7 @@ fun TwoThumbTypingScreen(
             add(Settings.PREF_COMBINING_TAP_EXTRA_MS)
             add(Settings.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE)
             add(Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS)
+            add(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD)
         }
         add(Settings.PREF_GESTURE_MANUAL_SPACING)
         val manualSpacing = prefs.getBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, Defaults.PREF_GESTURE_MANUAL_SPACING)
@@ -137,6 +138,11 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
             stringResource(R.string.combining_autospace_suggestions_keep_then_next) to "alternatives_then_next_word",
         )
         ListPreference(def, items, Defaults.PREF_COMBINING_AUTOSPACE_SUGGESTIONS)
+    },
+    Setting(context, Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD,
+        R.string.combining_backspace_deletes_gesture_word,
+        R.string.combining_backspace_deletes_gesture_word_summary) {
+        SwitchPreference(it, Defaults.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD)
     },
     Setting(context, Settings.PREF_COMBINING_TAP_EXTRA_MS,
         R.string.combining_tap_extra, R.string.combining_tap_extra_summary) { def ->

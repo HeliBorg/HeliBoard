@@ -164,6 +164,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // What the suggestion strip shows after the combining grace timer auto-commits a word.
     // Values: "keep_alternatives" (1) | "next_word" (2, default) | "alternatives_then_next_word" (3).
     public static final String PREF_COMBINING_AUTOSPACE_SUGGESTIONS = "combining_autospace_suggestions";
+    // After a gesture-committed word, the first backspace deletes the whole word + autospace
+    // in one keystroke (unless an autocorrect-revert applies — that always goes first). Tap
+    // typing is unaffected; this only kicks in when the just-committed word came from a swipe.
+    public static final String PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD = "combining_backspace_deletes_gesture_word";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
     public static final String PREF_USE_APPS = "use_apps";

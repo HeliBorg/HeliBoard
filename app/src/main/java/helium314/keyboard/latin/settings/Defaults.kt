@@ -142,6 +142,7 @@ object Defaults {
     const val PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE = true
     const val PREF_COMBINING_TAP_EXTRA_MS = 250
     const val PREF_COMBINING_AUTOSPACE_SUGGESTIONS = "next_word"
+    const val PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD = true
     const val PREF_SHOW_SETUP_WIZARD_ICON = true
     const val PREF_USE_CONTACTS = false
     const val PREF_USE_APPS = false

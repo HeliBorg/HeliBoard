@@ -261,6 +261,10 @@
     <string name="combining_autocorrect_on_autospace_summary">When the grace timer commits a word with an automatic space, also apply autocorrection</string>
     <!-- Title of the additive tap-only grace pref. -->
     <string name="combining_tap_extra">Extra grace after a tap</string>
+    <!-- Title of the toggle that makes the first backspace after a gesture delete the whole word. -->
+    <string name="combining_backspace_deletes_gesture_word">Backspace deletes last swipe</string>
+    <!-- Description for combining_backspace_deletes_gesture_word. -->
+    <string name="combining_backspace_deletes_gesture_word_summary">After a swiped word is auto-committed, the first backspace removes the whole word + space (autocorrect-revert still takes priority).</string>
     <!-- Description for combining_tap_extra. -->
     <string name="combining_tap_extra_summary">Add this much time on top of the base grace when the last input was a tap (peck-typists often need more time between letters than swipers between gestures).</string>
 
