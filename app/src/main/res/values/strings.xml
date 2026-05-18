@@ -42,6 +42,10 @@
     <string name="settings_screen_preferences">Preferences</string>
     <!-- Settings screen title for gesture typing preferences -->
     <string name="settings_screen_gesture">Gesture Typing</string>
+    <!-- Settings screen title for the experimental two-thumb typing features (autospace grace, tap-during-swipe, manual spacing, point hinting, debug overlay, …). -->
+    <string name="settings_screen_two_thumb_typing">Two-thumb typing (experimental)</string>
+    <!-- Description shown next to the two-thumb typing settings entry on the main settings screen. -->
+    <string name="settings_screen_two_thumb_typing_summary">Experimental tweaks for typing with two thumbs at once</string>
     <!-- Settings screen title for text correction options -->
     <string name="settings_screen_correction">Text correction</string>
     <!-- Settings screen title for advanced settings -->

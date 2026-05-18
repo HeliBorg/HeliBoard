@@ -20,7 +20,6 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.previewDark
@@ -60,40 +59,27 @@ fun TwoThumbTypingScreen(
             return@buildList
         }
 
-        // --- Combining mode (unified replacement for autospace grace + tap promotion + flash) ---
+        // --- Manual spacing (#1.1) + its sub-options + the autospace grace alternative ---
         add(R.string.settings_category_two_thumb_typing_spacing)
-        add(Settings.PREF_COMBINING_GRACE_MS)
-        if (prefs.getInt(Settings.PREF_COMBINING_GRACE_MS, Defaults.PREF_COMBINING_GRACE_MS) > 0) {
-            add(Settings.PREF_COMBINING_TAP_EXTRA_MS)
-            add(Settings.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE)
-            add(Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS)
-            add(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD)
-            // Multi-part word composition (only meaningful when combining grace > 0).
-            add(Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING)
-            if (prefs.getBoolean(Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING,
-                    Defaults.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING)) {
-                add(Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS)
-                add(Settings.PREF_MULTIPART_TAP_SEED_GESTURE)
-                add(Settings.PREF_MULTIPART_JOIN_KEY_MODE)
-                // Show fragment-backspace alongside multi-part: backspace popping the last
-                // joined fragment is the natural "undo a bad join" gesture.
-                add(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE)
-            }
-        }
         add(Settings.PREF_GESTURE_MANUAL_SPACING)
         val manualSpacing = prefs.getBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, Defaults.PREF_GESTURE_MANUAL_SPACING)
         if (manualSpacing) {
-            // Sub-option of manual spacing too. Multi-part also shows it above; we don't
-            // double-add since SettingsContainer dedupes by key.
+            // Sub-option of manual spacing only (still scaffolded — backspace-by-fragment is
+            // not yet implemented, but the toggle is here so it's visible alongside the parent).
             add(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE)
+        } else {
+            // Mutually exclusive with manual spacing: when the user opts into the explicit
+            // "no autospace ever" mode, the timer-based grace period is meaningless.
+            add(Settings.PREF_GESTURE_AUTOSPACE_GRACE_MS)
         }
 
-        // --- Tap / swipe interaction tweaks (#1.3) ---
+        // --- Tap / swipe interaction tweaks (#1.3 + #1.4) ---
         add(R.string.settings_category_two_thumb_typing_taps)
         add(Settings.PREF_GESTURE_TAP_DURING_SWIPE)
         if (prefs.getBoolean(Settings.PREF_GESTURE_TAP_DURING_SWIPE, Defaults.PREF_GESTURE_TAP_DURING_SWIPE)) {
             add(Settings.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS)
         }
+        add(Settings.PREF_GESTURE_TAP_PROMOTION_MS)
 
         // --- Layout-side (#2.3): apostrophe key for contractions. Layout edit still owed to
         // the user; the toggle is here so it's discoverable once that's in place. ---
@@ -124,91 +110,50 @@ fun TwoThumbTypingScreen(
  * so the parent gesture screen stays uncluttered.
  */
 fun createTwoThumbTypingSettings(context: Context) = listOf(
-    Setting(context, Settings.PREF_COMBINING_GRACE_MS,
-        R.string.combining_grace, R.string.combining_grace_summary) { def ->
-        SliderPreference(
-            name = def.title,
-            key = def.key,
-            default = Defaults.PREF_COMBINING_GRACE_MS,
-            range = 0f..1000f,
-            description = {
-                if (it <= 0) stringResource(R.string.gesture_autospace_grace_off)
-                else stringResource(R.string.abbreviation_unit_milliseconds, it.toString())
-            }
-        )
-    },
-    Setting(context, Settings.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE,
-        R.string.combining_autocorrect_on_autospace, R.string.combining_autocorrect_on_autospace_summary) {
-        SwitchPreference(it, Defaults.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE)
-    },
-    Setting(context, Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS,
-        R.string.combining_autospace_suggestions, R.string.combining_autospace_suggestions_summary) { def ->
-        val items = listOf(
-            stringResource(R.string.combining_autospace_suggestions_next) to "next_word",
-            stringResource(R.string.combining_autospace_suggestions_keep) to "keep_alternatives",
-            stringResource(R.string.combining_autospace_suggestions_keep_then_next) to "alternatives_then_next_word",
-        )
-        ListPreference(def, items, Defaults.PREF_COMBINING_AUTOSPACE_SUGGESTIONS)
-    },
-    Setting(context, Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD,
-        R.string.combining_backspace_deletes_gesture_word,
-        R.string.combining_backspace_deletes_gesture_word_summary) {
-        SwitchPreference(it, Defaults.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD)
-    },
-    Setting(context, Settings.PREF_COMBINING_TAP_EXTRA_MS,
-        R.string.combining_tap_extra, R.string.combining_tap_extra_summary) { def ->
-        SliderPreference(
-            name = def.title,
-            key = def.key,
-            default = Defaults.PREF_COMBINING_TAP_EXTRA_MS,
-            range = 0f..1000f,
-            description = {
-                if (it <= 0) stringResource(R.string.gesture_autospace_grace_off)
-                else stringResource(R.string.abbreviation_unit_milliseconds, it.toString())
-            }
-        )
-    },
     Setting(context, Settings.PREF_GESTURE_MANUAL_SPACING,
         R.string.gesture_manual_spacing, R.string.gesture_manual_spacing_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_MANUAL_SPACING)
-    },
-    Setting(context, Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING,
-        R.string.multipart_auto_extend_in_combining, R.string.multipart_auto_extend_in_combining_summary) {
-        SwitchPreference(it, Defaults.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING)
-    },
-    Setting(context, Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS,
-        R.string.multipart_full_word_suggestions, R.string.multipart_full_word_suggestions_summary) {
-        SwitchPreference(it, Defaults.PREF_MULTIPART_FULL_WORD_SUGGESTIONS)
-    },
-    Setting(context, Settings.PREF_MULTIPART_TAP_SEED_GESTURE,
-        R.string.multipart_tap_seed_gesture, R.string.multipart_tap_seed_gesture_summary) {
-        SwitchPreference(it, Defaults.PREF_MULTIPART_TAP_SEED_GESTURE)
-    },
-    Setting(context, Settings.PREF_MULTIPART_JOIN_KEY_MODE,
-        R.string.multipart_join_key_mode, R.string.multipart_join_key_mode_summary) { def ->
-        val items = listOf(
-            stringResource(R.string.multipart_join_key_mode_off) to "off",
-            stringResource(R.string.multipart_join_key_mode_longpress_space) to "longpress_space",
-            stringResource(R.string.multipart_join_key_mode_dedicated_key) to "dedicated_key",
-        )
-        ListPreference(def, items, Defaults.PREF_MULTIPART_JOIN_KEY_MODE)
     },
     Setting(context, Settings.PREF_GESTURE_FRAGMENT_BACKSPACE,
         R.string.gesture_fragment_backspace, R.string.gesture_fragment_backspace_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_FRAGMENT_BACKSPACE)
     },
+    Setting(context, Settings.PREF_GESTURE_AUTOSPACE_GRACE_MS, R.string.gesture_autospace_grace) { def ->
+        SliderPreference(
+            name = def.title,
+            key = def.key,
+            default = Defaults.PREF_GESTURE_AUTOSPACE_GRACE_MS,
+            range = 0f..500f,
+            description = {
+                if (it <= 0) stringResource(R.string.gesture_autospace_grace_off)
+                else stringResource(R.string.abbreviation_unit_milliseconds, it.toString())
+            }
+        )
+    },
     Setting(context, Settings.PREF_GESTURE_TAP_DURING_SWIPE,
         R.string.gesture_tap_during_swipe, R.string.gesture_tap_during_swipe_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_TAP_DURING_SWIPE)
     },
-    Setting(context, Settings.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS,
-        R.string.gesture_tap_as_swipe_window, R.string.gesture_tap_as_swipe_window_summary) { def ->
+    Setting(context, Settings.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS, R.string.gesture_tap_as_swipe_window) { def ->
         SliderPreference(
             name = def.title,
             key = def.key,
             default = Defaults.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS,
             range = 0f..200f,
             description = { stringResource(R.string.abbreviation_unit_milliseconds, it.toString()) }
+        )
+    },
+    Setting(context, Settings.PREF_GESTURE_TAP_PROMOTION_MS,
+        R.string.gesture_tap_promotion, R.string.gesture_tap_promotion_summary) { def ->
+        SliderPreference(
+            name = def.title,
+            key = def.key,
+            default = Defaults.PREF_GESTURE_TAP_PROMOTION_MS,
+            range = 0f..200f,
+            description = {
+                if (it <= 0) stringResource(R.string.gesture_autospace_grace_off)
+                else stringResource(R.string.abbreviation_unit_milliseconds, it.toString())
+            }
         )
     },
     Setting(context, Settings.PREF_GESTURE_APOSTROPHE_KEY,
