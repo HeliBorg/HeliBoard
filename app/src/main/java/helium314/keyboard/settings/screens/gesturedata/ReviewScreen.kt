@@ -1,14 +1,17 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.screens.gesturedata
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
@@ -33,9 +36,14 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxState
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -72,6 +80,7 @@ import helium314.keyboard.latin.utils.previewDark
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -154,21 +163,50 @@ fun ReviewScreen(
             ) {
                 Text(stringResource(R.string.gesture_data_long_press_select_hint), Modifier.padding(horizontal = 12.dp))
             }
+            val deleteJobs = remember { mutableMapOf<Long, Job>() }
             LazyColumn(state = wordListState) {
                 items(gestureDataInfos, { it.id }) { item ->
-                    GestureDataEntry(
-                        item,
-                        item.id in selected,
-                        selected.isNotEmpty(),
-                        { sel ->
-                            selected = if (!sel) selected.filterNot { it == item.id }
-                            else selected + item.id
-                        },
-                        {
-                            scope.launch {
-                                delay(20)
-                                reloadGestureDataInfos()
+                    val dismissState = rememberSwipeToDismissBoxState()
+                    LaunchedEffect(dismissState.settledValue) {
+                        if (dismissState.settledValue == SwipeToDismissBoxValue.StartToEnd && !deleteJobs.contains(item.id)) {
+                            deleteJobs[item.id] = scope.launch {
+                                delay(4000)
+                                dao.delete(listOf(item.id), false, ctx) // todo: test
+                                gestureDataInfos = gestureDataInfos - item
                             }
+                        }
+                    }
+                    SwipeToDismissBox(
+                        state = dismissState,
+                        enableDismissFromEndToStart = false,
+                        backgroundContent = {
+                            // todo: make it nicer, and larger clickable area
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                if (dismissState.progress == 1f && dismissState.settledValue == SwipeToDismissBoxValue.StartToEnd) {
+                                    TextButton({
+                                        deleteJobs.remove(item.id)?.cancel()
+                                        scope.launch { dismissState.reset() }
+                                    }) { Text(stringResource(R.string.undo)) }
+                                }
+                                Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete))
+                            }
+                        },
+                        content = {
+                            GestureDataEntry(
+                                item,
+                                item.id in selected,
+                                selected.isNotEmpty(),
+                                { sel ->
+                                    selected = if (!sel) selected.filterNot { it == item.id }
+                                    else selected + item.id
+                                },
+                                {
+                                    scope.launch {
+                                        delay(20)
+                                        reloadGestureDataInfos()
+                                    }
+                                }
+                            )
                         }
                     )
                 }
@@ -248,6 +286,7 @@ private fun GestureDataEntry(
     )
     Column(modifier
         .fillMaxWidth()
+        .background(MaterialTheme.colorScheme.background)
         .padding(vertical = 6.dp, horizontal = 12.dp)
     ) {
         Text(

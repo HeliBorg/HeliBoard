@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -40,6 +41,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -65,7 +67,6 @@ import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import kotlinx.coroutines.launch
 import kotlin.collections.plus
 import androidx.core.graphics.toColorInt
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppExclusions
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppIncludeByDefault
@@ -198,7 +199,10 @@ fun PassiveGatheringSettings() {
         var filter by remember { mutableStateOf(TextFieldValue()) }
         ThreeButtonAlertDialog(
             title = { Text(stringResource(R.string.gesture_data_passive_apps)) },
-            onDismissRequest = { showIncludedAppsDialog = false },
+            onDismissRequest = {
+                GestureDataGatheringSettings.setAppExclusions(ctx, excludedPackages)
+                showIncludedAppsDialog = false
+            },
             content = { Column {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -215,8 +219,8 @@ fun PassiveGatheringSettings() {
                     label = { Text(stringResource(R.string.label_search_key)) },
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
                 )
-                Spacer(Modifier.height(10.dp))
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Spacer(Modifier.height(6.dp))
+                LazyColumn {
                     val filtered = sortedPackagesAndNames.filter {
                         if (filter.text.lowercase() == filter.text)
                             filter.text in it.first || filter.text in it.second.lowercase()
@@ -228,9 +232,10 @@ fun PassiveGatheringSettings() {
                         Row(Modifier
                             .fillMaxWidth()
                             .clickable {
-                                excludedPackages = if (included) excludedPackages + packageName
+                                excludedPackages = if (included == defaultInclude) excludedPackages + packageName
                                 else excludedPackages - packageName
-                            },
+                            }
+                            .padding(vertical = 5.dp),
                             Arrangement.spacedBy(6.dp),
                             Alignment.CenterVertically
                         ) {
@@ -259,11 +264,10 @@ fun PassiveGatheringSettings() {
                     }
                 }
             } },
-            onConfirmed = {
-                GestureDataGatheringSettings.setAppExclusions(ctx, excludedPackages)
-            },
-            confirmButtonText = stringResource(android.R.string.ok),
-            properties = DialogProperties(dismissOnClickOutside = false)
+            cancelButtonText = stringResource(R.string.dialog_close),
+            onConfirmed = { },
+            confirmButtonText = null,
+            properties = DialogProperties(dismissOnClickOutside = false, dismissOnBackPress = false)
         )
     }
     if (showExcludedWordsDialog) {
@@ -273,7 +277,7 @@ fun PassiveGatheringSettings() {
 
 @Composable fun ExcludedWordsDialog(onDismissRequest: () -> Unit) {
     val ctx = LocalContext.current
-    var ignoreWords by remember { mutableStateOf(GestureDataGatheringSettings.getWordExclusions(ctx)) }
+    val ignoreWords = remember { GestureDataGatheringSettings.getWordExclusions(ctx).toMutableStateList() }
     var newWord by remember { mutableStateOf(TextFieldValue()) }
     var error by remember { mutableStateOf(true) }
     LaunchedEffect(newWord) {
@@ -281,14 +285,21 @@ fun PassiveGatheringSettings() {
         error = '"' in newWord.text || newWord.text.none { it.isLetter() }
     }
     val scroll = rememberScrollState()
+    val scope = rememberCoroutineScope()
     fun addWord() {
         val word = newWord.text
-        if (word.isNotBlank())
-            ignoreWords += word.trim()
+        if (word.isNotBlank()) {
+            ignoreWords.add(0, word.trim())
+            scope.launch { scroll.scrollTo(0) }
+        }
         newWord = TextFieldValue()
     }
     ThreeButtonAlertDialog(
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = {
+            addWord()
+            GestureDataGatheringSettings.setWordExclusions(ctx, ignoreWords)
+            onDismissRequest()
+        },
         modifier = Modifier.windowInsetsPadding(WindowInsets.ime.exclude(WindowInsets.systemBars)),
         content = { Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -320,17 +331,17 @@ fun PassiveGatheringSettings() {
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(word)
-                            DeleteButton { ignoreWords = ignoreWords.filterNot { word == it }.toSortedSet() }
+                            DeleteButton { ignoreWords.removeAll { word == it } }
                         }
                     }
                 }
             }
         } },
-        onConfirmed = {
-            addWord()
-            GestureDataGatheringSettings.setWordExclusions(ctx, ignoreWords)
-        },
-        confirmButtonText = stringResource(android.R.string.ok),
-        properties = DialogProperties(dismissOnClickOutside = false)
+        onConfirmed = { },
+        confirmButtonText = null,
+        cancelButtonText = stringResource(android.R.string.ok),
+        neutralButtonText = stringResource(android.R.string.cancel),
+        onNeutral = onDismissRequest,
+        properties = DialogProperties(dismissOnClickOutside = false, dismissOnBackPress = false)
     )
 }

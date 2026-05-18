@@ -22,7 +22,10 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.MoreSuggestionsView;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
+import helium314.keyboard.latin.utils.Log;
 import kotlin.Unit;
+import kotlinx.coroutines.CoroutineScope;
+import kotlinx.coroutines.Dispatchers;
 
 
 public final class InputView extends FrameLayout {
@@ -109,7 +112,10 @@ public final class InputView extends FrameLayout {
         Settings.getValues().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
 
         // Work around inset application being unreliable
+        Log.i("test", "bottom padding "+v.getPaddingBottom());
         requestApplyInsets();
+        Log.i("test", "bottom padding after "+v.getPaddingBottom());
+//        var s = new CoroutineScope(Dispatchers.getIO())
         return null;
     }
 

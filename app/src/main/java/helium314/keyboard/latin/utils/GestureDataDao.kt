@@ -105,6 +105,9 @@ class GestureDataDao(val db: Database) {
         GestureDataGatheringSettings.onExported(context)
     }
 
+    // todo: the count isn't correct with passive gathering
+    // todo: add same count for passive
+    // todo: avoid double counting words exported twice, can we do that?
     fun delete(ids: List<Long>, onlyExported: Boolean, context: Context): Int = synchronized(this) {
         if (ids.isEmpty()) return 0
         val where = "$COLUMN_ID IN (${ids.joinToString(",")})"
