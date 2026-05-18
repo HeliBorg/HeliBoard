@@ -133,10 +133,6 @@ public class SettingsValues {
         // Unified combining-mode (replaces gesture-only grace + tap-promotion). Default 0 = off.
         public final int mCombiningGraceMs;
         public final boolean mCombiningAutocorrectOnAutospace;
-        public final int mCombiningTapExtraMs;
-        // Raw string value: "keep_alternatives" | "next_word" | "alternatives_then_next_word"
-        public final String mCombiningAutospaceSuggestions;
-        public final boolean mCombiningBackspaceDeletesGestureWord;
         public final boolean mSlidingKeyInputPreviewEnabled;
         public final int mKeyLongpressTimeout;
         public final boolean mEnableEmojiAltPhysicalKey;
@@ -320,13 +316,6 @@ public class SettingsValues {
                 mCombiningAutocorrectOnAutospace = prefs.getBoolean(
                                 Settings.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE,
                                 Defaults.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE);
-                mCombiningTapExtraMs = prefs.getInt(Settings.PREF_COMBINING_TAP_EXTRA_MS,
-                                Defaults.PREF_COMBINING_TAP_EXTRA_MS);
-                mCombiningAutospaceSuggestions = prefs.getString(Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS,
-                                Defaults.PREF_COMBINING_AUTOSPACE_SUGGESTIONS);
-                mCombiningBackspaceDeletesGestureWord = prefs.getBoolean(
-                                Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD,
-                                Defaults.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD);
                 mSuggestionStripHiddenPerUserSettings = mToolbarMode == ToolbarMode.HIDDEN
                                 || mToolbarMode == ToolbarMode.TOOLBAR_KEYS;
                 mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions

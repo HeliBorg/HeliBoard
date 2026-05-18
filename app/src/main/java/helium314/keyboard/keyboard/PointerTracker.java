@@ -1107,6 +1107,16 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             if (currentKey != null) {
                 callListenerOnRelease(currentKey, currentKey.getCode(), true);
             }
+            // The unified combining-mode timer lives in InputLogic now and handles the
+            // commit-vs-extend decision at end-of-gesture (it sees the result, not the raw
+            // pointer events). So we always end the gesture immediately here: graceMs = 0.
+            // The old BatchInputArbiter grace path stays in place for backwards-compat with
+            // PREF_GESTURE_AUTOSPACE_GRACE_MS, but it's now dormant by default.
+            final int graceMs = 0;
+            // Two-thumb typing (#2.1): capture the current keyboard so the deferred commit
+            // path can apply the dual-thumb hinter with the geometry that was live at the
+            // moment of lift.
+            final Keyboard keyboardSnapshotForCommit = mKeyboard;
             if (mBatchInputArbiter.mayEndBatchInput(
                     eventTime, getActivePointerTrackerCount(), this)) {
                 sInGesture = false;

@@ -125,6 +125,21 @@ object Defaults {
     const val PREF_GESTURE_SPACE_AWARE = false
     const val PREF_GESTURE_FAST_TYPING_COOLDOWN = 500
     const val PREF_GESTURE_TRAIL_FADEOUT_DURATION = 800
+    // Two-thumb typing defaults — every default preserves current behaviour (off / 0).
+    const val PREF_GESTURE_MANUAL_SPACING = false
+    const val PREF_GESTURE_FRAGMENT_BACKSPACE = false
+    const val PREF_GESTURE_AUTOSPACE_GRACE_MS = 0
+    const val PREF_GESTURE_TAP_DURING_SWIPE = false
+    const val PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS = 60
+    const val PREF_GESTURE_TAP_PROMOTION_MS = 0
+    const val PREF_GESTURE_DUAL_THUMB_HINTING = false
+    const val PREF_GESTURE_DUAL_THUMB_MIDLINE_PCT = 50
+    const val PREF_GESTURE_DEBUG_DRAW_POINTS = false
+    const val PREF_GESTURE_APOSTROPHE_KEY = false
+    const val PREF_AUTOSPACE_VISUAL_HINT = true
+    // Unified combining-mode model (default 0 = off; 500 ms is a comfortable starting point).
+    const val PREF_COMBINING_GRACE_MS = 0
+    const val PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE = true
     const val PREF_SHOW_SETUP_WIZARD_ICON = true
     const val PREF_USE_CONTACTS = false
     const val PREF_USE_APPS = false

@@ -198,6 +198,66 @@
     <string name="gesture_fast_typing_cooldown_instant">Always start instantly</string>
     <!-- Title of the setting to adjust the gesture trail fadeout duration-->
     <string name="gesture_trail_fadeout_duration">Gesture trail lifespan</string>
+
+    <!-- Section header for two-thumb / simultaneous gesture typing settings (multi-finger glide typing improvements). -->
+    <string name="settings_category_two_thumb_typing">Two-thumb typing</string>
+    <!-- Subsection header on the two-thumb typing screen: spacing / word-commit behaviour. -->
+    <string name="settings_category_two_thumb_typing_spacing">Spacing &amp; word commit</string>
+    <!-- Subsection header: how taps interact with swipes mid-gesture. -->
+    <string name="settings_category_two_thumb_typing_taps">Tap + swipe interactions</string>
+    <!-- Subsection header: layout-side extras (e.g. apostrophe key). -->
+    <string name="settings_category_two_thumb_typing_layout">Layout extras</string>
+    <!-- Subsection header: point-hinting / recognizer assistance + debug overlay. -->
+    <string name="settings_category_two_thumb_typing_hinting">Recognition &amp; debug</string>
+    <!-- Title of the setting that disables auto-spacing at the end of a gesture so that words can be composed from multiple swipe fragments. -->
+    <string name="gesture_manual_spacing">Manual spacing</string>
+    <!-- Description for "gesture_manual_spacing". When on, the keyboard does not commit a space when all fingers lift after a gesture; instead the user must tap space, punctuation, or Enter to commit. -->
+    <string name="gesture_manual_spacing_summary">Don\'t auto-commit when fingers lift; tap space to finish a word</string>
+    <!-- Title of the setting that makes backspace remove the previous swipe fragment rather than one character. -->
+    <string name="gesture_fragment_backspace">Backspace removes last fragment</string>
+    <!-- Description for "gesture_fragment_backspace". -->
+    <string name="gesture_fragment_backspace_summary">In manual-spacing mode, backspace removes the most recent swipe instead of one character</string>
+    <!-- Title of the setting that adds a small grace period after the last finger lifts during which a new touch is treated as a continuation of the same gesture. -->
+    <string name="gesture_autospace_grace">Autospace grace period</string>
+    <!-- Text shown when the autospace grace period is zero (disabled). -->
+    <string name="gesture_autospace_grace_off">Off</string>
+    <!-- Title of the setting that lets a quick tap with one finger contribute a letter to an ongoing gesture from the other finger. -->
+    <string name="gesture_tap_during_swipe">Tap during swipe</string>
+    <!-- Description for "gesture_tap_during_swipe". -->
+    <string name="gesture_tap_during_swipe_summary">A quick tap with another finger while swiping adds that letter to the same word</string>
+    <!-- Title of the setting that sets how briefly the tap must complete to count as part of the swipe. -->
+    <string name="gesture_tap_as_swipe_window">Tap-as-swipe window</string>
+    <!-- Title of the setting that lets a tap on a letter, immediately followed by a swipe, become a single combined gesture. -->
+    <string name="gesture_tap_promotion">Tap-then-swipe window</string>
+    <!-- Description for "gesture_tap_promotion". -->
+    <string name="gesture_tap_promotion_summary">Allow a tap followed by a quick swipe to combine into one word</string>
+    <!-- Title of the experimental setting that reweights tap points from one thumb when the other thumb is actively swiping. -->
+    <string name="gesture_dual_thumb_hinting">Two-thumb point hinting (experimental)</string>
+    <!-- Description for "gesture_dual_thumb_hinting". -->
+    <string name="gesture_dual_thumb_hinting_summary">Improve recognition when one thumb taps while the other swipes</string>
+    <!-- Title of the slider that picks where the keyboard is split between left and right hand. -->
+    <string name="gesture_dual_thumb_midline">Left/right hand split</string>
+    <!-- Title of the developer setting that draws raw and post-processed gesture points on the trail layer. -->
+    <string name="gesture_debug_draw_points">Draw gesture points (debug)</string>
+    <!-- Description for "gesture_debug_draw_points". -->
+    <string name="gesture_debug_draw_points_summary">Overlay the raw and processed points sent to the gesture library</string>
+    <!-- Title of the setting that enables an apostrophe key dedicated for gesture typing of contractions. -->
+    <string name="gesture_apostrophe_key">Apostrophe key for gestures</string>
+    <!-- Description for "gesture_apostrophe_key". -->
+    <string name="gesture_apostrophe_key_summary">Show a swipeable apostrophe key so contractions like "it\'s" can be glided in one stroke</string>
+    <!-- Title of the setting that enables a brief visual flash on the space key whenever an automatic space is inserted. -->
+    <string name="autospace_visual_hint">Flash space key on auto-space</string>
+    <!-- Description for "autospace_visual_hint". -->
+    <string name="autospace_visual_hint_summary">Briefly highlight the space bar each time an automatic space is inserted</string>
+    <!-- Title of the unified combining-mode grace setting. -->
+    <string name="combining_grace">Combining grace period</string>
+    <!-- Description of the unified combining-mode grace setting. -->
+    <string name="combining_grace_summary">After every tap or swipe, wait this long for a follow-up before committing the word. While waiting, the spacebar shows a countdown.</string>
+    <!-- Title of the toggle for running autocorrect when the combining grace timer fires. -->
+    <string name="combining_autocorrect_on_autospace">Autocorrect on auto-space</string>
+    <!-- Description for combining_autocorrect_on_autospace. -->
+    <string name="combining_autocorrect_on_autospace_summary">When the grace timer commits a word with an automatic space, also apply autocorrection</string>
+
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->
