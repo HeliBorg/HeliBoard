@@ -63,6 +63,7 @@ fun TwoThumbTypingScreen(
         add(R.string.settings_category_two_thumb_typing_spacing)
         add(Settings.PREF_COMBINING_GRACE_MS)
         if (prefs.getInt(Settings.PREF_COMBINING_GRACE_MS, Defaults.PREF_COMBINING_GRACE_MS) > 0) {
+            add(Settings.PREF_COMBINING_TAP_EXTRA_MS)
             add(Settings.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE)
         }
         add(Settings.PREF_GESTURE_MANUAL_SPACING)
@@ -126,6 +127,19 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
         R.string.combining_autocorrect_on_autospace, R.string.combining_autocorrect_on_autospace_summary) {
         SwitchPreference(it, Defaults.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE)
     },
+    Setting(context, Settings.PREF_COMBINING_TAP_EXTRA_MS,
+        R.string.combining_tap_extra, R.string.combining_tap_extra_summary) { def ->
+        SliderPreference(
+            name = def.title,
+            key = def.key,
+            default = Defaults.PREF_COMBINING_TAP_EXTRA_MS,
+            range = 0f..1000f,
+            description = {
+                if (it <= 0) stringResource(R.string.gesture_autospace_grace_off)
+                else stringResource(R.string.abbreviation_unit_milliseconds, it.toString())
+            }
+        )
+    },
     Setting(context, Settings.PREF_GESTURE_MANUAL_SPACING,
         R.string.gesture_manual_spacing, R.string.gesture_manual_spacing_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_MANUAL_SPACING)
@@ -138,7 +152,8 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
         R.string.gesture_tap_during_swipe, R.string.gesture_tap_during_swipe_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_TAP_DURING_SWIPE)
     },
-    Setting(context, Settings.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS, R.string.gesture_tap_as_swipe_window) { def ->
+    Setting(context, Settings.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS,
+        R.string.gesture_tap_as_swipe_window, R.string.gesture_tap_as_swipe_window_summary) { def ->
         SliderPreference(
             name = def.title,
             key = def.key,

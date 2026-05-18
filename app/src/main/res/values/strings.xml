@@ -226,7 +226,9 @@
     <!-- Description for "gesture_tap_during_swipe". -->
     <string name="gesture_tap_during_swipe_summary">A quick tap with another finger while swiping adds that letter to the same word</string>
     <!-- Title of the setting that sets how briefly the tap must complete to count as part of the swipe. -->
-    <string name="gesture_tap_as_swipe_window">Tap-as-swipe window</string>
+    <string name="gesture_tap_as_swipe_window">Max tap duration during swipe</string>
+    <!-- Description for "gesture_tap_as_swipe_window". -->
+    <string name="gesture_tap_as_swipe_window_summary">Taps shorter than this — while another finger is swiping — are merged into the swipe. Longer presses type the letter normally.</string>
     <!-- Title of the setting that lets a tap on a letter, immediately followed by a swipe, become a single combined gesture. -->
     <string name="gesture_tap_promotion">Tap-then-swipe window</string>
     <!-- Description for "gesture_tap_promotion". -->
@@ -257,6 +259,10 @@
     <string name="combining_autocorrect_on_autospace">Autocorrect on auto-space</string>
     <!-- Description for combining_autocorrect_on_autospace. -->
     <string name="combining_autocorrect_on_autospace_summary">When the grace timer commits a word with an automatic space, also apply autocorrection</string>
+    <!-- Title of the additive tap-only grace pref. -->
+    <string name="combining_tap_extra">Extra grace after a tap</string>
+    <!-- Description for combining_tap_extra. -->
+    <string name="combining_tap_extra_summary">Add this much time on top of the base grace when the last input was a tap (peck-typists often need more time between letters than swipers between gestures).</string>
 
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>

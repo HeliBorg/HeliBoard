@@ -123,6 +123,44 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private boolean mIsDetectingGesture = false; // per PointerTracker.
     private static boolean sInGesture = false;
+    // True for this pointer when its down-event happened while another pointer's batch gesture
+    // was already in progress (sInGesture==true) and the pref PREF_GESTURE_TAP_DURING_SWIPE is on.
+    // Used in onUpEventInternal to suppress an accidental tap-keystroke if the parent gesture
+    // committed between this pointer's down and up.
+    private boolean mIsTapDuringSwipe = false;
+
+    // ---- Combining-mode tap seeding ------------------------------------------------------
+    // When the user taps a letter and within the combining-grace window starts a swipe, the
+    // pure concat path ("s" + recognizer-of-"ilo") produces unreliable results because the
+    // recognizer gets too few points to pin a word. So we SEED the next gesture's first
+    // pointer event with the prior tap's (x, y, time). The recognizer then sees a full
+    // s→i→l→o stroke and reliably produces "silo".
+    //
+    // To avoid double-counting the seed letter at commit time, InputLogic peeks at
+    // {@link #consumeGestureSeedCodepoint()} when the gesture commits; if the seed letter
+    // matches the first codepoint of the recognized word (case-insensitive), it strips it
+    // before the existing concat/replace logic runs. Net result:
+    //   composing="s",   seed='s', batch="silo"    → strip → "ilo"    → concat → "silo"
+    //   composing="tech",seed='h', batch="hnology" → strip → "nology" → concat → "technology"
+    //   composing="s",   seed='s', batch="ilver"   → no strip          → concat → "silver"
+    //
+    // All static / globally-scoped: the prior tap can be on any tracker, and the gesture
+    // start can be on any tracker. UI thread only.
+    private static int sLastLetterTapX;
+    private static int sLastLetterTapY;
+    private static long sLastLetterTapTime;
+    private static int sLastLetterTapCodepoint; // 0 = none
+    private static int sCurrentGestureSeedCodepoint; // 0 = no seed for current gesture
+
+    /** Called by InputLogic at the moment of consuming a gesture's batch result. Returns the
+     *  codepoint that seeded the gesture (or 0), and clears the slot so the next gesture
+     *  starts fresh. */
+    public static int consumeGestureSeedCodepoint() {
+        final int seed = sCurrentGestureSeedCodepoint;
+        sCurrentGestureSeedCodepoint = 0;
+        return seed;
+    }
+
     private static TypingTimeRecorder sTypingTimeRecorder;
 
     // The position and time at which first down event occurred.
@@ -681,10 +719,45 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         mIsDetectingGesture = (mKeyboard != null) && mKeyboard.mId.isAlphabetKeyboard()
                 && key != null && !key.isModifier() && !mKeySwipeAllowed && !sInKeySwipe;
         if (mIsDetectingGesture) {
-            mBatchInputArbiter.addDownEventPoint(x, y, eventTime,
+            // Combining-mode tap seeding: if the user just tapped a letter within the
+            // (base + tap-extra) combining grace window, prepend that tap's position+time as
+            // the down-event for this gesture. The recognizer sees a continuous stroke from
+            // the tapped letter to the swiped letters and produces a multi-letter word
+            // reliably; without seeding "i→l→o" alone often doesn't recognize as "ilo".
+            // InputLogic.onUpdateTailBatchInputCompleted reads consumeGestureSeedCodepoint()
+            // and strips the leading seed letter from the recognized word before concat, so
+            // we don't double-count it.
+            int seedX = x;
+            int seedY = y;
+            long seedTime = eventTime;
+            sCurrentGestureSeedCodepoint = 0;
+            final SettingsValues sv = Settings.getValues();
+            if (sv.mCombiningGraceMs > 0
+                    && sLastLetterTapCodepoint > 0
+                    && key != null
+                    && !key.isModifier()
+                    && Character.isLetter(key.getCode())
+                    && mKeyboard != null && mKeyboard.mId.isAlphabetKeyboard()
+                    && !sInGesture) {
+                final long timeSinceTap = eventTime - sLastLetterTapTime;
+                final long effectiveWindow = sv.mCombiningGraceMs + Math.max(0, sv.mCombiningTapExtraMs);
+                if (timeSinceTap >= 0 && timeSinceTap <= effectiveWindow) {
+                    seedX = sLastLetterTapX;
+                    seedY = sLastLetterTapY;
+                    seedTime = sLastLetterTapTime;
+                    sCurrentGestureSeedCodepoint = sLastLetterTapCodepoint;
+                }
+            }
+            mBatchInputArbiter.addDownEventPoint(seedX, seedY, seedTime,
                     sTypingTimeRecorder.getLastLetterTypingTime(), getActivePointerTrackerCount());
             mGestureStrokeDrawingPoints.onDownEvent(
-                    x, y, mBatchInputArbiter.getElapsedTimeSinceFirstDown(eventTime));
+                    seedX, seedY, mBatchInputArbiter.getElapsedTimeSinceFirstDown(seedTime));
+            // Two-thumb typing: remember whether this pointer started while another pointer's
+            // batch gesture was already in progress. Used in onUpEventInternal to suppress a
+            // stray tap-keystroke if the parent gesture commits before this pointer lifts.
+            mIsTapDuringSwipe = sInGesture
+                    && sv.mGestureTapDuringSwipe
+                    && key != null && Character.isLetter(key.getCode());
         }
     }
 
@@ -1133,6 +1206,19 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
         detectAndSendKey(currentKey, mKeyX, mKeyY, eventTime);
+        // Combining-mode seeding: remember the last letter tap so a follow-up gesture can
+        // seed its first pointer event with this position and time. Only letter taps qualify
+        // (modifiers / numbers / symbols shouldn't seed). The actual seeding decision lives
+        // on the next onDownEvent path, gated on combining grace > 0 and time-since-tap.
+        if (currentKey != null) {
+            final int code = currentKey.getCode();
+            if (code > 0 && Character.isLetter(code)) {
+                sLastLetterTapX = mKeyX;
+                sLastLetterTapY = mKeyY;
+                sLastLetterTapTime = eventTime;
+                sLastLetterTapCodepoint = code;
+            }
+        }
         if (isInSlidingKeyInput) {
             callListenerOnFinishSlidingInput();
         }

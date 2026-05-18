@@ -650,6 +650,9 @@ public final class InputLogic {
         // Combining mode: cancelled gesture wipes the would-be-fragment from the composing
         // word — drop the timer so we don't fire an autospace based on stale state.
         cancelCombiningMode();
+        // Drop any seed codepoint stashed by PointerTracker so the next gesture doesn't
+        // strip its first letter against a stale seed.
+        helium314.keyboard.keyboard.PointerTracker.consumeGestureSeedCodepoint();
         // Tap-promotion-extend was a per-gesture decision; clear on cancel so the NEXT
         // gesture re-evaluates against current timing.
         mGestureExtendsByTapPromotion = false;
@@ -696,17 +699,22 @@ public final class InputLogic {
     // ---- Unified combining-mode helpers --------------------------------------------------
 
     /**
-     * Enter or refresh combining mode: cancel any prior pending commit, schedule a new one
-     * {@code graceMs} from now, and notify the keyboard view to draw the countdown progress
-     * bar on the spacebar. No-op when {@code mCombiningGraceMs <= 0}.
+     * Enter or refresh combining mode: cancel any prior pending commit, schedule a new one,
+     * and notify the keyboard view to draw the countdown progress bar. No-op when grace is 0.
+     *
+     * @param fromTap when true, the trigger was a letter tap and we add
+     *     {@code mCombiningTapExtraMs} on top of the base grace (peck-typers need more time
+     *     between letters than swipers do between gestures). When false (gesture trigger),
+     *     only the base grace applies.
      */
-    private void enterCombiningMode(final SettingsValues settingsValues) {
-        final int graceMs = settingsValues.mCombiningGraceMs;
-        if (graceMs <= 0) return;
+    private void enterCombiningMode(final SettingsValues settingsValues, final boolean fromTap) {
+        final int baseGraceMs = settingsValues.mCombiningGraceMs;
+        if (baseGraceMs <= 0) return;
         // We only arm the timer if there's actually a composing word — for tap-only events on
         // separators / cursor-front recompositions there's nothing to auto-commit, and arming
         // the timer would draw a spurious progress bar.
         if (!mWordComposer.isComposingWord()) return;
+        final int graceMs = baseGraceMs + (fromTap ? Math.max(0, settingsValues.mCombiningTapExtraMs) : 0);
         cancelCombiningTimerOnly();
         mInCombiningMode = true;
         final long startTime = SystemClock.uptimeMillis();
@@ -1310,8 +1318,8 @@ public final class InputLogic {
             // Two-thumb typing (#1.1): record this tap as a fragment boundary so a future
             // backspace under PREF_GESTURE_FRAGMENT_BACKSPACE can pop the whole tap.
             recordFragmentBoundaryIfTracking(settingsValues);
-            // Combining mode: arm/refresh the grace timer for the next input.
-            enterCombiningMode(settingsValues);
+            // Combining mode: arm/refresh the grace timer for the next input. Tap path -> add tap-extra.
+            enterCombiningMode(settingsValues, true /* fromTap */);
         } else {
             final boolean swapWeakSpace = tryStripSpaceAndReturnWhetherShouldSwapInstead(event, inputTransaction);
 
@@ -2543,10 +2551,24 @@ public final class InputLogic {
      */
     public void onUpdateTailBatchInputCompleted(final SettingsValues settingsValues,
             final SuggestedWords suggestedWords, final KeyboardSwitcher keyboardSwitcher) {
-        final String batchInputText = suggestedWords.isEmpty() ? null : suggestedWords.getWord(0);
+        String batchInputText = suggestedWords.isEmpty() ? null : suggestedWords.getWord(0);
         if (TextUtils.isEmpty(batchInputText)) {
+            // Still need to clear the seed slot so it doesn't leak into the next gesture.
+            helium314.keyboard.keyboard.PointerTracker.consumeGestureSeedCodepoint();
             return;
         }
+        // Combining-mode seeding: if PointerTracker seeded this gesture with a prior tap's
+        // coords, the recognizer typically includes that letter as the first char of the
+        // result. We strip it (case-insensitive) so the existing concat below doesn't
+        // double-count it. See PointerTracker for the full rationale.
+        final int seedCp = helium314.keyboard.keyboard.PointerTracker.consumeGestureSeedCodepoint();
+        if (seedCp > 0 && batchInputText.length() > 0) {
+            final int firstCp = batchInputText.codePointAt(0);
+            if (Character.toLowerCase(firstCp) == Character.toLowerCase(seedCp)) {
+                batchInputText = batchInputText.substring(Character.charCount(firstCp));
+            }
+        }
+        if (batchInputText.isEmpty()) return;
         mConnection.beginBatchEdit();
         if (SpaceState.PHANTOM == mSpaceState) {
             insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
@@ -2564,11 +2586,8 @@ public final class InputLogic {
         if (isInlineEmojiSearchAction()) {
             searchForEmojiInline(SuggestedWords.NOT_A_SEQUENCE_NUMBER, mLatinIME::setSuggestions);
         }
-        // Combining mode: arm the grace timer after a gesture, regardless of whether it
-        // extended or replaced. This lets the user follow up with another tap/swipe to keep
-        // building the same word ("tech" → wait → swipe "nology" → "technology") OR pause to
-        // commit + autospace automatically.
-        enterCombiningMode(settingsValues);
+        // Combining mode: arm the grace timer after a gesture. Gesture path -> base grace only.
+        enterCombiningMode(settingsValues, false /* fromTap */);
     }
 
     /**

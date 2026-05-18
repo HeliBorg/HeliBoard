@@ -752,23 +752,6 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     @Override
-    protected void onDraw(@NonNull final Canvas canvas) {
-        super.onDraw(canvas);
-        // Combining-mode whole-keyboard tint: when the unified grace timer is pending in
-        // InputLogic, dim the keys very slightly with a translucent themed overlay so the
-        // user knows their next input continues the current word. Drawn on top of the
-        // key visuals so it's visible regardless of theme. ~8% alpha is enough to register
-        // without obscuring labels.
-        if (mCombiningModeActive) {
-            final Paint p = new Paint();
-            p.setStyle(Paint.Style.FILL);
-            p.setColor(mLanguageOnSpacebarTextColor);
-            p.setAlpha(28);
-            canvas.drawRect(0f, 0f, getWidth(), getHeight(), p);
-        }
-    }
-
-    @Override
     protected void onDrawKeyTopVisuals(@NonNull final Key key, @NonNull final Canvas canvas,
             @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         if (key.altCodeWhileTyping() && key.isEnabled()) {
