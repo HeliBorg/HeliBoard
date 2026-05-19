@@ -127,7 +127,7 @@ object Defaults {
     const val PREF_GESTURE_TRAIL_FADEOUT_DURATION = 800
     // Two-thumb typing defaults — every default preserves current behaviour (off / 0).
     const val PREF_GESTURE_MANUAL_SPACING = false
-    const val PREF_GESTURE_FRAGMENT_BACKSPACE = false
+    const val PREF_GESTURE_FRAGMENT_BACKSPACE = true
     const val PREF_GESTURE_AUTOSPACE_GRACE_MS = 0
     const val PREF_GESTURE_TAP_DURING_SWIPE = false
     const val PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS = 60

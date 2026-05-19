@@ -75,13 +75,16 @@ fun TwoThumbTypingScreen(
                 add(Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS)
                 add(Settings.PREF_MULTIPART_TAP_SEED_GESTURE)
                 add(Settings.PREF_MULTIPART_JOIN_KEY_MODE)
+                // Show fragment-backspace alongside multi-part: backspace popping the last
+                // joined fragment is the natural "undo a bad join" gesture.
+                add(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE)
             }
         }
         add(Settings.PREF_GESTURE_MANUAL_SPACING)
         val manualSpacing = prefs.getBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, Defaults.PREF_GESTURE_MANUAL_SPACING)
         if (manualSpacing) {
-            // Sub-option of manual spacing only (still scaffolded — backspace-by-fragment is
-            // not yet implemented, but the toggle is here so it's visible alongside the parent).
+            // Sub-option of manual spacing too. Multi-part also shows it above; we don't
+            // double-add since SettingsContainer dedupes by key.
             add(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE)
         }
 
