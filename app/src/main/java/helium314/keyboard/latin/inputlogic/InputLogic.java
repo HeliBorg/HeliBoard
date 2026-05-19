@@ -2848,8 +2848,16 @@ public final class InputLogic {
         mWordComposer.setBatchInputWord(batchInputText);
         setComposingTextInternal(batchInputText, 1);
         mConnection.endBatchEdit();
-        // Space state must be updated before calling updateShiftState
-        if (settingsValues.mAutospaceAfterGestureTyping)
+        // Space state must be updated before calling updateShiftState. Two-thumb typing
+        // (#1.1 + #1.4): skip the after-gesture autospace when we're extending — neither
+        // manual spacing nor tap-promotion should auto-insert a space after the word.
+        // Combining mode (#1.5): when the grace timer is active, IT owns autospace timing.
+        // Setting PHANTOM here would cause the very next letter tap (e.g. "tech" + "y") to
+        // commit the composing word and insert a space before the new letter via
+        // handleNonSpecialCharacterEvent's PHANTOM branch, producing "tech y" instead of
+        // letting the user extend the composing word to "techy".
+        if (settingsValues.mAutospaceAfterGestureTyping && !extendExistingCompose
+                && settingsValues.mCombiningGraceMs <= 0)
             mSpaceState = SpaceState.PHANTOM;
         keyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(settingsValues), getCurrentRecapitalizeState());
 
