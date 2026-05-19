@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
@@ -37,7 +35,6 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxState
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -171,7 +168,7 @@ fun ReviewScreen(
                         if (dismissState.settledValue == SwipeToDismissBoxValue.StartToEnd && !deleteJobs.contains(item.id)) {
                             deleteJobs[item.id] = scope.launch {
                                 delay(4000)
-                                dao.delete(listOf(item.id), false, ctx) // todo: test
+                                dao.delete(listOf(item.id), false, ctx)
                                 gestureDataInfos = gestureDataInfos - item
                             }
                         }
@@ -180,15 +177,16 @@ fun ReviewScreen(
                         state = dismissState,
                         enableDismissFromEndToStart = false,
                         backgroundContent = {
-                            // todo: make it nicer, and larger clickable area
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                if (dismissState.progress == 1f && dismissState.settledValue == SwipeToDismissBoxValue.StartToEnd) {
-                                    TextButton({
+                                Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete))
+                                val undoVisible = dismissState.progress == 1f && dismissState.settledValue == SwipeToDismissBoxValue.StartToEnd
+                                TextButton(
+                                    onClick = {
                                         deleteJobs.remove(item.id)?.cancel()
                                         scope.launch { dismissState.reset() }
-                                    }) { Text(stringResource(R.string.undo)) }
-                                }
-                                Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete))
+                                    },
+                                    modifier = Modifier.alpha(if (undoVisible) 1f else 0f)
+                                ) { Text(stringResource(R.string.undo)) }
                             }
                         },
                         content = {
