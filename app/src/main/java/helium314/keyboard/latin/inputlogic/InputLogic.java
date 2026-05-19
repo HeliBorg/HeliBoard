@@ -2808,18 +2808,11 @@ public final class InputLogic {
         // because the second swipe's path can match both. When a seed is set, prefer any
         // suggestion (in score order) whose first letter matches the seed; only fall back
         // to the top suggestion if none match.
+        // Combining-mode seeding: if PointerTracker seeded this gesture with a prior tap's
+        // coords, the recognizer typically includes that letter as the first char of the
+        // result. We strip it (case-insensitive) so the existing concat below doesn't
+        // double-count it. See PointerTracker for the full rationale.
         final int seedCp = helium314.keyboard.keyboard.PointerTracker.consumeGestureSeedCodepoint();
-        if (seedCp > 0 && settingsValues.mMultipartTapSeedGesture) {
-            final int seedLower = Character.toLowerCase(seedCp);
-            for (int i = 0; i < suggestedWords.size(); i++) {
-                final String cand = suggestedWords.getWord(i);
-                if (cand == null || cand.isEmpty()) continue;
-                if (Character.toLowerCase(cand.codePointAt(0)) == seedLower) {
-                    batchInputText = cand;
-                    break;
-                }
-            }
-        }
         if (seedCp > 0 && batchInputText.length() > 0) {
             final int firstCp = batchInputText.codePointAt(0);
             if (Character.toLowerCase(firstCp) == Character.toLowerCase(seedCp)) {
