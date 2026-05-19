@@ -726,7 +726,16 @@ public final class InputLogic {
 
     /** Record a fragment boundary at the current composing-word length. No-op when not in manual+fragment mode. */
     private void recordFragmentBoundaryIfTracking(final SettingsValues sv) {
-        if (!sv.mGestureManualSpacing || !sv.mGestureFragmentBackspace) return;
+        // Two paths into fragment tracking:
+        //   * Legacy manual-spacing mode (#1.1) — gated on both prefs.
+        //   * Multi-part word composition (#1.6) — combining mode is the trigger; fragment
+        //     backspace works regardless of manual-spacing so the user can pop the last
+        //     swipe/tap they joined onto the word.
+        final boolean legacyTracking = sv.mGestureManualSpacing && sv.mGestureFragmentBackspace;
+        final boolean multipartTracking = sv.mMultipartAutoExtendInCombining
+                && sv.mCombiningGraceMs > 0
+                && sv.mGestureFragmentBackspace;
+        if (!legacyTracking && !multipartTracking) return;
         if (!mWordComposer.isComposingWord()) return;
         final int len = mWordComposer.getTypedWord().length();
         // Don't record duplicates (e.g. the same fragment appended twice in quick succession).
@@ -962,7 +971,11 @@ public final class InputLogic {
      * either find a valid boundary or run out and fall through.
      */
     private boolean tryFragmentBackspace(final SettingsValues sv) {
-        if (!sv.mGestureManualSpacing || !sv.mGestureFragmentBackspace) return false;
+        final boolean legacyTracking = sv.mGestureManualSpacing && sv.mGestureFragmentBackspace;
+        final boolean multipartTracking = sv.mMultipartAutoExtendInCombining
+                && sv.mCombiningGraceMs > 0
+                && sv.mGestureFragmentBackspace;
+        if (!legacyTracking && !multipartTracking) return false;
         if (mGestureFragmentBoundaries.isEmpty()) return false;
         if (!mWordComposer.isComposingWord()) {
             clearFragmentBoundaries();
@@ -2789,7 +2802,24 @@ public final class InputLogic {
         // coords, the recognizer typically includes that letter as the first char of the
         // result. We strip it (case-insensitive) so the existing concat below doesn't
         // double-count it. See PointerTracker for the full rationale.
+        //
+        // Multi-part word composition (#1.6): the top suggestion isn't always the seeded
+        // continuation — e.g. swiping "nology" after "tech" might recognize as "biology"
+        // because the second swipe's path can match both. When a seed is set, prefer any
+        // suggestion (in score order) whose first letter matches the seed; only fall back
+        // to the top suggestion if none match.
         final int seedCp = helium314.keyboard.keyboard.PointerTracker.consumeGestureSeedCodepoint();
+        if (seedCp > 0 && settingsValues.mMultipartTapSeedGesture) {
+            final int seedLower = Character.toLowerCase(seedCp);
+            for (int i = 0; i < suggestedWords.size(); i++) {
+                final String cand = suggestedWords.getWord(i);
+                if (cand == null || cand.isEmpty()) continue;
+                if (Character.toLowerCase(cand.codePointAt(0)) == seedLower) {
+                    batchInputText = cand;
+                    break;
+                }
+            }
+        }
         if (seedCp > 0 && batchInputText.length() > 0) {
             final int firstCp = batchInputText.codePointAt(0);
             if (Character.toLowerCase(firstCp) == Character.toLowerCase(seedCp)) {

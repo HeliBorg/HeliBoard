@@ -1201,6 +1201,22 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                     eventTime, getActivePointerTrackerCount(), this)) {
                 sInGesture = false;
             }
+            // Multi-part word composition: record the gesture's lift position as a "letter
+            // tap" so the NEXT gesture's onDownEvent seeding code (sLastLetterTap*) treats
+            // it as a continuation point. Without this, swipe+swipe gives un-seeded second
+            // strokes that the recognizer interprets as standalone words (e.g. tech+nology
+            // -> "techbiology"). Only record if the lift was on a real letter key.
+            if (Settings.getValues().mMultipartTapSeedGesture
+                    && Settings.getValues().mCombiningGraceMs > 0
+                    && currentKey != null) {
+                final int code = currentKey.getCode();
+                if (code > 0 && Character.isLetter(code)) {
+                    sLastLetterTapX = mKeyX;
+                    sLastLetterTapY = mKeyY;
+                    sLastLetterTapTime = eventTime;
+                    sLastLetterTapCodepoint = code;
+                }
+            }
             showGestureTrail();
             return;
         }
