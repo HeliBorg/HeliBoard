@@ -152,6 +152,31 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private static int sLastLetterTapCodepoint; // 0 = none
     private static int sCurrentGestureSeedCodepoint; // 0 = no seed for current gesture
 
+    // Combining-mode tail seed: the LAST codepoint of the current composing word, set by
+    // InputLogic via {@link #setComposingTailCodepoint} whenever the composing word grows or
+    // shrinks. When a follow-up gesture starts within combining grace, the seed letter is
+    // either this tail (covers gesture-then-gesture and multi-tap-then-gesture: "tech" +
+    // swipe "nology", or "t" "e" "c" "h" + swipe) OR the last single tap if it landed within
+    // the window (the common s + swipe-ilo case). Tap-seed wins when both are fresh since
+    // a single just-tapped letter has more accurate (x, y) than the key-center we derive
+    // from the codepoint.
+    private static int sComposingTailCodepoint; // 0 = no tail seed
+
+    /** Called by InputLogic.cancelCombiningMode / when composing word resets / commits. */
+    public static void clearComposingTailCodepoint() {
+        sComposingTailCodepoint = 0;
+    }
+
+    /** Called by InputLogic at the end of each composing-word-extending event (tap or
+     *  gesture) to record the trailing letter so the next gesture can seed from it. */
+    public static void setComposingTailCodepoint(final int codepoint) {
+        if (codepoint > 0 && Character.isLetter(codepoint)) {
+            sComposingTailCodepoint = codepoint;
+        } else {
+            sComposingTailCodepoint = 0;
+        }
+    }
+
     /** Called by InputLogic at the moment of consuming a gesture's batch result. Returns the
      *  codepoint that seeded the gesture (or 0), and clears the slot so the next gesture
      *  starts fresh. */
@@ -719,33 +744,64 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         mIsDetectingGesture = (mKeyboard != null) && mKeyboard.mId.isAlphabetKeyboard()
                 && key != null && !key.isModifier() && !mKeySwipeAllowed && !sInKeySwipe;
         if (mIsDetectingGesture) {
-            // Combining-mode tap seeding: if the user just tapped a letter within the
-            // (base + tap-extra) combining grace window, prepend that tap's position+time as
-            // the down-event for this gesture. The recognizer sees a continuous stroke from
-            // the tapped letter to the swiped letters and produces a multi-letter word
-            // reliably; without seeding "i→l→o" alone often doesn't recognize as "ilo".
-            // InputLogic.onUpdateTailBatchInputCompleted reads consumeGestureSeedCodepoint()
-            // and strips the leading seed letter from the recognized word before concat, so
-            // we don't double-count it.
+            // Combining-mode seeding (two paths, tap-coords wins when both apply):
+            //
+            //   1. Recent letter tap inside the (base + tap-extra) window:
+            //      use the tap's actual (x, y, time). Common case for "s" + swipe-ilo.
+            //
+            //   2. Otherwise, if InputLogic recorded a composing-tail codepoint and
+            //      combining mode is in progress (so the upcoming gesture WILL extend),
+            //      look up the key's center coords and seed from there. Covers
+            //      "tech" + swipe-nology AND multi-tap-then-swipe "t e c h" + swipe-nology.
+            //
+            // In both cases, the recognizer sees a continuous stroke from the seed letter
+            // through the swiped letters and produces a multi-letter word reliably. The
+            // seed codepoint is stashed in sCurrentGestureSeedCodepoint;
+            // InputLogic.onUpdateTailBatchInputCompleted strips it from the leading edge
+            // of the batch result (case-insensitive) so the existing concat doesn't
+            // double-count.
             int seedX = x;
             int seedY = y;
             long seedTime = eventTime;
             sCurrentGestureSeedCodepoint = 0;
             final SettingsValues sv = Settings.getValues();
             if (sv.mCombiningGraceMs > 0
-                    && sLastLetterTapCodepoint > 0
                     && key != null
                     && !key.isModifier()
                     && Character.isLetter(key.getCode())
                     && mKeyboard != null && mKeyboard.mId.isAlphabetKeyboard()
                     && !sInGesture) {
-                final long timeSinceTap = eventTime - sLastLetterTapTime;
                 final long effectiveWindow = sv.mCombiningGraceMs + Math.max(0, sv.mCombiningTapExtraMs);
-                if (timeSinceTap >= 0 && timeSinceTap <= effectiveWindow) {
-                    seedX = sLastLetterTapX;
-                    seedY = sLastLetterTapY;
-                    seedTime = sLastLetterTapTime;
-                    sCurrentGestureSeedCodepoint = sLastLetterTapCodepoint;
+                // Path 1: recent letter tap.
+                boolean tapSeeded = false;
+                if (sLastLetterTapCodepoint > 0) {
+                    final long timeSinceTap = eventTime - sLastLetterTapTime;
+                    if (timeSinceTap >= 0 && timeSinceTap <= effectiveWindow) {
+                        seedX = sLastLetterTapX;
+                        seedY = sLastLetterTapY;
+                        seedTime = sLastLetterTapTime;
+                        sCurrentGestureSeedCodepoint = sLastLetterTapCodepoint;
+                        tapSeeded = true;
+                    }
+                }
+                // Path 2: composing-tail (gesture-then-gesture / multi-tap-then-gesture).
+                if (!tapSeeded && sComposingTailCodepoint > 0) {
+                    final Key tailKey = mKeyboard.getKey(sComposingTailCodepoint);
+                    if (tailKey == null && Character.isLowerCase(sComposingTailCodepoint)) {
+                        // try upper-case variant in case the keyboard is shifted
+                        final Key alt = mKeyboard.getKey(Character.toUpperCase(sComposingTailCodepoint));
+                        if (alt != null) {
+                            seedX = alt.getX() + alt.getWidth() / 2;
+                            seedY = alt.getY() + alt.getHeight() / 2;
+                            seedTime = eventTime - 1; // any time before the new pointer works
+                            sCurrentGestureSeedCodepoint = sComposingTailCodepoint;
+                        }
+                    } else if (tailKey != null) {
+                        seedX = tailKey.getX() + tailKey.getWidth() / 2;
+                        seedY = tailKey.getY() + tailKey.getHeight() / 2;
+                        seedTime = eventTime - 1;
+                        sCurrentGestureSeedCodepoint = sComposingTailCodepoint;
+                    }
                 }
             }
             mBatchInputArbiter.addDownEventPoint(seedX, seedY, seedTime,
