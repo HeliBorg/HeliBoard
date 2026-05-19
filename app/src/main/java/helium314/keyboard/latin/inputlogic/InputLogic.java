@@ -766,7 +766,7 @@ public final class InputLogic {
         // separators / cursor-front recompositions there's nothing to auto-commit, and arming
         // the timer would draw a spurious progress bar.
         if (!mWordComposer.isComposingWord()) return;
-        final int graceMs = baseGraceMs + (fromTap ? Math.max(0, settingsValues.mCombiningTapExtraMs) : 0);
+        final int graceMs = baseGraceMs + Math.max(0, settingsValues.mCombiningTapExtraMs);
         cancelCombiningTimerOnly();
         mInCombiningMode = true;
         final long startTime = SystemClock.uptimeMillis();
@@ -790,7 +790,6 @@ public final class InputLogic {
         mAutoCommitRevertLength = 0;
         mLastGestureCommittedLength = 0;
         mAutospaceJustWritten = false;
-        helium314.keyboard.keyboard.PointerTracker.clearComposingTailCodepoint();
         if (mInCombiningMode) {
             mInCombiningMode = false;
             final MainKeyboardView kv = KeyboardSwitcher.getInstance().getMainKeyboardView();
@@ -806,7 +805,8 @@ public final class InputLogic {
     }
 
     /** Combining-mode seeding helper: last codepoint of the current composing word, or 0
-     *  if no composing word (in which case PointerTracker clears its tail-seed slot). */
+     *  if no composing word. Currently unused but kept available for future seeding work. */
+    @SuppressWarnings("unused")
     private int lastCodepointOfTypedWord() {
         if (!mWordComposer.isComposingWord()) return 0;
         final String w = mWordComposer.getTypedWord();
@@ -851,7 +851,6 @@ public final class InputLogic {
     private void onCombiningGraceExpired() {
         mPendingCombiningCommit = null;
         mInCombiningMode = false;
-        helium314.keyboard.keyboard.PointerTracker.clearComposingTailCodepoint();
         final MainKeyboardView kv = KeyboardSwitcher.getInstance().getMainKeyboardView();
         if (kv != null) kv.setCombiningMode(false, 0L, 0);
         final SettingsValues sv = Settings.getInstance().getCurrent();
@@ -1490,12 +1489,8 @@ public final class InputLogic {
             // Two-thumb typing (#1.1): record this tap as a fragment boundary so a future
             // backspace under PREF_GESTURE_FRAGMENT_BACKSPACE can pop the whole tap.
             recordFragmentBoundaryIfTracking(settingsValues);
-            // Combining-mode seed tail: tell PointerTracker the last codepoint of the
-            // composing word so the next gesture (if any) can seed from this letter's key.
-            helium314.keyboard.keyboard.PointerTracker.setComposingTailCodepoint(
-                    lastCodepointOfTypedWord());
-            // Combining mode: arm/refresh the grace timer for the next input. Tap path -> add tap-extra.
-            enterCombiningMode(settingsValues, true /* fromTap */);
+            // Combining mode: arm/refresh the grace timer for the next input.
+            enterCombiningMode(settingsValues, true /* fromTap, unused — kept for clarity */);
         } else {
             final boolean swapWeakSpace = tryStripSpaceAndReturnWhetherShouldSwapInstead(event, inputTransaction);
 
@@ -2861,14 +2856,8 @@ public final class InputLogic {
         if (isInlineEmojiSearchAction()) {
             searchForEmojiInline(SuggestedWords.NOT_A_SEQUENCE_NUMBER, mLatinIME::setSuggestions);
         }
-        // Combining-mode seed tail: record the last codepoint of the composing word so the
-        // next gesture (within grace) can seed from this letter's key position. Covers
-        // gesture-then-gesture (swipe tech -> swipe nology -> "technology") AND
-        // multi-tap-then-gesture if the user resumed via taps before another swipe.
-        helium314.keyboard.keyboard.PointerTracker.setComposingTailCodepoint(
-                lastCodepointOfTypedWord());
-        // Combining mode: arm the grace timer after a gesture. Gesture path -> base grace only.
-        enterCombiningMode(settingsValues, false /* fromTap */);
+        // Combining mode: arm the grace timer after a gesture.
+        enterCombiningMode(settingsValues, false /* fromTap, unused — kept for clarity */);
     }
 
     /**
