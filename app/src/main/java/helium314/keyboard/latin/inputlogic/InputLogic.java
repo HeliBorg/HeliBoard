@@ -121,6 +121,12 @@ public final class InputLogic {
     // GESTURE-START, not gesture-end (so a long gesture doesn't lose the promotion).
     private boolean mGestureExtendsByTapPromotion;
 
+    // Snapshot of {@code keyboardSwitcher.getKeyboardShiftMode()} captured at the start of
+    // each gesture. Used by {@link #onUpdateTailBatchInputCompleted} to capitalize the
+    // recognizer's lowercase output. We can't read getKeyboardShiftMode() at gesture-end
+    // because the keyboard typically auto-clears the shifted state during the gesture.
+    private int mShiftModeAtGestureStart = WordComposer.CAPS_MODE_OFF;
+
     // Two-thumb typing (#1.1, sub-option PREF_GESTURE_FRAGMENT_BACKSPACE): char-offsets that
     // mark the END of each "fragment" appended to the current composing word under manual
     // spacing. A fragment is one gesture's output OR one tap's letter. With the pref on,
@@ -572,6 +578,12 @@ public final class InputLogic {
 
     public void onStartBatchInput(final SettingsValues settingsValues,
             final KeyboardSwitcher keyboardSwitcher, final LatinIME.UIHandler handler) {
+        // Snapshot the keyboard's shift mode BEFORE any state mutates — the shifted indicator
+        // typically auto-clears once the gesture starts moving, so by the time
+        // onUpdateTailBatchInputCompleted fires the live mode reads as UNSHIFTED.
+        // We compute the *actual* caps mode (resolves AUTO_SHIFTED into AUTO_SHIFT_LOCKED if
+        // the input field is in all-caps), so a true all-caps field gives the right answer.
+        mShiftModeAtGestureStart = getActualCapsMode(settingsValues, keyboardSwitcher.getKeyboardShiftMode());
         mWordBeingCorrectedByCursor = null;
         mInputLogicHandler.onStartBatchInput();
         handler.showGesturePreviewAndSetSuggestions(SuggestedWords.getEmptyBatchInstance(), false);
@@ -1508,9 +1520,27 @@ public final class InputLogic {
         }
         // Combining mode: explicit separator (space, punctuation, Enter) supersedes the
         // grace timer — the user is committing the word themselves.
+        // Snapshot the space state BEFORE cancelCombiningMode in case the strip path below
+        // needs to know we just came out of an auto-committed PHANTOM.
+        final int spaceStateBeforeCancel = mSpaceState;
         cancelCombiningMode();
         final int codePoint = event.getCodePoint();
         final SettingsValues settingsValues = inputTransaction.getSettingsValues();
+        // Combining-mode punctuation strip: when the timer-driven autospace just inserted a
+        // trailing space (mSpaceState=PHANTOM at this point), and the user taps a punctuation
+        // character that's "usually followed by space" (`,` `.` `;` `:` `!` `?` …), we delete
+        // the preceding space so the comma lands tight against the word: "hello, " instead of
+        // "hello , ". The PHANTOM state then carries forward so the next non-separator
+        // letter gets a fresh autospace (handled by the existing PHANTOM path at line 1942).
+        // Excludes space and Enter (those would defeat the autospace), and clusters (so "..."
+        // and ":)" don't strip each other apart).
+        if (spaceStateBeforeCancel == SpaceState.PHANTOM
+                && Constants.CODE_SPACE != codePoint
+                && Constants.CODE_ENTER != codePoint
+                && settingsValues.isUsuallyFollowedBySpace(codePoint)
+                && Constants.CODE_SPACE == mConnection.getCodePointBeforeCursor()) {
+            mConnection.removeTrailingSpace();
+        }
         final boolean wasComposingWord = mWordComposer.isComposingWord();
         // We avoid sending spaces in languages without spaces if we were composing.
         final boolean shouldAvoidSendingCode = Constants.CODE_SPACE == codePoint
@@ -2770,7 +2800,10 @@ public final class InputLogic {
         // those continuation gestures should append in the casing the user already chose for
         // the start of the word.
         if (!extendExistingCompose && !batchInputText.isEmpty()) {
-            final int shiftMode = keyboardSwitcher.getKeyboardShiftMode();
+            // Use the shift mode captured at gesture-start, not the live mode — the
+            // keyboard auto-clears the shifted indicator during the gesture, so a live
+            // read here always returns UNSHIFTED.
+            final int shiftMode = mShiftModeAtGestureStart;
             if (shiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED
                     || shiftMode == WordComposer.CAPS_MODE_AUTO_SHIFTED) {
                 batchInputText = StringUtils.capitalizeFirstCodePoint(batchInputText, settingsValues.mLocale);
@@ -2779,6 +2812,9 @@ public final class InputLogic {
                 batchInputText = batchInputText.toUpperCase(settingsValues.mLocale);
             }
         }
+        // Clear so a stale value from a previous gesture can't leak into a non-gesture
+        // commit later.
+        mShiftModeAtGestureStart = WordComposer.CAPS_MODE_OFF;
         final String composedText = prevTypedWord + batchInputText;
         // Two-thumb typing (#1.1 + #1.4): never silently prepend an autospace when extending an
         // existing composing word. {@code mSpaceState} can carry PHANTOM in from prior
