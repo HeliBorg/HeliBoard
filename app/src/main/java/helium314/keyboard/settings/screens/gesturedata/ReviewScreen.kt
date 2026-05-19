@@ -164,18 +164,18 @@ fun ReviewScreen(
             LazyColumn(state = wordListState) {
                 items(gestureDataInfos, { it.id }) { item ->
                     val dismissState = rememberSwipeToDismissBoxState()
-                    LaunchedEffect(dismissState.settledValue) {
-                        if (dismissState.settledValue == SwipeToDismissBoxValue.StartToEnd && !deleteJobs.contains(item.id)) {
+                    // todo: how to prevent SwipeToDismissBox from taking the EndToStart gesture? because of this we can't swipe up nicely...
+                    //  in general it should be less sensitive to swiping the wrong direction
+                    SwipeToDismissBox(
+                        state = dismissState,
+                        enableDismissFromEndToStart = false,
+                        onDismiss = {
                             deleteJobs[item.id] = scope.launch {
                                 delay(4000)
                                 dao.delete(listOf(item.id), false, ctx)
                                 gestureDataInfos = gestureDataInfos - item
                             }
-                        }
-                    }
-                    SwipeToDismissBox(
-                        state = dismissState,
-                        enableDismissFromEndToStart = false,
+                        },
                         backgroundContent = {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete))
