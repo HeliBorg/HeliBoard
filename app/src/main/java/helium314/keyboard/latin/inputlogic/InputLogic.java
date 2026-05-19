@@ -126,6 +126,12 @@ public final class InputLogic {
     // recognizer's lowercase output. We can't read getKeyboardShiftMode() at gesture-end
     // because the keyboard typically auto-clears the shifted state during the gesture.
     private int mShiftModeAtGestureStart = WordComposer.CAPS_MODE_OFF;
+    /** Set to true at the end of {@link #onCombiningGraceExpired} when an autospace was
+     *  written, so the next punctuation tap in {@link #handleSeparatorEvent} can strip it
+     *  (yielding "hello," not "hello ,"). One-shot — cleared on next non-separator letter
+     *  tap, on backspace, on cancel, and right after consumption. NOT a SpaceState flag
+     *  because PHANTOM would make the next letter ALSO write a space, double-spacing. */
+    private boolean mAutospaceJustWritten;
 
     // Two-thumb typing (#1.1, sub-option PREF_GESTURE_FRAGMENT_BACKSPACE): char-offsets that
     // mark the END of each "fragment" appended to the current composing word under manual
@@ -753,6 +759,7 @@ public final class InputLogic {
         mAutospaceAlternativesPending = false;
         mAutoCommitRevertLength = 0;
         mLastGestureCommittedLength = 0;
+        mAutospaceJustWritten = false;
         final int baseGraceMs = settingsValues.mCombiningGraceMs;
         if (baseGraceMs <= 0) return;
         // We only arm the timer if there's actually a composing word — for tap-only events on
@@ -782,6 +789,7 @@ public final class InputLogic {
         mAutospaceAlternativesPending = false;
         mAutoCommitRevertLength = 0;
         mLastGestureCommittedLength = 0;
+        mAutospaceJustWritten = false;
         if (mInCombiningMode) {
             mInCombiningMode = false;
             final MainKeyboardView kv = KeyboardSwitcher.getInstance().getMainKeyboardView();
@@ -877,15 +885,14 @@ public final class InputLogic {
                     mLastComposedWord.mNgramContext,
                     mLastComposedWord.mCapitalizedMode);
         }
-        // After auto-commit + autospace, set PHANTOM so the existing punctuation-strip logic
-        // (in handleNonSeparatorEvent / handleSeparatorEvent) properly handles ", " / ". " /
-        // "; " — user types "hello", timer fires, then user types comma -> we want "hello,"
-        // with the autospace stripped, not "hello ,". The phantom space gets re-inserted
-        // automatically by the next letter input if needed (Standard HeliBoard behaviour
-        // mirrored from handleSeparatorEvent's space-then-letter path).
-        // Only set PHANTOM if we actually inserted a space — for URL/email contexts where no
-        // space was written, NONE is correct.
-        mSpaceState = autospaceInserted ? SpaceState.PHANTOM : SpaceState.NONE;
+        // Don't set PHANTOM here — we already wrote the space to the editor. PHANTOM would
+        // make the next letter call insertAutomaticSpaceIfOptionsAndTextAllow AGAIN (see
+        // handleNonSeparatorEvent line ~1760), giving a double space. Instead, set a
+        // dedicated one-shot flag that handleSeparatorEvent uses to strip the autospace if
+        // a punctuation character follows. The flag is cleared by enterCombiningMode (next
+        // input took over), cancelCombiningMode (backspace etc), or once consumed.
+        mAutospaceJustWritten = autospaceInserted;
+        mSpaceState = SpaceState.NONE;
         mConnection.endBatchEdit();
         final int cursorAfter = mConnection.getExpectedSelectionEnd();
         // The commit doesn't move the cursor for the composing text itself (it was already
@@ -1374,6 +1381,9 @@ public final class InputLogic {
      */
     private void handleNonSeparatorEvent(final Event event, final SettingsValues settingsValues,
             final InputTransaction inputTransaction) {
+        // Any non-separator letter input means the user accepted the autospace and is
+        // typing the next word — the strip-on-next-punctuation one-shot no longer applies.
+        mAutospaceJustWritten = false;
         final int codePoint = event.getCodePoint();
         // TODO: refactor this method to stop flipping isComposingWord around all the time, and
         // make it shorter (possibly cut into several pieces). Also factor
@@ -1518,28 +1528,28 @@ public final class InputLogic {
             // Eat the keystroke entirely — no second space, no shift update, no commit.
             return;
         }
+        // Combining-mode punctuation strip: when the timer-driven autospace just wrote a
+        // trailing space (mAutospaceJustWritten was set) AND the user taps a punctuation
+        // character that's "usually followed by space" (`,` `.` `;` `:` `!` `?` …), delete
+        // the preceding space so the comma lands tight against the word: "hello," instead of
+        // "hello ,". The PHANTOM-after path then sets state so the next non-separator letter
+        // gets a fresh autospace. Excludes space and Enter (those would defeat the
+        // autospace).
+        final boolean justAutoSpaced = mAutospaceJustWritten;
+        mAutospaceJustWritten = false;
         // Combining mode: explicit separator (space, punctuation, Enter) supersedes the
         // grace timer — the user is committing the word themselves.
-        // Snapshot the space state BEFORE cancelCombiningMode in case the strip path below
-        // needs to know we just came out of an auto-committed PHANTOM.
-        final int spaceStateBeforeCancel = mSpaceState;
         cancelCombiningMode();
         final int codePoint = event.getCodePoint();
         final SettingsValues settingsValues = inputTransaction.getSettingsValues();
-        // Combining-mode punctuation strip: when the timer-driven autospace just inserted a
-        // trailing space (mSpaceState=PHANTOM at this point), and the user taps a punctuation
-        // character that's "usually followed by space" (`,` `.` `;` `:` `!` `?` …), we delete
-        // the preceding space so the comma lands tight against the word: "hello, " instead of
-        // "hello , ". The PHANTOM state then carries forward so the next non-separator
-        // letter gets a fresh autospace (handled by the existing PHANTOM path at line 1942).
-        // Excludes space and Enter (those would defeat the autospace), and clusters (so "..."
-        // and ":)" don't strip each other apart).
-        if (spaceStateBeforeCancel == SpaceState.PHANTOM
+        if (justAutoSpaced
                 && Constants.CODE_SPACE != codePoint
                 && Constants.CODE_ENTER != codePoint
                 && settingsValues.isUsuallyFollowedBySpace(codePoint)
                 && Constants.CODE_SPACE == mConnection.getCodePointBeforeCursor()) {
             mConnection.removeTrailingSpace();
+            // Leave mSpaceState=NONE; the existing PHANTOM-keep path at line 2000ish will
+            // re-establish PHANTOM if appropriate after the comma is committed.
         }
         final boolean wasComposingWord = mWordComposer.isComposingWord();
         // We avoid sending spaces in languages without spaces if we were composing.
