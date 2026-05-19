@@ -865,7 +865,15 @@ public final class InputLogic {
                     mLastComposedWord.mNgramContext,
                     mLastComposedWord.mCapitalizedMode);
         }
-        mSpaceState = SpaceState.NONE;
+        // After auto-commit + autospace, set PHANTOM so the existing punctuation-strip logic
+        // (in handleNonSeparatorEvent / handleSeparatorEvent) properly handles ", " / ". " /
+        // "; " — user types "hello", timer fires, then user types comma -> we want "hello,"
+        // with the autospace stripped, not "hello ,". The phantom space gets re-inserted
+        // automatically by the next letter input if needed (Standard HeliBoard behaviour
+        // mirrored from handleSeparatorEvent's space-then-letter path).
+        // Only set PHANTOM if we actually inserted a space — for URL/email contexts where no
+        // space was written, NONE is correct.
+        mSpaceState = autospaceInserted ? SpaceState.PHANTOM : SpaceState.NONE;
         mConnection.endBatchEdit();
         final int cursorAfter = mConnection.getExpectedSelectionEnd();
         // The commit doesn't move the cursor for the composing text itself (it was already
@@ -2740,6 +2748,42 @@ public final class InputLogic {
         }
         if (batchInputText.isEmpty()) return;
         mConnection.beginBatchEdit();
+        // Two-thumb typing (#1.1 + #1.4): when either manual spacing OR tap-promotion-extend
+        // applies, a follow-up gesture EXTENDS the existing composing word rather than
+        // replacing it. We snapshot what the word composer currently holds and concatenate
+        // before handing the combined string to {@link WordComposer#setBatchInputWord} and
+        // the editor. The composer's reset() inside setBatchInputWord does not touch
+        // mInputPointers (see WordComposer.java:106 vs the comment at line 279), so
+        // re-feeding a longer string is safe.
+        //
+        // {@code mGestureExtendsByTapPromotion} was set in onStartBatchInput so the
+        // promotion-window decision is made at gesture-start time (a long gesture shouldn't
+        // age out of the promotion window between start and end).
+        final boolean extendExistingCompose = (settingsValues.mGestureManualSpacing || mGestureExtendsByTapPromotion)
+                && mWordComposer.isComposingWord()
+                && !mWordComposer.isCursorFrontOrMiddleOfComposingWord();
+        final String prevTypedWord = extendExistingCompose ? mWordComposer.getTypedWord() : "";
+        // Auto-capitalize the first letter of a fresh-word gesture when the keyboard is in
+        // auto-shifted / manual-shifted / shift-locked state. The gesture-recognizer always
+        // returns lowercase, so without this fix swiping "Hello" at sentence-start types
+        // "hello". We deliberately skip this when extending an existing composing word, since
+        // those continuation gestures should append in the casing the user already chose for
+        // the start of the word.
+        if (!extendExistingCompose && !batchInputText.isEmpty()) {
+            final int shiftMode = keyboardSwitcher.getKeyboardShiftMode();
+            if (shiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED
+                    || shiftMode == WordComposer.CAPS_MODE_AUTO_SHIFTED) {
+                batchInputText = StringUtils.capitalizeFirstCodePoint(batchInputText, settingsValues.mLocale);
+            } else if (shiftMode == WordComposer.CAPS_MODE_AUTO_SHIFT_LOCKED
+                    || shiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED) {
+                batchInputText = batchInputText.toUpperCase(settingsValues.mLocale);
+            }
+        }
+        final String composedText = prevTypedWord + batchInputText;
+        // Two-thumb typing (#1.1 + #1.4): never silently prepend an autospace when extending an
+        // existing composing word. {@code mSpaceState} can carry PHANTOM in from prior
+        // punctuation / suggestion-pick paths; clearing it here (without inserting) is the
+        // only way to guarantee the user-visible "no autospace" promise.
         if (SpaceState.PHANTOM == mSpaceState) {
             insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
             mSpaceState = SpaceState.NONE;
