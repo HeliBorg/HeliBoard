@@ -105,25 +105,26 @@ class GestureDataDao(val db: Database) {
         GestureDataGatheringSettings.onExported(context)
     }
 
-    // todo: the count isn't correct with passive gathering
-    // todo: add same count for passive
-    // todo: avoid double counting words exported twice, can we do that?
     fun delete(ids: List<Long>, onlyExported: Boolean, context: Context): Int = synchronized(this) {
         if (ids.isEmpty()) return 0
         val where = "$COLUMN_ID IN (${ids.joinToString(",")})"
         val whereExported = " AND $COLUMN_EXPORTED <> 0"
-        val count: Int
-        if (onlyExported) {
-            count = db.writableDatabase.delete(TABLE, where + whereExported, null)
-            GestureDataGatheringSettings.addExportedActiveDeletionCount(context, count) // actually we could also have a counter in the db
-        } else {
-            val exportedCount = db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE WHERE $where$whereExported", null).use {
-                it.moveToFirst()
-                it.getInt(0)
-            }
-            count = db.writableDatabase.delete(TABLE, where, null)
-            GestureDataGatheringSettings.addExportedActiveDeletionCount(context, exportedCount)
+        val active = " AND $COLUMN_SOURCE_ACTIVE <> 0"
+        val passive = " AND $COLUMN_SOURCE_ACTIVE = 0"
+        val exportedActiveCount = db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE WHERE $where$whereExported$active", null).use {
+            it.moveToFirst()
+            it.getInt(0)
         }
+        val exportedPassiveCount = db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE WHERE $where$whereExported$passive", null).use {
+            it.moveToFirst()
+            it.getInt(0)
+        }
+        val count = if (onlyExported) // this is just to be sure we don't delete anything that somehow accidentally came here
+            db.writableDatabase.delete(TABLE, where + whereExported, null)
+        else
+            db.writableDatabase.delete(TABLE, where, null)
+        GestureDataGatheringSettings.addExportedActiveDeletionCount(context, exportedActiveCount)
+        GestureDataGatheringSettings.addExportedPassiveDeletionCount(context, exportedPassiveCount)
         return count
     }
 

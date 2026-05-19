@@ -38,6 +38,7 @@ object GestureDataGatheringSettings {
     private const val PREF_APP_EXCLUSIONS = "gesture_data_app_exclusions"
     private const val PREF_APP_EXCLUSIONS_INCLUDE_BY_DEFAULT = "gesture_data_app_exclusions_ignore_by_default"
     private const val PREF_DELETED_ACTIVE = "gesture_data_deleted_active_words"
+    private const val PREF_DELETED_PASSIVE = "gesture_data_deleted_passive_words"
     private const val PREF_PASSIVE_NOTIFY_COUNT = "gesture_data_passive_notify_count"
     const val PREF_PASSIVE_ENABLED = "gesture_data_passive_gathering_enabled"
     private const val PREF_PASSIVE_SAVE_ON_BUTTON = "gesture_data_passive_gathering_save_on_button"
@@ -139,6 +140,13 @@ object GestureDataGatheringSettings {
     }
 
     fun getExportedActiveDeletionCount(context: Context) = context.prefs().getInt(PREF_DELETED_ACTIVE, 0)
+
+    fun addExportedPassiveDeletionCount(context: Context, count: Int) {
+        val oldCount = getExportedPassiveDeletionCount(context)
+        context.prefs().edit { putInt(PREF_DELETED_PASSIVE, oldCount + count) }
+    }
+
+    fun getExportedPassiveDeletionCount(context: Context) = context.prefs().getInt(PREF_DELETED_PASSIVE, 0)
 
     fun onTrySaveData(prefs: SharedPreferences) {
         if (prefs.getLong(PREF_SHOW_PROMOTION_DIALOG_NEXT, 0) < Long.MAX_VALUE)
