@@ -68,6 +68,14 @@ fun TwoThumbTypingScreen(
             add(Settings.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE)
             add(Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS)
             add(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD)
+            // Multi-part word composition (only meaningful when combining grace > 0).
+            add(Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING)
+            if (prefs.getBoolean(Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING,
+                    Defaults.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING)) {
+                add(Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS)
+                add(Settings.PREF_MULTIPART_TAP_SEED_GESTURE)
+                add(Settings.PREF_MULTIPART_JOIN_KEY_MODE)
+            }
         }
         add(Settings.PREF_GESTURE_MANUAL_SPACING)
         val manualSpacing = prefs.getBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, Defaults.PREF_GESTURE_MANUAL_SPACING)
@@ -160,6 +168,27 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_GESTURE_MANUAL_SPACING,
         R.string.gesture_manual_spacing, R.string.gesture_manual_spacing_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_MANUAL_SPACING)
+    },
+    Setting(context, Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING,
+        R.string.multipart_auto_extend_in_combining, R.string.multipart_auto_extend_in_combining_summary) {
+        SwitchPreference(it, Defaults.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING)
+    },
+    Setting(context, Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS,
+        R.string.multipart_full_word_suggestions, R.string.multipart_full_word_suggestions_summary) {
+        SwitchPreference(it, Defaults.PREF_MULTIPART_FULL_WORD_SUGGESTIONS)
+    },
+    Setting(context, Settings.PREF_MULTIPART_TAP_SEED_GESTURE,
+        R.string.multipart_tap_seed_gesture, R.string.multipart_tap_seed_gesture_summary) {
+        SwitchPreference(it, Defaults.PREF_MULTIPART_TAP_SEED_GESTURE)
+    },
+    Setting(context, Settings.PREF_MULTIPART_JOIN_KEY_MODE,
+        R.string.multipart_join_key_mode, R.string.multipart_join_key_mode_summary) { def ->
+        val items = listOf(
+            stringResource(R.string.multipart_join_key_mode_off) to "off",
+            stringResource(R.string.multipart_join_key_mode_longpress_space) to "longpress_space",
+            stringResource(R.string.multipart_join_key_mode_dedicated_key) to "dedicated_key",
+        )
+        ListPreference(def, items, Defaults.PREF_MULTIPART_JOIN_KEY_MODE)
     },
     Setting(context, Settings.PREF_GESTURE_FRAGMENT_BACKSPACE,
         R.string.gesture_fragment_backspace, R.string.gesture_fragment_backspace_summary) {

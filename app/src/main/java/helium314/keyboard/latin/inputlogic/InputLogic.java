@@ -2809,7 +2809,15 @@ public final class InputLogic {
         // {@code mGestureExtendsByTapPromotion} was set in onStartBatchInput so the
         // promotion-window decision is made at gesture-start time (a long gesture shouldn't
         // age out of the promotion window between start and end).
-        final boolean extendExistingCompose = (settingsValues.mGestureManualSpacing || mGestureExtendsByTapPromotion)
+        // Multi-part word composition (#1.6): when combining mode is armed AND a composing
+        // word exists, the next gesture extends it (tech + nology -> technology). This
+        // unifies what was previously only possible via manual-spacing or tap-promotion.
+        final boolean combiningExtendsSwipe = settingsValues.mMultipartAutoExtendInCombining
+                && settingsValues.mCombiningGraceMs > 0
+                && mInCombiningMode;
+        final boolean extendExistingCompose = (settingsValues.mGestureManualSpacing
+                        || mGestureExtendsByTapPromotion
+                        || combiningExtendsSwipe)
                 && mWordComposer.isComposingWord()
                 && !mWordComposer.isCursorFrontOrMiddleOfComposingWord();
         final String prevTypedWord = extendExistingCompose ? mWordComposer.getTypedWord() : "";
@@ -2845,8 +2853,40 @@ public final class InputLogic {
             mSpaceState = SpaceState.NONE;
         }
         enterInlineEmojiSearchIfNeeded(batchInputText.codePointAt(0), settingsValues);
-        mWordComposer.setBatchInputWord(batchInputText);
-        setComposingTextInternal(batchInputText, 1);
+        mWordComposer.setBatchInputWord(composedText);
+        setComposingTextInternal(composedText, 1);
+        if (extendExistingCompose) {
+            // Two-thumb typing (#1.1 + #1.4): downgrade the composer out of batch mode so
+            // future dictionary lookups treat the (possibly already-concatenated) composing
+            // word as typed text instead of using only the last gesture's input pointers.
+            // Otherwise the suggestion strip would keep showing suggestions for the most
+            // recent fragment, and picking one would replace the WHOLE composing span with a
+            // single-fragment alternative — catastrophic data loss for the user.
+            mWordComposer.unsetBatchMode();
+            // Multi-part word composition (#1.6): the suggestion strip was computed during
+            // the gesture and reflects only the LAST fragment, which would mislead the user
+            // if they tapped it (replacing the whole composing span with one fragment). Two
+            // options: blank the strip (legacy) or repopulate it for the full composing word.
+            if (settingsValues.mMultipartFullWordSuggestions) {
+                performUpdateSuggestionStripSync(settingsValues, SuggestedWords.INPUT_STYLE_TYPING);
+            } else {
+                setSuggestedWords(SuggestedWords.getEmptyInstance());
+            }
+            // PREF_GESTURE_FRAGMENT_BACKSPACE: record this gesture as a fragment boundary
+            // so backspace can pop the whole word at once. When extending an existing
+            // composing word, both the prior fragments AND this new one are already in the
+            // boundaries list (prior fragments were recorded at their own append time);
+            // recordFragmentBoundaryIfTracking adds the NEW boundary at the end. No-op if
+            // PREF_GESTURE_FRAGMENT_BACKSPACE isn't on.
+            recordFragmentBoundaryIfTracking(settingsValues);
+        } else {
+            // Non-extend path replaces the whole composing word each gesture; any prior
+            // fragment boundaries become meaningless.
+            clearFragmentBoundaries();
+        }
+        // Tap-promotion-extend is a one-shot decision per gesture; clear the flag so the
+        // next gesture re-evaluates the timing.
+        mGestureExtendsByTapPromotion = false;
         mConnection.endBatchEdit();
         // Space state must be updated before calling updateShiftState. Two-thumb typing
         // (#1.1 + #1.4): skip the after-gesture autospace when we're extending — neither

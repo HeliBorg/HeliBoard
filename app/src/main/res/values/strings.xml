@@ -268,6 +268,19 @@
     <!-- Description for combining_tap_extra. -->
     <string name="combining_tap_extra_summary">Add this much time on top of the base grace when the last input was a tap (peck-typists often need more time between letters than swipers between gestures).</string>
 
+    <!-- Multi-part word composition (concatenate two swipes / swipe+tap / tap+swipe into one word). -->
+    <string name="multipart_auto_extend_in_combining">Concatenate fragments into one word</string>
+    <string name="multipart_auto_extend_in_combining_summary">While the combining grace timer is running, the next swipe or tap extends the current composing word instead of starting a new one (tech+nology → technology, tech+y → Techy).</string>
+    <string name="multipart_full_word_suggestions">Suggestions for full composing word</string>
+    <string name="multipart_full_word_suggestions_summary">During multi-part composition, the suggestion strip shows alternatives for the entire word so far, not just the most recent fragment.</string>
+    <string name="multipart_tap_seed_gesture">Seed swipe from typed prefix</string>
+    <string name="multipart_tap_seed_gesture_summary">When you type some letters and then swipe while combining mode is armed, treat the swipe as a continuation of the typed prefix.</string>
+    <string name="multipart_join_key_mode">Explicit "join next" modifier</string>
+    <string name="multipart_join_key_mode_summary">Force the next input to extend the current word regardless of timing.</string>
+    <string name="multipart_join_key_mode_off">Off</string>
+    <string name="multipart_join_key_mode_longpress_space">Long-press spacebar</string>
+    <string name="multipart_join_key_mode_dedicated_key">Dedicated key in symbols layer</string>
+
     <!-- Title of the post-autospace suggestion-strip behavior pref. -->
     <string name="combining_autospace_suggestions">After auto-space, show…</string>
     <!-- Description of the post-autospace suggestion-strip behavior pref. -->

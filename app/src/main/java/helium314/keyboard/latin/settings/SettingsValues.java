@@ -137,6 +137,11 @@ public class SettingsValues {
         // Raw string value: "keep_alternatives" | "next_word" | "alternatives_then_next_word"
         public final String mCombiningAutospaceSuggestions;
         public final boolean mCombiningBackspaceDeletesGestureWord;
+        // Multi-part word composition (this branch).
+        public final boolean mMultipartAutoExtendInCombining;
+        public final boolean mMultipartFullWordSuggestions;
+        public final boolean mMultipartTapSeedGesture;
+        public final String mMultipartJoinKeyMode;
         public final boolean mSlidingKeyInputPreviewEnabled;
         public final int mKeyLongpressTimeout;
         public final boolean mEnableEmojiAltPhysicalKey;
@@ -327,6 +332,17 @@ public class SettingsValues {
                 mCombiningBackspaceDeletesGestureWord = prefs.getBoolean(
                                 Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD,
                                 Defaults.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD);
+                mMultipartAutoExtendInCombining = prefs.getBoolean(
+                                Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING,
+                                Defaults.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING);
+                mMultipartFullWordSuggestions = prefs.getBoolean(
+                                Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS,
+                                Defaults.PREF_MULTIPART_FULL_WORD_SUGGESTIONS);
+                mMultipartTapSeedGesture = prefs.getBoolean(
+                                Settings.PREF_MULTIPART_TAP_SEED_GESTURE,
+                                Defaults.PREF_MULTIPART_TAP_SEED_GESTURE);
+                mMultipartJoinKeyMode = prefs.getString(Settings.PREF_MULTIPART_JOIN_KEY_MODE,
+                                Defaults.PREF_MULTIPART_JOIN_KEY_MODE);
                 mSuggestionStripHiddenPerUserSettings = mToolbarMode == ToolbarMode.HIDDEN
                                 || mToolbarMode == ToolbarMode.TOOLBAR_KEYS;
                 mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions

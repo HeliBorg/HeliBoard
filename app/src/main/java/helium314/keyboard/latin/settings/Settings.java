@@ -168,6 +168,23 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // in one keystroke (unless an autocorrect-revert applies — that always goes first). Tap
     // typing is unaffected; this only kicks in when the just-committed word came from a swipe.
     public static final String PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD = "combining_backspace_deletes_gesture_word";
+    // Multi-part word composition: when combining mode is armed (grace timer running), the
+    // next swipe/tap concatenates onto the existing composing word rather than starting a
+    // new one. Allows tech+nology -> technology and tech+y -> Techy without an explicit
+    // "manual spacing" mode. Defaults true (only takes effect when combining grace > 0).
+    public static final String PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING = "multipart_auto_extend_in_combining";
+    // Suggestion strip behaviour during multi-part composition. When true, after an
+    // extending gesture/tap the strip is repopulated with suggestions for the FULL composing
+    // word (not the last fragment). Defaults true.
+    public static final String PREF_MULTIPART_FULL_WORD_SUGGESTIONS = "multipart_full_word_suggestions";
+    // When a swipe starts while combining mode is armed AND a composing word already exists,
+    // prepend a synthetic input point at the tail of the composing word so the gesture
+    // recognizer treats it as a continuation. Helps tap-then-swipe joins land sensibly.
+    public static final String PREF_MULTIPART_TAP_SEED_GESTURE = "multipart_tap_seed_gesture";
+    // Explicit "join" modifier: off | longpress_space | dedicated_key. Forces the next
+    // input to extend the composing word regardless of timer. Defaults off until UX is
+    // finalised.
+    public static final String PREF_MULTIPART_JOIN_KEY_MODE = "multipart_join_key_mode";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
     public static final String PREF_USE_APPS = "use_apps";
