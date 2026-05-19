@@ -160,6 +160,8 @@ object PassiveGatheringCache {
         cachedWords.clear()
         updateIcon()
     }
+
+    val isEmpty get() = cachedWords.isEmpty()
 }
 
 @JvmField

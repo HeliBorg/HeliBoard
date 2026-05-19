@@ -178,9 +178,8 @@ object KeyCode {
     const val META_RIGHT =                -10049
     const val EMOJI_SEARCH =              -10050
     const val INLINE_EMOJI_SEARCH_DONE =  -10051
-    const val TOGGLE_PASSIVE_GATHERING =  -10052 // will be useless after removal of gesture data gathering (keep for compatibility)
+    const val PASSIVE_GATHERING =         -10052 // will be useless after removal of gesture data gathering (keep for compatibility)
     const val PASSIVE_GATHERING_TEMP_OFF =-10053 // will be useless after removal of gesture data gathering (keep for compatibility)
-    const val PASSIVE_GATHERING_SAVE =    -10054 // will be useless after removal of gesture data gathering (keep for compatibility)
 
 
     // Intents
@@ -205,7 +204,7 @@ object KeyCode {
         MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK,
         TIMESTAMP, CTRL_LEFT, CTRL_RIGHT, ALT_LEFT, ALT_RIGHT, META_LEFT, META_RIGHT, SEND_INTENT_ONE, SEND_INTENT_TWO,
         SEND_INTENT_THREE, EMOJI_SEARCH, INLINE_EMOJI_SEARCH_DONE, META_LOCK,
-        TOGGLE_PASSIVE_GATHERING, PASSIVE_GATHERING_TEMP_OFF, PASSIVE_GATHERING_SAVE
+        PASSIVE_GATHERING, PASSIVE_GATHERING_TEMP_OFF
         -> this
 
         // conversion

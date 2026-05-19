@@ -1160,10 +1160,10 @@ New dictionary:
      %1$s -> gesture_data_passive_apps_button
      %2$s -> gesture_data_passive_excluded_words_button
      %3$s -> gesture_data_passive_gathering_manual_save
-     %4$s -> passive_gathering_save
+     %4$s -> passive_gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_passive_gathering_control_message">
-        Independent of the settings, passive data gathering is disabled for sensitive input fields (passwords, email, or whenever the input field requests the keyboard to not learn the words).
+        Independent of the settings, passive data gathering is disabled when using incognito mode and for sensitive input fields (passwords, email, or whenever the input field requests the keyboard to not learn the words).
 
         Using &lt;i&gt;%1$s&lt;/i&gt; you can select in which apps passive data gathering may be used.
         The default setting allows every app, with opt-out per app. You can invert the default, and only include specific apps.
@@ -1174,17 +1174,17 @@ New dictionary:
         When an excluded word is in the top suggestions, the gesture data will be discarded as well.
         &lt;br&gt;&lt;br&gt;
 
-        When &lt;i&gt;%3$s&lt;/i&gt; is enabled, data is saved only if you choose to do so manually.
-        You can do this either by pressing the &lt;i&gt;%4$s&lt;/i&gt; toolbar key, or using a key with code -10054 in a custom layout.
-        If data is not saved, pending data will be deleted when changing input field, closing the keyboard, or when using the toolbar key described below.&lt;br&gt;
+        When &lt;i&gt;%3$s&lt;/i&gt; is enabled, data is saved only if you choose to do so manually using the &lt;i&gt;%4$s&lt;/i&gt; toolbar key (see below).
+        If data is not saved, pending data will be deleted when changing input field or closing the keyboard.&lt;br&gt;
         App and word exclusions still apply in this mode.
         &lt;br&gt;&lt;br&gt;
 
-        If you want to stop pending data from being saved, you can enable incognito mode or disable data gathering using the toolbar key.&lt;br&gt;
-        This toolbar key will show up only if you enabled passive data gathering at least once.
-        A simple press on the key toggles passive gathering (key code -10052), and long-press disables it for five minutes (key code -10053).
-        After the five minutes, data gathering will be enabled again if it was enabled before.
-        You can re-enable passive data gathering earlier using the toolbar key.
+        The &lt;i&gt;%4$s&lt;/i&gt; toolbar key can be used to control data gathering. The effect of a press depends on the current state:
+        When passive gathering is disabled, it will be enabled.&lt;br&gt;
+        When &lt;i&gt;%3$s&lt;/i&gt; is enabled, pending data will be saved.&lt;br&gt;
+        Otherwise, pending data will be discarded.&lt;br&gt;
+        A long-press will disable gathering for five minutes.
+        You can re-enable passive data gathering earlier with a normal key press.
     </string>
     <!-- Message for info dialog section about reviewing and sharing passively gathered data, parsed as HTML
      %1$s -> gesture_data_review_screen_title
@@ -1217,8 +1217,7 @@ New dictionary:
     <string name="gesture_data_long_press_select_hint">Long-press to select</string>
     <!-- Toolbar key to enable / disable passive gesture data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="passive_gathering_state" tools:keep="@string/passive_gathering_state">Passive data gathering</string>
-    <string name="passive_gathering_save" tools:keep="@string/passive_gathering_save">Save passive gathering data</string>
+    <string name="passive_gathering" tools:keep="@string/passive_gathering">Passive data gathering</string>
     <!-- Text showing suggestions recorded for a specific gesture
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_suggestions">Suggestions: %s</string>
@@ -1238,6 +1237,19 @@ New dictionary:
      %s is percent already written
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_saving">Saving… %s%</string>
+    <!-- Dialog message asking the user whether they want to enable the toolbar key
+     shown when passive data gathering is enabled for the first time
+     %1$s -> gesture_data_passive_gathering_info
+     %2$s -> passive_gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_first_enable_dialog">
+        Welcome to passive data gathering!&lt;br&gt;
+        Do you wish to add the &lt;i&gt;%1$s&lt;/i&gt; key to the toolbar?
+        You can use it to control data gathering, read more about it using the &lt;i&gt;%2$s&lt;/i&gt; button.
+    </string>
+    <!-- Button for adding the passive_gathering toolbar key
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_add_key">Add toolbar key</string>
 
     <!-- new strings should go above the section for gesture data gathering -->
 </resources>

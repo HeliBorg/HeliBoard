@@ -102,20 +102,23 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
         when (primaryCode) {
             KeyCode.TOGGLE_AUTOCORRECT -> return settings.toggleAutoCorrect()
-            KeyCode.TOGGLE_PASSIVE_GATHERING -> {
-                GestureDataGatheringSettings.togglePassiveGatheringEnabled(latinIME.prefs())
-                PassiveGatheringCache.clear()
-                latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
+            KeyCode.PASSIVE_GATHERING -> {
+                if (PassiveGatheringCache.isEmpty) {
+                    // only enable, no toggle
+                    GestureDataGatheringSettings.setPassiveGatheringEnabled(latinIME.prefs(), true)
+                    latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
+                } else {
+                    if (GestureDataGatheringSettings.isOptInMode(latinIME))
+                        PassiveGatheringCache.save(latinIME)
+                    else
+                        PassiveGatheringCache.clear()
+                }
                 return
             }
             KeyCode.PASSIVE_GATHERING_TEMP_OFF -> {
                 GestureDataGatheringSettings.tempDisablePassiveGathering(latinIME.prefs())
                 PassiveGatheringCache.clear()
                 latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
-                return
-            }
-            KeyCode.PASSIVE_GATHERING_SAVE -> {
-                PassiveGatheringCache.save(latinIME)
                 return
             }
             KeyCode.TOGGLE_INCOGNITO_MODE -> {

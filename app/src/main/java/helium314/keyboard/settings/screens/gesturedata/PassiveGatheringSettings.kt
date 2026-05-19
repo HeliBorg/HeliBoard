@@ -56,6 +56,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import androidx.core.content.edit
 import androidx.core.graphics.drawable.toBitmap
 import helium314.keyboard.latin.AppsManager
 import helium314.keyboard.latin.R
@@ -67,11 +68,19 @@ import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import kotlinx.coroutines.launch
 import kotlin.collections.plus
 import androidx.core.graphics.toColorInt
+import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Links
+import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppExclusions
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppIncludeByDefault
+import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.defaultToolbarPref
+import helium314.keyboard.latin.utils.getEnabledToolbarKeys
+import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.painterResourceCompat
 import kotlinx.coroutines.Dispatchers
+import kotlin.text.split
 
 // functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
 // will be removed once the project is finished
@@ -84,6 +93,7 @@ fun PassiveGatheringSettings() {
     var showInfoDialog by remember { mutableStateOf(false) }
     var showExcludedWordsDialog by remember { mutableStateOf(false) }
     var showIncludedAppsDialog by remember { mutableStateOf(false) }
+    var showFirstStartDialog by remember { mutableStateOf(false) }
     var packageInfos by remember { mutableStateOf(emptyList<Triple<String, String, Drawable?>>()) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -99,7 +109,15 @@ fun PassiveGatheringSettings() {
             val allowedCountText = if (packageInfos.isEmpty()) "" else allowedCount.toString()
             Text(stringResource(R.string.gesture_data_passive_gathering_allowed_apps, allowedCountText), style = MaterialTheme.typography.bodySmall)
         }
-        Switch(passiveGathering, { passiveGathering = it; GestureDataGatheringSettings.setPassiveGatheringEnabled(ctx.prefs(), it) })
+        Switch(
+            checked = passiveGathering,
+            onCheckedChange = {
+                if (!GestureDataGatheringSettings.hasPassiveGatheringPref(ctx.prefs()))
+                    showFirstStartDialog = true
+                passiveGathering = it
+                GestureDataGatheringSettings.setPassiveGatheringEnabled(ctx.prefs(), it)
+            }
+        )
     }
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -123,7 +141,7 @@ fun PassiveGatheringSettings() {
         var reviewInfo by remember { mutableStateOf(false) }
         ThreeButtonAlertDialog(
             onDismissRequest = { showInfoDialog = false },
-            title = { Text(stringResource(R.string.passive_gathering_state)) },
+            title = { Text(stringResource(R.string.passive_gathering)) },
             content = {
                 Column {
                     Text(stringResource(R.string.gesture_data_passive_gathering_info_message))
@@ -153,7 +171,7 @@ fun PassiveGatheringSettings() {
                             stringResource(R.string.gesture_data_passive_apps_button),
                             stringResource(R.string.gesture_data_passive_excluded_words_button),
                             stringResource(R.string.gesture_data_passive_gathering_manual_save),
-                            stringResource(R.string.passive_gathering_save),
+                            stringResource(R.string.passive_gathering),
                         )
                         Text(AnnotatedString.fromHtml(text))
                     }
@@ -272,6 +290,29 @@ fun PassiveGatheringSettings() {
     }
     if (showExcludedWordsDialog) {
         ExcludedWordsDialog { showExcludedWordsDialog = false }
+    }
+    if (showFirstStartDialog) {
+        ConfirmationDialog(
+            onDismissRequest = { showFirstStartDialog = false },
+            cancelButtonText = stringResource(R.string.dialog_close),
+            confirmButtonText = stringResource(R.string.gesture_data_add_key),
+            onConfirmed = {
+                val toolbar = ctx.prefs().getString(Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)!!
+                    .split(Separators.ENTRY)
+                    .filter { ToolbarKey.PASSIVE_GATHERING.name !in it }
+                val newToolbar = toolbar + (ToolbarKey.PASSIVE_GATHERING.name + Separators.KV + "true")
+                ctx.prefs().edit { putString(Settings.PREF_TOOLBAR_KEYS, newToolbar.joinToString(Separators.ENTRY)) }
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
+            },
+            content = {
+                val text = stringResource(
+                    R.string.gesture_data_first_enable_dialog,
+                    stringResource(R.string.gesture_data_passive_gathering_info),
+                    stringResource(R.string.passive_gathering),
+                )
+                Text(AnnotatedString.fromHtml(text))
+            },
+        )
     }
 }
 
