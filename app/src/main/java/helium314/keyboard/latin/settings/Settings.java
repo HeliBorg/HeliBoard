@@ -115,6 +115,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
+    // Master autospace switch: when false, suppresses ALL autospace insertions globally
+    // (still gated additionally by the input type — password/email/URL fields suppress
+    // autospace regardless of this pref). Exposed via the AUTOSPACE toolbar toggle.
+    public static final String PREF_AUTOSPACE_ENABLED = "autospace_enabled";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "autospace_after_punctuation";
     public static final String PREF_AUTOSPACE_AFTER_SUGGESTION = "autospace_after_suggestion";
     public static final String PREF_AUTOSPACE_AFTER_GESTURE_TYPING = "autospace_after_gesture_typing";
@@ -323,6 +327,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void toggleAutoCorrect() {
         final boolean oldValue = mPrefs.getBoolean(PREF_AUTO_CORRECTION, Defaults.PREF_AUTO_CORRECTION);
         mPrefs.edit().putBoolean(Settings.PREF_AUTO_CORRECTION, !oldValue).apply();
+    }
+
+    public void toggleAutospace() {
+        final boolean oldValue = mPrefs.getBoolean(PREF_AUTOSPACE_ENABLED, Defaults.PREF_AUTOSPACE_ENABLED);
+        mPrefs.edit().putBoolean(Settings.PREF_AUTOSPACE_ENABLED, !oldValue).apply();
     }
 
     public static boolean readGestureDynamicPreviewEnabled(final SharedPreferences prefs) {

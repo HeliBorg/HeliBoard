@@ -99,7 +99,63 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
         when (primaryCode) {
             KeyCode.TOGGLE_AUTOCORRECT -> return settings.toggleAutoCorrect()
-            KeyCode.TOGGLE_INCOGNITO_MODE -> return settings.toggleAlwaysIncognitoMode()
+            KeyCode.TOGGLE_AUTOSPACE -> {
+                settings.toggleAutospace()
+                // Refresh the toolbar so the AUTOSPACE button's activated state updates;
+                // shouldInsertSpacesAutomatically() is re-read on the next draw.
+                keyboardSwitcher.mainKeyboardView?.invalidateAllKeys()
+                return
+            }
+            KeyCode.TOGGLE_INCOGNITO_MODE -> {
+                settings.toggleAlwaysIncognitoMode()
+                // Invalidate keyboard to update spacebar incognito icon immediately
+                keyboardSwitcher.mainKeyboardView?.invalidateAllKeys()
+                return
+            }
+            KeyCode.TOGGLE_TOUCHPAD_MODE -> {
+                PointerTracker.sPersistentTouchpadModeActive = !PointerTracker.sPersistentTouchpadModeActive
+                if (PointerTracker.sPersistentTouchpadModeActive) {
+                    val touchpadView = keyboardSwitcher.touchpadView
+                    if (touchpadView != null) {
+                        touchpadView.setTouchpadListener(object : TouchpadView.TouchpadListener {
+                            override fun onCursorMove(keyCode: Int, isSelecting: Boolean) {
+                                if (isSelecting) {
+                                    val androidKeyCode = when (keyCode) {
+                                        KeyCode.ARROW_UP -> KeyEvent.KEYCODE_DPAD_UP
+                                        KeyCode.ARROW_DOWN -> KeyEvent.KEYCODE_DPAD_DOWN
+                                        KeyCode.ARROW_LEFT -> KeyEvent.KEYCODE_DPAD_LEFT
+                                        KeyCode.ARROW_RIGHT -> KeyEvent.KEYCODE_DPAD_RIGHT
+                                        else -> 0
+                                    }
+                                    if (androidKeyCode != 0) {
+                                        val eventTime = android.os.SystemClock.uptimeMillis()
+                                        // Send SHIFT down to force selection mode at the InputConnection level
+                                        connection.sendKeyEvent(KeyEvent(eventTime, eventTime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SHIFT_LEFT, 0, 0))
+                                        
+                                        connection.sendKeyEvent(KeyEvent(eventTime, eventTime, KeyEvent.ACTION_DOWN, androidKeyCode, 0, KeyEvent.META_SHIFT_ON))
+                                        connection.sendKeyEvent(KeyEvent(eventTime, eventTime, KeyEvent.ACTION_UP, androidKeyCode, 0, KeyEvent.META_SHIFT_ON))
+                                        
+                                        // Release SHIFT
+                                        connection.sendKeyEvent(KeyEvent(eventTime, eventTime, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SHIFT_LEFT, 0, 0))
+                                    }
+                                } else {
+                                    onCodeInput(keyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                                }
+                            }
+                            override fun onSingleTap() {
+                                onCodeInput(Constants.CODE_ENTER, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                            }
+                            override fun onScroll(direction: Int) {
+                                onCodeInput(direction, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                            }
+                        })
+                        keyboardSwitcher.showTouchpadView()
+                    }
+                } else {
+                    keyboardSwitcher.hideTouchpadView()
+                }
+                return
+            }
         }
         if (Settings.getValues().mIsLocked && KeyCode.isIsBlockedWhenLocked(primaryCode))
             return

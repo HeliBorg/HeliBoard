@@ -275,6 +275,9 @@
     <string name="url_detection_summary">Try to detect URLs and similar as a single word</string>
     <!-- Preferences item for disabling word learning -->
     <string name="incognito">Force incognito mode</string>
+    <string name="touchpad">Touchpad</string>
+    <!-- Toolbar key content description for the AUTOSPACE toggle. -->
+    <string name="autospace">Autospace</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
     <!-- Content description for "popup keys" suggestions view -->
