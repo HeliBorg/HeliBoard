@@ -625,14 +625,35 @@ public final class InputLogic {
                 // first so that we can insert the batch input at the current cursor position.
                 // We also need to unlearn the original word that is now being corrected.
                 unlearnWord(mWordComposer.getTypedWord(), settingsValues, Constants.EVENT_BACKSPACE);
-                resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), true);
-            } else if (mWordComposer.isSingleLetter() && ! isInlineEmojiSearchAction()) {
-                // We auto-correct the previous (typed, not gestured) string iff it's one character
-                // long. The reason for this is, even in the middle of gesture typing, you'll still
-                // tap one-letter words and you want them auto-corrected (typically, "i" in English
-                // should become "I"). However for any longer word, we assume that the reason for
-                // tapping probably is that the word you intend to type is not in the dictionary,
-                // so we do not attempt to correct, on the assumption that if that was a dictionary
+                resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(),
+                        true);
+            } else if (extendComposingWord) {
+                // Manual spacing OR tap-promotion-extend: keep the existing composing word;
+                // the new gesture's result will be APPENDED in onUpdateTailBatchInputCompleted
+                // instead of replacing it.
+                //
+                // Multi-part composition (#1.6): snapshot the prior fragments' input
+                // pointers (gesture trail or tap-coords) so each setBatchInputPointers call
+                // during this gesture merges them in. Without this the lib only sees the
+                // SECOND fragment and gives bogus words ('biology' for 'nology'). The
+                // merge re-times the base so the stream looks like one continuous stroke.
+                if (settingsValues.mMultipartAutoExtendInCombining
+                        && settingsValues.mCombiningGraceMs > 0) {
+                    mWordComposer.setExtendBatchInputBase(mWordComposer.getInputPointers());
+                }
+            } else if (mWordComposer.isSingleLetter() && !isInlineEmojiSearchAction()) {
+                // We auto-correct the previous (typed, not gestured) string iff it's one
+                // character
+                // long. The reason for this is, even in the middle of gesture typing, you'll
+                // still
+                // tap one-letter words and you want them auto-corrected (typically, "i" in
+                // English
+                // should become "I"). However for any longer word, we assume that the reason
+                // for
+                // tapping probably is that the word you intend to type is not in the
+                // dictionary,
+                // so we do not attempt to correct, on the assumption that if that was a
+                // dictionary
                 // word, the user would probably have gestured instead.
                 commitCurrentAutoCorrection(settingsValues, LastComposedWord.NOT_A_SEPARATOR,
                         handler);
@@ -2768,6 +2789,29 @@ public final class InputLogic {
         }
     }
 
+    /**
+     * Multi-part word composition (#1.6): predicate for "looks like a plain English word"
+     * — only letters and apostrophes, no hyphens, no mid-word capitals, no digits. Used to
+     * filter out the lib's occasional obscure hyphenated/CamelCase dictionary entries
+     * (e.g. "technon-U", "techMolly") that outrank the obvious answer.
+     */
+    private static boolean isPlainLetterWord(final String s) {
+        if (s == null || s.isEmpty()) return false;
+        for (int i = 0; i < s.length(); ) {
+            final int cp = s.codePointAt(i);
+            if (cp == '\'') {
+                // apostrophes OK (don't, it's, etc.)
+            } else if (!Character.isLetter(cp)) {
+                return false;
+            } else if (i > 0 && Character.isUpperCase(cp)) {
+                // mid-word capital (CamelCase) — reject
+                return false;
+            }
+            i += Character.charCount(cp);
+        }
+        return true;
+    }
+
     private boolean textBeforeCursorMayBeUrlOrSimilar(final SettingsValues settingsValues, final Boolean forAutoSpace) {
         // URL / mail field and no space -> may be URL
         if (InputTypeUtils.isUriOrEmailType(settingsValues.mInputAttributes.mInputType) &&
@@ -2793,6 +2837,21 @@ public final class InputLogic {
     public void onUpdateTailBatchInputCompleted(final SettingsValues settingsValues,
             final SuggestedWords suggestedWords, final KeyboardSwitcher keyboardSwitcher) {
         String batchInputText = suggestedWords.isEmpty() ? null : suggestedWords.getWord(0);
+        // Multi-part word composition (#1.6): when the merged-trail extend-base path was
+        // used, the lib returns the full word but its top pick is sometimes an obscure
+        // hyphenated/mid-cased dictionary entry ("technon-U") that ranks just above the
+        // obvious answer ("technology"). Prefer the highest-ranked plain-letters suggestion
+        // when extend-base is active.
+        if (mWordComposer.isExtendBatchInputBaseSet() && !TextUtils.isEmpty(batchInputText)
+                && !isPlainLetterWord(batchInputText)) {
+            for (int i = 1; i < suggestedWords.size(); i++) {
+                final String cand = suggestedWords.getWord(i);
+                if (cand != null && !cand.isEmpty() && isPlainLetterWord(cand)) {
+                    batchInputText = cand;
+                    break;
+                }
+            }
+        }
         if (TextUtils.isEmpty(batchInputText)) {
             // Still need to clear the seed slot so it doesn't leak into the next gesture.
             helium314.keyboard.keyboard.PointerTracker.consumeGestureSeedCodepoint();
@@ -2843,7 +2902,15 @@ public final class InputLogic {
                         || combiningExtendsSwipe)
                 && mWordComposer.isComposingWord()
                 && !mWordComposer.isCursorFrontOrMiddleOfComposingWord();
-        final String prevTypedWord = extendExistingCompose ? mWordComposer.getTypedWord() : "";
+        // Multi-part word composition (#1.6): when the lib was fed the MERGED prior+new
+        // trail via the WordComposer extend-base mechanism, its top suggestion already
+        // represents the WHOLE word (e.g. 'technology' rather than 'biology'). In that
+        // case prevTypedWord must NOT be concatenated again or we'd get 'techtechnology'.
+        final boolean usedMergedTrail = mWordComposer.isExtendBatchInputBaseSet();
+        // Clear the extend base now that we've used it — gesture is committing.
+        mWordComposer.setExtendBatchInputBase(null);
+        final String prevTypedWord = (extendExistingCompose && !usedMergedTrail)
+                ? mWordComposer.getTypedWord() : "";
         // Auto-capitalize the first letter of a fresh-word gesture when the keyboard is in
         // auto-shifted / manual-shifted / shift-locked state. The gesture-recognizer always
         // returns lowercase, so without this fix swiping "Hello" at sentence-start types

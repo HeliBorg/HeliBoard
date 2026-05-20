@@ -53,6 +53,22 @@ public final class WordComposer {
     // as an ad-hockery here.
     private String mRejectedBatchModeSuggestion;
 
+    // Multi-part word composition (#1.6): snapshot of the prior fragment(s) gesture trail.
+    // When set, every subsequent {@link #setBatchInputPointers} call PREPENDS this base
+    // with RE-TIMED coordinates so the merged stream looks like one continuous stroke to
+    // the native gesture lib. Re-timing is critical: tap-coords stored via
+    // {@link #applyProcessedEvent} use time=0 sentinels, which would otherwise create a
+    // huge time discontinuity at the prefix/swipe boundary and confuse the recognizer.
+    private final InputPointers mExtendBatchInputBase = new InputPointers(MAX_WORD_LENGTH);
+    private boolean mExtendBatchInputBaseSet;
+    // Inter-point interval used when synthesising timestamps for the base. Roughly the
+    // sampling rate of a fast hand-drawn swipe; chosen to look like natural gesture speed.
+    private static final int EXTEND_BASE_POINT_INTERVAL_MS = 25;
+    // Gap inserted between the last synthetic base point and the first real point of the
+    // current gesture. Pretends the user briefly paused at the prefix endpoint before
+    // continuing the stroke — within the recogniser's "single stroke" tolerance.
+    private static final int EXTEND_BASE_GAP_BEFORE_NEW_MS = 60;
+
     // Cache these values for performance
     private CharSequence mTypedWordCache;
     private int mCapsCount;
@@ -266,8 +282,46 @@ public final class WordComposer {
     }
 
     public void setBatchInputPointers(final InputPointers batchPointers) {
-        mInputPointers.set(batchPointers);
+        if (mExtendBatchInputBaseSet && mExtendBatchInputBase.getPointerSize() > 0
+                && batchPointers.getPointerSize() > 0) {
+            // Multi-part composition: feed the lib the merged trail (prior fragments +
+            // current gesture) with synthesised timestamps so the base looks like a
+            // natural continuation of the new gesture.
+            final int baseSize = mExtendBatchInputBase.getPointerSize();
+            final int[] baseX = mExtendBatchInputBase.getXCoordinates();
+            final int[] baseY = mExtendBatchInputBase.getYCoordinates();
+            final int firstNewTime = batchPointers.getTimes()[0];
+            final int baseLastTime = firstNewTime - EXTEND_BASE_GAP_BEFORE_NEW_MS;
+            final int baseFirstTime = baseLastTime - (baseSize - 1) * EXTEND_BASE_POINT_INTERVAL_MS;
+            mInputPointers.reset();
+            for (int i = 0; i < baseSize; i++) {
+                mInputPointers.addPointer(baseX[i], baseY[i], 0,
+                        baseFirstTime + i * EXTEND_BASE_POINT_INTERVAL_MS);
+            }
+            mInputPointers.appendAll(batchPointers);
+        } else {
+            mInputPointers.set(batchPointers);
+        }
         mIsBatchMode = true;
+    }
+
+    /**
+     * Multi-part word composition (#1.6): remember the prior fragment(s) trail so every
+     * subsequent {@link #setBatchInputPointers} call prepends it. Pass {@code null} (or an
+     * empty {@link InputPointers}) at gesture-end / commit to clear.
+     */
+    public void setExtendBatchInputBase(final InputPointers base) {
+        mExtendBatchInputBase.reset();
+        if (base == null || base.getPointerSize() == 0) {
+            mExtendBatchInputBaseSet = false;
+        } else {
+            mExtendBatchInputBase.appendAll(base);
+            mExtendBatchInputBaseSet = true;
+        }
+    }
+
+    public boolean isExtendBatchInputBaseSet() {
+        return mExtendBatchInputBaseSet;
     }
 
     public void setBatchInputWord(final String word) {

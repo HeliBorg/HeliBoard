@@ -106,6 +106,16 @@ public final class InputPointers {
         mTimes.shift(elementCount);
     }
 
+    /**
+     * Append all pointers from {@code other} to the end of this. Pointer ids are forced to
+     * 0 since multi-part gesture composition doesn't preserve pointer identity across
+     * separate strokes.
+     */
+    public void appendAll(@NonNull final InputPointers other) {
+        append(0, other.mTimes, other.mXCoordinates, other.mYCoordinates, 0,
+                other.getPointerSize());
+    }
+
     public void reset() {
         final int defaultCapacity = mDefaultCapacity;
         mXCoordinates.reset(defaultCapacity);

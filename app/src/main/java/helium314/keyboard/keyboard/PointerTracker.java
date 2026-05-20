@@ -739,7 +739,16 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             long seedTime = eventTime;
             sCurrentGestureSeedCodepoint = 0;
             final SettingsValues sv = Settings.getValues();
-            if (sv.mCombiningGraceMs > 0
+            // Multi-part composition (#1.6): when the WordComposer extend-base path is
+            // active, it already feeds the lib the full prior-fragment trail with proper
+            // re-timed pointers. The single-point seed here would duplicate context and,
+            // worse, introduce a stale-time point at the merge boundary that breaks the
+            // recognizer's continuity assumptions (regressed 'silo' in earlier testing).
+            // Disable the PointerTracker seed entirely when multipart auto-extend is on.
+            final boolean multipartExtendActive = sv.mMultipartAutoExtendInCombining
+                    && sv.mCombiningGraceMs > 0;
+            if (!multipartExtendActive
+                    && sv.mCombiningGraceMs > 0
                     && sLastLetterTapCodepoint > 0
                     && key != null
                     && !key.isModifier()
