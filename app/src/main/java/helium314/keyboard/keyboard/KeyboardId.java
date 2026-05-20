@@ -121,6 +121,7 @@ public final class KeyboardId {
                 id.mDeviceLocked,
                 id.mHasShortcutKey,
                 id.mNumberRowEnabled,
+                id.mNumberRowInSymbols,
                 id.mLanguageSwitchKeyEnabled,
                 id.mEmojiKeyEnabled,
                 id.isMultiLine(),
@@ -130,7 +131,9 @@ public final class KeyboardId {
                 id.navigatePrevious(),
                 id.mSubtype,
                 id.mIsSplitLayout,
-                id.mInternalAction
+                id.mInternalAction,
+                id.mEmojiSearchAvailable,
+                id.mOneHandedModeEnabled,
         });
     }
 
@@ -154,7 +157,9 @@ public final class KeyboardId {
                 && other.navigatePrevious() == navigatePrevious()
                 && other.mSubtype.equals(mSubtype)
                 && other.mIsSplitLayout == mIsSplitLayout
-                && Objects.equals(other.mInternalAction, mInternalAction);
+                && Objects.equals(other.mInternalAction, mInternalAction)
+                && other.mEmojiSearchAvailable == mEmojiSearchAvailable
+                && other.mOneHandedModeEnabled == mOneHandedModeEnabled;
     }
 
     private static boolean isAlphabetKeyboard(final int elementId) {

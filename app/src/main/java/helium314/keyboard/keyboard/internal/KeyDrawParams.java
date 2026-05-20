@@ -71,7 +71,7 @@ public final class KeyDrawParams {
         mAnimAlpha = copyFrom.mAnimAlpha;
     }
 
-    public void updateParams(final int keyHeight, @Nullable final KeyVisualAttributes attr) {
+    public void updateParams(int keySize, @Nullable KeyVisualAttributes attr) {
         if (attr == null) {
             return;
         }
@@ -80,16 +80,16 @@ public final class KeyDrawParams {
             mTypeface = attr.mTypeface;
         }
 
-        mLetterSize = selectTextSizeFromDimensionOrRatio(keyHeight,
+        mLetterSize = selectTextSizeFromDimensionOrRatio(keySize,
                 attr.mLetterSize, attr.mLetterRatio, mLetterSize);
-        mLabelSize = selectTextSizeFromDimensionOrRatio(keyHeight,
+        mLabelSize = selectTextSizeFromDimensionOrRatio(keySize,
                 attr.mLabelSize, attr.mLabelRatio, mLabelSize);
-        mLargeLetterSize = selectTextSize(keyHeight, attr.mLargeLetterRatio, mLargeLetterSize);
-        mHintLetterSize = selectTextSize(keyHeight, attr.mHintLetterRatio, mHintLetterSize);
-        mShiftedLetterHintSize = selectTextSize(keyHeight,
+        mLargeLetterSize = selectTextSize(keySize, attr.mLargeLetterRatio, mLargeLetterSize);
+        mHintLetterSize = selectTextSize(keySize, attr.mHintLetterRatio, mHintLetterSize);
+        mShiftedLetterHintSize = selectTextSize(keySize,
                 attr.mShiftedLetterHintRatio, mShiftedLetterHintSize);
-        mHintLabelSize = selectTextSize(keyHeight, attr.mHintLabelRatio, mHintLabelSize);
-        mPreviewTextSize = selectTextSize(keyHeight, attr.mPreviewTextRatio, mPreviewTextSize);
+        mHintLabelSize = selectTextSize(keySize, attr.mHintLabelRatio, mHintLabelSize);
+        mPreviewTextSize = selectTextSize(keySize, attr.mPreviewTextRatio, mPreviewTextSize);
 
         mTextColor = selectColor(attr.mTextColor, mTextColor);
         mTextInactivatedColor = selectColor(attr.mTextInactivatedColor, mTextInactivatedColor);
@@ -112,31 +112,28 @@ public final class KeyDrawParams {
     }
 
     @NonNull
-    public KeyDrawParams mayCloneAndUpdateParams(final int keyHeight,
-            @Nullable final KeyVisualAttributes attr) {
+    public KeyDrawParams mayCloneAndUpdateParams(int keySize, @Nullable KeyVisualAttributes attr) {
         if (attr == null) {
             return this;
         }
-        final KeyDrawParams newParams = new KeyDrawParams(this);
-        newParams.updateParams(keyHeight, attr);
+        KeyDrawParams newParams = new KeyDrawParams(this);
+        newParams.updateParams(keySize, attr);
         return newParams;
     }
 
-    private static int selectTextSizeFromDimensionOrRatio(final int keyHeight,
-            final int dimens, final float ratio, final int defaultDimens) {
+    private static int selectTextSizeFromDimensionOrRatio(int keySize, int dimens, float ratio, int defaultDimens) {
         if (ResourceUtils.isValidDimensionPixelSize(dimens)) {
             return dimens;
         }
         if (ResourceUtils.isValidFraction(ratio)) {
-            return (int)(keyHeight * ratio);
+            return (int)(keySize * ratio);
         }
         return defaultDimens;
     }
 
-    private static int selectTextSize(final int keyHeight, final float ratio,
-            final int defaultSize) {
+    private static int selectTextSize(int keySize, float ratio, int defaultSize) {
         if (ResourceUtils.isValidFraction(ratio)) {
-            return (int)(keyHeight * ratio);
+            return (int)(keySize * ratio);
         }
         return defaultSize;
     }

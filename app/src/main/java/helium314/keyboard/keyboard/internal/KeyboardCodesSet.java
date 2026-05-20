@@ -56,7 +56,8 @@ public final class KeyboardCodesSet {
         "key_start_onehanded", // keep name to avoid breaking custom layouts
         "key_stop_onehanded", // keep name to avoid breaking custom layouts
         "key_switch_onehanded",
-        "key_emoji_search"
+        "key_emoji_search",
+        "toggle_floating",
     };
 
     private static final int[] DEFAULT = {
@@ -83,7 +84,8 @@ public final class KeyboardCodesSet {
         KeyCode.TOGGLE_ONE_HANDED_MODE,
         KeyCode.TOGGLE_ONE_HANDED_MODE,
         KeyCode.SWITCH_ONE_HANDED_MODE,
-        KeyCode.EMOJI_SEARCH
+        KeyCode.EMOJI_SEARCH,
+        KeyCode.TOGGLE_FLOATING_WINDOW,
     };
 
     static {

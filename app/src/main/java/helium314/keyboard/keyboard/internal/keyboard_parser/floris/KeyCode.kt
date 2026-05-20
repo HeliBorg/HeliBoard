@@ -54,10 +54,13 @@ object KeyCode {
     //const val CLIPBOARD_CLEAR_FULL_HISTORY = -37
     //const val CLIPBOARD_CLEAR_PRIMARY_CLIP = -38
 
+    const val TOGGLE_FLOATING_WINDOW =      -109
+    //const val TOGGLE_COMPACT_LAYOUT =       -110
     //const val COMPACT_LAYOUT_TO_LEFT =      -111
     //const val COMPACT_LAYOUT_TO_RIGHT =     -112
     const val SPLIT_LAYOUT =                -113
     //const val MERGE_LAYOUT =                -114
+    //const val TOGGLE_RESIZE_MODE =          -115
 
     const val UNDO =                        -131
     const val REDO =                        -132
@@ -196,6 +199,7 @@ object KeyCode {
         CLIPBOARD_SELECT_WORD, TOGGLE_INCOGNITO_MODE, TOGGLE_AUTOCORRECT, MOVE_START_OF_LINE, MOVE_END_OF_LINE,
         MOVE_START_OF_PAGE, MOVE_END_OF_PAGE, SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED, CTRL, ALT,
         FN, CLIPBOARD_CLEAR_HISTORY, NUMPAD, IME_HIDE_UI, CTRL_LOCK, ALT_LOCK, FN_LOCK, SYSTEM_INPUT_METHOD_PICKER,
+        TOGGLE_FLOATING_WINDOW,
 
         // heliboard only
         SYMBOL_ALPHA, TOGGLE_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SPLIT_LAYOUT, SHIFT_ENTER,

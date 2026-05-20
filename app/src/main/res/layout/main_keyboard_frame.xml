@@ -64,5 +64,23 @@
             style="?attr/suggestionWordStyle" />
 
     </helium314.keyboard.latin.KeyboardWrapperView>
-
+    <LinearLayout
+        android:id="@+id/float_handle_container"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/resize_handle"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/config_floating_handle_height"
+            android:src="@drawable/ic_arrow_horizontal"/>
+        <ImageView
+            android:id="@+id/drag_handle"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/config_floating_handle_height"
+            android:src="@drawable/ic_drag_indicator"/>
+    </LinearLayout>
 </LinearLayout>

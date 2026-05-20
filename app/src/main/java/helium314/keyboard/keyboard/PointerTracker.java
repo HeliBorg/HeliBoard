@@ -1072,9 +1072,15 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         if (isShowingPopupKeysPanel()) {
             if (!mIsTrackingForActionDisabled) {
-                final int translatedX = mPopupKeysPanel.translateX(x);
-                final int translatedY = mPopupKeysPanel.translateY(y);
-                mPopupKeysPanel.onUpEvent(translatedX, translatedY, mPointerId, eventTime);
+                // For KeyCode.TOGGLE_FLOATING_KEYBOARD, mPopupKeysPanel.onUpEvent will trigger a cancel MoveEvent, which will result
+                // in PointerTrackerQueue.releaseAllPointersOlderThan, which calls onUpEventInternal, thus dispatching the key twice.
+                // To prevent the duplicate input, we set mPopupKeysPanel null before calling onUpEvent, so isShowingPopupKeysPanel returns false
+                PopupKeysPanel panel = mPopupKeysPanel;
+                mPopupKeysPanel = null;
+                int translatedX = panel.translateX(x);
+                int translatedY = panel.translateY(y);
+                panel.onUpEvent(translatedX, translatedY, mPointerId, eventTime);
+                panel.dismissPopupKeysPanel();
             }
             dismissPopupKeysPanel();
             if (isInSlidingKeyInput)

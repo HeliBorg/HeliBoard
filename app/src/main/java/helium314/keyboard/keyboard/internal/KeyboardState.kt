@@ -7,6 +7,7 @@ package helium314.keyboard.keyboard.internal
 
 import android.text.TextUtils
 import helium314.keyboard.event.Event
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.define.DebugFlags
@@ -49,6 +50,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
 
         fun setOneHandedModeEnabled(enabled: Boolean)
         fun switchOneHandedMode()
+        fun setFloatingKeyboardEnabled(enabled: Boolean)
 
         companion object {
             const val DEBUG_ACTION = false
@@ -109,6 +111,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
             setAlphabetKeyboard(autoCapsFlags, recapitalizeMode)
         }
         switchActions.setOneHandedModeEnabled(onHandedModeEnabled)
+        switchActions.setFloatingKeyboardEnabled(Settings.getValues().mIsFloatingKeyboard)
     }
 
     fun onSaveKeyboardState() {
@@ -354,20 +357,6 @@ class KeyboardState(private val switchActions: SwitchActions) {
             Mode.NUMPAD -> {}
         }
         if (withSliding) switchState = SwitchState.MOMENTARY_FROM_NUMPAD
-    }
-
-    private fun setOneHandedModeEnabled(enabled: Boolean) {
-        if (DebugFlags.DEBUG_ENABLED) {
-            Log.d(TAG, "setOneHandedModeEnabled")
-        }
-        switchActions.setOneHandedModeEnabled(enabled)
-    }
-
-    private fun switchOneHandedMode() {
-        if (DebugFlags.DEBUG_ENABLED) {
-            Log.d(TAG, "switchOneHandedMode")
-        }
-        switchActions.switchOneHandedMode()
     }
 
     fun onPressKey(code: Int, isSinglePointer: Boolean, autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?) {
@@ -664,8 +653,12 @@ class KeyboardState(private val switchActions: SwitchActions) {
             KeyCode.CLIPBOARD -> if (Settings.getValues().mClipboardHistoryEnabled) setClipboardKeyboard()
             KeyCode.NUMPAD -> toggleNumpad(false, autoCapsFlags, recapitalizeMode, false, true)
             KeyCode.SYMBOL -> setSymbolsKeyboard()
-            KeyCode.TOGGLE_ONE_HANDED_MODE -> setOneHandedModeEnabled(!Settings.getValues().mOneHandedModeEnabled)
-            KeyCode.SWITCH_ONE_HANDED_MODE -> switchOneHandedMode()
+            KeyCode.TOGGLE_ONE_HANDED_MODE -> switchActions.setOneHandedModeEnabled(!Settings.getValues().mOneHandedModeEnabled)
+            KeyCode.SWITCH_ONE_HANDED_MODE -> switchActions.switchOneHandedMode()
+            KeyCode.TOGGLE_FLOATING_WINDOW -> {
+                switchActions.setFloatingKeyboardEnabled(!Settings.getValues().mIsFloatingKeyboard)
+                KeyboardSwitcher.getInstance().reloadKeyboard()
+            }
         }
     }
 

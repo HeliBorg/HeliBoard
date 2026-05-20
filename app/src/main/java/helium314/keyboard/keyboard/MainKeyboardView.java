@@ -345,7 +345,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             Log.w(TAG, "Cannot find root view");
             return;
         }
-        final ViewGroup windowContentView = rootView.findViewById(android.R.id.content);
+        ViewGroup windowContentView = rootView.findViewById(android.R.id.content);
+        if (mDrawingPreviewPlacerView.getParent() instanceof ViewGroup vg)
+            vg.removeView(mDrawingPreviewPlacerView); // when moving keyboard from input method content view to floating container
         // Note: It'd be very weird if we get null by android.R.id.content.
         if (windowContentView == null) {
             Log.w(TAG, "Cannot find android.R.id.content view to add DrawingPreviewPlacerView");

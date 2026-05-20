@@ -141,6 +141,9 @@ public class SettingsValues {
     public final float mFontSizeMultiplierEmoji;
     public final boolean mEmojiKeyFit;
     public final PunctuationSuggestions mPunctuationSuggestions;
+    public final boolean mIsFloatingKeyboard;
+    public final int mFloatingWidth;
+    public final int mFloatingHeight;
 
     // From the input box
     @NonNull
@@ -263,7 +266,6 @@ public class SettingsValues {
         mSecondaryStripVisible = mToolbarMode != ToolbarMode.HIDDEN || ! mToolbarHidingGlobal;
         mIncognitoModeEnabled = prefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
-        mKeyboardHeightScale = Settings.readHeightScale(prefs, isLandscape, isFolded);
         mBottomRowScale = Settings.readBottomRowScale(prefs, isLandscape, isFolded);
         mSpaceSwipeHorizontal = Settings.readHorizontalSpaceSwipe(prefs);
         mSpaceSwipeVertical = Settings.readVerticalSpaceSwipe(prefs);
@@ -281,7 +283,12 @@ public class SettingsValues {
         mClipboardHistoryRetentionTime = prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME);
         mClipboardHistoryPinnedFirst = prefs.getBoolean(Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST, Defaults.PREF_CLIPBOARD_HISTORY_PINNED_FIRST);
 
-        mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, isLandscape, mIsSplitKeyboardEnabled, isFolded);
+        mIsFloatingKeyboard = !isLocked && SettingsKt.isFloatingKeyboardEnabled(context);
+        mFloatingWidth = SettingsKt.readFloatingWidth(context);
+        mFloatingHeight = mIsFloatingKeyboard && mHasHardwareKeyboard && prefs.getBoolean(Settings.PREF_SHOW_ONLY_TOOLBAR_WITH_HARDWARE_KEYBOARD, Defaults.PREF_SHOW_ONLY_TOOLBAR_WITH_HARDWARE_KEYBOARD)
+                          ? 0 : SettingsKt.readFloatingHeight(context);
+        mKeyboardHeightScale = mIsFloatingKeyboard ? 1f : Settings.readHeightScale(prefs, isLandscape, isFolded);
+        mOneHandedModeEnabled = !mIsFloatingKeyboard && Settings.readOneHandedModeEnabled(prefs, isLandscape, mIsSplitKeyboardEnabled, isFolded);
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs, isLandscape, mIsSplitKeyboardEnabled, isFolded);
         if (mOneHandedModeEnabled) {
             final float baseScale = res.getFraction(R.fraction.config_one_handed_mode_width, 1, 1);
@@ -307,7 +314,7 @@ public class SettingsValues {
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, Defaults.PREF_GESTURE_SPACE_AWARE)
         );
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
-        mBottomPaddingScale = Settings.readBottomPaddingScale(prefs, isLandscape, isFolded);
+        mBottomPaddingScale = mIsFloatingKeyboard ? 0f : Settings.readBottomPaddingScale(prefs, isLandscape, isFolded);
         mSidePaddingScale = Settings.readSidePaddingScale(prefs, isLandscape, mIsSplitKeyboardEnabled, isFolded);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, Defaults.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD);
         mAutoShowToolbar = mToolbarMode == ToolbarMode.EXPANDABLE && prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, Defaults.PREF_AUTO_SHOW_TOOLBAR);

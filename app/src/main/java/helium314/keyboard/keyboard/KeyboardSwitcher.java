@@ -38,6 +38,7 @@ import helium314.keyboard.keyboard.clipboard.ClipboardHistoryView;
 import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
 import helium314.keyboard.keyboard.internal.KeyboardState;
 import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt;
+import helium314.keyboard.latin.utils.FloatingKeyboardUtils;
 import helium314.keyboard.latin.InputView;
 import helium314.keyboard.latin.KeyboardWrapperView;
 import helium314.keyboard.latin.LatinIME;
@@ -46,6 +47,7 @@ import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.WordComposer;
 import helium314.keyboard.latin.settings.Settings;
+import helium314.keyboard.latin.settings.SettingsKt;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.utils.CapsModeUtils;
@@ -154,7 +156,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 mThemeContext, editorInfo);
         final int keyboardWidth = ResourceUtils.getKeyboardWidth(mThemeContext, settingsValues);
         final int keyboardHeight = ResourceUtils.getKeyboardHeight(mThemeContext.getResources(), settingsValues);
-        final boolean oneHandedModeEnabled = settingsValues.mOneHandedModeEnabled;
         mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
                 .setSubtype(mRichImm.getCurrentSubtype())
                 .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
@@ -163,26 +164,23 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
                 .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
                 .setSplitLayoutEnabled(settingsValues.mIsSplitKeyboardEnabled)
-                .setOneHandedModeEnabled(oneHandedModeEnabled)
+                .setOneHandedModeEnabled(settingsValues.mOneHandedModeEnabled)
                 .setInternalAction(internalAction)
                 .build();
         try {
-            mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
+            mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, settingsValues.mOneHandedModeEnabled);
         } catch (KeyboardLayoutSetException e) {
             Log.e(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
             try {
                 final InputMethodSubtype defaults = SubtypeUtilsAdditional.INSTANCE.createDefaultSubtype(mRichImm.getCurrentSubtypeLocale());
                 mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
                         .setSubtype(RichInputMethodSubtype.Companion.get(defaults))
-                        .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
                         .setNumberRowEnabled(settingsValues.mShowsNumberRow)
                         .setNumberRowInSymbolsEnabled(settingsValues.mShowsNumberRowInSymbols)
                         .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
                         .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
-                        .setSplitLayoutEnabled(settingsValues.mIsSplitKeyboardEnabled)
-                        .setOneHandedModeEnabled(oneHandedModeEnabled)
                         .build();
-                mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
+                mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, false);
                 showToast("error loading the keyboard, falling back to defaults", false);
             } catch (KeyboardLayoutSetException e2) {
                 Log.e(TAG, "even fallback to defaults failed: " + e2.mKeyboardId, e2.getCause());
@@ -338,6 +336,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // @see #getVisibleKeyboardView() and
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
         mMainKeyboardFrame.setVisibility(visibility);
+        mKeyboardViewWrapper.setVisibility(Settings.getInstance().readShowToolbarOnly() ? View.GONE : View.VISIBLE);
         mEmojiPalettesView.setVisibility(View.GONE);
         mEmojiPalettesView.stopEmojiPalettes();
         mEmojiTabStripView.setVisibility(View.GONE);
@@ -514,7 +513,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mKeyboardViewWrapper.setOneHandedModeEnabled(enabled);
         mKeyboardViewWrapper.setOneHandedGravity(settings.getCurrent().mOneHandedModeGravity);
 
-        settings.writeOneHandedModeEnabled(enabled);
+        // oneHandeMode is always disabled when floating, and we shouldn't mess up the setting
+        if (enabled != settings.getCurrent().mOneHandedModeEnabled)
+            settings.writeOneHandedModeEnabled(enabled);
         reloadKeyboard();
     }
 
@@ -523,6 +524,15 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     public void switchOneHandedMode() {
         mKeyboardViewWrapper.switchOneHandedModeSide();
         Settings.getInstance().writeOneHandedModeGravity(mKeyboardViewWrapper.getOneHandedGravity());
+    }
+
+    @Override
+    public void setFloatingKeyboardEnabled(boolean enabled) {
+        if (enabled != Settings.getValues().mIsFloatingKeyboard)
+            // mIsFloatingKeyboard is always disabled when device is locked, and we shouldn't mess up the setting
+            SettingsKt.setFloatingKeyboardEnabled(mThemeContext, enabled);
+        if (enabled) FloatingKeyboardUtils.setFloating(mCurrentInputView);
+        else FloatingKeyboardUtils.disableFloating(mCurrentInputView);
     }
 
     public void toggleSplitKeyboardMode() {

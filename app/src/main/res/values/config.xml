@@ -78,6 +78,9 @@
     <!-- Clipboard keyboard -->
     <integer name="config_clipboard_keyboard_col_count">2</integer>
 
+    <!-- Floating keyboard -->
+    <dimen name="config_floating_handle_height">30dp</dimen>
+
     <!-- Key codes of hardware keys that can be used to toggle the Emoji layout.
          Each array defines a comma-separated tuple containing:
          1. Key code constant from android.view.KeyEvent

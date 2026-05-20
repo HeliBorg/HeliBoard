@@ -47,7 +47,6 @@ import helium314.keyboard.latin.utils.ToolbarMode;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -104,6 +103,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_BOTTOM_PADDING_SCALE_PREFIX = "bottom_padding_scale";
     public static final String PREF_SIDE_PADDING_SCALE_PREFIX = "side_padding_scale";
     public static final String PREF_KEY_GAP_SCALE_PREFIX = "key_gap_scale";
+    public static final String PREF_FLOATING_HEIGHT_PREFIX = "floating_height";
+    public static final String PREF_FLOATING_WIDTH_PREFIX = "floating_width";
+    public static final String PREF_FLOATING_ENABLED_PREFIX = "floating_enabled";
+    public static final String PREF_FLOATING_POS_X_PREFIX = "floating_pos_x";
+    public static final String PREF_FLOATING_POS_Y_PREFIX = "floating_pos_y";
     public static final String PREF_FONT_SCALE = "font_scale";
     public static final String PREF_EMOJI_FONT_SCALE = "emoji_font_scale";
     public static final String PREF_EMOJI_KEY_FIT = "emoji_key_fit";
@@ -187,6 +191,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_TOOLBAR_HIDING_GLOBAL = "toolbar_hiding_global";
     public static final String PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE = "toolbar_swipe_down_to_hide";
     public static final String PREF_SPELLCHECK_SUGGEST = "spellcheck_suggest";
+    public static final String PREF_SHOW_ONLY_TOOLBAR_WITH_HARDWARE_KEYBOARD = "only_toolbar_with_hw_keyboard";
 
     // Emoji
     public static final String PREF_EMOJI_MAX_SDK = "emoji_max_sdk";
@@ -210,13 +215,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private static final Settings sInstance = new Settings();
 
     // preferences that are not used in SettingsValues and thus should not trigger reload when changed
-    private static final HashSet<String> dontReloadOnChanged = new HashSet<>() {{
-        add(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID);
-        add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
-        add(PREF_EMOJI_RECENT_KEYS);
-        add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
-        add(PREF_SELECTED_SUBTYPE);
-    }};
+    private static boolean reloadOnChanged(String key) {
+        return switch (key) {
+            case PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, PREF_LAST_SHOWN_EMOJI_CATEGORY_ID, PREF_EMOJI_RECENT_KEYS,
+                 PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, PREF_SELECTED_SUBTYPE -> false;
+            default -> !key.startsWith(PREF_SAVED_APP_SUBTYPE_PREFIX) && !key.startsWith("floating_pos");
+        };
+    }
 
     public static Settings getInstance() {
         return sInstance;
@@ -250,7 +255,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (dontReloadOnChanged.contains(key) || (key != null && key.startsWith(PREF_SAVED_APP_SUBTYPE_PREFIX)))
+        if (key != null && !reloadOnChanged(key))
             return;
         mSettingsValuesLock.lock();
         try {
@@ -480,6 +485,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         // is NOKEYS and if it's not hidden (e.g. folded inside the device).
         return conf.keyboard != Configuration.KEYBOARD_NOKEYS
                 && conf.hardKeyboardHidden != Configuration.HARDKEYBOARDHIDDEN_YES;
+    }
+
+    public boolean readShowToolbarOnly() {
+        return mSettingsValues.mHasHardwareKeyboard
+            && mPrefs.getBoolean(PREF_SHOW_ONLY_TOOLBAR_WITH_HARDWARE_KEYBOARD, Defaults.PREF_SHOW_ONLY_TOOLBAR_WITH_HARDWARE_KEYBOARD);
     }
 
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {

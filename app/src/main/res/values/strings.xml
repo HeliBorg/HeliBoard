@@ -358,6 +358,7 @@
     <string name="redo" tools:keep="@string/redo">Redo</string>
     <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="floating" tools:keep="@string/floating">Floating Keyboard</string>
     <!-- Title of the setting to set clipboard toolbar keys -->
     <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
     <!-- Title of the setting to set pinned toolbar keys -->
@@ -904,6 +905,10 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Title of the setting for showing toolbar only when a hardware keyboard is connected -->
+    <string name="toolbar_only_with_hw_keyboard">Show only toolbar with physical keyboard</string>
+    <!-- Description of the setting for showing toolbar only when a hardware keyboard is connected -->
+    <string name="toolbar_only_with_hw_keyboard_summary">You still need to enable showing virtual keyboard in system settings</string>
     <!-- Title of the settings for adjusting the language swipe gesture distance -->
     <string name="prefs_language_swipe_distance">Switch language swipe distance</string>
     <!-- Title of the setting to customize toolbar key codes -->

@@ -69,6 +69,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.FloatingKeyboardUtils;
 import helium314.keyboard.latin.utils.FoldableUtils;
 import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings;
@@ -750,6 +751,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public View onCreateInputView() {
         StatsUtils.onCreateInputView();
+        Log.i("test", "create iv");
         return mKeyboardSwitcher.onCreateInputView(KtxKt.getDisplayContext(this), mIsHardwareAcceleratedDrawingEnabled);
     }
 
@@ -1001,6 +1003,8 @@ public class LatinIME extends InputMethodService implements
     public void onWindowShown() {
         super.onWindowShown();
         if (isInputViewShown()) {
+            if (mInputView != null && Settings.getValues().mIsFloatingKeyboard)
+                FloatingKeyboardUtils.setFloating(mInputView);
             setNavigationBarColor();
             workaroundForHuaweiStatusBarIssue();
         }
@@ -1195,6 +1199,8 @@ public class LatinIME extends InputMethodService implements
         }
         final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
         int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
+        if (Settings.getValues().mIsFloatingKeyboard)
+            visibleTopY = getResources().getDisplayMetrics().heightPixels;
 
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
@@ -1202,12 +1208,17 @@ public class LatinIME extends InputMethodService implements
 
         // Need to set expanded touchable region only if a keyboard view is being shown.
         if (visibleKeyboardView.isShown()) {
-            final int touchLeft = 0;
-            final int touchTop = mKeyboardSwitcher.isShowingPopupKeysPanel() ? 0 : visibleTopY;
-            final int touchRight = visibleKeyboardView.getWidth();
-            final int touchBottom = inputHeight
-                    // Extend touchable region below the keyboard.
-                    + EXTENDED_TOUCHABLE_REGION_HEIGHT;
+            int touchLeft = 0;
+            int touchTop = mKeyboardSwitcher.isShowingPopupKeysPanel() ? 0 : visibleTopY;
+            int touchRight = visibleKeyboardView.getWidth();
+            int touchBottom = inputHeight + EXTENDED_TOUCHABLE_REGION_HEIGHT; // Extend touchable region below the keyboard.
+            if (mSettings.getCurrent().mIsFloatingKeyboard) {
+                var xy = FloatingKeyboardUtils.readPosition(this);
+                touchLeft = xy.component1();
+                touchTop = xy.component2();
+                touchRight = touchLeft + mSettings.getCurrent().mFloatingWidth;
+                touchBottom = touchTop + mSettings.getCurrent().mFloatingHeight + stripHeight + (int)FloatingKeyboardUtils.getFloatingHandleHeight(getResources());
+            }
             outInsets.touchableInsets = InputMethodService.Insets.TOUCHABLE_INSETS_REGION;
             outInsets.touchableRegion.set(touchLeft, touchTop, touchRight, touchBottom);
         }
@@ -1253,8 +1264,8 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public boolean onEvaluateFullscreenMode() {
-        if (isImeSuppressedByHardwareKeyboard()) {
-            // If there is a hardware keyboard, disable full screen mode.
+        if (isImeSuppressedByHardwareKeyboard() || mSettings.getCurrent().mIsFloatingKeyboard) {
+            // If there is a hardware keyboard or we're floating, disable full screen mode.
             return false;
         }
         // Reread resource value here, because this method is called by the framework as needed.

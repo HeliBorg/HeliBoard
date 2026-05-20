@@ -185,9 +185,10 @@ public class KeyboardView extends View {
 
         mKeyboard = keyboard;
         mKeyScaleForText = (float) Math.sqrt(1 / Settings.getValues().mKeyboardHeightScale);
-        final int scaledKeyHeight = (int) ((keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap) * mKeyScaleForText);
-        mKeyDrawParams.updateParams(scaledKeyHeight, mKeyVisualAttributes);
-        mKeyDrawParams.updateParams(scaledKeyHeight, keyboard.mKeyVisualAttributes);
+        int scale = Math.min(2 * keyboard.mMostCommonKeyWidth, keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap);
+        int scaledKeySize = (int) (scale * mKeyScaleForText);
+        mKeyDrawParams.updateParams(scaledKeySize, mKeyVisualAttributes);
+        mKeyDrawParams.updateParams(scaledKeySize, keyboard.mKeyVisualAttributes);
         invalidateAllKeys();
         requestLayout();
         mFontSizeMultiplier = mKeyboard.mId.isEmojiKeyboard()

@@ -34,6 +34,7 @@ class InsetsOutlineProvider(private val mView: View) : ViewOutlineProvider() {
             BACKGROUND.getOutline(view, outline)
             return
         }
+        // todo: this is now, but it's just fine??
         // TODO: Revisit this when floating/resize keyboard is supported.
         outline.setRect(view.left, mLastVisibleTopInsets, view.right, view.bottom)
     }

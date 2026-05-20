@@ -172,6 +172,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
             adapter = clipboardAdapter
             val keyboardWidth = ResourceUtils.getKeyboardWidth(context, settings.current)
             layoutParams.width = keyboardWidth
+            // new ClipboardLayoutParams means ClipboardAdapter has wrong gaps, but that's ok (only relevant when resizing floating keyboard)
+            ClipboardLayoutParams(context).setListProperties(this)
 
             // set side padding
             val keyboardAttr = context.obtainStyledAttributes(
