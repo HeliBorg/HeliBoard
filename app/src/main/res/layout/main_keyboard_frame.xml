@@ -63,6 +63,15 @@
             android:scaleType="fitCenter"
             style="?attr/suggestionWordStyle" />
 
+        <ImageView
+            android:id="@+id/passiveGatheringIndicator"
+            android:visibility="visible"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/btn_keyboard_key_action_normal_lxx_base"
+            android:tint="#a00000"
+            android:layout_gravity="bottom"
+            />
     </helium314.keyboard.latin.KeyboardWrapperView>
     <LinearLayout
         android:id="@+id/float_handle_container"
