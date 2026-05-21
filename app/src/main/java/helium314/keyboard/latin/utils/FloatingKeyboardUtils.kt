@@ -22,8 +22,8 @@ object FloatingKeyboardUtils {
     private val TAG = this::class.java.simpleName
 
     @JvmStatic
-    fun setFloating(view: View) {
-        val lp = view.layoutParams as? ViewGroup.MarginLayoutParams ?: return
+    fun setFloating(view: View?) {
+        val lp = view?.layoutParams as? ViewGroup.MarginLayoutParams ?: return
         val (x, y) = readPosition(view.context)
         if (DebugFlags.DEBUG_ENABLED)
             Log.d(TAG, "place floating view at $x, $y, ${Settings.getValues().mFloatingWidth}, ${Settings.getValues().mFloatingHeight}")
@@ -36,11 +36,11 @@ object FloatingKeyboardUtils {
     }
 
     @JvmStatic
-    fun disableFloating(view: View) {
+    fun disableFloating(view: View?) {
+        val lp = view?.layoutParams as? ViewGroup.MarginLayoutParams ?: return
+        if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) return // not floating
         if (DebugFlags.DEBUG_ENABLED)
             Log.d(TAG, "disable floating view")
-        val lp = view.layoutParams as? ViewGroup.MarginLayoutParams ?: return
-        if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) return // not floating
         lp.width = ViewGroup.LayoutParams.MATCH_PARENT
         lp.height = ViewGroup.LayoutParams.MATCH_PARENT
         lp.leftMargin = 0

@@ -454,7 +454,9 @@ public class KeyboardView extends View {
         }
 
         // Draw hint label.
-        final String hintLabel = key.getHintLabel();
+        String hintLabel = key.getHintLabel();
+        Drawable hintIcon = (keyboard == null || !mShowsHints || hintLabel != null) ? null
+                        : key.getHintIcon(keyboard.mIconsSet, params.mAnimAlpha);
         if (hintLabel != null && mShowsHints) {
             paint.setTextSize(key.selectHintTextSize(params) * mFontSizeMultiplier); // maybe take sqrt to not have such extreme changes?
             paint.setColor(key.selectHintTextColor(params));
@@ -500,24 +502,43 @@ public class KeyboardView extends View {
                     ? hintBaseline * 0.5f
                     : params.mHintLabelVerticalAdjustment * labelCharHeight;
             canvas.drawText(hintLabel, 0, hintLabel.length(), hintX, hintBaseline + adjustmentY, paint);
+        } else if (hintIcon != null) {
+            int iconSize = (int) (key.selectHintTextSize(params) * mFontSizeMultiplier * mIconScaleFactor);
+            boolean isFunctionalKeyAndRoundedStyle = mColors.getThemeStyle().equals(STYLE_ROUNDED) && (key.hasFunctionalBackground() || key.hasActionKeyBackground());
+            float hintX, hintBaseline;
+            if (key.hasHintLabel()) {
+                // The hint icon is placed just right of the key label. Used mainly on "phone number" layout.
+                hintX = labelX + params.mHintLabelOffCenterRatio * iconSize;
+                hintBaseline = centerY + iconSize / 2.0f;
+            } else if (key.hasShiftedLetterHintIcon()) {
+                // The hint label is placed at top-right corner of the key. Used mainly on tablet.
+                hintX = keyWidth - mKeyShiftedLetterHintPadding - iconSize / 2.0f;
+                paint.getFontMetrics(mFontMetrics);
+                hintBaseline = -mFontMetrics.top;
+            } else { // key.hasHintLetter()
+                // The hint letter is placed at top-right corner of the key. Used mainly on phone.
+                hintBaseline = 0;
+                hintX = isFunctionalKeyAndRoundedStyle
+                        ? keyWidth - iconSize * 1.5f
+                        : keyWidth - mKeyHintLetterPadding - iconSize;
+            }
+            float adjustmentY = isFunctionalKeyAndRoundedStyle
+                                      ? iconSize * 0.5f
+                                      : params.mHintLabelVerticalAdjustment * iconSize;
+            hintIcon.setColorFilter(key.selectHintTextColor(params), PorterDuff.Mode.MULTIPLY);
+            drawIcon(canvas, hintIcon, (int)hintX, (int)(hintBaseline + adjustmentY), iconSize, iconSize);
         }
 
         // Draw key icon.
         if (label == null && icon != null) {
-            final int iconWidth;
-            if (key.getCode() == Constants.CODE_SPACE && icon instanceof NinePatchDrawable) {
-                iconWidth = (int) (keyWidth * mSpacebarIconWidthRatio * mIconScaleFactor);
-            } else {
-                iconWidth = (int) (Math.min(icon.getIntrinsicWidth(), keyWidth) * mIconScaleFactor);
-            }
-            final int iconHeight = (int) (icon.getIntrinsicHeight() * mIconScaleFactor);
-            final int iconY;
-            if (key.isAlignIconToBottom()) {
-                iconY = keyHeight - iconHeight;
-            } else {
-                iconY = (keyHeight - iconHeight) / 2; // Align vertically center.
-            }
-            final int iconX = (keyWidth - iconWidth) / 2; // Align horizontally center.
+            int iconWidth = key.getCode() == Constants.CODE_SPACE && icon instanceof NinePatchDrawable
+                ? (int) (keyWidth * mSpacebarIconWidthRatio * mIconScaleFactor)
+                : (int) (Math.min(icon.getIntrinsicWidth(), keyWidth) * mIconScaleFactor);
+            int iconHeight = (int) (icon.getIntrinsicHeight() * mIconScaleFactor);
+            int iconY = key.isAlignIconToBottom()
+                ? keyHeight - iconHeight
+                : (keyHeight - iconHeight) / 2; // Align vertically center.
+            int iconX = (keyWidth - iconWidth) / 2; // Align horizontally center.
             setKeyIconColor(key, icon, keyboard);
             drawIcon(canvas, icon, iconX, iconY, iconWidth, iconHeight);
         }

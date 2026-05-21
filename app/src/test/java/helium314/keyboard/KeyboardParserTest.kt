@@ -12,6 +12,7 @@ import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.internal.KeySpecParser.KeySpecParserError
 import helium314.keyboard.keyboard.internal.KeyboardBuilder
 import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.keyboard.internal.PopupKeySpec
 import helium314.keyboard.keyboard.internal.TouchPositionCorrection
 import helium314.keyboard.keyboard.internal.UniqueKeysCache
 import helium314.keyboard.keyboard.internal.keyboard_parser.LayoutParser
@@ -51,6 +52,7 @@ class ParserTest {
         ShadowLog.stream = System.out
         params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
         params.mPopupKeyOrder.add(POPUP_KEYS_LAYOUT)
+        params.mPopupKeyHintOrder.add(POPUP_KEYS_LAYOUT)
         addLocaleKeyTextsToParams(latinIME, params, POPUP_KEYS_NORMAL)
     }
 
@@ -332,12 +334,29 @@ f""", // no newline at the end
         }
     }
 
+    @Test fun removeRedundantPopupKeys() {
+        val keyParams = LayoutParser.parseJsonString("""[[{"label": "k"}, { "label": "w", "popup": {
+          "relevant": [{ "label": "!hasLabels!" }, { "label": "k" }, { "label": "m" }]
+    } }]]""").flatMap { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
+        keyParams[1].mAbsoluteWidth = 1f
+        keyParams[1].mAbsoluteHeight = 1f
+        val key = keyParams[1].createKey()
+        assertEquals(null, key.hintLabel)
+        assertEquals(2, key.popupKeys?.size)
+        val lettersOnBaseLayout = PopupKeySpec.LettersOnBaseLayout()
+        lettersOnBaseLayout.addLetter(keyParams[0])
+        val keyWithoutRedundantPopups = Key.removeRedundantPopupKeys(key, lettersOnBaseLayout)
+        assertEquals(1, keyWithoutRedundantPopups.popupKeys?.size)
+        assertEquals(null, keyWithoutRedundantPopups.hintLabel)
+    }
+
     @Test fun popupWithCodeAndLabel() {
         val key = LayoutParser.parseJsonString("""[[{ "label": "w", "popup": {
           "main": { "code":   55, "label": "!" }
     } }]]""").flatMap { row -> row.mapNotNull { it.compute(params) } }.single()
         assertEquals("!", key.toKeyParams(params).mPopupKeys?.first()?.mLabel)
         assertEquals('7'.code, key.toKeyParams(params).mPopupKeys?.first()?.mCode)
+        assertEquals("!", key.toKeyParams(params).mHintLabel)
     }
 
     @Test fun popupWithCodeAndIcon() {
@@ -356,6 +375,7 @@ f""", // no newline at the end
         assertEquals(null, key.toKeyParams(params).mPopupKeys?.first()?.mLabel)
         assertEquals("undo", key.toKeyParams(params).mPopupKeys?.first()?.mIconName)
         assertEquals(KeyCode.UNDO, key.toKeyParams(params).mPopupKeys?.first()?.mCode)
+        assertEquals("undo", key.toKeyParams(params).mHintIconName)
     }
 
     @Test fun popupKeyWithIconAndImplicitText() {
@@ -367,6 +387,7 @@ f""", // no newline at the end
         assertEquals("go_key", key.toKeyParams(params).mPopupKeys?.first()?.mIconName)
         assertEquals(KeyCode.MULTIPLE_CODE_POINTS, key.toKeyParams(params).mPopupKeys?.first()?.mCode)
         assertEquals("aa", key.toKeyParams(params).mPopupKeys?.first()?.mOutputText)
+        assertEquals("go_key", key.toKeyParams(params).mHintIconName)
 
         val key2 = LayoutParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
        { "label": "!icon/go_key|" }
