@@ -977,7 +977,7 @@ New dictionary:
     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_description_modes">
         The \"safe\" way to contribute there is the \"active gathering\" mode, where you are shown a specific word, and enter this word using gesture typing.\n
-        You can also use the \"passive gathering\" mode, where you can provide samples from your normal gesture typing from other apps.
+        You can also use the \"background gathering\" mode, where you can provide samples from your normal gesture typing from other apps.
         Due to the sensitivity of this approach, this is opt-in, configurable, and has a review screen for the data you\'re about to submit.
     </string>
     <!-- Descriptive text about privacy of gesture data
@@ -1118,59 +1118,56 @@ New dictionary:
     <!-- Message followed by a list of links
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_links">Information on gesture data gathering on:</string>
-    <!-- Title for passive data gathering
+    <!-- Switch text for enabling background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering">Passive data gathering</string>
-    <!-- Switch text for enabling passive data gathering
+    <string name="gesture_data_background_gathering_switch">Use background data gathering</string>
+    <!-- Text under the switch showing in how many apps background data gathering is allowed
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_switch">Use passive data gathering</string>
-    <!-- Text under the switch showing in how many apps passive data gathering is allowed
+    <string name="gesture_data_background_gathering_allowed_apps">Allowed apps: %s</string>
+    <!-- Switch text for enabling opt-in mode for background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_allowed_apps">Allowed apps: %s</string>
-    <!-- Switch text for enabling opt-in mode for passive data gathering
+    <string name="gesture_data_background_gathering_manual_save">Opt-in mode</string>
+    <!-- Description text for enabling opt-in mode for background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_manual_save">Semi-passive mode</string>
-    <!-- Description text for enabling opt-in mode for passive data gathering
-     string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_manual_save_summary">Data is saved manually via the toolbar key</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Data is saved manually via the toolbar key</string>
     <!-- Button for opening info dialog
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_info">More information</string>
+    <string name="gesture_data_background_gathering_info">More information</string>
     <!-- Info dialog main message (other sections in different strings)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_info_message">
-        Turning on passive data gathering may potentially record any word you enter using gesture typing.
+    <string name="gesture_data_background_gathering_info_message">
+        Turning on background data gathering may potentially record any word you enter using gesture typing.
         This is very useful for the gesture typing project as it can produce a considerable amount of data, albeit at lower quality than active gathering.\n
-        Passive gathering has high potential of giving away data you may consider be too sensitive even for anonymized publishing.
+        Background gathering has high potential of giving away data you may consider be too sensitive even for anonymized publishing.
         For this reason we want to clarify when gesture data is being gathered, and how you can influence it.
     </string>
-    <!-- Title for info dialog section about passive data gathering indicator
+    <!-- Title for info dialog section about background data gathering indicator
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_indicator">Data gathering indicator</string>
-    <!-- Message for info dialog section about passive data gathering indicator (which is displayed above the text), parsed as HTML
-     %1$s -> gesture_data_passive_gathering_control
-     %2$s -> gesture_data_passive_gathering_manual_save
+    <string name="gesture_data_background_gathering_indicator">Data gathering indicator</string>
+    <!-- Message for info dialog section about background data gathering indicator (which is displayed above the text), parsed as HTML
+     %1$s -> gesture_data_background_gathering_control
+     %2$s -> gesture_data_background_gathering_manual_save
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_indicator_message">
+    <string name="gesture_data_background_gathering_indicator_message">
         Any time gesture data may be recorded, you will see an indicator icon on bottom left of the keyboard.
         When the circle is filled, recently entered gesture data is waiting to be saved.
         Data is saved either using the toolbar key (see &lt;i&gt;%1$s&lt;/i&gt;) or automatically (when &lt;i&gt;%2$s&lt;/i&gt; is disabled).
         Automatic saving usually happens when switching text field or closing the keyboard, but may also happen on other occasions such as text field changes not under this app\'s control.
         What data is being saved, the indicator will turn green for a short time.
     </string>
-    <!-- Title for info dialog section about controlling passive data gathering
+    <!-- Title for info dialog section about controlling background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_control">How to control what is saved</string>
-    <!-- Message for info dialog section about controlling passive data gathering, parsed as HTML
-     %1$s -> gesture_data_passive_apps_button
-     %2$s -> gesture_data_passive_excluded_words_button
-     %3$s -> gesture_data_passive_gathering_manual_save
-     %4$s -> passive_gathering
+    <string name="gesture_data_background_gathering_control">How to control what is saved</string>
+    <!-- Message for info dialog section about controlling background data gathering, parsed as HTML
+     %1$s -> gesture_data_background_apps_button
+     %2$s -> gesture_data_background_excluded_words_button
+     %3$s -> gesture_data_background_gathering_manual_save
+     %4$s -> background_gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_control_message">
-        Independent of the settings, passive data gathering is disabled when using incognito mode and for sensitive input fields (passwords, email, or whenever the input field requests the keyboard to not learn the words).
+    <string name="gesture_data_background_gathering_control_message">
+        Independent of the settings, background data gathering is disabled when using incognito mode and for sensitive input fields (passwords, email, or whenever the input field requests the keyboard to not learn the words).
 
-        Using &lt;i&gt;%1$s&lt;/i&gt; you can select in which apps passive data gathering may be used.
+        Using &lt;i&gt;%1$s&lt;/i&gt; you can select in which apps background data gathering may be used.
         The default setting allows every app, with opt-out per app. You can invert the default, and only include specific apps.
         &lt;br&gt;&lt;br&gt;
 
@@ -1185,44 +1182,44 @@ New dictionary:
         &lt;br&gt;&lt;br&gt;
 
         The &lt;i&gt;%4$s&lt;/i&gt; toolbar key can be used to control data gathering. The effect of a press depends on the current state:
-        When passive gathering is disabled, it will be enabled.&lt;br&gt;
+        When background gathering is disabled, it will be enabled.&lt;br&gt;
         When &lt;i&gt;%3$s&lt;/i&gt; is enabled, pending data will be saved.&lt;br&gt;
         Otherwise, pending data will be discarded.&lt;br&gt;
         A long-press will disable gathering for five minutes.
-        You can re-enable passive data gathering earlier with a normal key press.
+        You can re-enable background data gathering earlier with a normal key press.
     </string>
-    <!-- Message for info dialog section about reviewing and sharing passively gathered data, parsed as HTML
+    <!-- Message for info dialog section about reviewing and sharing background data, parsed as HTML
      %1$s -> gesture_data_review_screen_title
      %2$s -> https://codeberg.org/eclexic/swipe-o-scope
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_gathering_review_message">
+    <string name="gesture_data_background_gathering_review_message">
         Using &lt;i&gt;%1$s&lt;/i&gt; you can check and filter the gathered data, delete data you consider too sensitive, and share data.
         The delete and share buttons will operate on the filtered data, or on the selection if you use long-press to select words.
         (Note that the \"normal\" share icon at the bottom will only share data from active gathering.)&lt;br&gt;
         The order of shared data is randomized, so nothing more than the individual words can be deduced.&lt;br&gt;
         If you want to view the full data that is stored for a gesture, you can share it to a file, and load the file in &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.
     </string>
-    <!-- Button for opening app selection for passive data gathering
+    <!-- Button for opening app selection for background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_apps_button">Manage allowed apps</string>
-    <!-- Text for app selection for passive data gathering
+    <string name="gesture_data_background_apps_button">Manage allowed apps</string>
+    <!-- Text for app selection for background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_apps">Select apps to include in passive data gathering</string>
+    <string name="gesture_data_background_apps">Select apps to include in background data gathering</string>
     <!-- Switch text for including apps by default
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_apps_include_default">Include apps by default</string>
-    <!-- Button for opening list of words that will never be saved in passive data gathering
+    <string name="gesture_data_background_apps_include_default">Include apps by default</string>
+    <!-- Button for opening list of words that will never be saved in background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_excluded_words_button">Manage excluded words</string>
-    <!-- Button for excluding a specific word from passive data gathering
+    <string name="gesture_data_background_excluded_words_button">Manage excluded words</string>
+    <!-- Button for excluding a specific word from background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_passive_exclude_words">Exclude word from passive gathering</string>
+    <string name="gesture_data_background_exclude_words">Exclude word from background gathering</string>
     <!-- Hint indicating that long-press selects entries
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_long_press_select_hint">Long-press to select</string>
-    <!-- Toolbar key to enable / disable passive gesture data gathering
+    <!-- Toolbar key to enable / disable background gesture data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="passive_gathering" tools:keep="@string/passive_gathering">Passive data gathering</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">background data gathering</string>
     <!-- Text showing suggestions recorded for a specific gesture
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_suggestions">Suggestions: %s</string>
@@ -1231,7 +1228,7 @@ New dictionary:
     <string name="gesture_data_show_active">Show actively gathered data</string>
     <!-- Review screen menu entry to display actively gathered data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_show_passive">Show passively gathered data</string>
+    <string name="gesture_data_show_background">Show background data</string>
     <!-- Review screen menu entry to display shared but not deleted gathered data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_include_shared">Include already submitted data</string>
@@ -1243,16 +1240,16 @@ New dictionary:
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_saving">Saving… %s%</string>
     <!-- Dialog message asking the user whether they want to enable the toolbar key
-     shown when passive data gathering is enabled for the first time
-     %1$s -> gesture_data_passive_gathering_info
-     %2$s -> passive_gathering
+     shown when background data gathering is enabled for the first time
+     %1$s -> gesture_data_background_gathering_info
+     %2$s -> background_gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_first_enable_dialog">
-        Welcome to passive data gathering!&lt;br&gt;
+        Welcome to background data gathering!&lt;br&gt;
         Do you wish to add the &lt;i&gt;%1$s&lt;/i&gt; key to the toolbar?
         You can use it to control data gathering, read more about it using the &lt;i&gt;%2$s&lt;/i&gt; button.
     </string>
-    <!-- Button for adding the passive_gathering toolbar key
+    <!-- Button for adding the background_gathering toolbar key
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_add_key">Add toolbar key</string>
 

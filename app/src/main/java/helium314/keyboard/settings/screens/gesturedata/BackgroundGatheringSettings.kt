@@ -76,7 +76,6 @@ import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppExclusi
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppIncludeByDefault
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.defaultToolbarPref
-import helium314.keyboard.latin.utils.getEnabledToolbarKeys
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.painterResourceCompat
 import kotlinx.coroutines.Dispatchers
@@ -86,10 +85,10 @@ import kotlin.text.split
 // will be removed once the project is finished
 
 @Composable
-fun PassiveGatheringSettings() {
+fun BackgroundGatheringSettings() {
     val ctx = LocalContext.current
-    var passiveGathering by remember { mutableStateOf(GestureDataGatheringSettings.isPassiveGatheringEnabled(ctx.prefs())) }
-    var passiveGatheringOptIn by remember { mutableStateOf(GestureDataGatheringSettings.isOptInMode(ctx)) }
+    var backgroundGathering by remember { mutableStateOf(GestureDataGatheringSettings.isBackgroundGatheringEnabled(ctx.prefs())) }
+    var backgroundGatheringOptIn by remember { mutableStateOf(GestureDataGatheringSettings.isOptInMode(ctx)) }
     var showInfoDialog by remember { mutableStateOf(false) }
     var showExcludedWordsDialog by remember { mutableStateOf(false) }
     var showIncludedAppsDialog by remember { mutableStateOf(false) }
@@ -99,23 +98,23 @@ fun PassiveGatheringSettings() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            .clickable { passiveGathering = !passiveGathering }
+            .clickable { backgroundGathering = !backgroundGathering }
             .fillMaxWidth()
     ) {
         Column {
-            Text(stringResource(R.string.gesture_data_passive_gathering_switch))
+            Text(stringResource(R.string.gesture_data_background_gathering_switch))
             val allowedCount = if (getAppIncludeByDefault(ctx)) packageInfos.size - getAppExclusions(ctx).size
                 else getAppExclusions(ctx).size
             val allowedCountText = if (packageInfos.isEmpty()) "" else allowedCount.toString()
-            Text(stringResource(R.string.gesture_data_passive_gathering_allowed_apps, allowedCountText), style = MaterialTheme.typography.bodySmall)
+            Text(stringResource(R.string.gesture_data_background_gathering_allowed_apps, allowedCountText), style = MaterialTheme.typography.bodySmall)
         }
         Switch(
-            checked = passiveGathering,
+            checked = backgroundGathering,
             onCheckedChange = {
-                if (!GestureDataGatheringSettings.hasPassiveGatheringPref(ctx.prefs()))
+                if (!GestureDataGatheringSettings.hasBackgroundGatheringPref(ctx.prefs()))
                     showFirstStartDialog = true
-                passiveGathering = it
-                GestureDataGatheringSettings.setPassiveGatheringEnabled(ctx.prefs(), it)
+                backgroundGathering = it
+                GestureDataGatheringSettings.setBackgroundGatheringEnabled(ctx.prefs(), it)
             }
         )
     }
@@ -123,30 +122,30 @@ fun PassiveGatheringSettings() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            .clickable { passiveGatheringOptIn = !passiveGatheringOptIn }
+            .clickable { backgroundGatheringOptIn = !backgroundGatheringOptIn }
             .fillMaxWidth()
     ) {
         Column {
-            Text(stringResource(R.string.gesture_data_passive_gathering_manual_save))
-            Text(stringResource(R.string.gesture_data_passive_gathering_manual_save_summary), style = MaterialTheme.typography.bodySmall)
+            Text(stringResource(R.string.gesture_data_background_gathering_manual_save))
+            Text(stringResource(R.string.gesture_data_background_gathering_manual_save_summary), style = MaterialTheme.typography.bodySmall)
         }
-        Switch(passiveGatheringOptIn, { passiveGatheringOptIn = it; GestureDataGatheringSettings.setOptInMode(ctx, it) })
+        Switch(backgroundGatheringOptIn, { backgroundGatheringOptIn = it; GestureDataGatheringSettings.setOptInMode(ctx, it) })
     }
-    ButtonWithText(stringResource(R.string.gesture_data_passive_gathering_info), Modifier.fillMaxWidth()) { showInfoDialog = true }
-    ButtonWithText(stringResource(R.string.gesture_data_passive_excluded_words_button), Modifier.fillMaxWidth()) { showExcludedWordsDialog = true }
-    ButtonWithText(stringResource(R.string.gesture_data_passive_apps_button), Modifier.fillMaxWidth()) { showIncludedAppsDialog = true }
+    ButtonWithText(stringResource(R.string.gesture_data_background_gathering_info), Modifier.fillMaxWidth()) { showInfoDialog = true }
+    ButtonWithText(stringResource(R.string.gesture_data_background_excluded_words_button), Modifier.fillMaxWidth()) { showExcludedWordsDialog = true }
+    ButtonWithText(stringResource(R.string.gesture_data_background_apps_button), Modifier.fillMaxWidth()) { showIncludedAppsDialog = true }
     if (showInfoDialog) {
         var indicatorInfo by remember { mutableStateOf(false) }
         var controlInfo by remember { mutableStateOf(false) }
         var reviewInfo by remember { mutableStateOf(false) }
         ThreeButtonAlertDialog(
             onDismissRequest = { showInfoDialog = false },
-            title = { Text(stringResource(R.string.passive_gathering)) },
+            title = { Text(stringResource(R.string.background_gathering)) },
             content = {
                 Column {
-                    Text(stringResource(R.string.gesture_data_passive_gathering_info_message))
+                    Text(stringResource(R.string.gesture_data_background_gathering_info_message))
                     TextButton({ indicatorInfo = !indicatorInfo }) {
-                        Text(stringResource(R.string.gesture_data_passive_gathering_indicator))
+                        Text(stringResource(R.string.gesture_data_background_gathering_indicator))
                     }
                     AnimatedVisibility(indicatorInfo) {
                         val color = Color("#a00000".toColorInt()) // same as in input_view.xml
@@ -156,35 +155,35 @@ fun PassiveGatheringSettings() {
                                 Icon(painterResourceCompat(R.drawable.ring, 24), null, tint = color)
                             }
                             val text = stringResource(
-                                R.string.gesture_data_passive_gathering_indicator_message,
-                                stringResource(R.string.gesture_data_passive_gathering_control),
-                                stringResource(R.string.gesture_data_passive_gathering_manual_save),
+                                R.string.gesture_data_background_gathering_indicator_message,
+                                stringResource(R.string.gesture_data_background_gathering_control),
+                                stringResource(R.string.gesture_data_background_gathering_manual_save),
                             )
                             Text(AnnotatedString.fromHtml(text))
                         }
                     }
                     TextButton({ controlInfo = !controlInfo }) {
-                        Text(stringResource(R.string.gesture_data_passive_gathering_control))
+                        Text(stringResource(R.string.gesture_data_background_gathering_control))
                     }
                     AnimatedVisibility(controlInfo) {
-                        val text = stringResource(R.string.gesture_data_passive_gathering_control_message,
-                            stringResource(R.string.gesture_data_passive_apps_button),
-                            stringResource(R.string.gesture_data_passive_excluded_words_button),
-                            stringResource(R.string.gesture_data_passive_gathering_manual_save),
-                            stringResource(R.string.passive_gathering),
+                        val text = stringResource(R.string.gesture_data_background_gathering_control_message,
+                            stringResource(R.string.gesture_data_background_apps_button),
+                            stringResource(R.string.gesture_data_background_excluded_words_button),
+                            stringResource(R.string.gesture_data_background_gathering_manual_save),
+                            stringResource(R.string.background_gathering),
                         )
                         Text(AnnotatedString.fromHtml(text))
                     }
                     TextButton({ reviewInfo = !reviewInfo }) {
                         val text = stringResource(R.string.gesture_data_review_screen_title,
-                            stringResource(R.string.gesture_data_passive_apps_button),
-                            stringResource(R.string.gesture_data_passive_excluded_words_button)
+                            stringResource(R.string.gesture_data_background_apps_button),
+                            stringResource(R.string.gesture_data_background_excluded_words_button)
                         )
                         Text(stringResource(R.string.gesture_data_review_screen_title))
                     }
                     AnimatedVisibility(reviewInfo) {
                         val text = stringResource(
-                            R.string.gesture_data_passive_gathering_review_message,
+                            R.string.gesture_data_background_gathering_review_message,
                             stringResource(R.string.gesture_data_review_screen_title),
                             Links.SWIPE_O_SCOPE
                         )
@@ -216,7 +215,7 @@ fun PassiveGatheringSettings() {
         }
         var filter by remember { mutableStateOf(TextFieldValue()) }
         ThreeButtonAlertDialog(
-            title = { Text(stringResource(R.string.gesture_data_passive_apps)) },
+            title = { Text(stringResource(R.string.gesture_data_background_apps)) },
             onDismissRequest = {
                 GestureDataGatheringSettings.setAppExclusions(ctx, excludedPackages)
                 showIncludedAppsDialog = false
@@ -227,7 +226,7 @@ fun PassiveGatheringSettings() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(stringResource(R.string.gesture_data_passive_apps_include_default))
+                    Text(stringResource(R.string.gesture_data_background_apps_include_default))
                     Switch(checked = defaultInclude, onCheckedChange = { defaultInclude = it; GestureDataGatheringSettings.setAppIncludeByDefault(ctx, it) })
                 }
                 TextField(
@@ -299,16 +298,16 @@ fun PassiveGatheringSettings() {
             onConfirmed = {
                 val toolbar = ctx.prefs().getString(Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)!!
                     .split(Separators.ENTRY)
-                    .filter { ToolbarKey.PASSIVE_GATHERING.name !in it }
-                val newToolbar = toolbar + (ToolbarKey.PASSIVE_GATHERING.name + Separators.KV + "true")
+                    .filter { ToolbarKey.BACKGROUND_GATHERING.name !in it }
+                val newToolbar = toolbar + (ToolbarKey.BACKGROUND_GATHERING.name + Separators.KV + "true")
                 ctx.prefs().edit { putString(Settings.PREF_TOOLBAR_KEYS, newToolbar.joinToString(Separators.ENTRY)) }
                 KeyboardSwitcher.getInstance().setThemeNeedsReload()
             },
             content = {
                 val text = stringResource(
                     R.string.gesture_data_first_enable_dialog,
-                    stringResource(R.string.gesture_data_passive_gathering_info),
-                    stringResource(R.string.passive_gathering),
+                    stringResource(R.string.gesture_data_background_gathering_info),
+                    stringResource(R.string.background_gathering),
                 )
                 Text(AnnotatedString.fromHtml(text))
             },

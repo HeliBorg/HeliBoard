@@ -79,7 +79,7 @@ import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
 import helium314.keyboard.latin.utils.Log;
-import helium314.keyboard.latin.utils.PassiveGatheringCache;
+import helium314.keyboard.latin.utils.BackgroundGatheringCache;
 import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.StatsUtilsManager;
@@ -799,7 +799,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onFinishInput() {
         mHandler.onFinishInput();
-        PassiveGatheringCache.saveOrClear(this);
+        BackgroundGatheringCache.saveOrClear(this);
     }
 
     @Override
@@ -1862,17 +1862,17 @@ public class LatinIME extends InputMethodService implements
         // only for gesture data gathering, remove when data gathering phase is done (end of 2026 latest)
         if (GestureDataGatheringSettings.INSTANCE.isInActiveGatheringMode(editorInfo)) {
             mDictionaryFacilitator = GestureDataGatheringKt.getGestureDataActiveFacilitator();
-            GestureDataGatheringKt.usePassiveGathering = false;
-            mKeyboardSwitcher.setPassiveGatheringIndicator(false, false, false);
+            GestureDataGatheringKt.useBackgroundGathering = false;
+            mKeyboardSwitcher.setBackgroundGatheringIndicator(false, false, false);
         } else {
             mDictionaryFacilitator = mOriginalDictionaryFacilitator;
 
-            // no active mode, check for passive mode
-            boolean usePassive = GestureDataGatheringKt.setUsePassiveGathering(this, editorInfo);
-            mKeyboardSwitcher.setPassiveGatheringIndicator(usePassive, false, false);
+            // no active mode, check for background mode
+            boolean useBackground = GestureDataGatheringKt.setUseBackgroundGathering(this, editorInfo);
+            mKeyboardSwitcher.setBackgroundGatheringIndicator(useBackground, false, false);
             // restarting means we're still in the same field, so don't clear anything in opt-in mode
             if (!restarting || !GestureDataGatheringSettings.INSTANCE.isOptInMode(this))
-                PassiveGatheringCache.saveOrClear(this);
+                BackgroundGatheringCache.saveOrClear(this);
         }
         GestureDataGatheringSettings.INSTANCE.showEndNotificationIfNecessary(this); // will do nothing for a long time
         mInputLogic.setFacilitator(mDictionaryFacilitator);

@@ -132,10 +132,10 @@ import kotlin.random.Random
  *  random word. After swiping this word it gets stored along with necessary
  *  information to recreate the input and some additional data.
  *
- *  Will allow enabling "passive data gathering" later, which stores most of
+ *  Will allow enabling "background data gathering" later, which stores most of
  *  the words entered using gesture typing. Here the user needs the ability
  *  review and redact the data before sending, and additionally exclude some
- *  words and apps from passive gathering.
+ *  words and apps from background gathering.
  */
 typealias WeightedWord = Pair<String, Double>
 
@@ -446,8 +446,8 @@ fun GestureDataScreen(
 
             if (!activeGathering) {
                 HorizontalDivider()
-                WithSmallTitle(stringResource(R.string.passive_gathering)) {
-                    PassiveGatheringSettings()
+                WithSmallTitle(stringResource(R.string.background_gathering)) {
+                    BackgroundGatheringSettings()
                 }
                 Spacer(Modifier.height(12.dp))
                 // maybe move the review screen content in here if we have enough space (but landscape mode will be bad)

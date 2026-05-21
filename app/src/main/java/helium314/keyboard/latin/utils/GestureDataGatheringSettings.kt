@@ -38,11 +38,11 @@ object GestureDataGatheringSettings {
     private const val PREF_APP_EXCLUSIONS = "gesture_data_app_exclusions"
     private const val PREF_APP_EXCLUSIONS_INCLUDE_BY_DEFAULT = "gesture_data_app_exclusions_ignore_by_default"
     private const val PREF_DELETED_ACTIVE = "gesture_data_deleted_active_words"
-    private const val PREF_DELETED_PASSIVE = "gesture_data_deleted_passive_words"
-    private const val PREF_PASSIVE_NOTIFY_COUNT = "gesture_data_passive_notify_count"
-    const val PREF_PASSIVE_ENABLED = "gesture_data_passive_gathering_enabled"
-    private const val PREF_PASSIVE_SAVE_ON_BUTTON = "gesture_data_passive_gathering_save_on_button"
-    const val PREF_PASSIVE_DISABLED_BEFORE_TIME_MILLIS = "gesture_data_passive_gathering_disabled_before"
+    private const val PREF_DELETED_BACKGROUND = "gesture_data_deleted_background_words"
+    private const val PREF_BACKGROUND_NOTIFY_COUNT = "gesture_data_background_notify_count"
+    const val PREF_BACKGROUND_GATHERING_ENABLED = "gesture_data_background_gathering_enabled"
+    private const val PREF_BACKGROUND_SAVE_ON_BUTTON = "gesture_data_background_gathering_save_on_button"
+    const val PREF_BACKGROUND_DISABLED_BEFORE_TIME_MILLIS = "gesture_data_background_gathering_disabled_before"
     private const val PREF_END_NOTIFICATION_LAST_SHOWN = "gesture_data_end_notification_shown"
     private const val PREF_SHOW_PROMOTION_DIALOG_NEXT = "gesture_data_show_promotion_dialog_next_time"
     private const val PREF_SHOW_REMINDER_DIALOG_NEXT = "gesture_data_show_reminder_dialog_next_time"
@@ -51,34 +51,34 @@ object GestureDataGatheringSettings {
     fun isInActiveGatheringMode(editorInfo: EditorInfo) =
         dictTestImeOption == editorInfo.privateImeOptions && gestureDataActiveFacilitator != null
 
-    fun isPassiveGatheringEnabled(prefs: SharedPreferences): Boolean {
-        if (!prefs.getBoolean(PREF_PASSIVE_ENABLED, false)) return false
-        val disabledBefore = prefs.getLong(PREF_PASSIVE_DISABLED_BEFORE_TIME_MILLIS, 0L)
+    fun isBackgroundGatheringEnabled(prefs: SharedPreferences): Boolean {
+        if (!prefs.getBoolean(PREF_BACKGROUND_GATHERING_ENABLED, false)) return false
+        val disabledBefore = prefs.getLong(PREF_BACKGROUND_DISABLED_BEFORE_TIME_MILLIS, 0L)
         if (disabledBefore > SystemClock.elapsedRealtime() + 5 * 60 * 1000L) {
             // elapsedRealtime decreased -> phone was rebooted -> reset
-            prefs.edit { remove(PREF_PASSIVE_DISABLED_BEFORE_TIME_MILLIS) }
+            prefs.edit { remove(PREF_BACKGROUND_DISABLED_BEFORE_TIME_MILLIS) }
             return true
         }
         return SystemClock.elapsedRealtime() > disabledBefore
     }
 
-    fun setPassiveGatheringEnabled(prefs: SharedPreferences, enabled: Boolean) = prefs.edit {
-        putBoolean(PREF_PASSIVE_ENABLED, enabled)
-        remove(PREF_PASSIVE_DISABLED_BEFORE_TIME_MILLIS)
+    fun setBackgroundGatheringEnabled(prefs: SharedPreferences, enabled: Boolean) = prefs.edit {
+        putBoolean(PREF_BACKGROUND_GATHERING_ENABLED, enabled)
+        remove(PREF_BACKGROUND_DISABLED_BEFORE_TIME_MILLIS)
     }
 
-    fun tempDisablePassiveGathering(prefs: SharedPreferences) {
+    fun tempDisableBackgroundGathering(prefs: SharedPreferences) {
         // disable for 5 min
-        prefs.edit { putLong(PREF_PASSIVE_DISABLED_BEFORE_TIME_MILLIS, SystemClock.elapsedRealtime() + 5 * 60 * 1000L) }
+        prefs.edit { putLong(PREF_BACKGROUND_DISABLED_BEFORE_TIME_MILLIS, SystemClock.elapsedRealtime() + 5 * 60 * 1000L) }
     }
 
-    fun String.filterPassiveGatheringToolbarKeys(prefs: SharedPreferences) = split(Separators.ENTRY).filter {
-        if (hasPassiveGatheringPref(prefs)) true
-        // only show keys if passive gathering was enabled at some point
-        else ToolbarKey.PASSIVE_GATHERING.name !in it
+    fun String.filterBackgroundGatheringToolbarKeys(prefs: SharedPreferences) = split(Separators.ENTRY).filter {
+        if (hasBackgroundGatheringPref(prefs)) true
+        // only show keys if background gathering was enabled at some point
+        else ToolbarKey.BACKGROUND_GATHERING.name !in it
     }.joinToString(Separators.ENTRY)
 
-    fun hasPassiveGatheringPref(prefs: SharedPreferences) = prefs.contains(PREF_PASSIVE_ENABLED)
+    fun hasBackgroundGatheringPref(prefs: SharedPreferences) = prefs.contains(PREF_BACKGROUND_GATHERING_ENABLED)
 
     fun addWordExclusion(context: Context, exclusion: String) {
         setWordExclusions(context, getWordExclusions(context) + exclusion)
@@ -88,7 +88,7 @@ object GestureDataGatheringSettings {
         excludedWords = null
         val json = Json.encodeToString(list)
         context.prefs().edit { putString(PREF_WORD_EXCLUSIONS, json) }
-        GlobalScope.launch { GestureDataDao.getInstance(context)?.deletePassiveWords(list) }
+        GlobalScope.launch { GestureDataDao.getInstance(context)?.deleteBackgroundWords(list) }
     }
 
     fun getWordExclusions(context: Context): Set<String> {
@@ -122,10 +122,10 @@ object GestureDataGatheringSettings {
         context.prefs().getBoolean(PREF_APP_EXCLUSIONS_INCLUDE_BY_DEFAULT, true)
 
     fun isOptInMode(context: Context) =
-        context.prefs().getBoolean(PREF_PASSIVE_SAVE_ON_BUTTON, true)
+        context.prefs().getBoolean(PREF_BACKGROUND_SAVE_ON_BUTTON, true)
 
     fun setOptInMode(context: Context, value: Boolean) =
-        context.prefs().edit { putBoolean(PREF_PASSIVE_SAVE_ON_BUTTON, value) }
+        context.prefs().edit { putBoolean(PREF_BACKGROUND_SAVE_ON_BUTTON, value) }
 
     fun isForbiddenForDataGathering(packageName: String?, context: Context): Boolean {
         val exclusions = getAppExclusions(context)
@@ -140,12 +140,12 @@ object GestureDataGatheringSettings {
 
     fun getExportedActiveDeletionCount(context: Context) = context.prefs().getInt(PREF_DELETED_ACTIVE, 0)
 
-    fun addExportedPassiveDeletionCount(context: Context, count: Int) {
-        val oldCount = getExportedPassiveDeletionCount(context)
-        context.prefs().edit { putInt(PREF_DELETED_PASSIVE, oldCount + count) }
+    fun addExportedBackgroundDeletionCount(context: Context, count: Int) {
+        val oldCount = getExportedBackgroundDeletionCount(context)
+        context.prefs().edit { putInt(PREF_DELETED_BACKGROUND, oldCount + count) }
     }
 
-    fun getExportedPassiveDeletionCount(context: Context) = context.prefs().getInt(PREF_DELETED_PASSIVE, 0)
+    fun getExportedBackgroundDeletionCount(context: Context) = context.prefs().getInt(PREF_DELETED_BACKGROUND, 0)
 
     fun onTrySaveData(prefs: SharedPreferences) {
         if (prefs.getLong(PREF_SHOW_PROMOTION_DIALOG_NEXT, 0) < Long.MAX_VALUE)
@@ -154,21 +154,21 @@ object GestureDataGatheringSettings {
 
     fun onExported(context: Context) {
         val dao = GestureDataDao.getInstance(context) ?: return
-        if (dao.count(exported = false, activeMode = false) < context.prefs().getInt(PREF_PASSIVE_NOTIFY_COUNT, 0))
-            context.prefs().edit { remove(PREF_PASSIVE_NOTIFY_COUNT) } // reset if we exported passive data
+        if (dao.count(exported = false, activeMode = false) < context.prefs().getInt(PREF_BACKGROUND_NOTIFY_COUNT, 0))
+            context.prefs().edit { remove(PREF_BACKGROUND_NOTIFY_COUNT) } // reset if we exported background data
     }
 
     // show a toast every 5k words, to avoid having to upload multiple files at a time because they are over their email attachment size limit
     // but don't check on every word, because getting count from DB is not free
-    fun informAboutTooManyPassiveModeWords(context: Context, dao: GestureDataDao) {
+    fun informAboutTooManyBackgroundModeWords(context: Context, dao: GestureDataDao) {
         if (Random.nextInt() % 20 != 0) return
         val count = dao.count(exported = false, activeMode = false)
-        val nextNotifyCount = context.prefs().getInt(PREF_PASSIVE_NOTIFY_COUNT, 5000)
+        val nextNotifyCount = context.prefs().getInt(PREF_BACKGROUND_NOTIFY_COUNT, 5000)
         if (count <= nextNotifyCount) return
         val approxCount = (count / 1000) * 1000
         // show a toast
         KeyboardSwitcher.getInstance().showToast(context.getString(R.string.gesture_data_many_not_shared_words, approxCount.toString()), true)
-        context.prefs().edit { putInt(PREF_PASSIVE_NOTIFY_COUNT, approxCount + 5000) }
+        context.prefs().edit { putInt(PREF_BACKGROUND_NOTIFY_COUNT, approxCount + 5000) }
     }
 
     /** shows dialog promoting contribution of gesture data, or ask to do again if last contribution was more than 2 weeks ago */

@@ -24,7 +24,7 @@ import helium314.keyboard.latin.define.ProductionFlags
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings
-import helium314.keyboard.latin.utils.PassiveGatheringCache
+import helium314.keyboard.latin.utils.BackgroundGatheringCache
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.prefs
 import kotlin.math.abs
@@ -102,28 +102,28 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
         when (primaryCode) {
             KeyCode.TOGGLE_AUTOCORRECT -> return settings.toggleAutoCorrect()
-            KeyCode.PASSIVE_GATHERING -> {
-                if (PassiveGatheringCache.isEmpty) {
+            KeyCode.BACKGROUND_GATHERING -> {
+                if (BackgroundGatheringCache.isEmpty) {
                     // only enable, no toggle
-                    GestureDataGatheringSettings.setPassiveGatheringEnabled(latinIME.prefs(), true)
+                    GestureDataGatheringSettings.setBackgroundGatheringEnabled(latinIME.prefs(), true)
                     latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
                 } else {
                     if (GestureDataGatheringSettings.isOptInMode(latinIME))
-                        PassiveGatheringCache.save(latinIME)
+                        BackgroundGatheringCache.save(latinIME)
                     else
-                        PassiveGatheringCache.clear()
+                        BackgroundGatheringCache.clear()
                 }
                 return
             }
-            KeyCode.PASSIVE_GATHERING_TEMP_OFF -> {
-                GestureDataGatheringSettings.tempDisablePassiveGathering(latinIME.prefs())
-                PassiveGatheringCache.clear()
+            KeyCode.BACKGROUND_GATHERING_TEMP_OFF -> {
+                GestureDataGatheringSettings.tempDisableBackgroundGathering(latinIME.prefs())
+                BackgroundGatheringCache.clear()
                 latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
                 return
             }
             KeyCode.TOGGLE_INCOGNITO_MODE -> {
                 settings.toggleAlwaysIncognitoMode()
-                PassiveGatheringCache.clear()
+                BackgroundGatheringCache.clear()
                 latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
                 return
             }

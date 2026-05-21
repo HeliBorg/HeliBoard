@@ -76,7 +76,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private FrameLayout mStripContainer;
     private ClipboardHistoryView mClipboardHistoryView;
     private TextView mFakeToastView;
-    private ImageView mPassiveGatheringIndicator;
+    private ImageView mBackgroundGatheringIndicator;
     private LatinIME mLatinIME;
     private RichInputMethodManager mRichImm;
     private boolean mIsHardwareAcceleratedDrawingEnabled;
@@ -534,7 +534,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             SettingsKt.setFloatingKeyboardEnabled(mThemeContext, enabled);
         if (enabled) FloatingKeyboardUtils.setFloating(mCurrentInputView);
         else FloatingKeyboardUtils.disableFloating(mCurrentInputView);
-        setPassiveGatheringIndicatorPosition();
+        setBackgroundGatheringIndicatorPosition();
     }
 
     public void toggleSplitKeyboardMode() {
@@ -612,24 +612,24 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }, timeMillis);
     }
 
-    public void setPassiveGatheringIndicator(boolean enabled, boolean hasData, boolean saving) {
+    public void setBackgroundGatheringIndicator(boolean enabled, boolean hasData, boolean saving) {
         if (mCurrentInputView == null) return;
-        mPassiveGatheringIndicator.setVisibility(enabled ? View.VISIBLE: View.GONE);
+        mBackgroundGatheringIndicator.setVisibility(enabled ? View.VISIBLE : View.GONE);
         if (!enabled) return;
-        mPassiveGatheringIndicator.setImageResource(hasData ? R.drawable.btn_keyboard_key_action_normal_lxx_base : R.drawable.ring);
-        setPassiveGatheringIndicatorPosition();
+        mBackgroundGatheringIndicator.setImageResource(hasData ? R.drawable.btn_keyboard_key_action_normal_lxx_base : R.drawable.ring);
+        setBackgroundGatheringIndicatorPosition();
         if (!saving) return;
-        mPassiveGatheringIndicator.setImageTintList(ColorStateList.valueOf(0xff00a000));
-        mPassiveGatheringIndicator.postDelayed(() -> mPassiveGatheringIndicator.setImageTintList(ColorStateList.valueOf(0xffa00000)), 1500);
+        mBackgroundGatheringIndicator.setImageTintList(ColorStateList.valueOf(0xff00a000));
+        mBackgroundGatheringIndicator.postDelayed(() -> mBackgroundGatheringIndicator.setImageTintList(ColorStateList.valueOf(0xffa00000)), 1500);
     }
 
-    private void setPassiveGatheringIndicatorPosition() {
-        if (mPassiveGatheringIndicator.getVisibility() != View.VISIBLE) return;
-        if (mPassiveGatheringIndicator.getLayoutParams() instanceof ViewGroup.MarginLayoutParams margin) {
+    private void setBackgroundGatheringIndicatorPosition() {
+        if (mBackgroundGatheringIndicator.getVisibility() != View.VISIBLE) return;
+        if (mBackgroundGatheringIndicator.getLayoutParams() instanceof ViewGroup.MarginLayoutParams margin) {
             Keyboard kb = mKeyboardView.getKeyboard();
             if (kb != null)
-                margin.topMargin = kb.mBaseHeight - mPassiveGatheringIndicator.getHeight();
-            mPassiveGatheringIndicator.setLayoutParams(mPassiveGatheringIndicator.getLayoutParams());
+                margin.topMargin = kb.mBaseHeight - mBackgroundGatheringIndicator.getHeight();
+            mBackgroundGatheringIndicator.setLayoutParams(mBackgroundGatheringIndicator.getLayoutParams());
         }
     }
 
@@ -771,7 +771,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardStripScrollView = mCurrentInputView.findViewById(R.id.clipboard_strip_scroll_view);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
         mStripContainer = mCurrentInputView.findViewById(R.id.strip_container);
-        mPassiveGatheringIndicator = mCurrentInputView.findViewById(R.id.passiveGatheringIndicator);
+        mBackgroundGatheringIndicator = mCurrentInputView.findViewById(R.id.backgroundGatheringIndicator);
 
         prefs.registerOnSharedPreferenceChangeListener(mSuggestionStripView);
         prefs.registerOnSharedPreferenceChangeListener(mClipboardHistoryView);

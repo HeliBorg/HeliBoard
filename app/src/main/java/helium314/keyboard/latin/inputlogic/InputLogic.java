@@ -59,7 +59,7 @@ import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.IntentUtils;
 import helium314.keyboard.latin.utils.Log;
-import helium314.keyboard.latin.utils.PassiveGatheringCache;
+import helium314.keyboard.latin.utils.BackgroundGatheringCache;
 import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ScriptUtils;
@@ -236,12 +236,12 @@ public final class InputLogic {
                 SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardShiftMode));
         mConnection.beginBatchEdit();
-        if (GestureDataGatheringKt.usePassiveGathering && mConnection.hasSelection())
-            PassiveGatheringCache.INSTANCE.onEditSelection(mConnection.getSelectedText(0), mConnection.getTextBeforeCursor(40, 0), mConnection.getTextAfterCursor(40, 0));
+        if (GestureDataGatheringKt.useBackgroundGathering && mConnection.hasSelection())
+            BackgroundGatheringCache.INSTANCE.onEditSelection(mConnection.getSelectedText(0), mConnection.getTextBeforeCursor(40, 0), mConnection.getTextAfterCursor(40, 0));
         if (mWordComposer.isComposingWord()) {
             if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
-                if (GestureDataGatheringKt.usePassiveGathering)
-                    PassiveGatheringCache.INSTANCE.onEditWord(mWordComposer.getTypedWord());
+                if (GestureDataGatheringKt.useBackgroundGathering)
+                    BackgroundGatheringCache.INSTANCE.onEditWord(mWordComposer.getTypedWord());
 
                 // stop composing, otherwise the text will end up at the end of the current word
                 mConnection.finishComposingText();
@@ -299,12 +299,12 @@ public final class InputLogic {
             final Event event = Event.createPunctuationSuggestionPickedEvent(suggestionInfo);
             return onCodeInput(settingsValues, event, keyboardShiftState, currentKeyboardScript, handler);
         }
-        if (GestureDataGatheringKt.usePassiveGathering) {
+        if (GestureDataGatheringKt.useBackgroundGathering) {
             if (mWordComposer.isBatchMode())
                 // should only happen selecting different suggestion for gesture typed word
-                PassiveGatheringCache.INSTANCE.onPickSuggestionAfterGesturing(suggestionInfo, mWordComposer.getTypedWord());
+                BackgroundGatheringCache.INSTANCE.onPickSuggestionAfterGesturing(suggestionInfo, mWordComposer.getTypedWord());
             else
-                PassiveGatheringCache.INSTANCE.onPickSuggestion(suggestionInfo, mWordComposer.getTypedWord());
+                BackgroundGatheringCache.INSTANCE.onPickSuggestion(suggestionInfo, mWordComposer.getTypedWord());
         }
 
         final Event event = Event.createSuggestionPickedEvent(suggestionInfo);
@@ -380,8 +380,8 @@ public final class InputLogic {
         }
 
         // if all text is gone, we treat it like onStartInput
-        if (GestureDataGatheringKt.usePassiveGathering && newSelStart == 0 && newSelEnd == 0 && !mConnection.hasTextAfterCursor())
-            PassiveGatheringCache.saveOrClear(mLatinIME);
+        if (GestureDataGatheringKt.useBackgroundGathering && newSelStart == 0 && newSelEnd == 0 && !mConnection.hasTextAfterCursor())
+            BackgroundGatheringCache.saveOrClear(mLatinIME);
 
         // TODO: the following is probably better done in resetEntireInputState().
         // it should only happen when the cursor moved, and the very purpose of the
@@ -470,10 +470,10 @@ public final class InputLogic {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
 
-        if (GestureDataGatheringKt.usePassiveGathering && mConnection.hasSelection())
-            PassiveGatheringCache.INSTANCE.onEditSelection(mConnection.getSelectedText(0), mConnection.getTextBeforeCursor(40, 0), mConnection.getTextAfterCursor(40, 0));
-        if (GestureDataGatheringKt.usePassiveGathering && mWordComposer.isComposingWord() && mWordComposer.isCursorFrontOrMiddleOfComposingWord())
-            PassiveGatheringCache.INSTANCE.onEditWord(mWordComposer.getTypedWord());
+        if (GestureDataGatheringKt.useBackgroundGathering && mConnection.hasSelection())
+            BackgroundGatheringCache.INSTANCE.onEditSelection(mConnection.getSelectedText(0), mConnection.getTextBeforeCursor(40, 0), mConnection.getTextAfterCursor(40, 0));
+        if (GestureDataGatheringKt.useBackgroundGathering && mWordComposer.isComposingWord() && mWordComposer.isCursorFrontOrMiddleOfComposingWord())
+            BackgroundGatheringCache.INSTANCE.onEditWord(mWordComposer.getTypedWord());
 
         final Event processedEvent = mWordComposer.processEvent(event);
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
@@ -536,10 +536,10 @@ public final class InputLogic {
         handler.cancelUpdateSuggestionStrip();
         ++mAutoCommitSequenceNumber;
 
-        if (GestureDataGatheringKt.usePassiveGathering && mConnection.hasSelection())
-            PassiveGatheringCache.INSTANCE.onEditSelection(mConnection.getSelectedText(0), mConnection.getTextBeforeCursor(40, 0), mConnection.getTextAfterCursor(40, 0));
-        if (GestureDataGatheringKt.usePassiveGathering && mWordComposer.isComposingWord() && mWordComposer.isCursorFrontOrMiddleOfComposingWord())
-            PassiveGatheringCache.INSTANCE.onEditWord(mWordComposer.getTypedWord());
+        if (GestureDataGatheringKt.useBackgroundGathering && mConnection.hasSelection())
+            BackgroundGatheringCache.INSTANCE.onEditSelection(mConnection.getSelectedText(0), mConnection.getTextBeforeCursor(40, 0), mConnection.getTextAfterCursor(40, 0));
+        if (GestureDataGatheringKt.useBackgroundGathering && mWordComposer.isComposingWord() && mWordComposer.isCursorFrontOrMiddleOfComposingWord())
+            BackgroundGatheringCache.INSTANCE.onEditWord(mWordComposer.getTypedWord());
 
         mConnection.beginBatchEdit();
         if (mWordComposer.isComposingWord()) {
@@ -832,8 +832,8 @@ public final class InputLogic {
                 }
                 break;
             case KeyCode.UNDO:
-                if (GestureDataGatheringKt.usePassiveGathering)
-                    PassiveGatheringCache.INSTANCE.onUndo(mWordComposer.isComposingWord() ? mWordComposer.getTypedWord() : mLastComposedWord.mCommittedWord);
+                if (GestureDataGatheringKt.useBackgroundGathering)
+                    BackgroundGatheringCache.INSTANCE.onUndo(mWordComposer.isComposingWord() ? mWordComposer.getTypedWord() : mLastComposedWord.mCommittedWord);
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
                 break;
             case KeyCode.REDO:
@@ -1275,8 +1275,8 @@ public final class InputLogic {
         if (mWordComposer.isComposingWord()) {
             if (mWordComposer.isBatchMode()) {
                 final String rejectedSuggestion = mWordComposer.getTypedWord();
-                if (GestureDataGatheringKt.usePassiveGathering)
-                    PassiveGatheringCache.INSTANCE.onRejectedSuggestion(rejectedSuggestion);
+                if (GestureDataGatheringKt.useBackgroundGathering)
+                    BackgroundGatheringCache.INSTANCE.onRejectedSuggestion(rejectedSuggestion);
                 mWordComposer.reset();
                 mWordComposer.setRejectedBatchModeSuggestion(rejectedSuggestion);
                 if (!TextUtils.isEmpty(rejectedSuggestion)) {
@@ -2663,7 +2663,7 @@ public final class InputLogic {
             if (mWordComposer.isBatchMode())
                 // when entering inline emoji search with glide typing, the action is not set when the word is added
                 // this means we don't detect inline search mode, so we remove to word now
-                PassiveGatheringCache.INSTANCE.removeLast(mWordComposer.getTypedWord());
+                BackgroundGatheringCache.INSTANCE.removeLast(mWordComposer.getTypedWord());
             setInlineEmojiSearchAction(true);
         }
     }

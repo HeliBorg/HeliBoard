@@ -23,10 +23,10 @@ import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.suggestions.SuggestionStripView
 import helium314.keyboard.latin.utils.AutoCorrectionUtils
 import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.PassiveGatheringCache
+import helium314.keyboard.latin.utils.BackgroundGatheringCache
 import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.WordData
-import helium314.keyboard.latin.utils.usePassiveGathering
+import helium314.keyboard.latin.utils.useBackgroundGathering
 import java.util.Locale
 import kotlin.math.max
 import kotlin.math.min
@@ -331,10 +331,10 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             suggestionsContainer
         }
 
-        if (usePassiveGathering && inputStyle == SuggestedWords.INPUT_STYLE_TAIL_BATCH) {
+        if (useBackgroundGathering && inputStyle == SuggestedWords.INPUT_STYLE_TAIL_BATCH) {
             val wordData = WordData(null, suggestionResults, wordComposer.composedDataSnapshot,
                 ngramContext, keyboard, inputStyle, false, pseudoTypedWordInfo?.mWord)
-            PassiveGatheringCache.addWord(wordData)
+            BackgroundGatheringCache.addWord(wordData)
         }
 
         return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,

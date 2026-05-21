@@ -102,7 +102,7 @@ fun ReviewScreen(
     var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
     var reverseSort: Boolean by rememberSaveable { mutableStateOf(true) }
     var includeActive by rememberSaveable { mutableStateOf(false) }
-    var includePassive by rememberSaveable { mutableStateOf(true) }
+    var includeBackground by rememberSaveable { mutableStateOf(true) }
     var includeExported by rememberSaveable { mutableStateOf(false) }
     var startDate: Long? by rememberSaveable { mutableStateOf(null) }
     var endDate: Long? by rememberSaveable { mutableStateOf(null) }
@@ -116,12 +116,12 @@ fun ReviewScreen(
         }
     }
     fun reloadGestureDataInfos() {
-        val infos = if (!includeActive && !includePassive) emptyList() else dao.filterInfos(
+        val infos = if (!includeActive && !includeBackground) emptyList() else dao.filterInfos(
             filter.text.takeIf { it.isNotEmpty() },
             startDate,
             endDate,
             if (includeExported) null else false,
-            if (includeActive && includePassive) null else includeActive
+            if (includeActive && includeBackground) null else includeActive
         )
         selected = emptyList() // unselect on filter changes
         setAndSortWords(infos)
@@ -217,7 +217,7 @@ fun ReviewScreen(
         }
         @Composable fun controlColumn() {
             Column(Modifier.padding(horizontal = 12.dp)) {
-                LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort, includeActive, includePassive) {
+                LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort, includeActive, includeBackground) {
                     reloadGestureDataInfos()
                 }
                 LaunchedEffect(reverseSort, sortByName) {
@@ -227,8 +227,8 @@ fun ReviewScreen(
                     onClickBack,
                     includeActive,
                     { includeActive = it },
-                    includePassive,
-                    { includePassive = it },
+                    includeBackground,
+                    { includeBackground = it },
                     includeExported,
                     { includeExported = it }
                 )
@@ -242,7 +242,7 @@ fun ReviewScreen(
                         onValueChange = { filter = it},
                         modifier = Modifier.weight(0.7f),
                         label = { Text(stringResource(R.string.label_search_key)) },
-                        keyboardOptions = KeyboardOptions(platformImeOptions = PlatformImeOptions("noPassive"))
+                        keyboardOptions = KeyboardOptions(platformImeOptions = PlatformImeOptions("noBackground"))
                     )
                     Column(Modifier
                         .clickable { showDateRangePicker = true }
@@ -324,7 +324,7 @@ private fun GestureDataEntry(
                     onExcludeWord()
                     showDetails = false
                 },
-                neutralButtonText = stringResource(R.string.gesture_data_passive_exclude_words),
+                neutralButtonText = stringResource(R.string.gesture_data_background_exclude_words),
                 title = { Text(gestureDataInfo.targetWord) },
                 content = {
                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -451,8 +451,8 @@ private fun TopBar(
     onClickBack: () -> Unit,
     includeActive: Boolean,
     setIncludeActive: (Boolean) -> Unit,
-    includePassive: Boolean,
-    setIncludePassive: (Boolean) -> Unit,
+    includeBackground: Boolean,
+    setIncludeBackground: (Boolean) -> Unit,
     includeExported: Boolean,
     setIncludeExported: (Boolean) -> Unit,
 ) {
@@ -486,10 +486,10 @@ private fun TopBar(
                     )
                     DropdownMenuItem(
                         text = { Row(verticalAlignment = Alignment.CenterVertically) {
-                            Checkbox(includePassive, setIncludePassive)
-                            Text(stringResource(R.string.gesture_data_show_passive))
+                            Checkbox(includeBackground, setIncludeBackground)
+                            Text(stringResource(R.string.gesture_data_show_background))
                         } },
-                        onClick = { showMenu = false; setIncludePassive(!includePassive) }
+                        onClick = { showMenu = false; setIncludeBackground(!includeBackground) }
                     )
                     DropdownMenuItem(
                         text = { Row(verticalAlignment = Alignment.CenterVertically) {
@@ -501,7 +501,7 @@ private fun TopBar(
                     DropdownMenuItem(
                         text = { Row(verticalAlignment = Alignment.CenterVertically) {
                             Checkbox(false, { showMenu = false; infoDialog = true }, Modifier.alpha(0f)) // just for alignment
-                            Text(stringResource(R.string.gesture_data_passive_gathering_info))
+                            Text(stringResource(R.string.gesture_data_background_gathering_info))
                         } },
                         onClick = { showMenu = false; infoDialog = true }
                     )
@@ -511,7 +511,7 @@ private fun TopBar(
     )
     if (infoDialog) {
         val text = stringResource(
-            R.string.gesture_data_passive_gathering_review_message,
+            R.string.gesture_data_background_gathering_review_message,
             stringResource(R.string.gesture_data_review_screen_title),
             Links.SWIPE_O_SCOPE
         )

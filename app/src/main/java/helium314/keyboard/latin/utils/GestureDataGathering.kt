@@ -34,14 +34,14 @@ import kotlinx.serialization.json.Json
 // will be removed once the project is finished
 
 // todo: remove logging, it may contain sensitive data!
-object PassiveGatheringCache {
+object BackgroundGatheringCache {
     private val cachedWords = mutableListOf<WordData>()
-    private const val TAG = "PassiveGathering"
+    private const val TAG = "BackgroundGathering"
     private val scope = CoroutineScope(Dispatchers.IO)
 
     private fun updateIcon(save: Boolean = false) {
         scope.launch(Dispatchers.Main) { // on main thread because it's touching views
-            KeyboardSwitcher.getInstance().setPassiveGatheringIndicator(usePassiveGathering, cachedWords.isNotEmpty(), save)
+            KeyboardSwitcher.getInstance().setBackgroundGatheringIndicator(useBackgroundGathering, cachedWords.isNotEmpty(), save)
         }
     }
 
@@ -140,7 +140,7 @@ object PassiveGatheringCache {
 
     @JvmStatic
     fun saveOrClear(context: Context) {
-        if (usePassiveGathering && !GestureDataGatheringSettings.isOptInMode(context))
+        if (useBackgroundGathering && !GestureDataGatheringSettings.isOptInMode(context))
             save(context)
         else clear()
     }
@@ -165,18 +165,18 @@ object PassiveGatheringCache {
 }
 
 @JvmField
-var usePassiveGathering = false
+var useBackgroundGathering = false
 
-fun setUsePassiveGathering(context: Context, editorInfo: EditorInfo): Boolean {
-    usePassiveGathering = isPassiveGatheringUsed(context, editorInfo)
-    if (!usePassiveGathering)
-        PassiveGatheringCache.clear()
-    return usePassiveGathering
+fun setUseBackgroundGathering(context: Context, editorInfo: EditorInfo): Boolean {
+    useBackgroundGathering = isBackgroundGatheringUsed(context, editorInfo)
+    if (!useBackgroundGathering)
+        BackgroundGatheringCache.clear()
+    return useBackgroundGathering
 }
 
-private fun isPassiveGatheringUsed(context: Context, editorInfo: EditorInfo): Boolean {
+private fun isBackgroundGatheringUsed(context: Context, editorInfo: EditorInfo): Boolean {
     if (!JniUtils.sHaveGestureLib) return false
-    if (!GestureDataGatheringSettings.isPassiveGatheringEnabled(context.prefs())) return false
+    if (!GestureDataGatheringSettings.isBackgroundGatheringEnabled(context.prefs())) return false
     if (Settings.getValues().mIncognitoModeEnabled) return false
     val inputAttributes = InputAttributes(editorInfo, false, "")
     if (inputAttributes.mInputType and InputType.TYPE_CLASS_TEXT == 0)
@@ -184,7 +184,7 @@ private fun isPassiveGatheringUsed(context: Context, editorInfo: EditorInfo): Bo
     val isEmailField = InputTypeUtils.isEmailVariation(inputAttributes.mInputType and InputType.TYPE_MASK_VARIATION)
     if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning || isEmailField) return false
     if (GestureDataGatheringSettings.isForbiddenForDataGathering(editorInfo.packageName, context)) return false
-    if (editorInfo.privateImeOptions == "noPassive") return false // meant for review screen
+    if (editorInfo.privateImeOptions == "noBackground") return false // meant for review screen
     // we might not have a known dictionary, but I guess that's acceptable
     return true
 }
@@ -197,14 +197,14 @@ private val scope = CoroutineScope(Dispatchers.IO)
 
 // class for storing relevant information
 class WordData(
-    var targetWord: String?, // might be adjusted when using passive gathering
+    var targetWord: String?, // might be adjusted when using background gathering
     val suggestions: SuggestionResults,
     val composedData: ComposedData,
     val ngramContext: NgramContext,
     val keyboard: Keyboard,
     val inputStyle: Int,
     val activeMode: Boolean,
-    // first suggestion in passive gathering, used to track later changes (not saved)
+    // first suggestion in background gathering, used to track later changes (not saved)
     // may have different capitalization compared to suggestions
     var usedWord: String? = null
 ) {
@@ -286,7 +286,7 @@ class WordData(
         )
         scope.launch { dao.add(data, targetWord ?: usedWord, timestamp) }
         if (!activeMode)
-            scope.launch(Dispatchers.Main) { GestureDataGatheringSettings.informAboutTooManyPassiveModeWords(context, dao) }
+            scope.launch(Dispatchers.Main) { GestureDataGatheringSettings.informAboutTooManyBackgroundModeWords(context, dao) }
     }
 
     // find when we should NOT save
@@ -297,7 +297,7 @@ class WordData(
             return true // active mode should be fine, the size check is just an addition in case there is a bug that sets the wrong mode or dictionary facilitator
         if (Settings.getValues().mIncognitoModeEnabled)
             return false // don't save in incognito mode
-        if (!activeMode && !GestureDataGatheringSettings.isPassiveGatheringEnabled(context.prefs()))
+        if (!activeMode && !GestureDataGatheringSettings.isBackgroundGatheringEnabled(context.prefs()))
             return false
         if ((targetWord ?: usedWord)?.contains(' ') == true) // no support for SPACE_AWARE_GESTURE
             return false

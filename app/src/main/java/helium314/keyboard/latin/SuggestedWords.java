@@ -267,7 +267,7 @@ public class SuggestedWords {
         // the application (including keyboard-computed ones, so this is almost always null)
         public final CompletionInfo mApplicationSpecifiedCompletionInfo;
         public final int mScore;
-        public int mOriginalScore; // relevant only for passive data gathering, todo: remove when gathering period is over
+        public int mOriginalScore; // relevant only for background data gathering, todo: remove when gathering period is over
         public final int mKindAndFlags;
         public final int mCodePointCount;
         public final Dictionary mSourceDict;

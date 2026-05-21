@@ -110,12 +110,12 @@ class GestureDataDao(val db: Database) {
         val where = "$COLUMN_ID IN (${ids.joinToString(",")})"
         val whereExported = " AND $COLUMN_EXPORTED <> 0"
         val active = " AND $COLUMN_SOURCE_ACTIVE <> 0"
-        val passive = " AND $COLUMN_SOURCE_ACTIVE = 0"
+        val background = " AND $COLUMN_SOURCE_ACTIVE = 0"
         val exportedActiveCount = db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE WHERE $where$whereExported$active", null).use {
             it.moveToFirst()
             it.getInt(0)
         }
-        val exportedPassiveCount = db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE WHERE $where$whereExported$passive", null).use {
+        val exportedBackgroundCount = db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE WHERE $where$whereExported$background", null).use {
             it.moveToFirst()
             it.getInt(0)
         }
@@ -124,7 +124,7 @@ class GestureDataDao(val db: Database) {
         else
             db.writableDatabase.delete(TABLE, where, null)
         GestureDataGatheringSettings.addExportedActiveDeletionCount(context, exportedActiveCount)
-        GestureDataGatheringSettings.addExportedPassiveDeletionCount(context, exportedPassiveCount)
+        GestureDataGatheringSettings.addExportedBackgroundDeletionCount(context, exportedBackgroundCount)
         return count
     }
 
@@ -132,7 +132,7 @@ class GestureDataDao(val db: Database) {
         db.writableDatabase.delete(TABLE, null, null)
     }
 
-    fun deletePassiveWords(words: Collection<String>) = synchronized(this) {
+    fun deleteBackgroundWords(words: Collection<String>) = synchronized(this) {
         if (words.isEmpty()) return@synchronized
         val questions = "?,".repeat(words.size)
         db.writableDatabase.delete(

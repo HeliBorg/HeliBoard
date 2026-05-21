@@ -64,7 +64,7 @@
             style="?attr/suggestionWordStyle" />
 
         <ImageView
-            android:id="@+id/passiveGatheringIndicator"
+            android:id="@+id/backgroundGatheringIndicator"
             android:visibility="visible"
             android:layout_width="16dp"
             android:layout_height="16dp"
