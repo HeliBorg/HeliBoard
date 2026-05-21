@@ -65,6 +65,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.decapitalize
@@ -124,6 +125,10 @@ fun ReviewScreen(
         )
         selected = emptyList() // unselect on filter changes
         setAndSortWords(infos)
+    }
+    LifecycleResumeEffect(Unit) {
+        reloadGestureDataInfos()
+        onPauseOrDispose {  }
     }
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
