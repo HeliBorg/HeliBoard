@@ -12,13 +12,13 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
@@ -76,6 +76,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private FrameLayout mStripContainer;
     private ClipboardHistoryView mClipboardHistoryView;
     private TextView mFakeToastView;
+    private ImageView mPassiveGatheringIndicator;
     private LatinIME mLatinIME;
     private RichInputMethodManager mRichImm;
     private boolean mIsHardwareAcceleratedDrawingEnabled;
@@ -533,6 +534,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             SettingsKt.setFloatingKeyboardEnabled(mThemeContext, enabled);
         if (enabled) FloatingKeyboardUtils.setFloating(mCurrentInputView);
         else FloatingKeyboardUtils.disableFloating(mCurrentInputView);
+        setPassiveGatheringIndicatorPosition();
     }
 
     public void toggleSplitKeyboardMode() {
@@ -612,12 +614,23 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     public void setPassiveGatheringIndicator(boolean enabled, boolean hasData, boolean saving) {
         if (mCurrentInputView == null) return;
-        ImageView view = mCurrentInputView.findViewById(R.id.passiveGatheringIndicator);
-        view.setVisibility(enabled ? View.VISIBLE: View.GONE);
-        view.setImageResource(hasData ? R.drawable.btn_keyboard_key_action_normal_lxx_base : R.drawable.ring);
+        mPassiveGatheringIndicator.setVisibility(enabled ? View.VISIBLE: View.GONE);
+        if (!enabled) return;
+        mPassiveGatheringIndicator.setImageResource(hasData ? R.drawable.btn_keyboard_key_action_normal_lxx_base : R.drawable.ring);
+        setPassiveGatheringIndicatorPosition();
         if (!saving) return;
-        view.setImageTintList(ColorStateList.valueOf(0xff00a000));
-        view.postDelayed(() -> view.setImageTintList(ColorStateList.valueOf(0xffa00000)), 1500);
+        mPassiveGatheringIndicator.setImageTintList(ColorStateList.valueOf(0xff00a000));
+        mPassiveGatheringIndicator.postDelayed(() -> mPassiveGatheringIndicator.setImageTintList(ColorStateList.valueOf(0xffa00000)), 1500);
+    }
+
+    private void setPassiveGatheringIndicatorPosition() {
+        if (mPassiveGatheringIndicator.getVisibility() != View.VISIBLE) return;
+        if (mPassiveGatheringIndicator.getLayoutParams() instanceof ViewGroup.MarginLayoutParams margin) {
+            Keyboard kb = mKeyboardView.getKeyboard();
+            if (kb != null)
+                margin.topMargin = kb.mBaseHeight - mPassiveGatheringIndicator.getHeight();
+            mPassiveGatheringIndicator.setLayoutParams(mPassiveGatheringIndicator.getLayoutParams());
+        }
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -758,6 +771,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardStripScrollView = mCurrentInputView.findViewById(R.id.clipboard_strip_scroll_view);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
         mStripContainer = mCurrentInputView.findViewById(R.id.strip_container);
+        mPassiveGatheringIndicator = mCurrentInputView.findViewById(R.id.passiveGatheringIndicator);
 
         prefs.registerOnSharedPreferenceChangeListener(mSuggestionStripView);
         prefs.registerOnSharedPreferenceChangeListener(mClipboardHistoryView);

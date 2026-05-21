@@ -70,7 +70,7 @@
             android:layout_height="16dp"
             android:src="@drawable/btn_keyboard_key_action_normal_lxx_base"
             android:tint="#a00000"
-            android:layout_gravity="bottom"
+            android:layout_gravity="top"
             />
     </helium314.keyboard.latin.KeyboardWrapperView>
     <LinearLayout
