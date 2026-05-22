@@ -174,6 +174,7 @@ fun ReviewScreen(
                     SwipeToDismissBox(
                         state = dismissState,
                         enableDismissFromEndToStart = false,
+                        gesturesEnabled = selected.isEmpty(),
                         onDismiss = {
                             deleteJobs[item.id] = scope.launch {
                                 delay(4000)
