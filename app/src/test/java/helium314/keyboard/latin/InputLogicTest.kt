@@ -239,9 +239,17 @@ class InputLogicTest {
 
     @Test fun forceNextSpaceInsertsSpaceImmediately() {
         reset()
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         setText("hello")
         functionalKeyPress(KeyCode.FORCE_NEXT_SPACE)
         assertEquals("hello ", textBeforeCursor)
+        chainInput("world")
+        input('.')
+        input('a')
+        assertEquals("hello world.a", textBeforeCursor)
+        input('.')
+        input('b')
+        assertEquals("hello world.a. b", textBeforeCursor)
     }
 
     @Test fun noAutospaceInUrlField() {

@@ -194,6 +194,28 @@ public final class InputLogic {
         mDictionaryFacilitator = dictionaryFacilitator;
     }
 
+    public SuggestedWords getSuggestedWords() {
+        return mSuggestedWords;
+    }
+
+    public Suggest getSuggest() {
+        return mSuggest;
+    }
+
+    public WordComposer getWordComposer() {
+        return mWordComposer;
+    }
+
+    public RichInputConnection getConnection() {
+        return mConnection;
+    }
+
+    private void clearOneShotSpaceActionAndNotifyIfChanged() {
+        if (OneShotSpaceAction.clear()) {
+            mLatinIME.onOneShotSpaceActionStateChanged();
+        }
+    }
+
     /**
      * Initializes the input logic for input in an editor.
      * <p>
@@ -203,9 +225,7 @@ public final class InputLogic {
      * @param settingsValues the current settings values
      */
     public void startInput(final String combiningSpec, final SettingsValues settingsValues) {
-        if (OneShotSpaceAction.clear()) {
-            mLatinIME.onOneShotSpaceActionStateChanged();
-        }
+        clearOneShotSpaceActionAndNotifyIfChanged();
         mEnteredText = null;
         mWordBeingCorrectedByCursor = null;
         mConnection.onStartInput();
@@ -262,9 +282,7 @@ public final class InputLogic {
      * Clean up the input logic after input is finished.
      */
     public void finishInput() {
-        if (OneShotSpaceAction.clear()) {
-            mLatinIME.onOneShotSpaceActionStateChanged();
-        }
+        clearOneShotSpaceActionAndNotifyIfChanged();
         if (mWordComposer.isComposingWord()) {
             mConnection.finishComposingText();
             StatsUtils.onWordCommitUserTyped(mWordComposer.getTypedWord(), mWordComposer.isBatchMode());
@@ -447,9 +465,7 @@ public final class InputLogic {
     public boolean onUpdateSelection(final int oldSelStart, final int oldSelEnd, final int newSelStart,
             final int newSelEnd, final int composingSpanStart, final int composingSpanEnd,
             final SettingsValues settingsValues) {
-        if (OneShotSpaceAction.clear()) {
-            mLatinIME.onOneShotSpaceActionStateChanged();
-        }
+        clearOneShotSpaceActionAndNotifyIfChanged();
         if (mConnection.isBelatedExpectedUpdate(oldSelStart, newSelStart, oldSelEnd, newSelEnd, composingSpanStart,
                 composingSpanEnd)) {
             return false;
@@ -725,9 +741,7 @@ public final class InputLogic {
 
     public void onCancelBatchInput(final LatinIME.UIHandler handler) {
         mInputLogicHandler.onCancelBatchInput();
-        if (OneShotSpaceAction.clear()) {
-            mLatinIME.onOneShotSpaceActionStateChanged();
-        }
+        clearOneShotSpaceActionAndNotifyIfChanged();
         // Combining mode: cancelled gesture wipes the would-be-fragment from the composing
         // word — drop the timer so we don't fire an autospace based on stale state.
         cancelCombiningMode();
@@ -1752,9 +1766,7 @@ public final class InputLogic {
         // Combining mode: a backspace always cancels the pending commit. The user is
         // explicitly retracting input; we don't want the timer to fire mid-correction.
         cancelCombiningMode();
-        if (OneShotSpaceAction.clear()) {
-            mLatinIME.onOneShotSpaceActionStateChanged();
-        }
+        clearOneShotSpaceActionAndNotifyIfChanged();
         final String currentKeyboardScript = inputTransaction.getSettingsValues().mCurrentKeyboardScript;
         // Two-thumb typing (#1.1, PREF_GESTURE_FRAGMENT_BACKSPACE): try to pop the most-recent
         // fragment from the composing word as one keystroke. Returns true if handled — in
@@ -2632,9 +2644,7 @@ public final class InputLogic {
      */
     private void performEditorAction(final int actionId, final SettingsValues settingsValues,
             final LatinIME.UIHandler handler) {
-        if (OneShotSpaceAction.clear()) {
-            mLatinIME.onOneShotSpaceActionStateChanged();
-        }
+        clearOneShotSpaceActionAndNotifyIfChanged();
         if (mWordComposer.isComposingWord()) {
             commitCurrentAutoCorrection(settingsValues, LastComposedWord.NOT_A_SEPARATOR, handler);
         }
