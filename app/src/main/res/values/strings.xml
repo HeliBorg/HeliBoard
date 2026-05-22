@@ -320,6 +320,11 @@
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->
     <string name="delete_swipe_summary">Perform a swipe from the delete key to select and remove bigger portions of text at once</string>
+    <string name="backspace_up_down_swipe">Backspace up/down swipe</string>
+    <string name="backspace_up_down_swipe_summary">Swipe up from backspace to undo, or down to redo</string>
+    <string name="top_row_swipe_up">Top row swipe up</string>
+    <string name="emoji_key_swipe">Emoji key swipe</string>
+    <string name="emoji_key_swipe_summary">Swipe up from the emoji key to open the emoji palette</string>
     <!-- Preferences item and dialog title for backup and restore -->
     <string name="backup_restore_title">Backup and restore</string>
     <!-- Message for backup and restore dialog -->

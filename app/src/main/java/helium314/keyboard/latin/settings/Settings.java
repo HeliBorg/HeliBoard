@@ -24,7 +24,7 @@ import androidx.annotation.StringRes;
 
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.KeyboardActionListener;
-import helium314.keyboard.keyboard.internal.PopupKeySpec;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.PunctuationSuggestions;
@@ -115,6 +115,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
+    public static final String PREF_TOP_ROW_SWIPE_UP = "top_row_swipe_up";
+    public static final String PREF_BACKSPACE_UP_DOWN_SWIPE = "backspace_up_down_swipe";
+    public static final String PREF_EMOJI_KEY_SWIPE = "emoji_key_swipe";
     // Master autospace switch: when false, suppresses ALL autospace insertions globally
     // (still gated additionally by the input type — password/email/URL fields suppress
     // autospace regardless of this pref). Exposed via the AUTOSPACE toolbar toggle.
@@ -420,6 +423,15 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         } catch (IllegalArgumentException e) {
             return KeyboardActionListener.SwipeAction.NONE;
         }
+    }
+
+    public static int readTopRowSwipeUp(final SharedPreferences prefs) {
+        return switch (prefs.getString(PREF_TOP_ROW_SWIPE_UP, Defaults.PREF_TOP_ROW_SWIPE_UP)) {
+            case "undo" -> KeyCode.UNDO;
+            case "redo" -> KeyCode.REDO;
+            case "emoji" -> KeyCode.EMOJI;
+            default -> KeyCode.UNSPECIFIED;
+        };
     }
 
     public static boolean readFullscreenModeAllowed(final Resources res) {

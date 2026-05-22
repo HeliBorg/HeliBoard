@@ -69,6 +69,9 @@ fun GestureTypingScreen(
         add(Settings.PREF_SPACE_VERTICAL_SWIPE)
         add(Settings.PREF_TOUCHPAD_SENSITIVITY)
         add(Settings.PREF_DELETE_SWIPE)
+        add(Settings.PREF_BACKSPACE_UP_DOWN_SWIPE)
+        add(Settings.PREF_TOP_ROW_SWIPE_UP)
+        add(Settings.PREF_EMOJI_KEY_SWIPE)
     }
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -162,6 +165,21 @@ fun createGestureTypingSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe, R.string.delete_swipe_summary) {
         SwitchPreference(it, Defaults.PREF_DELETE_SWIPE)
+    },
+    Setting(context, Settings.PREF_BACKSPACE_UP_DOWN_SWIPE, R.string.backspace_up_down_swipe, R.string.backspace_up_down_swipe_summary) {
+        SwitchPreference(it, Defaults.PREF_BACKSPACE_UP_DOWN_SWIPE)
+    },
+    Setting(context, Settings.PREF_TOP_ROW_SWIPE_UP, R.string.top_row_swipe_up) {
+        val items = listOf(
+            stringResource(R.string.action_none) to "none",
+            stringResource(R.string.undo) to "undo",
+            stringResource(R.string.redo) to "redo",
+            stringResource(R.string.emoji) to "emoji",
+        )
+        ListPreference(it, items, Defaults.PREF_TOP_ROW_SWIPE_UP)
+    },
+    Setting(context, Settings.PREF_EMOJI_KEY_SWIPE, R.string.emoji_key_swipe, R.string.emoji_key_swipe_summary) {
+        SwitchPreference(it, Defaults.PREF_EMOJI_KEY_SWIPE)
     },
 )
 
