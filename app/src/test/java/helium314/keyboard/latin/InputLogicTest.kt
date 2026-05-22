@@ -215,6 +215,35 @@ class InputLogicTest {
         assertEquals("hello. a there", text)
     }
 
+    @Test fun joinNextSuppressesSingleAutospaceDecision() {
+        reset()
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        setText("hello")
+        functionalKeyPress(KeyCode.JOIN_NEXT)
+        input('.')
+        input('a')
+        assertEquals("hello.a", textBeforeCursor)
+        input('.')
+        input('b')
+        assertEquals("hello.a. b", textBeforeCursor)
+    }
+
+    @Test fun joinNextDoesNotOverrideExplicitSpace() {
+        reset()
+        setText("hello")
+        functionalKeyPress(KeyCode.JOIN_NEXT)
+        input(Constants.CODE_SPACE)
+        input('a')
+        assertEquals("hello a", textBeforeCursor)
+    }
+
+    @Test fun forceNextSpaceInsertsSpaceImmediately() {
+        reset()
+        setText("hello")
+        functionalKeyPress(KeyCode.FORCE_NEXT_SPACE)
+        assertEquals("hello ", textBeforeCursor)
+    }
+
     @Test fun noAutospaceInUrlField() {
         latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("example.net")

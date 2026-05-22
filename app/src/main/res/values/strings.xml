@@ -372,6 +372,8 @@
     <string name="touchpad">Touchpad</string>
     <!-- Toolbar key content description for the AUTOSPACE toggle. -->
     <string name="autospace">Autospace</string>
+    <string name="join_next">Join next</string>
+    <string name="force_next_space">Force next space</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
     <!-- Content description for "popup keys" suggestions view -->

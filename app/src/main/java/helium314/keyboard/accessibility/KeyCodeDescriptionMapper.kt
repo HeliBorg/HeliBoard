@@ -34,6 +34,8 @@ internal class KeyCodeDescriptionMapper private constructor() {
         put(KeyCode.LANGUAGE_SWITCH, R.string.spoken_description_language_switch)
         put(KeyCode.ACTION_NEXT, R.string.spoken_description_action_next)
         put(KeyCode.ACTION_PREVIOUS, R.string.spoken_description_action_previous)
+        put(KeyCode.JOIN_NEXT, R.string.spoken_description_join_next)
+        put(KeyCode.FORCE_NEXT_SPACE, R.string.spoken_description_force_next_space)
         put(KeyCode.EMOJI, R.string.spoken_description_emoji)
         put(KeyCode.EMOJI_SEARCH, R.string.spoken_description_search)
         // Because the upper-case and lower-case mappings of the following letters is depending on

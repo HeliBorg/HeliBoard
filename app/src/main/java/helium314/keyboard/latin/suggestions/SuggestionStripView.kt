@@ -58,6 +58,7 @@ import helium314.keyboard.latin.utils.getPinnedToolbarKeys
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.removePinnedKey
+import helium314.keyboard.latin.utils.setToolbarButtonsActivatedState
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.abs
@@ -508,6 +509,91 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         val show = Settings.getValues().mShowsVoiceInputKey
         toolbar.findViewWithTag<View>(ToolbarKey.VOICE)?.isVisible = show
         pinnedKeys.findViewWithTag<View>(ToolbarKey.VOICE)?.isVisible = show
+    }
+
+    fun showTranslateLanguageSelector() {
+        // Hide other views
+        suggestionsStrip.isVisible = false
+        toolbarContainer.isVisible = false
+        pinnedKeys.isVisible = false
+        toolbarExpandKey.isVisible = false
+
+        // Populate language buttons
+        val languageList = findViewById<LinearLayout>(R.id.translate_language_list)
+        languageList.removeAllViews()
+
+        val languageNames = resources.getStringArray(R.array.translate_language_names)
+        val languageCodes = resources.getStringArray(R.array.translate_language_codes)
+        val prefs = context.prefs()
+
+        // Create a button for each language
+        for ((index, languageName) in languageNames.withIndex()) {
+            val languageCode = languageCodes.getOrNull(index) ?: return
+            val button = android.widget.TextView(context, null, R.attr.suggestionWordStyle).apply {
+                text = languageName
+                gravity = android.view.Gravity.CENTER
+                setPadding(8.dpToPx(resources), 0, 8.dpToPx(resources), 0)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
+                setSingleLine()
+                ellipsize = android.text.TextUtils.TruncateAt.END
+                // Set minimum width for consistent appearance
+                minimumWidth = 100.dpToPx(resources)
+            }
+            button.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            ).apply { gravity = android.view.Gravity.CENTER_VERTICAL }
+            
+            button.setOnClickListener {
+                // Set the selected language and start translation
+                context.prefs().edit().apply {
+                    putString(Settings.PREF_OFFLINE_TRANSLATE_TARGET_LANGUAGE, languageName)
+                    // Also update Gemini target language
+                    putString(SettingsWithoutKey.GEMINI_TARGET_LANGUAGE, languageCode)
+                }.apply()
+                helium314.keyboard.latin.utils.ProofreadService(context).setTargetLanguage(languageCode)
+                // Hide selector and trigger translation
+                hideTranslateLanguageSelector()
+                // Trigger translation with new language
+                listener.onCodeInput(KeyCode.TRANSLATE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false)
+            }
+            Settings.getValues().mColors.setColor(button.background, ColorType.TOOL_BAR_KEY)
+            button.setBackgroundResource(R.drawable.toolbar_key_background)
+            languageList.addView(button)
+        }
+
+        // Setup close button
+        translateLanguageCloseButton.isVisible = true
+        translateLanguageCloseButton.setOnClickListener {
+            hideTranslateLanguageSelector()
+        }
+
+        // Show the selector
+        translateLanguageSelector.isVisible = true
+        isTranslateLanguageSelectorVisible = true
+    }
+
+    fun refreshToolbarButtonsActivation() {
+        setToolbarButtonsActivatedState(pinnedKeys)
+        setToolbarButtonsActivatedState(toolbar)
+    }
+
+    fun hideTranslateLanguageSelector() {
+        translateLanguageSelector.isVisible = false
+        translateLanguageCloseButton.isVisible = false
+
+        // Restore normal view
+        val settingsValues = Settings.getValues()
+        if (!settingsValues.mSplitToolbar) {
+            toolbarExpandKey.isVisible = settingsValues.mToolbarMode == ToolbarMode.EXPANDABLE
+            setToolbarVisibility(isToolbarManuallyOpen, saveState = false)
+        } else {
+            toolbarContainer.isVisible = !isDeviceLocked(context)
+            toolbar.visibility = VISIBLE
+            updateSplitToolbarState()
+        }
+
+        isTranslateLanguageSelectorVisible = false
     }
 
     private fun updateKeys() {
