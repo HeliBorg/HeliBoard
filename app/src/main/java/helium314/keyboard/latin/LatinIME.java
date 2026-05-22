@@ -794,6 +794,7 @@ public class LatinIME extends InputMethodService implements
         mHandler.onFinishInputView(finishingInput);
         mStatsUtilsManager.onFinishInputView();
         mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
+        BackgroundGatheringCache.saveOrClear(this);
     }
 
     @Override
