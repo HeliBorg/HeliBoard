@@ -1371,7 +1371,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         // todo (later): move key swipe stuff to KeyboardActionListener (and finally
         // extend it)
-        if (tryHandleTopRowSwipe(oldKey, x, y)) {
+        if (oldKey != null && tryHandleTopRowSwipe(oldKey, x, y)) {
             return;
         }
         if (mKeySwipeAllowed) {
@@ -1456,10 +1456,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int currentRepeatingKeyCode = mCurrentRepeatingKeyCode;
         mCurrentRepeatingKeyCode = Constants.NOT_A_CODE;
         // Release the last pressed key.
-        setReleasedKeyGraphics(currentKey, true);
-
-        if (mInHorizontalSwipe && currentKey != null && currentKey.getCode() == KeyCode.DELETE) {
-            sListener.onUpWithDeletePointerActive();
+        if (currentKey != null) {
+            setReleasedKeyGraphics(currentKey, true);
+            if (mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
+                sListener.onUpWithDeletePointerActive();
+            }
         }
 
         if (isShowingPopupKeysPanel()) {

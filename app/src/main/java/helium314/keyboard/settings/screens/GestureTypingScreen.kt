@@ -169,7 +169,7 @@ fun createGestureTypingSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_BACKSPACE_UP_DOWN_SWIPE, R.string.backspace_up_down_swipe, R.string.backspace_up_down_swipe_summary) {
         SwitchPreference(it, Defaults.PREF_BACKSPACE_UP_DOWN_SWIPE)
     },
-    Setting(context, Settings.PREF_TOP_ROW_SWIPE_UP, R.string.top_row_swipe_up) {
+    Setting(context, Settings.PREF_TOP_ROW_SWIPE_UP, R.string.top_row_swipe_up, R.string.top_row_swipe_up_summary) {
         val items = listOf(
             stringResource(R.string.action_none) to "none",
             stringResource(R.string.undo) to "undo",

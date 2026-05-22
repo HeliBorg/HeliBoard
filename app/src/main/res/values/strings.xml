@@ -323,6 +323,7 @@
     <string name="backspace_up_down_swipe">Backspace up/down swipe</string>
     <string name="backspace_up_down_swipe_summary">Swipe up from backspace to undo, or down to redo</string>
     <string name="top_row_swipe_up">Top row swipe up</string>
+    <string name="top_row_swipe_up_summary">Swipe up from the current top keyboard row to perform the selected shortcut action</string>
     <string name="emoji_key_swipe">Emoji key swipe</string>
     <string name="emoji_key_swipe_summary">Swipe up from the emoji key to open the emoji palette</string>
     <!-- Preferences item and dialog title for backup and restore -->
