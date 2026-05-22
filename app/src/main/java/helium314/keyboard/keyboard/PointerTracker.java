@@ -202,7 +202,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // true if a keyswipe gesture is enabled and warranted.
     private boolean mKeySwipeAllowed = false;
     private static boolean sInKeySwipe = false;
-    private boolean mShortcutSwipeConsumed = false;
 
     // Touchpad mode for cursor control
     private final TouchpadHandler mTouchpadHandler = new TouchpadHandler();
@@ -1036,7 +1035,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             mKeySwipeAllowed = true;
             sInKeySwipe = true;
         }
-        mShortcutSwipeConsumed = false;
         mKeyboardLayoutHasBeenChanged = false;
         mIsTrackingForActionDisabled = false;
         resetKeySelectionByDraggingFinger();
@@ -1082,8 +1080,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         return switch (code) {
             case Constants.CODE_SPACE -> sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION
                     || sv.mSpaceSwipeVertical != KeyboardActionListener.SWIPE_NO_ACTION;
-            case KeyCode.DELETE -> sv.mDeleteSwipeEnabled || sv.mBackspaceUpDownSwipeEnabled;
-            case KeyCode.EMOJI -> sv.mEmojiKeySwipeEnabled;
+            case KeyCode.DELETE -> sv.mDeleteSwipeEnabled;
             default -> false;
         };
     }
@@ -1294,23 +1291,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 }
             }
         } else if (code == KeyCode.DELETE) {
-            int dX = x - mStartX;
-            int dY = y - mStartY;
-            if (sv.mBackspaceUpDownSwipeEnabled && !mInHorizontalSwipe) {
-                int stepsY = dY / sPointerStep;
-                if (stepsY != 0 && abs(dY) > abs(dX)) {
-                    if (!mInVerticalSwipe) {
-                        sTimerProxy.cancelKeyTimersOf(this);
-                        mInVerticalSwipe = true;
-                        sListener.onCodeInput(stepsY < 0 ? KeyCode.UNDO : KeyCode.REDO,
-                                Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-                    }
-                    return;
-                }
-            }
             // Delete slider
-            int steps = dX / sPointerStep;
-            if (sv.mDeleteSwipeEnabled && steps != 0 && !mInVerticalSwipe) {
+            int steps = (x - mStartX) / sPointerStep;
+            if (steps != 0) {
                 if (!mInHorizontalSwipe) {
                     sTimerProxy.cancelKeyTimersOf(this);
                     mInHorizontalSwipe = true;
@@ -1318,52 +1301,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 mStartX += steps * sPointerStep;
                 sListener.onMoveDeletePointer(steps);
             }
-        } else if (code == KeyCode.EMOJI && sv.mEmojiKeySwipeEnabled) {
-            int dX = x - mStartX;
-            int dY = y - mStartY;
-            if (dY <= -sPointerStep && abs(dY) > abs(dX)) {
-                if (!mInVerticalSwipe) {
-                    sTimerProxy.cancelKeyTimersOf(this);
-                    mInVerticalSwipe = true;
-                    sListener.onCodeInput(KeyCode.EMOJI, Constants.NOT_A_COORDINATE,
-                            Constants.NOT_A_COORDINATE, false);
-                }
-            }
         }
-    }
-
-    private boolean isTopVisibleRowKey(final Key key) {
-        if (key == null || mKeyboard == null || key.isSpacer() || !key.isEnabled()) {
-            return false;
-        }
-        int top = Integer.MAX_VALUE;
-        for (final Key candidate : mKeyboard.getSortedKeys()) {
-            if (!candidate.isSpacer() && candidate.isEnabled() && candidate.getHeight() > 0) {
-                top = Math.min(top, candidate.getY());
-            }
-        }
-        return top != Integer.MAX_VALUE && key.getY() == top;
-    }
-
-    private boolean tryHandleTopRowSwipe(final Key key, final int x, final int y) {
-        if (mShortcutSwipeConsumed) {
-            return true;
-        }
-        final int actionCode = Settings.getValues().mTopRowSwipeUpKeyCode;
-        if (actionCode == KeyCode.UNSPECIFIED || !isTopVisibleRowKey(key) || sInGesture) {
-            return false;
-        }
-        final int dX = x - mStartX;
-        final int dY = y - mStartY;
-        if (dY > -sPointerStep || abs(dY) <= abs(dX)) {
-            return false;
-        }
-        sTimerProxy.cancelKeyTimersOf(this);
-        mShortcutSwipeConsumed = true;
-        mInVerticalSwipe = true;
-        setReleasedKeyGraphics(key, true);
-        sListener.onCodeInput(actionCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-        return true;
     }
 
     private void onMoveEventInternal(final int x, final int y, final long eventTime) {
@@ -1371,13 +1309,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         // todo (later): move key swipe stuff to KeyboardActionListener (and finally
         // extend it)
-        if (oldKey != null && tryHandleTopRowSwipe(oldKey, x, y)) {
-            return;
-        }
         if (mKeySwipeAllowed) {
-            if (oldKey == null) {
-                return;
-            }
             onKeySwipe(oldKey.getCode(), x, y, eventTime);
             return;
         }
@@ -1456,11 +1388,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int currentRepeatingKeyCode = mCurrentRepeatingKeyCode;
         mCurrentRepeatingKeyCode = Constants.NOT_A_CODE;
         // Release the last pressed key.
-        if (currentKey != null) {
-            setReleasedKeyGraphics(currentKey, true);
-            if (mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
-                sListener.onUpWithDeletePointerActive();
-            }
+        setReleasedKeyGraphics(currentKey, true);
+
+        if (mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
+            sListener.onUpWithDeletePointerActive();
         }
 
         if (isShowingPopupKeysPanel()) {
@@ -1494,11 +1425,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 sListener.onEndSpaceSwipe();
                 return;
             }
-        }
-        if (mShortcutSwipeConsumed) {
-            mShortcutSwipeConsumed = false;
-            mInVerticalSwipe = false;
-            return;
         }
 
         if (sInGesture) {

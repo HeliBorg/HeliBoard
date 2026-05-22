@@ -86,9 +86,6 @@ public class SettingsValues {
         public final int mTouchpadSensitivity;
         public final boolean mForceAutoCaps;
         public final boolean mDeleteSwipeEnabled;
-        public final int mTopRowSwipeUpKeyCode;
-        public final boolean mBackspaceUpDownSwipeEnabled;
-        public final boolean mEmojiKeySwipeEnabled;
         // Master autospace switch (see Settings.PREF_AUTOSPACE_ENABLED). Final gating happens
         // in shouldInsertSpacesAutomatically() so this works alongside the input-type guard.
         public final boolean mAutospaceEnabled;
@@ -377,11 +374,6 @@ public class SettingsValues {
                                 Defaults.PREF_TOUCHPAD_SENSITIVITY);
                 mForceAutoCaps = prefs.getBoolean(Settings.PREF_FORCE_AUTO_CAPS, Defaults.PREF_FORCE_AUTO_CAPS);
                 mDeleteSwipeEnabled = prefs.getBoolean(Settings.PREF_DELETE_SWIPE, Defaults.PREF_DELETE_SWIPE);
-                mTopRowSwipeUpKeyCode = Settings.readTopRowSwipeUp(prefs);
-                mBackspaceUpDownSwipeEnabled = prefs.getBoolean(Settings.PREF_BACKSPACE_UP_DOWN_SWIPE,
-                                Defaults.PREF_BACKSPACE_UP_DOWN_SWIPE);
-                mEmojiKeySwipeEnabled = prefs.getBoolean(Settings.PREF_EMOJI_KEY_SWIPE,
-                                Defaults.PREF_EMOJI_KEY_SWIPE);
                 mAutospaceEnabled = prefs.getBoolean(Settings.PREF_AUTOSPACE_ENABLED,
                                 Defaults.PREF_AUTOSPACE_ENABLED);
                 mAutospaceAfterPunctuation = prefs.getBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION,
