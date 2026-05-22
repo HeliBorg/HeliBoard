@@ -1625,8 +1625,8 @@ public final class InputLogic {
         // grace timer — the user is committing the word themselves.
         cancelCombiningMode();
         final int codePoint = event.getCodePoint();
-        if (Constants.CODE_SPACE == codePoint && OneShotSpaceAction.clear()) {
-            mLatinIME.onOneShotSpaceActionStateChanged();
+        if (Constants.CODE_SPACE == codePoint) {
+            clearOneShotSpaceActionAndNotifyIfChanged();
         }
         final SettingsValues settingsValues = inputTransaction.getSettingsValues();
         if (justAutoSpaced
