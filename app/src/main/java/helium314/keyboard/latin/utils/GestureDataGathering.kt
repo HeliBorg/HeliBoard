@@ -140,7 +140,7 @@ object BackgroundGatheringCache {
 
     @JvmStatic
     fun saveOrClear(context: Context) {
-        if (useBackgroundGathering && !GestureDataGatheringSettings.isOptInMode(context))
+        if (useBackgroundGathering && !GestureDataGatheringSettings.isDiscardByDefault(context))
             save(context)
         else clear()
     }

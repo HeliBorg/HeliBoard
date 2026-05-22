@@ -41,7 +41,7 @@ object GestureDataGatheringSettings {
     private const val PREF_DELETED_BACKGROUND = "gesture_data_deleted_background_words"
     private const val PREF_BACKGROUND_NOTIFY_COUNT = "gesture_data_background_notify_count"
     const val PREF_BACKGROUND_GATHERING_ENABLED = "gesture_data_background_gathering_enabled"
-    private const val PREF_BACKGROUND_SAVE_ON_BUTTON = "gesture_data_background_gathering_save_on_button"
+    private const val PREF_BACKGROUND_MANUAL_SAVE = "gesture_data_background_gathering_manual_save"
     const val PREF_BACKGROUND_DISABLED_BEFORE_TIME_MILLIS = "gesture_data_background_gathering_disabled_before"
     private const val PREF_END_NOTIFICATION_LAST_SHOWN = "gesture_data_end_notification_shown"
     private const val PREF_SHOW_PROMOTION_DIALOG_NEXT = "gesture_data_show_promotion_dialog_next_time"
@@ -121,11 +121,11 @@ object GestureDataGatheringSettings {
     fun getAppIncludeByDefault(context: Context) =
         context.prefs().getBoolean(PREF_APP_EXCLUSIONS_INCLUDE_BY_DEFAULT, true)
 
-    fun isOptInMode(context: Context) =
-        context.prefs().getBoolean(PREF_BACKGROUND_SAVE_ON_BUTTON, true)
+    fun isDiscardByDefault(context: Context) =
+        context.prefs().getBoolean(PREF_BACKGROUND_MANUAL_SAVE, true)
 
-    fun setOptInMode(context: Context, value: Boolean) =
-        context.prefs().edit { putBoolean(PREF_BACKGROUND_SAVE_ON_BUTTON, value) }
+    fun setDiscardByDefault(context: Context, value: Boolean) =
+        context.prefs().edit { putBoolean(PREF_BACKGROUND_MANUAL_SAVE, value) }
 
     fun isForbiddenForDataGathering(packageName: String?, context: Context): Boolean {
         val exclusions = getAppExclusions(context)

@@ -108,7 +108,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                     GestureDataGatheringSettings.setBackgroundGatheringEnabled(latinIME.prefs(), true)
                     latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
                 } else {
-                    if (GestureDataGatheringSettings.isOptInMode(latinIME))
+                    if (GestureDataGatheringSettings.isDiscardByDefault(latinIME))
                         BackgroundGatheringCache.save(latinIME)
                     else
                         BackgroundGatheringCache.clear()

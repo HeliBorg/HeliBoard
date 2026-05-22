@@ -320,7 +320,7 @@ public final class BinaryDictionary extends Dictionary {
                     this /* sourceDict */,
                     session.mSpaceIndices[j] /* indexOfTouchPointOfSecondWord */,
                     session.mOutputAutoCommitFirstWordConfidence[0]);
-                info.mOriginalScore = session.mOutputScores[j];
+                info.mOriginalScore = session.mOutputScores[j]; // no locale weight!
                 suggestions.add(info);
             }
         }

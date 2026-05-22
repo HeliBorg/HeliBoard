@@ -1124,10 +1124,10 @@ New dictionary:
     <!-- Text under the switch showing in how many apps background data gathering is allowed
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_background_gathering_allowed_apps">Allowed apps: %s</string>
-    <!-- Switch text for enabling opt-in mode for background data gathering
+    <!-- Switch text for enabling discard-by-default mode for background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_background_gathering_manual_save">Opt-in mode</string>
-    <!-- Description text for enabling opt-in mode for background data gathering
+    <string name="gesture_data_background_gathering_manual_save">Discard by default</string>
+    <!-- Description text for enabling discard-by-default mode for background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_background_gathering_manual_save_summary">Data is saved manually via the toolbar key</string>
     <!-- Button for opening info dialog
