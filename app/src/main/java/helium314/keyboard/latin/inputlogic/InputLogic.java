@@ -2899,6 +2899,19 @@ public final class InputLogic {
     public void onUpdateTailBatchInputCompleted(final SettingsValues settingsValues,
             final SuggestedWords suggestedWords, final KeyboardSwitcher keyboardSwitcher) {
         String batchInputText = suggestedWords.isEmpty() ? null : suggestedWords.getWord(0);
+        if (settingsValues.mGestureDebugDrawPoints) {
+            final StringBuilder candidates = new StringBuilder();
+            final int candidateCount = Math.min(suggestedWords.size(), 6);
+            for (int i = 0; i < candidateCount; i++) {
+                if (i > 0) candidates.append(" | ");
+                candidates.append(i).append(':').append(suggestedWords.getWord(i));
+            }
+            Log.d(TAG, "batch candidates size=" + suggestedWords.size()
+                    + " top=" + batchInputText
+                    + " composingBefore=" + mWordComposer.getTypedWord()
+                    + " extendBase=" + mWordComposer.isExtendBatchInputBaseSet()
+                    + " candidates=[" + candidates + "]");
+        }
         // Multi-part word composition (#1.6): when the merged-trail extend-base path was
         // used, the lib returns the full word but its top pick is sometimes an obscure
         // hyphenated/mid-cased dictionary entry ("technon-U") that ranks just above the
@@ -2973,6 +2986,14 @@ public final class InputLogic {
         mWordComposer.setExtendBatchInputBase(null);
         final String prevTypedWord = (extendExistingCompose && !usedMergedTrail)
                 ? mWordComposer.getTypedWord() : "";
+        if (settingsValues.mGestureDebugDrawPoints) {
+            Log.d(TAG, "batch merge seed=" + seedCp
+                    + " extendExisting=" + extendExistingCompose
+                    + " combiningExtends=" + combiningExtendsSwipe
+                    + " usedMergedTrail=" + usedMergedTrail
+                    + " prevTyped='" + prevTypedWord + "'"
+                    + " chosen='" + batchInputText + "'");
+        }
         // Auto-capitalize the first letter of a fresh-word gesture when the keyboard is in
         // auto-shifted / manual-shifted / shift-locked state. The gesture-recognizer always
         // returns lowercase, so without this fix swiping "Hello" at sentence-start types
@@ -2996,6 +3017,9 @@ public final class InputLogic {
         // commit later.
         mShiftModeAtGestureStart = WordComposer.CAPS_MODE_OFF;
         final String composedText = prevTypedWord + batchInputText;
+        if (settingsValues.mGestureDebugDrawPoints) {
+            Log.d(TAG, "batch composed='" + composedText + "'");
+        }
         // Two-thumb typing (#1.1 + #1.4): never silently prepend an autospace when extending an
         // existing composing word. {@code mSpaceState} can carry PHANTOM in from prior
         // punctuation / suggestion-pick paths; clearing it here (without inserting) is the
