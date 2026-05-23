@@ -17,7 +17,6 @@ import androidx.core.content.edit
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
@@ -45,8 +44,7 @@ fun TwoThumbTypingScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
 
-    val hasGestureLib = JniUtils.sHaveGestureLib
-    val gestureEnabled = hasGestureLib && prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT)
+    val gestureEnabled = prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT)
     val spacingMode = currentSpacingMode(prefs)
     val autospaceMode = spacingMode == SPACING_MODE_AUTOSPACE
     val nonNormalSpacing = spacingMode != SPACING_MODE_NORMAL
@@ -296,7 +294,6 @@ private fun TwoThumbBackspaceBehaviorPreference(setting: Setting) {
 @Preview
 @Composable
 private fun Preview() {
-    JniUtils.sHaveGestureLib = true
     initPreview(LocalContext.current)
     Theme(previewDark) {
         Surface {
