@@ -149,6 +149,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_DUAL_THUMB_HINTING = "gesture_dual_thumb_hinting";
     public static final String PREF_GESTURE_DUAL_THUMB_MIDLINE_PCT = "gesture_dual_thumb_midline_pct";
     public static final String PREF_GESTURE_DEBUG_DRAW_POINTS = "gesture_debug_draw_points";
+    public static final String PREF_GESTURE_DEBUG_ACCUMULATE_FRAGMENTS = "gesture_debug_accumulate_fragments";
     public static final String PREF_GESTURE_APOSTROPHE_KEY = "gesture_apostrophe_key";
     public static final String PREF_AUTOSPACE_VISUAL_HINT = "autospace_visual_hint";
     // Unified "combining-mode" model: after every composing-word-extending event (tap OR
@@ -166,6 +167,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // in one keystroke (unless an autocorrect-revert applies — that always goes first). Tap
     // typing is unaffected; this only kicks in when the just-committed word came from a swipe.
     public static final String PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD = "combining_backspace_deletes_gesture_word";
+    public static final String PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT = "combining_backspace_deletes_composing_text";
     // Multi-part word composition: when combining mode is armed (grace timer running), the
     // next swipe/tap concatenates onto the existing composing word rather than starting a
     // new one. Allows tech+nology -> technology and tech+y -> Techy without an explicit

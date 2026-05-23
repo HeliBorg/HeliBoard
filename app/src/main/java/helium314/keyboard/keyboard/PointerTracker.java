@@ -805,11 +805,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (DEBUG_LISTENER) {
             Log.d(TAG, String.format(Locale.US, "[%d] onStartBatchInput", mPointerId));
         }
-        // Two-thumb typing (#1.4): if this gesture-start was promoted from a recent tap on
-        // the same finger, the prior letter is now subsumed by the gesture word — drop the
-        // held tap commit so {@link #commitDeferredTap} never fires for it.
-        if (mIsPromotedFromTap) {
-            cancelPendingTapCommit();
+        // Two-thumb typing debug overlay: clear only when this is a new word. While combining
+        // mode is active, a fresh gesture is another fragment of the same word and should remain
+        // visible alongside earlier fragments.
+        if (!Settings.getValues().mGestureDebugAccumulateFragments
+                || !sDrawingProxy.isCombiningModeActiveForDebug()) {
+            sDrawingProxy.clearGestureDebugPoints();
         }
         // Two-thumb typing (#2.1): a fresh gesture starts — wipe the previous batch's debug
         // overlay so it doesn't visually mix with the in-flight gesture.

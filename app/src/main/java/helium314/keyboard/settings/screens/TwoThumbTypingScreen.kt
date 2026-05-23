@@ -50,7 +50,9 @@ fun TwoThumbTypingScreen(
     val spacingMode = currentSpacingMode(prefs)
     val autospaceMode = spacingMode == SPACING_MODE_AUTOSPACE
     val nonNormalSpacing = spacingMode != SPACING_MODE_NORMAL
+    val backspaceBehavior = currentBackspaceBehavior(prefs)
     val dualThumbHinting = prefs.getBoolean(Settings.PREF_GESTURE_DUAL_THUMB_HINTING, Defaults.PREF_GESTURE_DUAL_THUMB_HINTING)
+    val debugDrawPoints = prefs.getBoolean(Settings.PREF_GESTURE_DEBUG_DRAW_POINTS, Defaults.PREF_GESTURE_DEBUG_DRAW_POINTS)
 
     val items = buildList {
         if (!gestureEnabled) {
@@ -67,7 +69,11 @@ fun TwoThumbTypingScreen(
             add(Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS)
         }
         if (nonNormalSpacing) {
+            add(Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS)
             add(SettingsWithoutKey.TWO_THUMB_BACKSPACE_BEHAVIOR)
+            if (backspaceBehavior == BACKSPACE_WORD) {
+                add(Settings.PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT)
+            }
         }
 
         add(R.string.settings_category_two_thumb_typing_recognition)
@@ -78,6 +84,9 @@ fun TwoThumbTypingScreen(
 
         add(R.string.settings_category_two_thumb_typing_troubleshooting)
         add(Settings.PREF_GESTURE_DEBUG_DRAW_POINTS)
+        if (debugDrawPoints) {
+            add(Settings.PREF_GESTURE_DEBUG_ACCUMULATE_FRAGMENTS)
+        }
     }
 
     SearchSettingsScreen(
@@ -140,6 +149,15 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
         R.string.two_thumb_backspace_behavior, R.string.two_thumb_backspace_behavior_summary) {
         TwoThumbBackspaceBehaviorPreference(it)
     },
+    Setting(context, Settings.PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT,
+        R.string.combining_backspace_deletes_composing_text,
+        R.string.combining_backspace_deletes_composing_text_summary) {
+        SwitchPreference(it, Defaults.PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT)
+    },
+    Setting(context, Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS,
+        R.string.multipart_full_word_suggestions, R.string.multipart_full_word_suggestions_summary) {
+        SwitchPreference(it, Defaults.PREF_MULTIPART_FULL_WORD_SUGGESTIONS)
+    },
     Setting(context, Settings.PREF_GESTURE_DUAL_THUMB_HINTING,
         R.string.two_thumb_point_hinting, R.string.two_thumb_point_hinting_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_DUAL_THUMB_HINTING)
@@ -156,6 +174,10 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_GESTURE_DEBUG_DRAW_POINTS,
         R.string.gesture_debug_draw_points, R.string.gesture_debug_draw_points_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_DEBUG_DRAW_POINTS)
+    },
+    Setting(context, Settings.PREF_GESTURE_DEBUG_ACCUMULATE_FRAGMENTS,
+        R.string.gesture_debug_accumulate_fragments, R.string.gesture_debug_accumulate_fragments_summary) {
+        SwitchPreference(it, Defaults.PREF_GESTURE_DEBUG_ACCUMULATE_FRAGMENTS)
     },
 )
 

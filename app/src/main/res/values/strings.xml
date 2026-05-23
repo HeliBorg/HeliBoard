@@ -266,6 +266,8 @@
     <string name="combining_backspace_deletes_gesture_word">Backspace deletes last swipe</string>
     <!-- Description for combining_backspace_deletes_gesture_word. -->
     <string name="combining_backspace_deletes_gesture_word_summary">After a swiped word is auto-committed, the first backspace removes the whole word + space (autocorrect-revert still takes priority).</string>
+    <string name="combining_backspace_deletes_composing_text">Delete live composing text</string>
+    <string name="combining_backspace_deletes_composing_text_summary">When Backspace behavior is set to whole word, also remove the currently composing text from the editor.</string>
     <!-- Description for combining_tap_extra. -->
     <string name="combining_tap_extra_summary">Add this much time on top of the base grace when the last input was a tap (peck-typists often need more time between letters than swipers between gestures).</string>
 
@@ -292,6 +294,8 @@
     <string name="multipart_join_key_mode_dedicated_key">Dedicated key in symbols layer</string>
     <string name="two_thumb_point_hinting">Improve two-thumb recognition (experimental)</string>
     <string name="two_thumb_point_hinting_summary">Adds synthetic hints for the recognizer when both thumbs are used. It may help two-thumb gestures, but can hurt accuracy if the hand split is wrong.</string>
+    <string name="gesture_debug_accumulate_fragments">Accumulate debug fragments</string>
+    <string name="gesture_debug_accumulate_fragments_summary">Keep the debug overlay across word fragments and clear it when the next word starts. Turn off to clear at each new swipe.</string>
 
     <!-- Title of the post-autospace suggestion-strip behavior pref. -->
     <string name="combining_autospace_suggestions">After auto-space, show…</string>

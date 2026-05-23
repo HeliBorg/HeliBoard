@@ -1818,6 +1818,13 @@ public final class InputLogic {
                     || inputTransaction.getSettingsValues().mCombiningGraceMs > 0)
                     && inputTransaction.getSettingsValues().mCombiningBackspaceDeletesGestureWord) {
                 final int wordLength = mWordComposer.getTypedWord().length();
+                if (inputTransaction.getSettingsValues().mCombiningBackspaceDeletesComposingText) {
+                    mConnection.beginBatchEdit();
+                    mConnection.deleteTextBeforeCursor(wordLength);
+                    mConnection.endBatchEdit();
+                } else {
+                    mConnection.finishComposingText();
+                }
                 mWordComposer.reset();
                 StatsUtils.onBackspaceWordDelete(wordLength);
             } else {

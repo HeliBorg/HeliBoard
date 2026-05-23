@@ -133,6 +133,7 @@ object Defaults {
     const val PREF_GESTURE_DUAL_THUMB_HINTING = false
     const val PREF_GESTURE_DUAL_THUMB_MIDLINE_PCT = 50
     const val PREF_GESTURE_DEBUG_DRAW_POINTS = false
+    const val PREF_GESTURE_DEBUG_ACCUMULATE_FRAGMENTS = true
     const val PREF_GESTURE_APOSTROPHE_KEY = false
     const val PREF_AUTOSPACE_VISUAL_HINT = true
     // Unified combining-mode model (default 0 = off; 500 ms is a comfortable starting point).
@@ -141,6 +142,7 @@ object Defaults {
     const val PREF_COMBINING_TAP_EXTRA_MS = 250
     const val PREF_COMBINING_AUTOSPACE_SUGGESTIONS = "alternatives_then_next_word"
     const val PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD = true
+    const val PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT = true
     // Multi-part word composition (this branch). All default-on except the explicit join key.
     const val PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING = true
     const val PREF_MULTIPART_FULL_WORD_SUGGESTIONS = true
