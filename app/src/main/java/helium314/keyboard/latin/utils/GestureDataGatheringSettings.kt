@@ -119,10 +119,10 @@ object GestureDataGatheringSettings {
         context.prefs().edit { putBoolean(PREF_APP_EXCLUSIONS_INCLUDE_BY_DEFAULT, value) }
 
     fun getAppIncludeByDefault(context: Context) =
-        context.prefs().getBoolean(PREF_APP_EXCLUSIONS_INCLUDE_BY_DEFAULT, true)
+        context.prefs().getBoolean(PREF_APP_EXCLUSIONS_INCLUDE_BY_DEFAULT, false)
 
     fun isDiscardByDefault(context: Context) =
-        context.prefs().getBoolean(PREF_BACKGROUND_MANUAL_SAVE, true)
+        context.prefs().getBoolean(PREF_BACKGROUND_MANUAL_SAVE, false)
 
     fun setDiscardByDefault(context: Context, value: Boolean) =
         context.prefs().edit { putBoolean(PREF_BACKGROUND_MANUAL_SAVE, value) }
