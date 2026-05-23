@@ -184,7 +184,6 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
 private const val SPACING_MODE_NORMAL = "normal"
 private const val SPACING_MODE_MANUAL = "manual"
 private const val SPACING_MODE_AUTOSPACE = "autospace"
-private const val DEFAULT_AUTOSPACE_GRACE_MS = 500
 
 private const val BACKSPACE_NORMAL = "normal"
 private const val BACKSPACE_FRAGMENT = "fragment"
@@ -220,9 +219,19 @@ private fun TwoThumbSpacingModePreference(setting: Setting) {
                 prefs.edit {
                     putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, mode == SPACING_MODE_MANUAL)
                     when (mode) {
-                        SPACING_MODE_NORMAL, SPACING_MODE_MANUAL -> putInt(Settings.PREF_COMBINING_GRACE_MS, 0)
+                        SPACING_MODE_NORMAL, SPACING_MODE_MANUAL -> {
+                            val currentGraceMs = prefs.getInt(Settings.PREF_COMBINING_GRACE_MS, 0)
+                            if (currentGraceMs > 0) {
+                                putInt(Settings.PREF_COMBINING_LAST_AUTOSPACE_GRACE_MS, currentGraceMs)
+                            }
+                            putInt(Settings.PREF_COMBINING_GRACE_MS, 0)
+                        }
                         SPACING_MODE_AUTOSPACE -> if (prefs.getInt(Settings.PREF_COMBINING_GRACE_MS, 0) <= 0) {
-                            putInt(Settings.PREF_COMBINING_GRACE_MS, DEFAULT_AUTOSPACE_GRACE_MS)
+                            val restoredGraceMs = prefs.getInt(
+                                Settings.PREF_COMBINING_LAST_AUTOSPACE_GRACE_MS,
+                                Defaults.PREF_COMBINING_LAST_AUTOSPACE_GRACE_MS,
+                            )
+                            putInt(Settings.PREF_COMBINING_GRACE_MS, restoredGraceMs.coerceAtLeast(1))
                         }
                     }
                 }

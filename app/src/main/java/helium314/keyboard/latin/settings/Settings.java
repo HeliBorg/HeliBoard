@@ -156,6 +156,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // gesture), wait this many milliseconds; any new tap/gesture within the window EXTENDS
     // the same composing word, anything else (or expiry) commits + autospaces. 0 disables.
     public static final String PREF_COMBINING_GRACE_MS = "combining_grace_ms";
+    public static final String PREF_COMBINING_LAST_AUTOSPACE_GRACE_MS = "combining_last_autospace_grace_ms";
     public static final String PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE = "combining_autocorrect_on_autospace";
     // Additional grace added on top of PREF_COMBINING_GRACE_MS when the most recent input
     // was a tap (peck-typists need more headroom than swipers between letters). 0 = no extra.

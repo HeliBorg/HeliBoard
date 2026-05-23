@@ -831,7 +831,70 @@ public final class InputLogic {
         mPendingCombiningCommit = () -> onCombiningGraceExpired();
         mCombiningHandler.postDelayed(mPendingCombiningCommit, graceMs);
         final MainKeyboardView kv = KeyboardSwitcher.getInstance().getMainKeyboardView();
-        if (kv != null) kv.setCombiningMode(true, startTime, graceMs);
+        if (kv != null) {
+            final boolean showAutospaceIndicator = settingsValues.shouldInsertSpacesAutomatically()
+                    && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
+                    && (!settingsValues.mCombiningAutospaceOnlyAfterGesture
+                            || mCombiningWordHasGestureFragment)
+                    && !mSuppressAutospaceForForceNextSpace;
+            kv.setCombiningMode(showAutospaceIndicator, startTime, graceMs,
+                    true /* compositionActiveForDebug */);
+        }
+    }
+
+    private void enterJoinNextMode(final SettingsValues settingsValues) {
+        OneShotSpaceAction.armJoinNext();
+        mAutospaceAlternativesPending = false;
+        mAutoCommitRevertLength = 0;
+        mLastGestureCommittedLength = 0;
+        mAutospaceJustWritten = false;
+        if (Constants.CODE_SPACE == mConnection.getCodePointBeforeCursor()
+                && !mWordComposer.isComposingWord()) {
+            mConnection.removeTrailingSpace();
+        }
+        mSpaceState = SpaceState.NONE;
+        if (!mWordComposer.isComposingWord()) {
+            resumeWordAtCursorForJoining(settingsValues);
+        }
+        cancelCombiningTimerOnly();
+        if (mWordComposer.isComposingWord()) {
+            mInCombiningMode = true;
+            final MainKeyboardView kv = KeyboardSwitcher.getInstance().getMainKeyboardView();
+            if (kv != null) {
+                final boolean showAutospaceIndicator = settingsValues.shouldInsertSpacesAutomatically()
+                        && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces;
+                kv.setCombiningMode(showAutospaceIndicator, SystemClock.uptimeMillis(),
+                        Math.max(0, settingsValues.mCombiningGraceMs),
+                        true /* compositionActiveForDebug */);
+            }
+        }
+    }
+
+    private void resumeWordAtCursorForJoining(final SettingsValues settingsValues) {
+        final TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations,
+                settingsValues.mCurrentKeyboardScript);
+        if (range == null || range.length() <= 0 || range.mHasUrlSpans
+                || !isResumableWord(settingsValues, range.mWord.toString())) {
+            return;
+        }
+        restartSuggestions(range);
+    }
+
+    private void forceSpaceBeforeNextWord(final Event event, final InputTransaction inputTransaction,
+            final LatinIME.UIHandler handler) {
+        final boolean alreadyHasTrailingSpace = Constants.CODE_SPACE == mConnection.getCodePointBeforeCursor();
+        if (mWordComposer.isComposingWord() || !alreadyHasTrailingSpace) {
+            final Event forcedSpaceEvent = Event.createSoftwareKeypressEvent(Constants.CODE_SPACE,
+                    event.getMetaState(), event.getX(), event.getY(), event.isKeyRepeat());
+            handleNonSpecialCharacterEvent(forcedSpaceEvent, inputTransaction, handler);
+        } else {
+            cancelCombiningMode();
+            mSpaceState = SpaceState.WEAK;
+        }
+        mForceNextSpacePendingWord = true;
+        mSuppressAutospaceForForceNextSpace = false;
+        OneShotSpaceAction.armForceNextSpace();
+        mLatinIME.onOneShotSpaceActionStateChanged();
     }
 
     /**

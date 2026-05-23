@@ -101,6 +101,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     // ValueAnimator drives invalidations at ~60fps so the bar shrinks smoothly; on cancel
     // / timer-expiry we set mCombiningModeActive=false and the bar disappears next frame.
     private boolean mCombiningModeActive = false;
+    private boolean mCombiningCompositionActiveForDebug = false;
     private long mCombiningStartTimeMs = 0L;
     private int mCombiningGraceMs = 0;
     @Nullable private ValueAnimator mCombiningAnimator;
@@ -311,6 +312,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
      * No-ops when the space key isn't on the current layout (numeric / symbol).
      */
     public void setCombiningMode(final boolean active, final long startTimeMs, final int graceMs) {
+        setCombiningMode(active, startTimeMs, graceMs, active);
+    }
+
+    public void setCombiningMode(final boolean active, final long startTimeMs, final int graceMs,
+            final boolean compositionActiveForDebug) {
         // Stop any in-flight animator before mutating state — guarantees we don't have an
         // animator updating mCombiningModeActive=false's invalidation while we set true.
         if (mCombiningAnimator != null) {
@@ -318,6 +324,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             mCombiningAnimator = null;
         }
         mCombiningModeActive = active && graceMs > 0;
+        mCombiningCompositionActiveForDebug = compositionActiveForDebug;
         mCombiningStartTimeMs = startTimeMs;
         mCombiningGraceMs = graceMs;
         // Always invalidate the whole view once so the global tint overlay appears or
@@ -524,6 +531,21 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     @Override
     public void clearGestureDebugPoints() {
         mGestureDebugPointsDrawingPreview.clear();
+    }
+
+    @Override
+    public boolean isCombiningModeActiveForDebug() {
+        return mCombiningCompositionActiveForDebug;
+    }
+
+    @Override
+    public boolean hasGestureDebugPoints() {
+        return mGestureDebugPointsDrawingPreview.hasSnapshot();
+    }
+
+    @Override
+    public void setGestureCommitPending(final boolean pending) {
+        mGestureFloatingTextDrawingPreview.setCommitPending(pending);
     }
 
     // Note that this method is called from a non-UI thread.

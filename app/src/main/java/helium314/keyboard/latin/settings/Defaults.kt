@@ -138,6 +138,7 @@ object Defaults {
     const val PREF_AUTOSPACE_VISUAL_HINT = true
     // Unified combining-mode model (default 0 = off; 500 ms is a comfortable starting point).
     const val PREF_COMBINING_GRACE_MS = 0
+    const val PREF_COMBINING_LAST_AUTOSPACE_GRACE_MS = 500
     const val PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE = true
     const val PREF_COMBINING_TAP_EXTRA_MS = 250
     const val PREF_COMBINING_AUTOSPACE_SUGGESTIONS = "alternatives_then_next_word"
