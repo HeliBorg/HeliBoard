@@ -1814,6 +1814,12 @@ public final class InputLogic {
                             Constants.EVENT_REJECTION);
                 }
                 StatsUtils.onBackspaceWordDelete(rejectedSuggestion.length());
+            } else if ((inputTransaction.getSettingsValues().mGestureManualSpacing
+                    || inputTransaction.getSettingsValues().mCombiningGraceMs > 0)
+                    && inputTransaction.getSettingsValues().mCombiningBackspaceDeletesGestureWord) {
+                final int wordLength = mWordComposer.getTypedWord().length();
+                mWordComposer.reset();
+                StatsUtils.onBackspaceWordDelete(wordLength);
             } else {
                 mWordComposer.applyProcessedEvent(event);
                 StatsUtils.onBackspacePressed(1);

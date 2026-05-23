@@ -329,16 +329,17 @@ public class SettingsValues {
                                 Defaults.PREF_COMBINING_TAP_EXTRA_MS);
                 mCombiningAutospaceSuggestions = prefs.getString(Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS,
                                 Defaults.PREF_COMBINING_AUTOSPACE_SUGGESTIONS);
+                final boolean nonNormalTwoThumbSpacing = mGestureManualSpacing || mCombiningGraceMs > 0;
                 mCombiningBackspaceDeletesGestureWord = prefs.getBoolean(
                                 Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD,
                                 Defaults.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD);
-                mMultipartAutoExtendInCombining = prefs.getBoolean(
+                mMultipartAutoExtendInCombining = nonNormalTwoThumbSpacing || prefs.getBoolean(
                                 Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING,
                                 Defaults.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING);
-                mMultipartFullWordSuggestions = prefs.getBoolean(
+                mMultipartFullWordSuggestions = nonNormalTwoThumbSpacing || prefs.getBoolean(
                                 Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS,
                                 Defaults.PREF_MULTIPART_FULL_WORD_SUGGESTIONS);
-                mMultipartTapSeedGesture = prefs.getBoolean(
+                mMultipartTapSeedGesture = nonNormalTwoThumbSpacing || prefs.getBoolean(
                                 Settings.PREF_MULTIPART_TAP_SEED_GESTURE,
                                 Defaults.PREF_MULTIPART_TAP_SEED_GESTURE);
                 mMultipartJoinKeyMode = prefs.getString(Settings.PREF_MULTIPART_JOIN_KEY_MODE,

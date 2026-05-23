@@ -2,12 +2,18 @@
 package helium314.keyboard.settings.screens
 
 import android.content.Context
+import androidx.compose.material3.Text
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.edit
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
@@ -18,8 +24,12 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
+import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.preferences.ListPreference
+import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.previewDark
@@ -37,13 +47,9 @@ fun TwoThumbTypingScreen(
 
     val hasGestureLib = JniUtils.sHaveGestureLib
     val gestureEnabled = hasGestureLib && prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT)
-    val combiningGraceMs = prefs.getInt(Settings.PREF_COMBINING_GRACE_MS, Defaults.PREF_COMBINING_GRACE_MS)
-    val combiningEnabled = combiningGraceMs > 0
-    val multiPartEnabled = prefs.getBoolean(
-        Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING,
-        Defaults.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING,
-    )
-    val manualSpacing = prefs.getBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, Defaults.PREF_GESTURE_MANUAL_SPACING)
+    val spacingMode = currentSpacingMode(prefs)
+    val autospaceMode = spacingMode == SPACING_MODE_AUTOSPACE
+    val nonNormalSpacing = spacingMode != SPACING_MODE_NORMAL
     val tapDuringSwipe = prefs.getBoolean(Settings.PREF_GESTURE_TAP_DURING_SWIPE, Defaults.PREF_GESTURE_TAP_DURING_SWIPE)
     val dualThumbHinting = prefs.getBoolean(Settings.PREF_GESTURE_DUAL_THUMB_HINTING, Defaults.PREF_GESTURE_DUAL_THUMB_HINTING)
 
@@ -54,28 +60,15 @@ fun TwoThumbTypingScreen(
         }
 
         add(R.string.settings_category_two_thumb_typing_words)
-        add(Settings.PREF_COMBINING_GRACE_MS)
-        if (combiningEnabled) {
+        add(SettingsWithoutKey.TWO_THUMB_SPACING_MODE)
+        if (autospaceMode) {
+            add(Settings.PREF_COMBINING_GRACE_MS)
             add(Settings.PREF_COMBINING_TAP_EXTRA_MS)
-            add(Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING)
-            if (multiPartEnabled) {
-                add(Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS)
-                add(Settings.PREF_MULTIPART_TAP_SEED_GESTURE)
-                add(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE)
-            }
-            add(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD)
             add(Settings.PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE)
             add(Settings.PREF_COMBINING_AUTOSPACE_SUGGESTIONS)
         }
-
-        add(R.string.settings_category_two_thumb_typing_manual)
-        add(Settings.PREF_GESTURE_MANUAL_SPACING)
-        if (manualSpacing && !(combiningEnabled && multiPartEnabled)) {
-            add(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE)
-        } else {
-            // Mutually exclusive with manual spacing: when the user opts into the explicit
-            // "no autospace ever" mode, the timer-based grace period is meaningless.
-            add(Settings.PREF_GESTURE_AUTOSPACE_GRACE_MS)
+        if (nonNormalSpacing) {
+            add(SettingsWithoutKey.TWO_THUMB_BACKSPACE_BEHAVIOR)
         }
 
         add(R.string.settings_category_two_thumb_typing_two_finger)
@@ -102,15 +95,13 @@ fun TwoThumbTypingScreen(
     )
 }
 
-/**
- * Factory for all two-thumb typing {@link Setting} entries. Registered with
- * {@link helium314.keyboard.settings.SettingsContainer} so the entries are picked up by the
- * screen above AND remain searchable globally. Moved out of {@link #createGestureTypingSettings}
- * so the parent gesture screen stays uncluttered.
- */
 fun createTwoThumbTypingSettings(context: Context) = listOf(
+    Setting(context, SettingsWithoutKey.TWO_THUMB_SPACING_MODE,
+        R.string.two_thumb_spacing_mode, R.string.two_thumb_spacing_mode_summary) {
+        TwoThumbSpacingModePreference(it)
+    },
     Setting(context, Settings.PREF_COMBINING_GRACE_MS,
-        R.string.two_thumb_combine_grace, R.string.two_thumb_combine_grace_summary) { def ->
+        R.string.two_thumb_autospace_duration, R.string.two_thumb_autospace_duration_summary) { def ->
         SliderPreference(
             name = def.title,
             key = def.key,
@@ -141,7 +132,7 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD)
     },
     Setting(context, Settings.PREF_COMBINING_TAP_EXTRA_MS,
-        R.string.two_thumb_tap_extra, R.string.two_thumb_tap_extra_summary) { def ->
+        R.string.two_thumb_tap_autospace_grace, R.string.two_thumb_tap_autospace_grace_summary) { def ->
         SliderPreference(
             name = def.title,
             key = def.key,
@@ -153,25 +144,9 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
             }
         )
     },
-    Setting(context, Settings.PREF_GESTURE_MANUAL_SPACING,
-        R.string.gesture_manual_spacing, R.string.gesture_manual_spacing_summary) {
-        SwitchPreference(it, Defaults.PREF_GESTURE_MANUAL_SPACING)
-    },
-    Setting(context, Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING,
-        R.string.two_thumb_multi_part_words, R.string.two_thumb_multi_part_words_summary) {
-        SwitchPreference(it, Defaults.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING)
-    },
-    Setting(context, Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS,
-        R.string.multipart_full_word_suggestions, R.string.multipart_full_word_suggestions_summary) {
-        SwitchPreference(it, Defaults.PREF_MULTIPART_FULL_WORD_SUGGESTIONS)
-    },
-    Setting(context, Settings.PREF_MULTIPART_TAP_SEED_GESTURE,
-        R.string.two_thumb_typed_prefix_swipe, R.string.two_thumb_typed_prefix_swipe_summary) {
-        SwitchPreference(it, Defaults.PREF_MULTIPART_TAP_SEED_GESTURE)
-    },
-    Setting(context, Settings.PREF_GESTURE_FRAGMENT_BACKSPACE,
-        R.string.gesture_fragment_backspace, R.string.gesture_fragment_backspace_summary) {
-        SwitchPreference(it, Defaults.PREF_GESTURE_FRAGMENT_BACKSPACE)
+    Setting(context, SettingsWithoutKey.TWO_THUMB_BACKSPACE_BEHAVIOR,
+        R.string.two_thumb_backspace_behavior, R.string.two_thumb_backspace_behavior_summary) {
+        TwoThumbBackspaceBehaviorPreference(it)
     },
     Setting(context, Settings.PREF_GESTURE_AUTOSPACE_GRACE_MS, R.string.gesture_autospace_grace) { def ->
         SliderPreference(
@@ -200,7 +175,7 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
         )
     },
     Setting(context, Settings.PREF_GESTURE_DUAL_THUMB_HINTING,
-        R.string.gesture_dual_thumb_hinting, R.string.gesture_dual_thumb_hinting_summary) {
+        R.string.two_thumb_point_hinting, R.string.two_thumb_point_hinting_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_DUAL_THUMB_HINTING)
     },
     Setting(context, Settings.PREF_GESTURE_DUAL_THUMB_MIDLINE_PCT, R.string.gesture_dual_thumb_midline) { def ->
@@ -217,6 +192,109 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_GESTURE_DEBUG_DRAW_POINTS)
     },
 )
+
+private const val SPACING_MODE_NORMAL = "normal"
+private const val SPACING_MODE_MANUAL = "manual"
+private const val SPACING_MODE_AUTOSPACE = "autospace"
+private const val DEFAULT_AUTOSPACE_GRACE_MS = 500
+
+private const val BACKSPACE_NORMAL = "normal"
+private const val BACKSPACE_FRAGMENT = "fragment"
+private const val BACKSPACE_WORD = "word"
+
+private fun currentSpacingMode(prefs: android.content.SharedPreferences): String = when {
+    prefs.getBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, Defaults.PREF_GESTURE_MANUAL_SPACING) -> SPACING_MODE_MANUAL
+    prefs.getInt(Settings.PREF_COMBINING_GRACE_MS, Defaults.PREF_COMBINING_GRACE_MS) > 0 -> SPACING_MODE_AUTOSPACE
+    else -> SPACING_MODE_NORMAL
+}
+
+@Composable
+private fun TwoThumbSpacingModePreference(setting: Setting) {
+    val prefs = LocalContext.current.prefs()
+    var showDialog by rememberSaveable { mutableStateOf(false) }
+    val items = listOf(
+        stringResource(R.string.two_thumb_spacing_mode_normal) to SPACING_MODE_NORMAL,
+        stringResource(R.string.two_thumb_spacing_mode_manual) to SPACING_MODE_MANUAL,
+        stringResource(R.string.two_thumb_spacing_mode_autospace) to SPACING_MODE_AUTOSPACE,
+    )
+    val selected = currentSpacingMode(prefs)
+    Preference(
+        name = setting.title,
+        description = items.first { it.second == selected }.first,
+        onClick = { showDialog = true },
+    )
+    if (showDialog) {
+        ListPickerDialog(
+            onDismissRequest = { showDialog = false },
+            items = items,
+            onItemSelected = { item ->
+                val mode = item.second
+                prefs.edit {
+                    putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, mode == SPACING_MODE_MANUAL)
+                    when (mode) {
+                        SPACING_MODE_NORMAL, SPACING_MODE_MANUAL -> putInt(Settings.PREF_COMBINING_GRACE_MS, 0)
+                        SPACING_MODE_AUTOSPACE -> if (prefs.getInt(Settings.PREF_COMBINING_GRACE_MS, 0) <= 0) {
+                            putInt(Settings.PREF_COMBINING_GRACE_MS, DEFAULT_AUTOSPACE_GRACE_MS)
+                        }
+                    }
+                }
+            },
+            selectedItem = items.first { it.second == selected },
+            title = { Text(setting.title) },
+            getItemName = { it.first },
+        )
+    }
+}
+
+private fun currentBackspaceBehavior(prefs: android.content.SharedPreferences): String = when {
+    prefs.getBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD,
+        Defaults.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD) -> BACKSPACE_WORD
+    prefs.getBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE,
+        Defaults.PREF_GESTURE_FRAGMENT_BACKSPACE) -> BACKSPACE_FRAGMENT
+    else -> BACKSPACE_NORMAL
+}
+
+@Composable
+private fun TwoThumbBackspaceBehaviorPreference(setting: Setting) {
+    val prefs = LocalContext.current.prefs()
+    var showDialog by rememberSaveable { mutableStateOf(false) }
+    val items = listOf(
+        stringResource(R.string.two_thumb_backspace_normal) to BACKSPACE_NORMAL,
+        stringResource(R.string.two_thumb_backspace_fragment) to BACKSPACE_FRAGMENT,
+        stringResource(R.string.two_thumb_backspace_word) to BACKSPACE_WORD,
+    )
+    val selected = currentBackspaceBehavior(prefs)
+    Preference(
+        name = setting.title,
+        description = items.first { it.second == selected }.first,
+        onClick = { showDialog = true },
+    )
+    if (showDialog) {
+        ListPickerDialog(
+            onDismissRequest = { showDialog = false },
+            items = items,
+            onItemSelected = { item ->
+                when (item.second) {
+                    BACKSPACE_NORMAL -> prefs.edit {
+                        putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, false)
+                        putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, false)
+                    }
+                    BACKSPACE_FRAGMENT -> prefs.edit {
+                        putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, true)
+                        putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, false)
+                    }
+                    BACKSPACE_WORD -> prefs.edit {
+                        putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, false)
+                        putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, true)
+                    }
+                }
+            },
+            selectedItem = items.first { it.second == selected },
+            title = { Text(setting.title) },
+            getItemName = { it.first },
+        )
+    }
+}
 
 @Preview
 @Composable

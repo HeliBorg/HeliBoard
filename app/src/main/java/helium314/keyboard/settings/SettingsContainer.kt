@@ -81,6 +81,8 @@ object SettingsWithoutKey {
     const val BACKUP_RESTORE = "backup_restore"
     const val DEBUG_SETTINGS = "screen_debug"
     const val LOAD_GESTURE_LIB = "load_gesture_library"
+    const val TWO_THUMB_SPACING_MODE = "two_thumb_spacing_mode"
+    const val TWO_THUMB_BACKSPACE_BEHAVIOR = "two_thumb_backspace_behavior"
     const val BACKGROUND_IMAGE = "background_image"
     const val BACKGROUND_IMAGE_LANDSCAPE = "background_image_landscape"
     const val CUSTOM_FONT = "custom_font"

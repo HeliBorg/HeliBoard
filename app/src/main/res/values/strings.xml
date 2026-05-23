@@ -207,10 +207,14 @@
     <string name="settings_category_two_thumb_typing">Two-thumb typing</string>
     <string name="two_thumb_typing_requires_gesture">Enable gesture typing first</string>
     <string name="settings_category_two_thumb_typing_words">Build words from taps and swipes</string>
-    <string name="settings_category_two_thumb_typing_manual">Manual spacing mode</string>
     <string name="settings_category_two_thumb_typing_two_finger">Two-finger input</string>
     <string name="settings_category_two_thumb_typing_recognition">Recognition tuning</string>
     <string name="settings_category_two_thumb_typing_troubleshooting">Troubleshooting</string>
+    <string name="two_thumb_spacing_mode">Spacing mode</string>
+    <string name="two_thumb_spacing_mode_summary">Choose how swipe/tap word parts are committed and spaced.</string>
+    <string name="two_thumb_spacing_mode_normal">Normal spacing</string>
+    <string name="two_thumb_spacing_mode_manual">Manual spacing</string>
+    <string name="two_thumb_spacing_mode_autospace">Auto-space after a delay</string>
     <!-- Title of the setting that disables auto-spacing at the end of a gesture so that words can be composed from multiple swipe fragments. -->
     <string name="gesture_manual_spacing">Manual spacing</string>
     <!-- Description for "gesture_manual_spacing". When on, the keyboard does not commit a space when all fingers lift after a gesture; instead the user must tap space, punctuation, or Enter to commit. -->
@@ -261,16 +265,16 @@
     <string name="combining_grace">Combining grace period</string>
     <!-- Description of the unified combining-mode grace setting. -->
     <string name="combining_grace_summary">After every tap or swipe, wait this long for a follow-up before committing the word. While waiting, the spacebar shows a countdown.</string>
-    <string name="two_thumb_combine_grace">Wait for next input</string>
-    <string name="two_thumb_combine_grace_summary">After a tap or swipe, wait this long before committing the word. A follow-up tap or swipe during the countdown extends the same word.</string>
+    <string name="two_thumb_autospace_duration">Duration until autospace</string>
+    <string name="two_thumb_autospace_duration_summary">After a tap or swipe, wait this long before committing the word and inserting a space. A follow-up during the countdown extends the same word.</string>
     <!-- Title of the toggle for running autocorrect when the combining grace timer fires. -->
     <string name="combining_autocorrect_on_autospace">Autocorrect on auto-space</string>
     <!-- Description for combining_autocorrect_on_autospace. -->
     <string name="combining_autocorrect_on_autospace_summary">When the grace timer commits a word with an automatic space, also apply autocorrection</string>
     <!-- Title of the additive tap-only grace pref. -->
     <string name="combining_tap_extra">Extra grace after a tap</string>
-    <string name="two_thumb_tap_extra">More time after taps</string>
-    <string name="two_thumb_tap_extra_summary">Add extra waiting time after a tapped letter, since taps are usually slower than swipe fragments.</string>
+    <string name="two_thumb_tap_autospace_grace">Extra autospace delay after taps</string>
+    <string name="two_thumb_tap_autospace_grace_summary">Add this much extra time when the last input was a tapped letter, so tap-then-swipe combinations are easier to continue.</string>
     <!-- Title of the toggle that makes the first backspace after a gesture delete the whole word. -->
     <string name="combining_backspace_deletes_gesture_word">Backspace deletes last swipe</string>
     <!-- Description for combining_backspace_deletes_gesture_word. -->
@@ -289,11 +293,18 @@
     <string name="multipart_tap_seed_gesture_summary">When you type some letters and then swipe while combining mode is armed, treat the swipe as a continuation of the typed prefix.</string>
     <string name="two_thumb_typed_prefix_swipe">Swipe continues typed prefix</string>
     <string name="two_thumb_typed_prefix_swipe_summary">If you type a few letters and then swipe during the countdown, treat the swipe as the rest of that word.</string>
+    <string name="two_thumb_backspace_behavior">Backspace behavior</string>
+    <string name="two_thumb_backspace_behavior_summary">Choose what backspace removes while using manual spacing or delayed autospace.</string>
+    <string name="two_thumb_backspace_normal">Delete one character</string>
+    <string name="two_thumb_backspace_fragment">Delete last word part</string>
+    <string name="two_thumb_backspace_word">Delete whole word</string>
     <string name="multipart_join_key_mode">Explicit "join next" modifier</string>
     <string name="multipart_join_key_mode_summary">Force the next input to extend the current word regardless of timing.</string>
     <string name="multipart_join_key_mode_off">Off</string>
     <string name="multipart_join_key_mode_longpress_space">Long-press spacebar</string>
     <string name="multipart_join_key_mode_dedicated_key">Dedicated key in symbols layer</string>
+    <string name="two_thumb_point_hinting">Improve two-thumb recognition (experimental)</string>
+    <string name="two_thumb_point_hinting_summary">Adds synthetic hints for the recognizer when both thumbs are used. It may help two-thumb gestures, but can hurt accuracy if the hand split is wrong.</string>
 
     <!-- Title of the post-autospace suggestion-strip behavior pref. -->
     <string name="combining_autospace_suggestions">After auto-space, show…</string>
