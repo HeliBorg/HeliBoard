@@ -69,6 +69,11 @@ fun GestureTypingScreen(
         add(Settings.PREF_SPACE_VERTICAL_SWIPE)
         add(Settings.PREF_TOUCHPAD_SENSITIVITY)
         add(Settings.PREF_DELETE_SWIPE)
+        add(Settings.PREF_SHORTCUT_ROWS)
+        if (prefs.getBoolean(Settings.PREF_SHORTCUT_ROWS, Defaults.PREF_SHORTCUT_ROWS)) {
+            add(Settings.PREF_SHORTCUT_TOP_ROW)
+            add(Settings.PREF_SHORTCUT_BOTTOM_ROW)
+        }
     }
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -162,6 +167,15 @@ fun createGestureTypingSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe, R.string.delete_swipe_summary) {
         SwitchPreference(it, Defaults.PREF_DELETE_SWIPE)
+    },
+    Setting(context, Settings.PREF_SHORTCUT_ROWS, R.string.shortcut_rows, R.string.shortcut_rows_summary) {
+        SwitchPreference(it, Defaults.PREF_SHORTCUT_ROWS)
+    },
+    Setting(context, Settings.PREF_SHORTCUT_TOP_ROW, R.string.shortcut_top_row, R.string.shortcut_top_row_summary) {
+        SwitchPreference(it, Defaults.PREF_SHORTCUT_TOP_ROW)
+    },
+    Setting(context, Settings.PREF_SHORTCUT_BOTTOM_ROW, R.string.shortcut_bottom_row, R.string.shortcut_bottom_row_summary) {
+        SwitchPreference(it, Defaults.PREF_SHORTCUT_BOTTOM_ROW)
     },
 )
 

@@ -60,6 +60,7 @@ import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
+import helium314.keyboard.latin.utils.LayoutType;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
@@ -625,6 +626,22 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final int pointY = key.getY() + mKeyPreviewDrawParams.getVisibleOffset();
         popupKeysKeyboardView.showPopupKeysPanel(this, this, pointX, pointY, mKeyboardActionListener);
         return popupKeysKeyboardView;
+    }
+
+    @Override
+    @Nullable
+    public PopupKeysPanel showShortcutRowKeyboard(@NonNull final Key key,
+            @NonNull final PointerTracker tracker, @NonNull final LayoutType layoutType) {
+        final Keyboard keyboard = getKeyboard();
+        if (keyboard == null) {
+            return null;
+        }
+        final Key popupParentKey = ShortcutRowKeys.createPopupParentKey(
+                getContext(), key, keyboard, layoutType);
+        if (popupParentKey == null) {
+            return null;
+        }
+        return showPopupKeysKeyboard(popupParentKey, tracker);
     }
 
     public boolean isInDraggingFinger() {

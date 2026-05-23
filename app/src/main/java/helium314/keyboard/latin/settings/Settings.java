@@ -114,6 +114,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
+    public static final String PREF_SHORTCUT_ROWS = "shortcut_rows";
+    public static final String PREF_SHORTCUT_TOP_ROW = "shortcut_top_row";
+    public static final String PREF_SHORTCUT_BOTTOM_ROW = "shortcut_bottom_row";
     // Master autospace switch: when false, suppresses ALL autospace insertions globally
     // (still gated additionally by the input type — password/email/URL fields suppress
     // autospace regardless of this pref). Exposed via the AUTOSPACE toolbar toggle.

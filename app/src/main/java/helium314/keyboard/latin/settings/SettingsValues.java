@@ -86,6 +86,9 @@ public class SettingsValues {
         public final int mTouchpadSensitivity;
         public final boolean mForceAutoCaps;
         public final boolean mDeleteSwipeEnabled;
+        public final boolean mShortcutRowsEnabled;
+        public final boolean mShortcutTopRowEnabled;
+        public final boolean mShortcutBottomRowEnabled;
         // Master autospace switch (see Settings.PREF_AUTOSPACE_ENABLED). Final gating happens
         // in shouldInsertSpacesAutomatically() so this works alongside the input-type guard.
         public final boolean mAutospaceEnabled;
@@ -374,6 +377,11 @@ public class SettingsValues {
                                 Defaults.PREF_TOUCHPAD_SENSITIVITY);
                 mForceAutoCaps = prefs.getBoolean(Settings.PREF_FORCE_AUTO_CAPS, Defaults.PREF_FORCE_AUTO_CAPS);
                 mDeleteSwipeEnabled = prefs.getBoolean(Settings.PREF_DELETE_SWIPE, Defaults.PREF_DELETE_SWIPE);
+                mShortcutRowsEnabled = prefs.getBoolean(Settings.PREF_SHORTCUT_ROWS, Defaults.PREF_SHORTCUT_ROWS);
+                mShortcutTopRowEnabled = prefs.getBoolean(Settings.PREF_SHORTCUT_TOP_ROW,
+                                Defaults.PREF_SHORTCUT_TOP_ROW);
+                mShortcutBottomRowEnabled = prefs.getBoolean(Settings.PREF_SHORTCUT_BOTTOM_ROW,
+                                Defaults.PREF_SHORTCUT_BOTTOM_ROW);
                 mAutospaceEnabled = prefs.getBoolean(Settings.PREF_AUTOSPACE_ENABLED,
                                 Defaults.PREF_AUTOSPACE_ENABLED);
                 mAutospaceAfterPunctuation = prefs.getBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION,

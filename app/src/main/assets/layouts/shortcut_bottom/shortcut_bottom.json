@@ -1,0 +1,11 @@
+[
+  [
+    { "label": "left" },
+    { "label": "right" },
+    { "label": "word_left" },
+    { "label": "word_right" },
+    { "label": "clipboard" },
+    { "label": "numpad" },
+    { "label": "emoji" }
+  ]
+]

@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.PopupKeysPanel;
 import helium314.keyboard.keyboard.PointerTracker;
+import helium314.keyboard.latin.utils.LayoutType;
 
 public interface DrawingProxy {
     /**
@@ -36,6 +37,10 @@ public interface DrawingProxy {
      */
     @Nullable
     PopupKeysPanel showPopupKeysKeyboard(@NonNull Key key, @NonNull PointerTracker tracker);
+
+    @Nullable
+    PopupKeysPanel showShortcutRowKeyboard(@NonNull Key key, @NonNull PointerTracker tracker,
+            @NonNull LayoutType layoutType);
 
     /**
      * Start a while-typing-animation.

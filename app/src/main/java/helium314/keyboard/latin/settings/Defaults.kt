@@ -39,6 +39,8 @@ object Defaults {
         LayoutType.PHONE_SYMBOLS -> "phone_symbols"
         LayoutType.EMOJI_BOTTOM -> "emoji_bottom_row"
         LayoutType.CLIPBOARD_BOTTOM -> "clip_bottom_row"
+        LayoutType.SHORTCUT_TOP -> "shortcut_top"
+        LayoutType.SHORTCUT_BOTTOM -> "shortcut_bottom"
     }
 
     private const val DEFAULT_SIZE_SCALE = 1.0f // 100%
@@ -102,6 +104,9 @@ object Defaults {
     @JvmField
     val PREF_SPACE_VERTICAL_SWIPE = KeyboardActionListener.SwipeAction.NONE.name
     const val PREF_DELETE_SWIPE = true
+    const val PREF_SHORTCUT_ROWS = false
+    const val PREF_SHORTCUT_TOP_ROW = false
+    const val PREF_SHORTCUT_BOTTOM_ROW = false
     const val PREF_AUTOSPACE_ENABLED = true
     const val PREF_AUTOSPACE_AFTER_PUNCTUATION = false
     const val PREF_AUTOSPACE_AFTER_SUGGESTION = true

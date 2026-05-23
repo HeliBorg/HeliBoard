@@ -22,6 +22,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
+import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import org.junit.runner.RunWith
@@ -496,6 +497,22 @@ f""", // no newline at the end
             else LayoutParser.parseSimpleString(content)
             data.flatten().forEach { key -> key.compute(params)?.toKeyParams(params) }
         }
+    }
+
+    @Test fun shortcutRowsParseToPopupKeySpecs() {
+        val top = LayoutParser.parseJsonString(File("src/main/assets/layouts/shortcut_top/shortcut_top.json").readText()).first()
+            .mapNotNull { it.compute(params)?.getPopupLabel(params) }
+            .map { helium314.keyboard.keyboard.internal.PopupKeySpec(it, false, Locale.US) }
+        assertEquals(KeyCode.UNDO, top[0].mCode)
+        assertEquals(KeyCode.REDO, top[1].mCode)
+        assertEquals(KeyCode.EMOJI, top.last().mCode)
+
+        val bottom = LayoutParser.parseJsonString(File("src/main/assets/layouts/shortcut_bottom/shortcut_bottom.json").readText()).first()
+            .mapNotNull { it.compute(params)?.getPopupLabel(params) }
+            .map { helium314.keyboard.keyboard.internal.PopupKeySpec(it, false, Locale.US) }
+        assertEquals(KeyCode.ARROW_LEFT, bottom[0].mCode)
+        assertEquals(KeyCode.ARROW_RIGHT, bottom[1].mCode)
+        assertEquals(KeyCode.NUMPAD, bottom[bottom.lastIndex - 1].mCode)
     }
 
     @Test fun simpleWithLabelPopupHasCode() {
