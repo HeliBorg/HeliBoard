@@ -40,7 +40,7 @@ public interface DrawingProxy {
 
     @Nullable
     PopupKeysPanel showShortcutRowKeyboard(@NonNull Key key, @NonNull PointerTracker tracker,
-            @NonNull LayoutType layoutType);
+            @NonNull LayoutType layoutType, boolean belowSourceKey);
 
     /**
      * Start a while-typing-animation.

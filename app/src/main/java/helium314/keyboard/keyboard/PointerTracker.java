@@ -1353,15 +1353,19 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int dX = x - mStartX;
         final int dY = y - mStartY;
         final LayoutType layoutType;
+        final boolean belowSourceKey;
         if (mShortcutTopRowSwipeAllowed && dY <= -sPointerStep && abs(dY) > abs(dX)) {
             layoutType = LayoutType.SHORTCUT_TOP;
+            belowSourceKey = false;
         } else if (mShortcutBottomRowSwipeAllowed && dY >= sPointerStep && abs(dY) > abs(dX)) {
             layoutType = LayoutType.SHORTCUT_BOTTOM;
+            belowSourceKey = true;
         } else {
             return false;
         }
 
-        final PopupKeysPanel popupKeysPanel = sDrawingProxy.showShortcutRowKeyboard(mCurrentKey, this, layoutType);
+        final PopupKeysPanel popupKeysPanel = sDrawingProxy.showShortcutRowKeyboard(
+                mCurrentKey, this, layoutType, belowSourceKey);
         if (popupKeysPanel == null) {
             return false;
         }

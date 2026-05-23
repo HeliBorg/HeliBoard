@@ -579,7 +579,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     @Override
     @Nullable
     public PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key,
-                                                @NonNull final PointerTracker tracker) {
+            @NonNull final PointerTracker tracker) {
+        return showPopupKeysKeyboard(key, tracker, false);
+    }
+
+    @Nullable
+    private PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key,
+            @NonNull final PointerTracker tracker, final boolean belowSourceKey) {
         final PopupKeySpec[] popupKeys = key.getPopupKeys();
         if (popupKeys == null) {
             return null;
@@ -623,7 +629,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         // aligned with the bottom edge of the visible part of the key preview.
         // {@code mPreviewVisibleOffset} has been set appropriately in
         // {@link KeyboardView#showKeyPreview(PointerTracker)}.
-        final int pointY = key.getY() + mKeyPreviewDrawParams.getVisibleOffset();
+        final int pointY = belowSourceKey
+                ? key.getY() + key.getHeight() + container.getMeasuredHeight()
+                : key.getY() + mKeyPreviewDrawParams.getVisibleOffset();
         popupKeysKeyboardView.showPopupKeysPanel(this, this, pointX, pointY, mKeyboardActionListener);
         return popupKeysKeyboardView;
     }
@@ -631,7 +639,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     @Override
     @Nullable
     public PopupKeysPanel showShortcutRowKeyboard(@NonNull final Key key,
-            @NonNull final PointerTracker tracker, @NonNull final LayoutType layoutType) {
+            @NonNull final PointerTracker tracker, @NonNull final LayoutType layoutType,
+            final boolean belowSourceKey) {
         final Keyboard keyboard = getKeyboard();
         if (keyboard == null) {
             return null;
@@ -641,7 +650,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         if (popupParentKey == null) {
             return null;
         }
-        return showPopupKeysKeyboard(popupParentKey, tracker);
+        return showPopupKeysKeyboard(popupParentKey, tracker, belowSourceKey);
     }
 
     public boolean isInDraggingFinger() {
