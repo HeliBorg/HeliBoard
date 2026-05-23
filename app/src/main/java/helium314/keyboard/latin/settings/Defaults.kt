@@ -129,8 +129,6 @@ object Defaults {
     const val PREF_GESTURE_MANUAL_SPACING = false
     const val PREF_GESTURE_FRAGMENT_BACKSPACE = true
     const val PREF_GESTURE_AUTOSPACE_GRACE_MS = 0
-    const val PREF_GESTURE_TAP_DURING_SWIPE = false
-    const val PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS = 60
     const val PREF_GESTURE_TAP_PROMOTION_MS = 0
     const val PREF_GESTURE_DUAL_THUMB_HINTING = false
     const val PREF_GESTURE_DUAL_THUMB_MIDLINE_PCT = 50

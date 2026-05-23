@@ -42,7 +42,7 @@
     <string name="settings_screen_preferences">Preferences</string>
     <!-- Settings screen title for gesture typing preferences -->
     <string name="settings_screen_gesture">Gesture Typing</string>
-    <!-- Settings screen title for the experimental two-thumb typing features (autospace grace, tap-during-swipe, manual spacing, point hinting, debug overlay, …). -->
+    <!-- Settings screen title for the experimental two-thumb typing features (manual spacing, autospace grace, point hinting, debug overlay, …). -->
     <string name="settings_screen_two_thumb_typing">Two-thumb typing (experimental)</string>
     <!-- Description shown next to the two-thumb typing settings entry on the main settings screen. -->
     <string name="settings_screen_two_thumb_typing_summary">Experimental tweaks for typing with two thumbs at once</string>
@@ -207,7 +207,6 @@
     <string name="settings_category_two_thumb_typing">Two-thumb typing</string>
     <string name="two_thumb_typing_requires_gesture">Enable gesture typing first</string>
     <string name="settings_category_two_thumb_typing_words">Build words from taps and swipes</string>
-    <string name="settings_category_two_thumb_typing_two_finger">Two-finger input</string>
     <string name="settings_category_two_thumb_typing_recognition">Recognition tuning</string>
     <string name="settings_category_two_thumb_typing_troubleshooting">Troubleshooting</string>
     <string name="two_thumb_spacing_mode">Spacing mode</string>
@@ -227,18 +226,6 @@
     <string name="gesture_autospace_grace">Autospace grace period</string>
     <!-- Text shown when the autospace grace period is zero (disabled). -->
     <string name="gesture_autospace_grace_off">Off</string>
-    <!-- Title of the setting that lets a quick tap with one finger contribute a letter to an ongoing gesture from the other finger. -->
-    <string name="gesture_tap_during_swipe">Tap during swipe</string>
-    <!-- Description for "gesture_tap_during_swipe". -->
-    <string name="gesture_tap_during_swipe_summary">A quick tap with another finger while swiping adds that letter to the same word</string>
-    <string name="two_thumb_tap_during_swipe">Tap letters while swiping</string>
-    <string name="two_thumb_tap_during_swipe_summary">While one thumb is swiping, a quick tap from the other thumb can add that letter to the same gesture word.</string>
-    <!-- Title of the setting that sets how briefly the tap must complete to count as part of the swipe. -->
-    <string name="gesture_tap_as_swipe_window">Max tap duration during swipe</string>
-    <!-- Description for "gesture_tap_as_swipe_window". -->
-    <string name="gesture_tap_as_swipe_window_summary">Taps shorter than this — while another finger is swiping — are merged into the swipe. Longer presses type the letter normally.</string>
-    <string name="two_thumb_tap_during_swipe_duration">Maximum tap length</string>
-    <string name="two_thumb_tap_during_swipe_duration_summary">Taps shorter than this can join the active swipe; longer presses type the letter normally.</string>
     <!-- Title of the setting that lets a tap on a letter, immediately followed by a swipe, become a single combined gesture. -->
     <string name="gesture_tap_promotion">Tap-then-swipe window</string>
     <!-- Description for "gesture_tap_promotion". -->

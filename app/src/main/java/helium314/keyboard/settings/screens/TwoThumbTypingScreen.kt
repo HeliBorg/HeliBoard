@@ -50,7 +50,6 @@ fun TwoThumbTypingScreen(
     val spacingMode = currentSpacingMode(prefs)
     val autospaceMode = spacingMode == SPACING_MODE_AUTOSPACE
     val nonNormalSpacing = spacingMode != SPACING_MODE_NORMAL
-    val tapDuringSwipe = prefs.getBoolean(Settings.PREF_GESTURE_TAP_DURING_SWIPE, Defaults.PREF_GESTURE_TAP_DURING_SWIPE)
     val dualThumbHinting = prefs.getBoolean(Settings.PREF_GESTURE_DUAL_THUMB_HINTING, Defaults.PREF_GESTURE_DUAL_THUMB_HINTING)
 
     val items = buildList {
@@ -70,13 +69,6 @@ fun TwoThumbTypingScreen(
         if (nonNormalSpacing) {
             add(SettingsWithoutKey.TWO_THUMB_BACKSPACE_BEHAVIOR)
         }
-
-        add(R.string.settings_category_two_thumb_typing_two_finger)
-        add(Settings.PREF_GESTURE_TAP_DURING_SWIPE)
-        if (tapDuringSwipe) {
-            add(Settings.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS)
-        }
-        add(Settings.PREF_GESTURE_TAP_PROMOTION_MS)
 
         add(R.string.settings_category_two_thumb_typing_recognition)
         add(Settings.PREF_GESTURE_DUAL_THUMB_HINTING)
@@ -147,32 +139,6 @@ fun createTwoThumbTypingSettings(context: Context) = listOf(
     Setting(context, SettingsWithoutKey.TWO_THUMB_BACKSPACE_BEHAVIOR,
         R.string.two_thumb_backspace_behavior, R.string.two_thumb_backspace_behavior_summary) {
         TwoThumbBackspaceBehaviorPreference(it)
-    },
-    Setting(context, Settings.PREF_GESTURE_AUTOSPACE_GRACE_MS, R.string.gesture_autospace_grace) { def ->
-        SliderPreference(
-            name = def.title,
-            key = def.key,
-            default = Defaults.PREF_GESTURE_AUTOSPACE_GRACE_MS,
-            range = 0f..500f,
-            description = {
-                if (it <= 0) stringResource(R.string.gesture_autospace_grace_off)
-                else stringResource(R.string.abbreviation_unit_milliseconds, it.toString())
-            }
-        )
-    },
-    Setting(context, Settings.PREF_GESTURE_TAP_DURING_SWIPE,
-        R.string.two_thumb_tap_during_swipe, R.string.two_thumb_tap_during_swipe_summary) {
-        SwitchPreference(it, Defaults.PREF_GESTURE_TAP_DURING_SWIPE)
-    },
-    Setting(context, Settings.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS,
-        R.string.two_thumb_tap_during_swipe_duration, R.string.two_thumb_tap_during_swipe_duration_summary) { def ->
-        SliderPreference(
-            name = def.title,
-            key = def.key,
-            default = Defaults.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS,
-            range = 0f..200f,
-            description = { stringResource(R.string.abbreviation_unit_milliseconds, it.toString()) }
-        )
     },
     Setting(context, Settings.PREF_GESTURE_DUAL_THUMB_HINTING,
         R.string.two_thumb_point_hinting, R.string.two_thumb_point_hinting_summary) {

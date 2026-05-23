@@ -122,8 +122,6 @@ public class SettingsValues {
         public final boolean mGestureManualSpacing;
         public final boolean mGestureFragmentBackspace;
         public final int mGestureAutospaceGraceMs;
-        public final boolean mGestureTapDuringSwipe;
-        public final int mGestureTapAsSwipeWindowMs;
         public final int mGestureTapPromotionMs;
         public final boolean mGestureDualThumbHinting;
         public final int mGestureDualThumbMidlinePct;
@@ -304,10 +302,6 @@ public class SettingsValues {
                                 Defaults.PREF_GESTURE_FRAGMENT_BACKSPACE);
                 mGestureAutospaceGraceMs = prefs.getInt(Settings.PREF_GESTURE_AUTOSPACE_GRACE_MS,
                                 Defaults.PREF_GESTURE_AUTOSPACE_GRACE_MS);
-                mGestureTapDuringSwipe = prefs.getBoolean(Settings.PREF_GESTURE_TAP_DURING_SWIPE,
-                                Defaults.PREF_GESTURE_TAP_DURING_SWIPE);
-                mGestureTapAsSwipeWindowMs = prefs.getInt(Settings.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS,
-                                Defaults.PREF_GESTURE_TAP_AS_SWIPE_WINDOW_MS);
                 mGestureTapPromotionMs = prefs.getInt(Settings.PREF_GESTURE_TAP_PROMOTION_MS,
                                 Defaults.PREF_GESTURE_TAP_PROMOTION_MS);
                 mGestureDualThumbHinting = prefs.getBoolean(Settings.PREF_GESTURE_DUAL_THUMB_HINTING,

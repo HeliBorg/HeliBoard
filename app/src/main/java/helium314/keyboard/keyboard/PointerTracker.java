@@ -124,12 +124,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private boolean mIsDetectingGesture = false; // per PointerTracker.
     private static boolean sInGesture = false;
-    // True for this pointer when its down-event happened while another pointer's batch gesture
-    // was already in progress (sInGesture==true) and the pref PREF_GESTURE_TAP_DURING_SWIPE is on.
-    // Used in onUpEventInternal to suppress an accidental tap-keystroke if the parent gesture
-    // committed between this pointer's down and up.
-    private boolean mIsTapDuringSwipe = false;
-
     // ---- Combining-mode tap seeding ------------------------------------------------------
     // When the user taps a letter and within the combining-grace window starts a swipe, the
     // pure concat path ("s" + recognizer-of-"ilo") produces unreliable results because the
@@ -1011,12 +1005,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                     sTypingTimeRecorder.getLastLetterTypingTime(), getActivePointerTrackerCount());
             mGestureStrokeDrawingPoints.onDownEvent(
                     seedX, seedY, mBatchInputArbiter.getElapsedTimeSinceFirstDown(seedTime));
-            // Two-thumb typing: remember whether this pointer started while another pointer's
-            // batch gesture was already in progress. Used in onUpEventInternal to suppress a
-            // stray tap-keystroke if the parent gesture commits before this pointer lifts.
-            mIsTapDuringSwipe = sInGesture
-                    && sv.mGestureTapDuringSwipe
-                    && key != null && Character.isLetter(key.getCode());
         }
     }
 
