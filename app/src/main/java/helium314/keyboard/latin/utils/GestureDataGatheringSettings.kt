@@ -95,7 +95,7 @@ object GestureDataGatheringSettings {
         excludedWords?.let { return it }
         val json = context.prefs().getString(PREF_WORD_EXCLUSIONS, "[]") ?: "[]"
         excludedWords = if (json.isEmpty()) sortedSetOf()
-        else Json.decodeFromString<List<String>>(json).toSortedSet(compareBy(String.CASE_INSENSITIVE_ORDER) { it })
+        else Json.decodeFromString<List<String?>>(json).toSortedSet(compareBy(String.CASE_INSENSITIVE_ORDER) { it ?: "" })
         return excludedWords!!
     }
 

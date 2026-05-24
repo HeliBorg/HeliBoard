@@ -333,7 +333,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
         if (useBackgroundGathering && inputStyle == SuggestedWords.INPUT_STYLE_TAIL_BATCH) {
             val wordData = WordData(null, suggestionResults, wordComposer.composedDataSnapshot,
-                ngramContext, keyboard, inputStyle, false, pseudoTypedWordInfo?.mWord)
+                ngramContext, keyboard, inputStyle, false, pseudoTypedWordInfo)
             BackgroundGatheringCache.addWord(wordData)
         }
 

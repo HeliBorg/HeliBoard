@@ -310,7 +310,7 @@ private fun GestureDataEntry(
             Text(text = infos, modifier = Modifier.padding(top = 2.dp))
         }
     }
-    if (showDetails) {
+    if (showDetails) { // todo: now with redacting suggestions this is... weird / almost useless
         val ctx = LocalContext.current
         val jsonData = GestureDataDao.getInstance(ctx)?.getJsonData(listOf(gestureDataInfo.id), ctx)?.firstOrNull()
         val data = runCatching { jsonData?.let { Json.decodeFromString<GestureData>(it) } }.getOrNull()

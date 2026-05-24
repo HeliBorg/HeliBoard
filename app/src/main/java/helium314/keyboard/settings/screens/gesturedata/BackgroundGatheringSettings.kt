@@ -315,6 +315,8 @@ fun BackgroundGatheringSettings() {
     }
 }
 
+// todo: clarify that only words that are in main dict are actually stored,
+//  so if you have a sensitive word only in your personal dictionary there is no need to add it (but you can still, to be 100% sure)
 @Composable fun ExcludedWordsDialog(onDismissRequest: () -> Unit) {
     val ctx = LocalContext.current
     val ignoreWords = remember { GestureDataGatheringSettings.getWordExclusions(ctx).toMutableStateList() }

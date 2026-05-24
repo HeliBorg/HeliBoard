@@ -51,17 +51,17 @@ object BackgroundGatheringCache {
             return
         }
         if (!word.isSavingOk(Settings.getCurrentContext())) {
-            Log.i(TAG, "not adding ${word.usedWord} because it's not allowed")
+            Log.i(TAG, "not adding ${word.topSuggestion} because it's not allowed")
             return
         }
-        Log.i(TAG, "adding ${word.usedWord}")
+        Log.i(TAG, "adding ${word.topSuggestion}")
         cachedWords.add(word)
         updateIcon()
     }
 
-    // only used when entering inline emoji search, because in this case the word is added before the internalAction is set
+    // used when pressing backspace or entering inline emoji search, because in this case the word is added before the internalAction is set
     fun removeLast(word: String) {
-        if (cachedWords.last().usedWord != word) return
+        if (cachedWords.lastOrNull()?.topSuggestion?.word?.equals(word, true) != true) return
         Log.i(TAG, "removing $word")
         cachedWords.removeAt(cachedWords.lastIndex)
         updateIcon()
@@ -71,27 +71,27 @@ object BackgroundGatheringCache {
         // replace the latest entry in cache, but do a sanity check
         Log.i(TAG, "picked ${suggestion.word} instead of $originalWord after gesturing")
         val lastEntry = cachedWords.lastOrNull()
-        if (lastEntry?.usedWord != originalWord) {
-            Log.w(TAG, "...but our last word is ${lastEntry?.usedWord}, not $originalWord")
+        if (lastEntry?.topSuggestion?.word?.equals(originalWord, true) != true) {
+            Log.w(TAG, "...but our last word is ${lastEntry?.topSuggestion}, not $originalWord")
             return
         }
-        lastEntry.usedWord = suggestion.mWord
-        lastEntry.targetWord = suggestion.mWord
+        // consider that suggestion might be capitalized
+        lastEntry.targetWord = lastEntry.suggestions.firstOrNull { it.mWord.equals(suggestion.mWord, true) }?.mWord
+        Log.i(TAG, "setting target word to ${lastEntry.targetWord}")
     }
 
     fun onPickSuggestion(suggestion: SuggestedWords.SuggestedWordInfo, originalWord: String) {
-        Log.i(TAG, "picked ${suggestion.word} instead of $originalWord")
         // this happens after tap-typing (new word or corrected gesture word), or when moving the cursor and then selecting a different suggestion
         // don't update anything if we have the word more than once
-        val word = cachedWords.singleOrNull { it.usedWord == originalWord } ?: return
-        word.usedWord = suggestion.mWord
-        word.targetWord = suggestion.mWord
+        val word = cachedWords.singleOrNull { it.topSuggestion?.word?.equals(originalWord, true) == true } ?: return
+        word.targetWord = word.suggestions.firstOrNull { it.mWord.equals(suggestion.mWord, true) }?.mWord
+        Log.i(TAG, "picked ${word.targetWord} instead of $originalWord")
     }
 
     fun onRejectedSuggestion(suggestion: String) {
         Log.i(TAG, "rejected $suggestion")
-        if (cachedWords.lastOrNull()?.usedWord != suggestion) {
-            Log.w(TAG, "...but last word is ${cachedWords.lastOrNull()?.usedWord}")
+        if (cachedWords.lastOrNull()?.topSuggestion?.word?.equals(suggestion, true) != true) {
+            Log.w(TAG, "...but last word is ${cachedWords.lastOrNull()?.topSuggestion?.word}")
             return
         }
         cachedWords.removeAt(cachedWords.lastIndex)
@@ -100,7 +100,7 @@ object BackgroundGatheringCache {
 
     fun onUndo(lastComposedWord: CharSequence) {
         Log.i(TAG, "undo after committing $lastComposedWord")
-        if (cachedWords.lastOrNull()?.usedWord == lastComposedWord) {
+        if (cachedWords.lastOrNull()?.topSuggestion == lastComposedWord || cachedWords.lastOrNull()?.targetWord == lastComposedWord) {
             Log.i(TAG, "removing $lastComposedWord")
             cachedWords.removeAt(cachedWords.lastIndex)
         }
@@ -111,7 +111,7 @@ object BackgroundGatheringCache {
         // this is pretty aggressive, because repeated backspace might remove different words
         // but better remove a few % of the words instead of having potentially bad data
         Log.i(TAG, "edit something in $word")
-        cachedWords.removeAll { it.usedWord == word }
+        cachedWords.removeAll { it.topSuggestion?.word?.equals(word, true) == true || it.targetWord?.equals(word, true) == true }
         updateIcon()
     }
 
@@ -131,7 +131,7 @@ object BackgroundGatheringCache {
             || (trimmed != selection && (wordAtStart == trimmed || wordAtEnd == trimmed)) // treat word + space like word
         ) {
             Log.i(TAG, "word or part of word selected, removing word")
-            cachedWords.removeAll { it.usedWord == wordAtStart.mWord }
+            cachedWords.removeAll { it.topSuggestion == wordAtStart.mWord || it.targetWord == wordAtStart.mWord }
         } else {
             // more than one word selected, we do nothing because deleting much is unlikely to happen because of bad gesture typing
         }
@@ -200,13 +200,13 @@ class WordData(
     var targetWord: String?, // might be adjusted when using background gathering
     val suggestions: SuggestionResults,
     val composedData: ComposedData,
-    val ngramContext: NgramContext,
+    val ngramContext: NgramContext, // actually we don't use it
     val keyboard: Keyboard,
     val inputStyle: Int,
     val activeMode: Boolean,
-    // first suggestion in background gathering, used to track later changes (not saved)
-    // may have different capitalization compared to suggestions
-    var usedWord: String? = null
+    // first suggestion in background gathering, used to track later changes
+    // may not be in SuggestionResults due to processing
+    var topSuggestion: SuggestedWords.SuggestedWordInfo? = null
 ) {
     // keyboard is not immutable, so better store potentially relevant information immediately
     private val keys = keyboard.sortedKeys
@@ -237,32 +237,12 @@ class WordData(
             }
         )
         if (!activeMode && targetWord != null && suggestions.none { it.mWord == targetWord }) {
-            // change target word to the first case insensitive match if there is no case sensitive match
+            // change target word to the first case insensitive match if there is no case sensitive match (actually this should not be necessary?)
             val match = suggestions.firstOrNull { it.mWord.equals(targetWord, true) }
             if (match != null) targetWord = match.mWord
         }
-        val filteredSuggestions = mutableListOf<SuggestedWords.SuggestedWordInfo>()
-        for (word in suggestions.sortedByDescending { it.mOriginalScore }) {
-            if (word.mWord == targetWord) {
-                // always add the targetWord if we have it
-                filteredSuggestions.add(word)
-                continue
-            }
-            if (word.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS
-                || suggestions.any { it.mWord == word.mWord && it.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS })
-                continue // never store contacts (might be in user history too)
-            // for the personal dictionary we rely on the ignore list
-            if (word.mOriginalScore < 0 && filteredSuggestions.size > 5)
-                continue // no need to add bad matches
-            if (filteredSuggestions.any { it.mWord == word.mWord })
-                continue // only first occurrence word
-            if (filteredSuggestions.size > 18) // user sees 18 suggestions at most
-            // todo: some data contains more suggestions than allowed -> there is something broken here!
-                continue // should be enough
-            if (!activeMode && word.mWord in GestureDataGatheringSettings.getWordExclusions(context))
-                continue // keep blocked suggestions in active mode because otherwise one might find out which word is blocked
-            filteredSuggestions.add(word)
-        }
+
+        val filteredSuggestions = filterSuggestions(GestureDataGatheringSettings.getWordExclusions(context))
         // we want to store which dictionaries are used, and a dict index (in used dict list) for each suggestion
         var dictCount = 0
         val dictionariesInUsedSuggestions = LinkedHashMap<Dictionary, Int>().apply { // linked because we need the order
@@ -284,41 +264,91 @@ class WordData(
             activeMode,
             null
         )
-        scope.launch { dao.add(data, targetWord ?: usedWord, timestamp) }
+        scope.launch { dao.add(data, targetWord ?: topSuggestion?.word, timestamp) }
         if (!activeMode)
             scope.launch(Dispatchers.Main) { GestureDataGatheringSettings.informAboutTooManyBackgroundModeWords(context, dao) }
     }
 
+    fun filterSuggestions(blockedWords: Collection<String>): List<SuggestedWords.SuggestedWordInfo> {
+        val filteredSuggestions = mutableListOf<SuggestedWords.SuggestedWordInfo>()
+        for (word in suggestions.sortedByDescending { it.mOriginalScore }) {
+            if (activeMode && word.mWord == targetWord) {
+                // always add the targetWord if we have it
+                filteredSuggestions.add(word)
+                continue
+            }
+            if (filteredSuggestions.any { it.mWord == word.mWord })
+                continue // only first occurrence word
+            if (filteredSuggestions.size > 18) // user sees 18 suggestions at most
+                continue
+            if (word.mOriginalScore < 0 && filteredSuggestions.size > 5)
+                continue // no need to add bad matches
+            if (activeMode) {
+                filteredSuggestions.add(word)
+                continue
+            }
+            if (word.mWord in blockedWords)
+                continue // we should never come here, but better check twice
+            if (word.mWord == targetWord) {
+                // always add the targetWord if we have it
+                filteredSuggestions.add(word)
+                continue
+            }
+            if (word.mWord == topSuggestion?.word && suggestions.any { it.mWord == topSuggestion?.mWord && it.isFromMainDict() }) {
+                // always add the topSuggestion if it's in a main dict
+                filteredSuggestions.add(word)
+                continue
+            }
+            filteredSuggestions.add(word.redact())
+        }
+        return filteredSuggestions
+    }
+
     // find when we should NOT save
     fun isSavingOk(context: Context): Boolean {
+        // drop if
+        //  used or target word is in contacts dict
+        //
         if (inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH)
             return false
-        if (activeMode && suggestions.all { it.mSourceDict == suggestions.first().mSourceDict })
-            return true // active mode should be fine, the size check is just an addition in case there is a bug that sets the wrong mode or dictionary facilitator
+        if (activeMode)
+            // active mode should be fine, the check is just an addition in case there is a bug that sets the wrong mode or dictionary facilitator
+            return suggestions.all { it.mSourceDict == suggestions.first().mSourceDict }
         if (Settings.getValues().mIncognitoModeEnabled)
             return false // don't save in incognito mode
-        if (!activeMode && !GestureDataGatheringSettings.isBackgroundGatheringEnabled(context.prefs()))
+        if (!GestureDataGatheringSettings.isBackgroundGatheringEnabled(context.prefs()))
             return false
-        if ((targetWord ?: usedWord)?.contains(' ') == true) // no support for SPACE_AWARE_GESTURE
+        if ((targetWord ?: topSuggestion?.word)?.contains(' ') == true) // no support for SPACE_AWARE_GESTURE
             return false
-        if (!activeMode && GestureDataGatheringSettings.isForbiddenForDataGathering(packageName, context))
+        if (GestureDataGatheringSettings.isForbiddenForDataGathering(packageName, context))
             return false // package ignored (we should never come here for blocked apps, but better be safe)
         val inputAttributes = InputAttributes(keyboard.mId.mEditorInfo, false, "")
         val isEmailField = InputTypeUtils.isEmailVariation(inputAttributes.mInputType and InputType.TYPE_MASK_VARIATION)
         if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning || isEmailField)
             return false // probably some more inputAttributes to consider
-        if (suggestions.firstOrNull()?.mSourceDict?.mDictType == Dictionary.TYPE_CONTACTS)
-            return false
-        val matchingSuggestions = suggestions.filter { it.mWord.equals(targetWord ?: usedWord, true) }
+
+        val matchingSuggestions = suggestions.filter { it.mWord.equals(targetWord ?: topSuggestion?.word, true) }
         if (matchingSuggestions.all { (it.mKindAndFlags and 0xFF) == KIND_SHORTCUT })
             return false // we want at least one non-shortcut
+
+        // word and dict-based filtering
+        if (matchingSuggestions.none { it.isFromMainDict() })
+            return false // we have no use if not in main dictionary, also potentially sensitive
+        if (matchingSuggestions.any { it.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS })
+            return false // if there is a suggestion from contacts -> never use it
         val ignoreWords = GestureDataGatheringSettings.getWordExclusions(context)
-        // how to deal with the ignore list?
-        // check targetWord and first 5 suggestions?
-        // or check only what is in the actually saved suggestions?
-        if (usedWord in ignoreWords || suggestions.take(5).any { it.word in ignoreWords })
+        // don't store if first suggestion or target word is blocked, the other suggestions will get redacted anyway
+        if (topSuggestion?.mWord?.let { it in ignoreWords } == true || targetWord in ignoreWords)
             return false
         return true
+    }
+
+    private fun SuggestedWords.SuggestedWordInfo.redact() =
+        SuggestedWords.SuggestedWordInfo("", "", 0, 0, mSourceDict, 0, 0)
+
+    private fun SuggestedWords.SuggestedWordInfo.isFromMainDict() = when (mSourceDict.mDictType) {
+        Dictionary.TYPE_CONTACTS, Dictionary.TYPE_USER, Dictionary.TYPE_APPS, Dictionary.TYPE_USER_HISTORY -> false
+        else -> true
     }
 }
 
