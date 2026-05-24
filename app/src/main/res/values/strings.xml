@@ -285,7 +285,7 @@
     <string name="two_thumb_backspace_behavior">Backspace behavior</string>
     <string name="two_thumb_backspace_behavior_summary">Choose what backspace removes while using manual spacing or delayed autospace.</string>
     <string name="two_thumb_backspace_normal">Delete one character</string>
-    <string name="two_thumb_backspace_fragment">Delete last word part</string>
+    <string name="two_thumb_backspace_fragment">Delete last fragment</string>
     <string name="two_thumb_backspace_word">Delete whole word</string>
     <string name="multipart_join_key_mode">Explicit "join next" modifier</string>
     <string name="multipart_join_key_mode_summary">Force the next input to extend the current word regardless of timing.</string>

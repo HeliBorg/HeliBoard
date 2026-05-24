@@ -394,7 +394,7 @@ class InputLogicTest {
         assertEquals("", composingText)
     }
 
-    @Test fun wholeWordBackspaceCanKeepManualSpacingComposingTextInEditor() {
+    @Test fun wholeWordBackspaceWithLiveComposingDeleteOffFallsBackToOneCharacter() {
         reset()
         latinIME.prefs().edit {
             putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, true)
@@ -409,7 +409,88 @@ class InputLogicTest {
 
         functionalKeyPress(KeyCode.DELETE)
 
-        assertEquals("hello", textBeforeCursor)
+        assertEquals("hell", textBeforeCursor)
+        assertEquals("hell", composingText)
+    }
+
+    @Test fun fragmentBackspaceDeletesOnlySwipeFragment() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, true)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, true)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, false)
+        }
+
+        gestureInput("fire")
+        assertEquals("fire", textBeforeCursor)
+        assertEquals("fire", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("", textBeforeCursor)
+        assertEquals("", composingText)
+    }
+
+    @Test fun fragmentBackspaceDeletesLastSwipeFragmentInMultipartWord() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, true)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, true)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, false)
+        }
+
+        gestureInput("fire")
+        gestureInput("truck")
+        assertEquals("firetruck", textBeforeCursor)
+        assertEquals("firetruck", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("fire", textBeforeCursor)
+        assertEquals("fire", composingText)
+    }
+
+    @Test fun fragmentBackspaceDeletesLastSwipeFragmentAfterAutospaceCommit() {
+        reset()
+        latinIME.prefs().edit {
+            putInt(Settings.PREF_COMBINING_GRACE_MS, 1000)
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, false)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, true)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, false)
+        }
+
+        gestureInput("fire")
+        gestureInput("truck")
+        expireCombiningGrace()
+        assertEquals("firetruck ", textBeforeCursor)
+        assertEquals("", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("fire", textBeforeCursor)
+        assertEquals("", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("", textBeforeCursor)
+        assertEquals("", composingText)
+    }
+
+    @Test fun wholeWordBackspaceWithLiveComposingDeleteOnClearsComposingSpan() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, true)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, false)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, true)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT, true)
+        }
+
+        chainInput("hello")
+        functionalKeyPress(KeyCode.DELETE)
+        chainInput("hi")
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("", textBeforeCursor)
         assertEquals("", composingText)
     }
 

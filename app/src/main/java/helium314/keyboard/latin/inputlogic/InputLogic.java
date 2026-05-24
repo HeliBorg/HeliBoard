@@ -140,7 +140,11 @@ public final class InputLogic {
     // character at a time. The list is kept in sync with {@code mWordComposer.getTypedWord()}:
     // entries past the current length are filtered at read time, and the list is cleared
     // outright whenever the composing word is committed or reset.
-    private final java.util.ArrayList<Integer> mGestureFragmentBoundaries = new java.util.ArrayList<>();
+    private final ArrayList<Integer> mGestureFragmentBoundaries = new ArrayList<>();
+    /** Fragment lengths within the most recent gesture-driven commit. The last entry includes
+     *  the trailing autospace if one was inserted. Used by "Delete last fragment" after the
+     *  composing word has already been auto-committed. */
+    private final ArrayList<Integer> mLastGestureCommittedFragmentLengths = new ArrayList<>();
 
     // ---- Unified combining-mode state machine ----------------------------------------------
     // After every composing-word-extending event (tap of a letter OR gesture completion),
@@ -773,8 +777,7 @@ public final class InputLogic {
     // composing word is committed or reset; stale entries beyond the current length are
     // filtered in {@link #tryFragmentBackspace} as a defensive measure.
 
-    /** Record a fragment boundary at the current composing-word length. No-op when not in manual+fragment mode. */
-    private void recordFragmentBoundaryIfTracking(final SettingsValues sv) {
+    private boolean shouldTrackFragmentBoundaries(final SettingsValues sv) {
         // Two paths into fragment tracking:
         //   * Legacy manual-spacing mode (#1.1) — gated on both prefs.
         //   * Multi-part word composition (#1.6) — combining mode is the trigger; fragment
@@ -784,9 +787,20 @@ public final class InputLogic {
         final boolean multipartTracking = sv.mMultipartAutoExtendInCombining
                 && sv.mCombiningGraceMs > 0
                 && sv.mGestureFragmentBackspace;
-        if (!legacyTracking && !multipartTracking) return;
+        return legacyTracking || multipartTracking;
+    }
+
+    /** Record a fragment boundary at the current composing-word length. No-op when not in fragment mode. */
+    private void recordFragmentBoundaryIfTracking(final SettingsValues sv) {
+        if (!shouldTrackFragmentBoundaries(sv)) return;
         if (!mWordComposer.isComposingWord()) return;
-        final int len = mWordComposer.getTypedWord().length();
+        recordFragmentBoundaryIfTracking(sv, mWordComposer.getTypedWord().length());
+    }
+
+    /** Record a fragment boundary at a known composing-word length. */
+    private void recordFragmentBoundaryIfTracking(final SettingsValues sv, final int len) {
+        if (!shouldTrackFragmentBoundaries(sv)) return;
+        if (len <= 0) return;
         // Don't record duplicates (e.g. the same fragment appended twice in quick succession).
         if (!mGestureFragmentBoundaries.isEmpty()
                 && mGestureFragmentBoundaries.get(mGestureFragmentBoundaries.size() - 1) == len) {
@@ -798,6 +812,13 @@ public final class InputLogic {
     /** Clear all recorded fragment boundaries. Call after committing / resetting the composing word. */
     private void clearFragmentBoundaries() {
         if (!mGestureFragmentBoundaries.isEmpty()) mGestureFragmentBoundaries.clear();
+    }
+
+    private void clearCommittedGestureBackspaceState() {
+        mLastGestureCommittedLength = 0;
+        if (!mLastGestureCommittedFragmentLengths.isEmpty()) {
+            mLastGestureCommittedFragmentLengths.clear();
+        }
     }
 
     // ---- Unified combining-mode helpers --------------------------------------------------
@@ -816,7 +837,7 @@ public final class InputLogic {
         // next-word predictions" one-shot — the user moved on to typing the next word.
         mAutospaceAlternativesPending = false;
         mAutoCommitRevertLength = 0;
-        mLastGestureCommittedLength = 0;
+        clearCommittedGestureBackspaceState();
         mAutospaceJustWritten = false;
         final int baseGraceMs = settingsValues.mCombiningGraceMs;
         if (baseGraceMs <= 0) return;
@@ -846,7 +867,7 @@ public final class InputLogic {
         OneShotSpaceAction.armJoinNext();
         mAutospaceAlternativesPending = false;
         mAutoCommitRevertLength = 0;
-        mLastGestureCommittedLength = 0;
+        clearCommittedGestureBackspaceState();
         mAutospaceJustWritten = false;
         if (Constants.CODE_SPACE == mConnection.getCodePointBeforeCursor()
                 && !mWordComposer.isComposingWord()) {
@@ -909,7 +930,7 @@ public final class InputLogic {
         // represent the user explicitly leaving the just-auto-committed context.
         mAutospaceAlternativesPending = false;
         mAutoCommitRevertLength = 0;
-        mLastGestureCommittedLength = 0;
+        clearCommittedGestureBackspaceState();
         mAutospaceJustWritten = false;
         if (mInCombiningMode) {
             mInCombiningMode = false;
@@ -985,6 +1006,8 @@ public final class InputLogic {
         // commit itself doesn't move the cursor. We need the typed-word length plus whatever
         // chars the autospace path writes to know how much to undo on a suggestion-pick.
         final String typedWordAtCommit = mWordComposer.getTypedWord();
+        final ArrayList<Integer> fragmentLengthsAtCommit =
+                getFragmentLengthsForCommit(typedWordAtCommit.length());
         final int cursorBefore = mConnection.getExpectedSelectionEnd();
         mConnection.beginBatchEdit();
         if (sv.mCombiningAutocorrectOnAutospace) {
@@ -1068,6 +1091,21 @@ public final class InputLogic {
         // 0 for tap-only commits, where char-by-char delete is the right behavior.
         if (wasBatchMode) {
             mLastGestureCommittedLength = writtenChars;
+            mLastGestureCommittedFragmentLengths.clear();
+            if (!fragmentLengthsAtCommit.isEmpty()) {
+                final int committedDelta = committedLen - typedWordAtCommit.length();
+                final int lastIndex = fragmentLengthsAtCommit.size() - 1;
+                final int adjustedLastFragmentLen =
+                        fragmentLengthsAtCommit.get(lastIndex) + committedDelta + autospaceChars;
+                if (adjustedLastFragmentLen > 0) {
+                    fragmentLengthsAtCommit.set(lastIndex, adjustedLastFragmentLen);
+                    mLastGestureCommittedFragmentLengths.addAll(fragmentLengthsAtCommit);
+                } else if (writtenChars > 0) {
+                    mLastGestureCommittedFragmentLengths.add(writtenChars);
+                }
+            } else if (writtenChars > 0) {
+                mLastGestureCommittedFragmentLengths.add(writtenChars);
+            }
         }
         // "keep_alternatives" — fall through, do nothing.
     }
@@ -1088,6 +1126,7 @@ public final class InputLogic {
                 && sv.mCombiningGraceMs > 0
                 && sv.mGestureFragmentBackspace;
         if (!legacyTracking && !multipartTracking) return false;
+        if (sv.mCombiningBackspaceDeletesGestureWord) return false;
         if (mGestureFragmentBoundaries.isEmpty()) return false;
         if (!mWordComposer.isComposingWord()) {
             clearFragmentBoundaries();
@@ -1098,16 +1137,24 @@ public final class InputLogic {
         final int currentLen = mWordComposer.getTypedWord().length();
         // Filter out stale boundaries past the current length.
         while (!mGestureFragmentBoundaries.isEmpty()
-                && mGestureFragmentBoundaries.get(mGestureFragmentBoundaries.size() - 1) >= currentLen) {
+                && mGestureFragmentBoundaries.get(mGestureFragmentBoundaries.size() - 1) > currentLen) {
             mGestureFragmentBoundaries.remove(mGestureFragmentBoundaries.size() - 1);
         }
         if (mGestureFragmentBoundaries.isEmpty()) return false;
 
-        // Pop one boundary and shrink to the previous one (or 0 if no more).
-        mGestureFragmentBoundaries.remove(mGestureFragmentBoundaries.size() - 1);
-        final int newLen = mGestureFragmentBoundaries.isEmpty()
-                ? 0
-                : mGestureFragmentBoundaries.get(mGestureFragmentBoundaries.size() - 1);
+        final int lastBoundary = mGestureFragmentBoundaries.get(mGestureFragmentBoundaries.size() - 1);
+        final int newLen;
+        if (lastBoundary == currentLen) {
+            // The last marker is the end of the current fragment. Pop it and shrink to the
+            // previous marker, or to 0 for a single-fragment word.
+            mGestureFragmentBoundaries.remove(mGestureFragmentBoundaries.size() - 1);
+            newLen = mGestureFragmentBoundaries.isEmpty()
+                    ? 0
+                    : mGestureFragmentBoundaries.get(mGestureFragmentBoundaries.size() - 1);
+        } else {
+            // Defensive fallback for words whose current fragment end was not recorded.
+            newLen = lastBoundary;
+        }
 
         final String oldWord = mWordComposer.getTypedWord();
         final String newWord = newLen <= 0
@@ -1132,6 +1179,22 @@ public final class InputLogic {
         // Bump the delete count so any caller watching it (key-repeat etc.) sees progress.
         mDeleteCount++;
         return true;
+    }
+
+    private ArrayList<Integer> getFragmentLengthsForCommit(final int currentLen) {
+        final ArrayList<Integer> fragmentLengths = new ArrayList<>();
+        if (currentLen <= 0) return fragmentLengths;
+        int previousBoundary = 0;
+        for (int i = 0; i < mGestureFragmentBoundaries.size(); ++i) {
+            final int boundary = mGestureFragmentBoundaries.get(i);
+            if (boundary <= previousBoundary || boundary > currentLen) continue;
+            fragmentLengths.add(boundary - previousBoundary);
+            previousBoundary = boundary;
+        }
+        if (previousBoundary < currentLen) {
+            fragmentLengths.add(currentLen - previousBoundary);
+        }
+        return fragmentLengths;
     }
 
     // TODO: on the long term, this method should become private, but it will be
@@ -1826,6 +1889,8 @@ public final class InputLogic {
         // clears it. If non-zero (the previous commit was a gesture), this backspace MIGHT
         // delete the whole word — see further down, after the autocorrect-revert branch.
         final int gestureCommittedLen = mLastGestureCommittedLength;
+        final ArrayList<Integer> gestureCommittedFragmentLengths =
+                new ArrayList<>(mLastGestureCommittedFragmentLengths);
         // Combining mode: a backspace always cancels the pending commit. The user is
         // explicitly retracting input; we don't want the timer to fire mid-correction.
         cancelCombiningMode();
@@ -1879,15 +1944,13 @@ public final class InputLogic {
                 StatsUtils.onBackspaceWordDelete(rejectedSuggestion.length());
             } else if ((inputTransaction.getSettingsValues().mGestureManualSpacing
                     || inputTransaction.getSettingsValues().mCombiningGraceMs > 0)
-                    && inputTransaction.getSettingsValues().mCombiningBackspaceDeletesGestureWord) {
+                    && inputTransaction.getSettingsValues().mCombiningBackspaceDeletesGestureWord
+                    && inputTransaction.getSettingsValues().mCombiningBackspaceDeletesComposingText) {
                 final int wordLength = mWordComposer.getTypedWord().length();
-                if (inputTransaction.getSettingsValues().mCombiningBackspaceDeletesComposingText) {
-                    mConnection.beginBatchEdit();
-                    mConnection.deleteTextBeforeCursor(wordLength);
-                    mConnection.endBatchEdit();
-                } else {
-                    mConnection.finishComposingText();
-                }
+                mConnection.beginBatchEdit();
+                mConnection.deleteTextBeforeCursor(wordLength);
+                mConnection.finishComposingText();
+                mConnection.endBatchEdit();
                 mWordComposer.reset();
                 StatsUtils.onBackspaceWordDelete(wordLength);
             } else {
@@ -1925,6 +1988,21 @@ public final class InputLogic {
             // words don't qualify — gestureCommittedLen is 0 for those. We delete via
             // deleteTextBeforeCursor instead of the usual single-char path so the user
             // doesn't have to mash backspace to undo a swiped word.
+            final int gestureCommittedFragmentLen = gestureCommittedFragmentLengths.isEmpty()
+                    ? 0
+                    : gestureCommittedFragmentLengths.remove(gestureCommittedFragmentLengths.size() - 1);
+            if (gestureCommittedFragmentLen > 0
+                    && inputTransaction.getSettingsValues().mGestureFragmentBackspace
+                    && !inputTransaction.getSettingsValues().mCombiningBackspaceDeletesGestureWord) {
+                mConnection.beginBatchEdit();
+                mConnection.deleteTextBeforeCursor(gestureCommittedFragmentLen);
+                mConnection.endBatchEdit();
+                mLastGestureCommittedFragmentLengths.clear();
+                mLastGestureCommittedFragmentLengths.addAll(gestureCommittedFragmentLengths);
+                StatsUtils.onBackspaceWordDelete(gestureCommittedFragmentLen);
+                inputTransaction.setRequiresUpdateSuggestions();
+                return;
+            }
             if (gestureCommittedLen > 0
                     && inputTransaction.getSettingsValues().mCombiningBackspaceDeletesGestureWord) {
                 mConnection.beginBatchEdit();
@@ -3118,17 +3196,19 @@ public final class InputLogic {
             } else {
                 setSuggestedWords(SuggestedWords.getEmptyInstance());
             }
-            // PREF_GESTURE_FRAGMENT_BACKSPACE: record this gesture as a fragment boundary
-            // so backspace can pop the whole word at once. When extending an existing
-            // composing word, both the prior fragments AND this new one are already in the
-            // boundaries list (prior fragments were recorded at their own append time);
-            // recordFragmentBoundaryIfTracking adds the NEW boundary at the end. No-op if
-            // PREF_GESTURE_FRAGMENT_BACKSPACE isn't on.
+            // PREF_GESTURE_FRAGMENT_BACKSPACE: make sure the previous word length is present
+            // (fresh gesture words did not have an earlier extension point), then record this
+            // gesture's end so backspace can pop exactly one fragment.
+            if (!usedMergedTrail) {
+                recordFragmentBoundaryIfTracking(settingsValues, prevTypedWord.length());
+            }
             recordFragmentBoundaryIfTracking(settingsValues);
         } else {
             // Non-extend path replaces the whole composing word each gesture; any prior
-            // fragment boundaries become meaningless.
+            // fragment boundaries become meaningless, then the new gesture becomes the only
+            // fragment currently available to pop.
             clearFragmentBoundaries();
+            recordFragmentBoundaryIfTracking(settingsValues);
         }
         // Tap-promotion-extend is a one-shot decision per gesture; clear the flag so the
         // next gesture re-evaluates the timing.

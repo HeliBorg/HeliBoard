@@ -2,6 +2,7 @@ package helium314.keyboard.settings
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
+import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -72,5 +73,11 @@ class SettingsContainerTest {
             container[Settings.PREF_MULTIPART_FULL_WORD_SUGGESTIONS]?.key)
         assertEquals(Settings.PREF_GESTURE_DEBUG_ACCUMULATE_FRAGMENTS,
             container[Settings.PREF_GESTURE_DEBUG_ACCUMULATE_FRAGMENTS]?.key)
+    }
+
+    @Test
+    fun twoThumbFragmentBackspaceLabelMatchesBehavior() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        assertEquals("Delete last fragment", context.getString(R.string.two_thumb_backspace_fragment))
     }
 }
