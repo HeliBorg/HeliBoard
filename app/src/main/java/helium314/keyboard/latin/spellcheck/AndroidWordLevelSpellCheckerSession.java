@@ -288,6 +288,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
             // Handle special patterns like email, URI, telephone number.
             final int checkability = getCheckabilityInScript(text, mScript);
+            final int capitalizeType = StringUtils.getCapitalizationType(text);
             if (CHECKABILITY_CHECKABLE != checkability) {
                 // CHECKABILITY_CONTAINS_PERIOD Typo should not be reported when text is a valid word followed by a single period (end of sentence).
                 boolean periodOnlyAtLastIndex = text.indexOf(Constants.CODE_PERIOD) == (text.length() - 1);
@@ -308,14 +309,12 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                                         TextUtils.join(Constants.STRING_SPACE, splitText) });
                     }
                 }
-                return mService.isValidWord(mLocale, text) ?
+                return isInDictForAnyCapitalization(text, capitalizeType) ?
                         AndroidSpellCheckerService.getInDictEmptySuggestions() :
                         AndroidSpellCheckerService.getNotInDictEmptySuggestions(!periodOnlyAtLastIndex);
             }
 
             // Handle normal words.
-            final int capitalizeType = StringUtils.getCapitalizationType(text);
-
             if (isInDictForAnyCapitalization(text, capitalizeType)) {
                 if (DebugFlags.DEBUG_ENABLED) {
                     Log.i(TAG, "onGetSuggestionsInternal() : [" + text + "] is a valid word");
@@ -351,7 +350,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                         builder.append(suggestion);
                         builder.append("]");
                     }
-                    Log.i(TAG, "onGetSuggestionsInternal() : Suggestions =" + builder);
+                    Log.i(TAG, "spell onGetSuggestionsInternal() : Suggestions =" + builder);
                 }
             }
             // Handle word not in dictionary.

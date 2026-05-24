@@ -78,9 +78,9 @@ fun DictionaryScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
+                        .clickable { showAddDictDialog = true }
                         .padding(vertical = 4.dp, horizontal = 16.dp)
                         .fillMaxWidth()
-                        .clickable { showAddDictDialog = true }
                 ) {
                     Text(
                         stringResource(R.string.add_new_dictionary_title),

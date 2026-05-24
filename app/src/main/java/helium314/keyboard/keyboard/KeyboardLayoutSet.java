@@ -10,7 +10,6 @@ import android.content.Context;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
-import helium314.keyboard.compat.IsLockedCompatKt;
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
@@ -217,7 +216,7 @@ public final class KeyboardLayoutSet {
             params.mEditorInfo = editorInfo;
 
             // When the device is still locked, features like showing the IME setting app need to be locked down.
-            params.mDeviceLocked = IsLockedCompatKt.isDeviceLocked(context);
+            params.mDeviceLocked = Settings.getValues().mIsLocked;
         }
 
         public static KeyboardLayoutSet buildEmojiClipBottomRow(final Context context, @Nullable final EditorInfo ei) {

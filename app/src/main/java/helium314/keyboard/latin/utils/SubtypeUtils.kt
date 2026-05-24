@@ -84,9 +84,9 @@ fun getPopupKeyHintOrder(subtype: InputMethodSubtype, prefs: SharedPreferences):
     return getEnabledPopupKeys(string)
 }
 
-fun getMoreKeys(subtype: InputMethodSubtype, prefs: SharedPreferences): String =
+fun getMoreKeys(subtype: InputMethodSubtype, prefs: SharedPreferences, default: String): String =
     subtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
-        ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)!!
+        ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, default)!!
 
 fun getSecondaryLocales(extraValues: String): List<Locale> =
     extraValues.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)

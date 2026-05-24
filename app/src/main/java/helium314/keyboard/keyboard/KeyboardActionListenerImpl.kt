@@ -128,6 +128,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 return
             }
         }
+        if (Settings.getValues().mIsLocked && KeyCode.isIsBlockedWhenLocked(primaryCode))
+            return
         val mkv = keyboardSwitcher.mainKeyboardView
 
         // checking if the character is a combining accent

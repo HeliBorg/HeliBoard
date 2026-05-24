@@ -196,7 +196,7 @@ fun getOrCreate(context: Context, locale: Locale): LocaleKeyboardInfos =
 
 fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKeysSetting: String) {
     val locales = params.mSecondaryLocales + params.mId.locale
-    params.mLocaleKeyboardInfos = localeKeyboardInfosCache.getOrPut(locales.joinToString { it.toString() }) {
+    params.mLocaleKeyboardInfos = localeKeyboardInfosCache.getOrPut(locales.joinToString { it.toString() } + Settings.getValues().mShowMorePopupKeys) {
         createLocaleKeyTexts(context, params, popupKeysSetting)
     }
 }

@@ -4,14 +4,17 @@ package helium314.keyboard.latin.settings
 import android.content.SharedPreferences
 import android.os.Build
 import android.view.inputmethod.InputMethodSubtype
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_ALL
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.define.DebugFlags
+import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.POPUP_KEYS_ORDER_DEFAULT
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeSettings
@@ -111,6 +114,15 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
             require(!filteredExtraValue.contains(Separators.SETS) && !filteredExtraValue.contains(Separators.SET))
             { "extra value contains not allowed characters $filteredExtraValue" }
             return SettingsSubtype(locale(), filteredExtraValue)
+        }
+
+        // qwerty with all diacritics and all popups enabled
+        val fallbackSubtype = SettingsSubtype("zz".constructLocale(), "").let {
+            var subtype = SettingsSubtype("zz".constructLocale(), "")
+                .with(ExtraValue.MORE_POPUPS, POPUP_KEYS_ALL)
+                .with(ExtraValue.POPUP_ORDER, POPUP_KEYS_ORDER_DEFAULT)
+            LayoutType.entries.forEach { subtype = subtype.withLayout(it, it.default) }
+            subtype
         }
     }
 }

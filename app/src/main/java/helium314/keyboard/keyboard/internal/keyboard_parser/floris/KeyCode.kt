@@ -334,4 +334,9 @@ object KeyCode {
         'Z' -> KeyEvent.KEYCODE_Z
         else -> KeyEvent.KEYCODE_UNKNOWN
     }
+
+    @JvmStatic fun isIsBlockedWhenLocked(keyCode: Int) = when (keyCode) {
+        SETTINGS, TOGGLE_FLOATING_WINDOW, CLIPBOARD, CLIPBOARD_PASTE -> true
+        else -> false
+    }
 }
