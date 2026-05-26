@@ -26,6 +26,8 @@ Some hints for finding what you're looking for:
 
 ## Recommended
 
+Note that the maintainer only has very limited time, and thus review might take a while.
+
 If you want to contribute, it's a good idea to make sure your idea is actually wanted in HeliBoard.
 Best check related issues before you start working on a PR. If the issue has the [labels](https://github.com/HeliBorg/HeliBoard/labels) [_PR_](https://github.com/HeliBorg/HeliBoard/labels/PR) or [_contributor needed_](https://github.com/HeliBorg/HeliBoard/issues?q=label%3A%22contributor%20needed%22) (even closed ones), contributions are wanted. If you don't find a related issue, it's recommended to open one, but ultimately it's your choice.
 Asking before starting a PR may help you for getting pointers to potentially relevant code, and deciding how to implement your desired changes.
@@ -39,6 +41,8 @@ When contributing to the app, please:
 * Try making use of in-place mechanisms instead of re-inventing the wheel. Your contribution should only add as much complexity as necessary, the code is overly complicated already 😶.
 * Keep your changes to few places, as opposed to sprinkling them over many parts of the code. This helps with keeping down complexity during review, and with maintainability of the app.
 * Make a draft PR when you intend to still work on it. Submitting an unfinished PR can be a good idea when you're not sure how to best continue and would like some comments.
+* When you fix a bug without opening an issue, please provide a way to reproduce the bug (see [bug report template](.github/ISSUE_TEMPLATE/bug_report.md))
+* Noticeable adjustments (keyboard UI, default layouts, ...) should either provide a benefit for everyone, or be optional.
 
 Further things to consider (though irrelevant for most PRs):
 * APK size:

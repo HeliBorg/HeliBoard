@@ -169,16 +169,21 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
     val ctx = LocalContext.current
     return filePicker { uri ->
         val wait = CountDownLatch(1)
-        val restoredDb = ctx.getDatabasePath(Database.NAME + "_restored")
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
+            val restoredDb = ctx.getDatabasePath(Database.NAME + "_restored")
+            val oldPrefs = ctx.prefs().all.toMap()
+            val oldProtectedPrefs = ctx.protectedPrefs().all.toMap()
+            val filesDir = ctx.filesDir!!
+            val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(ctx)
+            val filesDir2 = File(filesDir.absolutePath + "2")
+            val deviceProtectedFilesDir2 = File(deviceProtectedFilesDir.absolutePath + "2")
+            filesDir.renameTo(filesDir2)
+            deviceProtectedFilesDir2.renameTo(deviceProtectedFilesDir2)
             try {
+                var anyMatch = false
                 ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use { inputStream ->
                     ZipInputStream(inputStream).use { zip ->
                         var entry: ZipEntry? = zip.nextEntry
-                        val filesDir = ctx.filesDir ?: return@execute
-                        val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(ctx)
-                        filesDir.deleteRecursively()
-                        deviceProtectedFilesDir.deleteRecursively()
                         LayoutUtilsCustom.onLayoutFileChanged()
                         Settings.getInstance().stopListener()
                         while (entry != null) {
@@ -189,33 +194,73 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
                                         Log.w("AdvancedScreen", "skipping unsafe backup entry $adjustedName")
                                     }
                                 }
+                                anyMatch = true
                             } else if (backupFilePatterns.any { entry.name.matches(it) }) {
                                 if (!restoreEntryToDir(zip, filesDir, entry.name)) {
                                     Log.w("AdvancedScreen", "skipping unsafe backup entry ${entry.name}")
                                 }
+                                anyMatch = true
                             } else if (entry.name == Database.NAME) {
+                                anyMatch = true
                                 FileUtils.copyStreamToNewFile(zip, restoredDb)
                             } else if (entry.name == PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
                                 val prefs = ctx.prefs()
                                 prefs.edit { clear() }
+                                anyMatch = true
                                 readJsonLinesToSettings(prefLines, prefs)
                             } else if (entry.name == PROTECTED_PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
                                 val protectedPrefs = ctx.protectedPrefs()
                                 protectedPrefs.edit { clear() }
                                 readJsonLinesToSettings(prefLines, protectedPrefs)
+                                anyMatch = true
                             }
                             zip.closeEntry()
                             entry = zip.nextEntry
                         }
                     }
                 }
+                if (!anyMatch)
+                    throw Exception("nothing to restore in the given file")
 
                 Database.copyFromDb(restoredDb, ctx)
-                Looper.prepare()
+                filesDir2.deleteRecursively()
+                deviceProtectedFilesDir2.deleteRecursively()
+                if (Looper.myLooper() == null)
+                    Looper.prepare()
                 Toast.makeText(ctx, ctx.getString(R.string.backup_restored), Toast.LENGTH_LONG).show()
             } catch (t: Throwable) {
+                filesDir.deleteRecursively()
+                filesDir2.renameTo(filesDir)
+                deviceProtectedFilesDir.deleteRecursively()
+                deviceProtectedFilesDir2.renameTo(deviceProtectedFilesDir)
+                ctx.prefs().edit {
+                    clear()
+                    oldPrefs.forEach { (key, value) ->
+                        when (value) {
+                            is String -> putString(key, value)
+                            is Int -> putInt(key, value)
+                            is Long -> putLong(key, value)
+                            is Float -> putFloat(key, value)
+                            is Boolean -> putBoolean(key, value)
+                            is Set<*> -> putStringSet(key, value.filterIsInstance<String>().toSet())
+                        }
+                    }
+                }
+                ctx.protectedPrefs().edit {
+                    clear()
+                    oldProtectedPrefs.forEach { (key, value) ->
+                        when (value) {
+                            is String -> putString(key, value)
+                            is Int -> putInt(key, value)
+                            is Long -> putLong(key, value)
+                            is Float -> putFloat(key, value)
+                            is Boolean -> putBoolean(key, value)
+                            is Set<*> -> putStringSet(key, value.filterIsInstance<String>().toSet())
+                        }
+                    }
+                }
                 onError("r" + t.message)
                 Log.w("AdvancedScreen", "error during restore", t)
             } finally {

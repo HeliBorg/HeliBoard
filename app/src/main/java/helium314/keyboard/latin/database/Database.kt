@@ -38,29 +38,33 @@ class Database private constructor(context: Context, name: String = NAME) : SQLi
                 return
             val otherDb = Database(context, file.name) // this upgrades the DB if necessary
             val clipDao = ClipboardDao.getInstance(context) // insert to dao because of cache
-            if (clipDao == null) {
-                Log.e(TAG, "can't transfer clipboard data because ClipboardDao is null")
-            } else {
-                otherDb.readableDatabase.rawQuery("SELECT TIMESTAMP, PINNED, TEXT FROM CLIPBOARD", null)
-                    .use {
-                        clipDao.clear()
-                        while (it.moveToNext())
-                            clipDao.addClip(it.getLong(0), it.getInt(1) != 0, it.getString(2))
-                    }
-            }
             val db = getInstance(context)
-            db.writableDatabase.execSQL("DELETE FROM GESTURE_DATA")
-            otherDb.readableDatabase.rawQuery("SELECT TIMESTAMP, WORD, EXPORTED, SOURCE_ACTIVE, DATA FROM GESTURE_DATA", null)
-                .use { c ->
-                    db.writableDatabase.transaction {
-                        while (c.moveToNext()) {
-                            execSQL("INSERT INTO GESTURE_DATA (TIMESTAMP, WORD, EXPORTED, SOURCE_ACTIVE, DATA) " +
-                                "VALUES (${c.getLong(0)},?,${c.getInt(2)},${c.getInt(3)},?)", arrayOf(c.getString(1), c.getString(4)))
-                        }
+
+            try {
+                db.writableDatabase.transaction {
+                    if (clipDao == null) {
+                        Log.e(TAG, "can't transfer clipboard data because ClipboardDao is null")
+                    } else {
+                        otherDb.readableDatabase.rawQuery("SELECT TIMESTAMP, PINNED, TEXT FROM CLIPBOARD", null)
+                            .use {
+                                clipDao.clear()
+                                while (it.moveToNext())
+                                    clipDao.addClip(it.getLong(0), it.getInt(1) != 0, it.getString(2))
+                            }
                     }
+                    db.writableDatabase.execSQL("DELETE FROM GESTURE_DATA")
+                    otherDb.readableDatabase.rawQuery("SELECT TIMESTAMP, WORD, EXPORTED, SOURCE_ACTIVE, DATA FROM GESTURE_DATA", null)
+                        .use { c ->
+                            while (c.moveToNext()) {
+                                execSQL("INSERT INTO GESTURE_DATA (TIMESTAMP, WORD, EXPORTED, SOURCE_ACTIVE, DATA) " +
+                                    "VALUES (${c.getLong(0)},?,${c.getInt(2)},${c.getInt(3)},?)", arrayOf(c.getString(1), c.getString(4)))
+                            }
+                        }
                 }
-            otherDb.close()
-            file.delete()
+            } finally {
+                otherDb.close()
+                file.delete()
+            }
         }
     }
 }

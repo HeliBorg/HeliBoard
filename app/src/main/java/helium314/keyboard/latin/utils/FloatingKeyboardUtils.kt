@@ -20,13 +20,21 @@ import helium314.keyboard.latin.settings.setFloatingSize
 // todo: add a frame around the keyboard (because other people care more about optics than I do)
 object FloatingKeyboardUtils {
     private val TAG = this::class.java.simpleName
+    private val windowFrame = Rect()
+    private var extraHeight = 0f
 
     @JvmStatic
     fun setFloating(view: View?) {
         val lp = view?.layoutParams as? ViewGroup.MarginLayoutParams ?: return
-        val (x, y) = readPosition(view.context)
+        view.getWindowVisibleDisplayFrame(windowFrame)
+        extraHeight = getSuggestionStripHeight(view.resources) + getFloatingHandleHeight(view.resources)
+        val (x, y) = readPosition(
+            view.context,
+            windowFrame.right - windowFrame.left - Settings.getValues().mFloatingWidth,
+            windowFrame.bottom - windowFrame.top - extraHeight.toInt() - Settings.getValues().mFloatingHeight
+        )
         if (DebugFlags.DEBUG_ENABLED)
-            Log.d(TAG, "place floating view at $x, $y, ${Settings.getValues().mFloatingWidth}, ${Settings.getValues().mFloatingHeight}")
+            Log.d(TAG, "place floating view at $x, $y, width ${Settings.getValues().mFloatingWidth}, height ${Settings.getValues().mFloatingHeight}")
         ViewLayoutUtils.placeViewAt(view, x, y, Settings.getValues().mFloatingWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
         if (view.findViewById<View>(R.id.float_handle_container)?.isVisible == true)
             return
@@ -52,10 +60,13 @@ object FloatingKeyboardUtils {
     fun getFloatingHandleHeight(resources: Resources) = resources.getDimension(R.dimen.config_floating_handle_height)
 
     @JvmStatic
-    fun readPosition(context: Context): Pair<Int, Int> {
+    fun readPosition(context: Context, maxX: Int, maxY: Int): Pair<Int, Int> {
         val width = context.resources.displayMetrics.widthPixels
-        return context.prefs().getInt(Settings.PREF_FLOATING_POS_X_PREFIX + width, width / 2) to
-            context.prefs().getInt(Settings.PREF_FLOATING_POS_Y_PREFIX + width, context.resources.displayMetrics.heightPixels / 2)
+        val x = context.prefs().getInt(Settings.PREF_FLOATING_POS_X_PREFIX + width, width / 2)
+        val y = context.prefs().getInt(Settings.PREF_FLOATING_POS_Y_PREFIX + width, context.resources.displayMetrics.heightPixels / 2)
+        if (x > maxX || y > maxY)
+            savePosition(context, maxX, maxY)
+        return x.coerceIn(0, maxX) to y.coerceIn(0, maxY)
     }
 
     private fun savePosition(context: Context, x: Int, y: Int) {
@@ -72,13 +83,11 @@ object FloatingKeyboardUtils {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun View.setDragListener(view: View) {
-        val extraHeight = getSuggestionStripHeight(resources) + getFloatingHandleHeight(resources)
         var startX = 0f
         var startY = 0f
         val lp = view.layoutParams as ViewGroup.MarginLayoutParams
         var positionX = lp.leftMargin.toFloat()
         var positionY = lp.topMargin.toFloat()
-        val windowFrame = Rect()
         setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -92,7 +101,6 @@ object FloatingKeyboardUtils {
                     startX = event.rawX
                     startY = event.rawY
                     val sv = Settings.getValues()
-                    getWindowVisibleDisplayFrame(windowFrame)
                     val availableWidth = windowFrame.right - windowFrame.left
                     val availableHeight = windowFrame.bottom - windowFrame.top
                     positionX = (positionX + dx).coerceIn(0f, (availableWidth - sv.mFloatingWidth).toFloat())
@@ -110,11 +118,9 @@ object FloatingKeyboardUtils {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun View.setResizeListener(lp: ViewGroup.MarginLayoutParams) {
-        val extraHeight = getSuggestionStripHeight(resources) + getFloatingHandleHeight(resources)
         var startX = 0f
         var startY = 0f
         val scale = 3 / context.resources.displayMetrics.density
-        val windowFrame = Rect()
         setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -127,7 +133,6 @@ object FloatingKeyboardUtils {
                     val dy = event.rawY - startY
                     startX = event.rawX
                     startY = event.rawY
-                    getWindowVisibleDisplayFrame(windowFrame)
                     val availableWidth = windowFrame.right - windowFrame.left
                     val availableHeight = windowFrame.bottom - windowFrame.top
                     val maxWidth = (availableWidth * 0.9f).toInt()
