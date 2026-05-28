@@ -36,7 +36,7 @@ fun MainSettingsScreen(
     onClickPreferences: () -> Unit,
     onClickToolbar: () -> Unit,
     onClickGestureTyping: () -> Unit,
-    onClickDataGathering: () -> Unit,
+    onClickTwoThumbTyping: () -> Unit,
     onClickAdvanced: () -> Unit,
     onClickAppearance: () -> Unit,
     onClickLanguage: () -> Unit,
@@ -54,65 +54,112 @@ fun MainSettingsScreen(
             Column(
                 Modifier.verticalScroll(rememberScrollState()).then(Modifier.padding(innerPadding))
             ) {
-                Preference(
-                    name = stringResource(R.string.language_and_layouts_title),
-                    description = enabledSubtypes.joinToString(", ") { it.displayName() },
-                    onClick = onClickLanguage,
-                    icon = R.drawable.ic_settings_languages
-                ) { NextScreenIcon() }
-                Preference(
-                    name = stringResource(R.string.settings_screen_preferences),
-                    onClick = onClickPreferences,
-                    icon = R.drawable.ic_settings_preferences
-                ) { NextScreenIcon() }
-                Preference(
-                    name = stringResource(R.string.settings_screen_appearance),
-                    onClick = onClickAppearance,
-                    icon = R.drawable.ic_settings_appearance
-                ) { NextScreenIcon() }
-                Preference(
-                    name = stringResource(R.string.settings_screen_toolbar),
-                    onClick = onClickToolbar,
-                    icon = R.drawable.ic_settings_toolbar
-                ) { NextScreenIcon() }
-                if (JniUtils.sHaveGestureLib)
-                    Preference(
-                        name = stringResource(R.string.settings_screen_gesture),
-                        onClick = onClickGestureTyping,
-                        icon = R.drawable.ic_settings_gesture
-                    ) { NextScreenIcon() }
-                // we don't even show the menu if data gathering phase ended more than 2 weeks ago
-                if (JniUtils.sHaveGestureLib && System.currentTimeMillis() < END_DATE_EPOCH_MILLIS + TWO_WEEKS_IN_MILLIS)
-                    Preference(
-                        name = stringResource(R.string.gesture_data_screen),
-                        onClick = onClickDataGathering,
-                        icon = R.drawable.ic_settings_gesture
-                    ) { NextScreenIcon() }
-                Preference(
-                    name = stringResource(R.string.settings_screen_correction),
-                    onClick = onClickTextCorrection,
-                    icon = R.drawable.ic_settings_correction
-                ) { NextScreenIcon() }
-                Preference(
-                    name = stringResource(R.string.settings_screen_secondary_layouts),
-                    onClick = onClickLayouts,
-                    icon = R.drawable.ic_ime_switcher
-                ) { NextScreenIcon() }
-                Preference(
-                    name = stringResource(R.string.dictionary_settings_category),
-                    onClick = onClickDictionaries,
-                    icon = R.drawable.ic_dictionary
-                ) { NextScreenIcon() }
-                Preference(
-                    name = stringResource(R.string.settings_screen_advanced),
-                    onClick = onClickAdvanced,
-                    icon = R.drawable.ic_settings_advanced
-                ) { NextScreenIcon() }
-                Preference(
-                    name = stringResource(R.string.settings_screen_about),
-                    onClick = onClickAbout,
-                    icon = R.drawable.ic_settings_about
-                ) { NextScreenIcon() }
+                // Group 1: General (AI, Languages, Preferences, Appearance, Toolbar)
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer
+                    )
+                ) {
+                    Column {
+                        if (BuildConfig.FLAVOR != "offlinelite") {
+                            Preference(
+                                name = stringResource(R.string.settings_screen_ai_integration),
+                                onClick = onClickAIIntegration,
+                                icon = R.drawable.ic_proofread
+                            ) { NextScreenIcon() }
+                        }
+                        Preference(
+                            name = stringResource(R.string.libraries_hub_title),
+                            onClick = onClickLibraries,
+                            icon = R.drawable.ic_emoji_objects
+                        ) { NextScreenIcon() }
+                        Preference(
+                            name = stringResource(R.string.language_and_layouts_title),
+                            description = enabledSubtypes.joinToString(", ") { it.displayName() },
+                            onClick = onClickLanguage,
+                            icon = R.drawable.ic_settings_languages
+                        ) { NextScreenIcon() }
+                        Preference(
+                            name = stringResource(R.string.settings_screen_preferences),
+                            onClick = onClickPreferences,
+                            icon = R.drawable.ic_settings_preferences
+                        ) { NextScreenIcon() }
+                        Preference(
+                            name = stringResource(R.string.settings_screen_appearance),
+                            onClick = onClickAppearance,
+                            icon = R.drawable.ic_settings_appearance
+                        ) { NextScreenIcon() }
+                        Preference(
+                            name = stringResource(R.string.settings_screen_toolbar),
+                            onClick = onClickToolbar,
+                            icon = R.drawable.ic_settings_toolbar
+                        ) { NextScreenIcon() }
+                    }
+                }
+
+                // Group 2: Typing (Gesture, Correction, Secondary Layouts, Dictionaries)
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer
+                    )
+                ) {
+                    Column {
+                        Preference(
+                            name = stringResource(R.string.settings_screen_gesture),
+                            onClick = onClickGestureTyping,
+                            icon = R.drawable.ic_settings_gesture
+                        ) { NextScreenIcon() }
+                        // Dedicated entry for the experimental two-thumb typing features so
+                        // they're discoverable without spelunking through Gesture Typing's
+                        // sub-options. The screen itself short-circuits to empty when gesture
+                        // typing is off / the lib isn't loaded — see TwoThumbTypingScreen.
+                        Preference(
+                            name = stringResource(R.string.settings_screen_two_thumb_typing),
+                            description = stringResource(R.string.settings_screen_two_thumb_typing_summary),
+                            onClick = onClickTwoThumbTyping,
+                            icon = R.drawable.ic_settings_gesture
+                        ) { NextScreenIcon() }
+                        Preference(
+                            name = stringResource(R.string.settings_screen_correction),
+                            onClick = onClickTextCorrection,
+                            icon = R.drawable.ic_settings_correction
+                        ) { NextScreenIcon() }
+                        Preference(
+                            name = stringResource(R.string.settings_screen_secondary_layouts),
+                            onClick = onClickLayouts,
+                            icon = R.drawable.ic_ime_switcher
+                        ) { NextScreenIcon() }
+                    }
+                }
+
+                // Group 3: Other (Advanced, About)
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer
+                    )
+                ) {
+                    Column {
+                        Preference(
+                            name = stringResource(R.string.settings_screen_advanced),
+                            onClick = onClickAdvanced,
+                            icon = R.drawable.ic_settings_advanced
+                        ) { NextScreenIcon() }
+                        Preference(
+                            name = stringResource(R.string.settings_screen_about),
+                            onClick = onClickAbout,
+                            icon = R.drawable.ic_settings_about
+                        ) { NextScreenIcon() }
+                    }
+                }
             }
         }
     }
@@ -124,7 +171,7 @@ private fun PreviewScreen() {
     initPreview(LocalContext.current)
     Theme(previewDark) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
+            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
         }
     }
 }

@@ -35,23 +35,46 @@ fun GestureTypingScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val gestureFloatingPreviewEnabled = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Defaults.PREF_GESTURE_FLOATING_PREVIEW_TEXT)
-    val gestureEnabled = prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT)
-    val items = listOf(
-        Settings.PREF_GESTURE_INPUT,
-        if (gestureEnabled)
-            Settings.PREF_GESTURE_PREVIEW_TRAIL else null,
-        if (gestureEnabled)
-            Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT else null,
-        if (gestureEnabled && gestureFloatingPreviewEnabled)
-            Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC else null,
-        if (gestureEnabled)
-            Settings.PREF_GESTURE_SPACE_AWARE else null,
-        if (gestureEnabled)
-            Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN else null,
-        if (gestureEnabled &&
-            (prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, Defaults.PREF_GESTURE_PREVIEW_TRAIL) || gestureFloatingPreviewEnabled))
-            Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION else null
-        )
+    val gestureEnabled = hasGestureLib && prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT)
+    
+    // Always show library loader first when no library
+    val items = buildList {
+        add(R.string.settings_category_configuration)
+        // Library loader is always first if allowed
+        if (helium314.keyboard.latin.BuildConfig.BUILD_TYPE != "nouserlib") {
+            add(SettingsWithoutKey.LOAD_GESTURE_LIB)
+        }
+        // Show all gesture settings (they will be disabled if no library)
+        add(Settings.PREF_GESTURE_INPUT)
+
+        if (hasGestureLib && gestureEnabled) {
+            add(R.string.settings_category_visuals)
+            add(Settings.PREF_GESTURE_PREVIEW_TRAIL)
+            add(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT)
+            if (gestureFloatingPreviewEnabled)
+                add(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC)
+            if (prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, Defaults.PREF_GESTURE_PREVIEW_TRAIL) || gestureFloatingPreviewEnabled)
+                add(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION)
+
+            add(R.string.settings_category_behavior)
+            add(Settings.PREF_GESTURE_SPACE_AWARE)
+            add(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN)
+            // Two-thumb typing settings have moved to their own screen
+            // (see TwoThumbTypingScreen / SettingsDestination.TwoThumbTyping); deliberately
+            // not duplicated here to keep the gesture screen focused.
+        }
+
+        add(R.string.settings_category_gestures_advanced)
+        add(Settings.PREF_SPACE_HORIZONTAL_SWIPE)
+        add(Settings.PREF_SPACE_VERTICAL_SWIPE)
+        add(Settings.PREF_TOUCHPAD_SENSITIVITY)
+        add(Settings.PREF_DELETE_SWIPE)
+        add(Settings.PREF_SHORTCUT_ROWS)
+        if (prefs.getBoolean(Settings.PREF_SHORTCUT_ROWS, Defaults.PREF_SHORTCUT_ROWS)) {
+            add(Settings.PREF_SHORTCUT_TOP_ROW)
+            add(Settings.PREF_SHORTCUT_BOTTOM_ROW)
+        }
+    }
     SearchSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_gesture),
@@ -109,6 +132,50 @@ fun createGestureTypingSettings(context: Context) = listOf(
             description = { stringResource(R.string.abbreviation_unit_milliseconds, (it + 100).toString()) },
             stepSize = 10,
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+    },
+    Setting(context, SettingsWithoutKey.LOAD_GESTURE_LIB, R.string.load_gesture_library, R.string.load_gesture_library_summary) {
+        LoadGestureLibPreference(it.title)
+    },
+    Setting(context, Settings.PREF_SPACE_HORIZONTAL_SWIPE, R.string.show_horizontal_space_swipe) {
+        val items = listOf(
+            stringResource(R.string.space_swipe_move_cursor_entry) to "move_cursor",
+            stringResource(R.string.switch_language) to "switch_language",
+            stringResource(R.string.space_swipe_toggle_numpad_entry) to "toggle_numpad",
+            stringResource(R.string.action_none) to "none",
+        )
+        ListPreference(it, items, Defaults.PREF_SPACE_HORIZONTAL_SWIPE)
+    },
+    Setting(context, Settings.PREF_SPACE_VERTICAL_SWIPE, R.string.show_vertical_space_swipe) {
+        val items = listOf(
+            stringResource(R.string.space_swipe_move_cursor_entry) to "move_cursor",
+            stringResource(R.string.switch_language) to "switch_language",
+            stringResource(R.string.space_swipe_toggle_numpad_entry) to "toggle_numpad",
+            stringResource(R.string.space_swipe_hide_keyboard_entry) to "hide_keyboard",
+            stringResource(R.string.space_swipe_touchpad_mode_entry) to "touchpad_mode",
+            stringResource(R.string.action_none) to "none",
+        )
+        ListPreference(it, items, Defaults.PREF_SPACE_VERTICAL_SWIPE)
+    },
+    Setting(context, Settings.PREF_TOUCHPAD_SENSITIVITY, R.string.touchpad_sensitivity) {
+        SliderPreference(
+            name = it.title,
+            key = it.key,
+            default = Defaults.PREF_TOUCHPAD_SENSITIVITY,
+            range = 0f..100f,
+            description = { value -> value.toInt().toString() }
+        )
+    },
+    Setting(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe, R.string.delete_swipe_summary) {
+        SwitchPreference(it, Defaults.PREF_DELETE_SWIPE)
+    },
+    Setting(context, Settings.PREF_SHORTCUT_ROWS, R.string.shortcut_rows, R.string.shortcut_rows_summary) {
+        SwitchPreference(it, Defaults.PREF_SHORTCUT_ROWS)
+    },
+    Setting(context, Settings.PREF_SHORTCUT_TOP_ROW, R.string.shortcut_top_row, R.string.shortcut_top_row_summary) {
+        SwitchPreference(it, Defaults.PREF_SHORTCUT_TOP_ROW)
+    },
+    Setting(context, Settings.PREF_SHORTCUT_BOTTOM_ROW, R.string.shortcut_bottom_row, R.string.shortcut_bottom_row_summary) {
+        SwitchPreference(it, Defaults.PREF_SHORTCUT_BOTTOM_ROW)
     },
 )
 

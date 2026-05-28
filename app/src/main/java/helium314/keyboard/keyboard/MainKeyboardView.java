@@ -18,6 +18,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import helium314.keyboard.accessibility.MainKeyboardAccessibilityDelegate;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.internal.DrawingPreviewPlacerView;
 import helium314.keyboard.keyboard.internal.DrawingProxy;
+import helium314.keyboard.keyboard.internal.GestureDebugPointsDrawingPreview;
 import helium314.keyboard.keyboard.internal.GestureFloatingTextDrawingPreview;
 import helium314.keyboard.keyboard.internal.GestureTrailsDrawingPreview;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
@@ -57,6 +60,7 @@ import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
+import helium314.keyboard.latin.utils.LayoutType;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
@@ -89,6 +93,19 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private static final float LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED = -1.0f;
     // The minimum x-scale to fit the language name on spacebar.
     private static final float MINIMUM_XSCALE_OF_LANGUAGE_NAME = 0.8f;
+    // Incognito icon to draw on spacebar when incognito mode is enabled
+    private final Drawable mIncognitoIcon;
+    // --- Two-thumb typing: combining-mode visual --------------------------------------------
+    // While the unified combining-mode grace timer is pending in InputLogic, we draw a
+    // countdown progress bar at the bottom of the space bar AND a faint translucent tint
+    // over the whole keyboard to reinforce "next input extends the current word". A
+    // ValueAnimator drives invalidations at ~60fps so the bar shrinks smoothly; on cancel
+    // / timer-expiry we set mCombiningModeActive=false and the bar disappears next frame.
+    private boolean mCombiningModeActive = false;
+    private boolean mCombiningCompositionActiveForDebug = false;
+    private long mCombiningStartTimeMs = 0L;
+    private int mCombiningGraceMs = 0;
+    @Nullable private ValueAnimator mCombiningAnimator;
 
     // Stuff to draw altCodeWhileTyping keys.
     private final ObjectAnimator mAltCodeKeyWhileTypingFadeoutAnimator;
@@ -100,6 +117,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private final GestureFloatingTextDrawingPreview mGestureFloatingTextDrawingPreview;
     private final GestureTrailsDrawingPreview mGestureTrailsDrawingPreview;
     private final SlidingKeyInputDrawingPreview mSlidingKeyInputDrawingPreview;
+    // Debug overlay for two-thumb point hinting (#2.1), toggled by PREF_GESTURE_DEBUG_DRAW_POINTS.
+    private final GestureDebugPointsDrawingPreview mGestureDebugPointsDrawingPreview;
 
     // Key preview
     private final KeyPreviewDrawParams mKeyPreviewDrawParams;
@@ -204,6 +223,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
         mSlidingKeyInputDrawingPreview = new SlidingKeyInputDrawingPreview(mainKeyboardViewAttr);
         mSlidingKeyInputDrawingPreview.setDrawingView(drawingPreviewPlacerView);
+        // Debug overlay last so it draws ON TOP of the gesture trail / floating preview.
+        mGestureDebugPointsDrawingPreview = new GestureDebugPointsDrawingPreview();
+        mGestureDebugPointsDrawingPreview.setDrawingView(drawingPreviewPlacerView);
         mainKeyboardViewAttr.recycle();
 
         mDrawingPreviewPlacerView = drawingPreviewPlacerView;
@@ -277,6 +299,48 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     public void setLanguageOnSpacebarAnimAlpha(final int alpha) {
         mLanguageOnSpacebarAnimAlpha = alpha;
         invalidateKey(mSpaceKey);
+    }
+
+    /**
+     * Combining mode (replaces the older PREF_AUTOSPACE_VISUAL_HINT flash): turn the
+     * progress-bar indicator on the spacebar on/off. While on, a countdown bar shrinks
+     * from full width at {@code startTimeMs} to zero at {@code startTimeMs + graceMs};
+     * the keyboard ALSO draws a faint translucent tint over the whole view to signal
+     * "your next input extends the current word".
+     *
+     * <p>Called from {@link helium314.keyboard.latin.inputlogic.InputLogic} on every
+     * tap / gesture completion (active=true) and on commit / cancel (active=false).
+     * No-ops when the space key isn't on the current layout (numeric / symbol).
+     */
+    public void setCombiningMode(final boolean active, final long startTimeMs, final int graceMs) {
+        setCombiningMode(active, startTimeMs, graceMs, active);
+    }
+
+    public void setCombiningMode(final boolean active, final long startTimeMs, final int graceMs,
+            final boolean compositionActiveForDebug) {
+        // Stop any in-flight animator before mutating state — guarantees we don't have an
+        // animator updating mCombiningModeActive=false's invalidation while we set true.
+        if (mCombiningAnimator != null) {
+            mCombiningAnimator.cancel();
+            mCombiningAnimator = null;
+        }
+        mCombiningModeActive = active && graceMs > 0;
+        mCombiningCompositionActiveForDebug = compositionActiveForDebug;
+        mCombiningStartTimeMs = startTimeMs;
+        mCombiningGraceMs = graceMs;
+        // Always invalidate the whole view once so the global tint overlay appears or
+        // clears immediately — invalidateKey() in the animator only refreshes the space
+        // key's bounds, which isn't enough for the keyboard-wide tint.
+        invalidate();
+        if (!mCombiningModeActive) return;
+        if (mSpaceKey == null) return;
+        final ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
+        animator.setDuration(graceMs);
+        animator.addUpdateListener(a -> {
+            if (mSpaceKey != null) invalidateKey(mSpaceKey);
+        });
+        mCombiningAnimator = animator;
+        animator.start();
     }
 
     public void setKeyboardActionListener(final KeyboardActionListener listener) {
@@ -422,6 +486,10 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             final boolean isGestureFloatingPreviewTextEnabled) {
         mGestureFloatingTextDrawingPreview.setPreviewEnabled(isGestureFloatingPreviewTextEnabled);
         mGestureTrailsDrawingPreview.setPreviewEnabled(isGestureTrailEnabled);
+        // The debug overlay tracks its own pref and is independent of the user-visible trail —
+        // enable the preview whenever the pref is on so the drawing pass actually runs.
+        mGestureDebugPointsDrawingPreview.setPreviewEnabled(
+                Settings.getValues().mGestureDebugDrawPoints);
     }
 
     public void showGestureFloatingPreviewText(@NonNull final SuggestedWords suggestedWords,
@@ -448,6 +516,37 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             mGestureFloatingTextDrawingPreview.setPreviewPosition(tracker);
         }
         mGestureTrailsDrawingPreview.setPreviewPosition(tracker);
+    }
+
+    // Implements {@link DrawingProxy#setGestureDebugPoints} (feature #2.1). The preview itself
+    // gates on its own {@code isPreviewEnabled}, but we double-check here to avoid copying the
+    // pointers array when the user hasn't opted in.
+    @Override
+    public void setGestureDebugPoints(@NonNull final helium314.keyboard.latin.common.InputPointers raw,
+            @NonNull final helium314.keyboard.latin.common.InputPointers synthetic) {
+        if (!Settings.getValues().mGestureDebugDrawPoints) return;
+        locatePreviewPlacerView();
+        mGestureDebugPointsDrawingPreview.updateSnapshot(raw, synthetic);
+    }
+
+    @Override
+    public void clearGestureDebugPoints() {
+        mGestureDebugPointsDrawingPreview.clear();
+    }
+
+    @Override
+    public boolean isCombiningModeActiveForDebug() {
+        return mCombiningCompositionActiveForDebug;
+    }
+
+    @Override
+    public boolean hasGestureDebugPoints() {
+        return mGestureDebugPointsDrawingPreview.hasSnapshot();
+    }
+
+    @Override
+    public void setGestureCommitPending(final boolean pending) {
+        mGestureFloatingTextDrawingPreview.setCommitPending(pending);
     }
 
     // Note that this method is called from a non-UI thread.
@@ -480,7 +579,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     @Override
     @Nullable
     public PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key,
-                                                @NonNull final PointerTracker tracker) {
+            @NonNull final PointerTracker tracker) {
+        return showPopupKeysKeyboard(key, tracker, false);
+    }
+
+    @Nullable
+    private PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key,
+            @NonNull final PointerTracker tracker, final boolean belowSourceKey) {
         final PopupKeySpec[] popupKeys = key.getPopupKeys();
         if (popupKeys == null) {
             return null;
@@ -524,9 +629,28 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         // aligned with the bottom edge of the visible part of the key preview.
         // {@code mPreviewVisibleOffset} has been set appropriately in
         // {@link KeyboardView#showKeyPreview(PointerTracker)}.
-        final int pointY = key.getY() + mKeyPreviewDrawParams.getVisibleOffset();
+        final int pointY = belowSourceKey
+                ? key.getY() + key.getHeight() + container.getMeasuredHeight()
+                : key.getY() + mKeyPreviewDrawParams.getVisibleOffset();
         popupKeysKeyboardView.showPopupKeysPanel(this, this, pointX, pointY, mKeyboardActionListener);
         return popupKeysKeyboardView;
+    }
+
+    @Override
+    @Nullable
+    public PopupKeysPanel showShortcutRowKeyboard(@NonNull final Key key,
+            @NonNull final PointerTracker tracker, @NonNull final LayoutType layoutType,
+            final boolean belowSourceKey) {
+        final Keyboard keyboard = getKeyboard();
+        if (keyboard == null) {
+            return null;
+        }
+        final Key popupParentKey = ShortcutRowKeys.createPopupParentKey(
+                getContext(), key, keyboard, layoutType);
+        if (popupParentKey == null) {
+            return null;
+        }
+        return showPopupKeysKeyboard(popupParentKey, tracker, belowSourceKey);
     }
 
     public boolean isInDraggingFinger() {
@@ -710,6 +834,35 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         super.onDrawKeyTopVisuals(key, canvas, paint, params);
         final int code = key.getCode();
         if (code == Constants.CODE_SPACE) {
+            // Combining mode: while the grace timer is pending, draw a thin progress bar
+            // along the bottom of the space key that shrinks linearly toward 0 over the
+            // grace period. Clear when the timer fires, gets cancelled, or is restarted.
+            // See {@link #setCombiningMode}.
+            if (mCombiningModeActive && mCombiningGraceMs > 0) {
+                final long now = SystemClock.uptimeMillis();
+                final long elapsed = now - mCombiningStartTimeMs;
+                final float remainingFrac =
+                        Math.max(0f, 1f - ((float) elapsed) / (float) mCombiningGraceMs);
+                if (remainingFrac > 0f) {
+                    final int saved = paint.getColor();
+                    final int savedAlpha = paint.getAlpha();
+                    final Paint.Style savedStyle = paint.getStyle();
+                    paint.setStyle(Paint.Style.FILL);
+                    paint.setColor(mLanguageOnSpacebarTextColor);
+                    paint.setAlpha(180);
+                    final float barHeight = Math.max(2f, key.getHeight() * 0.10f);
+                    final float barWidth = key.getWidth() * remainingFrac;
+                    canvas.drawRect(0f, key.getHeight() - barHeight,
+                            barWidth, key.getHeight(), paint);
+                    paint.setStyle(savedStyle);
+                    paint.setColor(saved);
+                    paint.setAlpha(savedAlpha);
+                }
+            }
+            // Draw incognito icon watermark if incognito mode is enabled
+            if (Settings.getValues().mIncognitoModeEnabled && mIncognitoIcon != null) {
+                drawIncognitoOnSpacebar(key, canvas);
+            }
             // If input language are explicitly selected.
             if (mLanguageOnSpacebarFormatType != LanguageOnSpacebarUtils.FORMAT_TYPE_NONE) {
                 drawLanguageOnSpacebar(key, canvas, paint);

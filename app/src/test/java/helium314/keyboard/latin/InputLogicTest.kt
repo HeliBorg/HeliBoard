@@ -215,6 +215,305 @@ class InputLogicTest {
         assertEquals("hello. a there", text)
     }
 
+    @Test fun joinNextSuppressesSingleAutospaceDecision() {
+        reset()
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        setText("hello")
+        functionalKeyPress(KeyCode.JOIN_NEXT)
+        input('.')
+        input('a')
+        assertEquals("hello.a", textBeforeCursor)
+        input('.')
+        input('b')
+        assertEquals("hello.a. b", textBeforeCursor)
+    }
+
+    @Test fun joinNextDoesNotOverrideExplicitSpace() {
+        reset()
+        setText("hello")
+        functionalKeyPress(KeyCode.JOIN_NEXT)
+        input(Constants.CODE_SPACE)
+        input('a')
+        assertEquals("hello a", textBeforeCursor)
+    }
+
+    @Test fun forceNextSpaceInsertsSpaceImmediately() {
+        reset()
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        setText("hello")
+        functionalKeyPress(KeyCode.FORCE_NEXT_SPACE)
+        assertEquals("hello ", textBeforeCursor)
+        chainInput("world")
+        input('.')
+        input('a')
+        assertEquals("hello world.a", textBeforeCursor)
+        input('.')
+        input('b')
+        assertEquals("hello world.a. b", textBeforeCursor)
+    }
+
+    @Test fun joinNextAfterCombiningAutospaceResumesWordForNextGesture() {
+        reset()
+        latinIME.prefs().edit {
+            putInt(Settings.PREF_COMBINING_GRACE_MS, 1000)
+            putBoolean(Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING, true)
+        }
+        chainInput("tech")
+        expireCombiningGrace()
+        assertEquals("tech ", textBeforeCursor)
+
+        functionalKeyPress(KeyCode.JOIN_NEXT)
+        assertEquals("tech", textBeforeCursor)
+        gestureInput("technology")
+        assertEquals("technology", textBeforeCursor)
+        assertEquals("technology", composingText)
+
+        expireCombiningGrace()
+        assertEquals("technology ", textBeforeCursor)
+    }
+
+    @Test fun forceNextSpaceAfterCombiningAutospaceDoesNotDoubleSpaceAndSuppressesNextAutospace() {
+        reset()
+        latinIME.prefs().edit { putInt(Settings.PREF_COMBINING_GRACE_MS, 1000) }
+        chainInput("hello")
+        expireCombiningGrace()
+        assertEquals("hello ", textBeforeCursor)
+
+        functionalKeyPress(KeyCode.FORCE_NEXT_SPACE)
+        assertEquals("hello ", textBeforeCursor)
+        gestureInput("world")
+        assertEquals("hello world", textBeforeCursor)
+
+        expireCombiningGrace()
+        assertEquals("hello world", textBeforeCursor)
+    }
+
+    @Test fun forceNextSpaceDuringCombiningCommitsSpaceAndSuppressesNextAutospace() {
+        reset()
+        latinIME.prefs().edit { putInt(Settings.PREF_COMBINING_GRACE_MS, 1000) }
+        chainInput("hello")
+        functionalKeyPress(KeyCode.FORCE_NEXT_SPACE)
+        assertEquals("hello ", textBeforeCursor)
+
+        gestureInput("world")
+        assertEquals("hello world", textBeforeCursor)
+
+        expireCombiningGrace()
+        assertEquals("hello world", textBeforeCursor)
+    }
+
+    @Test fun forceNextSpaceSurvivesExpectedSelectionUpdateAfterInsertedSpace() {
+        reset()
+        latinIME.prefs().edit { putInt(Settings.PREF_COMBINING_GRACE_MS, 1000) }
+        chainInput("hello")
+        val oldCursor = cursor
+        functionalKeyPress(KeyCode.FORCE_NEXT_SPACE)
+        latinIME.onUpdateSelection(oldCursor, oldCursor, cursor, cursor, -1, -1)
+        assertEquals("hello ", textBeforeCursor)
+
+        gestureInput("world")
+        expireCombiningGrace()
+        assertEquals("hello world", textBeforeCursor)
+    }
+
+    @Test fun tapOnlyCombiningWordDoesNotAutospaceWhenGestureGateEnabled() {
+        reset()
+        latinIME.prefs().edit {
+            putInt(Settings.PREF_COMBINING_GRACE_MS, 1000)
+            putBoolean(Settings.PREF_COMBINING_AUTOSPACE_ONLY_AFTER_GESTURE, true)
+        }
+
+        chainInput("hello")
+        expireCombiningGrace()
+
+        assertEquals("hello", textBeforeCursor)
+        assertEquals("", composingText)
+
+        input(' ')
+        assertEquals("hello ", textBeforeCursor)
+    }
+
+    @Test fun tapOnlyCombiningWordDoesNotShowAutospaceIndicatorWhenGestureGateEnabled() {
+        reset()
+        latinIME.prefs().edit {
+            putInt(Settings.PREF_COMBINING_GRACE_MS, 1000)
+            putBoolean(Settings.PREF_COMBINING_AUTOSPACE_ONLY_AFTER_GESTURE, true)
+        }
+
+        input('h')
+
+        Mockito.verify(mainKeyboardView, Mockito.atLeastOnce())
+            .setCombiningMode(Mockito.eq(false), Mockito.anyLong(), Mockito.anyInt())
+        Mockito.verify(mainKeyboardView, Mockito.never())
+            .setCombiningMode(Mockito.eq(true), Mockito.anyLong(), Mockito.anyInt())
+    }
+
+    @Test fun gestureCombiningWordStillAutospacesWhenGestureGateEnabled() {
+        reset()
+        latinIME.prefs().edit {
+            putInt(Settings.PREF_COMBINING_GRACE_MS, 1000)
+            putBoolean(Settings.PREF_COMBINING_AUTOSPACE_ONLY_AFTER_GESTURE, true)
+        }
+
+        gestureInput("hello")
+        expireCombiningGrace()
+
+        assertEquals("hello ", textBeforeCursor)
+    }
+
+    @Test fun tapThenGestureCombiningWordStillAutospacesWhenGestureGateEnabled() {
+        reset()
+        latinIME.prefs().edit {
+            putInt(Settings.PREF_COMBINING_GRACE_MS, 1000)
+            putBoolean(Settings.PREF_COMBINING_AUTOSPACE_ONLY_AFTER_GESTURE, true)
+            putBoolean(Settings.PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING, true)
+        }
+
+        chainInput("fire")
+        gestureInput("firetruck")
+        expireCombiningGrace()
+
+        assertEquals("firetruck ", textBeforeCursor)
+    }
+
+    @Test fun wholeWordBackspaceDeletesManualSpacingComposingWord() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, true)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, false)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, true)
+        }
+
+        chainInput("hello")
+        assertEquals("hello", textBeforeCursor)
+        assertEquals("hello", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("", textBeforeCursor)
+        assertEquals("", composingText)
+    }
+
+    @Test fun wholeWordBackspaceWithLiveComposingDeleteOffFallsBackToOneCharacter() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, true)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, false)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, true)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT, false)
+        }
+
+        chainInput("hello")
+        assertEquals("hello", textBeforeCursor)
+        assertEquals("hello", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("hell", textBeforeCursor)
+        assertEquals("hell", composingText)
+    }
+
+    @Test fun fragmentBackspaceDeletesOnlySwipeFragment() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, true)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, true)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, false)
+        }
+
+        gestureInput("fire")
+        assertEquals("fire", textBeforeCursor)
+        assertEquals("fire", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("", textBeforeCursor)
+        assertEquals("", composingText)
+    }
+
+    @Test fun fragmentBackspaceDeletesLastSwipeFragmentInMultipartWord() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, true)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, true)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, false)
+        }
+
+        gestureInput("fire")
+        gestureInput("truck")
+        assertEquals("firetruck", textBeforeCursor)
+        assertEquals("firetruck", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("fire", textBeforeCursor)
+        assertEquals("fire", composingText)
+    }
+
+    @Test fun fragmentBackspaceDeletesLastSwipeFragmentAfterAutospaceCommit() {
+        reset()
+        latinIME.prefs().edit {
+            putInt(Settings.PREF_COMBINING_GRACE_MS, 1000)
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, false)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, true)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, false)
+        }
+
+        gestureInput("fire")
+        gestureInput("truck")
+        expireCombiningGrace()
+        assertEquals("firetruck ", textBeforeCursor)
+        assertEquals("", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("fire", textBeforeCursor)
+        assertEquals("", composingText)
+
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("", textBeforeCursor)
+        assertEquals("", composingText)
+    }
+
+    @Test fun wholeWordBackspaceWithLiveComposingDeleteOnClearsComposingSpan() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_GESTURE_MANUAL_SPACING, true)
+            putBoolean(Settings.PREF_GESTURE_FRAGMENT_BACKSPACE, false)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD, true)
+            putBoolean(Settings.PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT, true)
+        }
+
+        chainInput("hello")
+        functionalKeyPress(KeyCode.DELETE)
+        chainInput("hi")
+        functionalKeyPress(KeyCode.DELETE)
+
+        assertEquals("", textBeforeCursor)
+        assertEquals("", composingText)
+    }
+
+    @Test fun forceAutoCapWorksWhenAutoCapIsOff() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_AUTO_CAP, false)
+            putBoolean(Settings.PREF_FORCE_AUTO_CAPS, true)
+        }
+        setText("")
+        assertEquals(TextUtils.CAP_MODE_SENTENCES, inputLogic.getCurrentAutoCapsState(settingsValues))
+    }
+
+    @Test fun forceAutoCapDoesNotOverridePasswordFields() {
+        reset()
+        latinIME.prefs().edit {
+            putBoolean(Settings.PREF_AUTO_CAP, false)
+            putBoolean(Settings.PREF_FORCE_AUTO_CAPS, true)
+        }
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        assertEquals(Constants.TextUtils.CAP_MODE_OFF, inputLogic.getCurrentAutoCapsState(settingsValues))
+    }
+
     @Test fun noAutospaceInUrlField() {
         latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("example.net")

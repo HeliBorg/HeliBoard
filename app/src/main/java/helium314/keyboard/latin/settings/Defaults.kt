@@ -39,6 +39,8 @@ object Defaults {
         LayoutType.PHONE_SYMBOLS -> "phone_symbols"
         LayoutType.EMOJI_BOTTOM -> "emoji_bottom_row"
         LayoutType.CLIPBOARD_BOTTOM -> "clip_bottom_row"
+        LayoutType.SHORTCUT_TOP -> "shortcut_top"
+        LayoutType.SHORTCUT_BOTTOM -> "shortcut_bottom"
     }
 
     private const val DEFAULT_SIZE_SCALE = 1.0f // 100%
@@ -102,6 +104,10 @@ object Defaults {
     @JvmField
     val PREF_SPACE_VERTICAL_SWIPE = KeyboardActionListener.SwipeAction.NONE.name
     const val PREF_DELETE_SWIPE = true
+    const val PREF_SHORTCUT_ROWS = false
+    const val PREF_SHORTCUT_TOP_ROW = false
+    const val PREF_SHORTCUT_BOTTOM_ROW = false
+    const val PREF_AUTOSPACE_ENABLED = true
     const val PREF_AUTOSPACE_AFTER_PUNCTUATION = false
     const val PREF_AUTOSPACE_AFTER_SUGGESTION = true
     const val PREF_AUTOSPACE_AFTER_GESTURE_TYPING = true
@@ -124,6 +130,30 @@ object Defaults {
     const val PREF_GESTURE_SPACE_AWARE = false
     const val PREF_GESTURE_FAST_TYPING_COOLDOWN = 500
     const val PREF_GESTURE_TRAIL_FADEOUT_DURATION = 800
+    // Two-thumb typing defaults — every default preserves current behaviour (off / 0).
+    const val PREF_GESTURE_MANUAL_SPACING = false
+    const val PREF_GESTURE_FRAGMENT_BACKSPACE = true
+    const val PREF_GESTURE_AUTOSPACE_GRACE_MS = 0
+    const val PREF_GESTURE_TAP_PROMOTION_MS = 0
+    const val PREF_GESTURE_DUAL_THUMB_HINTING = false
+    const val PREF_GESTURE_DUAL_THUMB_MIDLINE_PCT = 50
+    const val PREF_GESTURE_DEBUG_DRAW_POINTS = false
+    const val PREF_GESTURE_DEBUG_ACCUMULATE_FRAGMENTS = true
+    const val PREF_GESTURE_APOSTROPHE_KEY = false
+    const val PREF_AUTOSPACE_VISUAL_HINT = true
+    // Unified combining-mode model (default 0 = off; 500 ms is a comfortable starting point).
+    const val PREF_COMBINING_GRACE_MS = 0
+    const val PREF_COMBINING_LAST_AUTOSPACE_GRACE_MS = 500
+    const val PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE = true
+    const val PREF_COMBINING_TAP_EXTRA_MS = 250
+    const val PREF_COMBINING_AUTOSPACE_SUGGESTIONS = "alternatives_then_next_word"
+    const val PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD = true
+    const val PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT = true
+    // Multi-part word composition (this branch). All default-on except the explicit join key.
+    const val PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING = true
+    const val PREF_MULTIPART_FULL_WORD_SUGGESTIONS = true
+    const val PREF_MULTIPART_TAP_SEED_GESTURE = true
+    const val PREF_MULTIPART_JOIN_KEY_MODE = "off"
     const val PREF_SHOW_SETUP_WIZARD_ICON = true
     const val PREF_USE_CONTACTS = false
     const val PREF_USE_APPS = false

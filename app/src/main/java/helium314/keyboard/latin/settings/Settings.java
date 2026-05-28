@@ -24,7 +24,6 @@ import androidx.annotation.StringRes;
 
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.KeyboardActionListener;
-import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.PunctuationSuggestions;
@@ -115,6 +114,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
+    public static final String PREF_SHORTCUT_ROWS = "shortcut_rows";
+    public static final String PREF_SHORTCUT_TOP_ROW = "shortcut_top_row";
+    public static final String PREF_SHORTCUT_BOTTOM_ROW = "shortcut_bottom_row";
+    // Master autospace switch: when false, suppresses ALL autospace insertions globally
+    // (still gated additionally by the input type — password/email/URL fields suppress
+    // autospace regardless of this pref). Exposed via the AUTOSPACE toolbar toggle.
+    public static final String PREF_AUTOSPACE_ENABLED = "autospace_enabled";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "autospace_after_punctuation";
     public static final String PREF_AUTOSPACE_AFTER_SUGGESTION = "autospace_after_suggestion";
     public static final String PREF_AUTOSPACE_AFTER_GESTURE_TYPING = "autospace_after_gesture_typing";
@@ -137,6 +143,51 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
     public static final String PREF_GESTURE_FAST_TYPING_COOLDOWN = "gesture_fast_typing_cooldown";
     public static final String PREF_GESTURE_TRAIL_FADEOUT_DURATION = "gesture_trail_fadeout_duration";
+    // Two-thumb typing prefs (behaviour is wired in follow-up changes; defaults preserve current behaviour).
+    public static final String PREF_GESTURE_MANUAL_SPACING = "gesture_manual_spacing";
+    public static final String PREF_GESTURE_FRAGMENT_BACKSPACE = "gesture_fragment_backspace";
+    public static final String PREF_GESTURE_AUTOSPACE_GRACE_MS = "gesture_autospace_grace_ms";
+    public static final String PREF_GESTURE_TAP_PROMOTION_MS = "gesture_tap_promotion_ms";
+    public static final String PREF_GESTURE_DUAL_THUMB_HINTING = "gesture_dual_thumb_hinting";
+    public static final String PREF_GESTURE_DUAL_THUMB_MIDLINE_PCT = "gesture_dual_thumb_midline_pct";
+    public static final String PREF_GESTURE_DEBUG_DRAW_POINTS = "gesture_debug_draw_points";
+    public static final String PREF_GESTURE_DEBUG_ACCUMULATE_FRAGMENTS = "gesture_debug_accumulate_fragments";
+    public static final String PREF_GESTURE_APOSTROPHE_KEY = "gesture_apostrophe_key";
+    public static final String PREF_AUTOSPACE_VISUAL_HINT = "autospace_visual_hint";
+    // Unified "combining-mode" model: after every composing-word-extending event (tap OR
+    // gesture), wait this many milliseconds; any new tap/gesture within the window EXTENDS
+    // the same composing word, anything else (or expiry) commits + autospaces. 0 disables.
+    public static final String PREF_COMBINING_GRACE_MS = "combining_grace_ms";
+    public static final String PREF_COMBINING_LAST_AUTOSPACE_GRACE_MS = "combining_last_autospace_grace_ms";
+    public static final String PREF_COMBINING_AUTOCORRECT_ON_AUTOSPACE = "combining_autocorrect_on_autospace";
+    // Additional grace added on top of PREF_COMBINING_GRACE_MS when the most recent input
+    // was a tap (peck-typists need more headroom than swipers between letters). 0 = no extra.
+    public static final String PREF_COMBINING_TAP_EXTRA_MS = "combining_tap_extra_ms";
+    // What the suggestion strip shows after the combining grace timer auto-commits a word.
+    // Values: "keep_alternatives" (1) | "next_word" (2, default) | "alternatives_then_next_word" (3).
+    public static final String PREF_COMBINING_AUTOSPACE_SUGGESTIONS = "combining_autospace_suggestions";
+    // After a gesture-committed word, the first backspace deletes the whole word + autospace
+    // in one keystroke (unless an autocorrect-revert applies — that always goes first). Tap
+    // typing is unaffected; this only kicks in when the just-committed word came from a swipe.
+    public static final String PREF_COMBINING_BACKSPACE_DELETES_GESTURE_WORD = "combining_backspace_deletes_gesture_word";
+    public static final String PREF_COMBINING_BACKSPACE_DELETES_COMPOSING_TEXT = "combining_backspace_deletes_composing_text";
+    // Multi-part word composition: when combining mode is armed (grace timer running), the
+    // next swipe/tap concatenates onto the existing composing word rather than starting a
+    // new one. Allows tech+nology -> technology and tech+y -> Techy without an explicit
+    // "manual spacing" mode. Defaults true (only takes effect when combining grace > 0).
+    public static final String PREF_MULTIPART_AUTO_EXTEND_IN_COMBINING = "multipart_auto_extend_in_combining";
+    // Suggestion strip behaviour during multi-part composition. When true, after an
+    // extending gesture/tap the strip is repopulated with suggestions for the FULL composing
+    // word (not the last fragment). Defaults true.
+    public static final String PREF_MULTIPART_FULL_WORD_SUGGESTIONS = "multipart_full_word_suggestions";
+    // When a swipe starts while combining mode is armed AND a composing word already exists,
+    // prepend a synthetic input point at the tail of the composing word so the gesture
+    // recognizer treats it as a continuation. Helps tap-then-swipe joins land sensibly.
+    public static final String PREF_MULTIPART_TAP_SEED_GESTURE = "multipart_tap_seed_gesture";
+    // Explicit "join" modifier: off | longpress_space | dedicated_key. Forces the next
+    // input to extend the composing word regardless of timer. Defaults off until UX is
+    // finalised.
+    public static final String PREF_MULTIPART_JOIN_KEY_MODE = "multipart_join_key_mode";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
     public static final String PREF_USE_APPS = "use_apps";
@@ -323,6 +374,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void toggleAutoCorrect() {
         final boolean oldValue = mPrefs.getBoolean(PREF_AUTO_CORRECTION, Defaults.PREF_AUTO_CORRECTION);
         mPrefs.edit().putBoolean(Settings.PREF_AUTO_CORRECTION, !oldValue).apply();
+    }
+
+    public void toggleAutospace() {
+        final boolean oldValue = mPrefs.getBoolean(PREF_AUTOSPACE_ENABLED, Defaults.PREF_AUTOSPACE_ENABLED);
+        mPrefs.edit().putBoolean(Settings.PREF_AUTOSPACE_ENABLED, !oldValue).apply();
     }
 
     public static boolean readGestureDynamicPreviewEnabled(final SharedPreferences prefs) {

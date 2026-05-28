@@ -141,6 +141,7 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FLOATING -> R.drawable.ic_drag_indicator
                     ToolbarKey.INCOGNITO -> R.drawable.sym_keyboard_incognito_holo
                     ToolbarKey.AUTOCORRECT -> R.drawable.ic_autocorrect
+                    ToolbarKey.AUTOSPACE -> R.drawable.ic_autospace
                     ToolbarKey.CLEAR_CLIPBOARD -> R.drawable.sym_keyboard_clear_clipboard_holo
                     ToolbarKey.CLOSE_HISTORY -> R.drawable.ic_close
                     ToolbarKey.EMOJI -> R.drawable.sym_keyboard_smiley_holo
@@ -156,6 +157,8 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FULL_RIGHT -> R.drawable.ic_to_end
                     ToolbarKey.PAGE_START -> R.drawable.ic_page_start
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end
+                    ToolbarKey.JOIN_NEXT -> R.drawable.ic_close
+                    ToolbarKey.FORCE_NEXT_SPACE -> R.drawable.ic_plus // no rounded variant exists
                     ToolbarKey.SPLIT -> R.drawable.ic_ime_switcher
                 })
             }
@@ -204,6 +207,7 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FLOATING -> R.drawable.ic_drag_indicator
                     ToolbarKey.INCOGNITO -> R.drawable.sym_keyboard_incognito_lxx
                     ToolbarKey.AUTOCORRECT -> R.drawable.ic_autocorrect
+                    ToolbarKey.AUTOSPACE -> R.drawable.ic_autospace
                     ToolbarKey.CLEAR_CLIPBOARD -> R.drawable.sym_keyboard_clear_clipboard_lxx
                     ToolbarKey.CLOSE_HISTORY -> R.drawable.ic_close
                     ToolbarKey.EMOJI -> R.drawable.sym_keyboard_smiley_lxx
@@ -219,6 +223,8 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FULL_RIGHT -> R.drawable.ic_to_end
                     ToolbarKey.PAGE_START -> R.drawable.ic_page_start
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end
+                    ToolbarKey.JOIN_NEXT -> R.drawable.ic_close
+                    ToolbarKey.FORCE_NEXT_SPACE -> R.drawable.ic_plus // no rounded variant exists
                     ToolbarKey.SPLIT -> R.drawable.ic_ime_switcher
                 })
             }
@@ -267,6 +273,7 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FLOATING -> R.drawable.ic_drag_indicator
                     ToolbarKey.INCOGNITO -> R.drawable.sym_keyboard_incognito_lxx
                     ToolbarKey.AUTOCORRECT -> R.drawable.ic_autocorrect_rounded
+                    ToolbarKey.AUTOSPACE -> R.drawable.ic_autospace_rounded
                     ToolbarKey.CLEAR_CLIPBOARD -> R.drawable.sym_keyboard_clear_clipboard_rounded
                     ToolbarKey.CLOSE_HISTORY -> R.drawable.ic_close_rounded
                     ToolbarKey.EMOJI -> R.drawable.sym_keyboard_smiley_rounded
@@ -282,6 +289,8 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FULL_RIGHT -> R.drawable.ic_to_end_rounded
                     ToolbarKey.PAGE_START -> R.drawable.ic_page_start_rounded
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end_rounded
+                    ToolbarKey.JOIN_NEXT -> R.drawable.ic_close_rounded
+                    ToolbarKey.FORCE_NEXT_SPACE -> R.drawable.ic_plus
                     ToolbarKey.SPLIT -> R.drawable.ic_ime_switcher
                 })
             }

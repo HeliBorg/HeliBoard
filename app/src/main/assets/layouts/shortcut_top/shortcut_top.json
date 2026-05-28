@@ -1,0 +1,11 @@
+[
+  [
+    { "label": "undo" },
+    { "label": "redo" },
+    { "label": "copy" },
+    { "label": "paste" },
+    { "label": "select_word" },
+    { "label": "select_all" },
+    { "label": "emoji" }
+  ]
+]

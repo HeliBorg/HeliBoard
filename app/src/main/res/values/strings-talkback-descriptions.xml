@@ -65,6 +65,10 @@
     <string name="spoken_description_action_next">Next</string>
     <!-- Spoken description for the "Previous" action keyboard key. -->
     <string name="spoken_description_action_previous">Previous</string>
+    <!-- Spoken description for the "Join next" one-shot keyboard key. -->
+    <string name="spoken_description_join_next">Join next</string>
+    <!-- Spoken description for the "Force next space" one-shot keyboard key. -->
+    <string name="spoken_description_force_next_space">Force next space</string>
 
     <!-- Spoken feedback after turning "Shift" mode on. -->
     <string name="spoken_description_shiftmode_on">Shift enabled</string>

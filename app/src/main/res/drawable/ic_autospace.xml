@@ -1,0 +1,16 @@
+<!--
+    SPDX-License-Identifier: Apache-2.0
+    A small "A" above a horizontal bar — autospace: auto-insert space (bar) for a word (A).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24" >
+    <!-- "A" glyph: left leg, right leg, crossbar -->
+    <path android:fillColor="#FFF"
+        android:pathData="M9.5,14.2h5l0.9,2.2h2.1L12.75,5.4h-1.5L6.5,16.4h2.1l0.9,-2.2zM12,7.38L13.87,12.4h-3.74L12,7.38z"/>
+    <!-- Space bar -->
+    <path android:fillColor="#FFF"
+        android:pathData="M5,18.5v1.5h14v-1.5L5,18.5z"/>
+</vector>

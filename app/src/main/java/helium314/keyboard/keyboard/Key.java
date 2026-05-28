@@ -261,7 +261,45 @@ public class Key implements Comparable<Key> {
         mEnabled = key.mEnabled;
     }
 
-    /** constructor for creating emoji recent keys when there is no keyboard to take keys from */
+    public static Key copyWithShortcutPopupKeys(@NonNull final Key key,
+            @NonNull final PopupKeySpec[] popupKeys) {
+        return new Key(key, popupKeys, null, key.mBackgroundType,
+                POPUP_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER
+                        | (popupKeys.length & POPUP_KEYS_COLUMN_NUMBER_MASK));
+    }
+
+    private Key(@NonNull final Key key, @Nullable final PopupKeySpec[] popupKeys,
+            @Nullable final String labelHint, final int backgroundType,
+            final int popupKeysColumnAndFlags) {
+        // Final attributes.
+        mCode = key.mCode;
+        mLabel = key.mLabel;
+        mHintLabel = labelHint;
+        mLabelFlags = key.mLabelFlags | LABEL_FLAGS_HAS_POPUP_HINT;
+        mIconName = key.mIconName;
+        mWidth = key.mWidth;
+        mHeight = key.mHeight;
+        mHorizontalGap = key.mHorizontalGap;
+        mVerticalGap = key.mVerticalGap;
+        mX = key.mX;
+        mY = key.mY;
+        mHitBox.set(key.mHitBox);
+        mPopupKeys = popupKeys;
+        mPopupKeysColumnAndFlags = popupKeysColumnAndFlags;
+        mBackgroundType = backgroundType;
+        mActionFlags = key.mActionFlags;
+        mKeyVisualAttributes = key.mKeyVisualAttributes;
+        mOptionalAttributes = key.mOptionalAttributes;
+        mHashCode = computeHashCode(this);
+        // Key state.
+        mPressed = key.mPressed;
+        mEnabled = key.mEnabled;
+    }
+
+    /**
+     * constructor for creating emoji recent keys when there is no keyboard to take
+     * keys from
+     */
     public Key(@NonNull final Key key, @Nullable final PopupKeySpec[] popupKeys,
              @Nullable final String labelHint, final int backgroundType, final int code, @Nullable final String outputText) {
         // Final attributes.

@@ -1,0 +1,18 @@
+<!--
+    SPDX-License-Identifier: Apache-2.0
+    Rounded variant — same composition as ic_autospace, drawn at the 960-viewport Material grid
+    to match the other rounded icons in this codebase.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <!-- "A" glyph — same path as ic_autocorrect_rounded but compressed vertically into the
+         upper two-thirds so the space bar below has room. -->
+    <path android:fillColor="#FFF"
+        android:pathData="M294,432L431,64Q435,53 444.5,46.5Q454,40 466,40L494,40Q506,40 515.5,46.5Q525,53 529,64L666,433Q672,450 662,465Q652,480 634,480Q623,480 613.5,473.5Q604,467 600,456L570,368L392,368L360,457Q356,468 347,474Q338,480 327,480L327,480Q308,480 297.5,464.5Q287,449 294,432ZM414,304L546,304L482,122L478,122L414,304Z"/>
+    <!-- Space bar with rounded caps, centred under the A. -->
+    <path android:fillColor="#FFF"
+        android:pathData="M240,640Q223,640 211.5,651.5Q200,663 200,680Q200,697 211.5,708.5Q223,720 240,720L720,720Q737,720 748.5,708.5Q760,697 760,680Q760,663 748.5,651.5Q737,640 720,640L240,640Z"/>
+</vector>

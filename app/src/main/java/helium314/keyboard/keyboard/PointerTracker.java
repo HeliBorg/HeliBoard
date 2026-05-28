@@ -21,6 +21,7 @@ import helium314.keyboard.keyboard.internal.BatchInputArbiter;
 import helium314.keyboard.keyboard.internal.BatchInputArbiter.BatchInputArbiterListener;
 import helium314.keyboard.keyboard.internal.BogusMoveEventDetector;
 import helium314.keyboard.keyboard.internal.DrawingProxy;
+import helium314.keyboard.keyboard.internal.DualThumbHinter;
 import helium314.keyboard.keyboard.internal.GestureEnabler;
 import helium314.keyboard.keyboard.internal.GestureStrokeDrawingParams;
 import helium314.keyboard.keyboard.internal.GestureStrokeDrawingPoints;
@@ -37,6 +38,7 @@ import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.KtxKt;
+import helium314.keyboard.latin.utils.LayoutType;
 import helium314.keyboard.latin.utils.Log;
 
 import java.util.ArrayList;
@@ -123,6 +125,38 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private boolean mIsDetectingGesture = false; // per PointerTracker.
     private static boolean sInGesture = false;
+    // ---- Combining-mode tap seeding ------------------------------------------------------
+    // When the user taps a letter and within the combining-grace window starts a swipe, the
+    // pure concat path ("s" + recognizer-of-"ilo") produces unreliable results because the
+    // recognizer gets too few points to pin a word. So we SEED the next gesture's first
+    // pointer event with the prior tap's (x, y, time). The recognizer then sees a full
+    // s→i→l→o stroke and reliably produces "silo".
+    //
+    // To avoid double-counting the seed letter at commit time, InputLogic peeks at
+    // {@link #consumeGestureSeedCodepoint()} when the gesture commits; if the seed letter
+    // matches the first codepoint of the recognized word (case-insensitive), it strips it
+    // before the existing concat/replace logic runs. Net result:
+    //   composing="s",   seed='s', batch="silo"    → strip → "ilo"    → concat → "silo"
+    //   composing="tech",seed='h', batch="hnology" → strip → "nology" → concat → "technology"
+    //   composing="s",   seed='s', batch="ilver"   → no strip          → concat → "silver"
+    //
+    // All static / globally-scoped: the prior tap can be on any tracker, and the gesture
+    // start can be on any tracker. UI thread only.
+    private static int sLastLetterTapX;
+    private static int sLastLetterTapY;
+    private static long sLastLetterTapTime;
+    private static int sLastLetterTapCodepoint; // 0 = none
+    private static int sCurrentGestureSeedCodepoint; // 0 = no seed for current gesture
+
+    /** Called by InputLogic at the moment of consuming a gesture's batch result. Returns the
+     *  codepoint that seeded the gesture (or 0), and clears the slot so the next gesture
+     *  starts fresh. */
+    public static int consumeGestureSeedCodepoint() {
+        final int seed = sCurrentGestureSeedCodepoint;
+        sCurrentGestureSeedCodepoint = 0;
+        return seed;
+    }
+
     private static TypingTimeRecorder sTypingTimeRecorder;
 
     // The position and time at which first down event occurred.
@@ -169,6 +203,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // true if a keyswipe gesture is enabled and warranted.
     private boolean mKeySwipeAllowed = false;
     private static boolean sInKeySwipe = false;
+    private boolean mShortcutTopRowSwipeAllowed = false;
+    private boolean mShortcutBottomRowSwipeAllowed = false;
+    private boolean mInShortcutRowSwipe = false;
+    private static boolean sInShortcutRowSwipe = false;
 
     // Touchpad mode for cursor control
     private final TouchpadHandler mTouchpadHandler = new TouchpadHandler();
@@ -230,6 +268,232 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     public static void cancelAllPointerTrackers() {
         sPointerTrackerQueue.cancelAllPointerTrackers();
+        sInShortcutRowSwipe = false;
+        // Two-thumb typing (#1.2): drop any pending grace-period commit during teardown so
+        // the deferred runnable doesn't fire against a possibly-disposed view. If a commit
+        // was indeed pending, the only thing keeping {@code sInGesture} true was the grace
+        // window itself — clear it now so post-teardown touches don't see stale state.
+        if (BatchInputArbiter.cancelGrace()) {
+            sInGesture = false;
+        }
+        // Two-thumb typing (#1.4): same idea — a deferred tap commit on an inactive tracker
+        // (already removed from the pointer queue) would not have been canceled by the queue
+        // sweep above, so do it explicitly.
+        cancelAllPendingTapPromotions();
+    }
+
+    /**
+     * Static commit path used by the autospace grace period (#1.2). Called from
+     * {@link BatchInputArbiter} when a deferred commit fires (timer expired or
+     * {@link BatchInputArbiter#flushGrace} was invoked). Mirrors the body of the per-instance
+     * {@link #onEndBatchInput(InputPointers, long)} but skips the {@code mIsTrackingForActionDisabled}
+     * check because the original tracker may have been reused for a different finger by now —
+     * the per-instance flag is no longer meaningful for the previously-committed gesture.
+     * Always invoked on the main looper.
+     *
+     * @param keyboardSnapshot the {@link Keyboard} captured at scheduling time, used by the
+     *     dual-thumb hinter (#2.1) for geometry; may be {@code null} (hinter no-ops). Using a
+     *     captured snapshot rather than a live static avoids problems if the keyboard layout
+     *     swapped during the grace window.
+     */
+    private static void commitDeferredBatchInput(
+            final InputPointers aggregatedPointers, final long upEventTime,
+            final Keyboard keyboardSnapshot) {
+        sTypingTimeRecorder.onEndBatchInput(upEventTime);
+        sTimerProxy.cancelAllUpdateBatchInputTimers();
+        final DualThumbHinter.Result result =
+                applyDualThumbHinting(aggregatedPointers, keyboardSnapshot);
+        pushGestureDebugSnapshot(aggregatedPointers, result.syntheticOnly);
+        sListener.onEndBatchInput(result.hinted);
+        sInGesture = false;
+    }
+
+    /**
+     * Apply the dual-thumb point hinter (#2.1) to the aggregated pointers if the user has
+     * enabled it. Returns an "identity" {@link DualThumbHinter.Result} (hinted == raw,
+     * empty synthetic-only) when the pref is off OR no keyboard geometry is available — we
+     * don't have the key-width / midline needed by the hinter.
+     */
+    private static DualThumbHinter.Result applyDualThumbHinting(
+            final InputPointers raw, final Keyboard keyboard) {
+        final SettingsValues sv = Settings.getValues();
+        if (!sv.mGestureDualThumbHinting || keyboard == null) {
+            return DualThumbHinter.identity(raw);
+        }
+        final int keyWidth = keyboard.mMostCommonKeyWidth;
+        final int midlineX = (int)(keyboard.mOccupiedWidth
+                * (sv.mGestureDualThumbMidlinePct / 100f));
+        return DualThumbHinter.postProcess(raw, keyWidth, midlineX);
+    }
+
+    /**
+     * Push raw + synthetic-only snapshots to the debug overlay if the user has enabled it. The
+     * synthetic-only buffer is what the hinter ADDED (i.e. blue dots in the overlay); when no
+     * hinting was applied it's empty and the overlay shows only the raw red dots.
+     */
+    private static void pushGestureDebugSnapshot(
+            final InputPointers raw, final InputPointers syntheticOnly) {
+        if (!Settings.getValues().mGestureDebugDrawPoints) return;
+        sDrawingProxy.setGestureDebugPoints(raw, syntheticOnly);
+    }
+
+    // ---- Tap-promotion helpers (two-thumb typing #1.4) ----
+
+    /**
+     * Static commit path used by the tap-promotion timer / hold-then-flush logic. Mirrors the
+     * relevant parts of {@link #detectAndSendKey} and {@link #callListenerOnCodeInput} but
+     * uses only the snapshot captured at schedule time + static collaborators — never the
+     * possibly-reused {@link PointerTracker} instance state. Always invoked on the main looper.
+     *
+     * @param key the original tapped Key snapshot
+     * @param code the primary code captured at schedule time
+     * @param outputText {@code key.getOutputText()} captured at schedule time (for
+     *     {@code MULTIPLE_CODE_POINTS} keys); may be {@code null} otherwise
+     * @param x the x-coord captured from the original tap
+     * @param y the y-coord captured from the original tap
+     * @param upEventTime the time the original tap lifted
+     * @param useProximityCorrection whether the original keyboard reported
+     *     {@link Keyboard#hasProximityCharsCorrection(int)} for this code at schedule time
+     * @param wasInSlidingKeyInput snapshot of whether the original up was finishing a sliding
+     *     key input — controls whether we fire {@link sListener.onFinishSlidingInput}
+     */
+    private static void commitDeferredTap(final Key key, final int code, final String outputText,
+            final int x, final int y, final long upEventTime,
+            final boolean useProximityCorrection, final boolean wasInSlidingKeyInput) {
+        if (key == null) {
+            sListener.onCancelInput();
+            return;
+        }
+        sTypingTimeRecorder.onCodeInput(code, upEventTime);
+        if (code == KeyCode.MULTIPLE_CODE_POINTS) {
+            if (outputText != null) sListener.onTextInput(outputText);
+        } else if (code != KeyCode.NOT_SPECIFIED) {
+            if (useProximityCorrection) {
+                sListener.onCodeInput(code, x, y, false);
+            } else {
+                sListener.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            }
+        }
+        sListener.onReleaseKey(code, false);
+        if (wasInSlidingKeyInput) {
+            sListener.onFinishSlidingInput();
+        }
+    }
+
+    /**
+     * Static cleanup: cancel pending tap-promotion commits on every tracker. Called from
+     * {@link #cancelAllPointerTrackers} so view teardown / IME-level cleanup doesn't leave
+     * orphaned commits queued on {@link #sTapPromotionHandler} firing against a stale listener.
+     */
+    private static void cancelAllPendingTapPromotions() {
+        final int trackersSize = sTrackers.size();
+        for (int i = 0; i < trackersSize; ++i) {
+            sTrackers.get(i).cancelPendingTapCommit();
+        }
+    }
+
+    /**
+     * Defer this tap's commit by {@code promotionMs} (state machine: SCHEDULED → fire timer →
+     * commit; or candidate-down lifts SCHEDULED to HELD; gesture-start drops HELD; pointer-up
+     * without gesture flushes HELD). The Runnable captures only immutable snapshots so tracker
+     * reuse during the window can't corrupt the deferred commit.
+     *
+     * @param key the tapped Key (snapshot)
+     * @param keyX, keyY coords originally passed to the synchronous detectAndSendKey call
+     * @param downTime time the tap originally went down (becomes the seed timestamp if this
+     *     tap is later promoted into a gesture)
+     * @param upEventTime time the tap lifted (passed to sListener.onCodeInput when fired)
+     * @param promotionMs user-configured window in ms (caller must have ensured {@code > 0})
+     * @param wasInSlidingKeyInput snapshot of {@code mIsInSlidingKeyInput} at up-time
+     */
+    private void scheduleTapPromotionCommit(final Key key, final int keyX, final int keyY,
+            final long downTime, final long upEventTime, final int promotionMs,
+            final boolean wasInSlidingKeyInput) {
+        // Cancel any pre-existing pending commit on this tracker — shouldn't normally happen
+        // but defends against pathological re-entry (e.g. a phantom up while a tap is held).
+        cancelPendingTapCommit();
+        // Snapshot every piece of state the deferred commit needs. {@code mKeyboard} may be
+        // null in theory; treat that as "no proximity correction" rather than crashing.
+        final int code = key.getCode();
+        final String outputText = (code == KeyCode.MULTIPLE_CODE_POINTS) ? key.getOutputText() : null;
+        final boolean useProximityCorrection = (mKeyboard != null)
+                && mKeyboard.hasProximityCharsCorrection(code);
+        final Runnable commit = new Runnable() {
+            private boolean mConsumed;
+            @Override
+            public void run() {
+                if (mConsumed) return;
+                mConsumed = true;
+                if (mPendingTapCommit == this) {
+                    mPendingTapCommit = null;
+                    mIsPromotedFromTap = false;
+                }
+                // If a gesture (on any tracker) is in progress by the time we fire, typing
+                // this letter would corrupt the in-flight gesture word — drop it silently.
+                if (sInGesture) return;
+                commitDeferredTap(key, code, outputText, keyX, keyY, upEventTime,
+                        useProximityCorrection, wasInSlidingKeyInput);
+            }
+        };
+        mPendingTapCommit = commit;
+        mTapSeedX = keyX;
+        mTapSeedY = keyY;
+        mTapSeedTime = downTime;
+        mIsPromotedFromTap = false;
+        if (sTapPromotionHandler == null) {
+            sTapPromotionHandler = new Handler(Looper.getMainLooper());
+        }
+        sTapPromotionHandler.postDelayed(commit, promotionMs);
+    }
+
+    /**
+     * Move a pending tap commit from SCHEDULED to HELD: the Handler queue entry is removed,
+     * but the Runnable stays in {@link #mPendingTapCommit} ready to be fired or canceled
+     * once we know whether the in-progress down event develops into a gesture (drop) or
+     * lifts without one (flush).
+     */
+    private void holdPendingTapCommit() {
+        if (mPendingTapCommit == null) return;
+        if (sTapPromotionHandler != null) {
+            sTapPromotionHandler.removeCallbacks(mPendingTapCommit);
+        }
+        // Keep mPendingTapCommit referencing the Runnable. The Runnable's own mConsumed guard
+        // makes a second invocation a no-op, so it's safe even if some other path later
+        // posts/runs it accidentally.
+    }
+
+    /**
+     * Cancel any pending tap commit (SCHEDULED or HELD) without typing the letter. Used when
+     * the user explicitly canceled this tracker, when the deferred tap was promoted into a
+     * gesture (the gesture word subsumes the tap), or during view teardown.
+     */
+    private void cancelPendingTapCommit() {
+        if (mPendingTapCommit == null) {
+            // Defensive — the promotion flag should never outlive the runnable, but clear it
+            // anyway to keep the invariant explicit.
+            mIsPromotedFromTap = false;
+            return;
+        }
+        if (sTapPromotionHandler != null) {
+            sTapPromotionHandler.removeCallbacks(mPendingTapCommit);
+        }
+        mPendingTapCommit = null;
+        mIsPromotedFromTap = false;
+    }
+
+    /**
+     * Synchronously fire the pending tap commit (SCHEDULED or HELD), then clear the slot.
+     * Used when a follow-up down isn't a promotion candidate, or when a held tap's
+     * second-pointer up arrives without a gesture having started.
+     */
+    private void firePendingTapCommitNow() {
+        final Runnable pending = mPendingTapCommit;
+        if (pending == null) return;
+        if (sTapPromotionHandler != null) sTapPromotionHandler.removeCallbacks(pending);
+        // The runnable's mConsumed guard + the {@code if (mPendingTapCommit == this)} cleanup
+        // inside its body null the slot and clear mIsPromotedFromTap atomically with the
+        // actual commit — no need to do it again here.
+        pending.run();
     }
 
     public static void setKeyboardActionListener(final KeyboardActionListener listener) {
@@ -547,6 +811,15 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (DEBUG_LISTENER) {
             Log.d(TAG, String.format(Locale.US, "[%d] onStartBatchInput", mPointerId));
         }
+        // Two-thumb typing debug overlay: clear only when this is a new word. While combining
+        // mode is active, a fresh gesture is another fragment of the same word and should remain
+        // visible alongside earlier fragments.
+        final SettingsValues settingsValues = Settings.getValues();
+        if (!settingsValues.mGestureDebugAccumulateFragments
+                || (!sDrawingProxy.isCombiningModeActiveForDebug()
+                        && !settingsValues.mGestureManualSpacing)) {
+            sDrawingProxy.clearGestureDebugPoints();
+        }
         sListener.onStartBatchInput();
         dismissAllPopupKeysPanels();
         sTimerProxy.cancelLongPressTimersOf(this);
@@ -592,7 +865,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             Log.d(TAG, String.format(Locale.US, "[%d] onEndBatchInput   : batchPoints=%d",
                     mPointerId, aggregatedPointers.getPointerSize()));
         }
-        sListener.onEndBatchInput(aggregatedPointers);
+        // Two-thumb typing (#2.1): post-process the aggregated pointers if hinting is on,
+        // and snapshot before/after for the debug overlay regardless. Geometry comes from
+        // this tracker's current keyboard — for the immediate-commit path it's fresh.
+        final DualThumbHinter.Result result = applyDualThumbHinting(aggregatedPointers, mKeyboard);
+        pushGestureDebugSnapshot(aggregatedPointers, result.syntheticOnly);
+        sListener.onEndBatchInput(result.hinted);
     }
 
     private void cancelBatchInput() {
@@ -606,6 +884,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             Log.d(TAG, String.format(Locale.US, "[%d] onCancelBatchInput", mPointerId));
         }
         sListener.onCancelBatchInput();
+        // Two-thumb typing (#2.1): drop any leftover debug overlay so it doesn't linger over
+        // a cancelled gesture's input.
+        sDrawingProxy.clearGestureDebugPoints();
     }
 
     public void processMotionEvent(final MotionEvent me, final KeyDetector keyDetector) {
@@ -679,12 +960,58 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // A gesture should start only from a non-modifier key. Note that the gesture detection is
         // disabled when the key is repeating.
         mIsDetectingGesture = (mKeyboard != null) && mKeyboard.mId.isAlphabetKeyboard()
-                && key != null && !key.isModifier() && !mKeySwipeAllowed && !sInKeySwipe;
+                && key != null && !key.isModifier() && !mKeySwipeAllowed && !sInKeySwipe
+                && !sInShortcutRowSwipe;
         if (mIsDetectingGesture) {
-            mBatchInputArbiter.addDownEventPoint(x, y, eventTime,
+            // Combining-mode tap seeding: if the user just tapped a letter within the
+            // (base + tap-extra) combining grace window, prepend that tap's position+time as
+            // the down-event for this gesture. The recognizer sees a continuous stroke from
+            // the tapped letter to the swiped letters and produces a multi-letter word
+            // reliably; without seeding "i→l→o" alone often doesn't recognize as "ilo".
+            // InputLogic.onUpdateTailBatchInputCompleted reads consumeGestureSeedCodepoint()
+            // and strips the leading seed letter from the recognized word before concat, so
+            // we don't double-count it.
+            //
+            // We tried also seeding from the composing-tail (for gesture-then-gesture: swipe
+            // "tech" + swipe "nology" → seed nology-swipe from h's key center). It made
+            // recognition WORSE: the synthetic h→n→o→l→o→g→y trajectory has the recognizer
+            // find a word starting with h that traces that shape, "colony" (h dropped), so
+            // we got "techcolony". Tap-seed has accurate real coords; tail-seed has only the
+            // key center, and the resulting stroke geometry is unrealistic.
+            int seedX = x;
+            int seedY = y;
+            long seedTime = eventTime;
+            sCurrentGestureSeedCodepoint = 0;
+            final SettingsValues sv = Settings.getValues();
+            // Multi-part composition (#1.6): when the WordComposer extend-base path is
+            // active, it already feeds the lib the full prior-fragment trail with proper
+            // re-timed pointers. The single-point seed here would duplicate context and,
+            // worse, introduce a stale-time point at the merge boundary that breaks the
+            // recognizer's continuity assumptions (regressed 'silo' in earlier testing).
+            // Disable the PointerTracker seed entirely when multipart auto-extend is on.
+            final boolean multipartExtendActive = sv.mMultipartAutoExtendInCombining
+                    && sv.mCombiningGraceMs > 0;
+            if (!multipartExtendActive
+                    && sv.mCombiningGraceMs > 0
+                    && sLastLetterTapCodepoint > 0
+                    && key != null
+                    && !key.isModifier()
+                    && Character.isLetter(key.getCode())
+                    && mKeyboard != null && mKeyboard.mId.isAlphabetKeyboard()
+                    && !sInGesture) {
+                final long timeSinceTap = eventTime - sLastLetterTapTime;
+                final long effectiveWindow = sv.mCombiningGraceMs + Math.max(0, sv.mCombiningTapExtraMs);
+                if (timeSinceTap >= 0 && timeSinceTap <= effectiveWindow) {
+                    seedX = sLastLetterTapX;
+                    seedY = sLastLetterTapY;
+                    seedTime = sLastLetterTapTime;
+                    sCurrentGestureSeedCodepoint = sLastLetterTapCodepoint;
+                }
+            }
+            mBatchInputArbiter.addDownEventPoint(seedX, seedY, seedTime,
                     sTypingTimeRecorder.getLastLetterTypingTime(), getActivePointerTrackerCount());
             mGestureStrokeDrawingPoints.onDownEvent(
-                    x, y, mBatchInputArbiter.getElapsedTimeSinceFirstDown(eventTime));
+                    seedX, seedY, mBatchInputArbiter.getElapsedTimeSinceFirstDown(seedTime));
         }
     }
 
@@ -696,6 +1023,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (isShowingPopupKeysPanel()) {
             mPopupKeysPanel.dismissPopupKeysPanel();
             mPopupKeysPanel = null;
+        }
+        if (mInShortcutRowSwipe) {
+            mInShortcutRowSwipe = false;
+            sInShortcutRowSwipe = false;
         }
     }
 
@@ -712,6 +1043,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             mKeySwipeAllowed = true;
             sInKeySwipe = true;
         }
+        mShortcutTopRowSwipeAllowed = isShortcutRowSource(key, true);
+        mShortcutBottomRowSwipeAllowed = isShortcutRowSource(key, false);
+        mInShortcutRowSwipe = false;
         mKeyboardLayoutHasBeenChanged = false;
         mIsTrackingForActionDisabled = false;
         resetKeySelectionByDraggingFinger();
@@ -755,8 +1089,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private boolean isSwiper(final int code) {
         final SettingsValues sv = Settings.getValues();
         return switch (code) {
-            case Constants.CODE_SPACE -> sv.mSpaceSwipeHorizontal != KeyboardActionListener.SwipeAction.NONE
-                    || sv.mSpaceSwipeVertical != KeyboardActionListener.SwipeAction.NONE;
+            case Constants.CODE_SPACE -> sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION
+                    || sv.mSpaceSwipeVertical != KeyboardActionListener.SWIPE_NO_ACTION;
             case KeyCode.DELETE -> sv.mDeleteSwipeEnabled;
             default -> false;
         };
@@ -764,7 +1098,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private void onGestureMoveEvent(final int x, final int y, final long eventTime,
             final boolean isMajorEvent, final Key key) {
-        if (!mIsDetectingGesture || sInKeySwipe) {
+        if (!mIsDetectingGesture || sInKeySwipe || sInShortcutRowSwipe) {
             return;
         }
         final boolean onValidArea = mBatchInputArbiter.addMoveEventPoint(
@@ -802,6 +1136,20 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
+        if (isShowingPopupKeysPanel()) {
+            final int translatedX = mPopupKeysPanel.translateX(x);
+            final int translatedY = mPopupKeysPanel.translateY(y);
+            mPopupKeysPanel.onMoveEvent(translatedX, translatedY, mPointerId, eventTime);
+            onMoveKey(x, y);
+            if (mIsInSlidingKeyInput) {
+                sDrawingProxy.showSlidingKeyInputPreview(this);
+            }
+            return;
+        }
+        if (tryStartShortcutRowSwipe(x, y, eventTime)) {
+            return;
+        }
+
         if (sGestureEnabler.shouldHandleGesture() && me != null) {
             // Add historical points to gesture path.
             final int pointerIndex = me.findPointerIndex(mPointerId);
@@ -812,17 +1160,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 final long historicalTime = me.getHistoricalEventTime(h);
                 onGestureMoveEvent(historicalX, historicalY, historicalTime, false, null);
             }
-        }
-
-        if (isShowingPopupKeysPanel()) {
-            final int translatedX = mPopupKeysPanel.translateX(x);
-            final int translatedY = mPopupKeysPanel.translateY(y);
-            mPopupKeysPanel.onMoveEvent(translatedX, translatedY, mPointerId, eventTime);
-            onMoveKey(x, y);
-            if (mIsInSlidingKeyInput) {
-                sDrawingProxy.showSlidingKeyInputPreview(this);
-            }
-            return;
         }
         onMoveEventInternal(x, y, eventTime);
     }
@@ -981,10 +1318,71 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
+    private boolean isShortcutRowSource(final Key key, final boolean topRow) {
+        final SettingsValues sv = Settings.getValues();
+        if (!sv.mShortcutRowsEnabled
+                || (topRow && !sv.mShortcutTopRowEnabled)
+                || (!topRow && !sv.mShortcutBottomRowEnabled)
+                || key == null || mKeyboard == null || key.isSpacer() || !key.isEnabled()
+                || key.isModifier() || isSwiper(key.getCode())) {
+            return false;
+        }
+        final int sourceY = key.getY();
+        boolean foundEligibleRow = false;
+        int targetY = topRow ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+        for (final Key candidate : mKeyboard.getSortedKeys()) {
+            if (candidate.isSpacer() || !candidate.isEnabled() || candidate.isModifier()
+                    || isSwiper(candidate.getCode())
+                    || candidate.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
+                continue;
+            }
+            foundEligibleRow = true;
+            targetY = topRow ? Math.min(targetY, candidate.getY()) : Math.max(targetY, candidate.getY());
+        }
+        return foundEligibleRow && sourceY == targetY;
+    }
+
+    private boolean tryStartShortcutRowSwipe(final int x, final int y, final long eventTime) {
+        if (mInShortcutRowSwipe || isShowingPopupKeysPanel() || sInGesture || sInKeySwipe
+                || sInShortcutRowSwipe || mCurrentKey == null) {
+            return mInShortcutRowSwipe;
+        }
+        final int dX = x - mStartX;
+        final int dY = y - mStartY;
+        final LayoutType layoutType;
+        final boolean belowSourceKey;
+        if (mShortcutTopRowSwipeAllowed && dY <= -sPointerStep && abs(dY) > abs(dX)) {
+            layoutType = LayoutType.SHORTCUT_TOP;
+            belowSourceKey = false;
+        } else if (mShortcutBottomRowSwipeAllowed && dY >= sPointerStep && abs(dY) > abs(dX)) {
+            layoutType = LayoutType.SHORTCUT_BOTTOM;
+            belowSourceKey = true;
+        } else {
+            return false;
+        }
+
+        final PopupKeysPanel popupKeysPanel = sDrawingProxy.showShortcutRowKeyboard(
+                mCurrentKey, this, layoutType, belowSourceKey);
+        if (popupKeysPanel == null) {
+            return false;
+        }
+        sTimerProxy.cancelKeyTimersOf(this);
+        mIsDetectingGesture = false;
+        setReleasedKeyGraphics(mCurrentKey, true);
+        final int translatedX = popupKeysPanel.translateX(x);
+        final int translatedY = popupKeysPanel.translateY(y);
+        popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, eventTime);
+        mPopupKeysPanel = popupKeysPanel;
+        mInShortcutRowSwipe = true;
+        sInShortcutRowSwipe = true;
+        return true;
+    }
+
     private void onMoveEventInternal(final int x, final int y, final long eventTime) {
         final Key oldKey = mCurrentKey;
 
-        // todo (later): move key swipe stuff to KeyboardActionListener (and finally extend it)
+        // todo (later): move key swipe stuff to KeyboardActionListener (and finally
+        // extend it)
         if (mKeySwipeAllowed) {
             onKeySwipe(oldKey.getCode(), x, y, eventTime);
             return;
@@ -1066,7 +1464,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Release the last pressed key.
         setReleasedKeyGraphics(currentKey, true);
 
-        if (mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
+        if (currentKey != null && mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
             sListener.onUpWithDeletePointerActive();
         }
 
@@ -1083,6 +1481,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 panel.dismissPopupKeysPanel();
             }
             dismissPopupKeysPanel();
+            if (mInShortcutRowSwipe) {
+                mInShortcutRowSwipe = false;
+                sInShortcutRowSwipe = false;
+            }
             if (isInSlidingKeyInput)
                 callListenerOnFinishSlidingInput();
             return;
@@ -1107,9 +1509,35 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             if (currentKey != null) {
                 callListenerOnRelease(currentKey, currentKey.getCode(), true);
             }
+            // Two-thumb typing (#1.2): defer the commit by {@code mGestureAutospaceGraceMs}
+            // when configured, so a follow-up finger can continue the same word. {@code 0}
+            // (the default) preserves today's immediate-commit behaviour byte-for-byte.
+            final int graceMs = Settings.getValues().mGestureAutospaceGraceMs;
+            // Two-thumb typing (#2.1): capture the current keyboard so the deferred commit
+            // path can apply the dual-thumb hinter with the geometry that was live at the
+            // moment of lift — not whatever might be live when the grace timer fires (the
+            // layout could have swapped during the window).
+            final Keyboard keyboardSnapshotForCommit = mKeyboard;
             if (mBatchInputArbiter.mayEndBatchInput(
-                    eventTime, getActivePointerTrackerCount(), this)) {
+                    eventTime, getActivePointerTrackerCount(), graceMs, this,
+                    (pts, ts) -> commitDeferredBatchInput(pts, ts, keyboardSnapshotForCommit))) {
                 sInGesture = false;
+            }
+            // Multi-part word composition: record the gesture's lift position as a "letter
+            // tap" so the NEXT gesture's onDownEvent seeding code (sLastLetterTap*) treats
+            // it as a continuation point. Without this, swipe+swipe gives un-seeded second
+            // strokes that the recognizer interprets as standalone words (e.g. tech+nology
+            // -> "techbiology"). Only record if the lift was on a real letter key.
+            if (Settings.getValues().mMultipartTapSeedGesture
+                    && Settings.getValues().mCombiningGraceMs > 0
+                    && currentKey != null) {
+                final int code = currentKey.getCode();
+                if (code > 0 && Character.isLetter(code)) {
+                    sLastLetterTapX = mKeyX;
+                    sLastLetterTapY = mKeyY;
+                    sLastLetterTapTime = eventTime;
+                    sLastLetterTapCodepoint = code;
+                }
             }
             showGestureTrail();
             return;
@@ -1123,6 +1551,19 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
         detectAndSendKey(currentKey, mKeyX, mKeyY, eventTime);
+        // Combining-mode seeding: remember the last letter tap so a follow-up gesture can
+        // seed its first pointer event with this position and time. Only letter taps qualify
+        // (modifiers / numbers / symbols shouldn't seed). The actual seeding decision lives
+        // on the next onDownEvent path, gated on combining grace > 0 and time-since-tap.
+        if (currentKey != null) {
+            final int code = currentKey.getCode();
+            if (code > 0 && Character.isLetter(code)) {
+                sLastLetterTapX = mKeyX;
+                sLastLetterTapY = mKeyY;
+                sLastLetterTapTime = eventTime;
+                sLastLetterTapCodepoint = code;
+            }
+        }
         if (isInSlidingKeyInput) {
             callListenerOnFinishSlidingInput();
         }
@@ -1213,6 +1654,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         setReleasedKeyGraphics(mCurrentKey, true);
         resetKeySelectionByDraggingFinger();
         dismissPopupKeysPanel();
+        if (mInShortcutRowSwipe) {
+            mInShortcutRowSwipe = false;
+            sInShortcutRowSwipe = false;
+        }
     }
 
     private boolean isMajorEnoughMoveToBeOnNewKey(final int x, final int y, final long eventTime,
