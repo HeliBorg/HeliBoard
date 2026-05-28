@@ -820,9 +820,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                         && !settingsValues.mGestureManualSpacing)) {
             sDrawingProxy.clearGestureDebugPoints();
         }
-        // Two-thumb typing (#2.1): a fresh gesture starts — wipe the previous batch's debug
-        // overlay so it doesn't visually mix with the in-flight gesture.
-        sDrawingProxy.clearGestureDebugPoints();
         sListener.onStartBatchInput();
         dismissAllPopupKeysPanels();
         sTimerProxy.cancelLongPressTimersOf(this);

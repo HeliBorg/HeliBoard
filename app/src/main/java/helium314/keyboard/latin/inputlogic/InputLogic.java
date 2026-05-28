@@ -1325,14 +1325,9 @@ public final class InputLogic {
                 OneShotSpaceAction.armJoinNext();
                 mLatinIME.onOneShotSpaceActionStateChanged();
                 break;
-            case KeyCode.FORCE_NEXT_SPACE: {
-                final Event forcedSpaceEvent = Event.createSoftwareKeypressEvent(Constants.CODE_SPACE,
-                        event.getMetaState(), event.getX(), event.getY(), event.isKeyRepeat());
-                handleNonSpecialCharacterEvent(forcedSpaceEvent, inputTransaction, handler);
-                OneShotSpaceAction.armForceNextSpace();
-                mLatinIME.onOneShotSpaceActionStateChanged();
+            case KeyCode.FORCE_NEXT_SPACE:
+                forceSpaceBeforeNextWord(event, inputTransaction, handler);
                 break;
-            }
             case KeyCode.LANGUAGE_SWITCH:
                 handleLanguageSwitchKey();
                 break;
