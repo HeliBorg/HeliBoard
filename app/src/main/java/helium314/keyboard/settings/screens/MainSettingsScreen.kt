@@ -21,8 +21,8 @@ import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils.displayName
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.NextScreenIcon
-import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.latin.utils.previewDark
@@ -171,7 +171,20 @@ private fun PreviewScreen() {
     initPreview(LocalContext.current)
     Theme(previewDark) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
+            MainSettingsScreen(
+                onClickAbout = {},
+                onClickTextCorrection = {},
+                onClickPreferences = {},
+                onClickToolbar = {},
+                onClickGestureTyping = {},
+                onClickTwoThumbTyping = {},
+                onClickAdvanced = {},
+                onClickAppearance = {},
+                onClickLanguage = {},
+                onClickLayouts = {},
+                onClickDictionaries = {},
+                onClickBack = {},
+            )
         }
     }
 }
