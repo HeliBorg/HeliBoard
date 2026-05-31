@@ -71,8 +71,9 @@ object BackgroundGatheringCache {
             Log.w(TAG, "...but our last word is ${lastEntry?.topSuggestion}, not $originalWord")
             return
         }
-        // consider that suggestion might be capitalized
-        lastEntry.targetWord = lastEntry.suggestions.firstOrNull { it.mWord.equals(suggestion.mWord, true) }?.mWord
+        lastEntry.targetWord = lastEntry.suggestions.firstOrNull { it.mWord == suggestion.mWord }?.mWord ?:
+            // consider that suggestion might be capitalized, but prefer exact match
+            lastEntry.suggestions.firstOrNull { it.mWord.equals(suggestion.mWord, true) }?.mWord
         Log.i(TAG, "setting target word to ${lastEntry.targetWord}")
     }
 
@@ -285,12 +286,14 @@ class WordData(
             }
             if (word.mWord in blockedWords)
                 continue // we should never come here, but better check twice
-            if (word.mWord == (targetWord ?: topSuggestion?.word)) {
-                // always add the targetWord if we have it
-                filteredSuggestions.add(word)
+            filteredSuggestions.add(word)
+            if (word.mWord == (targetWord ?: topSuggestion?.word))
                 break // no use for suggestions after that
-            }
-            filteredSuggestions.add(word.redact())
+        }
+        // redact words that don't match the top suggestion / target word
+        for (i in filteredSuggestions.indices) {
+            if (filteredSuggestions[i].mWord != (targetWord ?: topSuggestion?.word))
+                filteredSuggestions[i] = filteredSuggestions[i].redact()
         }
         return filteredSuggestions
     }
