@@ -68,15 +68,20 @@ import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import kotlinx.coroutines.launch
 import kotlin.collections.plus
 import androidx.core.graphics.toColorInt
+import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Links
+import helium314.keyboard.latin.dictionary.DictionaryFactory
+import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppExclusions
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppIncludeByDefault
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.defaultToolbarPref
+import helium314.keyboard.latin.utils.getKnownDictHashes
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
+import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.painterResourceCompat
 import kotlinx.coroutines.Dispatchers
 import kotlin.text.split
@@ -93,6 +98,7 @@ fun BackgroundGatheringSettings() {
     var showExcludedWordsDialog by remember { mutableStateOf(false) }
     var showIncludedAppsDialog by remember { mutableStateOf(false) }
     var showFirstStartDialog by remember { mutableStateOf(false) }
+    var showNoDictDialog by remember { mutableStateOf(false) }
     var packageInfos by remember { mutableStateOf(emptyList<Triple<String, String, Drawable?>>()) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -113,6 +119,12 @@ fun BackgroundGatheringSettings() {
             onCheckedChange = {
                 if (!GestureDataGatheringSettings.hasBackgroundGatheringPref(ctx.prefs()))
                     showFirstStartDialog = true
+                if (it) {
+                    val usedMainDicts = DictionaryFactory.getMainDictsForLocale(ctx, Settings.getValues().mLocale, false)
+                    val hashes = getKnownDictHashes(ctx)
+                    if (usedMainDicts.none { ((it as? BinaryDictionary)?.hash ?: (it as? ReadOnlyBinaryDictionary)?.hash) in hashes })
+                        showNoDictDialog = true
+                }
                 backgroundGathering = it
                 GestureDataGatheringSettings.setBackgroundGatheringEnabled(ctx.prefs(), it)
             }
@@ -171,6 +183,7 @@ fun BackgroundGatheringSettings() {
                             stringResource(R.string.gesture_data_background_excluded_words_button),
                             stringResource(R.string.gesture_data_background_gathering_manual_save),
                             stringResource(R.string.background_gathering),
+                            Links.DICTIONARY_URL
                         )
                         Text(AnnotatedString.fromHtml(text))
                     }
@@ -313,10 +326,13 @@ fun BackgroundGatheringSettings() {
             },
         )
     }
+    if (showNoDictDialog) {
+        // inform user that there is no known dictionary for the current locale, so background gathering will not collect any words
+        val text = stringResource(R.string.gesture_data_no_known_dict, Links.DICTIONARY_URL)
+        InfoDialog(AnnotatedString.fromHtml(text)) { showNoDictDialog = false }
+    }
 }
 
-// todo: clarify that only words that are in main dict are actually stored,
-//  so if you have a sensitive word only in your personal dictionary there is no need to add it (but you can still, to be 100% sure)
 @Composable fun ExcludedWordsDialog(onDismissRequest: () -> Unit) {
     val ctx = LocalContext.current
     val ignoreWords = remember { GestureDataGatheringSettings.getWordExclusions(ctx).toMutableStateList() }

@@ -310,7 +310,7 @@ private fun GestureDataEntry(
             Text(text = infos, modifier = Modifier.padding(top = 2.dp))
         }
     }
-    if (showDetails) { // todo: now with redacting suggestions this is... weird / almost useless
+    if (showDetails) { // todo: now with redacting suggestions this is rather useless... remove?
         val ctx = LocalContext.current
         val jsonData = GestureDataDao.getInstance(ctx)?.getJsonData(listOf(gestureDataInfo.id), ctx)?.firstOrNull()
         val data = runCatching { jsonData?.let { Json.decodeFromString<GestureData>(it) } }.getOrNull()
@@ -329,7 +329,7 @@ private fun GestureDataEntry(
                 title = { Text(gestureDataInfo.targetWord) },
                 content = {
                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text(stringResource(R.string.gesture_data_suggestions, data.suggestions.joinToString(", ") { it.word }))
+//                        Text(stringResource(R.string.gesture_data_suggestions, data.suggestions.joinToString(", ") { it.word }))
                         Text(stringResource(R.string.dictionary_settings_category) + ": " + data.dictionaries.joinToString(", ") { "${it.type}:${it.language}" })
                     }
                 }

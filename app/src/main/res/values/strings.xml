@@ -1163,9 +1163,12 @@ New dictionary:
      %2$s -> gesture_data_background_excluded_words_button
      %3$s -> gesture_data_background_gathering_manual_save
      %4$s -> background_gathering
+     %5$s -> background_gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_background_gathering_control_message">
         Independent of the settings, background data gathering is disabled when using incognito mode and for sensitive input fields (passwords, email, or whenever the input field requests the keyboard to not learn the words).
+        Only words that are in a main dictionary (built-in or from the &lt;a href=%5$s&gt;dictionaries repository&lt;/a&gt;) will be collected.
+        &lt;br&gt;&lt;br&gt;
 
         Using &lt;i&gt;%1$s&lt;/i&gt; you can select in which apps background data gathering may be used.
         The default setting allows every app, with opt-out per app. You can invert the default, and only include specific apps.
@@ -1173,7 +1176,7 @@ New dictionary:
 
         With &lt;i&gt;%2$s&lt;/i&gt; you can exclude specific sensitive words.
         When gesturing an excluded word, the indicator icon will still show the filled icon (\"data waiting to be saved\"), but the data will be discarded when normally it would be saved.
-        When an excluded word is in the top suggestions, the gesture data will be discarded as well.
+        Note that background gathering will only collect words that are already in a main dictionary.
         &lt;br&gt;&lt;br&gt;
 
         When &lt;i&gt;%3$s&lt;/i&gt; is enabled, data is saved only if you choose to do so manually using the &lt;i&gt;%4$s&lt;/i&gt; toolbar key (see below).
@@ -1222,7 +1225,7 @@ New dictionary:
     <string name="background_gathering" tools:keep="@string/background_gathering">background data gathering</string>
     <!-- Text showing suggestions recorded for a specific gesture
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_suggestions">Suggestions: %s</string>
+    <string name="gesture_data_suggestions">Suggestions: %s</string> <!-- todo: this is useless now -->
     <!-- Review screen menu entry to display actively gathered data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_show_active">Show actively gathered data</string>
@@ -1252,6 +1255,12 @@ New dictionary:
     <!-- Button for adding the background_gathering toolbar key
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_add_key">Add toolbar key</string>
+    <!-- Dialog message informing the user they they don't have a known dictionary for the current locale (parsed as HTML)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_no_known_dict">
+        Background gathering only collects words coming from built-in dictionaries, or those coming from the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;.
+        Currently you have no such dictionary enabled.
+    </string>
 
     <!-- new strings should go above the section for gesture data gathering -->
 </resources>

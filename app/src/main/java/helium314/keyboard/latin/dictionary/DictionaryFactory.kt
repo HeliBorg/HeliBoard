@@ -25,6 +25,11 @@ object DictionaryFactory {
     //  expose the weight so users can adjust dictionary "importance" (useful for addons like emoji dict)
     //  allow users to block certain dictionaries (not sure how this should work exactly)
     fun createMainDictionaryCollection(context: Context, locale: Locale, useEmojiDict: Boolean): DictionaryCollection {
+        val dicts = getMainDictsForLocale(context, locale, useEmojiDict)
+        return DictionaryCollection(Dictionary.TYPE_MAIN, locale, dicts, FloatArray(dicts.size) { 1f })
+    }
+
+    fun getMainDictsForLocale(context: Context, locale: Locale, useEmojiDict: Boolean): List<Dictionary> {
         val dictList = LinkedList<Dictionary>()
         val (extracted, nonExtracted) = getAvailableDictsForLocale(locale, context, useEmojiDict)
         extracted.sortedBy { !it.name.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) }.forEach {
@@ -37,7 +42,7 @@ object DictionaryFactory {
             val extractedFile = DictionaryInfoUtils.extractAssetsDictionary(filename, locale, context) ?: return@forEach
             checkAndAddDictionaryToListIfNewType(extractedFile, dictList, locale)
         }
-        return DictionaryCollection(Dictionary.TYPE_MAIN, locale, dictList, FloatArray(dictList.size) { 1f })
+        return dictList
     }
 
     fun getAvailableDictsForLocale(locale: Locale, context: Context, useEmojiDict: Boolean): Pair<Array<out File>, List<String>> {

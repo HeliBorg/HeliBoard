@@ -185,7 +185,7 @@ private fun isBackgroundGatheringUsed(context: Context, editorInfo: EditorInfo):
     if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning || isEmailField) return false
     if (GestureDataGatheringSettings.isForbiddenForDataGathering(editorInfo.packageName, context)) return false
     if (editorInfo.privateImeOptions == "noBackground") return false // meant for review screen
-    // we might not have a known dictionary, but I guess that's acceptable
+    // we might not have a known dictionary, they are informed about this when enabling background gathering
     return true
 }
 
@@ -289,15 +289,10 @@ class WordData(
             }
             if (word.mWord in blockedWords)
                 continue // we should never come here, but better check twice
-            if (word.mWord == targetWord) {
+            if (word.mWord == (topSuggestion?.word ?: targetWord)) {
                 // always add the targetWord if we have it
                 filteredSuggestions.add(word)
-                continue
-            }
-            if (word.mWord == topSuggestion?.word && suggestions.any { it.mWord == topSuggestion?.mWord && it.isFromMainDict() }) {
-                // always add the topSuggestion if it's in a main dict
-                filteredSuggestions.add(word)
-                continue
+                break // no use for suggestions after that
             }
             filteredSuggestions.add(word.redact())
         }
@@ -306,9 +301,6 @@ class WordData(
 
     // find when we should NOT save
     fun isSavingOk(context: Context): Boolean {
-        // drop if
-        //  used or target word is in contacts dict
-        //
         if (inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH)
             return false
         if (activeMode)
@@ -332,24 +324,33 @@ class WordData(
             return false // we want at least one non-shortcut
 
         // word and dict-based filtering
-        if (matchingSuggestions.none { it.isFromMainDict() })
+        if (matchingSuggestions.none { it.isFromKnownMainDict(context) })
             return false // we have no use if not in main dictionary, also potentially sensitive
         if (matchingSuggestions.any { it.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS })
             return false // if there is a suggestion from contacts -> never use it
         val ignoreWords = GestureDataGatheringSettings.getWordExclusions(context)
-        // don't store if first suggestion or target word is blocked, the other suggestions will get redacted anyway
-        if (topSuggestion?.mWord?.let { it in ignoreWords } == true || targetWord in ignoreWords)
+        // don't store if target word / first suggestion is blocked, the other suggestions will get redacted anyway
+        if ((targetWord ?: topSuggestion?.mWord) in ignoreWords)
             return false
         return true
     }
 
     private fun SuggestedWords.SuggestedWordInfo.redact() =
-        SuggestedWords.SuggestedWordInfo("", "", 0, 0, mSourceDict, 0, 0)
+        SuggestedWords.SuggestedWordInfo("", "", Int.MIN_VALUE, 0, mSourceDict, 0, 0)
 
-    private fun SuggestedWords.SuggestedWordInfo.isFromMainDict() = when (mSourceDict.mDictType) {
-        Dictionary.TYPE_CONTACTS, Dictionary.TYPE_USER, Dictionary.TYPE_APPS, Dictionary.TYPE_USER_HISTORY -> false
-        else -> true
+    private fun SuggestedWords.SuggestedWordInfo.isFromKnownMainDict(context: Context): Boolean {
+        val hash = (mSourceDict as? BinaryDictionary)?.hash ?: (mSourceDict as? ReadOnlyBinaryDictionary)?.hash ?: return false
+        return hash in getKnownDictHashes(context)
     }
+}
+
+private var knownHashes: Set<String>? = null
+fun getKnownDictHashes(context: Context): Set<String> {
+    if (knownHashes == null)
+        knownHashes = context.assets.open("known_dict_hashes.txt")
+            .use { it.reader().readLines() }.filterNot { it.isBlank() || it.startsWith("#") }
+            .toHashSet()
+    return knownHashes!!
 }
 
 data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: Long, val exported: Boolean, val activeMode: Boolean)

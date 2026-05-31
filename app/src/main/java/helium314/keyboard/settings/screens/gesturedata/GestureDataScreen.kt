@@ -103,6 +103,7 @@ import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.latin.utils.appendLink
+import helium314.keyboard.latin.utils.getKnownDictHashes
 import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
@@ -623,8 +624,7 @@ fun ButtonWithText(text: String, modifier: Modifier = Modifier, enabled: Boolean
 
 // we only check dictionaries for enabled locales (main + secondary)
 private fun getAvailableDictionaries(context: Context): List<DictWithInfo> {
-    val allowedHashes = context.assets.open("known_dict_hashes.txt")
-        .use { it.reader().readLines() }.filterNot { it.isBlank() || it.startsWith("#") }
+    val allowedHashes = getKnownDictHashes(context)
     val locales = SubtypeSettings.getEnabledSubtypes(true).flatMap {
         getSecondaryLocales(it.extraValue) + it.locale()
     }
