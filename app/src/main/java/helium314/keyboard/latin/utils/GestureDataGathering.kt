@@ -285,7 +285,7 @@ class WordData(
             }
             if (word.mWord in blockedWords)
                 continue // we should never come here, but better check twice
-            if (word.mWord == (topSuggestion?.word ?: targetWord)) {
+            if (word.mWord == (targetWord ?: topSuggestion?.word)) {
                 // always add the targetWord if we have it
                 filteredSuggestions.add(word)
                 break // no use for suggestions after that
