@@ -419,7 +419,7 @@ fun GestureDataScreen(
                     Spacer(Modifier.height(12.dp))
                     HorizontalDivider()
                     val activeDeletedCount = GestureDataGatheringSettings.getExportedActiveDeletionCount(ctx)
-                    val wordsText = getWordsText(ctx, dbActiveWordCount + activeDeletedCount)
+                    val wordsText = getWordsText(ctx, dbActiveWordCount + sessionWordCount + activeDeletedCount)
                     WithSmallTitle(stringResource(R.string.gesture_data_active) + wordsText) {
                         ButtonWithText(
                             stringResource(R.string.gesture_data_active_start),
