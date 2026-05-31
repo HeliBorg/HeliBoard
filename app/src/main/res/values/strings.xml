@@ -1228,7 +1228,7 @@ New dictionary:
     <string name="gesture_data_long_press_select_hint">Long-press to select</string>
     <!-- Toolbar key to enable / disable background gesture data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="background_gathering" tools:keep="@string/background_gathering">background data gathering</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Background data gathering</string>
     <!-- Review screen menu entry to display actively gathered data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_show_active">Show actively gathered data</string>
@@ -1259,7 +1259,7 @@ New dictionary:
     <!-- Button for adding the background_gathering toolbar key
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_add_key">Add toolbar key</string>
-    <!-- Dialog message informing the user they they don't have a known dictionary for the current locale (parsed as HTML)
+    <!-- Dialog message informing the user they don't have a known dictionary for the current locale (parsed as HTML)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_no_known_dict">
         Background gathering only collects words coming from built-in dictionaries, or those coming from the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;.

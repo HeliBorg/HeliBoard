@@ -199,6 +199,7 @@ class GestureDataDao(val db: Database) {
 
         // when excluding a word, it's only removed from db by first suggestion / target word
         // so we should clean the other suggestions here
+        // actually this should not be necessary anymore as we redact suggestions, but keep in case we want to change redacting suggestions
         private fun String.filterExcludedSuggestions(exclusions: Collection<String>): String {
             if (exclusions.isEmpty()) return this
             var result = this
