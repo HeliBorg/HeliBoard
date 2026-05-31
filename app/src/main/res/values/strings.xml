@@ -1243,8 +1243,9 @@ New dictionary:
     <string name="gesture_data_shared">submitted</string>
     <!-- Text shown while gesture data is being written, may take up to 30s with 10000 words and a slow phone
      %s is percent already written
+     %% will be displayed as %
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_saving">Saving… %s%</string>
+    <string name="gesture_data_saving">Saving… %s%%</string>
     <!-- Dialog message asking the user whether they want to enable the toolbar key
      shown when background data gathering is enabled for the first time
      %1$s -> gesture_data_background_gathering_info
