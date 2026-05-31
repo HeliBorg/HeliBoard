@@ -1214,6 +1214,12 @@ New dictionary:
     <!-- Button for opening list of words that will never be saved in background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_background_excluded_words_button">Manage excluded words</string>
+    <!-- Text showing which dictionary the suggestion is coming from
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_background_dictionary">Dictionary: %s</string>
+    <!-- Text showing position of the chosen suggestion within all suggestion for that gesture
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_background_position">Position: %s</string>
     <!-- Button for excluding a specific word from background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_background_exclude_words">Exclude word from background gathering</string>
@@ -1223,9 +1229,6 @@ New dictionary:
     <!-- Toolbar key to enable / disable background gesture data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="background_gathering" tools:keep="@string/background_gathering">background data gathering</string>
-    <!-- Text showing suggestions recorded for a specific gesture
-     string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_suggestions">Suggestions: %s</string> <!-- todo: this is useless now -->
     <!-- Review screen menu entry to display actively gathered data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_show_active">Show actively gathered data</string>
