@@ -50,10 +50,6 @@ object BackgroundGatheringCache {
             Log.i(TAG, "inline emoji search, not adding anything")
             return
         }
-        if (!word.isSavingOk(Settings.getCurrentContext())) {
-            Log.i(TAG, "not adding ${word.topSuggestion} because it's not allowed")
-            return
-        }
         Log.i(TAG, "adding ${word.topSuggestion}")
         cachedWords.add(word)
         updateIcon()
@@ -317,7 +313,7 @@ class WordData(
         val inputAttributes = InputAttributes(keyboard.mId.mEditorInfo, false, "")
         val isEmailField = InputTypeUtils.isEmailVariation(inputAttributes.mInputType and InputType.TYPE_MASK_VARIATION)
         if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning || isEmailField)
-            return false // probably some more inputAttributes to consider
+            return false // background gathering should not even be enabled, but better have this backup
 
         val matchingSuggestions = suggestions.filter { it.mWord.equals(targetWord ?: topSuggestion?.word, true) }
         if (matchingSuggestions.all { (it.mKindAndFlags and 0xFF) == KIND_SHORTCUT })
