@@ -440,7 +440,8 @@ fun GestureDataScreen(
                 InfoDialog(AnnotatedString.fromHtml(
                     stringResource(R.string.gesture_data_description,
                         DateFormat.getDateInstance(DateFormat.LONG).format(Date(END_DATE_EPOCH_MILLIS)))
-                ) + AnnotatedString("\n\n" + stringResource(R.string.gesture_data_description_modes))) { showInfoDialog = false }
+                ) + AnnotatedString("\n\n") +
+                    AnnotatedString.fromHtml(stringResource(R.string.gesture_data_description_modes))) { showInfoDialog = false }
             if (showPrivacyDialog)
                 InfoDialog(stringResource(R.string.gesture_data_description_privacy)) { showPrivacyDialog = false }
             if (showActiveInfoDialog)

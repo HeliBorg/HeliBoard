@@ -973,11 +973,11 @@ New dictionary:
     <!-- Button text for showing gesture_data_description and gesture_data_description_modes
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_info">What\'s this?</string>
-    <!-- Descriptive text about gesture data gathering modes
+    <!-- Descriptive text about gesture data gathering modes (parsed as HTML)
     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_description_modes">
-        The \"safe\" way to contribute there is the \"active gathering\" mode, where you are shown a specific word, and enter this word using gesture typing.\n
-        You can also use the \"background gathering\" mode, where you can provide samples from your normal gesture typing from other apps.
+        The \"safe\" way to contribute there is the &lt;i&gt;active gathering&lt;/i&gt; mode, where you are shown a specific word, and enter this word using gesture typing.&lt;br/&gt;
+        You can also use the &lt;i&gt;background gathering&lt;/i&gt; mode, where you can provide samples from your normal gesture typing from other apps.
         Due to the sensitivity of this approach, this is opt-in, configurable, and has a review screen for the data you\'re about to submit.
     </string>
     <!-- Descriptive text about privacy of gesture data
@@ -1046,7 +1046,7 @@ New dictionary:
     <string name="gesture_data_how_to_use">How to use</string>
     <!-- Explanatory text about active gesture data gathering (parsed as HTML, containing a link to the dictionaries repository)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_active_description">Tap on \"Start active gathering\", optionally switch the dictionary, and start gesture typing the displayed word.&lt;br/&gt;
+    <string name="gesture_data_active_description">Tap on &lt;i&gt;Start active gathering&lt;/i&gt;, optionally switch the dictionary, and start gesture typing the displayed word.&lt;br/&gt;
         If your gesture matches the word, the data is saved and the next word is displayed. Otherwise you can retry, skip the word, or confirm you gestured correctly.&lt;br/&gt;
         You can only use dictionaries that are built into the app or available in the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;, no other words will be used.
     </string>
@@ -1152,8 +1152,8 @@ New dictionary:
         Any time gesture data may be recorded, you will see an indicator icon on bottom left of the keyboard.
         When the circle is filled, recently entered gesture data is waiting to be saved.
         Data is saved either using the toolbar key (see &lt;i&gt;%1$s&lt;/i&gt;) or automatically (when &lt;i&gt;%2$s&lt;/i&gt; is disabled).
-        Automatic saving usually happens when switching text field or closing the keyboard, but may also happen on other occasions such as text field changes not under this app\'s control.
-        What data is being saved, the indicator will turn green for a short time.
+        Automatic saving usually happens when switching text fields or closing the keyboard, but may also happen on other occasions such as text field changes not under this app\'s control.
+        When data is being saved, the indicator will turn green for a short time.
     </string>
     <!-- Title for info dialog section about controlling background data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
@@ -1175,8 +1175,8 @@ New dictionary:
         &lt;br&gt;&lt;br&gt;
 
         With &lt;i&gt;%2$s&lt;/i&gt; you can exclude specific sensitive words.
-        When gesturing an excluded word, the indicator icon will still show the filled icon (\"data waiting to be saved\"), but the data will be discarded when normally it would be saved.
-        Note that background gathering will only collect words that are already in a main dictionary.
+        When gesturing an excluded word, the indicator icon will still show the filled icon (\"data waiting to be saved\"), but the data will be discarded when normally it would be saved.&lt;br&gt;
+        Note that background gathering will only collect words that are already in a main dictionary, so strictly speaking there is no need to put other words on that list.
         &lt;br&gt;&lt;br&gt;
 
         When &lt;i&gt;%3$s&lt;/i&gt; is enabled, data is saved only if you choose to do so manually using the &lt;i&gt;%4$s&lt;/i&gt; toolbar key (see below).
