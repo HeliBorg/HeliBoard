@@ -1032,7 +1032,7 @@ New dictionary:
     <!-- Title for the screen to review and submit gesture data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_review_screen_title">Review &amp; share gesture data</string>
-    <!-- Short text on how many words are selected
+    <!-- Short text on how many words are selected or available
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_words_selected">%s words</string>
     <!-- Short title for date range display
@@ -1262,7 +1262,7 @@ New dictionary:
     <!-- Dialog message informing the user they don't have a known dictionary for the current locale (parsed as HTML)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_no_known_dict">
-        Background gathering only collects words coming from built-in dictionaries, or those coming from the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;.
+        Background gathering only collects words coming from dictionaries that are built-in or available at the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;.
         Currently you have no such dictionary enabled.
     </string>
 

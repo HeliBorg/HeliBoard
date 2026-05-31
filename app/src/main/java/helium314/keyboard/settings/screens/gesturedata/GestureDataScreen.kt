@@ -133,8 +133,8 @@ import kotlin.random.Random
  *  random word. After swiping this word it gets stored along with necessary
  *  information to recreate the input and some additional data.
  *
- *  Will allow enabling "background data gathering" later, which stores most of
- *  the words entered using gesture typing. Here the user needs the ability
+ *  Now also allows enabling "background data gathering" later, which stores most of
+ *  the words entered using gesture typing. Here the user has the ability to
  *  review and redact the data before sending, and additionally exclude some
  *  words and apps from background gathering.
  */
@@ -418,7 +418,9 @@ fun GestureDataScreen(
                     }
                     Spacer(Modifier.height(12.dp))
                     HorizontalDivider()
-                    WithSmallTitle(stringResource(R.string.gesture_data_active)) {
+                    val activeDeletedCount = GestureDataGatheringSettings.getExportedActiveDeletionCount(ctx)
+                    val wordsText = getWordsText(ctx, dbActiveWordCount + activeDeletedCount)
+                    WithSmallTitle(stringResource(R.string.gesture_data_active) + wordsText) {
                         ButtonWithText(
                             stringResource(R.string.gesture_data_active_start),
                             Modifier.fillMaxWidth(),
@@ -447,7 +449,9 @@ fun GestureDataScreen(
 
             if (!activeGathering) {
                 HorizontalDivider()
-                WithSmallTitle(stringResource(R.string.background_gathering)) {
+                val backgroundDeletedCount = GestureDataGatheringSettings.getExportedBackgroundDeletionCount(ctx)
+                val wordsText = getWordsText(ctx, dao.count(activeMode = false) + backgroundDeletedCount)
+                WithSmallTitle(stringResource(R.string.background_gathering) + wordsText) {
                     BackgroundGatheringSettings()
                 }
                 Spacer(Modifier.height(12.dp))
@@ -482,6 +486,10 @@ fun GestureDataScreen(
                 .then(Modifier.safeDrawingPadding())
         )
 }
+
+private fun getWordsText(context: Context, count: Int) =
+    if (count == 0) ""
+    else " (${context.getString(R.string.gesture_data_words_selected, count.toString())})"
 
 @Composable
 private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
