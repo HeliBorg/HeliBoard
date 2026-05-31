@@ -33,10 +33,10 @@ import kotlinx.serialization.json.Json
 // functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
 // will be removed once the project is finished
 
-// todo: remove logging, it may contain sensitive data!
 object BackgroundGatheringCache {
     private val cachedWords = mutableListOf<WordData>()
     private const val TAG = "BackgroundGathering"
+    private const val DEBUG = false // hardcoded debug flag because data should not be logged even in normal debug mode
     private val scope = CoroutineScope(Dispatchers.IO)
 
     private fun updateIcon(save: Boolean = false) {
@@ -47,10 +47,10 @@ object BackgroundGatheringCache {
 
     fun addWord(word: WordData) {
         if (KeyboardSwitcher.getInstance().keyboard.mId.mInternalAction?.code == KeyCode.INLINE_EMOJI_SEARCH_DONE) {
-            Log.i(TAG, "inline emoji search, not adding anything")
+            if (DEBUG) Log.i(TAG, "inline emoji search, not adding anything")
             return
         }
-        Log.i(TAG, "adding ${word.topSuggestion}")
+        if (DEBUG) Log.i(TAG, "adding ${word.topSuggestion}")
         cachedWords.add(word)
         updateIcon()
     }
@@ -58,23 +58,23 @@ object BackgroundGatheringCache {
     // used when pressing backspace or entering inline emoji search, because in this case the word is added before the internalAction is set
     fun removeLast(word: String) {
         if (cachedWords.lastOrNull()?.topSuggestion?.word?.equals(word, true) != true) return
-        Log.i(TAG, "removing $word")
+        if (DEBUG) Log.i(TAG, "removing $word")
         cachedWords.removeAt(cachedWords.lastIndex)
         updateIcon()
     }
 
     fun onPickSuggestionAfterGesturing(suggestion: SuggestedWords.SuggestedWordInfo, originalWord: String) {
         // replace the latest entry in cache, but do a sanity check
-        Log.i(TAG, "picked ${suggestion.word} instead of $originalWord after gesturing")
+        if (DEBUG) Log.i(TAG, "picked ${suggestion.word} instead of $originalWord after gesturing")
         val lastEntry = cachedWords.lastOrNull()
         if (lastEntry?.topSuggestion?.word?.equals(originalWord, true) != true) {
-            Log.w(TAG, "...but our last word is ${lastEntry?.topSuggestion}, not $originalWord")
+            if (DEBUG) Log.w(TAG, "...but our last word is ${lastEntry?.topSuggestion}, not $originalWord")
             return
         }
         lastEntry.targetWord = lastEntry.suggestions.firstOrNull { it.mWord == suggestion.mWord }?.mWord ?:
             // consider that suggestion might be capitalized, but prefer exact match
             lastEntry.suggestions.firstOrNull { it.mWord.equals(suggestion.mWord, true) }?.mWord
-        Log.i(TAG, "setting target word to ${lastEntry.targetWord}")
+        if (DEBUG) Log.i(TAG, "setting target word to ${lastEntry.targetWord}")
     }
 
     fun onPickSuggestion(suggestion: SuggestedWords.SuggestedWordInfo, originalWord: String) {
@@ -82,13 +82,13 @@ object BackgroundGatheringCache {
         // don't update anything if we have the word more than once
         val word = cachedWords.singleOrNull { it.topSuggestion?.word?.equals(originalWord, true) == true } ?: return
         word.targetWord = word.suggestions.firstOrNull { it.mWord.equals(suggestion.mWord, true) }?.mWord
-        Log.i(TAG, "picked ${word.targetWord} instead of $originalWord")
+        if (DEBUG) Log.i(TAG, "picked ${word.targetWord} instead of $originalWord")
     }
 
     fun onRejectedSuggestion(suggestion: String) {
-        Log.i(TAG, "rejected $suggestion")
+        if (DEBUG) Log.i(TAG, "rejected $suggestion")
         if (cachedWords.lastOrNull()?.topSuggestion?.word?.equals(suggestion, true) != true) {
-            Log.w(TAG, "...but last word is ${cachedWords.lastOrNull()?.topSuggestion?.word}")
+            if (DEBUG) Log.w(TAG, "...but last word is ${cachedWords.lastOrNull()?.topSuggestion?.word}")
             return
         }
         cachedWords.removeAt(cachedWords.lastIndex)
@@ -96,9 +96,9 @@ object BackgroundGatheringCache {
     }
 
     fun onUndo(lastComposedWord: CharSequence) {
-        Log.i(TAG, "undo after committing $lastComposedWord")
+        if (DEBUG) Log.i(TAG, "undo after committing $lastComposedWord")
         if (cachedWords.lastOrNull()?.topSuggestion == lastComposedWord || cachedWords.lastOrNull()?.targetWord == lastComposedWord) {
-            Log.i(TAG, "removing $lastComposedWord")
+            if (DEBUG) Log.i(TAG, "removing $lastComposedWord")
             cachedWords.removeAt(cachedWords.lastIndex)
         }
         updateIcon()
@@ -107,7 +107,7 @@ object BackgroundGatheringCache {
     fun onEditWord(word: String) {
         // this is pretty aggressive, because repeated backspace might remove different words
         // but better remove a few % of the words instead of having potentially bad data
-        Log.i(TAG, "edit something in $word")
+        if (DEBUG) Log.i(TAG, "edit something in $word")
         cachedWords.removeAll { it.topSuggestion?.word?.equals(word, true) == true || it.targetWord?.equals(word, true) == true }
         updateIcon()
     }
@@ -116,18 +116,18 @@ object BackgroundGatheringCache {
         // null should only occur in very rare cases when there are problems communicating with the text field
         if (selection == null || before == null || after == null) return
 
-        Log.i(TAG, "replace selection \"$selection\", before: \"$before\", after: \"$after\"")
+        if (DEBUG) Log.i(TAG, "replace selection \"$selection\", before: \"$before\", after: \"$after\"")
         val script = RichInputMethodManager.getInstance().currentSubtypeLocale.script
         val spacingAndPunctuations = Settings.getValues().mSpacingAndPunctuations
         val wordAtStart = getTouchedWordRange(before, "$selection$after", script, spacingAndPunctuations)
         val wordAtEnd = getTouchedWordRange("$before$selection", after, script, spacingAndPunctuations)
-        Log.i(TAG, "at start \"${wordAtStart.mWord}\", at end \"${wordAtEnd.mWord}\"")
+        if (DEBUG) Log.i(TAG, "at start \"${wordAtStart.mWord}\", at end \"${wordAtEnd.mWord}\"")
         val trimmed = selection.trim()
         if (
             (wordAtEnd.mWord == wordAtStart.mWord && selection in wordAtStart.mWord)
             || (trimmed != selection && (wordAtStart == trimmed || wordAtEnd == trimmed)) // treat word + space like word
         ) {
-            Log.i(TAG, "word or part of word selected, removing word")
+            if (DEBUG) Log.i(TAG, "word or part of word selected, removing word")
             cachedWords.removeAll { it.topSuggestion == wordAtStart.mWord || it.targetWord == wordAtStart.mWord }
         } else {
             // more than one word selected, we do nothing because deleting much is unlikely to happen because of bad gesture typing
@@ -145,7 +145,7 @@ object BackgroundGatheringCache {
     fun save(context: Context) {
         // save all words and clear cache
         val words = cachedWords.toList()
-        Log.i(TAG, "save cached data")
+        if (DEBUG) Log.i(TAG, "save cached data")
         cachedWords.clear()
         updateIcon(words.isNotEmpty())
         scope.launch { words.forEach { it.save(context) } }
@@ -153,7 +153,7 @@ object BackgroundGatheringCache {
 
     fun clear() {
         // just clear it without saving
-        Log.i(TAG, "clear cache")
+        if (DEBUG) Log.i(TAG, "clear cache")
         cachedWords.clear()
         updateIcon()
     }
