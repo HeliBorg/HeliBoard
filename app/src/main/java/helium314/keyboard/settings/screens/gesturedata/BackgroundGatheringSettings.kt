@@ -109,8 +109,10 @@ fun BackgroundGatheringSettings() {
     ) {
         Column {
             Text(stringResource(R.string.gesture_data_background_gathering_switch))
-            val allowedCount = if (getAppIncludeByDefault(ctx)) packageInfos.size - getAppExclusions(ctx).size
-                else getAppExclusions(ctx).size
+            // only use installed apps to avoid miscounting
+            val filteredAppExclusionCount = getAppExclusions(ctx).count { ex -> packageInfos.any { it.first == ex } }
+            val allowedCount = if (getAppIncludeByDefault(ctx)) packageInfos.size - filteredAppExclusionCount
+                else filteredAppExclusionCount
             val allowedCountText = if (packageInfos.isEmpty()) "" else allowedCount.toString()
             Text(stringResource(R.string.gesture_data_background_gathering_allowed_apps, allowedCountText), style = MaterialTheme.typography.bodySmall)
         }
