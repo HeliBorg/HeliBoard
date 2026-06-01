@@ -1,0 +1,9 @@
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_spinner_arc">
+    <target
+        android:name="rot"
+        android:animation="@animator/spinner_rotate" />
+</animated-vector>

@@ -66,6 +66,12 @@ import androidx.core.view.isGone
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import android.content.res.ColorStateList
+import android.graphics.drawable.Animatable
+import android.os.Build
+import android.view.Gravity
+import androidx.core.content.ContextCompat
+import helium314.keyboard.voice.VoiceController
 
 @SuppressLint("InflateParams")
 class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int) :
@@ -174,7 +180,56 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             }
         }
 
+        if (!isGone && helium314.keyboard.voice.VoiceConfig.showKeys(context)) {
+            if (pinnedKeys.findViewWithTag<View>(ToolbarKey.VOICE_EDIT) == null) {
+                val editKey = createToolbarKey(context, ToolbarKey.VOICE_EDIT)
+                editKey.layoutParams = toolbarKeyLayoutParams
+                setupKey(editKey, Settings.getValues().mColors)
+                pinnedKeys.addView(editKey)
+            }
+            if (pinnedKeys.findViewWithTag<View>(ToolbarKey.VOICE) == null) {
+                addKeyToPinnedKeys(ToolbarKey.VOICE)
+            }
+        }
+        VoiceController.onStateChanged = { state, isEdit -> updateVoiceIndicator(state, isEdit) }
+
         updateKeys()
+    }
+
+    private fun updateVoiceIndicator(state: VoiceController.State, isEdit: Boolean) {
+        val activeTag = if (isEdit) ToolbarKey.VOICE_EDIT else ToolbarKey.VOICE
+        val recording = state == VoiceController.State.RECORDING
+        val processing = state == VoiceController.State.TRANSCRIBING || state == VoiceController.State.EDITING
+        listOf(toolbar, pinnedKeys).forEach { container ->
+            listOf(ToolbarKey.VOICE, ToolbarKey.VOICE_EDIT).forEach inner@{ tag ->
+                val key = container.findViewWithTag<ImageButton>(tag) ?: return@inner
+                val active = tag == activeTag && (recording || processing)
+                key.isActivated = active
+                key.background = if (active) {
+                    GradientDrawable().apply {
+                        cornerRadius = resources.getDimension(R.dimen.config_suggestions_strip_height) / 4f
+                        setColor(RECORDING_OVERLAY_COLOR)
+                    }
+                } else {
+                    null
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (tag == activeTag && processing) {
+                        val spinner = ContextCompat.getDrawable(context, R.drawable.avd_spinner)
+                        key.foregroundGravity = Gravity.CENTER
+                        key.foregroundTintList =
+                            ColorStateList.valueOf(Settings.getValues().mColors.get(ColorType.TOOL_BAR_KEY))
+                        key.foreground = spinner
+                        key.setImageAlpha(80)
+                        (spinner as? Animatable)?.start()
+                    } else {
+                        (key.foreground as? Animatable)?.stop()
+                        key.foreground = null
+                        key.setImageAlpha(255)
+                    }
+                }
+            }
+        }
     }
 
     private lateinit var listener: Listener
@@ -552,6 +607,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     companion object {
+        private const val RECORDING_OVERLAY_COLOR = 0x55000000
         @JvmField
         var DEBUG_SUGGESTIONS = false
         private const val DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f

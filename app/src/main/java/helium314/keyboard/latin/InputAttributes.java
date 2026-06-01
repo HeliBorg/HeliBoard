@@ -101,8 +101,7 @@ public final class InputAttributes {
         final boolean noMicrophone = mIsPasswordField
                 || InputTypeUtils.isEmailVariation(variation)
                 || hasNoMicrophoneKeyOption()
-                || !RichInputMethodManager.isInitialized() // avoid crash when only using spell checker
-                || !RichInputMethodManager.getInstance().isShortcutImeReady();
+                || !RichInputMethodManager.isInitialized(); // avoid crash when only using spell checker
         mShouldShowVoiceInputKey = !noMicrophone;
 
         mDisableGestureFloatingPreviewText = InputAttributes.inPrivateImeOptions(

@@ -127,6 +127,7 @@ class KeyboardIconsSet private constructor() {
             ToolbarKey.entries.forEach {
                 put(it.name.lowercase(Locale.US), when (it) {
                     ToolbarKey.VOICE -> R.drawable.sym_keyboard_voice_holo
+                    ToolbarKey.VOICE_EDIT -> R.drawable.ic_voice_edit
                     ToolbarKey.CLIPBOARD -> R.drawable.sym_keyboard_clipboard_holo
                     ToolbarKey.NUMPAD -> R.drawable.sym_keyboard_numpad_key_holo
                     ToolbarKey.UNDO -> R.drawable.ic_undo
@@ -190,6 +191,7 @@ class KeyboardIconsSet private constructor() {
             ToolbarKey.entries.forEach {
                 put(it.name.lowercase(Locale.US), when (it) {
                     ToolbarKey.VOICE -> R.drawable.sym_keyboard_voice_lxx
+                    ToolbarKey.VOICE_EDIT -> R.drawable.ic_voice_edit
                     ToolbarKey.CLIPBOARD -> R.drawable.sym_keyboard_clipboard_lxx
                     ToolbarKey.NUMPAD -> R.drawable.sym_keyboard_numpad_key_lxx
                     ToolbarKey.UNDO -> R.drawable.ic_undo
@@ -253,6 +255,7 @@ class KeyboardIconsSet private constructor() {
             ToolbarKey.entries.forEach {
                 put(it.name.lowercase(Locale.US), when (it) {
                     ToolbarKey.VOICE -> R.drawable.sym_keyboard_voice_rounded
+                    ToolbarKey.VOICE_EDIT -> R.drawable.ic_voice_edit
                     ToolbarKey.CLIPBOARD -> R.drawable.sym_keyboard_clipboard_rounded
                     ToolbarKey.NUMPAD -> R.drawable.sym_keyboard_numpad_key_lxx
                     ToolbarKey.UNDO -> R.drawable.ic_undo_rounded

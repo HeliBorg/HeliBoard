@@ -1408,7 +1408,15 @@ public class LatinIME extends InputMethodService implements
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
         if (KeyCode.VOICE_INPUT == event.getKeyCode()) {
-            mRichImm.switchToShortcutIme(this);
+            if (helium314.keyboard.voice.VoiceConfig.Companion.aiEnabled(this))
+                helium314.keyboard.voice.VoiceController.toggle(this);
+            else
+                mRichImm.switchToShortcutIme(this);
+            return;
+        }
+        if (KeyCode.VOICE_EDIT_INPUT == event.getKeyCode()) {
+            helium314.keyboard.voice.VoiceController.toggleEdit(this);
+            return;
         }
         final InputTransaction completeInputTransaction =
                 mInputLogic.onCodeInput(mSettings.getCurrent(), event,
