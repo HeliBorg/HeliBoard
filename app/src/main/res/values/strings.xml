@@ -1111,5 +1111,31 @@ New dictionary:
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_links">Information on gesture data gathering on:</string>
 
+    <!-- Voice input (AI dictation) settings -->
+    <string name="settings_screen_voice">Voice input</string>
+    <string name="voice_ai_enable">AI dictation</string>
+    <string name="voice_ai_enable_summary">Use a speech-to-text server for dictation and an AI model for voice editing</string>
+    <string name="voice_show_keys">Show dictation keys</string>
+    <string name="voice_show_keys_summary">Add the dictate and voice-edit buttons to the suggestion strip</string>
+    <string name="voice_streaming">Live streaming dictation</string>
+    <string name="voice_streaming_summary">Insert words while you speak (requires server streaming support)</string>
+    <string name="voice_category_dictation">Dictation (speech-to-text)</string>
+    <string name="voice_category_editing">Voice editing (AI)</string>
+    <string name="voice_stt_url">Server URL</string>
+    <string name="voice_stt_model">Model</string>
+    <string name="voice_stt_key">API key</string>
+    <string name="voice_stt_fallback_url">Fallback server URL</string>
+    <string name="voice_stt_fallback_model">Fallback model</string>
+    <string name="voice_stt_fallback_key">Fallback API key</string>
+    <string name="voice_edit_url">Server URL</string>
+    <string name="voice_edit_model">Model</string>
+    <string name="voice_edit_key">API key</string>
+    <string name="voice_category_security">Security</string>
+    <string name="voice_ca_cert">Custom CA certificate (PEM)</string>
+    <string name="voice_ca_cert_summary">Trust a self-signed certificate for HTTPS servers (paste the PEM). System CAs still apply.</string>
+    <string name="voice_timeout">Request timeout (seconds)</string>
+    <string name="voice_retries">Retries per backend</string>
+    <string name="voice_max_seconds">Max recording seconds (0 = until stop)</string>
+
     <!-- new strings should go above the section for gesture data gathering -->
 </resources>
