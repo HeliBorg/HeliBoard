@@ -262,7 +262,7 @@ private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
         return dram
     if (locale.language == "tr")
         return lira
-    if (locale.language == "ru")
+    if (locale.language == "ru" || locale.language == "xdq")
         return ruble
     if (locale.country == "LK" || locale.country == "BD")
         return genericCurrencyKey(getCurrency(locale))
