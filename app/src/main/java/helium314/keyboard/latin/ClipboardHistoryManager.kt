@@ -104,7 +104,22 @@ class ClipboardHistoryManager(
 
     private fun isClipSensitive(inputType: Int): Boolean {
         ClipboardManagerCompat.getClipSensitivity(clipboardManager.primaryClip?.description)?.let { return it }
-        return InputTypeUtils.isPasswordInputType(inputType)
+        if (InputTypeUtils.isPasswordInputType(inputType)) return true
+        val content = retrieveClipboardContent()
+        return isContentSensitive(content)
+    }
+
+    private fun isContentSensitive(content: CharSequence): Boolean {
+        if (content.isEmpty()) return false
+        val text = content.toString()
+        if (text.length > 5000) return false
+        if (P_OTP.matcher(text).matches()) return true
+        if (P_CREDIT_CARD.matcher(text).find()) return true
+        if (P_JWT.matcher(text).find()) return true
+        if (P_LONG_HEX.matcher(text).find()) return true
+        if (P_SEED_PHRASE.matcher(text.trim()).matches()) return true
+        if (P_SECRET_KEYWORD.matcher(text).find()) return true
+        return false
     }
 
     fun getClipboardSuggestionView(editorInfo: EditorInfo?, parent: ViewGroup?): View? {
@@ -168,5 +183,14 @@ class ClipboardHistoryManager(
     companion object {
         private var dontShowCurrentSuggestion: Boolean = false
         const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
+
+        private val P_OTP = java.util.regex.Pattern.compile("^\\s*\\d{4,8}\\s*$")
+        private val P_CREDIT_CARD = java.util.regex.Pattern.compile("\\b(?:\\d[ -]*?){13,19}\\b")
+        private val P_JWT = java.util.regex.Pattern.compile("\\beyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\b")
+        private val P_LONG_HEX = java.util.regex.Pattern.compile("\\b[a-fA-F0-9]{32,}\\b")
+        private val P_SEED_PHRASE = java.util.regex.Pattern.compile("(?:[a-z]{3,8}\\s+){11,23}[a-z]{3,8}")
+        private val P_SECRET_KEYWORD = java.util.regex.Pattern.compile(
+            "(?i)\\b(password|passwd|secret|api[_-]?key|access[_-]?token|bearer|private[_-]?key|ssh-rsa|ssh-ed25519|-----BEGIN [A-Z ]+PRIVATE KEY-----)\\b"
+        )
     }
 }
