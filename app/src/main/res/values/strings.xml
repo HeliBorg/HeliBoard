@@ -438,6 +438,8 @@
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype -->
     <string name="subtype_generic_extended">%s (Extended)</string>
+    <!-- Description for "LANGUAGE_NAME" (4-row) keyboard subtype -->
+    <string name="subtype_generic_4row">%s (4-row)</string>
     <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype -->
     <string name="subtype_generic_traditional">%s (Traditional)</string>
     <!-- Description for "LANGUAGE_NAME" (Akkhor) keyboard subtype with explicit keyboard layout -->
