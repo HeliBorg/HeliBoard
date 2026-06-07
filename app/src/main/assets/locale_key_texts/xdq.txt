@@ -14,7 +14,7 @@
 # №
 
 [labels]
-alphabet: ҠҒҲ
+alphabet: АӘБ
 
 [tlds]
 ru
