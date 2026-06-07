@@ -126,6 +126,7 @@
     uz_UZ: Uzbek (Uzbekistan)/uzbek # This is a preliminary keyboard layout.
     vi: Vietnamese/qwerty
     xdq: Kaitag/kaitag
+    xdq: Kaitag (4-row)/kaitag_4row
     yo: Yoruba/yoruba
     zu: Zulu/qwerty # This is a preliminary keyboard layout.
     zz: QWERTY/qwerty
@@ -839,6 +840,15 @@
         android:languageTag="xdq"
         android:imeSubtypeMode="keyboard"
         android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:kaitag,EmojiCapable"
+        android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_generic_4row"
+        android:subtypeId="0xc5b9e7a4"
+        android:imeSubtypeLocale="xdq"
+        android:languageTag="xdq"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:kaitag_4row,EmojiCapable"
         android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
