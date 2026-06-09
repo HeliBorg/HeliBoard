@@ -615,6 +615,19 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
             appendLink("HeliBoard wiki", Links.GESTURE_DATA_WIKI)
             appendLine()
             appendLine()
+
+            appendLine(stringResource(R.string.background_gesture_data_links))
+            append("• ")
+            appendLink("PeerTube", Links.BACKGROUND_GESTURE_DATA_VIDEO_PEERTUBE)
+            appendLine()
+            append("• ")
+            appendLink("YouTube", Links.BACKGROUND_GESTURE_DATA_VIDEO_YOUTUBE)
+            appendLine()
+            append("• ")
+            appendLink("HeliBoard wiki", Links.BACKGROUND_GESTURE_DATA_WIKI)
+            appendLine()
+            appendLine()
+
             append("Tool for visualizing gesture data:")
             append(" ")
             appendLink("Swipe-O-Scope", Links.SWIPE_O_SCOPE)
@@ -709,7 +722,7 @@ private fun calculateWordWeight(frequency: Int, length: Int): Double {
     // val min_length = 2.0
     // val lenBias = min_length * (1.0 - length_percent) + (4.0 * length_percent)
     val freq = frequency.toDouble()
-    val weight = 2.0.pow(freq/9.7)
+    val weight = 2.0.pow(freq/8.9)
 
     return weight // lenBias
 }
