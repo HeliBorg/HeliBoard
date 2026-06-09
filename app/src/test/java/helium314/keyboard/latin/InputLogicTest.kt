@@ -684,6 +684,23 @@ class InputLogicTest {
         assertEquals("/48", InputLogic.getInlineEmojiSearchString("2606:127.0.0.1::/48")) // do we want this?
     }
 
+    @Test fun moveCursorHorizontally() {
+        chainInput("hello")
+        assertEquals(5, cursor)
+        latinIME.mKeyboardActionListener.onHorizontalSpaceSwipe(-2)
+        assertEquals(3, cursor)
+        latinIME.mKeyboardActionListener.onHorizontalSpaceSwipe(-5)
+        assertEquals(0, cursor)
+        latinIME.mKeyboardActionListener.onHorizontalSpaceSwipe(-1)
+        assertEquals(0, cursor)
+        latinIME.mKeyboardActionListener.onHorizontalSpaceSwipe(3)
+        assertEquals(3, cursor)
+        latinIME.mKeyboardActionListener.onHorizontalSpaceSwipe(3)
+        assertEquals(5, cursor)
+        latinIME.mKeyboardActionListener.onHorizontalSpaceSwipe(1)
+        assertEquals(5, cursor)
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
@@ -1044,7 +1061,7 @@ private val ic = object : InputConnection {
             KeyEvent.KEYCODE_UNKNOWN -> p0.characters
             else -> StringUtils.newSingleCodePointString(p0.unicodeChar)
         }
-        if (textToAdd != null) {
+        if (textToAdd != null && textToAdd.singleOrNull()?.code != 0) {
             text = text.substring(0, selectionStart) + textToAdd + text.substring(selectionEnd)
             selectionStart += textToAdd.length
             selectionEnd = selectionStart

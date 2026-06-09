@@ -348,4 +348,5 @@ private val backupFilePatterns by lazy { listOf(
     "custom_background_image.*".toRegex(),
     "custom_font".toRegex(),
     "custom_emoji_font".toRegex(),
+    "clipboard/.*".toRegex(),
 ) }

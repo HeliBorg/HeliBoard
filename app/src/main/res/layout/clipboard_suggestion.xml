@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:drawablePadding="3dp"
-        android:paddingHorizontal="12dp"
+        android:paddingHorizontal="6dp"
         android:hapticFeedbackEnabled="false"
         android:soundEffectsEnabled="false"
         android:singleLine="true"
@@ -22,6 +22,15 @@
         android:ellipsize="end"
         android:textStyle="bold"
         style="?android:attr/textAppearanceSmall" />
+    <ImageView
+        android:id="@+id/clipboard_suggestion_image"
+        android:adjustViewBounds="true"
+        android:paddingVertical="6dp"
+        android:paddingEnd="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:scaleType="centerInside" />
     <ImageView
         android:id="@+id/clipboard_suggestion_close"
         android:contentDescription="@string/spoken_clipboard_suggestion"

@@ -8,6 +8,8 @@ package helium314.keyboard.keyboard;
 
 import android.view.KeyEvent;
 
+import androidx.core.view.inputmethod.InputContentInfoCompat;
+
 import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
@@ -66,6 +68,9 @@ public interface KeyboardActionListener {
      * @param text the string of characters to be registered.
      */
     void onTextInput(String text);
+
+    /** sends content (URI and description) */
+    void onContent(InputContentInfoCompat content);
 
     /**
      * Called when user started batch input.
@@ -135,6 +140,8 @@ public interface KeyboardActionListener {
         public void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat) {}
         @Override
         public void onTextInput(String text) {}
+        @Override
+        public void onContent(InputContentInfoCompat content) {}
         @Override
         public void onStartBatchInput() {}
         @Override

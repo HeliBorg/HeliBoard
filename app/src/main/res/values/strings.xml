@@ -206,6 +206,16 @@
     <string name="clipboard_history_retention_time">History retention time</string>
     <!-- Preferences item for showing pinned clipboard items first -->
     <string name="clipboard_history_pinned_first">Show pinned items on top</string>
+    <!-- Preferences item for extending the clipboard history to files (images or others) -->
+    <string name="clipboard_history_files">Add images and other files to clipboard history</string>
+    <!-- Preferences item for selecting maximum combined size of clipboard history files -->
+    <string name="clipboard_history_max_file_size">Clipboard size limit</string>
+    <!-- Description, used for non-image clipboard files -->
+    <string name="item_description">Description: %s</string>
+    <!-- Type, used for non-image clipboard files -->
+    <string name="item_type">Type: %s</string>
+    <!-- Units abbreviation for size (megabytes) -->
+    <string name="abbreviation_unit_mb">%s MB</string>
     <!-- Preferences item for enabling swipe deletion -->
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->

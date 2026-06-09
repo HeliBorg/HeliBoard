@@ -50,7 +50,8 @@ class ClipboardAdapter(
     ) : RecyclerView.ViewHolder(view), View.OnClickListener, View.OnTouchListener, View.OnLongClickListener {
 
         private val pinnedIconView: ImageView
-        private val contentView: TextView
+        private val contentTextView: TextView
+        private val contentImageView: ImageView
 
         init {
             view.apply {
@@ -65,20 +66,28 @@ class ClipboardAdapter(
                 visibility = View.GONE
                 setImageResource(pinnedIconResId)
             }
-            contentView = view.findViewById<TextView>(R.id.clipboard_entry_content).apply {
+            contentTextView = view.findViewById<TextView>(R.id.clipboard_entry_text_content).apply {
                 typeface = itemTypeFace
                 setTextColor(itemTextColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, itemTextSize)
             }
+            contentImageView = view.findViewById(R.id.clipboard_entry_image_content)
             clipboardLayoutParams.setItemProperties(view)
             val colors = Settings.getValues().mColors
             colors.setColor(pinnedIconView, ColorType.CLIPBOARD_PIN)
         }
 
         fun setContent(historyEntry: ClipboardHistoryEntry?) {
-            itemView.tag = historyEntry?.id
-            contentView.text = historyEntry?.text?.take(1000) // truncate displayed text for performance reasons
-            pinnedIconView.visibility = if (historyEntry?.isPinned == true) View.VISIBLE else View.GONE
+            if (historyEntry == null) return
+            itemView.tag = historyEntry.id
+            if (historyEntry.filename != null) {
+                historyEntry.setImageAndDescription(contentImageView, contentTextView)
+            } else {
+                contentTextView.text = historyEntry.text?.take(1000) // truncate displayed text for performance reasons
+            }
+            pinnedIconView.visibility = if (historyEntry.isPinned) View.VISIBLE else View.GONE
+            contentImageView.visibility = if (historyEntry.filename != null) View.VISIBLE else View.GONE
+            contentTextView.visibility = if (contentTextView.text.isNullOrEmpty()) View.GONE else View.VISIBLE
         }
 
         @SuppressLint("ClickableViewAccessibility")

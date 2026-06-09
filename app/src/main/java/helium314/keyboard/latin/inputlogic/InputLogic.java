@@ -686,18 +686,6 @@ public final class InputLogic {
     }
 
     /**
-     * Handles the action of pasting content from the clipboard.
-     * Retrieves content from the clipboard history manager and commits it to the input connection.
-     *
-     */
-    private void handleClipboardPaste() {
-        final String clipboardContent = mLatinIME.getClipboardHistoryManager().retrieveClipboardContent().toString();
-        if (!clipboardContent.isEmpty()) {
-            mLatinIME.onTextInput(clipboardContent);
-        }
-    }
-
-    /**
      * Handle a functional key event.
      * <p>
      * A functional event is a special key, like delete, shift, emoji, or the settings key.
@@ -751,11 +739,11 @@ public final class InputLogic {
                 // is being handled in {@link KeyboardState#onEvent(Event,int)}.
                 // If disabled, current clipboard content is committed.
                 if (!sv.mClipboardHistoryEnabled) {
-                    handleClipboardPaste();
+                    sendDownUpKeyEvent(KeyEvent.KEYCODE_PASTE);
                 }
                 break;
             case KeyCode.CLIPBOARD_PASTE:
-                handleClipboardPaste();
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_PASTE);
                 break;
             case KeyCode.SHIFT_ENTER:
                 // todo: try using sendDownUpKeyEventWithMetaState() and remove the key code maybe

@@ -81,8 +81,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                 settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction)
         val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
         val capsMode = getCapsModeForTyping(wordComposer, keyboard)
-        val suggestionsContainer = getTransformedSuggestedWordInfoList(capsMode, suggestionResults,
-            trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale)
+        val suggestionsContainer = ArrayList(suggestionResults)
+        capitalizeAndAddTrailingSingleQuotes(suggestionsContainer, capsMode, trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale)
         val capitalizedTypedWord = capitalize(typedWordString, capsMode, mDictionaryFacilitator.mainLocale)
 
         // store the original SuggestedWordInfo for typed word, as it will be removed
@@ -280,7 +280,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // For transforming words that don't come from a dictionary, because it's our best bet
         val locale = mDictionaryFacilitator.mainLocale
         val capsMode = getCapsModeForGesture(wordComposer, keyboard)
-        val suggestionsContainer = getTransformedSuggestedWordInfoList(capsMode, suggestionResults, 0, locale)
+        val suggestionsContainer = ArrayList(suggestionResults)
         replaceSingleLetterFirstSuggestion(suggestionsContainer)
 
         val rejected: SuggestedWordInfo?
@@ -296,7 +296,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         }
         SuggestedWordInfo.removeDupsAndTypedWord(null, suggestionsContainer)
         makeFirstTwoSuggestionsNonEmoji(suggestionsContainer)
-        val pseudoTypedWord = suggestionsContainer.firstOrNull() // unchanged first suggestion, but after makeFirstTwoSuggestionsNonEmoji
+        val pseudoTypedWord = suggestionsContainer.firstOrNull() // unchanged first suggestion, but considering adjusted order
+        capitalizeAndAddTrailingSingleQuotes(suggestionsContainer, capsMode, 0, locale)
 
         // For some reason some suggestions with MIN_VALUE are making their way here.
         // TODO: Find a more robust way to detect distracters.
@@ -374,22 +375,37 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // TODO: should we add Finnish here?
         private val sLanguageToMaximumAutoCorrectionWithSpaceLength = hashMapOf(Locale.GERMAN.language to MAXIMUM_AUTO_CORRECT_LENGTH_FOR_GERMAN)
 
-        private fun getTransformedSuggestedWordInfoList(
-            capsMode: Int, results: SuggestionResults, trailingSingleQuotesCount: Int, defaultLocale: Locale
-        ): ArrayList<SuggestedWordInfo> {
-            val suggestionsContainer = ArrayList(results)
-            val suggestionsCount = suggestionsContainer.size
+        private fun capitalizeAndAddTrailingSingleQuotes(
+            suggestions: ArrayList<SuggestedWordInfo>, capsMode: Int, trailingSingleQuotesCount: Int, defaultLocale: Locale
+        ) {
+            val suggestionsCount = suggestions.size
             if (capsMode != WordComposer.CAPS_MODE_OFF || 0 != trailingSingleQuotesCount) {
                 for (i in 0 until suggestionsCount) {
-                    val wordInfo = suggestionsContainer[i]
+                    val wordInfo = suggestions[i]
                     val wordLocale = wordInfo.mSourceDict.mLocale
-                    val transformedWordInfo = getTransformedSuggestedWordInfo(
+                    val transformedWordInfo = capitalizeAndAddTrailingSingleQuotes(
                         wordInfo, wordLocale ?: defaultLocale, capsMode, trailingSingleQuotesCount
                     )
-                    suggestionsContainer[i] = transformedWordInfo
+                    suggestions[i] = transformedWordInfo
                 }
             }
-            return suggestionsContainer
+        }
+
+        private fun capitalizeAndAddTrailingSingleQuotes(
+            wordInfo: SuggestedWordInfo, locale: Locale, capsMode: Int, trailingSingleQuotesCount: Int
+        ): SuggestedWordInfo {
+            var capitalizedWord = capitalize(wordInfo.mWord, capsMode, locale)
+            // Appending quotes is here to help people quote words. However, it's not helpful
+            // when they type words with quotes toward the end like "it's" or "didn't", where
+            // it's more likely the user missed the last character (or didn't type it yet).
+            val quotesToAppend = trailingSingleQuotesCount - if (wordInfo.mWord.contains('\'')) 1 else 0
+            repeat(max(0, quotesToAppend)) { capitalizedWord += '\'' }
+            return SuggestedWordInfo(
+                capitalizedWord, wordInfo.mPrevWordsContext,
+                wordInfo.mScore, wordInfo.mKindAndFlags,
+                wordInfo.mSourceDict, wordInfo.mIndexOfTouchPointOfSecondWord,
+                wordInfo.mAutoCommitFirstWordConfidence
+            )
         }
 
         private fun getSuggestionsInfoListWithDebugInfo(
@@ -456,23 +472,6 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                 ?: return true // This language does not enforce a maximum length to auto-correction
             return (info.mWord.length <= maximumLengthForThisLanguage
                     || -1 == info.mWord.indexOf(Constants.CODE_SPACE.toChar()))
-        }
-
-        private fun getTransformedSuggestedWordInfo(
-            wordInfo: SuggestedWordInfo, locale: Locale, capsMode: Int, trailingSingleQuotesCount: Int
-        ): SuggestedWordInfo {
-            var capitalizedWord = capitalize(wordInfo.mWord, capsMode, locale)
-            // Appending quotes is here to help people quote words. However, it's not helpful
-            // when they type words with quotes toward the end like "it's" or "didn't", where
-            // it's more likely the user missed the last character (or didn't type it yet).
-            val quotesToAppend = trailingSingleQuotesCount - if (wordInfo.mWord.contains('\'')) 1 else 0
-            repeat(max(0, quotesToAppend)) { capitalizedWord += '\'' }
-            return SuggestedWordInfo(
-                capitalizedWord, wordInfo.mPrevWordsContext,
-                wordInfo.mScore, wordInfo.mKindAndFlags,
-                wordInfo.mSourceDict, wordInfo.mIndexOfTouchPointOfSecondWord,
-                wordInfo.mAutoCommitFirstWordConfidence
-            )
         }
 
         /** returns CAPS_MODE_MANUAL_SHIFTED, CAPS_MODE_MANUAL_SHIFT_LOCKED, or CAPS_MODE_OFF */

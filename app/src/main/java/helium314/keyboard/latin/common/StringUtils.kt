@@ -266,13 +266,17 @@ val String.isSingleGrapheme: Boolean get() {
     if (isEmpty()) return false
     if (length == 1) return true
 
-    val iterator = localBreakIterator
-    iterator.setText(this)
-    iterator.next()
-    if (iterator.next() != BreakIterator.DONE) return false
-    // we have a single grapheme, but " 🏼" is detected as single grapheme which we don't want
-    return if ('\uD83C' !in this) true // does not contain skin tone
-    else singleEmojiRegex.matches(this) // single grapheme only if it's a single emoji
+    runCatching {
+        val iterator = localBreakIterator
+        iterator.setText(this)
+        iterator.next()
+        if (iterator.next() != BreakIterator.DONE) return false
+        // we have a single grapheme, but " 🏼" is detected as single grapheme which we don't want
+        return if ('\uD83C' !in this) true // does not contain skin tone
+        else singleEmojiRegex.matches(this) // single grapheme only if it's a single emoji
+    }
+    // got IllegalArgumentException: Invalid index on iterator.next()
+    return false
 }
 
 val String.lastGrapheme: String get() {
