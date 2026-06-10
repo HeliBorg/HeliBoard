@@ -104,6 +104,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
         when (primaryCode) {
             KeyCode.TOGGLE_AUTOCORRECT -> return settings.toggleAutoCorrect()
+            KeyCode.TOGGLE_INCOGNITO_MODE -> {
+                settings.toggleAlwaysIncognitoMode()
+                BackgroundGatheringCache.clear()
+                latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
+                return
+            }
             KeyCode.BACKGROUND_GATHERING -> {
                 if (BackgroundGatheringCache.isEmpty) {
                     // only enable, no toggle
@@ -119,12 +125,6 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             }
             KeyCode.BACKGROUND_GATHERING_TEMP_OFF -> {
                 GestureDataGatheringSettings.tempDisableBackgroundGathering(latinIME.prefs())
-                BackgroundGatheringCache.clear()
-                latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
-                return
-            }
-            KeyCode.TOGGLE_INCOGNITO_MODE -> {
-                settings.toggleAlwaysIncognitoMode()
                 BackgroundGatheringCache.clear()
                 latinIME.setGestureDataGatheringMode(latinIME.currentInputEditorInfo, false)
                 return
