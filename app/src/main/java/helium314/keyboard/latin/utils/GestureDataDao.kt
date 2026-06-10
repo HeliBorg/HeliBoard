@@ -190,7 +190,9 @@ class GestureDataDao(val db: Database) {
         fun getInstance(context: Context): GestureDataDao? {
             if (instance == null)
                 try {
-                    instance = GestureDataDao(Database.getInstance(context))
+                    val dao = GestureDataDao(Database.getInstance(context))
+                    dao.db.writableDatabase // try access so we get null if db can't be created
+                    instance = dao
                 } catch (e: Throwable) {
                     Log.e(TAG, "can't create GestureDataDao", e)
                 }

@@ -147,7 +147,7 @@ fun GestureDataScreen(
 ) {
     val ctx = LocalContext.current
     val useWideLayout = isWideScreen()
-    val dao = GestureDataDao.getInstance(ctx)!!
+    val dao = GestureDataDao.getInstance(ctx)
 
     // ideally we'd move all the active gathering stuff into a separate (non-local) function,
     // but either it has issues with the floating button positioning (if they are in the function)
@@ -155,7 +155,7 @@ fun GestureDataScreen(
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var lastData by remember { mutableStateOf<WordData?>(null) }
     var sessionWordCount by remember { mutableIntStateOf(0) }
-    var dbActiveWordCount by remember { mutableIntStateOf(dao.count(activeMode = true)) }
+    var dbActiveWordCount by remember { mutableIntStateOf(dao?.count(activeMode = true) ?: 0) }
     var showMuchDataDialog by rememberSaveable { mutableStateOf(true) }
     var showEndDialog by rememberSaveable { mutableStateOf(true) }
     val focusRequester = remember { FocusRequester() }
@@ -185,14 +185,14 @@ fun GestureDataScreen(
         val endDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(END_DATE_EPOCH_MILLIS))
         if (System.currentTimeMillis() > END_DATE_EPOCH_MILLIS) {
             val message = stringResource(R.string.gesture_data_ended, endDate)
-            val infos = dao.filterInfos(limit = 10000) // export no more than 10k words at once due to possibly hitting mail size limits
+            val infos = dao?.filterInfos(limit = 10000).orEmpty() // export no more than 10k words at once due to possibly hitting mail size limits
             ThreeButtonAlertDialog(
                 onDismissRequest = onClickBack,
                 content = {
                     Column {
                         Text(message)
                         if (infos.isNotEmpty())
-                            ShareGestureData(infos.map { it.id }, {}) { dbActiveWordCount = dao.count(activeMode = true) }
+                            ShareGestureData(infos.map { it.id }, {}) { dbActiveWordCount = dao?.count(activeMode = true) ?: 0 }
                     }
                 },
                 cancelButtonText = stringResource(android.R.string.ok),
@@ -206,7 +206,7 @@ fun GestureDataScreen(
 
     }
     if (showMuchDataDialog) {
-        if (dao.count(exported = false) < 5000)
+        if ((dao?.count(exported = false) ?: 0) < 5000)
             showMuchDataDialog = false
         InfoDialog(stringResource(R.string.gesture_data_much_data)) { showMuchDataDialog = false }
     }
@@ -349,7 +349,7 @@ fun GestureDataScreen(
                 val exportedAndDeletedCount by remember { mutableIntStateOf(GestureDataGatheringSettings.getExportedActiveDeletionCount(ctx)) }
                 val oldActiveWords by remember {
                     sessionWordCount = 0
-                    dbActiveWordCount = dao.count(activeMode = true)
+                    dbActiveWordCount = dao?.count(activeMode = true) ?: 0
                     mutableIntStateOf(dbActiveWordCount + exportedAndDeletedCount)
                 }
                 Text(stringResource(R.string.gesture_data_active_count, sessionWordCount, sessionWordCount + oldActiveWords, exportedAndDeletedCount))
@@ -376,7 +376,7 @@ fun GestureDataScreen(
     val scrollState = rememberScrollState()
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
-        bottomBar = { BottomBar(sessionWordCount + dbActiveWordCount > 0) { dbActiveWordCount = dao.count(activeMode = true) } }
+        bottomBar = { BottomBar(sessionWordCount + dbActiveWordCount > 0) { dbActiveWordCount = dao?.count(activeMode = true) ?: 0 } }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -451,7 +451,7 @@ fun GestureDataScreen(
             if (!activeGathering) {
                 HorizontalDivider()
                 val backgroundDeletedCount = GestureDataGatheringSettings.getExportedBackgroundDeletionCount(ctx)
-                val wordsText = getWordsText(ctx, dao.count(activeMode = false) + backgroundDeletedCount)
+                val wordsText = getWordsText(ctx, (dao?.count(activeMode = false) ?: 0) + backgroundDeletedCount)
                 WithSmallTitle(stringResource(R.string.background_gathering) + wordsText) {
                     BackgroundGatheringSettings()
                 }

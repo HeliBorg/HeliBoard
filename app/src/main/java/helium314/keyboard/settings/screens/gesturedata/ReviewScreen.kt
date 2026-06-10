@@ -93,7 +93,7 @@ fun ReviewScreen(
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
-    val dao = GestureDataDao.getInstance(ctx)!!
+    val dao = GestureDataDao.getInstance(ctx)
     var selected by rememberSaveable { mutableStateOf(listOf<Long>()) }
     var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
@@ -116,13 +116,13 @@ fun ReviewScreen(
         }
     }
     fun reloadGestureDataInfos() {
-        val infos = if (!includeActive && !includeBackground) emptyList() else dao.filterInfos(
+        val infos = if (!includeActive && !includeBackground) emptyList() else dao?.filterInfos(
             filter.text.takeIf { it.isNotEmpty() },
             startDate,
             endDate,
             if (includeExported) null else false,
             if (includeActive && includeBackground) null else includeActive
-        )
+        ).orEmpty()
         selected = emptyList() // unselect on filter changes
         setAndSortWords(infos)
     }
@@ -146,7 +146,7 @@ fun ReviewScreen(
             ::reloadGestureDataInfos,
             {
                 val ids = selected.ifEmpty { gestureDataInfos.map { it.id } }
-                dao.delete(ids, false, ctx)
+                dao?.delete(ids, false, ctx)
                 reloadGestureDataInfos()
             }
         )}
@@ -178,7 +178,7 @@ fun ReviewScreen(
                         onDismiss = {
                             deleteJobs[item.id] = scope.launch {
                                 delay(4000)
-                                dao.delete(listOf(item.id), false, ctx)
+                                dao?.delete(listOf(item.id), false, ctx)
                                 gestureDataInfos = gestureDataInfos - item
                             }
                         },

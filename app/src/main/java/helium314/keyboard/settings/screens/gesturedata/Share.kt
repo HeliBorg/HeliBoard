@@ -54,8 +54,8 @@ import java.util.zip.ZipOutputStream
 @Composable
 fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Unit) {
     val ctx = LocalContext.current
-    val dao = GestureDataDao.getInstance(ctx)!!
-    val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
+    val dao = GestureDataDao.getInstance(ctx)
+    val hasData = dao?.isEmpty() != true // no need to update if we have it in a dialog
     val ids = remember { ids }
     val getDataPicker = getData(ids)
     var exportStarted by remember { mutableStateOf(false) }
@@ -87,7 +87,7 @@ fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Un
         if (confirmDelete) {
             ConfirmationDialog(
                 onDismissRequest = { confirmDelete = false },
-                onConfirmed = { dao.delete(ids, true, ctx); onDeleted() },
+                onConfirmed = { dao?.delete(ids, true, ctx); onDeleted() },
                 content = {
                     Text(stringResource(R.string.delete_confirmation, ids.size))
                 }
@@ -198,11 +198,11 @@ private fun getData(ids: List<Long>): ManagedActivityResultLauncher<Intent, Acti
     }
 }
 
-private fun createZipFile(ctx: Context, ids: List<Long>) : File {
+private fun createZipFile(ctx: Context, ids: List<Long>): File {
     zippedDataPath = ""
-    val dao = GestureDataDao.getInstance(ctx)!!
     val zipFile = getGestureZipFile(ctx)
     zipFile.delete()
+    val dao = GestureDataDao.getInstance(ctx) ?: return zipFile
     zipFile.outputStream().use { os ->
         writeOutputToZipStream(dao.getJsonData(ids, ctx), getGestureDataFileName(ctx), os)
     }
