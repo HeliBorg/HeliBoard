@@ -1279,6 +1279,9 @@ New dictionary:
         Background gathering only collects words coming from dictionaries that are built-in or available at the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;.
         Currently you have no such dictionary enabled.
     </string>
+    <!-- Link text for gesture data visualization tool (parsed as HTML)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_swipe_o_scope">Tool for visualizing gesture data: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 
     <!-- new strings should go above the section for gesture data gathering -->
 </resources>

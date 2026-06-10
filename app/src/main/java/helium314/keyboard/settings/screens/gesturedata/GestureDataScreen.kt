@@ -104,6 +104,7 @@ import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getKnownDictHashes
+import helium314.keyboard.latin.utils.htmlToAnnotated
 import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
@@ -628,9 +629,7 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
             appendLine()
             appendLine()
 
-            append("Tool for visualizing gesture data:")
-            append(" ")
-            appendLink("Swipe-O-Scope", Links.SWIPE_O_SCOPE)
+            append(LocalContext.current.getString(R.string.gesture_data_swipe_o_scope, Links.SWIPE_O_SCOPE).htmlToAnnotated())
         }
         InfoDialog(text) { showLinks = false }
     }
