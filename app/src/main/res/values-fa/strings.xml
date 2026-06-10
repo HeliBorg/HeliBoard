@@ -3,138 +3,501 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_dict">"پیدا کردن نام مخاطبین"</string>
-    <string name="vibrate_on_keypress">"لرزش با فشار کلید"</string>
-    <string name="sound_on_keypress">"صدا با فشار کلید"</string>
-    <string name="popup_on_keypress">"بازشدن با فشار کلید"</string>
-    <string name="settings_screen_preferences">"تنظیمات برگزیده"</string>
-    <string name="settings_screen_gesture">"ورودی اشاره‌ای"</string>
-    <string name="settings_screen_correction">"اصلاح نوشتار"</string>
+--><resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="use_contacts_dict">جستجوی نام مخاطبین</string>
+    <string name="vibrate_on_keypress">لرزش با فشردن کلید</string>
+    <string name="sound_on_keypress">صدا با فشردن کلید</string>
+    <string name="popup_on_keypress">پنجره بازشو (Popup) با فشردن کلید</string>
+    <string name="settings_screen_preferences">ترجیحات</string>
+    <string name="settings_screen_gesture">تایپ اشاره‌ای (Gesture)</string>
+    <string name="settings_screen_correction">تصحیح متن</string>
     <string name="settings_screen_advanced">"پیشرفته"</string>
-    <string name="settings_screen_theme">"طرح‌زمینه"</string>
-    <string name="enable_split_keyboard">"فعال کردن دونیم‌کردن صفحه‌کلید"</string>
-    <string name="language_switch_key_switch_input_method">"تغییر به دیگر روش‌های ورودی"</string>
+    <string name="settings_screen_theme">پوسته</string>
+    <string name="enable_split_keyboard">فعال‌سازی صفحه‌کلید دوتکه</string>
+    <string name="language_switch_key_switch_input_method">تغییر به سایر روش‌های ورودی</string>
     <string name="show_language_switch_key">"کلید تغییر زبان"</string>
     <string name="abbreviation_unit_milliseconds">"%s میلی‌ثانیه"</string>
     <string name="settings_system_default">"پیش‌فرض سیستم"</string>
-    <string name="use_contacts_dict_summary">برای پیشنهاد و تصحیح از نام مخاطبین استفاده شود</string>
-    <string name="use_personalized_dicts">"پیشنهادات شخصی شده"</string>
+    <string name="use_contacts_dict_summary">استفاده از نام‌های موجود در مخاطبین برای پیشنهادها و تصحیحات</string>
+    <string name="use_personalized_dicts">پیشنهادهای شخصی‌سازی‌شده</string>
     <string name="use_double_space_period">"نقطه با دو فاصله"</string>
-    <string name="use_double_space_period_summary">"با دو بار ضربه روی دکمه فاصله، نقطه بعلاوه فاصله‌ای بعد آن درج می‌شود"</string>
-    <string name="auto_cap">"بزرگ‌کردن خودکار حروف"</string>
-    <string name="auto_cap_summary">"بزرگ‌نویسی کلمه اول هر جمله"</string>
+    <string name="use_double_space_period_summary">با دو بار ضربه زدن روی کلید فاصله، یک نقطه و سپس یک فاصله درج می‌شود</string>
+    <string name="auto_cap">حروف بزرگ خودکار</string>
+    <string name="auto_cap_summary">نوشتن اولین کلمه از هر جمله با حرف بزرگ</string>
     <string name="edit_personal_dictionary">"واژه‌نامه شخصی"</string>
     <string name="main_dictionary">"واژه‌نامه اصلی"</string>
-    <string name="prefs_show_suggestions">"نمایش پیشنهادات تصحیح"</string>
-    <string name="prefs_show_suggestions_summary">"نمایش واژه‌های پیشنهادی در حین تایپ"</string>
-    <string name="prefs_block_potentially_offensive_title">"عدم نمایش کلمات توهین‌آمیز"</string>
-    <string name="prefs_block_potentially_offensive_summary">"کلمات توهین‌آمیز احتمالی پیشنهاد نشود"</string>
+    <string name="prefs_show_suggestions">نمایش پیشنهادهای تصحیح</string>
+    <string name="prefs_show_suggestions_summary">نمایش کلمات پیشنهادی هنگام تایپ</string>
+    <string name="prefs_block_potentially_offensive_title">مسدودسازی کلمات توهین‌آمیز</string>
+    <string name="prefs_block_potentially_offensive_summary">از پیشنهاد دادن کلمات احتمالاً توهین‌آمیز جلوگیری شود</string>
     <string name="autocorrect">"تصحیح خودکار"</string>
-    <string name="auto_correction_summary">"کلید فاصله و علائم سجاوندی به‌صورت خودکار کلماتی را که غلط تایپ شده‌اند تصحیح می‌کند"</string>
+    <string name="auto_correction_summary">کلید فاصله و علائم نگارشی به‌طور خودکار کلمات اشتباه را تصحیح می‌کنند</string>
     <string name="auto_correction_threshold_mode_off">"خاموش"</string>
-    <string name="auto_correction_threshold_mode_modest">"متوسط"</string>
-    <string name="auto_correction_threshold_mode_aggressive">"شدید"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive">"بسیار شدید"</string>
-    <string name="bigram_prediction">"پیشنهادات کلمه بعدی"</string>
-    <string name="bigram_prediction_summary">"از کلمه قبلی در دادن پیشنهادات استفاده شود"</string>
-    <string name="gesture_input">"فعال کردن تایپ حرکتی"</string>
-    <string name="gesture_input_summary">"با لغزاندن انگشت روی حروف کلمه وارد کنید"</string>
-    <string name="gesture_preview_trail">"نمایش نسخه آزمایشی حرکت"</string>
-    <string name="gesture_floating_preview_text">"پیش‌نمایش متحرک پویا"</string>
-    <string name="gesture_space_aware">"‫ورود عبارت با حرکت اشاره‌ای"</string>
-    <string name="gesture_space_aware_summary">"با سراندن انگشت روی کلید فاصله در زمان استفاده از حرکات، فاصله وارد کنید"</string>
+    <string name="auto_correction_threshold_mode_modest">ملایم</string>
+    <string name="auto_correction_threshold_mode_aggressive">سخت‌گیرانه</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">بسیار سخت‌گیرانه</string>
+    <string name="bigram_prediction">پیشنهادهای کلمه بعدی</string>
+    <string name="bigram_prediction_summary">استفاده از کلمه قبلی برای ارائه پیشنهادها</string>
+    <string name="gesture_input">فعال‌سازی تایپ اشاره‌ای</string>
+    <string name="gesture_input_summary">نوشتن یک کلمه با کشیدن انگشت روی حروف آن</string>
+    <string name="gesture_preview_trail">نمایش رد اشاره (Trail)</string>
+    <string name="gesture_floating_preview_text">پیش‌نمایش شناور پویا</string>
+    <string name="gesture_space_aware">اشاره عبارتی (Phrase gesture)</string>
+    <string name="gesture_space_aware_summary">درج فاصله در حین اشاره با کشیدن انگشت به سمت کلید فاصله</string>
     <string name="subtype_en_GB">"انگلیسی (بریتانیا)"</string>
-    <string name="subtype_en_US">"انگلیسی (امریکا)"</string>
-    <string name="subtype_es_US">"اسپانیایی (امریکا)"</string>
-    <string name="subtype_hi_Latn">"هندی انگلیسی"</string>
+    <string name="subtype_en_US">انگلیسی (ایالات متحده)</string>
+    <string name="subtype_es_US">اسپانیایی (ایالات متحده)</string>
+    <string name="subtype_hi_Latn">هینگلیش</string>
     <string name="subtype_sr_Latn">"صربی (لاتین)"</string>
     <string name="subtype_generic_traditional">%s (سنتی)</string>
     <string name="subtype_generic_compact">%s (فشرده)</string>
     <string name="subtype_no_language">"بدون زبان"</string>
-    <string name="subtype_emoji">"اموجی"</string>
+    <string name="subtype_emoji">ایموجی</string>
     <string name="add">"افزودن"</string>
     <string name="remove">"حذف"</string>
     <string name="save">"ذخیره"</string>
     <string name="subtype_locale">"زبان"</string>
     <string name="keyboard_layout_set">"چیدمان"</string>
-    <string name="prefs_keypress_vibration_duration_settings">"مدت لرزش با فشار کلید"</string>
-    <string name="prefs_keypress_sound_volume_settings">"میزان صدا با فشار کلید"</string>
-    <string name="prefs_key_longpress_timeout_settings">"تأخیر فشار طولانی کلید"</string>
-    <string name="prefs_enable_emoji_alt_physical_key">"اموجی برای صفحه‌کلید فیزیکی"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">"‏کلید Alt صفحه‌کلید فیزیکی، پالت اموجی را نشان می‌دهد"</string>
+    <string name="prefs_keypress_vibration_duration_settings">مدت‌زمان لرزش با فشردن کلید</string>
+    <string name="prefs_keypress_sound_volume_settings">میزان صدای فشردن کلید</string>
+    <string name="prefs_key_longpress_timeout_settings">تأخیر لمس طولانی کلید</string>
+    <string name="prefs_enable_emoji_alt_physical_key">ایموجی برای صفحه‌کلید فیزیکی</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">کلید فیزیکی Alt پالت ایموجی‌ها را نمایش می‌دهد</string>
     <string name="button_default">"پیش‌فرض"</string>
     <string name="setup_welcome_title">به %s خوش آمدید</string>
-    <string name="setup_welcome_additional_description">"با ورودی اشاره‌ای"</string>
-    <string name="setup_start_action">"شروع به کار"</string>
+    <string name="setup_welcome_additional_description">همراه با تایپ اشاره‌ای</string>
+    <string name="setup_start_action">شروع</string>
     <string name="setup_steps_title">راه‌اندازی %s</string>
     <string name="setup_step1_title">فعال‌سازی %s</string>
-    <string name="setup_step1_instruction">لطفاً «%s» را در تنظیمات «زبان‌ها و ورودی» علامت بزنید. این کار مجوز اجرا در دستگاه است.</string>
+    <string name="setup_step1_instruction">لطفاً \"%s\" را در تنظیمات زبان و ورودی خود علامت بزنید. این کار مجوز اجرای آن را در دستگاه شما صادر می‌کند.</string>
     <string name="setup_step1_action">"فعال‌سازی در تنظیمات"</string>
-    <string name="setup_step2_title">به %s تعویض کنید</string>
-    <string name="setup_step2_instruction">در مرحله بعد، «%s» را به عنوان روش ورودی نوشتار فعال خود انتخاب کنید.</string>
-    <string name="setup_step2_action">"تغییر روش‌های ورودی"</string>
-    <string name="setup_step3_title">"تبریک می‌گوییم، اکنون کاملاً آماده هستید!"</string>
-    <string name="setup_step3_instruction">اکنون می‌توانید در همه برنامه‌های دلخواه خود با %s تایپ کنید.</string>
-    <string name="setup_finish_action">"تمام شد"</string>
-    <string name="show_setup_wizard_icon">"نمایش نماد برنامه"</string>
-    <string name="show_setup_wizard_icon_summary">"نمایش نماد برنامه در راه‌انداز"</string>
-    <string name="dictionary_category_title">"واژه‌نامه‌های برافزا"</string>
+    <string name="setup_step2_title">تغییر به %s</string>
+    <string name="setup_step2_instruction">اکنون، \"%s\" را به عنوان روش ورودی متنی فعال خود انتخاب کنید.</string>
+    <string name="setup_step2_action">تغییر روش ورودی</string>
+    <string name="setup_step3_title">تبریک، همه‌چیز آماده است!</string>
+    <string name="setup_step3_instruction">اکنون می‌توانید در تمام برنامه‌های موردعلاقه خود با %s تایپ کنید.</string>
+    <string name="setup_finish_action">پایان</string>
+    <string name="show_setup_wizard_icon">نمایش آیکون برنامه</string>
+    <string name="show_setup_wizard_icon_summary">نمایش آیکون برنامه در لیست برنامه‌ها</string>
+    <string name="dictionary_category_title">واژه‌نامه‌های افزونه</string>
     <string name="dictionary_available">"واژه‌نامه موجود است"</string>
     <string name="settings">"تنظیمات"</string>
     <string name="delete">"حذف"</string>
-    <string name="version_text">نسخه %1$s</string>
-    <string name="user_dict_settings_add_shortcut_option_name">"میان‌بر:"</string>
+    <string name="version_text">نسخه %s</string>
+    <string name="user_dict_settings_add_shortcut_option_name">میانبر:</string>
     <string name="user_dict_settings_add_locale_option_name">"زبان:"</string>
-    <string name="user_dict_settings_add_word_hint">"کلمه‌ای تایپ کنید"</string>
-    <string name="user_dict_settings_add_shortcut_hint">"میان‌بر اختیاری"</string>
+    <string name="user_dict_settings_add_word_hint">یک کلمه تایپ کنید</string>
+    <string name="user_dict_settings_add_shortcut_hint">میانبر (اختیاری)</string>
     <string name="user_dict_settings_edit_dialog_title">"ویرایش کلمه"</string>
     <string name="user_dict_settings_all_languages">"برای همه زبان‌ها"</string>
     <string name="user_dict_settings_more_languages">"زبان‌های بیشتر…"</string>
-    <string name="settings_no_limit">بی‌محدودیت</string>
-    <string name="enable_clipboard_history">فعال‌کردن تاریخچهٔ تخته‌گیره</string>
+    <string name="settings_no_limit">بدون محدودیت</string>
+    <string name="enable_clipboard_history">فعال‌سازی تاریخچه کلیپ‌بورد</string>
     <string name="select_input_method">"انتخاب روش ورودی"</string>
-    <string name="settings_category_clipboard_history">تاریخچهٔ تخته‌گیره</string>
-    <string name="spell_checker_service_name">غلط‌یاب املایی HeliBoard</string>
-    <string name="android_spell_checker_settings">تنظیمات غلط‌یاب املایی HeliBoard</string>
-    <string name="show_emoji_key">دکمهٔ شکلک</string>
+    <string name="settings_category_clipboard_history">تاریخچه کلیپ‌بورد</string>
+    <string name="spell_checker_service_name">غلط‌گیر املایی HeliBoard</string>
+    <string name="android_spell_checker_settings">تنظیمات غلط‌گیر املایی HeliBoard</string>
+    <string name="show_emoji_key">کلید ایموجی</string>
     <string name="ime_settings">تنظیمات HeliBoard</string>
-    <string name="settings_category_additional_keys">کلیدهای افزوده</string>
+    <string name="settings_category_additional_keys">کلیدهای بیشتر</string>
     <string name="settings_category_experimental">آزمایشی</string>
     <string name="settings_category_miscellaneous">متفرقه</string>
     <string name="settings_category_input">ورودی</string>
-    <string name="settings_category_correction">غلط‌گیری‌ها</string>
-    <string name="settings_category_suggestions">پیشنهاد‌ها</string>
-    <string name="clipboard_history_retention_time">مدت زمان نگهداری تاریخچه</string>
-    <string name="more_keys_strip_description">کلید‌های بیشتر</string>
-    <string name="prefs_long_press_keyboard_to_change_lang_summary">با فشار طولانی کلید فاصله، منوی انتخاب روش ورودی را باز می کند</string>
-    <string name="day_night_mode_summary">ظاهر از تنظیمات سیستم پیروی می‌کند</string>
-    <string name="enable_clipboard_history_summary">اگر غیرفعال باشد، کلید کلیپ بورد، محتوای خود را در صورت وجود جایگذاری می‌کند</string>
-    <string name="abbreviation_unit_minutes">%sدقیقه.</string>
+    <string name="settings_category_correction">تصحیحات</string>
+    <string name="settings_category_suggestions">پیشنهادها</string>
+    <string name="clipboard_history_retention_time">زمان نگهداری تاریخچه</string>
+    <string name="more_keys_strip_description">کلیدهای بیشتر</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">لمس طولانی کلید فاصله، منوی انتخاب روش ورودی را باز می‌کند</string>
+    <string name="day_night_mode_summary">ظاهر برنامه از تنظیمات سیستم پیروی می‌کند</string>
+    <string name="enable_clipboard_history_summary">در صورت غیرفعال بودن، دکمه کلیپ‌بورد فقط آخرین محتوای کپی‌شده را جای‌گذاری (Paste) می‌کند</string>
+    <string name="abbreviation_unit_minutes">%s دقیقه</string>
     <string name="number_row">ردیف اعداد</string>
-    <string name="number_row_summary">همیشه ردیف اعداد نشان داده شود</string>
-    <string name="prefs_long_press_keyboard_to_change_lang">روش ورودی را با کلید فاصله تغییر دهید</string>
-    <string name="delete_swipe">حذف با کشیدن</string>
-    <string name="delete_swipe_summary">برای انتخاب و حذف یکباره بخش‌های بزرگ‌تر از متن، روی کلید حذف بکشید</string>
-    <string name="incognito">حالت نا‌شناس اجباری</string>
+    <string name="number_row_summary">نمایش همیشگی ردیف اعداد</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">تغییر روش ورودی با کلید فاصله</string>
+    <string name="delete_swipe">حذف با کشیدن (Swipe)</string>
+    <string name="delete_swipe_summary">کشیدن انگشت از سمت کلید حذف برای انتخاب و پاک کردن بخش‌های بزرگ‌تری از متن به صورت یکجا</string>
+    <string name="incognito">اجبار به حالت ناشناس (Incognito)</string>
     <string name="prefs_force_incognito_mode_summary">غیرفعال کردن یادگیری کلمات جدید</string>
-    <string name="autospace_after_punctuation">فاصله خودکار بعد از نشانه گذاری</string>
-    <string name="autospace_after_punctuation_summary">هنگام تایپ یک کلمه جدید، به طور خودکار فاصله را بعد از علامت گذاری وارد کن</string>
-    <string name="prefs_keyboard_height_scale">مقیاس ارتفاع صفحه کلید</string>
-    <string name="show_hints">نمایش اشاره کلید‌ها</string>
-    <string name="show_hints_summary">نمایش اشاره لمس طولانی</string>
-    <string name="subtype_akkhor_bn_BD">%s (حروف)</string>
-    <string name="key_borders">حاشیه کلید</string>
-    <string name="day_night_mode">حالت روز/شب خودکار</string>
-    <string name="undo">"لغو"</string>
-    <string name="redo">"بازانجام"</string>
-    <string name="use_personalized_dicts_summary">"یادگیری از ارتباطات و اطلاعات تایپ شده شما برای بهبود پیشنهادات"</string>
-    <string name="label_go_key">"رفتن"</string>
+    <string name="autospace_after_punctuation">فاصله خودکار پس از علائم نگارشی</string>
+    <string name="autospace_after_punctuation_summary">درج خودکار فاصله بعد از علائم نگارشی هنگام تایپ کلمه جدید</string>
+    <string name="prefs_keyboard_height_scale">ارتفاع صفحه‌کلید</string>
+    <string name="show_hints">نمایش راهنمای کلیدها</string>
+    <string name="show_hints_summary">نمایش راهنمای لمس طولانی</string>
+    <string name="subtype_akkhor_bn_BD">%s (آخور)</string>
+    <string name="key_borders">حاشیه کلیدها</string>
+    <string name="day_night_mode">حالت خودکار روز/شب</string>
+    <string name="undo">لغو (Undo)</string>
+    <string name="redo">انجام مجدد (Redo)</string>
+    <string name="use_personalized_dicts_summary">یادگیری از ارتباطات و داده‌های تایپ‌شده شما برای بهبود پیشنهادات</string>
+    <string name="label_go_key">برو</string>
     <string name="label_next_key">"بعدی"</string>
     <string name="label_previous_key">"قبلی"</string>
-    <string name="label_done_key">"اتمام"</string>
+    <string name="label_done_key">انجام شد</string>
     <string name="label_send_key">"ارسال"</string>
     <string name="label_search_key">"جستجو"</string>
-    <string name="label_pause_key">"مکث"</string>
+    <string name="label_pause_key">توقف</string>
     <string name="label_wait_key">"انتظار"</string>
+    <string name="vibrate_in_dnd_mode">لرزش در حالت «مزاحم نشوید»</string>
+    <string name="suggest_emojis">پیشنهاد ایموجی</string>
+    <string name="suggest_emojis_summary">استفاده از واژه‌نامه ایموجی در پیشنهادهای عادی</string>
+    <string name="inline_emoji_search">جستجوی درون‌خطی ایموجی</string>
+    <string name="inline_emoji_search_summary">پیشنهاد ایموجی تنها وقتی که قبل از کلمه، دونقطه (:) باشد</string>
+    <string name="emoji_dictionary_required">برای عملکرد این ویژگی به واژه‌نامه ایموجی نیاز است. واژه‌نامه‌هایی با فرمت dict. را می‌توانید از %s دانلود کنید.</string>
+    <string name="show_emoji_descriptions">نمایش توضیحات ایموجی با لمس طولانی</string>
+    <string name="toolbar_swipe_down_to_hide">بستن صفحه‌کلید با کشیدن دست (Swipe)</string>
+    <string name="toolbar_swipe_down_to_hide_summary">برای بستن صفحه‌کلید، نوار ابزار را به پایین بکشید</string>
+    <string name="settings_category_space">فاصله</string>
+    <string name="split_spacer_scale">میزان فاصله دوتکه</string>
+    <string name="switch_language">تغییر زبان</string>
+    <string name="language_switch_key_switch_both">تغییر هر دو</string>
+    <string name="language_switch_key_behavior">عملکرد کلید تغییر زبان</string>
+    <string name="use_apps_dict">جستجوی نام برنامه‌ها</string>
+    <string name="use_apps_dict_summary">استفاده از نام برنامه‌های نصب‌شده برای پیشنهادها و تصحیحات</string>
+    <string name="disable_personalized_dicts_message">هشدار: غیرفعال کردن این مورد، داده‌های یادگیری‌شده را پاک می‌کند</string>
+    <string name="add_to_personal_dictionary">افزودن کلمات به واژه‌نامه شخصی</string>
+    <string name="add_to_personal_dictionary_summary">استفاده از واژه‌نامه دستگاه برای ذخیره کلمات یادگیری‌شده</string>
+    <string name="prefs_always_show_suggestions">نمایش همیشگی پیشنهادها</string>
+    <string name="prefs_always_show_suggestions_summary">نادیده گرفتن درخواست سایر برنامه‌ها مبنی بر عدم نمایش پیشنهاد (ممکن است مشکل‌ساز شود)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">پنهان کردن پیشنهادها در فیلدهای متنی وب</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">فیلدهای متنی وب (غالباً در مرورگرها) دلیل اصلی مشکلات تنظیم «نمایش همیشگی پیشنهادها» هستند</string>
+    <string name="more_autocorrect">تصحیح خودکار بیشتر</string>
+    <string name="more_autocorrect_summary">تصحیح خودکار، حتی زمانی که فیلد متنی صراحتاً درخواست نکرده باشد</string>
+    <string name="auto_correction_confidence">میزان سخت‌گیری تصحیح خودکار</string>
+    <string name="auto_correct_shortcuts">تصحیح خودکار میانبرها</string>
+    <string name="auto_correct_shortcuts_summary">در صورت فعال بودن، تصحیح خودکار ممکن است کلمات میانبر را به کلمه اصلی تغییر دهد</string>
+    <string name="backspace_reverts_autocorrect">لغو تصحیح با کلید پس‌بر (Backspace)</string>
+    <string name="center_suggestion_text_to_enter">استفاده همیشگی از پیشنهاد میانی</string>
+    <string name="center_suggestion_text_to_enter_summary">با فشردن کلید فاصله یا علائم نگارشی، کلمه میانی پیشنهاد شده درج می‌شود</string>
+    <string name="suggest_punctuation">پیشنهاد علائم نگارشی</string>
+    <string name="suggest_punctuation_summary">در صورت عدم وجود کلمات پیشنهادی، علائم نگارشی نمایش داده شود</string>
+    <string name="custom_punctuation_suggestions">تنظیم پیشنهادهای علائم نگارشی</string>
+    <string name="suggest_clipboard_content">پیشنهاد محتوای کلیپ‌بورد</string>
+    <string name="suggest_clipboard_content_summary">نمایش جدیدترین محتوای کپی‌شده در کلیپ‌بورد به عنوان یک پیشنهاد</string>
+    <string name="gesture_floating_preview_static">پیش‌نمایش شناور</string>
+    <string name="gesture_floating_preview_static_summary">مشاهده کلمه پیشنهادی در حین اشاره</string>
+    <string name="gesture_floating_preview_dynamic_summary">حرکت پیش‌نمایش در طول کشیدن انگشت</string>
+    <string name="gesture_fast_typing_cooldown">تأخیر در تایپ سریع</string>
+    <string name="gesture_fast_typing_cooldown_instant">شروع فوریِ همیشگی</string>
+    <string name="gesture_trail_fadeout_duration">ماندگاری رد اشاره</string>
+    <string name="clipboard_history_pinned_first">نمایش موارد سنجاق‌شده (Pinned) در بالا</string>
+    <string name="backup_restore_title">پشتیبان‌گیری و بازیابی</string>
+    <string name="backup_restore_message">ذخیره یا بارگیری از طریق فایل. هشدار: با بازیابی (Restore)، داده‌های فعلی جایگزین خواهند شد</string>
+    <string name="backup_error">خطای پشتیبان‌گیری: %s</string>
+    <string name="restore_error">خطا در بازیابی نسخه پشتیبان: %s</string>
+    <string name="button_backup">پشتیبان‌گیری</string>
+    <string name="button_restore">بازیابی</string>
+    <string name="backup_restored">نسخه پشتیبان بازیابی شد</string>
+    <string name="timestamp_format_title">قالب کلید برچسب زمانی (Timestamp)</string>
+    <string name="timestamp_description">می‌توانید کلید برچسب زمانی را با استفاده از یک چیدمان سفارشی دارای کلید \'timestamp\' یا کد کلید 10043- اضافه کنید</string>
+    <string name="secondary_locale">تایپ چندزبانه</string>
+    <string name="locales_with_dict">زبان‌های دارای واژه‌نامه</string>
+    <string name="load_gesture_library">بارگیری کتابخانه تایپ اشاره‌ای</string>
+    <string name="load_gesture_library_summary">ارائه یک کتابخانه بومی جهت فعال‌سازی تایپ اشاره‌ای</string>
+    <string name="load_gesture_library_message">شما برای \'%s\' به این کتابخانه نیاز دارید. استفاده از کتابخانه‌های ناسازگار ممکن است موجب توقف کارکرد برنامه هنگام تایپ اشاره‌ای شود.\n\nهشدار: بارگیری کدهای خارجی می‌تواند یک ریسک امنیتی باشد. فقط از کتابخانه‌ای با منبع معتبر استفاده کنید.</string>
+    <string name="checksum_mismatch_message">فایل کتابخانه ناشناخته است. آیا مطمئنید آن را از یک منبع معتبر دریافت کرده‌اید و مخصوص \'%s\' است؟</string>
+    <string name="load_gesture_library_button_load">بارگیری کتابخانه</string>
+    <string name="load_gesture_library_button_delete">حذف کتابخانه</string>
+    <string name="autospace_after_suggestion">فاصله خودکار پس از انتخاب یک پیشنهاد</string>
+    <string name="autospace_before_gesture_typing">فاصله خودکار قبل از تایپ اشاره‌ای کلمه</string>
+    <string name="autospace_after_gesture_typing">فاصله خودکار پس از تایپ اشاره‌ای کلمه</string>
+    <string name="shift_removes_autospace">عدم درج فاصله خودکار با فشردن کلید Shift</string>
+    <string name="shift_removes_autospace_summary">کلید Shift فاصله خودکارِ در انتظار را حذف می‌کند</string>
+    <string name="show_popup_keys_title">نمایش حروف بیشتر (و اِعراب) در بازشو</string>
+    <string name="show_popup_keys_normal">نمایش گزینه‌های تعریف‌شده در زبان‌های صفحه‌کلید</string>
+    <string name="show_popup_keys_main">افزودن گزینه‌های بسیار رایج (پیش‌فرض)</string>
+    <string name="show_popup_keys_more">افزودن گزینه‌های رایج</string>
+    <string name="show_popup_keys_all">افزودن تمامی گزینه‌های موجود</string>
+    <string name="url_detection_title">تشخیص لینک (URL)</string>
+    <string name="url_detection_summary">تلاش برای تشخیص URLها و موارد مشابه به عنوان یک کلمه واحد</string>
+    <string name="language_and_layouts_title">زبان‌ها و چیدمان‌ها</string>
+    <string name="number_row_in_symbols">نمایش ردیف اعداد در بخش علائم (Symbols)</string>
+    <string name="localized_number_row">بومی‌سازی ردیف اعداد</string>
+    <string name="localized_number_row_summary">اولویت دادن به اعداد بومی (فارسی) نسبت به لاتین</string>
+    <string name="number_row_hints">نمایش راهنما در ردیف اعداد</string>
+    <string name="save_subtype_per_app">به‌خاطرسپاری زبان برای هر برنامه</string>
+    <string name="popup_order_and_hint_source">ترتیب کلیدهای بازشو و منبع راهنما</string>
+    <string name="hint_source">انتخاب منبع راهنما</string>
+    <string name="popup_order">انتخاب ترتیب کلیدهای بازشو</string>
+    <string name="show_tld_popup_keys">نمایش دامنه‌های سطح بالا (TLD)</string>
+    <string name="show_tld_popup_keys_summary">جایگزینی بازشوی کلیدِ نقطه (Period) با دامنه‌های اینترنتی در هنگام تایپ لینک و آدرس ایمیل</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">ردیف اعداد</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">زبان (اولویت)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">چیدمان</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">نمادها</string>
+    <string name="toolbar_mode">حالت نوار ابزار</string>
+    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">کلیدهای نوار ابزار و پیشنهادها</string>
+    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">فقط کلیدهای نوار ابزار</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">فقط پیشنهادها</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">پنهان</string>
+    <string name="toolbar_hiding_global">پنهان کردن نوار ابزارهای کلیپ‌بورد و ایموجی</string>
+    <string name="toolbar_keys">انتخاب کلیدهای نوار ابزار</string>
+    <string name="clipboard" tools:keep="@string/clipboard">کلیپ‌بورد</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">پاک کردن کلیپ‌بورد</string>
+    <string name="voice" tools:keep="@string/voice">ورودی صوتی</string>
+    <string name="select_word" tools:keep="@string/select_word">انتخاب کلمه</string>
+    <string name="one_handed" tools:keep="@string/one_handed">حالت یک‌دستی</string>
+    <string name="split" tools:keep="@string/split">صفحه‌کلید دوتکه</string>
+    <string name="full_left" tools:keep="@string/full_left">کاملاً چپ</string>
+    <string name="full_right" tools:keep="@string/full_right">کاملاً راست</string>
+    <string name="page_start" tools:keep="@string/page_start">ابتدای صفحه</string>
+    <string name="page_end" tools:keep="@string/page_end">انتهای صفحه</string>
+    <string name="left" tools:keep="@string/left">چپ</string>
+    <string name="right" tools:keep="@string/right">راست</string>
+    <string name="up" tools:keep="@string/up">بالا</string>
+    <string name="down" tools:keep="@string/down">پایین</string>
+    <string name="word_left" tools:keep="@string/word_left">کلمه قبلی (چپ)</string>
+    <string name="word_right" tools:keep="@string/word_right">کلمه بعدی (راست)</string>
+    <string name="page_up" tools:keep="@string/page_up">صفحه بالا</string>
+    <string name="page_down" tools:keep="@string/page_down">صفحه پایین</string>
+    <string name="close_history" tools:keep="@string/close_history">بستن تاریخچه کلیپ‌بورد</string>
+    <string name="emoji" tools:keep="@string/emoji">ایموجی</string>
+    <string name="floating" tools:keep="@string/floating">صفحه‌کلید شناور</string>
+    <string name="clipboard_toolbar_keys">انتخاب کلیدهای نوار ابزار کلیپ‌بورد</string>
+    <string name="pinned_toolbar_keys">انتخاب کلیدهای سنجاق‌شده نوار ابزار</string>
+    <string name="quick_pin_toolbar_keys">سنجاق کردن کلید نوار ابزار با لمس طولانی</string>
+    <string name="quick_pin_toolbar_keys_summary">این کار سایر عملکردهای لمس طولانی را برای کلیدهای سنجاق‌نشده نوار ابزار غیرفعال می‌کند</string>
+    <string name="show_popup_hints">نمایش راهنمای عملکردها</string>
+    <string name="show_popup_hints_summary">نمایش راهنما در صورتی که لمس طولانی کلید باعث اجرای عملکردی شود</string>
+    <string name="remove_redundant_popups">حذف بازشوهای تکراری</string>
+    <string name="remove_redundant_popups_summary">پنهان کردن کلیدهای بازشویی که از قبل در چیدمان اصلی وجود دارند</string>
+    <string name="prefs_long_press_symbol_for_numpad">لمس طولانی کلید نمادها برای صفحه اعداد</string>
+    <string name="prefs_narrow_key_gaps">کاهش فاصله بین کلیدها</string>
+    <string name="prefs_key_gap_scale">میزان فاصله بین کلیدها</string>
+    <string name="prefs_bottom_padding_scale">حاشیه پایین</string>
+    <string name="prefs_bottom_row_scale">ارتفاع ردیف پایین</string>
+    <string name="prefs_side_padding_scale">حاشیه کناری</string>
+    <string name="prefs_font_scale">اندازه قلم صفحه‌کلید</string>
+    <string name="prefs_emoji_font_scale">اندازه قلم ایموجی‌ها</string>
+    <string name="prefs_emoji_key_fit">تطبیق اندازه کلید ایموجی با اندازه قلم</string>
+    <string name="prefs_emoji_skin_tone">رنگ پوست پیش‌فرض ایموجی</string>
+    <string name="prefs_emoji_skin_tone_neutral">خنثی</string>
+    <string name="prefs_space_bar_text">متن دلخواه روی کلید فاصله</string>
+    <string name="custom_font">تنظیم قلم دلخواه از فایل</string>
+    <string name="custom_emoji_font">تنظیم قلم دلخواه ایموجی از فایل</string>
+    <string name="subtype_mns">مانسی</string>
+    <string name="subtype_xdq">کایتاگ</string>
+    <string name="subtype_dag">داگبانی</string>
+    <string name="subtype_st">سوتو</string>
+    <string name="subtype_dru">دارگوا (اوراخی)</string>
+    <string name="subtype_mhr">ماری (شرقی)</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_generic_extended">%s (گسترده)</string>
+    <string name="subtype_probhat_bn_BD">%s (پربهات)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (بایشاخی)</string>
+    <string name="subtype_khipro_bn">%s (خیپرو)</string>
+    <string name="subtype_generic_phonetic">%s (آوایی)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (سبئولسیک ۳۹۰)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (سبئولسیک نهایی)</string>
+    <string name="subtype_generic_student">%s (دانش‌آموزی)</string>
+    <string name="load">بارگیری</string>
+    <string name="button_title_add_custom_layout">افزودن چیدمان سفارشی</string>
+    <string name="message_add_custom_layout">یک فایل با فرمت سازگار انتخاب کنید. اطلاعات مربوط به فرمت‌ها در %s موجود است.</string>
+    <string name="button_load_custom">بارگیری فایل</string>
+    <string name="button_save_file">ذخیره در فایل</string>
+    <string name="copy_to_clipboard">کپی در کلیپ‌بورد</string>
+    <string name="file_read_error">خطا در خواندن فایل</string>
+    <string name="delete_layout">آیا از حذف چیدمان سفارشی %s اطمینان دارید؟</string>
+    <string name="layout_in_use">هشدار: چیدمان در حال استفاده است</string>
+    <string name="layout_error">خطای چیدمان: %s</string>
+    <string name="edit_layout">برای ویرایش کدهای چیدمان، ضربه بزنید</string>
+    <string name="settings_screen_secondary_layouts">چیدمان‌های ثانویه</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">کلیدهای عملکردی</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">کلیدهای عملکردی (صفحه‌نمایش بزرگ)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">کلیدهای عملکردی (خیپرو)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">کلیدهای عملکردی (نمادها)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">کلیدهای عملکردی (نمادهای بیشتر)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">نمادها</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">نمادها (عربی)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">نمادهای بیشتر</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">تلفن</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">نمادهای تلفن</string>
+    <string name="layout_number" tools:keep="@string/layout_number">اعداد</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">صفحه اعداد</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">صفحه اعداد (افقی)</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">ردیف اعداد</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">ردیف اعداد (پایه)</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">ردیف پایین ایموجی‌ها</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">ردیف پایین ایموجی‌ها با کلید عمل</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">ردیف پایین کلیپ‌بورد</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">ردیف پایین کلیپ‌بورد با کلید عمل</string>
+    <string name="customize_background_image">تنظیم تصویر پس‌زمینه</string>
+    <string name="customize_background_image_landscape">تنظیم تصویر پس‌زمینه (افقی)</string>
+    <string name="summary_customize_background_image_landscape">در صورت تنظیم نشدن، از تصویر حالت عمودی استفاده می‌شود</string>
+    <string name="customize_currencies">سفارشی‌سازی ارزها</string>
+    <string name="customize_currencies_detail">تنظیم نماد ارز اصلی و حداکثر ۶ ارز ثانویه (با فاصله جدا شوند)</string>
+    <string name="switch_keyboard_after">تغییر به صفحه‌کلید اصلی پس از…</string>
+    <string name="after_emoji">انتخاب ایموجی</string>
+    <string name="after_clip">انتخاب از تاریخچه کلیپ‌بورد</string>
+    <string name="after_symbol_and_space">فشردن Enter یا کلید فاصله پس از درج نماد</string>
+    <string name="after_numpad_and_space">فشردن Enter یا کلید فاصله پس از تایپ در صفحه اعداد</string>
+    <string name="day_or_night_image">تصویر برای حالت روز تنظیم شود یا شب؟</string>
+    <string name="day_or_night_day">روز</string>
+    <string name="day_or_night_night">شب</string>
+    <string name="prefs_key_emoji_max_sdk">نادیده گرفتن نسخه ایموجی</string>
+    <string name="setup_step3_action">پیکربندی صفحه‌کلید</string>
+    <string name="dictionary_settings_category">واژه‌نامه‌ها</string>
+    <string name="internal_dictionary_summary">واژه‌نامه اصلی داخلی</string>
+    <string name="add_new_dictionary_title">افزودن واژه‌نامه از فایل</string>
+    <string name="button_select_language">انتخاب زبان</string>
+    <string name="replace_dictionary_message">آیا از جایگزینی واژه‌نامه اضافه‌شده توسط کاربر \"%1$s\" اطمینان دارید؟\n\nواژه‌نامه فعلی:\n%2$s\n\nواژه‌نامه جدید:\n%3$s</string>
+    <string name="replace_dictionary">جایگزینی واژه‌نامه</string>
+    <string name="remove_dictionary_message">آیا از حذف واژه‌نامه اضافه‌شده توسط کاربر \"%s\" اطمینان دارید؟</string>
+    <string name="no_dictionary_message">"بدون واژه‌نامه، شما فقط برای متن‌هایی که قبلاً وارد کرده‌اید پیشنهاد دریافت خواهید کرد.&lt;br&gt;\n        می‌توانید واژه‌نامه‌ها را %1$s دانلود کنید، یا بررسی کنید که آیا واژه‌نامه \"%2$s\" مستقیماً قابل دانلود است یا خیر %3$s."</string>
+    <string name="no_dictionary_dont_show_again_button">دیگر نشان نده</string>
+    <string name="add_dictionary">واژه‌نامه‌ای را برای افزودن انتخاب کنید. واژه‌نامه‌هایی با فرمت dict. را می‌توانید از %s دانلود کنید.</string>
+    <string name="dictionary_link_text">اینجا</string>
+    <string name="available_dictionary_experimental">%s (آزمایشی)</string>
+    <string name="dictionary_file_error">خطا: فایل انتخاب‌شده یک فایل واژه‌نامه معتبر نیست</string>
+    <string name="dictionary_file_wrong_script">خطا: خط (Script) با این صفحه‌کلید سازگار نیست</string>
+    <string name="dictionary_load_error">خطا در بارگیری فایل واژه‌نامه</string>
+    <string name="user_dict_settings_add_weight_value">وزن (اولویت):</string>
+    <string name="user_dict_word_already_present">این کلمه از قبل در واژه‌نامه کاربر %s وجود دارد. لطفاً کلمه دیگری تایپ کنید.</string>
+    <string name="user_dict_add_word_button">افزودن یک کلمه</string>
+    <string name="theme_style">سبک (Style)</string>
+    <string name="icon_style">سبک آیکون‌ها</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">گرد</string>
+    <string name="theme_colors">رنگ‌ها</string>
+    <string name="theme_colors_night">رنگ‌ها (شب)</string>
+    <string name="theme_navbar">رنگی کردن نوار ناوبری (Navigation bar)</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">روشن</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">سفید هولو</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">تیره</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">تیره‌تر</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">سیاه</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">رنگ‌های پویا</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">آبی-خاکستری</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">قهوه‌ای</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">شکلاتی</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">ابری</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">جنگلی</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">نیلی</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">اقیانوسی</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">صورتی</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">شنی</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">بنفش</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">سفارشی</string>
+    <string name="auto_user_color">انتخاب خودکار رنگ</string>
+    <string name="main_colors">فقط نمایش رنگ‌های اصلی</string>
+    <string name="more_colors">نمایش رنگ‌های بیشتر</string>
+    <string name="all_colors">نمایش همه رنگ‌ها</string>
+    <string name="all_colors_warning">این تنظیم تمام رنگ‌هایی را که در داخل برنامه استفاده می‌شوند نشان می‌دهد. لیست رنگ‌ها ممکن است در هر زمان تغییر کند. پیش‌فرض از رنگ‌های عادی گرفته شده است و نام‌ها ترجمه نخواهند شد.</string>
+    <string name="select_color_background">پس‌زمینه صفحه‌کلید</string>
+    <string name="select_color_key">متن کلید</string>
+    <string name="select_color_key_hint">متن راهنمای کلید</string>
+    <string name="select_color_suggestion">متن نوار پیشنهادات</string>
+    <string name="select_color_key_background">پس‌زمینه کلید</string>
+    <string name="select_color_functional_key_background">پس‌زمینه کلید عملکردی</string>
+    <string name="select_color_spacebar_background">پس‌زمینه کلید فاصله</string>
+    <string name="select_color_spacebar_text">متن کلید فاصله</string>
+    <string name="select_color_accent">رنگ برجسته (Accent)</string>
+    <string name="select_color_gesture">ورودی اشاره‌ای</string>
+    <string name="get_colors_message">می‌توانید رنگ‌ها را در %s پیدا کرده و به اشتراک بگذارید.</string>
+    <string name="get_layouts_message">می‌توانید چیدمان‌ها را در %s پیدا کرده و به اشتراک بگذارید.</string>
+    <string name="discussion_section_link">بخش گفتگو (Discussion)</string>
+    <string name="settings_screen_about">درباره</string>
+    <string name="version">نسخه</string>
+    <string name="about_github_link">مشاهده در گیت‌هاب</string>
+    <string name="about_wiki_link">رفتن به ویکی (Wiki)</string>
+    <string name="about_wiki_link_description">ویکی می‌تواند توسط هر کاربر گیت‌هاب بهبود یابد!</string>
+    <string name="save_log">ذخیره گزارش (Log)</string>
+    <string name="license">مجوز متن‌باز</string>
+    <string name="gnu_gpl">پروانه عمومی همگانی گنو (GNU GPL v3.0)</string>
+    <string name="dialog_close">بستن</string>
+    <string name="text_tap_languages">برای باز کردن تنظیمات، روی زبان ضربه بزنید</string>
+    <string name="settings_screen_appearance">ظاهر</string>
+    <string name="settings_screen_toolbar">نوار ابزار</string>
+    <string name="hidden_features_title">توضیحات ویژگی‌های پنهان</string>
+    <string name="hidden_features_summary">نمایش ویژگی‌هایی که ممکن است از دید پنهان بمانند</string>
+    <string name="hidden_features_text">حافظه محافظت‌شده دستگاه</string>
+    <string name="hidden_features_message">► لمس طولانی کلیدهای سنجاق‌شده نوار ابزار باعث عملکردهای اضافی می‌شود: &lt;br&gt; \n\t• کلیپ‌بورد &amp;#65515; جایگذاری (Paste) &lt;br&gt; \n\t• حرکت به چپ/راست &amp;#65515; کلمه قبلی/بعدی &lt;br&gt; \n\t• حرکت به بالا/پایین &amp;#65515; صفحه بالا/پایین &lt;br&gt; \n\t• کلمه قبلی/بعدی &amp;#65515; ابتدا/انتهای خط &lt;br&gt; \n\t• صفحه بالا/پایین &amp;#65515; ابتدا/انتهای صفحه &lt;br&gt; \n\t• کپی &amp;#65515; برش (Cut) &lt;br&gt; \n\t• انتخاب کلمه &amp;#8596; انتخاب همه &lt;br&gt; \n\t• لغو (Undo) &amp;#8596; انجام مجدد (Redo) &lt;br&gt; &lt;br&gt; \n► لمس طولانی کلیدها در نوار پیشنهادات باعث سنجاق شدن آن‌ها به نوار می‌شود. &lt;br&gt; &lt;br&gt; \n► برای دسترسی به نمای کلیپ‌بورد، نمای ایموجی، حالت یک‌دستی، تنظیمات یا تغییر زبان، کلید کاما (ویرگول) را طولانی لمس کنید: &lt;br&gt; \n\t• در صورت فعال بودن کلید اختصاصی، نمای ایموجی و تغییر زبان از این بخش ناپدید می‌شوند؛ &lt;br&gt; \n\t• در برخی چیدمان‌ها این عملکرد روی کلید دیگری در همان موقعیت قرار دارد. &lt;br&gt; &lt;br&gt; \n► وقتی حالت ناشناس (Incognito) فعال باشد، هیچ کلمه‌ای یاد گرفته نمی‌شود و ایموجی‌ها به لیست اخیر اضافه نمی‌شوند. &lt;br&gt; &lt;br&gt; \n► برای دسترسی به نوار ابزار، روی آیکون حالت ناشناس ضربه بزنید. &lt;br&gt; &lt;br&gt; \n► ورودی با کشیدن روی کلیدها: برای تایپ یک حرف بزرگ، از کلید Shift به سمت کلید موردنظر بکشید: &lt;br&gt; \n\t• این کار برای کلید \'?123\' جهت تایپ یک نماد و سایر کلیدهای مرتبط نیز عمل می‌کند. &lt;br&gt; &lt;br&gt; \n► کلید Shift یا نماد را نگه دارید، یک یا چند کلید را فشار دهید و سپس برای بازگشت به صفحه‌کلید قبلی، کلید Shift یا نماد را رها کنید. &lt;br&gt; &lt;br&gt; \n► برای نمایش پیشنهادات بیشتر، یک پیشنهاد را در نوار پیشنهادات طولانی لمس کنید. همچنین کلید حذف برای پاک کردن آن پیشنهاد ظاهر می‌شود. &lt;br&gt; &lt;br&gt; \n► برای باز کردن پیشنهادات بیشتر، از روی یک پیشنهاد به بالا بکشید و روی پیشنهاد موردنظر رها کنید تا انتخاب شود. &lt;br&gt; &lt;br&gt; \n► برای سنجاق کردن یک آیتم در تاریخچه کلیپ‌بورد، آن را طولانی لمس کنید. &lt;br&gt; &lt;br&gt; \n► در نمای کلیپ‌بورد، برای حذف یک آیتم به چپ بکشید (مگر اینکه سنجاق شده باشد). &lt;br&gt; &lt;br&gt; \n► متنی را انتخاب کرده و کلید Shift را فشار دهید تا بین حروف بزرگ، حروف کوچک و بزرگ کردن حرف اول کلمات جابجا شوید. &lt;br&gt; &lt;br&gt; \n► می‌توانید واژه‌نامه‌ها را با باز کردن در یک فایل منیجر اضافه کنید: &lt;br&gt; \n\t• این فقط با &lt;i&gt;content-uris&lt;/i&gt; کار می‌کند و نه با &lt;i&gt;file-uris&lt;/i&gt;، به این معنی که ممکن است در برخی از فایل منیجرها کار نکند. &lt;br&gt; &lt;br&gt; \n► برای کاربرانی که با دسترسی روت بکاپ دستی می‌گیرند: &lt;br&gt; \n\t• از اندروید ۷ به بعد، فایل تنظیمات در مکان پیش‌فرض نیست زیرا برنامه از %s استفاده می‌کند. این برای خواندن تنظیمات قبل از باز شدن قفل دستگاه ضروری است؛ &lt;br&gt; \n\t• مکان فایل در /data/user_de/0/package_id/shared_prefs/ است، اگرچه ممکن است به دستگاه و نسخه اندروید بستگی داشته باشد. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;حالت عیب‌یابی / APK دیباگ&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► برای نمایش واژه‌نامه منبع، یک پیشنهاد را طولانی لمس کنید. &lt;br&gt; &lt;br&gt; \n► هنگام استفاده از APK دیباگ، می‌توانید تنظیمات عیب‌یابی را در تنظیمات پیشرفته پیدا کنید. &lt;br&gt; \n\t• برای نسخه انتشار (Release)، باید چندین بار روی نسخه در قسمت &lt;i&gt;درباره&lt;/i&gt; ضربه بزنید تا تنظیمات دیباگ ظاهر شود. &lt;br&gt; \n\t• با فعال کردن &lt;i&gt;Show suggestion infos&lt;/i&gt;، اعداد کوچکی روی پیشنهادات نمایش داده می‌شود که امتیاز داخلی و منبع واژه‌نامه را نشان می‌دهد. &lt;br&gt; &lt;br&gt; \n► در صورت کرش کردن برنامه، با باز کردن تنظیمات از شما پرسیده می‌شود که آیا لاگ کرش را می‌خواهید یا خیر. &lt;br&gt; &lt;br&gt; \n► هنگام تایپ چندزبانه، کلید فاصله مقداری را نشان می‌دهد که برای تعیین زبان فعلی استفاده می‌شود. &lt;br&gt; &lt;br&gt; \n► پیشنهادات دارای اعداد کوچکی در بالای خود خواهند بود که امتیاز داخلی و واژه‌نامه منبع را نشان می‌دهد (قابل غیرفعال‌سازی است).</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">تأیید</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">تب (Tab)</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">حذف</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">شیفت (Shift)</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">شیفت (فعال)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">قفل حروف بزرگ</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">فاصله (چیدمان اعداد)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">پایان حالت یک‌دستی</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">تغییر اندازه حالت یک‌دستی</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">تغییر سمت حالت یک‌دستی</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">ورودی صوتی غیرفعال است</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">نمایش / پنهان کردن نوار ابزار</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">اتصال‌دهنده مجازی (ZWJ)</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">فاصله مجازی (ZWNJ)</string>
+    <string name="label_bin" tools:keep="@string/label_bin">سطل زباله</string>
+    <string name="show_horizontal_space_swipe">کشیدن افقی روی کلید فاصله</string>
+    <string name="show_vertical_space_swipe">کشیدن عمودی روی کلید فاصله</string>
+    <string name="action_none">هیچ‌کدام</string>
+    <string name="space_swipe_move_cursor_entry">جابجایی مکان‌نما</string>
+    <string name="space_swipe_toggle_numpad_entry">تغییر به صفحه اعداد</string>
+    <string name="space_swipe_hide_keyboard_entry">پنهان کردن صفحه‌کلید</string>
+    <string name="space_swipe_touchpad_mode_entry">حالت تاچ‌پد</string>
+    <string name="touchpad_sensitivity">حساسیت تاچ‌پد</string>
+    <string name="touchpad_edge_scroll">پیمایش در لبه تاچ‌پد</string>
+    <string name="touchpad_edge_scroll_description">پیمایش خودکار در صورت کشیدن انگشت تا لبه صفحه‌کلید</string>
+    <string name="var_toolbar_direction">جهت متغیر نوار ابزار</string>
+    <string name="var_toolbar_direction_summary">تغییر جهت نوار ابزار در صورت انتخاب زبان راست‌به‌چپ (RTL)</string>
+    <string name="toolbar_only_with_hw_keyboard">نمایش نوار ابزار فقط با صفحه‌کلید فیزیکی</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">همچنان باید نمایش صفحه‌کلید مجازی را در تنظیمات سیستم فعال کنید</string>
+    <string name="prefs_language_swipe_distance">مسافت کشیدن برای تغییر زبان</string>
+    <string name="customize_toolbar_key_codes">سفارشی‌سازی کدهای کلید نوار ابزار</string>
+    <string name="customize_toolbar_key_code_reset_message">آیا از پاکسازی تمام کدهای سفارشی کلیدها اطمینان دارید؟</string>
+    <string name="key_code">کد کلید</string>
+    <string name="long_press_code">کد لمس طولانی</string>
+    <string name="auto_show_toolbar">نمایش خودکار نوار ابزار</string>
+    <string name="auto_show_toolbar_summary">در صورت شروع تایپ یا انتخاب متن، نوار ابزار نمایش داده شود</string>
+    <string name="auto_hide_toolbar">پنهان‌سازی خودکار نوار ابزار</string>
+    <string name="auto_hide_toolbar_summary">هنگامی که پیشنهادات در دسترس هستند، نوار ابزار پنهان شود</string>
+    <string name="toast_msg_clipboard_copy">محتوا کپی شد</string>
+    <string name="customize_icons">سفارشی‌سازی آیکون‌ها</string>
+    <string name="customize_icons_reset_message">آیا از بازنشانی تمام آیکون‌های سفارشی اطمینان دارید؟</string>
+    <string name="delete_confirmation">آیا از حذف %s اطمینان دارید؟</string>
+    <string name="name_invalid">نام نامعتبر است</string>
+    <string name="custom_subtype">زبان سفارشی</string>
+    <string name="landscape">افقی (Landscape)</string>
+    <string name="folded">تاشو بسته (Folded)</string>
+    <string name="emoji_search_title">جستجوی ایموجی</string>
+    <string name="search_field_placeholder">جستجو</string>
+    <string name="ask_later">بعداً بپرس</string>
+    <string name="spell_check_suggestions">نمایش پیشنهادات بررسی املایی</string>
+    <string name="spell_check_suggestions_summary">نمایش پیشنهادات هنگام انتخاب کلمه‌ای با زیرخط قرمز. نیازمند تنظیم برنامه به عنوان بررسی‌کننده املای پیش‌فرض است.</string>
+    <string name="gesture_data_screen">جمع‌آوری داده‌های تایپ اشاره‌ای</string>
+    <string name="gesture_data_description">به صفحه جمع‌آوری داده‌های تایپ اشاره‌ای خوش آمدید!&lt;br/&gt;&lt;br/&gt; این بخشی از یک &lt;a href=https://nlnet.nl/project/GestureTyping&gt;پروژه با بودجه NLnet&lt;/a&gt; است که برای تولید یک کتابخانه تایپ اشاره‌ای کاملاً متن‌باز و جایگزین کتابخانه متن‌بسته گوگل تلاش می‌کند.&lt;br/&gt; هدف این است که به عنوان جایگزینی ساده برای صفحه‌کلیدهای مبتنی بر AOSP و همچنین سایر صفحه‌کلیدها (مانند FlorisBoard) قابل استفاده باشد.&lt;br/&gt;&lt;br/&gt; برای توسعه این کتابخانه، داشتن داده‌های دقیق از اشارات کاربران مختلف به زبان‌های مختلف بسیار کمک‌کننده است.&lt;br/&gt; با جمع‌آوری و ارسال داده‌های تایپ اشاره‌ای، شما می‌توانید به این مجموعه داده باز کمک کنید. این مجموعه داده پس از پایان فاز جمع‌آوری در تاریخ %s تحت مجوز CC BY-SA 4.0 منتشر خواهد شد. پس از جمع‌آوری داده‌ها، می‌توانید از طریق آیکون اشتراک‌گذاری در پایین این صفحه، آن‌ها را ارسال کنید.</string>
+    <string name="gesture_data_info">این چیست؟</string>
+    <string name="gesture_data_description_modes">در حال حاضر فقط حالت «جمع‌آوری فعال» وجود دارد که کلمه مشخصی به شما نشان داده می‌شود و شما آن را با تایپ اشاره‌ای وارد می‌کنید.\n بعداً حالت «جمع‌آوری غیرفعال» نیز اضافه خواهد شد که می‌توانید نمونه‌هایی از تایپ اشاره‌ای عادی خود را در برنامه‌های دیگر ارائه دهید. به دلیل حساسیت این رویکرد، این ویژگی کاملاً اختیاری، قابل تنظیم و دارای یک صفحه بازبینی برای داده‌هایی است که قصد ارسالشان را دارید.</string>
+    <string name="gesture_data_description_privacy">حریم خصوصی\n\n داده‌هایی که ارسال می‌کنید شامل کلمه هدف، چیدمان و ابعاد صفحه‌کلید، مختصات و زمان‌های اشاره، پیشنهادات کتابخانه فعلی، هش واژه‌نامه‌های استفاده‌شده، نسخه برنامه، حالت جمع‌آوری داده، اینکه آیا کتابخانه «پیش‌فرض» گوگل استفاده شده است و یک شناسه اختصاصی برای هر اشاره می‌باشد.\n داده‌های ارسالی پس از دانلود از صندوق پستی ProtonMail به محض امکان حذف خواهند شد. پس از پایان مرحله جمع‌آوری داده‌ها، مجموعه داده‌های انباشته از همه کاربران تحت مجوز Creative Commons BY-SA 4.0 منتشر می‌شود.\n\n برای محافظت از حریم خصوصی شما، به عنوان نویسنده صراحتاً نام برده نخواهید شد و اعتبار شما با عنوان \"مشارکت‌کنندگان پروژه داده‌های اشاره‌ای HeliBoard\" ذکر می‌شود. نباید امکان ارتباط داده‌های تولید شده در این صفحه با هویت شما وجود داشته باشد. با این حال، ممکن است بتوان تعیین کرد که کدام اشارات توسط یک شخص انجام شده‌اند. این امر می‌تواند از طریق چیدمان سفارشی صفحه‌کلید، ابعاد آن، زبان یا سبک تایپ اشاره‌ای فردی مشخص شود.</string>
+    <string name="gesture_data_privacy">حریم خصوصی</string>
+    <string name="gesture_data_get_data">اشتراک‌گذاری فایل داده‌های اشاره‌ای</string>
+    <string name="gesture_data_delete_data">پاک کردن داده‌های اشاره‌ای</string>
+    <string name="gesture_data_send_mail">ارسال داده‌ها از طریق ایمیل</string>
+    <string name="gesture_data_copy_mail">کپی آدرس ایمیل</string>
+    <string name="gesture_data_mail_use">توجه داشته باشید که آدرس ایمیل برای ارسال داده‌ها در نظر گرفته شده است، ممکن است پاسخ‌های سریع یا مداومی دریافت نکنید.</string>
+    <string name="gesture_data_please_type">لطفاً با اشاره تایپ کنید:</string>
+    <string name="gesture_data_please_switch_keyboard">لطفاً به %s تغییر دهید</string>
+    <string name="gesture_data_next_save">دریافت شد \"%s\". اگر مطمئن هستید که درست اشاره کردید، کلیک کنید</string>
+    <string name="gesture_data_next">رد کردن کلمه</string>
+    <string name="gesture_data_active_count">%1$s کلمه در این جلسه، مجموعاً %2$s کلمه (%3$s کلمه قبلاً ارسال یا حذف شده است)</string>
+    <string name="gesture_data_review_screen_title">بازبینی و اشتراک‌گذاری داده‌های اشاره‌ای</string>
+    <string name="gesture_data_words_selected">%s کلمه</string>
+    <string name="gesture_data_date_range">محدوده تاریخ</string>
+    <string name="gesture_data_much_data">شما حجم زیادی از داده‌های ارسال‌نشده دارید. لطفاً آن‌ها را ارسال کرده و سپس داده‌های قدیمی را پاک کنید.</string>
+    <string name="gesture_data_how_to_use">نحوه استفاده</string>
+    <string name="gesture_data_active_description">روی «شروع جمع‌آوری فعال» ضربه بزنید، به‌دلخواه واژه‌نامه را تغییر دهید و شروع به تایپ اشاره‌ای کلمه نمایش‌داده‌شده کنید.&lt;br/&gt; اگر اشاره شما با کلمه مطابقت داشته باشد، داده‌ها ذخیره شده و کلمه بعدی نمایش داده می‌شود. در غیر این صورت می‌توانید دوباره تلاش کنید، کلمه را رد کنید یا صحت اشاره خود را تأیید کنید.&lt;br/&gt; فقط می‌توانید از واژه‌نامه‌های داخلی برنامه یا واژه‌نامه‌های موجود در &lt;a href=%s&gt;مخزن واژه‌نامه‌ها&lt;/a&gt; استفاده کنید، هیچ کلمه دیگری استفاده نخواهد شد.</string>
+    <string name="gesture_data_active_start">شروع جمع‌آوری فعال</string>
+    <string name="gesture_data_active_stop">توقف جمع‌آوری فعال</string>
+    <string name="gesture_data_ends_at">فاز جمع‌آوری داده‌های اشاره‌ای در تاریخ %s به پایان می‌رسد. لطفاً قبل از آن تاریخ داده‌های خود را ارسال کنید.</string>
+    <string name="gesture_data_ended">فاز جمع‌آوری داده‌های اشاره‌ای در تاریخ %s به پایان رسید. می‌توانید داده‌های موجود خود را به اشتراک بگذارید، اما مورد جدیدی اضافه نخواهد شد.</string>
+    <string name="gesture_data_share_all">اشتراک‌گذاری همه %s کلمه</string>
+    <string name="gesture_data_share_new">اشتراک‌گذاری %s کلمه ارسال‌نشده</string>
+    <string name="gesture_data_delete_dialog">شما دارای %1$s کلمه جدید و %2$s کلمه از پیش ارسال‌شده هستید.</string>
+    <string name="gesture_data_share_limit">برای جلوگیری از تجاوز از محدودیت حجم، تنها %s کلمه اول استخراج خواهد شد</string>
+    <string name="gesture_data_delete_dialog_all">حذف همه %s کلمه</string>
+    <string name="gesture_data_delete_dialog_confirm">آیا مطمئن هستید؟ این کار باعث حذف %s کلمه می‌شود. مطمئن شوید که داده‌هایتان با موفقیت ارسال شده است!</string>
+    <string name="gesture_data_delete_dialog_submitted">حذف %s کلمه ارسال‌شده</string>
+    <string name="gesture_data_many_not_shared_words">بیش از %s کلمه در انتظار ارسال هستند</string>
+    <string name="gesture_data_email_body">مهم:\n\n سلام!\n به‌عنوان یادآوری، این داده‌ها به‌صورت عمومی تحت مجوز CC BY-SA 4.0 به اشتراک گذاشته خواهند شد و برای محافظت از حریم خصوصی‌تان نامی از شما به‌عنوان نویسنده برده نمی‌شود.\n\n از اینکه حقوق داده‌های خود را با ما به اشتراک می‌گذارید سپاسگزاریم. ما به‌خوبی از آن‌ها استفاده خواهیم کرد!\n\n لطفاً توجه داشته باشید که تغییر متن این اطلاعیه، نحوه استفاده ما از داده‌های شما را تغییر نمی‌دهد. این یک قرارداد نیست که نیاز به اصلاح داشته باشد، فقط یک یادآوری دوستانه است!\n اگر می‌خواهید پیامی به همراه داده‌های خود برای ما بفرستید، آن را زیر این خط بنویسید.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">سلام!\n از آنجا که کتابخانه تایپ اشاره‌ای را نصب کرده‌اید، ممکن است به پروژه HeliBoard برای ایجاد یک کتابخانه تایپ اشاره‌ای کاملاً متن‌باز علاقه‌مند باشید. می‌توانید با ارائه داده‌های تایپ اشاره‌ای به ما کمک کنید. برای اطلاعات بیشتر به صفحه جمع‌آوری داده‌های اشاره‌ای مراجعه کنید.</string>
+    <string name="gesture_data_reminder_message">سلام!\n شما قبلاً از ویژگی جمع‌آوری داده‌های اشاره‌ای استفاده کرده‌اید، اما مدتی است که داده‌ای اضافه نکرده‌اید. آیا مایل هستید دوباره مشارکت کنید؟</string>
+    <string name="gesture_data_take_me_there">مرا به آنجا ببر</string>
+    <string name="gesture_data_links">اطلاعات درباره جمع‌آوری داده‌های اشاره‌ای در:</string>
 </resources>

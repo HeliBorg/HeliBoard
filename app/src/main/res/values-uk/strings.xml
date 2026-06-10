@@ -174,7 +174,7 @@
     <string name="label_go_key">"Іти"</string>
     <string name="label_next_key">"Далі"</string>
     <string name="label_previous_key">"Назад"</string>
-    <string name="label_done_key">"ОК"</string>
+    <string name="label_done_key">ОK</string>
     <string name="label_send_key">"Слати"</string>
     <string name="label_search_key">"Пошук"</string>
     <string name="label_pause_key">"Пауза"</string>
@@ -492,4 +492,15 @@
     <string name="gesture_data_reminder_message">Привіт!\n Раніше ви використовували збір даних жестів, але не додавали дані протягом тривалого часу. Хочете знову зробити свій внесок?</string>
     <string name="gesture_data_take_me_there">Перейти</string>
     <string name="gesture_data_links">Інформація про збір даних про жести на:</string>
+    <string name="custom_punctuation_suggestions">Встановити пропозиції пунктуації</string>
+    <string name="subtype_mhr">Марі (Східна)</string>
+    <string name="subtype_khipro_bn">%s (Хіпро)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Функціональні клавіши (Хіпро)</string>
+    <string name="folded">Складений</string>
+    <string name="spell_check_suggestions_summary">Показати пропозиції при виборі слова з червоним підкресленням. Потрібно встановити програму як засіб перевірки орфографії за замовчуванням.</string>
+    <string name="spell_check_suggestions">Показати пропозиції перевірки правопису</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Ще потрібно включити показ віртуальної клавіатури в налаштуваннях системи</string>
+    <string name="prefs_key_gap_scale">Відстань між клавішами</string>
+    <string name="toolbar_only_with_hw_keyboard">Показати лише панель інструментів із фізичною клавіатурою</string>
+    <string name="floating" tools:keep="@string/floating">Плаваюча клавіатура</string>
 </resources>

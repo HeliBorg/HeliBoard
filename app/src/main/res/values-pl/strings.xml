@@ -84,7 +84,7 @@
     <string name="dictionary_available">Dostępny słownik</string>
     <string name="settings">"Ustawienia"</string>
     <string name="delete">"Usuń"</string>
-    <string name="version_text">Wersja %1$s</string>
+    <string name="version_text">Wersja %s</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Skrót:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Język:"</string>
     <string name="user_dict_settings_add_word_hint">"Wpisz słowo"</string>
@@ -131,7 +131,7 @@
     <string name="undo">"Cofnij"</string>
     <string name="redo">"Ponów"</string>
     <string name="use_personalized_dicts_summary">"Analizuj wiadomości i wpisywane dane, by otrzymywać lepsze podpowiedzi"</string>
-    <string name="label_go_key">"OK"</string>
+    <string name="label_go_key">Ok</string>
     <string name="label_next_key">"Dalej"</string>
     <string name="label_previous_key">"Wróć"</string>
     <string name="label_done_key">"Gotowe"</string>
@@ -527,4 +527,21 @@
     <string name="gesture_data_take_me_there">Zabierz mnie tam</string>
     <string name="timestamp_description">Możesz dodać klawisz znacznika czasu, używając niestandardowego układu z klawiszem \"znacznik czasu\" lub kodem klawisza -10043</string>
     <string name="prefs_bottom_row_scale">Rozmiar dolnego rzędu</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Przesuń palcem w dół na pasku narzędzi, aby zamknąć klawiaturę</string>
+    <string name="gesture_data_please_switch_keyboard">Przełącz na %s</string>
+    <string name="gesture_data_share_limit">Aby uniknąć przekroczenia limitu rozmiaru, eksportowanych będzie tylko pierwszych %s słów</string>
+    <string name="gesture_data_links">Informacje o gromadzeniu danych o gestach:</string>
+    <string name="toolbar_swipe_down_to_hide">Ukryj klawiaturę przesuwając</string>
+    <string name="folded">Złożony</string>
+    <string name="space_swipe_touchpad_mode_entry">Tryb touchpada</string>
+    <string name="touchpad_sensitivity">Czułość touchpada</string>
+    <string name="custom_punctuation_suggestions">Ustaw sugestie interpunkcji</string>
+    <string name="floating" tools:keep="@string/floating">Pływająca klawiatura</string>
+    <string name="prefs_key_gap_scale">Rozmiar odstępu między klawiszami</string>
+    <string name="touchpad_edge_scroll_description">Automatycznie przewijaj po przesunięciu do krawędzi klawiatury</string>
+    <string name="toolbar_only_with_hw_keyboard">Pokaż pasek narzędzi tylko z fizyczną klawiaturą</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Nadal musisz włączyć wyświetlanie wirtualnej klawiatury w ustawieniach systemu</string>
+    <string name="spell_check_suggestions">Pokaż sugestie sprawdzania pisowni</string>
+    <string name="spell_check_suggestions_summary">Pokaż sugestie po dotknięciu słowa z czerwonym podkreśleniem. Wymaga ustawienia aplikacji jako domyślnego modułu sprawdzania pisowni.</string>
+    <string name="touchpad_edge_scroll">Przewijanie po krawędzi touchpada</string>
 </resources>

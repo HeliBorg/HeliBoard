@@ -19,7 +19,7 @@
     <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">"Systemstandard"</string>
     <string name="use_contacts_dict_summary">"Bruk navn fra Kontakter til forslag og korrigeringer"</string>
-    <string name="use_personalized_dicts">"Spesialtilpassede forslag"</string>
+    <string name="use_personalized_dicts">Personlige forslag</string>
     <string name="use_double_space_period">"Punktum ved doble mellomrom"</string>
     <string name="use_double_space_period_summary">"Dobbeltrykk på mellomromstasten for punktum etterfulgt av mellomrom"</string>
     <string name="auto_cap">Automatisk stor forbokstav</string>
@@ -39,18 +39,18 @@
     <string name="bigram_prediction">"Forslag til neste ord"</string>
     <string name="bigram_prediction_summary">"Bruk forrige ord til å lage forslag"</string>
     <string name="gesture_input">"Aktiver ordføring"</string>
-    <string name="gesture_input_summary">"Skriv inn et ord ved å sveipe langsmed bokstavene"</string>
+    <string name="gesture_input_summary">Skriv inn et ord ved å sveipe over bokstavene</string>
     <string name="gesture_preview_trail">"Vis bevegelsesspor"</string>
-    <string name="gesture_floating_preview_text">"Dynamiske ordforslag"</string>
+    <string name="gesture_floating_preview_text">Dynamisk flytende forhåndsvisning</string>
     <string name="gesture_space_aware">"Frasebevegelse"</string>
     <string name="gesture_space_aware_summary">"Sett inn mellomrom ved å dra fingeren til mellomromstasten"</string>
     <string name="subtype_en_GB">"Engelsk (Storbritannia)"</string>
     <string name="subtype_en_US">"Engelsk (USA)"</string>
-    <string name="subtype_es_US">"spansk (USA)"</string>
+    <string name="subtype_es_US">Spansk (USA)</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serbisk (latin)"</string>
     <string name="subtype_generic_traditional">"%s (tradisjonelt)"</string>
-    <string name="subtype_generic_compact">"%s (kompakt)"</string>
+    <string name="subtype_generic_compact">%s (Kompakt)</string>
     <string name="subtype_no_language">"Ingen språk"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Legg til"</string>
@@ -60,7 +60,7 @@
     <string name="keyboard_layout_set">"Oppsett"</string>
     <string name="prefs_keypress_vibration_duration_settings">"Vibrasjonstid ved tastetrykk"</string>
     <string name="prefs_keypress_sound_volume_settings">"Lydstyrke ved tastetrykk"</string>
-    <string name="prefs_key_longpress_timeout_settings">"Forsinkelse ved lange tastetrykk"</string>
+    <string name="prefs_key_longpress_timeout_settings">Forsinkelse ved langt tastetrykk</string>
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji for fysisk tastatur"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Fysisk Alt-tast som viser emojiutvalget"</string>
     <string name="button_default">"Standard"</string>
@@ -69,13 +69,13 @@
     <string name="setup_start_action">"Startveiledning"</string>
     <string name="setup_steps_title">Sett opp %s</string>
     <string name="setup_step1_title">Skru på %s</string>
-    <string name="setup_step1_instruction">Sjekk «%s» i Språk og inndata-innstillingene dine. Dette tillater programmet å kjøre på enheten.</string>
-    <string name="setup_step1_action">Skru på i programinnstillingene</string>
+    <string name="setup_step1_instruction">Sjekk «%s» i Språk og inndata-innstillingene dine. Dette gir appen tillatelse til å kjøre på enheten.</string>
+    <string name="setup_step1_action">Aktiver i innstillingene</string>
     <string name="setup_step2_title">"Bytt til %s"</string>
     <string name="setup_step2_instruction">Deretter velger du «%s» som aktiv inndatametode for tekst.</string>
     <string name="setup_step2_action">"Bytt inndatametode"</string>
     <string name="setup_step3_title">"Gratulerer, du er klar!"</string>
-    <string name="setup_step3_instruction">"Nå kan du skrive inn alle favorittappene dine med %s."</string>
+    <string name="setup_step3_instruction">Nå kan du skrive i alle favorittappene dine med %s.</string>
     <string name="setup_finish_action">"Ferdig"</string>
     <string name="show_setup_wizard_icon">"Vis app-ikonet"</string>
     <string name="show_setup_wizard_icon_summary">"Vis app-ikonet i appoversikten"</string>
@@ -83,7 +83,7 @@
     <string name="dictionary_available">"Ordliste tilgjengelig"</string>
     <string name="settings">"Innstillinger"</string>
     <string name="delete">"Slett"</string>
-    <string name="version_text">"Versjon %1$s"</string>
+    <string name="version_text">Versjon %s</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Snarvei:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Språk:"</string>
     <string name="user_dict_settings_add_word_hint">"Skriv inn et ord"</string>
@@ -91,21 +91,21 @@
     <string name="user_dict_settings_edit_dialog_title">"Rediger ord"</string>
     <string name="user_dict_settings_all_languages">"For alle språk"</string>
     <string name="user_dict_settings_more_languages">Flere språk…</string>
-    <string name="day_night_mode_summary">Basert på systeminnstillinger</string>
+    <string name="day_night_mode_summary">Utseendet følger systeminnstillingene</string>
     <string name="number_row_summary">Alltid vis tallraden</string>
-    <string name="day_night_mode">Automatisk dag/nattmodus</string>
-    <string name="prefs_long_press_keyboard_to_change_lang_summary">Langtrykke på mellomromstasten for inndatametode-valgmeny</string>
+    <string name="day_night_mode">Automatisk dag-/nattmodus</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Langt trykk på mellomromstasten åpner meny for valg av inndatametode</string>
     <string name="ime_settings">HeliBoard-innstillinger</string>
     <string name="spell_checker_service_name">HeliBoard-stavekontroll</string>
     <string name="android_spell_checker_settings">Innstillinger for HeliBoard-stavekontroll</string>
-    <string name="delete_swipe">Slettingsdragning</string>
+    <string name="delete_swipe">Sveip for å slette</string>
     <string name="show_emoji_key">Emoji-tast</string>
     <string name="delete_swipe_summary">Utfør en dragning fra Delete-tasten for å velge og fjerne større deler av tekst samtidig</string>
     <string name="settings_category_additional_keys">Ytterligere taster</string>
     <string name="settings_category_correction">Korrigeringer</string>
     <string name="settings_category_experimental">Eksperimentelt</string>
     <string name="settings_category_input">Inndata</string>
-    <string name="settings_category_miscellaneous">Ymse</string>
+    <string name="settings_category_miscellaneous">Diverse</string>
     <string name="settings_category_suggestions">Forslag</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Endre inndatametode med mellomromstast</string>
     <string name="prefs_force_incognito_mode_summary">Skru av innlæring av nye ord</string>
@@ -119,7 +119,7 @@
     <string name="select_input_method">"Velg inndatametode"</string>
     <string name="undo">"Angre"</string>
     <string name="redo">"Utfør likevel"</string>
-    <string name="use_personalized_dicts_summary">"Bruk kommunikasjonen og inndataene dine for å få bedre forslag"</string>
+    <string name="use_personalized_dicts_summary">Lær av kommunikasjonen og det du skriver for å få bedre forslag</string>
     <string name="label_go_key">"Utfør"</string>
     <string name="label_next_key">"Neste"</string>
     <string name="label_previous_key">"Forrige"</string>
@@ -128,8 +128,8 @@
     <string name="label_search_key">"Søk"</string>
     <string name="label_pause_key">"Pause"</string>
     <string name="label_wait_key">"Vent"</string>
-    <string name="var_toolbar_direction_summary">Reverser retning når en høyre- til-venstre tastaturundertype er valgt</string>
-    <string name="var_toolbar_direction">Variabel verktøylinjeretning</string>
+    <string name="var_toolbar_direction_summary">Snu retningen når en høyre-til-venstre-tastaturtype er valgt</string>
+    <string name="var_toolbar_direction">Variabel retning på verktøylinjen</string>
     <string name="language_switch_key_switch_both">Bytt begge</string>
     <string name="settings_category_clipboard_history">Utklippstavlehistorikk</string>
     <string name="split_spacer_scale">Delingsmellomrom</string>
@@ -143,7 +143,7 @@
     <string name="auto_correction_confidence">Selvsikkerhet for autokorrektur</string>
     <string name="enable_clipboard_history">Tillate utklippstavlehistorikk</string>
     <string name="button_backup">Sikkerhetskopi</string>
-    <string name="enable_clipboard_history_summary">Hvis deaktivert så vil utklippstavlen lime inn innhold hvis det finnes</string>
+    <string name="enable_clipboard_history_summary">Hvis deaktivert, vil utklippstavletasten lime inn innhold hvis tilgjengelig</string>
     <string name="clipboard_history_retention_time">Bevaringstid for utklipptavle</string>
     <string name="backup_restore_title">Sikkerhetskopiering og gjenooppretting</string>
     <string name="backup_restore_message">Lagre eller last fra fil. Advarsel: gjenoppretting vil overskrive gjeldende data</string>
@@ -171,17 +171,17 @@
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Hav</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sand</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
-    <string name="auto_user_color">Velge farge automatisk</string>
-    <string name="main_colors">Vi bare hovedfarger</string>
+    <string name="auto_user_color">Velg farge automatisk</string>
+    <string name="main_colors">Vis kun hovedfarger</string>
     <string name="all_colors">Vis alle farger</string>
     <string name="settings_screen_about">Om</string>
     <string name="text_tap_languages">Trykk på språket for å åpne innstillingene</string>
     <string name="settings_screen_appearance">Utseende</string>
     <string name="file_read_error">Kan ikke lese fil</string>
-    <string name="select_color_key_background">Knappebakgrunn</string>
-    <string name="select_color_functional_key_background">Funksjonsknapp bakgrunn</string>
+    <string name="select_color_key_background">Tastebakgrunn</string>
+    <string name="select_color_functional_key_background">Bakgrunn for funksjonstaster</string>
     <string name="select_color_gesture">Inndata med bevegelser</string>
-    <string name="license">Open-source lisens</string>
+    <string name="license">Åpen kildekode-lisens</string>
     <string name="hidden_features_text">enhetsbeskyttet lagring</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboler</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (Arabisk)</string>
@@ -195,17 +195,15 @@
     <string name="dictionary_file_wrong_script">Feil: scriptet er ikke kompatibelt med dette tastaturet</string>
     <string name="dictionary_load_error">Feil ved innlasting av ordbok-fil</string>
     <string name="switch_language">Bytt språk</string>
-    <string name="load_gesture_library">Last inn bevegelsesskrivebibliotek</string>
+    <string name="load_gesture_library">Last inn bibliotek for bevegelsesskriving</string>
     <string name="load_gesture_library_summary">Definer et innebygd bibliotek for å aktivere bevegelsesskriving</string>
-    <string name="load_gesture_library_message">Du trenger bibliotek for \'%s\'. Ukompatible bibliotek kan tryne når man bruker bevegelsesskriving
-\n
-\nAdvarsel: Å laste inn ukompabile bibliotek kan være en sikkerhetsrisiko. Bru kun bibliotek fra kilder du stoler på.</string>
-    <string name="checksum_mismatch_message">Ukjent bibliotekfil. Er du sikker på at kilden for \'%s\' er sikker?</string>
+    <string name="load_gesture_library_message">Du vil trenge biblioteket for \'%s\'. Ukompatible biblioteker kan krasje når du bruker bevegelsesskriving. \n\nAdvarsel: Å laste inn ekstern kode kan være en sikkerhetsrisiko. Bruk kun bibliotek fra kilder du stoler på.</string>
+    <string name="checksum_mismatch_message">Ukjent bibliotekfil. Er du sikker på at du har fått den fra en pålitelig kilde, og at den er for \'%s\'?</string>
     <string name="load_gesture_library_button_load">Last inn bibliotek</string>
     <string name="load_gesture_library_button_delete">Slett bibliotek</string>
     <string name="autospace_after_punctuation">Automatisk mellomrom etter punktum</string>
     <string name="autospace_after_punctuation_summary">Automatisk mellomrom etter punktum når man skriver et nytt ord</string>
-    <string name="show_popup_keys_normal">Vise varianter definert i tastaturspråk (standard)</string>
+    <string name="show_popup_keys_normal">Vis varianter definert i tastaturspråk</string>
     <string name="show_popup_keys_more">Legg til vanlige varianter</string>
     <string name="show_popup_keys_all">Legg til tilgjengelige varianter</string>
     <string name="url_detection_title">URL-gjenkjenning</string>
@@ -220,7 +218,7 @@
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboler</string>
     <string name="show_popup_hints">Vis funksjonshint</string>
     <string name="show_popup_hints_summary">Vis hint hvis å holde knappen inne utløser tilleggsfunksjonalitet</string>
-    <string name="prefs_narrow_key_gaps">Smal tastemellomrom</string>
+    <string name="prefs_narrow_key_gaps">Smale tastemellomrom</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="toolbar_keys">Velg verktøylinjetaster</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
@@ -245,7 +243,7 @@
     <string name="no_dictionary_dont_show_again_button">Ikke vis igjen</string>
     <string name="available_dictionary_experimental">%s (eksperimentell)</string>
     <string name="user_dict_settings_add_weight_value">Vekt:</string>
-    <string name="user_dict_add_word_button">Legg til ord</string>
+    <string name="user_dict_add_word_button">Legg til et ord</string>
     <string name="theme_style">Stil</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Avrundet</string>
     <string name="theme_colors">Farger</string>
@@ -254,9 +252,9 @@
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Lys</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo hvit</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Mørk</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Sort</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Svart</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamiske farger</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blå Grå</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blågrå</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brun</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Sjokolade</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Skog</string>
@@ -264,20 +262,20 @@
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fiolett</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Brukerdefinert</string>
     <string name="select_color_background">Tastaturbakgrunn</string>
-    <string name="select_color_key">Tastaturtekst</string>
+    <string name="select_color_key">Tastetekst</string>
     <string name="version">Versjon</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dialog_close">Lukk</string>
     <string name="hidden_features_title">Beskrivelse av skjulte funksjoner</string>
-    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Skyete</string>
-    <string name="select_color_spacebar_background">Mellomromknappsbakgrunn</string>
-    <string name="select_color_spacebar_text">Mellomromsknapptekst</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Skyet</string>
+    <string name="select_color_spacebar_background">Bakgrunn for mellomromstasten</string>
+    <string name="select_color_spacebar_text">Tekst på mellomromstasten</string>
     <string name="hidden_features_summary">Vis funksjoner som kan gå ubemerket hen</string>
     <string name="show_horizontal_space_swipe">Horisontal sveipebevegelse for mellomromstasten</string>
     <string name="show_vertical_space_swipe">Vertikal sveipebevegelse for mellomromstasten</string>
     <string name="action_none">Ingen</string>
     <string name="space_swipe_move_cursor_entry">Flytt markøren</string>
-    <string name="prefs_always_show_suggestions_summary">Ignorer andre appers fårespørsel om å deaktivere forslag (kan føre til problemer)</string>
+    <string name="prefs_always_show_suggestions_summary">Ignorer forespørsel fra andre apper om å deaktivere forslag (kan føre til problemer)</string>
     <string name="language_and_layouts_title">Språk og oppsett</string>
     <string name="popup_order">Velg sprettoppnøkkelrekkefølge</string>
     <string name="delete_layout">Virkelig slette tilpasset oppsett %s?</string>
@@ -285,7 +283,7 @@
     <string name="show_popup_keys_title">Vis flere bokstaver med diakritiske tegn i sprettoppvinduet</string>
     <string name="abbreviation_unit_minutes">%s min</string>
     <string name="button_title_add_custom_layout">Legg til tilpasset oppsett</string>
-    <string name="message_add_custom_layout">Legg til fil med kompatibelt format. Informasjon om kompatible format %s.</string>
+    <string name="message_add_custom_layout">Velg en fil i et kompatibelt format. Informasjon om formatene er tilgjengelig %s.</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mørkere</string>
     <string name="save_log">Lagre logg</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
@@ -295,6 +293,219 @@
     <string name="prefs_bottom_padding_scale">Nederste polstringsskala</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="select_color_accent">Fargepreg</string>
-    <string name="hidden_features_message">► Et langt trykk på utklippstavlen (den valgfrie i forslagsstripen) limer inn innholdet i systemets utklippstavle. &lt;br&gt; &lt;br&gt; ► Et langt trykk på tastene på verktøylinjen for forslagsstripen fester dem til forslagsstripen. &lt;br&gt; &lt;br&gt; ► Trykk lenge på komma-tasten for å få tilgang til utklippstavlevisning, emojivisning, enhåndsmodus, innstillinger eller språkbytte: &lt;br&gt; \t• Emoji View og språkbytteknappen forsvinner hvis du har den tilsvarende nøkkelen aktivert; &lt;br&gt; \t• For noen oppsett er det ikke kommatasten, men tasten i samme posisjon (f.eks. er det \"q\" for Dvorak-oppsettet). &lt;br&gt; &lt;br&gt; ► Når inkognitomodus er aktivert, vil ingen ord læres, og ingen emojier blir lagt til i \"nylige\". &lt;br&gt; &lt;br&gt; ► Trykk på inkognitoikonet for å få tilgang til verktøylinjen. &lt;br&gt; &lt;br&gt; ► Skyvetastinntasting: Sveip fra skift til en annen tast for å skrive inn en enkelt stor bokstav: &lt;br&gt; \t• Dette fungerer også for \'?123\'-tasten for å skrive inn et enkelt symbol fra symboltastaturet, og for relaterte taster. &lt;br&gt; &lt;br&gt; ► Trykk lenge på et forslag i forslagsstripen for å vise flere forslag, og sletteknappen for å fjerne dette forslaget. &lt;br&gt; &lt;br&gt; ► Sveip opp fra et forslag for å åpne flere forslag, og slipp forslaget for å velge det. &lt;br&gt; &lt;br&gt; ► Trykk lenge på en oppføring i utklippstavleloggen for å feste den (behold den i utklippstavlen til du løsner den). &lt;br&gt; &lt;br&gt; ► Du kan legge til ordbøker ved å åpne dem i en filutforsker: &lt;br&gt; \t• Dette fungerer bare med &lt;i&gt;content-uris&lt;/i&gt; og ikke med &lt;i&gt;file-uris&lt;/i&gt;, noe som betyr at det kanskje ikke fungerer med enkelte filutforskere. &lt;br&gt; &lt;br&gt; &lt;i&gt;Feilsøkingsmodus / feilsøk APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t• Trykk lenge på et forslag for å vise kildeordboken.&lt;br&gt; &lt;br&gt; \t• Når du bruker debug APK, kan du finne feilsøkingsinnstillinger i de avanserte innstillingene, selv om nytten er begrenset bortsett fra å dumpe ordbøker i loggen. &lt;br&gt; &lt;br&gt; \t• Ved et programkrasj vil du bli spurt om du vil ha krasjloggene når du åpner Innstillinger. &lt;br&gt; &lt;br&gt; \t• Når du bruker flerspråklig skriving, vil mellomromstasten vise en konfidensverdi som brukes til å bestemme språket som brukes for øyeblikket. &lt;br&gt; &lt;br&gt; \t• \"Forslag\" vil ha noen små tall på toppen som viser noe internt partitur og kildeordbok (kan deaktiveres). &lt;br&gt; &lt;br&gt; ► For brukere som tar manuelle sikkerhetskopier med rottilgang: Fra og med Android 7 er ikke den delte preferansefilen på standardplasseringen, fordi appen bruker %s. &lt;br&gt; Dette er nødvendig for at innstillingene kan leses før enheten låses opp, f.eks. ved oppstart. &lt;br&gt; Filen ligger i /data/user_de/0/package_id/shared_prefs/, men dette kan avhenge av enheten og Android-versjonen.</string>
+    <string name="hidden_features_message">► Langt trykk på symboler festet i verktøylinjen gir ekstra funksjonalitet: &lt;br&gt; \n\t• utklippstavle &amp;#65515; lim inn &lt;br&gt; \n\t• flytt venstre/høyre &amp;#65515; ord venstre/høyre &lt;br&gt; \n\t• flytt opp/ned &amp;#65515; side opp/ned &lt;br&gt; \n\t• ord venstre/høyre &amp;#65515; linjestart/-slutt &lt;br&gt; \n\t• side opp/ned &amp;#65515; sidestart/-slutt &lt;br&gt; \n\t• kopier &amp;#65515; klipp ut &lt;br&gt; \n\t• merk ord &amp;#8596; merk alt &lt;br&gt; \n\t• angre &amp;#8596; gjør om &lt;br&gt; &lt;br&gt; \n► Langt trykk på symboler i forslagsstripens verktøylinje fester dem til forslagsstripen. &lt;br&gt; &lt;br&gt; \n► Trykk lenge på komma-tasten for å åpne utklippstavlen, emoji-visning, enhåndsmodus, innstillinger eller språkbytte: &lt;br&gt; \n\t• Emoji-visning og språkbytte forsvinner hvis tilsvarende tast er aktivert; &lt;br&gt; \n\t• For noen tastaturoppsett er det ikke komma-tasten, men tasten i samme posisjon (f.eks. «q» i Dvorak-oppsett). &lt;br&gt; &lt;br&gt; \n► Når inkognitomodus er på, blir ingen nye ord lært, og det legges heller ingen emojier til i nylige. &lt;br&gt; &lt;br&gt; \n► Trykk på inkognitoikonet for å åpne verktøylinjen. &lt;br&gt; &lt;br&gt; \n► Sveipe-inntasting: Sveip fra shift-tasten til en annen tast for å skrive én stor bokstav: &lt;br&gt; \n\t• Dette fungerer også med «?123»-tasten for å skrive ett symbol fra symboltastaturet, og for relaterte taster. &lt;br&gt; &lt;br&gt; \n► Hold shift- eller symboltasten inne, trykk én eller flere taster, og slipp deretter shift- eller symboltasten for å gå tilbake til forrige tastatur. &lt;br&gt; &lt;br&gt; \n► Trykk lenge på et forslag i forslagsstripen for å vise flere forslag, og en sletteknapp for å fjerne forslaget. &lt;br&gt; &lt;br&gt; \n► Sveip opp fra et forslag for å åpne flere forslag, og slipp på ønsket forslag for å velge det. &lt;br&gt; &lt;br&gt; \n► Trykk lenge på en oppføring i utklippstavlehistorikken for å feste den (behold den i utklippstavlen til du løsner den). &lt;br&gt; &lt;br&gt; \n► Sveip til venstre i utklippstavlevisningen for å fjerne en oppføring (unntatt hvis den er festet). &lt;br&gt; &lt;br&gt; \n► Marker tekst og trykk shift for å bytte mellom store bokstaver, små bokstaver og stor forbokstav. &lt;br&gt; &lt;br&gt; \n► Du kan legge til ordbøker ved å åpne dem i en filutforsker: &lt;br&gt; \n\t• Dette fungerer bare med &lt;i&gt;content-uris&lt;/i&gt; og ikke med &lt;i&gt;file-uris&lt;/i&gt;, noe som betyr at det kanskje ikke fungerer i alle filutforskere. &lt;br&gt; &lt;br&gt; \n► For brukere som tar manuelle sikkerhetskopier med root-tilgang: &lt;br&gt; \n\t• Fra og med Android 7 ligger ikke filen for delte innstillinger på standardplasseringen, fordi appen bruker %s. Dette er nødvendig for at innstillingene skal kunne leses før enheten låses opp, f.eks. ved oppstart; &lt;br&gt; \n\t• Filen ligger i /data/user_de/0/package_id/shared_prefs/, men dette kan variere med enhet og Android-versjon. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Feilsøkingsmodus / debug-APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Trykk lenge på et forslag for å vise kildeordboken. &lt;br&gt; &lt;br&gt; \n► Ved bruk av debug-APK finner du feilsøkingsinnstillinger i avanserte innstillinger, men nytten er begrenset bortsett fra dumping av ordbøker til loggen. &lt;br&gt; \n\t• For vanlig (release) APK må du trykke flere ganger på versjonen i &lt;i&gt;Om&lt;/i&gt;, deretter finner du feilsøkingsinnstillinger i &lt;i&gt;avanserte innstillinger&lt;/i&gt;. &lt;br&gt; \n\t• Når &lt;i&gt;Vis forslaginfo&lt;/i&gt; er aktivert, vil forslag vise små tall som representerer intern poengsum og kildeordbok. &lt;br&gt; &lt;br&gt; \n► Ved et programkrasj blir du spurt om du vil hente krasjlogger når du åpner innstillinger. &lt;br&gt; &lt;br&gt; \n► Ved flerspråklig skriving viser mellomromstasten en sannsynlighetsverdi som brukes til å bestemme aktivt språk. &lt;br&gt; &lt;br&gt; \n► Forslag vil vise små tall som representerer intern poengsum og kildeordbok (kan deaktiveres).</string>
     <string name="subtype_generic_student">%s (Student)</string>
+    <string name="vibrate_in_dnd_mode">Vibrer i «ikke forstyrr»-modus</string>
+    <string name="suggest_emojis">Foreslå emojier</string>
+    <string name="suggest_emojis_summary">Bruk emoji-ordbok i vanlige forslag</string>
+    <string name="inline_emoji_search">Innebygd emojisøk</string>
+    <string name="inline_emoji_search_summary">Foreslå kun emojier når et ord starter med kolon</string>
+    <string name="emoji_dictionary_required">En emoji-ordbok kreves for at denne funksjonen skal fungere. Ordbøker i .dict-format kan lastes ned %s.</string>
+    <string name="show_emoji_descriptions">Vis emoji-beskrivelse ved langt trykk</string>
+    <string name="toolbar_swipe_down_to_hide">Skjul tastaturet ved å sveipe ned</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Sveip ned på verktøylinjen for å lukke tastaturet</string>
+    <string name="settings_category_space">Mellomrom</string>
+    <string name="language_switch_key_behavior">Oppførsel for språkbyttetast</string>
+    <string name="use_apps_dict">Slå opp appnavn</string>
+    <string name="use_apps_dict_summary">Bruk navn på installerte apper til forslag og rettelser</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Ikke alltid vis forslag i webredigeringsfelt</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Webredigeringsfelt (ofte i nettlesere) er en vanlig årsak til problemer med innstillingen for alltid å vise forslag</string>
+    <string name="auto_correct_shortcuts">Autokorriger snarveier</string>
+    <string name="auto_correct_shortcuts_summary">Når aktivert kan snarveier bli utvidet av autokorrektur</string>
+    <string name="backspace_reverts_autocorrect">Tilbaketast tilbakestiller autokorrektur</string>
+    <string name="center_suggestion_text_to_enter">Bruk alltid midterste forslag</string>
+    <string name="center_suggestion_text_to_enter_summary">Når mellomrom eller tegnsetting trykkes, velges midterste forslag</string>
+    <string name="suggest_punctuation">Tegnsettingsforslag</string>
+    <string name="suggest_punctuation_summary">Vis tegnsetting når ingen andre forslag er tilgjengelige</string>
+    <string name="custom_punctuation_suggestions">Angi tegnsettingsforslag</string>
+    <string name="suggest_clipboard_content">Foreslå innhold fra utklippstavlen</string>
+    <string name="suggest_clipboard_content_summary">Vis nylig kopiert innhold fra utklippstavlen som forslag</string>
+    <string name="gesture_floating_preview_static">Flytende forhåndsvisning</string>
+    <string name="gesture_floating_preview_static_summary">Se foreslått ord mens du sveiper</string>
+    <string name="gesture_floating_preview_dynamic_summary">Flytt forhåndsvisningen under sveiping</string>
+    <string name="gesture_fast_typing_cooldown">Pause ved rask skriving</string>
+    <string name="gesture_fast_typing_cooldown_instant">Start alltid umiddelbart</string>
+    <string name="gesture_trail_fadeout_duration">Varighet for sveipespor</string>
+    <string name="clipboard_history_pinned_first">Vis festede elementer øverst</string>
+    <string name="backup_restored">Sikkerhetskopi gjenopprettet</string>
+    <string name="timestamp_format_title">Format for tidsstempel-nøkkel</string>
+    <string name="timestamp_description">Du kan legge til tidsstempel-nøkkelen med et tilpasset oppsett ved å bruke «timestamp»-nøkkelen eller nøkkelkode -10043</string>
+    <string name="locales_with_dict">Språk med ordbøker</string>
+    <string name="autospace_after_suggestion">Automatisk mellomrom etter valg av forslag</string>
+    <string name="autospace_before_gesture_typing">Automatisk mellomrom før sveiping av ord</string>
+    <string name="autospace_after_gesture_typing">Automatisk mellomrom etter sveiping av ord</string>
+    <string name="shift_removes_autospace">Ingen automatisk mellomrom ved bruk av shift</string>
+    <string name="shift_removes_autospace_summary">Shift fjerner ventende automatisk mellomrom</string>
+    <string name="show_popup_keys_main">Legg til svært vanlige varianter (standard)</string>
+    <string name="number_row_in_symbols">Vis tallrad i symbolvisning</string>
+    <string name="number_row_hints">Vis hint på tallrad</string>
+    <string name="save_subtype_per_app">Husk språk per app</string>
+    <string name="popup_order_and_hint_source">Rekkefølge for popup-taster og kilder for hint</string>
+    <string name="show_tld_popup_keys">Vis TLD popup-taster</string>
+    <string name="show_tld_popup_keys_summary">Erstatt punktum-popup med toppnivådomenene ved skriving av epost- og nettadresser</string>
+    <string name="toolbar_mode">Verktøylinjemodus</string>
+    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Verktøylinje med taster og forslag</string>
+    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Kun verktøylinjetaster</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Kun forslag</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Skjult</string>
+    <string name="toolbar_hiding_global">Skjul verktøylinje for utklippstavle og emoji</string>
+    <string name="split" tools:keep="@string/split">Oppdelt tastatur</string>
+    <string name="page_start" tools:keep="@string/page_start">Sidestart</string>
+    <string name="page_end" tools:keep="@string/page_end">Sideslutt</string>
+    <string name="word_left" tools:keep="@string/word_left">Ord til venstre</string>
+    <string name="word_right" tools:keep="@string/word_right">Ord til høyre</string>
+    <string name="page_up" tools:keep="@string/page_up">Side opp</string>
+    <string name="page_down" tools:keep="@string/page_down">Side ned</string>
+    <string name="close_history" tools:keep="@string/close_history">Lukk utklippstavlehistorikk</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="clipboard_toolbar_keys">Velg verktøylinjetaster for utklippstavle</string>
+    <string name="pinned_toolbar_keys">Velg festede verktøylinjetaster</string>
+    <string name="quick_pin_toolbar_keys">Fest verktøylinjetast ved langt trykk</string>
+    <string name="quick_pin_toolbar_keys_summary">Dette deaktiverer andre handlinger med langt trykk for verktøylinjetaster som ikke er festet</string>
+    <string name="remove_redundant_popups">Fjern overflødige popup-vinduer</string>
+    <string name="remove_redundant_popups_summary">Skjul popup-taster som allerede finnes i hovedoppsettet</string>
+    <string name="prefs_long_press_symbol_for_numpad">Langt trykk på symboltast for numerisk tastatur</string>
+    <string name="prefs_bottom_row_scale">Skalering av nederste rad</string>
+    <string name="prefs_side_padding_scale">Skalering av sideutfylling</string>
+    <string name="prefs_font_scale">Skriftstørrelse for tastatur</string>
+    <string name="prefs_emoji_font_scale">Skriftstørrelse for emoji-visning</string>
+    <string name="prefs_emoji_key_fit">Tilpass emoji-taststørrelse til skriftstørrelse</string>
+    <string name="prefs_emoji_skin_tone">Standard hudtone for emoji</string>
+    <string name="prefs_emoji_skin_tone_neutral">Nøytral</string>
+    <string name="prefs_space_bar_text">Tilpasset tekst på mellomromstasten</string>
+    <string name="custom_font">Angi tilpasset skrifttype fra fil</string>
+    <string name="custom_emoji_font">Angi tilpasset emoji-skrifttype fra fil</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_mhr">Mari (østlig)</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_generic_extended">%s (utvidet)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="subtype_generic_phonetic">%s (fonetisk)</string>
+    <string name="load">Last inn</string>
+    <string name="button_save_file">Lagre til fil</string>
+    <string name="copy_to_clipboard">Kopier til utklippstavle</string>
+    <string name="layout_in_use">Advarsel: oppsettet er i bruk</string>
+    <string name="settings_screen_secondary_layouts">Sekundære tastaturoppsett</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funksjonstaster</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funksjonstaster (stor skjerm)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funksjonstaster (Khipro)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funksjonstaster (symboler)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funksjonstaster (flere symboler)</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Tallrad</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Tallrad (grunnleggende)</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Nedre emoji-rad</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Nedre emoji-rad med handlingstast</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Nedre utklippstavlerad</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Nedre utklippstavlerad med handlingstast</string>
+    <string name="customize_background_image_landscape">Angi bakgrunnsbilde (liggende)</string>
+    <string name="summary_customize_background_image_landscape">Hvis ikke angitt brukes stående bilde</string>
+    <string name="customize_currencies">Tilpass valutaer</string>
+    <string name="customize_currencies_detail">Angi hovedvaluta og opptil 6 sekundære valutasymboler, adskilt med mellomrom</string>
+    <string name="switch_keyboard_after">Bytt til hovedtastatur etter…</string>
+    <string name="after_emoji">Etter valg av emoji i emoji-visning</string>
+    <string name="after_clip">Etter valg av tekst i utklippstavlen</string>
+    <string name="after_symbol_and_space">Trykk på enter eller mellomrom etter andre taster i symbolvisning</string>
+    <string name="after_numpad_and_space">Trykk på enter eller mellomrom etter andre taster i numerisk tastatur</string>
+    <string name="prefs_key_emoji_max_sdk">Overstyr emoji-versjon</string>
+    <string name="icon_style">Ikonstil</string>
+    <string name="more_colors">Vis flere farger</string>
+    <string name="all_colors_warning">Denne innstillingen viser alle farger som brukes internt. Listen kan endres når som helst. Standard er basert på vanlige farger, og navnene vil ikke bli oversatt.</string>
+    <string name="select_color_key_hint">Hjelpetekst for tast</string>
+    <string name="select_color_suggestion">Forslagsrad tekst</string>
+    <string name="get_colors_message">Du kan finne og dele farger i %s.</string>
+    <string name="get_layouts_message">Du kan finne og dele tastaturoppsett i %s.</string>
+    <string name="discussion_section_link">diskusjonsseksjon</string>
+    <string name="about_wiki_link">Gå til wiki</string>
+    <string name="about_wiki_link_description">Wikien kan forbedres av alle GitHub-brukere!</string>
+    <string name="settings_screen_toolbar">Verktøylinje</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Slett</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (aktiv)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps Lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Mellomrom (talltastaturoppsett)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Avslutt enhåndsmodus</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Endre størrelse på enhåndsmodus</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Bytt side for enhåndsmodus</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Taleinntasting deaktivert</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Vis / skjul verktøylinje</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Papirkurv</string>
+    <string name="space_swipe_toggle_numpad_entry">Slå på/av numerisk tastatur</string>
+    <string name="space_swipe_hide_keyboard_entry">Skjul tastatur</string>
+    <string name="space_swipe_touchpad_mode_entry">Styreplate-modus</string>
+    <string name="touchpad_sensitivity">Følsomhet for styreplate</string>
+    <string name="prefs_language_swipe_distance">Sveipeavstand for språkbytte</string>
+    <string name="customize_toolbar_key_codes">Tilpass verktøylinjens tastekoder</string>
+    <string name="customize_toolbar_key_code_reset_message">Vil du virkelig slette alle tilpassede tastekoder?</string>
+    <string name="key_code">Tastekode</string>
+    <string name="long_press_code">Langtrykk-kode</string>
+    <string name="auto_show_toolbar">Vis verktøylinje automatisk</string>
+    <string name="auto_show_toolbar_summary">Vis verktøylinjen når inntasting starter eller tekst er markert</string>
+    <string name="auto_hide_toolbar">Skjul verktøylinje automatisk</string>
+    <string name="auto_hide_toolbar_summary">Skjul verktøylinjen når forslag blir tilgjengelige</string>
+    <string name="toast_msg_clipboard_copy">Innhold kopiert</string>
+    <string name="customize_icons">Tilpass ikoner</string>
+    <string name="customize_icons_reset_message">Vil du virkelig tilbakestille alle tilpassede ikoner?</string>
+    <string name="delete_confirmation">Vil du virkelig slette %s?</string>
+    <string name="name_invalid">Ugyldig navn</string>
+    <string name="custom_subtype">Tilpasset undertype</string>
+    <string name="landscape">Liggende</string>
+    <string name="folded">Sammenfoldet</string>
+    <string name="emoji_search_title">Søk etter emoji</string>
+    <string name="search_field_placeholder">Søk</string>
+    <string name="ask_later">Spør meg senere</string>
+    <string name="gesture_data_screen">Innsamling av bevegelsesdata</string>
+    <string name="gesture_data_description">Innsamling av bevegelsesdata&lt;br/&gt;&lt;br/&gt; Dette er en del av et &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-finansiert prosjekt&lt;/a&gt; som har som mål å utvikle et helt åpen kildekode-bibliotek for sveipeskriving som kan erstatte Googles lukkede bibliotek.&lt;br/&gt; Målet er å lage en enkel erstatning for AOSP-baserte tastaturer, men også et bibliotek som kan brukes med andre tastaturer, for eksempel FlorisBoard.&lt;br/&gt;&lt;br/&gt; For utviklingen av biblioteket er det svært nyttig å ha detaljerte bevegelsesdata fra ulike språk og brukere.&lt;br/&gt; Ved å samle inn og sende inn bevegelsesdata kan du bidra til et åpent datasett som brukes i utviklingen av biblioteket. Datasettet vil bli publisert under lisensen CC BY-SA 4.0 en gang etter at innsamlingsfasen er ferdig på %s. Når du har samlet data, kan du sende det inn via delingsikonet nederst på skjermen.</string>
+    <string name="gesture_data_info">Hva er dette?</string>
+    <string name="gesture_data_description_modes">For øyeblikket finnes det bare aktiv innsamlingsmodus, der du får et bestemt ord og skriver det med sveipeskriving.\n Senere vil en passiv innsamlingsmodus bli lagt til, der du kan sende inn eksempler fra vanlig sveipeskriving i andre apper. På grunn av sensitiviteten i dette vil funksjonen være valgfri, konfigurerbar og ha en skjerm for gjennomgang før dataene sendes inn.</string>
+    <string name="gesture_data_description_privacy">Personvern\n\n Dataene du sender inn består av målord, tastaturoppsett og dimensjoner, bevegelse (tid og koordinater), forslag fra gjeldende bibliotek, hash av brukte ordbøker, appversjon, innsamlingsmodus, samt om sveipeskriving bruker standard Google-bibliotek, og en ID knyttet til hver bevegelse.\n Innsendte data lastes ned og slettes fra ProtonMail-postkassen så snart som mulig. Etter at innsamlingsfasen er avsluttet, vil det samlede datasettet fra alle brukere bli publisert under Creative Commons BY-SA 4.0-lisensen.\n\n For å beskytte personvernet ditt vil du ikke bli eksplisitt kreditert som forfatter. Kreditering vil være som «HeliBoard Gesture Data Project Contributors». Det skal ikke være mulig å knytte dataene til identiteten din, men det kan likevel være mulig å se hvilke bevegelser som kommer fra samme bruker, for eksempel basert på tastaturoppsett, størrelse, språk eller skrivestil.</string>
+    <string name="gesture_data_privacy">Personvern</string>
+    <string name="gesture_data_get_data">Del bevegelsesdatafil</string>
+    <string name="gesture_data_delete_data">Slett bevegelsesdata</string>
+    <string name="gesture_data_send_mail">Send data via e-post</string>
+    <string name="gesture_data_copy_mail">Kopier e-postadresse</string>
+    <string name="gesture_data_mail_use">E-postadressen er ment for innsending av data, og ikke nødvendigvis raske eller konsistente svar.</string>
+    <string name="gesture_data_please_type">Skriv inn med sveipeskriving:</string>
+    <string name="gesture_data_please_switch_keyboard">Bytt til %s</string>
+    <string name="gesture_data_next_save">Lagret: %s. Trykk hvis du er sikker på at du skrev riktig</string>
+    <string name="gesture_data_next">Hopp over ord</string>
+    <string name="gesture_data_active_count">%1$s ord i denne økten, %2$s ord totalt (%3$s allerede sendt inn eller slettet)</string>
+    <string name="gesture_data_review_screen_title">Gjennomgang og deling av bevegelsesdata</string>
+    <string name="gesture_data_words_selected">%s ord</string>
+    <string name="gesture_data_date_range">Datoperiode</string>
+    <string name="gesture_data_much_data">Du har mye data som ikke er sendt inn. Send inn og slett de gamle dataene først.</string>
+    <string name="gesture_data_how_to_use">Slik bruker du funksjonen</string>
+    <string name="gesture_data_active_description">Trykk på «Start aktiv innsamling», og bytt eventuelt ordbok. Deretter skriver du med sveipeskriving ordet som vises.&lt;br/&gt; Hvis sveipen din matcher ordet, lagres dataene og et nytt ord vises. Hvis ikke kan du prøve igjen, hoppe over ordet eller bekrefte at du skrev riktig.&lt;br/&gt; Du kan bare bruke ordbøker som følger med appen eller som er tilgjengelige i &lt;a href=%s&gt;ordbok-repositoriet&lt;/a&gt;, ingen andre ord vil bli brukt.</string>
+    <string name="gesture_data_active_start">Start aktiv innsamling</string>
+    <string name="gesture_data_active_stop">Stopp aktiv innsamling</string>
+    <string name="gesture_data_ends_at">Innsamlingsfasen avsluttes %s. Send inn data før denne datoen.</string>
+    <string name="gesture_data_ended">Innsamlingsfasen ble avsluttet %s. Du kan dele eksisterende data, men ikke legge til nye.</string>
+    <string name="gesture_data_share_all">Del alle %s ord</string>
+    <string name="gesture_data_share_new">Del %s ikke tidligere innsendte ord</string>
+    <string name="gesture_data_share_limit">For å unngå filstørrelsesgrense eksporteres kun de første %s ordene</string>
+    <string name="gesture_data_delete_dialog_all">Slett alle %s ord</string>
+    <string name="gesture_data_delete_dialog_confirm">Er du sikker? Dette sletter %s ord. Sørg for at delte data er sendt inn først!</string>
+    <string name="gesture_data_delete_dialog_submitted">Slett %s innsendte ord</string>
+    <string name="gesture_data_many_not_shared_words">Du har mer enn %s ord som venter på innsending</string>
+    <string name="gesture_data_email_body">VIKTIG:\n\n Hei der!\n Som en påminnelse vil disse dataene bli delt offentlig under lisensen CC BY-SA 4.0, og du vil ikke bli kreditert som forfatter for å beskytte personvernet ditt.\n\n Takk for at du deler dataene dine med oss – de vil bli brukt til videre utvikling.\n\n Merk at endring av formuleringen i denne meldingen ikke endrer hvordan dataene brukes. Dette er ikke en kontrakt som kan endres, men kun en vennlig påminnelse.\n Hvis du ønsker å sende oss en melding sammen med dataene dine, skriv den under linjen nedenfor.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Hei der!\n Siden du har installert sveipeskriving-biblioteket, kan du være interessert i HeliBoards prosjekt for å utvikle et helt åpent bibliotek for sveipeskriving. Du kan bidra ved å sende inn bevegelsesdata. Se skjermen for innsamling av bevegelsesdata for mer informasjon.</string>
+    <string name="gesture_data_reminder_message">Hei!\n Du har tidligere brukt innsamling av bevegelsesdata, men ikke bidratt på en stund. Ønsker du å bidra igjen?</string>
+    <string name="gesture_data_take_me_there">Gå til funksjonen</string>
+    <string name="gesture_data_links">Informasjon om innsamling av bevegelsesdata:</string>
+    <string name="gesture_data_delete_dialog">Du har data for %1$s nye og %2$s allerede delte ord.</string>
+    <string name="spell_check_suggestions_summary">Vis forslag når du velger et ord med rød understreking. Krever at appen er angitt som standard stavekontroll.</string>
+    <string name="touchpad_edge_scroll">Kantskrolling på styreflaten</string>
+    <string name="touchpad_edge_scroll_description">Ruller automatisk når du skyver fingeren til kanten av tastaturet</string>
+    <string name="spell_check_suggestions">Vis staveforslag</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Nullbredde-sammenføyer</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Nullbredde-ikke-sammenføyer</string>
+    <string name="floating" tools:keep="@string/floating">Flytende tastatur</string>
+    <string name="prefs_key_gap_scale">Avstand mellom tastene</string>
+    <string name="toolbar_only_with_hw_keyboard">Vis kun verktøylinjen ved fysisk tastatur</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Du må fortsatt aktivere visning av skjermtastaturet i systeminnstillingene</string>
 </resources>

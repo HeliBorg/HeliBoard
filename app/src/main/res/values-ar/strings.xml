@@ -110,10 +110,10 @@
     <string name="day_night_mode_summary">سيتبع المظهر إعدادات النظام</string>
     <string name="prefs_long_press_keyboard_to_change_lang">تغيير طريقة الإدخال باستخدام مفتاح المسافة</string>
     <string name="settings_category_additional_keys">مفاتيح إضافية</string>
-    <string name="settings_category_clipboard_history">تاريخ الحافظة</string>
-    <string name="enable_clipboard_history">مكِّن تاريخ الحافظة</string>
+    <string name="settings_category_clipboard_history">سجل الحافظة</string>
+    <string name="enable_clipboard_history">فعِّل سجل الحافظة</string>
     <string name="enable_clipboard_history_summary">سيقوم مفتاح الحافظة بلصق محتوى الحافظة -إن وُجد- إن عُطِّل</string>
-    <string name="clipboard_history_retention_time">وقت الاحتفاظ بالتاريخ</string>
+    <string name="clipboard_history_retention_time">وقت الاحتفاظ بالسجل</string>
     <string name="delete_swipe">احذف بالسحب</string>
     <string name="key_borders">الحدود الرئيسة</string>
     <string name="delete_swipe_summary">أجرِ سحبًا سريعًا على مفتاح الحذف لتُحدِّد وتُزيل أجزاءً كبيرة من النص دفعةً واحدة</string>
@@ -301,7 +301,7 @@
     <string name="subtype_generic_student">%s (طالب)</string>
     <string name="center_suggestion_text_to_enter">استخدم دائمًا الاقتراح الأوسط</string>
     <string name="center_suggestion_text_to_enter_summary">عند الضغط على مسافة أو علامات الترقيم، سيتم إدخال الاقتراح الأوسط</string>
-    <string name="close_history" tools:keep="@string/close_history">أغلِق تاريخ الحافظة</string>
+    <string name="close_history" tools:keep="@string/close_history">أغلِق سجل الحافظة</string>
     <string name="clipboard_toolbar_keys">حدد مفاتيح شريط أدوات الحافظة</string>
     <string name="subtype_generic_extended">%s (ممتدة)</string>
     <string name="subtype_mns">مانسي</string>
@@ -337,7 +337,7 @@
     <string name="suggest_clipboard_content_summary">أظهِر محتوى الحافظة الذي نُسخ مؤخرًا كاقتراح</string>
     <string name="suggest_clipboard_content">اقترح محتوى الحافظة</string>
     <string name="after_emoji">اختيار الرموز التعبيرية في عرض الرموز التعبيرية</string>
-    <string name="after_clip">تحديد إدخال محفوظات الحافظة</string>
+    <string name="after_clip">تحديد إدخال سجل الحافظة</string>
     <string name="space_swipe_toggle_numpad_entry">بدّل لوحة الأرقام</string>
     <string name="after_symbol_and_space">الضغط على مفتاح الإدخال أو مسافة بعد المفاتيح الأخرى في عرض الرموز</string>
     <string name="switch_keyboard_after">التبديل إلى لوحة المفاتيح الرئيسية بعد…</string>
@@ -497,4 +497,21 @@
     <string name="toolbar_swipe_down_to_hide_summary">اسحب شريط الأدوات للأسفل لإغلاق لوحة المفاتيح</string>
     <string name="gesture_data_please_switch_keyboard">يُرجى التبديل إلى %s</string>
     <string name="gesture_data_share_limit">لتجنب تجاوز حدود الحجم، سيتم تصدير أول %s كلمة فقط</string>
+    <string name="folded">مطوي</string>
+    <string name="custom_punctuation_suggestions">عيّن اقتراحات علامات الترقيم</string>
+    <string name="space_swipe_touchpad_mode_entry">وضع لوحة اللمس</string>
+    <string name="touchpad_sensitivity">حساسية لوحة اللمس</string>
+    <string name="touchpad_edge_scroll_description">مرّر تلقائيًا عند السحب إلى حافة لوحة المفاتيح</string>
+    <string name="touchpad_edge_scroll">تمرير حافة لوحة اللمس</string>
+    <string name="spell_check_suggestions">أظهر اقتراحات التدقيق الإملائي</string>
+    <string name="spell_check_suggestions_summary">أظهر الاقتراحات عند تحديد كلمة تحتها خط أحمر. يتطلب تعيين التطبيق كمدقق إملائي افتراضي.</string>
+    <string name="prefs_key_gap_scale">مقياس مسافة المفاتيح</string>
+    <string name="toolbar_only_with_hw_keyboard">أظهر شريط الأدوات فقط عند استخدام لوحة مفاتيح فعلية</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">لا تزال بحاجة إلى تفعيل خيار إظهار لوحة المفاتيح الافتراضية من إعدادات النظام</string>
+    <string name="floating" tools:keep="@string/floating">لوحة مفاتيح عائمة</string>
+    <string name="clipboard_history_files">أضف صور وملفات أخرى إلى سجل الحافظة</string>
+    <string name="clipboard_history_max_file_size">حدّ حجم الحافظة</string>
+    <string name="item_description">الوصف: %s</string>
+    <string name="item_type">النوع: %s</string>
+    <string name="abbreviation_unit_mb">م.بايت %s</string>
 </resources>

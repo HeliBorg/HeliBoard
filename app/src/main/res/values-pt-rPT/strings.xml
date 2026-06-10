@@ -488,4 +488,16 @@
     <string name="toolbar_swipe_down_to_hide">Ocultar teclado com um gesto</string>
     <string name="toolbar_swipe_down_to_hide_summary">Deslize para baixo na barra de ferramentas para fechar o teclado</string>
     <string name="gesture_data_share_limit">Para evitar exceder os limites de tamanho, apenas as primeiras %s palavras serão exportadas</string>
+    <string name="folded">Dobrado</string>
+    <string name="custom_punctuation_suggestions">Definir sugestões de pontuação</string>
+    <string name="prefs_key_gap_scale">Escala entre teclas</string>
+    <string name="space_swipe_touchpad_mode_entry">Modo Painel tátil</string>
+    <string name="touchpad_sensitivity">Sensibilidade do Painel tátil</string>
+    <string name="touchpad_edge_scroll">Rolagem na borda do Painel tátil</string>
+    <string name="touchpad_edge_scroll_description">Deslocar automaticamente ao deslizar até à borda do teclado</string>
+    <string name="toolbar_only_with_hw_keyboard">Mostrar apenas a barra de ferramentas com teclado físico</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Ainda precisa de ativar a exibição do teclado virtual nas definições do sistema</string>
+    <string name="spell_check_suggestions">Mostrar sugestões do corretor ortográfico</string>
+    <string name="spell_check_suggestions_summary">Mostrar sugestões ao selecionar uma palavra sublinhada a vermelho. Requer definir a app como corretor ortográfico padrão.</string>
+    <string name="floating" tools:keep="@string/floating">Teclado Flutuante</string>
 </resources>

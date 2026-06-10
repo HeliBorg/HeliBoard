@@ -437,7 +437,7 @@
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emoji untere Zeile mit Aktions-Taste</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Zwischenablage untere Zeile mit Aktions-Taste</string>
     <string name="custom_emoji_font">Benutzerdefinierte Emoji-Schriftart aus Datei festlegen</string>
-    <string name="number_row_in_symbols">Zeilenzeile in Symbol-Ansicht anzeigen</string>
+    <string name="number_row_in_symbols">Zahlenzeile in Symbol-Ansicht anzeigen</string>
     <string name="clipboard_history_pinned_first">Angeheftete Elemente zuerst anzeigen</string>
     <string name="subtype_mhr">Ostmari</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
@@ -446,4 +446,6 @@
     <string name="toolbar_swipe_down_to_hide_summary">Auf Symbolleiste nach unten wischen um Tastatur zu schließen</string>
     <string name="ask_later">Frag mich später</string>
     <string name="search_field_placeholder">Suche</string>
+    <string name="folded">Eingeklappt</string>
+    <string name="emoji_search_title">Suche nach Emojis</string>
 </resources>

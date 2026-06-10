@@ -483,4 +483,21 @@
     <string name="ask_later">পরে জিজ্ঞেসা করুন</string>
     <string name="toolbar_swipe_down_to_hide">অভিস্পর্শের মাধ্যমে কিবোর্ড আড়ালকরণ</string>
     <string name="toolbar_swipe_down_to_hide_summary">টুলবারে নিচের দিকে অভিস্পর্শ করলে কিবোর্ড বন্ধ হবে</string>
+    <string name="folded">ভাঁজযোগ্য ফোন যখন ভাঁজ করা থাকে</string>
+    <string name="custom_punctuation_suggestions">যতিচিহ্ন পরামর্শ নির্ধারণ</string>
+    <string name="space_swipe_touchpad_mode_entry">টাচপ্যাড মোড</string>
+    <string name="touchpad_sensitivity">টাচপ্যাডের সংবেদনশীলতা</string>
+    <string name="touchpad_edge_scroll">টাচপ্যাডের প্রান্তে স্ক্রোলিং</string>
+    <string name="touchpad_edge_scroll_description">কিবোর্ডের প্রান্তে স্লাইডিং করলে স্বয়ংক্রিয়ভাবে স্ক্রোল হবে</string>
+    <string name="spell_check_suggestions">বানান পরীক্ষকের পরামর্শ প্রদর্শন</string>
+    <string name="spell_check_suggestions_summary">লাল দাগযুক্ত কোনো শব্দ নির্বাচন করলে পরামর্শ প্রদর্শর। এজন্য অ্যাপকে ডিফল্ট বানান পরীক্ষক হিসেবে নির্ধারণ করতে হবে।</string>
+    <string name="prefs_key_gap_scale">বোতামের বিভাজনের স্কেল</string>
+    <string name="floating" tools:keep="@string/floating">ভাসমান কিবোর্ড</string>
+    <string name="toolbar_only_with_hw_keyboard">ভৌত কিবোর্ডের সাথে কেবল টুলবার প্রদর্শন</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">সিস্টেম সেটিংস থেকে এখনো ভার্চুয়াল কিবোর্ড প্রদর্শন চালু করতে হবে</string>
+    <string name="clipboard_history_files">ক্লিপবোর্ড ইতিহাসে ছবি ও অন্যান্য ফাইল সংযুক্তি</string>
+    <string name="clipboard_history_max_file_size">ক্লিপবোর্ডের আকারের সীমা</string>
+    <string name="item_description">বিবরণ: %s</string>
+    <string name="item_type">ধরন: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
 </resources>

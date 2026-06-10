@@ -1,0 +1,12 @@
+* ajout recherche d'émoji intégrée
+* permettre la rémanence du langage / sous-type par appli
+* corrections et améliorations du retour haptique
+* conserver le presse-papiers non épinglé au redémarrage de l'appli
+* permettre d'afficher les entrées épinglées du presse-papier en dernier
+* option pour des lignes d'émoji et de presse-papiers
+* ajout bouton pour rejeter des suggestions intégrées
+* ajout Khipro Bengali
+* ajout mirandais
+* solution de contournement pour problèmes avec clavier physique
+* les liens vers les dictionnaires mènent maintenant directement au fichier
+* diverses corrections et améliorations mineures

@@ -81,7 +81,7 @@
     <string name="setup_step3_instruction">Теперь вы можете использовать приложение %s для набора текста.</string>
     <string name="setup_finish_action">Готово</string>
     <string name="show_setup_wizard_icon">Показать значок приложения</string>
-    <string name="show_setup_wizard_icon_summary">Показать значок приложения в лаунчере</string>
+    <string name="show_setup_wizard_icon_summary">Показать значок приложения в панели запуска</string>
     <string name="dictionary_category_title">Дополнительные словари</string>
     <string name="dictionary_available">Словарь доступен</string>
     <string name="settings">Настройки</string>
@@ -134,7 +134,7 @@
     <string name="theme_colors">Цвета темы</string>
     <string name="theme_colors_night">Цвета (ночная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет соответствовать настройкам системы</string>
-    <string name="autospace_after_punctuation_summary">Автоматически добавлять пробел после знаков препинания при вводе нового слова</string>
+    <string name="autospace_after_punctuation_summary">Автоматически вставлять пробел после знаков препинания при наборе нового слова</string>
     <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена вставит содержимое буфера обмена, если оно есть</string>
     <string name="autospace_after_punctuation">Пробел автоматически после знаков препинания</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Изменять метод ввода с помощью пробела</string>
@@ -174,7 +174,7 @@
     <string name="undo">"Отменить"</string>
     <string name="redo">"Повторить"</string>
     <string name="use_personalized_dicts_summary">Обучаться на основе переписки и ввода для улучшения подсказок</string>
-    <string name="label_go_key">"ОК"</string>
+    <string name="label_go_key">Перейти</string>
     <string name="label_next_key">"Далее"</string>
     <string name="label_previous_key">"Назад"</string>
     <string name="label_done_key">Готово</string>
@@ -252,7 +252,7 @@
     <string name="save_log">Сохранить журнал</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Раскладка</string>
     <string name="more_autocorrect_summary">Автоматически исправлять даже если поле ввода не требует этого</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Белая</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo (белая)</string>
     <string name="language_switch_key_switch_both">Смена обоих</string>
     <string name="up" tools:keep="@string/up">Вверх</string>
     <string name="remove_dictionary_message">Вы действительно хотите удалить пользовательский словарь \"%s\"?</string>
@@ -265,7 +265,7 @@
     <string name="down" tools:keep="@string/down">Вниз</string>
     <string name="full_left" tools:keep="@string/full_left">Полностью влево</string>
     <string name="left" tools:keep="@string/left">Влево</string>
-    <string name="replace_dictionary_message">Вы действительно хотите заменить пользовательский словарь \"%1$s\"?\n\nТекущий словарь: \n%2$s\n\nНовый словарь: \n%3$s</string>
+    <string name="replace_dictionary_message">Вы действительно хотите заменить пользовательский словарь \"%1$s\"?\n\nТекущий словарь:\n%2$s\n\nНовый словарь:\n%3$s</string>
     <string name="full_right" tools:keep="@string/full_right">Полностью вправо</string>
     <string name="user_dict_settings_add_weight_value">Вес:</string>
     <string name="button_load_custom">Загрузить файл</string>
@@ -282,7 +282,7 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Числовая клавиатура (альбомный режим)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Телефон</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Символы телефона</string>
-    <string name="hidden_features_message">► Долгое нажатие на закреплённые клавиши панели инструментов открывает дополнительные функции: &lt;br&gt; \n\t• буфер обмена &amp;#65515; вставить &lt;br&gt; \n\t• перемещение влево/вправо &amp;#65515; на слово влево/вправо &lt;br&gt; \n\t• перемещение вверх/вниз &amp;#65515; на страницу вверх/вниз &lt;br&gt; \n\t• на слово влево/вправо &amp;#65515; в начало/конец строки &lt;br&gt; \n\t• на страницу вверх/вниз &amp;#65515; в начало/конец страницы &lt;br&gt; \n\t• копировать &amp;#65515; вырезать &lt;br&gt; \n\t• выделить слово &amp;#8596; выделить всё &lt;br&gt; \n\t• отменить &amp;#8596; повторить &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на клавиши в панели инструментов над списком подсказок закрепляет их на панели подсказок. &lt;br&gt; &lt;br&gt; \n► Удерживайте клавишу с запятой для доступа к буферу обмена, меню эмодзи, одноручному режиму, настройкам или переключению языка: &lt;br&gt; \n\t• Кнопки эмодзи и переключения языка исчезнут из этого меню, если для них включены отдельные клавиши на клавиатуре; &lt;br&gt; \n\t• В некоторых раскладках это не клавиша с запятой, а клавиша в той же позиции (например, \\\'q\\\' в раскладке Дворака). &lt;br&gt; &lt;br&gt; \n► В режиме инкогнито новые слова не сохраняются в словаре, а использованные эмодзи не добавляются в список недавних. &lt;br&gt; &lt;br&gt; \n► Нажмите на значок инкогнито, чтобы открыть панель инструментов. &lt;br&gt; &lt;br&gt; \n► Непрерывный ввод (скольжением): проведите от клавиши \'Shift\' к любой другой клавише, чтобы ввести одну заглавную букву: &lt;br&gt; \n\t• Это также работает с клавишами \\\'?123\\\' для быстрого ввода одного символа и других подобных клавиш. &lt;br&gt; &lt;br&gt; \n► Удерживайте \'Shift\' или клавишу символов, введите один или несколько знаков, а затем отпустите удерживаемую клавишу, чтобы автоматически вернуться к предыдущей раскладке. &lt;br&gt; &lt;br&gt; \n► Удерживайте подсказку на панели подсказок, чтобы увидеть дополнительные варианты или кнопку удаления, позволяющую убрать это слово из словаря. &lt;br&gt; &lt;br&gt; \n► Проведите вверх от подсказки, чтобы открыть расширенный список вариантов, и отпустите палец на нужном слове, чтобы выбрать его. &lt;br&gt; &lt;br&gt; \n► Удерживайте запись в истории буфера обмена, чтобы закрепить её (она останется в буфере, пока вы её не открепите). &lt;br&gt; &lt;br&gt; \n► Смахните влево в окне буфера обмена, чтобы удалить запись (кроме закреплённых) &lt;br&gt; &lt;br&gt; \n► Выделите текст и нажимайте \'Shift\', чтобы переключать регистр: \'все строчные\', \'ВСЕ ПРОПИСНЫЕ\' или \'С Заглавной Буквы\'. &lt;br&gt; &lt;br&gt; \n► Вы можете добавлять словари, открывая их через файловый менеджер: &lt;br&gt; \n\t• Эта функция работает только с &lt;i&gt;content-uris&lt;/i&gt; и не поддерживает &lt;i&gt;file-uris&lt;/i&gt;, поэтому она может быть недоступна в некоторых проводниках. &lt;br&gt; &lt;br&gt; \n► Для пользователей, выполняющих резервное копирование вручную с root-доступом: &lt;br&gt; \n\t• Начиная с Android 7, файл настроек (shared preferences) находится не в стандартном каталоге, так как приложение использует %s. Это необходимо для того, чтобы настройки можно было прочитать до разблокировки устройства, например, при загрузке системы; &lt;br&gt; \n\t• Файл находится по пути /data/user_de/0/package_id/shared_prefs/ хотя это может зависеть от конкретного устройства и версии Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Режим отладки / Debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на подсказку покажет словарь, из которого она была взята. &lt;br&gt; &lt;br&gt; \n► При использовании отладочной версии (debug APK) вы можете найти Debug Settings в разделе Дополнительные, хотя их польза ограничена выгрузкой данных словарей в журнал. &lt;br&gt; \n\t• Для релизной версии (release APK) необходимо несколько раз нажать на номер версии в разделе &lt;i&gt;О приложении&lt;/i&gt; после чего в &lt;i&gt;Дополнительных&lt;/i&gt; появятся настройки отладки. &lt;br&gt; \n\t• При включении настройки &lt;i&gt;Показывать сведения о подсказках&lt;/i&gt;, над словами будут отображаться мелкие цифры - внутренний рейтинг слова и словарь-источник. &lt;br&gt; &lt;br&gt; \n► В случае сбоя приложения при следующем открытии настроек вам будет предложено сохранить или отправить журналы ошибок &lt;br&gt; &lt;br&gt; \n► При использовании многоязычного ввода на клавише пробела будет отображаться коэффициент вероятности, используемый для определения текущего языка. &lt;br&gt; &lt;br&gt; \n► Над подсказками могут отображаться мелкие цифры, указывающие на внутренний рейтинг и словарь-источник (эту функцию можно отключить).</string>
+    <string name="hidden_features_message">► Долгое нажатие на закреплённые клавиши панели инструментов открывает дополнительные функции: &lt;br&gt; \n\t• буфер обмена &amp;#65515; вставить &lt;br&gt; \n\t• перемещение влево/вправо &amp;#65515; на слово влево/вправо &lt;br&gt; \n\t• перемещение вверх/вниз &amp;#65515; на страницу вверх/вниз &lt;br&gt; \n\t• на слово влево/вправо &amp;#65515; в начало/конец строки &lt;br&gt; \n\t• на страницу вверх/вниз &amp;#65515; в начало/конец страницы &lt;br&gt; \n\t• копировать &amp;#65515; вырезать &lt;br&gt; \n\t• выделить слово &amp;#8596; выделить всё &lt;br&gt; \n\t• отменить &amp;#8596; повторить &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на клавиши в панели инструментов над списком подсказок закрепляет их на панели подсказок. &lt;br&gt; &lt;br&gt; \n► Удерживайте клавишу с запятой для доступа к буферу обмена, меню эмодзи, одноручному режиму, настройкам или переключению языка: &lt;br&gt; \n\t• Клавиши эмодзи и переключения языка исчезнут из этого меню, если для них включены отдельные клавиши на клавиатуре; &lt;br&gt; \n\t• В некоторых раскладках это не клавиша с запятой, а клавиша в той же позиции (например, \\\'q\\\' в раскладке Дворака). &lt;br&gt; &lt;br&gt; \n► В режиме инкогнито новые слова не сохраняются в словаре, а использованные эмодзи не добавляются в список недавних. &lt;br&gt; &lt;br&gt; \n► Нажмите на значок инкогнито, чтобы открыть панель инструментов. &lt;br&gt; &lt;br&gt; \n► Непрерывный ввод (скольжением): проведите от клавиши \'Shift\' к любой другой клавише, чтобы ввести одну заглавную букву: &lt;br&gt; \n\t• Это также работает с клавишами \\\'?123\\\' для быстрого ввода одного символа и других подобных клавиш. &lt;br&gt; &lt;br&gt; \n► Удерживайте \'Shift\' или клавишу символов, введите один или несколько знаков, а затем отпустите удерживаемую клавишу, чтобы автоматически вернуться к предыдущей раскладке. &lt;br&gt; &lt;br&gt; \n► Удерживайте подсказку на панели подсказок, чтобы увидеть дополнительные варианты или клавишу удаления, позволяющую убрать это слово из словаря. &lt;br&gt; &lt;br&gt; \n► Проведите вверх от подсказки, чтобы открыть расширенный список вариантов, и отпустите палец на нужном слове, чтобы выбрать его. &lt;br&gt; &lt;br&gt; \n► Удерживайте запись в истории буфера обмена, чтобы закрепить её (она останется в буфере, пока вы её не открепите). &lt;br&gt; &lt;br&gt; \n► Смахните влево в окне буфера обмена, чтобы удалить запись (кроме закреплённых) &lt;br&gt; &lt;br&gt; \n► Выделите текст и нажимайте \'Shift\', чтобы переключать регистр: \'все строчные\', \'ВСЕ ПРОПИСНЫЕ\' или \'С Заглавной Буквы\'. &lt;br&gt; &lt;br&gt; \n► Вы можете добавлять словари, открывая их через файловый менеджер: &lt;br&gt; \n\t• Эта функция работает только с &lt;i&gt;content-uris&lt;/i&gt; и не поддерживает &lt;i&gt;file-uris&lt;/i&gt;, поэтому она может быть недоступна в некоторых проводниках. &lt;br&gt; &lt;br&gt; \n► Для пользователей, выполняющих резервное копирование вручную с root-доступом: &lt;br&gt; \n\t• Начиная с Android 7, файл настроек (shared preferences) находится не в стандартном каталоге, так как приложение использует %s. Это необходимо для того, чтобы настройки можно было прочитать до разблокировки устройства, например, при загрузке системы; &lt;br&gt; \n\t• Файл находится по пути /data/user_de/0/package_id/shared_prefs/ хотя это может зависеть от конкретного устройства и версии Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Режим отладки / Debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на подсказку покажет словарь, из которого она была взята. &lt;br&gt; &lt;br&gt; \n► При использовании отладочной версии (debug APK) вы можете найти Debug Settings в разделе Дополнительные, хотя их польза ограничена выгрузкой данных словарей в журнал. &lt;br&gt; \n\t• Для релизной версии (release APK) необходимо несколько раз нажать на номер версии в разделе &lt;i&gt;О приложении&lt;/i&gt; после чего в &lt;i&gt;Дополнительных&lt;/i&gt; появятся настройки отладки. &lt;br&gt; \n\t• При включении настройки &lt;i&gt;Показывать сведения о подсказках&lt;/i&gt;, над словами будут отображаться мелкие цифры - внутренний рейтинг слова и словарь-источник. &lt;br&gt; &lt;br&gt; \n► В случае сбоя приложения при следующем открытии настроек вам будет предложено сохранить или отправить журналы ошибок &lt;br&gt; &lt;br&gt; \n► При использовании многоязычного ввода на клавише пробела будет отображаться коэффициент вероятности, используемый для определения текущего языка. &lt;br&gt; &lt;br&gt; \n► Над подсказками могут отображаться мелкие цифры, указывающие на внутренний рейтинг и словарь-источник (эту функцию можно отключить).</string>
     <string name="var_toolbar_direction_summary">Менять направление панели инструментов для языков с письмом справа налево</string>
     <string name="var_toolbar_direction">Адаптивное направление панели инструментов</string>
     <string name="subtype_probhat_bn_BD">%s (Пробхат)</string>
@@ -295,13 +295,13 @@
     <string name="language_switch_key_behavior">Действие клавиши смены языка</string>
     <string name="emoji" tools:keep="@string/emoji">Эмодзи</string>
     <string name="pinned_toolbar_keys">Выбрать закреплённые клавиши панели инструментов</string>
-    <string name="quick_pin_toolbar_keys_summary">При этом отключатся остальные функции долгого нажатия для незакреплённых кнопок панели</string>
+    <string name="quick_pin_toolbar_keys_summary">При этом отключатся остальные функции долгого нажатия для незакреплённых клавиш панели</string>
     <string name="quick_pin_toolbar_keys">Закреплять клавиши панели инструментов при долгом нажатии</string>
     <string name="toast_msg_clipboard_copy">Контент скопирован</string>
     <string name="auto_show_toolbar">Показывать панель инструментов автоматически</string>
     <string name="auto_hide_toolbar">Скрывать панель инструментов автоматически</string>
     <string name="center_suggestion_text_to_enter">Всегда использовать среднюю подсказку</string>
-    <string name="center_suggestion_text_to_enter_summary">При нажатии пробела или знака препинания будет вставлена средняя подсказка</string>
+    <string name="center_suggestion_text_to_enter_summary">При нажатии пробела или знака препинания будет выбран средний вариант подсказки</string>
     <string name="close_history" tools:keep="@string/close_history">Закрыть историю буфера обмена</string>
     <string name="clipboard_toolbar_keys">Выбрать клавиши панели буфера обмена</string>
     <string name="subtype_generic_extended">%s (Расширенная)</string>
@@ -425,8 +425,8 @@
     <string name="show_emoji_descriptions">Показывать описание эмодзи при долгом нажатии</string>
     <string name="suggest_emojis">Предлагать эмодзи</string>
     <string name="suggest_emojis_summary">Использовать словарь эмодзи в обычных подсказках</string>
-    <string name="suggest_punctuation">Подсказки знаков препинания</string>
-    <string name="suggest_punctuation_summary">Показывать знаки препинания, если нет других подсказок</string>
+    <string name="suggest_punctuation">Подсказки по пунктуации</string>
+    <string name="suggest_punctuation_summary">Показывать пунктуацию, если нет других подсказок</string>
     <string name="space_swipe_hide_keyboard_entry">Скрыть клавиатуру</string>
     <string name="about_wiki_link">Перейти на Wiki</string>
     <string name="about_wiki_link_description">Любой пользователь GitHub может улучшить Wiki!</string>
@@ -437,8 +437,8 @@
     <string name="inline_emoji_search_summary">Предлагать эмодзи только, если перед словом стоит двоеточие</string>
     <string name="emoji_dictionary_required">Для работы этой функции требуется словарь эмодзи. Словари в формате \'.dict\' можно загрузить по ссылке %s.</string>
     <string name="subtype_mhr">Луговомарийский (Лугововосточный марийский)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Строка эмодзи внизу с кнопкой действия</string>
-    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Строка буфера обмена внизу с кнопкой действия</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Строка эмодзи внизу с клавишей действия</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Строка буфера обмена внизу с клавишей действия</string>
     <string name="number_row_in_symbols">Показывать ряд с цифрами в режиме символов</string>
     <string name="custom_emoji_font">Установить пользовательский шрифт для эмодзи из файла</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Функциональные клавиши (Кипро)</string>
@@ -488,4 +488,21 @@
     <string name="toolbar_swipe_down_to_hide">Скрывать клавиатуру смахиванием</string>
     <string name="gesture_data_please_switch_keyboard">Переключитесь на %s</string>
     <string name="gesture_data_share_limit">Чтобы не превысить лимит размера, будут экспортированы только первые слова: %s</string>
+    <string name="folded">В сложенном состоянии</string>
+    <string name="custom_punctuation_suggestions">Настройка подсказок по пунктуации</string>
+    <string name="space_swipe_touchpad_mode_entry">Режим тачпада</string>
+    <string name="touchpad_sensitivity">Чувствительность тачпада</string>
+    <string name="touchpad_edge_scroll">Прокрутка по краю тачпада</string>
+    <string name="touchpad_edge_scroll_description">Автоматическая прокрутка при достижении края клавиатуры</string>
+    <string name="spell_check_suggestions">Показывать варианты исправления правописания</string>
+    <string name="spell_check_suggestions_summary">Показывать варианты исправлений при выборе слова с красным подчеркиванием. Требуется установить приложение в качестве проверки орфографии по умолчанию.</string>
+    <string name="floating" tools:keep="@string/floating">Плавающая клавиатура</string>
+    <string name="prefs_key_gap_scale">Масштаб межклавишного интервала</string>
+    <string name="toolbar_only_with_hw_keyboard">Показывать панель инструментов только при использовании физической клавиатуры</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Необходимо включить отображение виртуальной клавиатуры в системных настройках</string>
+    <string name="clipboard_history_files">Добавлять изображения и другие файлы в историю буфера обмена</string>
+    <string name="clipboard_history_max_file_size">Лимит размера буфера обмена</string>
+    <string name="item_description">Описание: %s</string>
+    <string name="item_type">Тип: %s</string>
+    <string name="abbreviation_unit_mb">%s МБ</string>
 </resources>

@@ -1,0 +1,6 @@
+* permettre le changement de la langue de l'appli dans les réglages
+* permettre de cacher le clavier en balayant vers le bas la barre d'outils
+* ajouter la disposition HCESAR
+* prévenir que le dictionnaire d'émoji fait défaut lors de l'activation des suggestions d'emoji
+* corriger des problèmes de collecte des données gestuelles
+* corrections et améliorations mineures

@@ -488,4 +488,16 @@
     <string name="toolbar_swipe_down_to_hide_summary">Csúsztassa lefelé az ujját az eszköztáron a billentyűzet bezárásához</string>
     <string name="gesture_data_please_switch_keyboard">Váltson a következőre: %s</string>
     <string name="gesture_data_share_limit">A méretkorlátok túllépésének elkerülése érdekében csak az első %s szó lesz exportálva</string>
+    <string name="folded">Összehajtva</string>
+    <string name="custom_punctuation_suggestions">Írásjel-javaslatok beállítása</string>
+    <string name="space_swipe_touchpad_mode_entry">Érintőtábla-mód</string>
+    <string name="touchpad_sensitivity">Érintőtábla érzékenysége</string>
+    <string name="touchpad_edge_scroll">Görgetés az érintőtábla szélein</string>
+    <string name="touchpad_edge_scroll_description">Automatikus görgetés a billentyűzet szélein való csúsztatáskor</string>
+    <string name="spell_check_suggestions">Helyesírás-ellenőrző javaslatainak megjelenítése</string>
+    <string name="spell_check_suggestions_summary">Javaslatok megjelenítése pirosan aláhúzott szavak kiválasztásakor. Az alkalmazást alapértelmezett helyesírás-ellenőrzőként kell beállítani.</string>
+    <string name="prefs_key_gap_scale">Billentyűköz méretezése</string>
+    <string name="toolbar_only_with_hw_keyboard">Csak az eszköztár megjelenítése a fizikai billentyűzettel</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">A virtuális billentyűzet megjelenítését még engedélyezni kell a rendszerbeállításokban</string>
+    <string name="floating" tools:keep="@string/floating">Lebegő billentyűzet</string>
 </resources>

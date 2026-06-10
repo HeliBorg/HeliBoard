@@ -493,4 +493,21 @@ Nouveau dictionnaire:
     <string name="gesture_data_please_switch_keyboard">Veuillez passer à %s</string>
     <string name="gesture_data_share_limit">Pour éviter de dépasser les limites de taille, seuls les %s premiers mots seront exportés</string>
     <string name="gesture_data_links">Informations sur la collecte de données gestuelles sur :</string>
+    <string name="folded">Plié</string>
+    <string name="custom_punctuation_suggestions">Définir les suggestions de ponctuation</string>
+    <string name="space_swipe_touchpad_mode_entry">Mode pavé tactile</string>
+    <string name="touchpad_sensitivity">Sensibilité du pavé tactile</string>
+    <string name="touchpad_edge_scroll">Défilement sur le bord du pavé tactile</string>
+    <string name="touchpad_edge_scroll_description">Défilement automatique lors du glissement vers le bord du clavier</string>
+    <string name="spell_check_suggestions">Afficher les suggestions du correcteur orthographique</string>
+    <string name="spell_check_suggestions_summary">Afficher des suggestions lors de la sélection d\'un mot souligné en rouge. Nécessite de définir l\'application comme correcteur orthographique par défaut.</string>
+    <string name="prefs_key_gap_scale">Échelle de l\'espace entre les touches</string>
+    <string name="toolbar_only_with_hw_keyboard">Afficher la barre d\'outils uniquement avec un clavier physique</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Vous devez encore activer l\'affichage du clavier virtuel dans les paramètres système</string>
+    <string name="floating" tools:keep="@string/floating">Clavier flottant</string>
+    <string name="clipboard_history_files">Ajouter les images et d\'autres fichiers à l\'historique du presse-papiers</string>
+    <string name="clipboard_history_max_file_size">Limite de taille du presse-papiers</string>
+    <string name="item_description">Description : %s</string>
+    <string name="item_type">Type : %s</string>
+    <string name="abbreviation_unit_mb">%s Mo</string>
 </resources>

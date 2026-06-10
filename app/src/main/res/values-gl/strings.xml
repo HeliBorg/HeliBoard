@@ -493,4 +493,20 @@
     <string name="gesture_data_reminder_message">Ola!\nCon anterioridade usaches a obtención de datos de xestos, pero non engadiches ningún dato desde hai tempo. Queres volver a colaborar?</string>
     <string name="gesture_data_take_me_there">Imos aló</string>
     <string name="gesture_data_links">Información sobre a obtención de datos de xestos en:</string>
+    <string name="toolbar_swipe_down_to_hide">Ocultar teclado cun desprazamento</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Despraza cara abaixo na barra de ferramentas para fechar o teclado</string>
+    <string name="custom_punctuation_suggestions">Establecer suxestións para a puntuación</string>
+    <string name="space_swipe_touchpad_mode_entry">Modo área táctil</string>
+    <string name="touchpad_sensitivity">Sensibilidade da área táctil</string>
+    <string name="folded">Pregado</string>
+    <string name="gesture_data_please_switch_keyboard">Por favor cambia a %s</string>
+    <string name="gesture_data_share_limit">Para evitar exceder o tamaño máximo, só se van exportar as primeiras %s palabras</string>
+    <string name="floating" tools:keep="@string/floating">Teclado flotante</string>
+    <string name="prefs_key_gap_scale">Escala do espazo entre teclas</string>
+    <string name="touchpad_edge_scroll">Desprazamento no bordo da zona táctil</string>
+    <string name="touchpad_edge_scroll_description">Desprazar o contido cando se pasa o dedo polo bordo do teclado</string>
+    <string name="toolbar_only_with_hw_keyboard">Mostrar a barra de ferramentas só con teclado físico</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Aínda así deberás activar mostrar o teclado virtual nos axustes do sistema</string>
+    <string name="spell_check_suggestions">Mostrar suxestións de ortografía</string>
+    <string name="spell_check_suggestions_summary">Mostrar suxestións o seleccionar unha palabra subliñada en vermello. Require establecer a app como revisora de ortografía predeterminada.</string>
 </resources>

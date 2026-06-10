@@ -265,7 +265,7 @@
     <string name="toolbar_keys">选择工具栏键</string>
     <string name="clipboard" tools:keep="@string/clipboard">剪贴板</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">清除剪贴板</string>
-    <string name="prefs_narrow_key_gaps">缩小键间隔</string>
+    <string name="prefs_narrow_key_gaps">缩小按键间距</string>
     <string name="load">加载</string>
     <string name="button_load_custom">加载文件</string>
     <string name="setup_step3_action">配置键盘</string>
@@ -491,4 +491,21 @@
     <string name="toolbar_swipe_down_to_hide_summary">在工具栏上向下滑动即可关闭键盘</string>
     <string name="gesture_data_please_switch_keyboard">请切换到 %s</string>
     <string name="gesture_data_share_limit">为避免超出大小限制，仅导出前 %s 个字词</string>
+    <string name="folded">折叠</string>
+    <string name="custom_punctuation_suggestions">设置标点建议</string>
+    <string name="space_swipe_touchpad_mode_entry">触控板模式</string>
+    <string name="touchpad_sensitivity">触控板灵敏度</string>
+    <string name="touchpad_edge_scroll">触控板边缘滚动</string>
+    <string name="touchpad_edge_scroll_description">滑动到键盘边缘时自动滚动</string>
+    <string name="spell_check_suggestions">显示拼写检查建议</string>
+    <string name="spell_check_suggestions_summary">选择带红色下划线的字词时显示建议。需要将应用设置为默认拼写检查器。</string>
+    <string name="prefs_key_gap_scale">按键间距比例</string>
+    <string name="toolbar_only_with_hw_keyboard">使用实体键盘时仅显示工具栏</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">您仍然需要在系统设置中启用显示虚拟键盘</string>
+    <string name="floating" tools:keep="@string/floating">浮动键盘</string>
+    <string name="clipboard_history_files">将图片和其他文件添加到剪贴板历史记录</string>
+    <string name="clipboard_history_max_file_size">剪贴板大小限制</string>
+    <string name="item_description">描述：%s</string>
+    <string name="item_type">类型：%s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
 </resources>

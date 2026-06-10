@@ -476,7 +476,7 @@
     <string name="gesture_data_share_new">Compartir %s palabras no enviadas anteriormente</string>
     <string name="gesture_data_delete_dialog">Tienes datos de %1$s palabras nuevas y %2$s palabras ya compartidas.</string>
     <string name="gesture_data_delete_dialog_all">Borrar las %s palabras</string>
-    <string name="gesture_data_delete_dialog_confirm">¿Seguro que quieres continuar? Esto borrará %s palabras. Asegúrate de haber enviado tus datos compartidos.</string>
+    <string name="gesture_data_delete_dialog_confirm">¿Estás seguro? Esto eliminará %s palabras. ¡Asegúrate de que tu fecha compartida se haya enviado!</string>
     <string name="gesture_data_delete_dialog_submitted">Borrar %s palabras enviadas</string>
     <string name="gesture_data_many_not_shared_words">Tienes más de %s palabras pendientes de envío</string>
     <string name="gesture_data_email_body">IMPORTANTE:\n\n Hola,\n Te recordamos que estos datos se compartirán públicamente bajo la licencia CC BY‑SA 4.0 y que, para proteger tu privacidad, no figurarás como autor.\n\n Gracias por cedernos los derechos de uso de tus datos. Les daremos un buen uso.\n\n Ten en cuenta que modificar el texto de este aviso no cambia lo que haremos con tus datos. Esto no es un contrato que se pueda cambiar, sino solo un recordatorio amistoso.\n Si quieres enviarnos un mensaje junto con tus datos, escríbelo debajo de esta línea.\n ---------------------------------------------</string>
@@ -488,4 +488,21 @@
     <string name="toolbar_swipe_down_to_hide_summary">Desliza hacia abajo en la barra de herramientas para cerrar el teclado</string>
     <string name="gesture_data_please_switch_keyboard">Cambia a %s</string>
     <string name="gesture_data_share_limit">Para evitar superar los límites de tamaño, solo se exportarán las primeras %s palabras</string>
+    <string name="folded">Plegado</string>
+    <string name="custom_punctuation_suggestions">Configurar sugerencias de puntuación</string>
+    <string name="space_swipe_touchpad_mode_entry">Panel táctil</string>
+    <string name="touchpad_sensitivity">Sensibilidad del panel táctil</string>
+    <string name="touchpad_edge_scroll">Desplazamiento por el borde</string>
+    <string name="touchpad_edge_scroll_description">Desplazamiento automático al llegar al borde del teclado</string>
+    <string name="spell_check_suggestions">Activar/desactivar las sugerencias del corrector ortográfico</string>
+    <string name="spell_check_suggestions_summary">Muestra sugerencias al seleccionar una palabra subrayada en rojo. Requiere configurar la aplicación como corrector ortográfico predeterminado.</string>
+    <string name="prefs_key_gap_scale">Separación entre las teclas</string>
+    <string name="toolbar_only_with_hw_keyboard">Mostrar solo la barra de herramientas con el teclado conectado</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Aún necesitas habilitar la visualización del teclado virtual en la configuración del sistema</string>
+    <string name="floating" tools:keep="@string/floating">Teclado flotante</string>
+    <string name="clipboard_history_files">Añadir imágenes y otros archivos al historial del portapapeles</string>
+    <string name="clipboard_history_max_file_size">Límite de capacidad del portapapeles</string>
+    <string name="item_description">Descripción: %s</string>
+    <string name="item_type">Tipo: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
 </resources>

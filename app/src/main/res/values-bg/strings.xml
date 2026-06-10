@@ -525,4 +525,16 @@
     <string name="toolbar_swipe_down_to_hide_summary">Плъзнете надолу по лентата с инструменти, за да затворите клавиатурата</string>
     <string name="gesture_data_please_switch_keyboard">Моля, превключете към %s</string>
     <string name="gesture_data_share_limit">За да се избегне превишаване на ограниченията за размер, ще бъдат експортирани само първите %s думи</string>
+    <string name="folded">Сгънат</string>
+    <string name="custom_punctuation_suggestions">Задаване на предложения за пунктуация</string>
+    <string name="space_swipe_touchpad_mode_entry">Режим на тъчпада</string>
+    <string name="touchpad_sensitivity">Чувствителност на тъчпада</string>
+    <string name="touchpad_edge_scroll">Превъртане по ръба на тъчпада</string>
+    <string name="touchpad_edge_scroll_description">Автоматично превъртане при плъзгане до края на клавиатурата</string>
+    <string name="spell_check_suggestions">Показване на предложения от програмата за проверка на правописа</string>
+    <string name="spell_check_suggestions_summary">Показване на предложения при избиране на дума с червено подчертаване. Изисква се задаване на приложението като програма за проверка на правописа по подразбиране.</string>
+    <string name="prefs_key_gap_scale">Съотношение на разстояние между клавишите</string>
+    <string name="toolbar_only_with_hw_keyboard">Показване само на лентата с инструменти с физическа клавиатура</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Все още трябва да активирате показването на виртуална клавиатура в системните настройки</string>
+    <string name="floating" tools:keep="@string/floating">Плаваща клавиатура</string>
 </resources>

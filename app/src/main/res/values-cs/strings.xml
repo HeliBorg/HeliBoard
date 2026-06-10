@@ -490,4 +490,16 @@
     <string name="toolbar_swipe_down_to_hide_summary">Zavřít klávesnici posunutím prstu dolů na panelu nástrojů</string>
     <string name="gesture_data_please_switch_keyboard">Přepněte prosím na %s</string>
     <string name="gesture_data_share_limit">Pro zabránění překročení limitů velikosti bude exportováno pouze prvních %s slov</string>
+    <string name="folded">Složený</string>
+    <string name="custom_punctuation_suggestions">Nastavit návrhy interpunkce</string>
+    <string name="space_swipe_touchpad_mode_entry">Režim touchpadu</string>
+    <string name="touchpad_sensitivity">Citlivost touchpadu</string>
+    <string name="touchpad_edge_scroll">Posouvání po kraji dotykové plochy</string>
+    <string name="touchpad_edge_scroll_description">Automaticky posouvat při přesunu na kraj klávesnice</string>
+    <string name="spell_check_suggestions">Zobrazit návrhy kontroly pravopisu</string>
+    <string name="spell_check_suggestions_summary">Při výběru slova s červeným podtržením zobrazit návrhy. Je nutné nastavit aplikaci jako výchozí pro kontrolu pravopisu.</string>
+    <string name="prefs_key_gap_scale">Velikost mezery mezi klávesami</string>
+    <string name="toolbar_only_with_hw_keyboard">S fyzickou klávesnicí zobrazit pouze panel nástrojů</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Stále budete muset povolit zobrazení virtuální klávesnice v systémových nastaveních</string>
+    <string name="floating" tools:keep="@string/floating">Plovoucí klávesnice</string>
 </resources>

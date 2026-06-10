@@ -140,7 +140,7 @@
     <string name="label_pause_key">"השהה"</string>
     <string name="label_wait_key">המתנה</string>
     <string name="all_colors_warning">הגדרה זו חושפת את כל הצבעים שבשימוש פנימי. רשימת הצבעים עשויה להשתנות בכל עת. צבע ברירת המחדל נגזר מהצבעים הרגילים, והשמות לא יתורגמו.</string>
-    <string name="quick_pin_toolbar_keys">נעיצת כפתור בסרגל הכלים ע\"י לחיצה ממושכת</string>
+    <string name="quick_pin_toolbar_keys">לחיצה ארוכה לנעיצת המקש שבסרגל הכלים</string>
     <string name="quick_pin_toolbar_keys_summary">השבתת פעולות אחרות בלחיצה ממושכת לכפתורי סרגל הכלים שאינם נעוצים</string>
     <string name="pinned_toolbar_keys">בחירת כפתורים נעוצים בסרגל הכלים</string>
     <string name="gesture_fast_typing_cooldown">הפוגה להקלדה רצופה</string>
@@ -189,7 +189,7 @@
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">פריסה</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">סימנים</string>
     <string name="file_read_error">הקובץ אינו ניתן לקריאה</string>
-    <string name="remove_dictionary_message">באמת להסיר את המילון שנוסף ע\"י המשתמש \"%s\"?</string>
+    <string name="remove_dictionary_message">להסיר את המילון „%s” שנוסף ידנית?</string>
     <string name="no_dictionary_message">"ללא מילון, תקבלו הצעות למלל שהקלדתם בעבר בלבד.&lt;br&gt;\n        באפשרותך להוריד מילונים %1$s, או לבדוק אם מילון עבור \"%2$s\" ניתן להורדה ישירות %3$s."</string>
     <string name="no_dictionary_dont_show_again_button">לא להציג שוב</string>
     <string name="add_dictionary">בחירת המילון להוספה. מילונים בפורמט .dict ניתנים להורדה %s.</string>
@@ -255,13 +255,7 @@
     <string name="show_popup_hints_summary">הצגת רמזים אם לחיצה ממושכת תגרום להפעלת פונקציונליות נוספת</string>
     <string name="prefs_long_press_symbol_for_numpad">כפתור סימנים בלחיצה ממושכת עבור numpad</string>
     <string name="prefs_bottom_padding_scale">קנה-מידה גובה המרווח התחתון</string>
-    <string name="replace_dictionary_message">באמת להחליף את המילון שנוסף ע\"י המשתמש \"%1$s\"?
-\n
-\nהמילון הנוכחי:
-\n%2$s
-\n
-\nהמילון החדש:
-\n%3$s</string>
+    <string name="replace_dictionary_message">להחליף את המילון „%1$s” שנוסף ידנית? \n \nהמילון הנוכחי: \n%2$s \n \nהמילון החדש: \n%3$s</string>
     <string name="select_color_key">מלל המקש</string>
     <string name="version">גירסה</string>
     <string name="license">רישיון קוד פתוח</string>
@@ -312,7 +306,7 @@
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">אוקיאנוס</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">ורוד</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">חול</string>
-    <string name="theme_name_user" tools:keep="@string/theme_name_user">מוגדר ע\"י המשתמש</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">בהגדרת המשתמש</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">יער</string>
     <string name="theme_colors_night">צבעים (לילה)</string>
     <string name="theme_navbar">צבע סרגל הניווט</string>
@@ -344,9 +338,6 @@
     <string name="subtype_generic_extended">%s (מורחבת)</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik סופי)</string>
     <string name="hidden_features_message">◄ לחיצה ממושכת על כפתורי סרגל הכלים מאפשרת פונקציונליות נוספת: &lt;br&gt; \n\t• לוח &amp;#65515; הדבקה &lt;br&gt; \n\t• תזוזה שמאלה/ימינה &amp;#65515; מילה שמאלה/ימינה &lt;br&gt; \n\t• תזוזה למעלה/למטה &amp;#65515; דף למעלה/למטה &lt;br&gt; \n\t• מילה שמאלה/ימינה &amp;#65515; תחילת שורה/סוף שורה &lt;br&gt; \n\t• דף למעלה/למטה &amp;#65515; תחילת דף/סוף דף &lt;br&gt; \n\t• העתקה &amp;#65515; גזירה &lt;br&gt; \n\t• בחירת מילה &amp;#8596; בחירת הכל &lt;br&gt; \n\t• ביטול &amp;#8596; ביצוע בשנית &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על כפתורים בסרגל ההצעות של סרגל הכלים נועצת אותם בסרגל ההצעות. &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על מקש פסיק לגישה לתצוגת הלוח, תצוגת אימוג\'ים, מצב עבודה ביד אחת, הגדרות, או מעבר שפה: &lt;br&gt; \n\t• תצוגת אימוג\'ים ומעבר שפה לא יוצגו אם הכפתורים המתאימים כבר מוצגים; &lt;br&gt; \n\t• בחלק מהפריסות האפשרות איננה במקש הפסיק, אלא במקש המוצג באותו מקום (לדוגמה, בפריסת Dvorak התו \'q\'). &lt;br&gt; &lt;br&gt; \n◄ כאשר מצב פרטיות מופעל, לא יילמדו כלל מילים, ולא יתווספו אימוג\'ים ל\'בשימוש לאחרונה\'. &lt;br&gt; &lt;br&gt; \n◄ ליחצו על סמל הפרטיות לגישה לסרגל הכלים. &lt;br&gt; &lt;br&gt; \n◄ הקלדה בהחלקה: החליקו מ-shift למקש אחר כדי להקיש אות גדולה יחידה: &lt;br&gt; \n\t• זה עובד באופן דומה גם למקש \'?123\' להקלדת סימן יחיד מלוח הסמלים, ולמקשים קשורים. &lt;br&gt; &lt;br&gt; \n◄ ליחצו על shift או על מקש הסמלים, ליחצו על מקש אחד או יותר, ואז הרפו מ-shift או ממקש הסמלים לחזרה למקלדת הקודמת. &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על הצעה בסרגל ההצעות להצגת הצעות נוספות, ומקש מחיקה להסרת הצעה זו. &lt;br&gt; &lt;br&gt; \n◄ החליקו למעלה מהצעה לפתיחת הצעות נוספות, והרפו על ההצעה הרצויה לבחירתה. &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על רשומה בהיסטוריית הלוח לנעיצתה (שמירתה בלוח עד לביטול הנעיצה). &lt;br&gt; &lt;br&gt; \n◄ החלקה שמאלה על רשומה בתצוגת הלוח להסרתה מהלוח (אם היא לא נעוצה) &lt;br&gt; &lt;br&gt; \n◄ בחירת מלל ולחיצה על shift למעבר בין אותיות גדולות, אותיות קטנות ורישיות מילים גדולות. &lt;br&gt; &lt;br&gt; \n◄ ניתן להוסיף מילונים ע\"י פתיחתם באמצעות יישום סייר קבצים: &lt;br&gt; \n\t• פועל רק עם &lt;i&gt;content-uris&lt;/i&gt; ולא עם &lt;i&gt;file-uris&lt;/i&gt;, ז\"א שזה עלול שלא לעבוד בחלק מיישומי סייר קבצים. &lt;br&gt; &lt;br&gt; \n◄ משתמשים המבצעים גיבויים ידניים עם הרשאת גישה root: &lt;br&gt; \n\t• החל באנדרואיד 7, קובץ ההעדפות המשותף איננו בנתיב ברירת המחדל, כיוון שהיישום עושה שימוש ב %s. הדבר נחוץ כדי שההגדרות יהיו קריאות לפני שהמכשיר נפתח, לדוגמה: בהפעלה; &lt;br&gt; \n\t• הקובץ ממוקם בנתיב /data/user_de/0/package_id/shared_prefs/ אך זה עשוי להשתנות בתלות בגירסאות המכשיר ומערכת אנדרואיד. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על הצעה להצגת מילון המקור. &lt;br&gt; &lt;br&gt; \n◄ בשימוש ב-debug APK, באפשרותך למצוא את הגדרות ה-Debug Settings בהעדפות המתקדמות,אך השימושיות מוגבלת למעט dumping של מילונים ליומן (log). &lt;br&gt; \n\t• עבור APK רשמי, עליך ללחוץ על הגירסה &lt;i&gt;About&lt;/i&gt; מספר פעמים, ואז ניתן למצוא אתהגדרות ה-debug ב-&lt;i&gt;העדפות מתקדמות&lt;/i&gt;. &lt;br&gt; \n\t• כאשר מופעלת &lt;i&gt;הצגת מידע על הצעות&lt;/i&gt;, יוצגו מספרים זעירים בסמוך להצעות המייצגים דירוג פנימי ומילון מקור. &lt;br&gt; &lt;br&gt; \n◄ במקרה של קריסת יישום, תוצג לך שאלה האם ברצונך ביומני הקריסה בפתיחת ההגדרות. &lt;br&gt; &lt;br&gt; \n◄ בעת שימוש בהקלדה מרובת שפות, מקש הרווח יציג מדד אמון המשמש לברירת השפה שבשימוש כעת. &lt;br&gt; &lt;br&gt; \n◄ בסמוך להצעות יוצגו מספרים זעירים המייצגים דירוג פנימי ומילון מקור (התצוגה ניתנת להשבתה).</string>
-    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
-    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
-    <string name="subtype_generic_student">%s (Student)</string>
     <string name="icon_style">סגנון הסמלים</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">שורת המספרים</string>
     <string name="prefs_space_bar_text">מלל מותאם על מקש הרווח</string>
@@ -377,7 +368,7 @@
     <string name="prefs_key_emoji_max_sdk">עקיפת גירסת אמוג\'י</string>
     <string name="customize_toolbar_key_code_reset_message">האם למחוק את כל קודי המקשים המותאמים?</string>
     <string name="auto_correct_shortcuts">קיצורי דרך של תיקון שגיאות אוטומטי</string>
-    <string name="auto_correct_shortcuts_summary">כאשר מופעל, קיצורי דרך עשויים להיות מורחבים ע\"י התיקון האוטומטי</string>
+    <string name="auto_correct_shortcuts_summary">כאשר מופעל, התיקון האוטומטי עשוי להרחיב קיצורים</string>
     <string name="customize_background_image_landscape">הגדרת תמונת רקע (במצב אופקי)</string>
     <string name="custom_font">הגדרת גופן מותאם מקובץ</string>
     <string name="summary_customize_background_image_landscape">אם לא הוגדרה תמונת רקע במצב אופקי, תוצג תמונת הרקע של מצב אנכי</string>
@@ -431,13 +422,13 @@
     <string name="toolbar_mode_expandable">פקדי סרגל הכלים והצעות</string>
     <string name="toolbar_mode_toolbar_keys">פקדי סרגל הכלים בלבד</string>
     <string name="show_emoji_descriptions">הצגת תיאור אמוג\'י בלחיצה ממושכת</string>
-    <string name="suggest_emojis">הצעת אמוג\'ים</string>
+    <string name="suggest_emojis">הצעות אמוג׳י</string>
     <string name="suggest_emojis_summary">שימוש במילון האמוג\'ים בהצעות רגילות</string>
     <string name="space_swipe_hide_keyboard_entry">הסתרת המקלדת</string>
     <string name="suggest_punctuation">הצעות פיסוק</string>
     <string name="suggest_punctuation_summary">הצגת פיסוק כאשר אין הצעות זמינות אחרות</string>
     <string name="about_wiki_link">מעבר ל-Wiki</string>
-    <string name="about_wiki_link_description">ה-Wiki יכול להיות משופר ע\"י כל משתמש GitHub!</string>
+    <string name="about_wiki_link_description">כל משתמש GitHub יכול לשפר את הוויקי!</string>
     <string name="subtype_khipro_bn">%s (כיפרו)</string>
     <string name="save_subtype_per_app">שיוך שפה ליישום</string>
     <string name="clipboard_history_pinned_first">הצגת פריטים נעוצים תחילה</string>
@@ -493,7 +484,19 @@
     <string name="gesture_data_take_me_there">מעבר למסך כעת</string>
     <string name="gesture_data_links">מידע על איסוף נתוני שימוש במחוות:</string>
     <string name="gesture_data_share_limit">כדי למנוע חריגה ממגבלות הגודל, רק %s המילים הראשונות ייכללו בייצוא הנתונים</string>
-    <string name="toolbar_swipe_down_to_hide">הסתרת המקלדת ע\"י החלקה</string>
+    <string name="toolbar_swipe_down_to_hide">החלקה להסתרת המקלדת</string>
     <string name="toolbar_swipe_down_to_hide_summary">החלקה למטה על סרגל הכלים לסגירת המקלדת</string>
     <string name="gesture_data_please_switch_keyboard">נא לעבור אל %s</string>
+    <string name="folded">מקופל</string>
+    <string name="touchpad_sensitivity">רגישות משטח המגע</string>
+    <string name="custom_punctuation_suggestions">הגדרת הצעות הפיסוק</string>
+    <string name="space_swipe_touchpad_mode_entry">מצב משטח-מגע</string>
+    <string name="spell_check_suggestions_summary">הצגת הצעות בעת בחירת מילה עם קו תחתון אדום. נדרש שהיישום יוגדר כבודק האיות ברירת המחדל.</string>
+    <string name="touchpad_edge_scroll">גלילה בשולי משטח המגע</string>
+    <string name="touchpad_edge_scroll_description">גלילה אוטומטית בעת החלקה אל קצות המקלדת</string>
+    <string name="spell_check_suggestions">הצגת הצעות בודק האיות</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">עדיין נדרש להתיר הצגת מקלדת וירטואלית בהגדרות המערכת</string>
+    <string name="toolbar_only_with_hw_keyboard">הצגת סרגל הכלים בלבד בחיבור מקלדת פיזית</string>
+    <string name="prefs_key_gap_scale">קנה-המידה של המרווח בין המקשים</string>
+    <string name="floating" tools:keep="@string/floating">מקלדת צפה</string>
 </resources>

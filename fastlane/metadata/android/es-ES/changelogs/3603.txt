@@ -1,12 +1,12 @@
-* Añadida la búsqueda de emojis en línea
-* Opción para recordar el idioma o subtipo por aplicación
-* Correcciones y mejoras en la respuesta háptica
-* Mantener el portapapeles no fijado al reiniciar la aplicación
-* Opción para mostrar los elementos fijados del portapapeles al final
-* Añadidas filas inferiores opcionales para emojis y portapapeles
-* Añadido botón para descartar sugerencias en línea
-* Añadido bengalí Khipro
-* Añadido mirandés
-* Solución temporal para problemas con teclados físicos
-* Los enlaces a diccionarios ahora dirigen directamente al archivo
-* Diversas correcciones y mejoras menores
+* Búsqueda de emojis en línea
+* Recordar el idioma y el subtipo por aplicación
+* Mejoras en la retroalimentación
+* Portapapeles desanclado al reiniciar
+* Opción para mostrar las entradas del portapapeles fijadas
+* Añadidas filas inferiores para emojis y el portapapeles
+* Botón para descartar las sugerencias en línea
+* Idioma bengalí Khipro
+* Idioma mirandés
+* Solución provisional a problemas con el teclado
+* Los enlaces a los diccionarios llevan al archivo
+* Correcciones y mejoras menores

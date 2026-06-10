@@ -497,4 +497,8 @@
     <string name="toolbar_swipe_down_to_hide_summary">Deslize para baixo na barra de ferramentas para fechar o teclado</string>
     <string name="gesture_data_please_switch_keyboard">Mude pro %s</string>
     <string name="gesture_data_share_limit">Para evitar passar dos limites de tamanho, somente as primeiras %s palavras serão exportadas</string>
+    <string name="folded">Dobrado</string>
+    <string name="custom_punctuation_suggestions">Configurar sugestões de pontuação</string>
+    <string name="space_swipe_touchpad_mode_entry">Modo touchpad</string>
+    <string name="touchpad_sensitivity">Sensibilidade do touchpad</string>
 </resources>
