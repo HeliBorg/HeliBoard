@@ -100,6 +100,8 @@
     <string name="enable_clipboard_history_summary">Agar o\'chirilgan bo\'lsa, vaqtinchalik bufer tugmasi mavjud bo\'lsa, almashish buferidagi kontentni joylashtiradi</string>
     <string name="clipboard_history_retention_time">Tarixni saqlash vaqti</string>
     <string name="delete_swipe_summary">Matnning katta qismini birdaniga tanlash va o‘chirib tashlash uchun oʻchirish tugmasidan suring</string>
+    <string name="delete_word_long_press">Uzoq bosib so‘zni o‘chirish</string>
+    <string name="delete_word_long_press_summary">Oʻchirish tugmasini uzoq bosib turish butun so‘zlarni ketma-ket o‘chirib tashlaydi</string>
     <string name="key_borders">Tugma chegaralari</string>
     <string name="day_night_mode">Avtomatik kunduz/tun rejimi</string>
     <string name="day_night_mode_summary">Tashqi ko\'rinish tizim sozlamalariga binoan</string>

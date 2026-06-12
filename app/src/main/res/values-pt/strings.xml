@@ -107,6 +107,8 @@
     <string name="delete_swipe">Deslize para eliminar</string>
     <string name="more_keys_strip_description">Mais teclas</string>
     <string name="delete_swipe_summary">Pode deslizar desde a tecla Eliminar para selecionar e remover grandes porções de texto de uma vez</string>
+    <string name="delete_word_long_press">Eliminar palavra ao premir longamente</string>
+    <string name="delete_word_long_press_summary">Premir longamente a tecla de apagar elimina palavras inteiras continuamente</string>
     <string name="prefs_keyboard_height_scale">Altura do teclado</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla Espaço abre menu de seleção do método de introdução</string>
     <string name="show_hints">Mostrar dicas de teclas</string>

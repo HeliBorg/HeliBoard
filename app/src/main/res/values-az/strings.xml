@@ -148,6 +148,8 @@
     <string name="clipboard_history_pinned_first">Bərkidilmiş elementləri yuxarıda göstər</string>
     <string name="delete_swipe">Sürüşdürərək sil</string>
     <string name="delete_swipe_summary">Bir dəfəyə mətnin böyük hissələrini seçib silmək üçün silmə düyməsindən başlayaraq sürüşdür</string>
+    <string name="delete_word_long_press">Uzun basaraq sözü sil</string>
+    <string name="delete_word_long_press_summary">Silmə düyməsini uzun basmaq bütöv sözləri davamlı olaraen silir</string>
     <string name="backup_restore_title">Nüsxələ və bərpa et</string>
     <string name="backup_restore_message">Saxla və ya fayldan yüklə. Diqqət: bərpa mövcud verilənlərin üzərinə yazılacaq</string>
     <string name="backup_error">Nüsxələmə xətası: %s</string>

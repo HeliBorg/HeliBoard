@@ -94,6 +94,8 @@
     <string name="select_input_method">"Izberite način vnosa"</string>
     <string name="auto_correction_confidence">Interval zaupanja samodejnih popravkov</string>
     <string name="delete_swipe_summary">Podrsaj z vračalke, da izbereš in izbrišeš večje dele besedila naenkrat</string>
+    <string name="delete_word_long_press">Izbris besede z dolgim pritiskom</string>
+    <string name="delete_word_long_press_summary">Z dolgim pritiskom na vračalko neprekinjeno brišete celotne besede</string>
     <string name="incognito">Vsiljen prikriti način</string>
     <string name="number_row_summary">Vedno pokaži vrstico s številkami</string>
     <string name="show_hints">Prikaži namige tipk</string>

@@ -95,6 +95,8 @@
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="delete_swipe">Deslize para eliminar</string>
     <string name="delete_swipe_summary">Pode deslizar desde a tecla \'Apagar\' para selecionar e remover grandes porções de texto de uma vez</string>
+    <string name="delete_word_long_press">Eliminar palavra ao premir longamente</string>
+    <string name="delete_word_long_press_summary">Premir longamente a tecla de apagar elimina palavras inteiras continuamente</string>
     <string name="show_emoji_key">Tecla de emoji</string>
     <string name="incognito">Impor modo incógnito</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>

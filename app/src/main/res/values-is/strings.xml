@@ -200,6 +200,8 @@
     <string name="no_dictionary_dont_show_again_button">Ekki birta þetta aftur</string>
     <string name="key_code">Lykilkóði</string>
     <string name="delete_swipe">Stroka til að eyða</string>
+    <string name="delete_word_long_press">Eyða orði með því að ýta lengi</string>
+    <string name="delete_word_long_press_summary">Með því að halda eyðingarlyklinum inni eyðast heil orð í röð</string>
     <string name="save_log">Vista atvikaskrá</string>
     <string name="prefs_space_bar_text">Sérsniðinn texti á bilslá</string>
     <string name="auto_show_toolbar">Birta verkfærastiku sjálfvirkt</string>

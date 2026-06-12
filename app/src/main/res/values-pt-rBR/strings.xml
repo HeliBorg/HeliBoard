@@ -39,6 +39,8 @@
     <string name="enable_clipboard_history">Ativar histórico da área de transferência</string>
     <string name="delete_swipe_summary">Deslize da tecla delete para selecionar e remover partes de texto maiores de uma vez só</string>
     <string name="delete_swipe">Deslizar para apagar</string>
+    <string name="delete_word_long_press">Apagar palavra ao pressionar longamente</string>
+    <string name="delete_word_long_press_summary">Pressionar longamente a tecla delete remove palavras inteiras continuamente</string>
     <string name="incognito">Forçar modo privativo</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de novas palavras</string>
     <string name="more_keys_strip_description">Mais teclas</string>

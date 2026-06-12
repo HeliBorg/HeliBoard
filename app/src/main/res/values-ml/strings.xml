@@ -101,6 +101,8 @@
     <string name="show_hints">കീ സൂചനകൾ കാണിക്കുക</string>
     <string name="android_spell_checker_settings">ഓപ്പൺബോർഡ് സ്പെൽ ചെക്കർ ക്രമീകരണങ്ങൾ</string>
     <string name="delete_swipe">ഡിലീറ്റ് സ്വൈപ്പ്</string>
+    <string name="delete_word_long_press">ലോങ്ങ് പ്രസ്സ് ചെയ്ത് വാക്ക് ഡിലീറ്റ് ചെയ്യുക</string>
+    <string name="delete_word_long_press_summary">ഡിലീറ്റ് കീ ലോങ്ങ് പ്രസ്സ് ചെയ്യുന്നത് തുടർച്ചയായി മുഴുവൻ വാക്കുകളും മായ്ക്കുന്നു</string>
     <string name="show_emoji_key">ഇമോജി കീ</string>
     <string name="prefs_force_incognito_mode_summary">പുതിയ വാക്കുകൾ പഠിക്കുന്നത് അപ്രാപ്തമാക്കുക</string>
     <string name="settings_category_suggestions">നിർദ്ദേശങ്ങൾ</string>

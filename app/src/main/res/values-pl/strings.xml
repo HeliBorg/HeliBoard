@@ -110,6 +110,8 @@
     <string name="prefs_long_press_keyboard_to_change_lang">Zmień metodę wprowadzania za pomocą spacji</string>
     <string name="show_hints_summary">Pokazuj wskazówki dotyczące długiego naciśnięcia przycisku</string>
     <string name="delete_swipe_summary">Przesuń palcem od klawisza usuwania, aby zaznaczyć i usunąć większe fragmenty tekstu za jednym razem</string>
+    <string name="delete_word_long_press">Usuń słowo przez długie naciśnięcie</string>
+    <string name="delete_word_long_press_summary">Długie naciśnięcie klawisza usuwania powoduje ciągłe usuwanie całych słów</string>
     <string name="enable_clipboard_history_summary">Po wyłączeniu, klawisz schowka będzie wklejał zawartość schowka, jeśli taka istnieje</string>
     <string name="delete_swipe">Gest usunięcia</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Długie naciśnięcie klawisza spacji spowoduje wyświetlenie menu wyboru metody wprowadzania tekstu</string>

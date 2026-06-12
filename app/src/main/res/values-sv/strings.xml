@@ -117,6 +117,8 @@
     <string name="clipboard_history_retention_time">Lagringstid för historik</string>
     <string name="delete_swipe">Backstegssvepning</string>
     <string name="delete_swipe_summary">Gör en svepning från backstegstangenten för att markera och ta bort större mängder text på en gång</string>
+    <string name="delete_word_long_press">Ta bort ord med långtryck</string>
+    <string name="delete_word_long_press_summary">Genom att hålla backstegsknappen nedtryckt raderas hela ord kontinuerligt</string>
     <string name="autospace_after_punctuation_summary">Infoga automatiskt mellanslag efter skiljetecken när ett nytt ord skrivs</string>
     <string name="autospace_after_punctuation">Automatiskt mellanslag efter skiljetecken</string>
     <string name="more_keys_strip_description">Fler tangenter</string>

@@ -1163,7 +1163,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int code = key.getCode();
 
         // Delete Word Feature
-        if (code == KeyCode.DELETE) {
+        if (code == KeyCode.DELETE && Settings.getValues().mDeleteLongPressEnabled) {
             mWordDeleteTickCounter = 0; // Reset the pace counter
 
             // Fire the first word instantly
@@ -1338,11 +1338,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         startKeyRepeatTimer(nextRepeatCount); // Tell the timer to queue up the next 50ms tick
 
         // Long Press Delete button (Delete Word)
-        if (code == KeyCode.DELETE) {
+        if (code == KeyCode.DELETE && Settings.getValues().mDeleteLongPressEnabled) {
             mWordDeleteTickCounter++;
 
-            // Only execute on every 4th tick (~200ms)
-            if (mWordDeleteTickCounter % 4 == 0) {
+            // Only execute on every after long press delay
+            if (mWordDeleteTickCounter %
+                Math.round(Settings.getValues().mKeyLongpressTimeout / 50f) == 0) {
                 // FIRE CUSTOM -8 CODE, NOT THE INCOMING -7
                 callListenerOnCodeInput(key, KeyCode.DELETE_WORD, mKeyX, mKeyY, SystemClock.uptimeMillis(), true);
             }

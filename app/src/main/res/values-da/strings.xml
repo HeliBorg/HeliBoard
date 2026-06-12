@@ -121,6 +121,8 @@
     <string name="settings_category_miscellaneous">Diverse</string>
     <string name="delete_swipe">Swipe-sletning</string>
     <string name="delete_swipe_summary">Udfør et swipe fra slet-tasten for at vælge og fjerne større dele af teksten på én gang</string>
+    <string name="delete_word_long_press">Slet ord ved langt tryk</string>
+    <string name="delete_word_long_press_summary">Hvis du holder slet-tasten nede, slettes hele ord kontinuerligt</string>
     <string name="incognito">Gennemtving inkognitotilstand</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiver indlæring af nye ord</string>
     <string name="more_keys_strip_description">Flere taster</string>

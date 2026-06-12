@@ -139,6 +139,8 @@ Nouveau dictionnaire:
     <string name="number_row">Ligne de chiffres</string>
     <string name="delete_swipe">Balayage sur la touche Effacer</string>
     <string name="delete_swipe_summary">Glissez sur la touche de suppression pour supprimer des parties de texte en une seule fois</string>
+    <string name="delete_word_long_press">Effacer le mot par appui long</string>
+    <string name="delete_word_long_press_summary">Un appui long sur la touche Effacer supprime des mots entiers en continu</string>
     <string name="backup_restore_title">Sauvegarde et restauration</string>
     <string name="backup_restore_message">Sauvegarde ou chargement à partir d\'un fichier. Attention : la restauration écrasera les données existantes.</string>
     <string name="backup_error">Erreur lors de la sauvegarde : %s</string>

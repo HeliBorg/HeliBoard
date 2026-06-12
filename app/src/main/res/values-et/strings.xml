@@ -182,6 +182,8 @@
     <string name="left" tools:keep="@string/left">Vasakule</string>
     <string name="load_gesture_library_summary">Kasuta oma teeki, mis kirjeldab trükkimisel kasutatavaid viipamisi</string>
     <string name="delete_swipe_summary">Alustades viipamist kustutamise nupust luba suurema kustutatava teksti valimine</string>
+    <string name="delete_word_long_press">Kustuta sõna pika vajutusega</string>
+    <string name="delete_word_long_press_summary">Kustutamise nupu pikk vajutamine kustutab järjest terveid sõnu</string>
     <string name="popup_order">Vali hüpikakna klahvide järjekord</string>
     <string name="show_hints_summary">Näita klahvide pika vajutuse vihjeid</string>
     <string name="delete_swipe">Kustutamine viipamisega</string>

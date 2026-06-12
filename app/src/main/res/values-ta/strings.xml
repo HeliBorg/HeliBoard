@@ -161,6 +161,8 @@
     <string name="clipboard_history_pinned_first">பின் செய்யப்பட்ட பொருட்களை மேலே காட்டு</string>
     <string name="delete_swipe">ச்வைப் செய்வதை நீக்கு</string>
     <string name="delete_swipe_summary">ஒரே நேரத்தில் உரையின் பெரிய பகுதிகளைத் தேர்ந்தெடுத்து அகற்ற, நீக்கு விசையிலிருந்து ச்வைப் செய்யவும்</string>
+    <string name="delete_word_long_press">நெடுநேரம் அழுத்தி வார்த்தையை நீக்கு</string>
+    <string name="delete_word_long_press_summary">நீக்கு பொத்தானை நெடுநேரம் அழுத்திப் பிடிப்பதன் மூலம் முழு வார்த்தைகளையும் தொடர்ச்சியாக நீக்கலாம்</string>
     <string name="backup_restore_title">காப்பு மற்றும் மீட்டமை</string>
     <string name="backup_restore_message">கோப்பிலிருந்து சேமிக்கவும் அல்லது ஏற்றவும். எச்சரிக்கை: மீட்டெடுப்பு ஏற்கனவே உள்ள தரவை மேலெழுதும்</string>
     <string name="backup_error">காப்புப் பிழை: %s</string>

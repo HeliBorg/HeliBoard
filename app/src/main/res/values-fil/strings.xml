@@ -71,6 +71,8 @@
     <string name="gesture_space_aware_summary">Maglagay ng mga space sa pag-gesture sa pamamagitan ng pag-glide sa space key</string>
     <string name="gesture_fast_typing_cooldown">Cooldown ng mabilis na pag-type</string>
     <string name="delete_swipe">Delete na pag-swipe</string>
+    <string name="delete_word_long_press">Burahin ang salita sa matagal na pagpindot</string>
+    <string name="delete_word_long_press_summary">Ang matagal na pagpindot sa delete key ay patuloy na nagbubura ng mga buong salita</string>
     <string name="gesture_floating_preview_dynamic_summary">Ilipat ang preview habang may gesture</string>
     <string name="gesture_fast_typing_cooldown_instant">Palaging simulan agad</string>
     <string name="gesture_trail_fadeout_duration">Tagal ng gesture trail</string>

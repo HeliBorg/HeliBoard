@@ -116,6 +116,8 @@
     <string name="prefs_long_press_keyboard_to_change_lang">تغییر روش ورودی با کلید فاصله</string>
     <string name="delete_swipe">حذف با کشیدن (Swipe)</string>
     <string name="delete_swipe_summary">کشیدن انگشت از سمت کلید حذف برای انتخاب و پاک کردن بخش‌های بزرگ‌تری از متن به صورت یکجا</string>
+    <string name="delete_word_long_press">حذف کلمه با فشار طولانی</string>
+    <string name="delete_word_long_press_summary">فشار دادن طولانی کلید حذف، کلمات کامل را به طور مداوم پاک می‌کند</string>
     <string name="incognito">اجبار به حالت ناشناس (Incognito)</string>
     <string name="prefs_force_incognito_mode_summary">غیرفعال کردن یادگیری کلمات جدید</string>
     <string name="autospace_after_punctuation">فاصله خودکار پس از علائم نگارشی</string>

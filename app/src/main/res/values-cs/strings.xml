@@ -110,6 +110,8 @@
     <string name="settings_category_input">Vstup</string>
     <string name="settings_category_additional_keys">Dodatečné klávesy</string>
     <string name="delete_swipe">Mazat posunutím</string>
+    <string name="delete_word_long_press">Mazat slova dlouhým stiskem</string>
+    <string name="delete_word_long_press_summary">Dlouhým stisknutím klávesy pro mazání budete nepřetržitě mazat celá slova</string>
     <string name="number_row_summary">Vždy aktivní číselný řádek</string>
     <string name="show_hints">Nápověda kláves</string>
     <string name="show_hints_summary">Nápověda při dlouhém stisku</string>

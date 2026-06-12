@@ -177,6 +177,8 @@
     <string name="clipboard_history_retention_time">Período de retención do historial</string>
     <string name="delete_swipe">Borrar ao desprazar</string>
     <string name="delete_swipe_summary">Fai un xesto de desprazamento desde a tecla eliminar e elimina anacos grandes de texto dunha pasada</string>
+    <string name="delete_word_long_press">Borrar palabra por pulsación longa</string>
+    <string name="delete_word_long_press_summary">Manter premida a tecla de borrar elimina palabras completas de forma continua</string>
     <string name="backup_restore_title">Copia de apoio e restablecer</string>
     <string name="backup_restore_message">Garda ou restablecer desde un ficheiro. Aviso: o restablecemento sobrescribe os datos</string>
     <string name="backup_error">Fallo na copia: %s</string>

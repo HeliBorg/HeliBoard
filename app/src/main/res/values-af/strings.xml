@@ -111,6 +111,8 @@
     <string name="prefs_keyboard_height_scale">Sleutelbord hoogte-skaal</string>
     <string name="delete_swipe">Skrap met vee</string>
     <string name="show_emoji_key">Emoji sleutel</string>
+    <string name="delete_word_long_press">Skrap woord met langdruk</string>
+    <string name="delete_word_long_press_summary">Deur die skrap-sleutel lank te druk, word hele woorde aaneenlopend geskrap</string>
     <string name="delete_swipe_summary">Doen \'n vee van die skrap sleutel om \'n groter seleksie van teks eenmaal te skrap</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="incognito">Dwing incognito-modus</string>

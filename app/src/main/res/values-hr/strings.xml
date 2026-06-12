@@ -110,6 +110,8 @@
     <string name="clipboard_history_retention_time">Vrijeme zadržavanja povijesti</string>
     <string name="delete_swipe">Izbriši povlačenjem</string>
     <string name="delete_swipe_summary">Povuci prstom od tipke za brisanje, za biranje i uklanjanje većih dijelova teksta</string>
+    <string name="delete_word_long_press">Izbriši riječ dugim pritiskom</string>
+    <string name="delete_word_long_press_summary">Dugi pritisak na tipku za brisanje kontinuirano briše cijele riječi</string>
     <string name="prefs_force_incognito_mode_summary">Onemogući učenje novih riječi</string>
     <string name="autospace_after_punctuation">Automatski dodaj razmak nakon interpunkcije</string>
     <string name="autospace_after_punctuation_summary">Automatski dodaj razmak nakon interpunkcije kad pišeš novu riječ</string>

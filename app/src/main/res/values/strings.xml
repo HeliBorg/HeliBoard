@@ -220,6 +220,10 @@
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->
     <string name="delete_swipe_summary">Perform a swipe from the delete key to select and remove bigger portions of text at once</string>
+    <!-- Preferences item for enabling whole word deletion -->
+    <string name="delete_word_long_press">Delete word on long press</string>
+    <!-- Description for "delete_word_long_press" option. -->
+    <string name="delete_word_long_press_summary">Long pressing delete key deletes whole words continuously</string>
     <!-- Preferences item and dialog title for backup and restore -->
     <string name="backup_restore_title">Backup and restore</string>
     <!-- Message for backup and restore dialog -->

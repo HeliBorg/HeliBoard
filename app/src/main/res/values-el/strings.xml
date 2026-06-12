@@ -100,6 +100,8 @@
     <string name="spell_checker_service_name">Ορθογραφικός Έλεγχος HeliBoard</string>
     <string name="delete_swipe">Διαγραφή ολίσθησης</string>
     <string name="delete_swipe_summary">Πραγματοποιήστε μια σάρωση από το πλήκτρο διαγραφής για να επιλέξετε και να αφαιρέσετε μεγαλύτερα τμήματα κειμένου ταυτόχρονα</string>
+    <string name="delete_word_long_press">Διαγραφή λέξης με παρατεταμένο πάτημα</string>
+    <string name="delete_word_long_press_summary">Το παρατεταμένο πάτημα του πλήκτρου διαγραφής διαγράφει ολόκληρες λέξεις συνεχόμενα</string>
     <string name="incognito">Αναγκαστική λειτουργία ανώνυμης περιήγησης</string>
     <string name="show_emoji_key">Πλήκτρο emoji</string>
     <string name="settings_category_additional_keys">Πρόσθετα κλειδιά</string>

@@ -96,6 +96,8 @@
     <string name="enable_clipboard_history_summary">Si es desactiva, la tecla del porta-retalls enganxarà el contingut del porta-retalls si n\'hi ha</string>
     <string name="clipboard_history_retention_time">Temps de manteniment a l\'historial</string>
     <string name="delete_swipe_summary">Llisqueu damunt de la tecla d\'esborrar per seleccionar i treure grans parts de text d\'un sol cop</string>
+    <string name="delete_word_long_press">Esborra la paraula amb una pulsació llarga</string>
+    <string name="delete_word_long_press_summary">Mantenir premuda la tecla d\'esborrar elimina paraules senceres de manera contínua</string>
     <string name="incognito">Força el mode d\'incògnit</string>
     <string name="abbreviation_unit_minutes">%s min</string>
     <string name="spell_checker_service_name">Corrector ortogràfic de l\'HeliBoard</string>

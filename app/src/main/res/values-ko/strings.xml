@@ -104,6 +104,8 @@
     <string name="abbreviation_unit_minutes">%s분.</string>
     <string name="enable_clipboard_history">클립보드 기록 활성화</string>
     <string name="delete_swipe">스와이프 삭제</string>
+    <string name="delete_word_long_press">길게 눌러 단어 삭제</string>
+    <string name="delete_word_long_press_summary">삭제 키를 길게 누르면 전체 단어가 연속으로 삭제됩니다</string>
     <string name="show_emoji_key">이모지 키</string>
     <string name="settings_category_input">입력</string>
     <string name="settings_category_additional_keys">추카 키</string>

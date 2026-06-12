@@ -150,6 +150,8 @@
     <string name="prefs_narrow_key_gaps">Збільшені клавіші</string>
     <string name="delete_swipe">Видаляти ковзанням</string>
     <string name="delete_swipe_summary">Проведіть пальцем по клавіші видалення, щоб виділити і вилучити більші фрагменти тексту за раз</string>
+    <string name="delete_word_long_press">Видалення слова довгим натисканням</string>
+    <string name="delete_word_long_press_summary">Тривале утримання клавіші видалення безперервно стирає цілі слова</string>
     <string name="url_detection_title">Виявлення URL-адреси</string>
     <string name="url_detection_summary">Спробувати виявити URL-адреси та подібні до них рядки, як одне слово</string>
     <string name="backup_restore_title">Резервне копіювання та відновлення</string>

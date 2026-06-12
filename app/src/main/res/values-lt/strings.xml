@@ -163,6 +163,8 @@
     <string name="clipboard_history_pinned_first">Prisegtus įrašus laikyti viršuje</string>
     <string name="delete_swipe">Trynimas perbraukiant</string>
     <string name="delete_swipe_summary">Norėdami pašalinti daugiau teksto, naudokite perbraukimą nuo šalinimo klavišo iki pasirinkimo</string>
+    <string name="delete_word_long_press">Trinti žodį ilgu paspaudimu</string>
+    <string name="delete_word_long_press_summary">Ilgai spaudžiant trynimo klavišą, ištisi žodžiai trinami nepertraukiamai</string>
     <string name="backup_restore_title">Išsaugoti ir atkurti</string>
     <string name="backup_restore_message">Išsaugoti ir įkelti iš failo. Įspėjimas: atkuriant bus pašalinti esami duomenys</string>
     <string name="backup_error">Atkūrimo klaida: %s</string>
