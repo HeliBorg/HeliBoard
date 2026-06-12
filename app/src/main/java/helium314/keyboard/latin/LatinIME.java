@@ -1413,6 +1413,33 @@ public class LatinIME extends InputMethodService implements
         if (KeyCode.VOICE_INPUT == event.getKeyCode()) {
             mRichImm.switchToShortcutIme(this);
         }
+        if (event.getKeyCode() == KeyCode.DELETE_WORD) {
+
+            // Delete one word immediately.
+            final android.view.inputmethod.InputConnection ic = getCurrentInputConnection();
+            if (ic != null) {
+                // Pick 64 preceding characters
+                CharSequence textBefore = ic.getTextBeforeCursor(64, 0);
+                if (!android.text.TextUtils.isEmpty(textBefore)) {
+                    int length = textBefore.length();
+                    int charsToDelete = 0;
+
+                    // 1. Remove any trailing spaces
+                    while (charsToDelete < length && Character.isWhitespace(textBefore.charAt(length - 1 - charsToDelete))) {
+                        charsToDelete++;
+                    }
+                    // 2. Remove the word
+                    while (charsToDelete < length && !Character.isWhitespace(textBefore.charAt(length - 1 - charsToDelete))) {
+                        charsToDelete++;
+                    }
+                    // 3. Execute
+                    if (charsToDelete > 0) {
+                        ic.deleteSurroundingText(charsToDelete, 0);
+                    }
+                }
+            }
+            return; // Stop here so it doesn't process as normal text!
+        }
         final InputTransaction completeInputTransaction =
                 mInputLogic.onCodeInput(mSettings.getCurrent(), event,
                         mKeyboardSwitcher.getKeyboardShiftMode(),

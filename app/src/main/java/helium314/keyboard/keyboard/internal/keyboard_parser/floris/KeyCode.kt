@@ -30,7 +30,7 @@ object KeyCode {
     const val FN =                            -5
     const val FN_LOCK =                       -6
     const val DELETE =                        -7
-    //const val DELETE_WORD =                   -8
+    const val DELETE_WORD =                   -8
     //const val FORWARD_DELETE =                -9
     //const val FORWARD_DELETE_WORD =          -10
     const val SHIFT =                        -11
