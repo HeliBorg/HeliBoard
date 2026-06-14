@@ -1418,6 +1418,8 @@ public class LatinIME extends InputMethodService implements
             // Delete one word immediately.
             final android.view.inputmethod.InputConnection ic = getCurrentInputConnection();
             if (ic != null) {
+
+                ic.finishComposingText();
                 // Pick 64 preceding characters
                 CharSequence textBefore = ic.getTextBeforeCursor(64, 0);
                 if (!android.text.TextUtils.isEmpty(textBefore)) {
