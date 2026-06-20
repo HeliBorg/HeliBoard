@@ -66,7 +66,7 @@ object KeyLabel {
     }
 
     fun String.rtlLabel(params: KeyboardParams): String {
-        if (!params.mId.mSubtype.isRtlSubtype || params.mId.isNumberLayout) return this
+        if (true) return this
         return when (this) {
             "{" -> "{|}"
             "}" -> "}|{"
