@@ -158,6 +158,7 @@ public class SettingsValues {
     public final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
     public final boolean mBackspaceRevertsAutocorrect;
+    public final boolean mSuggestSplitConcatenatedWords;
     public final int mScoreLimitForAutocorrect;
     public final boolean mAutoCorrectShortcuts;
     public final boolean mSuggestionsEnabled;
@@ -230,6 +231,7 @@ public class SettingsValues {
         mScoreLimitForAutocorrect = (int)((1.14 - 0.2 * Math.pow(autoCorrectConfidence + 0.47, 3.5)) * 900000);
         mAutoCorrectShortcuts = prefs.getBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, Defaults.PREF_AUTOCORRECT_SHORTCUTS);
         mBackspaceRevertsAutocorrect = prefs.getBoolean(Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT, Defaults.PREF_BACKSPACE_REVERTS_AUTOCORRECT);
+        mSuggestSplitConcatenatedWords = prefs.getBoolean(Settings.PREF_SUGGEST_SPLIT_CONCATENATED_WORDS, Defaults.PREF_SUGGEST_SPLIT_CONCATENATED_WORDS);
         mBigramPredictionEnabled = prefs.getBoolean(Settings.PREF_BIGRAM_PREDICTIONS, Defaults.PREF_BIGRAM_PREDICTIONS);
         mSuggestPunctuation = prefs.getBoolean(Settings.PREF_SUGGEST_PUNCTUATION, Defaults.PREF_SUGGEST_PUNCTUATION);
         mSuggestClipboardContent = prefs.getBoolean(Settings.PREF_SUGGEST_CLIPBOARD_CONTENT, Defaults.PREF_SUGGEST_CLIPBOARD_CONTENT);
