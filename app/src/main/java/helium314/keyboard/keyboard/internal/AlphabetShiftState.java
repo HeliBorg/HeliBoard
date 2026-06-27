@@ -8,99 +8,59 @@ package helium314.keyboard.keyboard.internal;
 
 import helium314.keyboard.latin.utils.Log;
 
-import androidx.annotation.NonNull;
-
-public final class AlphabetShiftState {
+public enum AlphabetShiftState {
+    UNSHIFTED,
+    MANUAL_SHIFTED,
+    MANUAL_SHIFTED_FROM_AUTO,
+    AUTOMATIC_SHIFTED,
+    SHIFT_LOCKED,
+    SHIFT_LOCK_SHIFTED,
+;
     private static final String TAG = AlphabetShiftState.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    private static final int UNSHIFTED = 0;
-    private static final int MANUAL_SHIFTED = 1;
-    private static final int MANUAL_SHIFTED_FROM_AUTO = 2;
-    private static final int AUTOMATIC_SHIFTED = 3;
-    private static final int SHIFT_LOCKED = 4;
-    private static final int SHIFT_LOCK_SHIFTED = 5;
-
-    private int mState = UNSHIFTED;
-
-    public void setShifted(boolean newShiftState) {
-        final int oldState = mState;
-        if (newShiftState) {
-            switch (oldState) {
-                case UNSHIFTED -> mState = MANUAL_SHIFTED;
-                case AUTOMATIC_SHIFTED -> mState = MANUAL_SHIFTED_FROM_AUTO;
-                case SHIFT_LOCKED -> mState = SHIFT_LOCK_SHIFTED;
+    public AlphabetShiftState shift(boolean newShiftState) {
+        AlphabetShiftState shift = newShiftState
+            ? switch (this) {
+                case UNSHIFTED -> MANUAL_SHIFTED;
+                case AUTOMATIC_SHIFTED -> MANUAL_SHIFTED_FROM_AUTO;
+                case SHIFT_LOCKED -> SHIFT_LOCK_SHIFTED;
+                default -> this;
+            } : switch (this) {
+                case MANUAL_SHIFTED, MANUAL_SHIFTED_FROM_AUTO, AUTOMATIC_SHIFTED -> UNSHIFTED;
+                case SHIFT_LOCK_SHIFTED -> SHIFT_LOCKED;
+                default -> this;
             }
-        } else {
-            switch (oldState) {
-                case MANUAL_SHIFTED, MANUAL_SHIFTED_FROM_AUTO, AUTOMATIC_SHIFTED -> mState = UNSHIFTED;
-                case SHIFT_LOCK_SHIFTED -> mState = SHIFT_LOCKED;
-            }
+        ;
+        if (DEBUG) {
+            Log.d(TAG, "shift(" + newShiftState + "): " + this + " > " + shift);
         }
-        if (DEBUG)
-            Log.d(TAG, "setShifted(" + newShiftState + "): " + toString(oldState) + " > " + this);
+        return shift;
     }
 
-    public void setShiftLocked(boolean newShiftLockState) {
-        final int oldState = mState;
-        if (newShiftLockState) {
-            switch (oldState) {
-                case UNSHIFTED, MANUAL_SHIFTED, MANUAL_SHIFTED_FROM_AUTO, AUTOMATIC_SHIFTED -> mState = SHIFT_LOCKED;
-            }
-        } else {
-            mState = UNSHIFTED;
+    public AlphabetShiftState shiftLock() {
+        AlphabetShiftState shiftLock = switch (this) {
+            case UNSHIFTED, MANUAL_SHIFTED, MANUAL_SHIFTED_FROM_AUTO, AUTOMATIC_SHIFTED -> SHIFT_LOCKED;
+            default -> this;
+        };
+        if (DEBUG) {
+            Log.d(TAG, "shiftLock(): " + this + " > " + shiftLock);
         }
-        if (DEBUG)
-            Log.d(TAG, "setShiftLocked(" + newShiftLockState + "): " + toString(oldState) + " > " + this);
-    }
-
-    public void setAutomaticShifted() {
-        final int oldState = mState;
-        mState = AUTOMATIC_SHIFTED;
-        if (DEBUG)
-            Log.d(TAG, "setAutomaticShifted: " + toString(oldState) + " > " + this);
+        return shiftLock;
     }
 
     public boolean isShiftedOrShiftLocked() {
-        return mState != UNSHIFTED;
+        return this != UNSHIFTED;
     }
 
     public boolean isShiftLocked() {
-        return mState == SHIFT_LOCKED || mState == SHIFT_LOCK_SHIFTED;
-    }
-
-    public boolean isShiftLockShifted() {
-        return mState == SHIFT_LOCK_SHIFTED;
-    }
-
-    public boolean isAutomaticShifted() {
-        return mState == AUTOMATIC_SHIFTED;
+        return this == SHIFT_LOCKED || this == SHIFT_LOCK_SHIFTED;
     }
 
     public boolean isManualShifted() {
-        return mState == MANUAL_SHIFTED || mState == MANUAL_SHIFTED_FROM_AUTO
-                || mState == SHIFT_LOCK_SHIFTED;
-    }
-
-    public boolean isManualShiftedFromAutomaticShifted() {
-        return mState == MANUAL_SHIFTED_FROM_AUTO;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return toString(mState);
-    }
-
-    private static String toString(int state) {
-        return switch (state) {
-            case UNSHIFTED -> "UNSHIFTED";
-            case MANUAL_SHIFTED -> "MANUAL_SHIFTED";
-            case MANUAL_SHIFTED_FROM_AUTO -> "MANUAL_SHIFTED_FROM_AUTO";
-            case AUTOMATIC_SHIFTED -> "AUTOMATIC_SHIFTED";
-            case SHIFT_LOCKED -> "SHIFT_LOCKED";
-            case SHIFT_LOCK_SHIFTED -> "SHIFT_LOCK_SHIFTED";
-            default -> "UNKNOWN";
+        return switch (this) {
+            case MANUAL_SHIFTED, MANUAL_SHIFTED_FROM_AUTO, SHIFT_LOCK_SHIFTED -> true;
+            default -> false;
         };
     }
 }
