@@ -39,10 +39,10 @@ public enum AlphabetShiftState {
     }
 
     public AlphabetShiftState shiftLock() {
-        AlphabetShiftState shiftLock = switch (this) {
-            case UNSHIFTED, MANUAL_SHIFTED, MANUAL_SHIFTED_FROM_AUTO, AUTOMATIC_SHIFTED -> SHIFT_LOCKED;
-            default -> this;
-        };
+        AlphabetShiftState shiftLock = this == SHIFT_LOCK_SHIFTED
+            ? SHIFT_LOCK_SHIFTED
+            : SHIFT_LOCKED
+        ;
         if (DEBUG) {
             Log.d(TAG, "shiftLock(): " + this + " > " + shiftLock);
         }
