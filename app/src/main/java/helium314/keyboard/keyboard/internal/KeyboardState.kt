@@ -190,17 +190,20 @@ class KeyboardState(private val switchActions: SwitchActions) {
         if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setShiftLocked: shiftLocked=$shiftLocked $this")
         }
-        if (mode != Mode.ALPHABET) return
-        if (shiftLocked && (!alphabetShiftState.isShiftLocked || alphabetShiftState == AlphabetShiftState.SHIFT_LOCK_SHIFTED)) {
-            switchActions.setAlphabetShiftLockedKeyboard()
+        if (mode != Mode.ALPHABET) {
+            return
         }
-        if (!shiftLocked && alphabetShiftState.isShiftLocked) {
-            switchActions.setAlphabetKeyboard()
+        if (shiftLocked) {
+            if (alphabetShiftState != AlphabetShiftState.SHIFT_LOCKED) {
+                switchActions.setAlphabetShiftLockedKeyboard()
+            }
+            alphabetShiftState = alphabetShiftState.shiftLock()
+        } else {
+            if (alphabetShiftState.isShiftLocked) {
+                switchActions.setAlphabetKeyboard()
+            }
+            alphabetShiftState = AlphabetShiftState.UNSHIFTED
         }
-        alphabetShiftState = if (shiftLocked)
-            alphabetShiftState.shiftLock()
-        else
-            AlphabetShiftState.UNSHIFTED
     }
 
     private fun toggleAlphabetAndSymbols(autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?) {
