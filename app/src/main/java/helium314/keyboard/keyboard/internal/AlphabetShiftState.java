@@ -63,4 +63,13 @@ public enum AlphabetShiftState {
             default -> false;
         };
     }
+
+    public ShiftMode toMode() {
+        return switch (this) {
+            case UNSHIFTED -> ShiftMode.UNSHIFT;
+            case MANUAL_SHIFTED, MANUAL_SHIFTED_FROM_AUTO -> ShiftMode.MANUAL;
+            case AUTOMATIC_SHIFTED -> ShiftMode.AUTOMATIC;
+            case SHIFT_LOCKED, SHIFT_LOCK_SHIFTED -> ShiftMode.SHIFT_LOCKED;
+        };
+    }
 }

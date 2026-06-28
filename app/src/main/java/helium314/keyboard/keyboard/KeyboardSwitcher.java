@@ -36,6 +36,7 @@ import helium314.keyboard.event.Event;
 import helium314.keyboard.keyboard.clipboard.ClipboardHistoryView;
 import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
 import helium314.keyboard.keyboard.internal.KeyboardState;
+import helium314.keyboard.keyboard.internal.ShiftMode;
 import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt;
 import helium314.keyboard.latin.CapsMode;
 import helium314.keyboard.latin.utils.FloatingKeyboardUtils;
@@ -257,47 +258,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
-    public void setAlphabetKeyboard() {
+    public void setAlphabetKeyboard(@NonNull ShiftMode shiftMode) {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetKeyboard");
         }
-        setKeyboard(KeyboardElement.ALPHABET, KeyboardSwitchState.OTHER);
-    }
-
-    // Implements {@link KeyboardState.SwitchActions}.
-    @Override
-    public void setAlphabetManualShiftedKeyboard() {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetManualShiftedKeyboard");
-        }
-        setKeyboard(KeyboardElement.ALPHABET_MANUAL_SHIFTED, KeyboardSwitchState.OTHER);
-    }
-
-    // Implements {@link KeyboardState.SwitchActions}.
-    @Override
-    public void setAlphabetAutomaticShiftedKeyboard() {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetAutomaticShiftedKeyboard");
-        }
-        setKeyboard(KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED, KeyboardSwitchState.OTHER);
-    }
-
-    // Implements {@link KeyboardState.SwitchActions}.
-    @Override
-    public void setAlphabetShiftLockedKeyboard() {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetShiftLockedKeyboard");
-        }
-        setKeyboard(KeyboardElement.ALPHABET_SHIFT_LOCKED, KeyboardSwitchState.OTHER);
-    }
-
-    // Implements {@link KeyboardState.SwitchActions}.
-    @Override
-    public void setAlphabetShiftLockShiftedKeyboard() {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetShiftLockShiftedKeyboard");
-        }
-        setKeyboard(KeyboardElement.ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardSwitchState.OTHER);
+        setKeyboard(shiftMode.element, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -443,7 +408,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (currentState == toggleState) {
             mLatinIME.stopShowingInputView();
             mLatinIME.hideWindow();
-            setAlphabetKeyboard();
+            setAlphabetKeyboard(ShiftMode.UNSHIFT);
         } else {
             mLatinIME.startShowingInputView(true);
             if (toggleState == KeyboardSwitchState.EMOJI) {

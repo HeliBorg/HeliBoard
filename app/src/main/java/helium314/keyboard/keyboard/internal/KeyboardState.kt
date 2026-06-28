@@ -7,6 +7,7 @@ package helium314.keyboard.keyboard.internal
 
 import android.text.TextUtils
 import helium314.keyboard.event.Event
+import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
@@ -29,11 +30,7 @@ import helium314.keyboard.latin.utils.RecapitalizeMode
  */
 class KeyboardState(private val switchActions: SwitchActions) {
     interface SwitchActions {
-        fun setAlphabetKeyboard()
-        fun setAlphabetManualShiftedKeyboard()
-        fun setAlphabetAutomaticShiftedKeyboard()
-        fun setAlphabetShiftLockedKeyboard()
-        fun setAlphabetShiftLockShiftedKeyboard()
+        fun setAlphabetKeyboard(shiftMode: ShiftMode)
         fun setEmojiKeyboard()
         fun setClipboardKeyboard()
         fun setNumpadKeyboard()
@@ -66,7 +63,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
 
     private var mode = Mode.ALPHABET
     private var modeBeforeNumpad = Mode.ALPHABET
-    private var prevMainKeyboardWasShiftLocked = false
+    private var prevMainKeyboardShiftMode = ShiftMode.UNSHIFT
     private var prevSymbolsKeyboardWasShifted = false
     // todo: replace all this 'previous' stuff with stack-based logic
     private var recapitalizeMode: RecapitalizeMode? = null
@@ -79,14 +76,13 @@ class KeyboardState(private val switchActions: SwitchActions) {
 
     private class SavedKeyboardState {
         var isValid = false
-        var isAlphabetShiftLocked = false
         var mode = Mode.ALPHABET
         var shiftMode = ShiftMode.UNSHIFT
 
         override fun toString(): String {
             if (!isValid) return "INVALID"
             return when (mode) {
-                Mode.ALPHABET -> "ALPHABET_${if (isAlphabetShiftLocked) ShiftMode.SHIFT_LOCKED else shiftMode}"
+                Mode.ALPHABET -> "ALPHABET_$shiftMode"
                 else -> mode.toString()
             }
         }
@@ -98,7 +94,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
         }
         // Reset alphabet shift state.
         alphabetShiftState = AlphabetShiftState.UNSHIFTED
-        prevMainKeyboardWasShiftLocked = false
+        prevMainKeyboardShiftMode = ShiftMode.UNSHIFT
         prevSymbolsKeyboardWasShifted = false
         shiftKeyState.onRelease()
         symbolKeyState.onRelease()
@@ -116,14 +112,9 @@ class KeyboardState(private val switchActions: SwitchActions) {
     fun onSaveKeyboardState() {
         savedKeyboardState.mode = mode
         if (mode == Mode.ALPHABET) {
-            savedKeyboardState.isAlphabetShiftLocked = alphabetShiftState.isShiftLocked
-            savedKeyboardState.shiftMode = when (alphabetShiftState) {
-                AlphabetShiftState.AUTOMATIC_SHIFTED -> ShiftMode.AUTOMATIC
-                AlphabetShiftState.UNSHIFTED -> ShiftMode.UNSHIFT
-                else -> ShiftMode.MANUAL
-            }
+            savedKeyboardState.shiftMode = alphabetShiftState.toMode()
         } else {
-            savedKeyboardState.isAlphabetShiftLocked = prevMainKeyboardWasShiftLocked
+            savedKeyboardState.shiftMode = prevMainKeyboardShiftMode
         }
         savedKeyboardState.isValid = true
         if (DEBUG_EVENT) {
@@ -135,12 +126,13 @@ class KeyboardState(private val switchActions: SwitchActions) {
         if (DEBUG_EVENT) {
             Log.d(TAG, "onRestoreKeyboardState: saved=$savedKeyboardState ${stateToString(autoCapsFlags, recapitalizeMode)}")
         }
-        prevMainKeyboardWasShiftLocked = savedKeyboardState.isAlphabetShiftLocked
+        prevMainKeyboardShiftMode = savedKeyboardState.shiftMode
         when (savedKeyboardState.mode) {
             Mode.ALPHABET -> {
                 setAlphabetKeyboard(autoCapsFlags, recapitalizeMode)
-                setShiftLocked(savedKeyboardState.isAlphabetShiftLocked)
-                if (!savedKeyboardState.isAlphabetShiftLocked) {
+                if (savedKeyboardState.shiftMode == ShiftMode.SHIFT_LOCKED) {
+                    setShiftLocked(true)
+                } else {
                     setShifted(savedKeyboardState.shiftMode)
                 }
             }
@@ -163,26 +155,14 @@ class KeyboardState(private val switchActions: SwitchActions) {
         if (DebugFlags.DEBUG_ENABLED && shiftMode != prevShiftMode) {
             Log.d(TAG, "setShifted: shiftMode=$shiftMode $this")
         }
-        when (shiftMode) {
-            ShiftMode.UNSHIFT -> {
-                alphabetShiftState = alphabetShiftState.shift(false)
-                if (shiftMode != prevShiftMode)
-                    switchActions.setAlphabetKeyboard()
-            }
-            ShiftMode.MANUAL -> {
-                alphabetShiftState = alphabetShiftState.shift(true)
-                if (shiftMode != prevShiftMode)
-                    switchActions.setAlphabetManualShiftedKeyboard()
-            }
-            ShiftMode.AUTOMATIC -> {
-                alphabetShiftState = AlphabetShiftState.AUTOMATIC_SHIFTED
-                if (shiftMode != prevShiftMode)
-                    switchActions.setAlphabetAutomaticShiftedKeyboard()
-            }
-            ShiftMode.SHIFT_LOCKED -> {
-                alphabetShiftState = alphabetShiftState.shift(true)
-                switchActions.setAlphabetShiftLockShiftedKeyboard()
-            }
+        alphabetShiftState = when (shiftMode) {
+            ShiftMode.UNSHIFT -> alphabetShiftState.shift(false)
+            ShiftMode.MANUAL -> alphabetShiftState.shift(true)
+            ShiftMode.AUTOMATIC -> AlphabetShiftState.AUTOMATIC_SHIFTED
+            ShiftMode.SHIFT_LOCKED -> alphabetShiftState.shiftLock()
+        }
+        if (shiftMode != prevShiftMode) {
+            switchActions.setAlphabetKeyboard(shiftMode)
         }
     }
 
@@ -195,12 +175,12 @@ class KeyboardState(private val switchActions: SwitchActions) {
         }
         if (shiftLocked) {
             if (alphabetShiftState != AlphabetShiftState.SHIFT_LOCKED) {
-                switchActions.setAlphabetShiftLockedKeyboard()
+                switchActions.setAlphabetKeyboard(ShiftMode.SHIFT_LOCKED)
             }
             alphabetShiftState = alphabetShiftState.shiftLock()
         } else {
             if (alphabetShiftState.isShiftLocked) {
-                switchActions.setAlphabetKeyboard()
+                switchActions.setAlphabetKeyboard(ShiftMode.UNSHIFT)
             }
             alphabetShiftState = AlphabetShiftState.UNSHIFTED
         }
@@ -211,14 +191,14 @@ class KeyboardState(private val switchActions: SwitchActions) {
             Log.d(TAG, "toggleAlphabetAndSymbols: ${stateToString(autoCapsFlags, recapitalizeMode)}")
         }
         if (mode == Mode.ALPHABET) {
-            prevMainKeyboardWasShiftLocked = alphabetShiftState.isShiftLocked
+            prevMainKeyboardShiftMode = alphabetShiftState.toMode()
             if (prevSymbolsKeyboardWasShifted) setSymbolsShiftedKeyboard() else setSymbolsKeyboard()
             prevSymbolsKeyboardWasShifted = false
         } else {
             prevSymbolsKeyboardWasShifted = mode == Mode.SYMBOLS_SHIFTED
             setAlphabetKeyboard(autoCapsFlags, recapitalizeMode)
-            if (prevMainKeyboardWasShiftLocked) setShiftLocked(true)
-            prevMainKeyboardWasShiftLocked = false
+            setShifted(prevMainKeyboardShiftMode)
+            prevMainKeyboardShiftMode = ShiftMode.UNSHIFT
         }
     }
 
@@ -232,10 +212,8 @@ class KeyboardState(private val switchActions: SwitchActions) {
 
         prevSymbolsKeyboardWasShifted = mode == Mode.SYMBOLS_SHIFTED
         setAlphabetKeyboard(autoCapsFlags, recapitalizeMode)
-        if (prevMainKeyboardWasShiftLocked) {
-            setShiftLocked(true)
-        }
-        prevMainKeyboardWasShiftLocked = false
+        setShifted(prevMainKeyboardShiftMode)
+        prevMainKeyboardShiftMode = ShiftMode.UNSHIFT
     }
 
     private fun toggleShiftInSymbols() {
@@ -251,7 +229,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
             Log.d(TAG, "setAlphabetKeyboard: ${stateToString(autoCapsFlags, recapitalizeMode)}")
         }
 
-        switchActions.setAlphabetKeyboard()
+        switchActions.setAlphabetKeyboard(ShiftMode.UNSHIFT)
         mode = Mode.ALPHABET
         this.recapitalizeMode = null
         switchState = SwitchState.ALPHA
@@ -265,7 +243,6 @@ class KeyboardState(private val switchActions: SwitchActions) {
         switchActions.setSymbolsKeyboard()
         mode = Mode.SYMBOLS
         recapitalizeMode = null
-        // Reset alphabet shift state.
         alphabetShiftState = AlphabetShiftState.UNSHIFTED
         switchState = SwitchState.SYMBOL_BEGIN
     }
@@ -277,7 +254,6 @@ class KeyboardState(private val switchActions: SwitchActions) {
         switchActions.setSymbolsShiftedKeyboard()
         mode = Mode.SYMBOLS_SHIFTED
         recapitalizeMode = null
-        // Reset alphabet shift state.
         alphabetShiftState = AlphabetShiftState.UNSHIFTED
         switchState = SwitchState.SYMBOL_BEGIN
     }
@@ -286,11 +262,12 @@ class KeyboardState(private val switchActions: SwitchActions) {
         if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setEmojiKeyboard")
         }
+        if (mode == Mode.ALPHABET) {
+            prevMainKeyboardShiftMode = alphabetShiftState.toMode()
+            alphabetShiftState = AlphabetShiftState.UNSHIFTED
+        }
         mode = Mode.EMOJI
         recapitalizeMode = null
-        // Remember caps lock mode and reset alphabet shift state.
-        prevMainKeyboardWasShiftLocked = alphabetShiftState.isShiftLocked
-        alphabetShiftState = AlphabetShiftState.UNSHIFTED
         switchActions.setEmojiKeyboard()
     }
 
@@ -298,11 +275,12 @@ class KeyboardState(private val switchActions: SwitchActions) {
         if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setClipboardKeyboard")
         }
+        if (mode == Mode.ALPHABET) {
+            prevMainKeyboardShiftMode = alphabetShiftState.toMode()
+            alphabetShiftState = AlphabetShiftState.UNSHIFTED
+        }
         mode = Mode.CLIPBOARD
         recapitalizeMode = null
-        // Remember caps lock mode and reset alphabet shift state.
-        prevMainKeyboardWasShiftLocked = alphabetShiftState.isShiftLocked
-        alphabetShiftState = AlphabetShiftState.UNSHIFTED
         switchActions.setClipboardKeyboard()
     }
 
@@ -312,8 +290,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
         }
         if (rememberState) {
             if (mode == Mode.ALPHABET) {
-                // Remember caps lock mode and reset alphabet shift state.
-                prevMainKeyboardWasShiftLocked = alphabetShiftState.isShiftLocked
+                prevMainKeyboardShiftMode = alphabetShiftState.toMode()
                 alphabetShiftState = AlphabetShiftState.UNSHIFTED
             }
             // When d-pad is added, "selection mode" may need to be remembered if not a global state
@@ -341,10 +318,8 @@ class KeyboardState(private val switchActions: SwitchActions) {
         }
         if (modeBeforeNumpad == Mode.ALPHABET || forceReturnToAlpha) {
             setAlphabetKeyboard(autoCapsFlags, recapitalizeMode)
-            if (prevMainKeyboardWasShiftLocked) {
-                setShiftLocked(true)
-            }
-            prevMainKeyboardWasShiftLocked = false
+            setShifted(prevMainKeyboardShiftMode)
+            prevMainKeyboardShiftMode = ShiftMode.UNSHIFT
         } else when (modeBeforeNumpad) {
             Mode.ALPHABET -> {}
             Mode.SYMBOLS -> setSymbolsKeyboard()
@@ -386,7 +361,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
                     && autoCapsFlags != TextUtils.CAP_MODE_CHARACTERS
                     && (alphabetShiftState == AlphabetShiftState.AUTOMATIC_SHIFTED || (alphabetShiftState.isManualShifted && shiftKeyState.isReleasing))
                 ) {
-                    switchActions.setAlphabetKeyboard()
+                    switchActions.setAlphabetKeyboard(ShiftMode.UNSHIFT)
                 }
             }
         }
@@ -400,13 +375,11 @@ class KeyboardState(private val switchActions: SwitchActions) {
             KeyCode.SHIFT        -> onReleaseShift(withSliding, autoCapsFlags, recapitalizeMode)
             KeyCode.CAPS_LOCK    -> setShiftLocked(!alphabetShiftState.isShiftLocked)
             KeyCode.SYMBOL_ALPHA -> onReleaseAlphaSymbol(withSliding, autoCapsFlags, recapitalizeMode)
-            KeyCode.SYMBOL       -> onReleaseSymbol(withSliding, autoCapsFlags, recapitalizeMode)
-            KeyCode.ALPHA        -> onReleaseAlpha(withSliding, autoCapsFlags, recapitalizeMode)
-            KeyCode.NUMPAD       -> {
-                // if no sliding, toggling is instead handled by onEvent to accommodate toolbar key.
-                // also prevent sliding to clipboard layout, which isn't supported yet.
-                if (withSliding) setNumpadKeyboard(true, modeBeforeNumpad == Mode.CLIPBOARD, true)
-            }
+            // if no sliding, switching is instead handled by onEvent()
+            // to accommodate toolbar keys and prevent double-loads.
+            KeyCode.SYMBOL       -> if (withSliding) slideIntoSymbol()
+            KeyCode.ALPHA        -> if (withSliding) slideIntoAlpha(autoCapsFlags, recapitalizeMode)
+            KeyCode.NUMPAD       -> if (withSliding) setNumpadKeyboard(true, modeBeforeNumpad == Mode.CLIPBOARD, true)
         }
     }
 
@@ -430,16 +403,21 @@ class KeyboardState(private val switchActions: SwitchActions) {
         symbolKeyState.onRelease()
     }
 
-    private fun onReleaseSymbol(withSliding: Boolean, autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?) {
+    private fun slideIntoSymbol() {
         val oldMode = mode
         setSymbolsKeyboard()
-        if (withSliding && oldMode == Mode.NUMPAD) switchState = SwitchState.MOMENTARY_FROM_NUMPAD
+        if (oldMode == Mode.NUMPAD) {
+            switchState = SwitchState.MOMENTARY_FROM_NUMPAD
+        }
     }
 
-    private fun onReleaseAlpha(withSliding: Boolean, autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?) {
+    private fun slideIntoAlpha(autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?) {
         val oldMode = mode
         setAlphabetKeyboard(autoCapsFlags, recapitalizeMode)
-        if (withSliding && oldMode == Mode.NUMPAD) switchState = SwitchState.MOMENTARY_FROM_NUMPAD
+        setShifted(prevMainKeyboardShiftMode)
+        if (oldMode == Mode.NUMPAD) {
+            switchState = SwitchState.MOMENTARY_FROM_NUMPAD
+        }
     }
 
     fun onUpdateShiftState(autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?) {
@@ -645,7 +623,11 @@ class KeyboardState(private val switchActions: SwitchActions) {
             updateAlphabetShiftState(autoCapsFlags, recapitalizeMode)
         } else when (code) {
             KeyCode.EMOJI -> setEmojiKeyboard()
-            KeyCode.ALPHA -> setAlphabetKeyboard(autoCapsFlags, recapitalizeMode)
+            KeyCode.ALPHA -> {
+                setAlphabetKeyboard(autoCapsFlags, recapitalizeMode)
+                setShifted(prevMainKeyboardShiftMode)
+                prevMainKeyboardShiftMode = ShiftMode.UNSHIFT
+            }
             // Note: Printing clipboard content is handled in InputLogic.handleFunctionalEvent
             KeyCode.CLIPBOARD -> if (Settings.getValues().mClipboardHistoryEnabled) setClipboardKeyboard()
             KeyCode.NUMPAD -> toggleNumpad(false, autoCapsFlags, recapitalizeMode, false, true)
@@ -692,17 +674,17 @@ class KeyboardState(private val switchActions: SwitchActions) {
         NUMPAD,
     }
 
-    private enum class ShiftMode {
-        UNSHIFT,
-        MANUAL,
-        AUTOMATIC,
-        SHIFT_LOCKED,
-    }
-
     companion object {
         private val TAG = KeyboardState::class.java.simpleName
         private const val DEBUG_EVENT = false
 
         private fun isSpaceOrEnter(c: Int) = c == Constants.CODE_SPACE || c == Constants.CODE_ENTER
     }
+}
+
+enum class ShiftMode(@JvmField val element: KeyboardElement) {
+    UNSHIFT(KeyboardElement.ALPHABET),
+    MANUAL(KeyboardElement.ALPHABET_MANUAL_SHIFTED),
+    AUTOMATIC(KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED),
+    SHIFT_LOCKED(KeyboardElement.ALPHABET_SHIFT_LOCKED),
 }
