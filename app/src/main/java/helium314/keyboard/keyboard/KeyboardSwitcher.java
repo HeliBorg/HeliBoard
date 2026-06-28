@@ -456,7 +456,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     @Override
     public void cancelDoubleTapShiftKeyTimer() {
         if (DEBUG_TIMER_ACTION) {
-            Log.d(TAG, "setAlphabetKeyboard");
+            Log.d(TAG, "cancelDoubleTapShiftKeyTimer");
         }
         final MainKeyboardView keyboardView = getMainKeyboardView();
         if (keyboardView != null) {

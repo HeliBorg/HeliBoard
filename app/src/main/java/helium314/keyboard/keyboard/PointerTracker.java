@@ -839,7 +839,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (mIsTrackingForActionDisabled) {
             return;
         }
-        startLongPressTimer(key);
+        if (key.getCode() != KeyCode.SHIFT) {
+            startLongPressTimer(key);
+        }
         setPressedKeyGraphics(key, eventTime);
     }
 
