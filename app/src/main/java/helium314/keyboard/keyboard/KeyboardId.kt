@@ -97,8 +97,6 @@ enum class KeyboardElement(val descriptionResId: Int) {
     ALPHABET_AUTOMATIC_SHIFTED(R.string.spoken_description_mode_alpha),
     ALPHABET_MANUAL_SHIFTED(R.string.spoken_description_shiftmode_on),
     ALPHABET_SHIFT_LOCKED(R.string.spoken_description_shiftmode_locked),
-    // weird mode... this is caps lock in recapitalize, and when doing sliding input from shift key when in caps lock mode
-    ALPHABET_SHIFT_LOCK_SHIFTED(R.string.spoken_description_shiftmode_locked),
     SYMBOLS(R.string.spoken_description_mode_symbol),
     SYMBOLS_SHIFTED(R.string.spoken_description_mode_symbol_shift),
     DPAD(R.string.spoken_description_mode_dpad),
@@ -124,14 +122,14 @@ enum class KeyboardElement(val descriptionResId: Int) {
     val isAlphabet get() = this < SYMBOLS
     val isAlphaOrSymbol get() = this <= SYMBOLS_SHIFTED
     val isAlphabetShifted get() = isAlphabet && this != ALPHABET
-    val isAlphabetShiftedManually get() = this in ALPHABET_MANUAL_SHIFTED..ALPHABET_SHIFT_LOCK_SHIFTED
+    val isAlphabetShiftedManually get() = this == ALPHABET_MANUAL_SHIFTED || this == ALPHABET_SHIFT_LOCKED
     val isNumberLayout get() = this in NUMBER..PHONE_SYMBOLS
     val isEmojiLayout get() = this in EMOJI_RECENTS..EMOJI_EMOTICONS
     val isBottomRow get() = this == EMOJI_BOTTOM_ROW || this == CLIPBOARD_BOTTOM_ROW
     val capsMode get() = when (this) {
         ALPHABET_AUTOMATIC_SHIFTED -> CapsMode.AUTO
         ALPHABET_MANUAL_SHIFTED -> CapsMode.MANUAL
-        ALPHABET_SHIFT_LOCKED, ALPHABET_SHIFT_LOCK_SHIFTED -> CapsMode.MANUAL_LOCKED
+        ALPHABET_SHIFT_LOCKED -> CapsMode.MANUAL_LOCKED
         else -> CapsMode.OFF
     }
 }

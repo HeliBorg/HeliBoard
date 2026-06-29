@@ -139,7 +139,7 @@ object KeyLabel {
         KeyboardElement.SYMBOLS -> params.mLocaleKeyboardInfos.getShiftSymbolLabel(
             Settings.getInstance().isTablet)
         KeyboardElement.ALPHABET_MANUAL_SHIFTED, KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_SHIFTED}"
-        KeyboardElement.ALPHABET_SHIFT_LOCKED, KeyboardElement.ALPHABET_SHIFT_LOCK_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_LOCKED}"
+        KeyboardElement.ALPHABET_SHIFT_LOCKED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_LOCKED}"
 
         else -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY}"
     }
@@ -162,14 +162,14 @@ object KeyLabel {
     // todo (later): should this be handled with metaState? but metaState shift would require LOTS of changes...
     private fun getActionKeyCode(params: KeyboardParams): String {
         params.mId.internalAction?.let { return "${KeyboardCodesSet.PREFIX_CODE}${it.code}" }
-        return if (params.mId.isMultiLine && (params.mId.element == KeyboardElement.ALPHABET_MANUAL_SHIFTED || params.mId.element == KeyboardElement.ALPHABET_SHIFT_LOCK_SHIFTED))
+        return if (params.mId.isMultiLine && params.mId.element == KeyboardElement.ALPHABET_MANUAL_SHIFTED)
             "!code/key_shift_enter"
         else "!code/key_enter"
     }
 
     private fun getActionKeyLabel(params: KeyboardParams): String {
         params.mId.internalAction?.let { return it.label }
-        if (params.mId.isMultiLine && (params.mId.element == KeyboardElement.ALPHABET_MANUAL_SHIFTED || params.mId.element == KeyboardElement.ALPHABET_SHIFT_LOCK_SHIFTED))
+        if (params.mId.isMultiLine && params.mId.element == KeyboardElement.ALPHABET_MANUAL_SHIFTED)
             return "!icon/enter_key"
         val iconName = when (params.mId.imeAction) {
             EditorInfo.IME_ACTION_GO               -> KeyboardIconsSet.NAME_GO_KEY

@@ -373,8 +373,7 @@ public class Key implements Comparable<Key> {
     private static boolean needsToUpcase(int labelFlags, KeyboardElement keyboardElement) {
         if ((labelFlags & LABEL_FLAGS_PRESERVE_CASE) != 0) return false;
         return switch (keyboardElement) {
-            case ALPHABET_MANUAL_SHIFTED, ALPHABET_AUTOMATIC_SHIFTED,
-                    ALPHABET_SHIFT_LOCKED, ALPHABET_SHIFT_LOCK_SHIFTED -> true;
+            case ALPHABET_MANUAL_SHIFTED, ALPHABET_AUTOMATIC_SHIFTED, ALPHABET_SHIFT_LOCKED -> true;
             default -> false;
         };
     }
