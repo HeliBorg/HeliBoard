@@ -32,51 +32,50 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
     private final int mIgnoreAltCodeKeyTimeout;
     private final int mGestureRecognitionUpdateTime;
 
-    public TimerHandler(@NonNull final DrawingProxy ownerInstance,
-            final int ignoreAltCodeKeyTimeout, final int gestureRecognitionUpdateTime) {
+    public TimerHandler(@NonNull DrawingProxy ownerInstance,
+            int ignoreAltCodeKeyTimeout, int gestureRecognitionUpdateTime) {
         super(ownerInstance);
         mIgnoreAltCodeKeyTimeout = ignoreAltCodeKeyTimeout;
         mGestureRecognitionUpdateTime = gestureRecognitionUpdateTime;
     }
 
     @Override
-    public void handleMessage(final Message msg) {
-        final DrawingProxy drawingProxy = getOwnerInstance();
+    public void handleMessage(Message msg) {
+        DrawingProxy drawingProxy = getOwnerInstance();
         if (drawingProxy == null) {
             return;
         }
         switch (msg.what) {
-        case MSG_TYPING_STATE_EXPIRED:
+        case MSG_TYPING_STATE_EXPIRED -> {
             drawingProxy.startWhileTypingAnimation(DrawingProxy.FADE_IN);
-            break;
-        case MSG_REPEAT_KEY:
-            final PointerTracker tracker1 = (PointerTracker) msg.obj;
+        }
+        case MSG_REPEAT_KEY -> {
+            PointerTracker tracker1 = (PointerTracker)msg.obj;
             tracker1.onKeyRepeat(msg.arg1 /* code */, msg.arg2 /* repeatCount */);
-            break;
-        case MSG_LONGPRESS_KEY:
-        case MSG_LONGPRESS_SHIFT_KEY:
+        }
+        case MSG_LONGPRESS_KEY, MSG_LONGPRESS_SHIFT_KEY -> {
             cancelLongPressTimers();
-            final PointerTracker tracker2 = (PointerTracker) msg.obj;
+            PointerTracker tracker2 = (PointerTracker)msg.obj;
             tracker2.onLongPressed();
-            break;
-        case MSG_UPDATE_BATCH_INPUT:
-            final PointerTracker tracker3 = (PointerTracker) msg.obj;
+        }
+        case MSG_UPDATE_BATCH_INPUT -> {
+            PointerTracker tracker3 = (PointerTracker)msg.obj;
             tracker3.updateBatchInputByTimer(SystemClock.uptimeMillis());
             startUpdateBatchInputTimer(tracker3);
-            break;
-        case MSG_DISMISS_KEY_PREVIEW:
-            drawingProxy.onKeyReleased((Key) msg.obj, false /* withAnimation */);
-            break;
-        case MSG_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT:
+        }
+        case MSG_DISMISS_KEY_PREVIEW -> {
+            drawingProxy.onKeyReleased((Key)msg.obj, false /* withAnimation */);
+        }
+        case MSG_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT -> {
             drawingProxy.dismissGestureFloatingPreviewTextWithoutDelay();
-            break;
+        }
         }
     }
 
     @Override
-    public void startKeyRepeatTimerOf(@NonNull final PointerTracker tracker, final int repeatCount,
-            final int delay) {
-        final Key key = tracker.getKey();
+    public void startKeyRepeatTimerOf(@NonNull PointerTracker tracker,
+            int repeatCount, int delay) {
+        Key key = tracker.getKey();
         if (key == null || delay == 0) {
             return;
         }
@@ -84,7 +83,7 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
                 obtainMessage(MSG_REPEAT_KEY, key.getCode(), repeatCount, tracker), delay);
     }
 
-    private void cancelKeyRepeatTimerOf(final PointerTracker tracker) {
+    private void cancelKeyRepeatTimerOf(PointerTracker tracker) {
         removeMessages(MSG_REPEAT_KEY, tracker);
     }
 
@@ -98,20 +97,20 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
     }
 
     @Override
-    public void startLongPressTimerOf(@NonNull final PointerTracker tracker, final int delay) {
-        final Key key = tracker.getKey();
+    public void startLongPressTimerOf(@NonNull PointerTracker tracker, int delay) {
+        Key key = tracker.getKey();
         if (key == null) {
             return;
         }
         // Use a separate message id for long pressing shift key, because long press shift key
         // timers should be canceled when other key is pressed.
-        final int messageId = (key.getCode() == KeyCode.SHIFT)
+        int messageId = (key.getCode() == KeyCode.SHIFT)
                 ? MSG_LONGPRESS_SHIFT_KEY : MSG_LONGPRESS_KEY;
         sendMessageDelayed(obtainMessage(messageId, tracker), delay);
     }
 
     @Override
-    public void cancelLongPressTimersOf(@NonNull final PointerTracker tracker) {
+    public void cancelLongPressTimersOf(@NonNull PointerTracker tracker) {
         removeMessages(MSG_LONGPRESS_KEY, tracker);
         removeMessages(MSG_LONGPRESS_SHIFT_KEY, tracker);
     }
@@ -127,20 +126,20 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
     }
 
     @Override
-    public void startTypingStateTimer(@NonNull final Key typedKey) {
+    public void startTypingStateTimer(@NonNull Key typedKey) {
         if (typedKey.isModifier() || typedKey.altCodeWhileTyping()) {
             return;
         }
 
-        final boolean isTyping = isTypingState();
+        boolean isTyping = isTypingState();
         removeMessages(MSG_TYPING_STATE_EXPIRED);
-        final DrawingProxy drawingProxy = getOwnerInstance();
+        DrawingProxy drawingProxy = getOwnerInstance();
         if (drawingProxy == null) {
             return;
         }
 
         // When user hits the space or the enter key, just cancel the while-typing timer.
-        final int typedCode = typedKey.getCode();
+        int typedCode = typedKey.getCode();
         if (typedCode == Constants.CODE_SPACE || typedCode == Constants.CODE_ENTER) {
             if (isTyping) {
                 drawingProxy.startWhileTypingAnimation(DrawingProxy.FADE_IN);
@@ -178,7 +177,7 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
     }
 
     @Override
-    public void cancelKeyTimersOf(@NonNull final PointerTracker tracker) {
+    public void cancelKeyTimersOf(@NonNull PointerTracker tracker) {
         cancelKeyRepeatTimerOf(tracker);
         cancelLongPressTimersOf(tracker);
     }
@@ -189,7 +188,7 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
     }
 
     @Override
-    public void startUpdateBatchInputTimer(@NonNull final PointerTracker tracker) {
+    public void startUpdateBatchInputTimer(@NonNull PointerTracker tracker) {
         if (mGestureRecognitionUpdateTime <= 0) {
             return;
         }
@@ -199,7 +198,7 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
     }
 
     @Override
-    public void cancelUpdateBatchInputTimer(@NonNull final PointerTracker tracker) {
+    public void cancelUpdateBatchInputTimer(@NonNull PointerTracker tracker) {
         removeMessages(MSG_UPDATE_BATCH_INPUT, tracker);
     }
 
@@ -208,11 +207,11 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
         removeMessages(MSG_UPDATE_BATCH_INPUT);
     }
 
-    public void postDismissKeyPreview(@NonNull final Key key, final long delay) {
+    public void postDismissKeyPreview(@NonNull Key key, long delay) {
         sendMessageDelayed(obtainMessage(MSG_DISMISS_KEY_PREVIEW, key), delay);
     }
 
-    public void postDismissGestureFloatingPreviewText(final long delay) {
+    public void postDismissGestureFloatingPreviewText(long delay) {
         sendMessageDelayed(obtainMessage(MSG_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT), delay);
     }
 
