@@ -293,7 +293,7 @@ public final class EmojiPalettesView extends LinearLayout
     @Override
     public void onPressKey(final Key key) {
         final int code = key.getCode();
-        mKeyboardActionListener.onPressKey(code, 0, true, HapticEvent.KEY_PRESS);
+        mKeyboardActionListener.onPressKey(code, 0, 1, HapticEvent.KEY_PRESS);
     }
 
     /**

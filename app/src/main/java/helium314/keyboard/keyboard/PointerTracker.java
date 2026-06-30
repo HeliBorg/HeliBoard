@@ -294,7 +294,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         if (key.isEnabled()) {
             final HapticEvent hapticEvent = repeatCount == 0 ? HapticEvent.KEY_PRESS : HapticEvent.KEY_REPEAT;
-            sListener.onPressKey(key.getCode(), repeatCount, getActivePointerTrackerCount() == 1, hapticEvent);
+            sListener.onPressKey(key.getCode(), repeatCount, getActivePointerTrackerCount(), hapticEvent);
             final boolean keyboardLayoutHasBeenChanged = mKeyboardLayoutHasBeenChanged;
             mKeyboardLayoutHasBeenChanged = false;
             sTimerProxy.startTypingStateTimer(key);
@@ -1155,7 +1155,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (key.hasNoPanelAutoPopupKey()) {
             cancelKeyTracking();
             final int popupKeyCode = key.getPopupKeys()[0].mCode;
-            sListener.onPressKey(popupKeyCode, 0, true, HapticEvent.NO_HAPTICS);
+            sListener.onPressKey(popupKeyCode, 0, 1, HapticEvent.NO_HAPTICS);
             sListener.onCodeInput(popupKeyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
             sListener.onReleaseKey(popupKeyCode, false);
             return;

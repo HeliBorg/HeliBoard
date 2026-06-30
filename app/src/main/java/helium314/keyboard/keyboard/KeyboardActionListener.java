@@ -22,10 +22,10 @@ public interface KeyboardActionListener {
      * @param primaryCode the unicode of the key being pressed. If the touch is not on a valid key,
      *            the value will be zero.
      * @param repeatCount how many times the key was repeated. Zero if it is the first press.
-     * @param isSinglePointer true if pressing has occurred while no other key is being pressed.
+     * @param pointerCount the number of pointers being tracked, including this one.
      * @param hapticEvent the type of haptic feedback to perform.
      */
-    void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer, HapticEvent hapticEvent);
+    void onPressKey(int primaryCode, int repeatCount, int pointerCount, HapticEvent hapticEvent);
 
     void onLongPressKey(int primaryCode);
 
@@ -128,7 +128,7 @@ public interface KeyboardActionListener {
 
     class Adapter implements KeyboardActionListener {
         @Override
-        public void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer, HapticEvent hapticEvent) {}
+        public void onPressKey(int primaryCode, int repeatCount, int pointerCount, HapticEvent hapticEvent) {}
         @Override
         public void onLongPressKey(int primaryCode) {}
         @Override

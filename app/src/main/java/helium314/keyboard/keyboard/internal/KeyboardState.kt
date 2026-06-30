@@ -267,9 +267,9 @@ class KeyboardState(private val switchActions: SwitchActions) {
         if (withSliding) switchState = SwitchState.MOMENTARY_FROM_NUMPAD
     }
 
-    fun onPressKey(code: Int, isSinglePointer: Boolean, autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?) {
+    fun onPressKey(code: Int, pointerCount: Int, autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?) {
         if (DEBUG_EVENT) {
-            Log.d(TAG, ("onPressKey: code=${Constants.printableCode(code)} single=$isSinglePointer ${stateToString(autoCapsFlags, recapitalizeMode)}"))
+            Log.d(TAG, ("onPressKey: code=${Constants.printableCode(code)} pointerCount=$pointerCount ${stateToString(autoCapsFlags, recapitalizeMode)}"))
         }
         if (code != KeyCode.SHIFT) {
             // Because the double tap shift key timer is to detect two consecutive shift key press,
@@ -284,18 +284,15 @@ class KeyboardState(private val switchActions: SwitchActions) {
             else -> {
                 shiftKeyState = shiftKeyState.chordIfPressing()
                 symbolKeyState = symbolKeyState.chordIfPressing()
-                // It is required to reset the auto caps state when all of the following conditions
-                // are met:
-                // 1) two or more fingers are in action
-                // 2) in alphabet layout
-                // 3) not in all characters caps mode
-                // As for #3, please note that it's required to check even when the auto caps mode is
-                // off because, for example, we may be in the #1 state within the manual temporary
-                // shifted mode.
-                if (!isSinglePointer
-                    && mode == Mode.ALPHABET
+                // We need to unshift when all the following conditions are met:
+                // 1) we're in the temporary-shifted alphabet layout
+                // 2) the shift key is not being actively pressed
+                // 3) two or more fingers are in action, not including a chording layout key
+                // 4) we're not in all characters caps mode
+                if (mode == Mode.ALPHABET && (shiftMode == ShiftMode.MANUAL || shiftMode == ShiftMode.AUTOMATIC)
+                    && shiftKeyState == ModifierKeyState.RELEASED
+                    && (pointerCount > 2 || (pointerCount == 2 && symbolKeyState != ModifierKeyState.CHORDING))
                     && autoCapsFlags != TextUtils.CAP_MODE_CHARACTERS
-                    && (shiftMode == ShiftMode.AUTOMATIC || (shiftMode == ShiftMode.MANUAL && shiftKeyState == ModifierKeyState.RELEASED))
                 ) {
                     switchActions.setAlphabetKeyboard(ShiftMode.UNSHIFT)
                 }

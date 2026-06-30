@@ -230,7 +230,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     override fun onKeyDown(clipId: Long) {
-        keyboardActionListener.onPressKey(KeyCode.NOT_SPECIFIED, 0, true, HapticEvent.KEY_PRESS)
+        keyboardActionListener.onPressKey(KeyCode.NOT_SPECIFIED, 0, 1, HapticEvent.KEY_PRESS)
     }
 
     override fun onKeyUp(clipId: Long) {
