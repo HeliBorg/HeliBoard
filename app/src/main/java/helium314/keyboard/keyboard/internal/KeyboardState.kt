@@ -409,6 +409,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
     private fun onPressShift() {
         fun inner() {
             if (recapitalizeMode != null) {
+                PointerTracker.suppressShiftLongPress()
                 // As we are recapitalizing, we don't do any of the normal
                 // processing, including importantly the double tap timer.
                 // todo: this isn't detected before the first recapitalization
