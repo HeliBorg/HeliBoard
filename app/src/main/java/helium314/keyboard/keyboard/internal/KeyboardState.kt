@@ -8,6 +8,7 @@ package helium314.keyboard.keyboard.internal
 import android.text.TextUtils
 import helium314.keyboard.event.Event
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.PointerTracker
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.define.DebugFlags
@@ -425,10 +426,13 @@ class KeyboardState(private val switchActions: SwitchActions) {
             isInDoubleTapShiftKey = switchActions.isInDoubleTapShiftKeyTimeout
             if (isInDoubleTapShiftKey) {
                 setShifted(ShiftMode.LOCKED)
+                PointerTracker.suppressShiftLongPress()
                 return
             }
             prevShiftMode = shiftMode
-            if (shiftMode != ShiftMode.LOCKED) {
+            if (shiftMode == ShiftMode.LOCKED) {
+                PointerTracker.suppressShiftLongPress()
+            } else {
                 // Don't start the timer again if we're already shift-locked
                 switchActions.startDoubleTapShiftKeyTimer()
             }

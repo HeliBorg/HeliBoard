@@ -157,10 +157,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private PopupKeysPanel mPopupKeysPanel;
 
     // true if this pointer is in the dragging finger mode.
-    boolean mIsInDraggingFinger;
+    private boolean mIsInDraggingFinger = false;
     // true if this pointer is sliding from a modifier key and in the sliding key input mode,
     // so that further modifier keys should be ignored.
-    boolean mIsInSlidingKeyInput;
+    private boolean mIsInSlidingKeyInput = false;
+    private static boolean sIsShiftLongPressSuppressed = false;
     // if not a NOT_A_CODE, the key of this code is repeating
     private int mCurrentRepeatingKeyCode = Constants.NOT_A_CODE;
 
@@ -230,6 +231,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     public static void cancelAllPointerTrackers() {
         sPointerTrackerQueue.cancelAllPointerTrackers();
+    }
+
+    public static void suppressShiftLongPress() {
+        sIsShiftLongPressSuppressed = true;
     }
 
     public static void setKeyboardActionListener(final KeyboardActionListener listener) {
@@ -839,9 +844,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (mIsTrackingForActionDisabled) {
             return;
         }
-        if (key.getCode() != KeyCode.SHIFT) {
-            startLongPressTimer(key);
-        }
+        startLongPressTimer(key);
         setPressedKeyGraphics(key, eventTime);
     }
 
@@ -1250,7 +1253,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         return false;
     }
 
-    private void startLongPressTimer(final Key key) {
+    private void startLongPressTimer(Key key) {
         // Note that we need to cancel all active long press shift key timers if any whenever we
         // start a new long press timer for both non-shift and shift keys.
         sTimerProxy.cancelLongPressShiftKeyTimer();
@@ -1262,9 +1265,14 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // mode, we will disable long press timer of such key.
         // We always need to start the long press timer if the key has its popup keys regardless of
         // whether or not we are in the dragging finger mode.
-        if (mIsInDraggingFinger && key.getPopupKeys() == null) return;
+        int code = key.getCode();
+        if (mIsInDraggingFinger && (code == KeyCode.SHIFT || key.getPopupKeys() == null)) return;
+        if (code == KeyCode.SHIFT && sIsShiftLongPressSuppressed) {
+            sIsShiftLongPressSuppressed = false;
+            return;
+        }
 
-        final int delay = getLongPressTimeout(key.getCode());
+        int delay = getLongPressTimeout(code);
         if (delay <= 0) return;
         sTimerProxy.startLongPressTimerOf(this, delay);
     }
