@@ -433,8 +433,8 @@ class KeyboardState(private val switchActions: SwitchActions) {
             prevShiftMode = shiftMode
             if (shiftMode == ShiftMode.LOCKED) {
                 PointerTracker.suppressShiftLongPress()
-            } else {
                 // Don't start the timer again if we're already shift-locked
+            } else {
                 switchActions.startDoubleTapShiftKeyTimer()
             }
             setShifted(
