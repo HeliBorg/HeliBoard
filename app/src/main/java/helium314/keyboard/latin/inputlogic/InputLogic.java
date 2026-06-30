@@ -29,6 +29,7 @@ import helium314.keyboard.compat.AppWorkarounds;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
+import helium314.keyboard.keyboard.KeyboardElement;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
@@ -713,19 +714,30 @@ public final class InputLogic {
                 // Backspace is a functional key, but it affects the contents of the editor.
                 inputTransaction.setDidAffectContents();
                 break;
-            case KeyCode.SHIFT:
-                if (KeyboardSwitcher.getInstance().getKeyboard() != null && !KeyboardSwitcher.getInstance().getKeyboard().mId.getElement().isAlphabet())
-                    break; // recapitalization and follow-up code should only trigger for alphabet shift, see #1256
-                performRecapitalization(sv);
+            case KeyCode.SHIFT: {
+                var keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+                boolean isDpad = false;
+                if (keyboard != null) {
+                    KeyboardElement element = keyboard.mId.getElement();
+                    isDpad = element == KeyboardElement.DPAD;
+                    if (!element.isAlphabet() && !isDpad) {
+                        // recapitalization and follow-up code should only trigger for alphabet/d-pad shift, see #1256
+                        break;
+                    }
+                }
+                performRecapitalization(sv, isDpad, currentKeyboardScript);
                 inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
                 inputTransaction.setRequiresUpdateSuggestions();
                 if (mSpaceState == SpaceState.PHANTOM && sv.mShiftRemovesAutospace)
                     mSpaceState = SpaceState.NONE;
                 break;
-            case KeyCode.CAPS_LOCK:
-                if (KeyboardSwitcher.getInstance().getKeyboard() == null || KeyboardSwitcher.getInstance().getKeyboard().mId.getElement().isAlphabet())
+            }
+            case KeyCode.CAPS_LOCK: {
+                var keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+                if (keyboard == null || keyboard.mId.getElement().isAlphabet())
                     inputTransaction.setRequiresUpdateSuggestions();
                 break;
+            }
             case KeyCode.SETTINGS:
                 onSettingsKeyPressed();
                 break;
@@ -1639,14 +1651,15 @@ public final class InputLogic {
      * Performs a recapitalization event.
      * @param settingsValues The current settings values.
      */
-    private void performRecapitalization(final SettingsValues settingsValues) {
-        if (!mConnection.hasSelection() || !mRecapitalizeStatus.isEnabled()) {
+    private void performRecapitalization(SettingsValues settingsValues, boolean greedy, String currentKeyboardScript) {
+        if (!(greedy || mConnection.hasSelection()) || !mRecapitalizeStatus.isEnabled()) {
             return; // No selection or recapitalize is disabled for now
         }
-        final int selectionStart = mConnection.getExpectedSelectionStart();
-        final int selectionEnd = mConnection.getExpectedSelectionEnd();
-        final int numCharsSelected = selectionEnd - selectionStart;
-        if (numCharsSelected > Constants.MAX_CHARACTERS_FOR_RECAPITALIZATION) {
+        int selectionStart = mConnection.getExpectedSelectionStart();
+        int selectionEnd = mConnection.getExpectedSelectionEnd();
+        int numCharsSelected = selectionEnd - selectionStart;
+        if (numCharsSelected > Constants.MAX_CHARACTERS_FOR_RECAPITALIZATION
+                || numCharsSelected < -Constants.MAX_CHARACTERS_FOR_RECAPITALIZATION) {
             // We bail out if we have too many characters for performance reasons. We don't want
             // to suck possibly multiple-megabyte data.
             return;
@@ -1654,17 +1667,28 @@ public final class InputLogic {
         // If we have a recapitalize in progress, use it; otherwise, start a new one.
         if (!mRecapitalizeStatus.isStarted()
                 || !mRecapitalizeStatus.isSetAt(selectionStart, selectionEnd)) {
-            final CharSequence selectedText =
-                    mConnection.getSelectedText(0 /* flags, 0 for no styles */);
-            if (TextUtils.isEmpty(selectedText)) return; // Race condition with the input connection
+            SpacingAndPunctuations spacingAndPunctuations = settingsValues.mSpacingAndPunctuations;
+            CharSequence selectedText;
+            if (greedy && numCharsSelected == 0) {
+                TextRange range = mConnection.getWordRangeAtCursor(spacingAndPunctuations, currentKeyboardScript);
+                if (range == null) return; // Race condition with the input connection
+                selectionEnd = selectionStart + range.getNumberOfCharsInWordAfterCursor();
+                selectionStart -= range.getNumberOfCharsInWordBeforeCursor();
+                numCharsSelected = selectionEnd - selectionStart;
+                if (numCharsSelected == 0) return; // Nothing to recapitalize
+                selectedText = range.mWord;
+            } else {
+                selectedText = mConnection.getSelectedText(0 /* flags, 0 for no styles */);
+                if (TextUtils.isEmpty(selectedText)) return; // Race condition with the input connection
+            }
             mRecapitalizeStatus.start(selectedText.toString(), selectionStart, settingsValues.mLocale,
-                    settingsValues.mSpacingAndPunctuations.mSortedWordSeparators);
+                    spacingAndPunctuations.mSortedWordSeparators);
         }
         mConnection.finishComposingText();
         mRecapitalizeStatus.rotate();
         mConnection.setSelection(selectionEnd, selectionEnd);
         mConnection.deleteTextBeforeCursor(numCharsSelected);
-        final TextPlacement replacement = mRecapitalizeStatus.textReplacement();
+        TextPlacement replacement = mRecapitalizeStatus.textReplacement();
         mConnection.commitText(replacement.text, 0);
         mConnection.setSelection(replacement.selectionStart, replacement.selectionEnd());
     }

@@ -199,6 +199,7 @@ data class VariationSelector(
  * @property languageKeyEnabled The key data to use if [KeyboardId.languageSwitchKeyEnabled] is true.
  * @property symbols The key data to use if [KeyboardId.element] is [KeyboardElement.SYMBOLS].
  * @property moreSymbols The key data to use if [KeyboardId.element] is [KeyboardElement.SYMBOLS_SHIFTED].
+ * @property dpad The key data to use if [KeyboardId.element] is [KeyboardElement.DPAD].
  * @property alphabet The key data to use if [KeyboardElement.isAlphabet] is true.
  * @property default The default key data which should be used in case none of the other conditions have a matching non-null
  * AbstractKeyData. Can be null, in this case no key is displayed.
@@ -210,6 +211,7 @@ class KeyboardStateSelector(
     val languageKeyEnabled: AbstractKeyData? = null,
     val symbols: AbstractKeyData? = null,
     val moreSymbols: AbstractKeyData? = null,
+    val dpad: AbstractKeyData? = null,
     val alphabet: AbstractKeyData? = null,
     val default: AbstractKeyData? = null,
     val emojiSearchAvailable: AbstractKeyData? = null,
@@ -223,6 +225,8 @@ class KeyboardStateSelector(
             symbols?.compute(params)?.let { return it }
         if (params.mId.element == KeyboardElement.SYMBOLS_SHIFTED)
             moreSymbols?.compute(params)?.let { return it }
+        if (params.mId.element == KeyboardElement.DPAD)
+            dpad?.compute(params)?.let { return it }
         if (params.mId.element.isAlphabet)
             alphabet?.compute(params)?.let { return it }
         if (params.mId.emojiSearchAvailable)

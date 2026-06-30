@@ -411,8 +411,12 @@ sealed interface KeyData : AbstractKeyData {
         // functional keys
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
-            KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.CTRL, KeyLabel.ALT,
-            KeyLabel.FN, KeyLabel.META, KeyLabel.EMOJI_SEARCH, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.DPAD, KeyLabel.CTRL, KeyLabel.ALT,
+            KeyLabel.FN, KeyLabel.META, KeyLabel.EMOJI_SEARCH,
+            toolbarKeyStrings[ToolbarKey.UNDO], toolbarKeyStrings[ToolbarKey.REDO],
+            toolbarKeyStrings[ToolbarKey.SELECT_ALL], toolbarKeyStrings[ToolbarKey.SELECT_WORD],
+            toolbarKeyStrings[ToolbarKey.COPY], toolbarKeyStrings[ToolbarKey.CUT], toolbarKeyStrings[ToolbarKey.PASTE],
+            toolbarKeyStrings[ToolbarKey.CLIPBOARD], toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
             KeyLabel.SHIFT -> return Key.BACKGROUND_TYPE_FUNCTIONAL
@@ -425,7 +429,7 @@ sealed interface KeyData : AbstractKeyData {
     }
 
     private fun getDefaultWidth(params: KeyboardParams): Float {
-        return if (label == KeyLabel.SPACE && params.mId.element.isAlphaOrSymbol) -1f
+        return if (label == KeyLabel.SPACE && params.mId.element.takesFunctionalKeys) -1f
         else if (type == KeyType.NUMERIC && params.mId.element.isNumberLayout) -1f
         else params.mDefaultKeyWidth
     }
@@ -436,7 +440,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.PERIOD -> Key.LABEL_FLAGS_PRESERVE_CASE or
                     // in functional_keys.json the label flag is already defined, let's not override it in case it's removed by the user
-                    if (!params.mId.element.isAlphaOrSymbol && shouldShowTldPopups(params)) Key.LABEL_FLAGS_DISABLE_HINT_LABEL else 0
+                    if (!params.mId.element.takesFunctionalKeys && shouldShowTldPopups(params)) Key.LABEL_FLAGS_DISABLE_HINT_LABEL else 0
             KeyLabel.ACTION -> {
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or
                         KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)

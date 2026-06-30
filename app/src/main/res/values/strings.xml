@@ -351,6 +351,7 @@
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
     <string name="voice" tools:keep="@string/voice">Voice input</string>
     <string name="numpad" tools:keep="@string/numpad" translatable="false">@string/layout_numpad</string>
+    <string name="dpad" tools:keep="@string/dpad" translatable="false">@string/layout_dpad</string>
     <string name="settings" tools:keep="@string/settings">Settings</string>
     <string name="select_all" tools:keep="@string/select_all" translatable="false">@android:string/selectAll</string>
     <string name="select_word" tools:keep="@string/select_word">Select word</string>
@@ -544,6 +545,8 @@ language, hence "No language". -->
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
     <!-- Name for numpad layout in landscape mode -->
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
+    <!-- Name for D-pad layout -->
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
     <!-- Name for number row layout -->
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Number row</string>
     <!-- Name for number row basic layout -->
@@ -915,6 +918,8 @@ New dictionary:
     <string name="space_swipe_move_cursor_entry">Move cursor</string>
     <!-- Option to toggle the numpad when swiping the spacebar -->
     <string name="space_swipe_toggle_numpad_entry">Toggle numpad</string>
+    <!-- Option to toggle the D-pad when swiping the spacebar -->
+    <string name="space_swipe_toggle_dpad_entry">Toggle D-pad</string>
     <!-- Option to hide the keyboard when swiping the spacebar -->
     <string name="space_swipe_hide_keyboard_entry">Hide keyboard</string>
     <!-- Option to use touchpad when swiping the spacebar -->

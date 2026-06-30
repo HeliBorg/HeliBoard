@@ -202,37 +202,39 @@ public final class Constants {
 
     @NonNull
     public static String printableCode(final int code) {
-        switch (code) {
-        case KeyCode.SHIFT: return "shift";
-        case KeyCode.CAPS_LOCK: return "capslock";
-        case KeyCode.SYMBOL_ALPHA: return "symbol_alpha";
-        case KeyCode.ALPHA: return "alpha";
-        case KeyCode.SYMBOL: return "symbol";
-        case KeyCode.MULTIPLE_CODE_POINTS: return "text";
-        case KeyCode.DELETE: return "delete";
-        case KeyCode.SETTINGS: return "settings";
-        case KeyCode.VOICE_INPUT: return "shortcut";
-        case KeyCode.ACTION_NEXT: return "actionNext";
-        case KeyCode.ACTION_PREVIOUS: return "actionPrevious";
-        case KeyCode.LANGUAGE_SWITCH: return "languageSwitch";
-        case KeyCode.EMOJI: return "emoji";
-        case KeyCode.CLIPBOARD: return "clipboard";
-        case KeyCode.SHIFT_ENTER: return "shiftEnter";
-        case KeyCode.NOT_SPECIFIED: return "unspec";
-        case CODE_TAB: return "tab";
-        case CODE_ENTER: return "enter";
-        case CODE_SPACE: return "space";
-        case KeyCode.TOGGLE_ONE_HANDED_MODE: return "toggleOneHandedMode";
-        case KeyCode.SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
-        case KeyCode.SPLIT_LAYOUT: return "splitLayout";
-        case KeyCode.NUMPAD: return "numpad";
-        case KeyCode.EMOJI_SEARCH: return "emojiSearch";
-        default:
-            if (code < CODE_SPACE) return String.format("\\u%02X", code);
-            if (code < 0x100) return String.format("%c", code);
-            if (code < 0x10000) return String.format("\\u%04X", code);
-            return String.format("\\U%05X", code);
-        }
+        return switch (code) {
+            case KeyCode.SHIFT -> "shift";
+            case KeyCode.CAPS_LOCK -> "capslock";
+            case KeyCode.SYMBOL_ALPHA -> "symbol_alpha";
+            case KeyCode.ALPHA -> "alpha";
+            case KeyCode.SYMBOL -> "symbol";
+            case KeyCode.MULTIPLE_CODE_POINTS -> "text";
+            case KeyCode.DELETE -> "delete";
+            case KeyCode.SETTINGS -> "settings";
+            case KeyCode.VOICE_INPUT -> "shortcut";
+            case KeyCode.ACTION_NEXT -> "actionNext";
+            case KeyCode.ACTION_PREVIOUS -> "actionPrevious";
+            case KeyCode.LANGUAGE_SWITCH -> "languageSwitch";
+            case KeyCode.EMOJI -> "emoji";
+            case KeyCode.CLIPBOARD -> "clipboard";
+            case KeyCode.SHIFT_ENTER -> "shiftEnter";
+            case KeyCode.NOT_SPECIFIED -> "unspec";
+            case CODE_TAB -> "tab";
+            case CODE_ENTER -> "enter";
+            case CODE_SPACE -> "space";
+            case KeyCode.TOGGLE_ONE_HANDED_MODE -> "toggleOneHandedMode";
+            case KeyCode.SWITCH_ONE_HANDED_MODE -> "switchOneHandedMode";
+            case KeyCode.SPLIT_LAYOUT -> "splitLayout";
+            case KeyCode.NUMPAD -> "numpad";
+            case KeyCode.DPAD -> "dpad";
+            case KeyCode.EMOJI_SEARCH -> "emojiSearch";
+            default -> {
+                if (code < CODE_SPACE) yield String.format("\\u%02X", code);
+                if (code < 0x100) yield String.format("%c", code);
+                if (code < 0x10000) yield String.format("\\u%04X", code);
+                yield String.format("\\U%05X", code);
+            }
+        };
     }
 
     /**

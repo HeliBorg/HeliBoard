@@ -364,6 +364,14 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     @Override
+    public void setDpadKeyboard() {
+        if (DEBUG_ACTION) {
+            Log.d(TAG, "setDpadKeyboard");
+        }
+        setKeyboard(KeyboardElement.DPAD, KeyboardSwitchState.OTHER);
+    }
+
+    @Override
     public void toggleLayout(@NonNull LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode) {
         mState.toggleLayout(layout, autoCapsFlags, recapitalizeMode);
     }
