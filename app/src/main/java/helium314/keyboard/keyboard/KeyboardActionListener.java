@@ -8,11 +8,14 @@ package helium314.keyboard.keyboard;
 
 import android.view.KeyEvent;
 
+import androidx.annotation.Nullable;
 import androidx.core.view.inputmethod.InputContentInfoCompat;
 
 import helium314.keyboard.event.HapticEvent;
+import helium314.keyboard.keyboard.internal.LayoutDirective;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.utils.RecapitalizeMode;
 
 public interface KeyboardActionListener {
     /**
@@ -115,7 +118,8 @@ public interface KeyboardActionListener {
     boolean onHorizontalSpaceSwipe(int steps);
     boolean onVerticalSpaceSwipe(int steps);
     void onEndSpaceSwipe();
-    boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha);
+    void toggleLayout(LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode);
+    void onLongPressAlphaSymbolForNumpad();
 
     void onMoveDeletePointer(int steps);
     void onUpWithDeletePointerActive();
@@ -168,9 +172,9 @@ public interface KeyboardActionListener {
             return false;
         }
         @Override
-        public boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha) {
-            return false;
-        }
+        public void toggleLayout(LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode) {}
+        @Override
+        public void onLongPressAlphaSymbolForNumpad() {}
         @Override
         public void onEndSpaceSwipe() {}
         @Override

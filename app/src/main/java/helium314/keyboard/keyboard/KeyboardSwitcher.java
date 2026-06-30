@@ -36,10 +36,10 @@ import helium314.keyboard.event.Event;
 import helium314.keyboard.keyboard.clipboard.ClipboardHistoryView;
 import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
 import helium314.keyboard.keyboard.internal.KeyboardState;
+import helium314.keyboard.keyboard.internal.LayoutDirective;
 import helium314.keyboard.keyboard.internal.ShiftMode;
 import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt;
 import helium314.keyboard.latin.CapsMode;
-import helium314.keyboard.latin.utils.FloatingKeyboardUtils;
 import helium314.keyboard.latin.InputView;
 import helium314.keyboard.latin.KeyboardWrapperView;
 import helium314.keyboard.latin.LatinIME;
@@ -51,6 +51,7 @@ import helium314.keyboard.latin.settings.SettingsKt;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.utils.CapsModeUtils;
+import helium314.keyboard.latin.utils.FloatingKeyboardUtils;
 import helium314.keyboard.latin.utils.FoldableUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
@@ -363,12 +364,16 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     @Override
-    public void toggleNumpad(final boolean withSliding, final int autoCapsFlags,
-            @Nullable final RecapitalizeMode recapitalizeMode, final boolean forceReturnToAlpha) {
+    public void toggleLayout(@NonNull LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode) {
+        mState.toggleLayout(layout, autoCapsFlags, recapitalizeMode);
+    }
+
+    @Override
+    public void onLongPressAlphaSymbolForNumpad() {
         if (DEBUG_ACTION) {
-            Log.d(TAG, "toggleNumpad");
+            Log.d(TAG, "onLongPressAlphaSymbol");
         }
-        mState.toggleNumpad(withSliding, autoCapsFlags, recapitalizeMode, forceReturnToAlpha, true);
+        mState.onLongPressAlphaSymbolForNumpad();
     }
 
     public enum KeyboardSwitchState {

@@ -13,6 +13,7 @@ import helium314.keyboard.event.HangulEventDecoder
 import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.event.HardwareEventDecoder
 import helium314.keyboard.event.HardwareKeyboardEventDecoder
+import helium314.keyboard.keyboard.internal.LayoutDirective
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.EmojiAltPhysicalKeyDetector
@@ -25,8 +26,9 @@ import helium314.keyboard.latin.common.moveStepsToCharCount
 import helium314.keyboard.latin.define.ProductionFlags
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.GestureDataGatheringSettings
 import helium314.keyboard.latin.utils.BackgroundGatheringCache
+import helium314.keyboard.latin.utils.GestureDataGatheringSettings
+import helium314.keyboard.latin.utils.RecapitalizeMode
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.prefs
 import kotlin.math.abs
@@ -195,14 +197,20 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onHorizontalSpaceSwipe(steps: Int): Boolean = when (Settings.getValues().mSpaceSwipeHorizontal) {
         KeyboardActionListener.SwipeAction.MOVE_CURSOR -> onMoveCursorHorizontally(steps)
         KeyboardActionListener.SwipeAction.SWITCH_LANGUAGE -> onLanguageSlide(steps)
-        KeyboardActionListener.SwipeAction.TOGGLE_NUMPAD -> toggleNumpad(false, false)
+        KeyboardActionListener.SwipeAction.TOGGLE_NUMPAD -> {
+            toggleLayout(LayoutDirective.Utility.NUMPAD, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
+            true
+        }
         else -> false
     }
 
     override fun onVerticalSpaceSwipe(steps: Int): Boolean = when (Settings.getValues().mSpaceSwipeVertical) {
         KeyboardActionListener.SwipeAction.MOVE_CURSOR -> onMoveCursorVertically(steps)
         KeyboardActionListener.SwipeAction.SWITCH_LANGUAGE -> onLanguageSlide(steps)
-        KeyboardActionListener.SwipeAction.TOGGLE_NUMPAD -> toggleNumpad(false, false)
+        KeyboardActionListener.SwipeAction.TOGGLE_NUMPAD -> {
+            toggleLayout(LayoutDirective.Utility.NUMPAD, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
+            true
+        }
         KeyboardActionListener.SwipeAction.HIDE_KEYBOARD -> {
             latinIME.requestHideSelf(0)
             true
@@ -223,14 +231,17 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         else -> false
     }
 
-    override fun onEndSpaceSwipe(){
+    override fun onEndSpaceSwipe() {
         initialSubtype = null
         subtypeSwitchCount = 0
     }
 
-    override fun toggleNumpad(withSliding: Boolean, forceReturnToAlpha: Boolean): Boolean {
-        keyboardSwitcher.toggleNumpad(withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState, forceReturnToAlpha)
-        return true
+    override fun toggleLayout(layout: LayoutDirective.Utility, autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?) {
+        keyboardSwitcher.toggleLayout(layout, autoCapsFlags, recapitalizeMode)
+    }
+
+    override fun onLongPressAlphaSymbolForNumpad() {
+        keyboardSwitcher.onLongPressAlphaSymbolForNumpad()
     }
 
     override fun onMoveDeletePointer(steps: Int) {

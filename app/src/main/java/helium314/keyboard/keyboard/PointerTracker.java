@@ -1179,9 +1179,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 return;
             }
         }
-        if (code == KeyCode.SYMBOL_ALPHA && Settings.getValues().mLongPressSymbolsForNumpad) {
-            // toggle numpad with sliding input enabled, forcing return to the alpha layout when done
-            sListener.toggleNumpad(true, true);
+        if (code == KeyCode.SYMBOL_ALPHA) {
+            sListener.onLongPressAlphaSymbolForNumpad();
             return;
         }
 
@@ -1274,6 +1273,13 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (mIsInDraggingFinger && (code == KeyCode.SHIFT || key.getPopupKeys() == null)) return;
         if (code == KeyCode.SHIFT && sIsShiftLongPressSuppressed) {
             sIsShiftLongPressSuppressed = false;
+            return;
+        }
+        if (code == KeyCode.SYMBOL_ALPHA
+            && (!Settings.getValues().mLongPressSymbolsForNumpad
+                || mKeyboard.mId.getElement() != KeyboardElement.SYMBOLS
+            )
+        ) {
             return;
         }
 
