@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     SPDX-FileCopyrightText: Material Design Authors / Google LLC
-    modified for rotation
     SPDX-License-Identifier: Apache-2.0
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,11 +8,6 @@
     android:height="24dp"
     android:viewportWidth="960"
     android:viewportHeight="960">
-    <group
-        android:translateX="960"
-        android:rotation="90">
-    <path
-        android:fillColor="#FFF"
-        android:pathData="M432,480L588,636Q599,647 599,664Q599,681 588,692Q577,703 560,703Q543,703 532,692L348,508Q342,502 339.5,495Q337,488 337,480Q337,472 339.5,465Q342,458 348,452L532,268Q543,257 560,257Q577,257 588,268Q599,279 599,296Q599,313 588,324L432,480Z"/>
-    </group>
+    <path android:fillColor="#FFF"
+        android:pathData="M320,800L320,520L204,520Q178,520 167.5,497.5Q157,475 173,455L449,118Q461,103 480,103Q499,103 511,118L787,455Q803,475 792.5,497.5Q782,520 756,520L640,520L640,800Q640,817 628.5,828.5Q617,840 600,840L360,840Q343,840 331.5,828.5Q320,817 320,800ZM400,760L560,760L560,440L671,440L480,206L289,440L400,440L400,760ZM480,440L480,440L480,440L480,440L480,440L480,440L480,440Z"/>
 </vector>
