@@ -24,10 +24,11 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
     private static final int MSG_REPEAT_KEY = 1;
     private static final int MSG_LONGPRESS_KEY = 2;
     private static final int MSG_LONGPRESS_SHIFT_KEY = 3;
-    private static final int MSG_DOUBLE_TAP_SHIFT_KEY = 4;
-    private static final int MSG_UPDATE_BATCH_INPUT = 5;
-    private static final int MSG_DISMISS_KEY_PREVIEW = 6;
-    private static final int MSG_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 7;
+    private static final int MSG_LONGPRESS_ALPHA_SYMBOL_KEY = 4;
+    private static final int MSG_DOUBLE_TAP_SHIFT_KEY = 5;
+    private static final int MSG_UPDATE_BATCH_INPUT = 6;
+    private static final int MSG_DISMISS_KEY_PREVIEW = 7;
+    private static final int MSG_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 8;
 
     private final int mIgnoreAltCodeKeyTimeout;
     private final int mGestureRecognitionUpdateTime;
@@ -53,7 +54,7 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
             PointerTracker tracker1 = (PointerTracker)msg.obj;
             tracker1.onKeyRepeat(msg.arg1 /* code */, msg.arg2 /* repeatCount */);
         }
-        case MSG_LONGPRESS_KEY, MSG_LONGPRESS_SHIFT_KEY -> {
+        case MSG_LONGPRESS_KEY, MSG_LONGPRESS_SHIFT_KEY, MSG_LONGPRESS_ALPHA_SYMBOL_KEY -> {
             cancelLongPressTimers();
             PointerTracker tracker2 = (PointerTracker)msg.obj;
             tracker2.onLongPressed();
@@ -104,8 +105,11 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
         }
         // Use a separate message id for long pressing shift key, because long press shift key
         // timers should be canceled when other key is pressed.
-        int messageId = (key.getCode() == KeyCode.SHIFT)
-                ? MSG_LONGPRESS_SHIFT_KEY : MSG_LONGPRESS_KEY;
+        int messageId = switch (key.getCode()) {
+            case KeyCode.SHIFT -> MSG_LONGPRESS_SHIFT_KEY;
+            case KeyCode.SYMBOL_ALPHA -> MSG_LONGPRESS_ALPHA_SYMBOL_KEY;
+            default -> MSG_LONGPRESS_KEY;
+        };
         sendMessageDelayed(obtainMessage(messageId, tracker), delay);
     }
 
@@ -113,6 +117,7 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
     public void cancelLongPressTimersOf(@NonNull PointerTracker tracker) {
         removeMessages(MSG_LONGPRESS_KEY, tracker);
         removeMessages(MSG_LONGPRESS_SHIFT_KEY, tracker);
+        removeMessages(MSG_LONGPRESS_ALPHA_SYMBOL_KEY, tracker);
     }
 
     @Override
@@ -120,9 +125,15 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
         removeMessages(MSG_LONGPRESS_SHIFT_KEY);
     }
 
+    @Override
+    public void cancelLongPressAlphaSymbolKeyTimer() {
+        removeMessages(MSG_LONGPRESS_ALPHA_SYMBOL_KEY);
+    }
+
     public void cancelLongPressTimers() {
         removeMessages(MSG_LONGPRESS_KEY);
         removeMessages(MSG_LONGPRESS_SHIFT_KEY);
+        removeMessages(MSG_LONGPRESS_ALPHA_SYMBOL_KEY);
     }
 
     @Override

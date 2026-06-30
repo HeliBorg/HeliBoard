@@ -53,6 +53,11 @@ public interface TimerProxy {
     void cancelLongPressShiftKeyTimer();
 
     /**
+     * Cancel a timer for detecting a long pressed alpha/symbol key.
+     */
+    void cancelLongPressAlphaSymbolKeyTimer();
+
+    /**
      * Cancel timers for detecting repeated key press, long pressed key, and long pressed shift key.
      * @param tracker the {@link PointerTracker} that starts timers to be canceled.
      */
@@ -105,6 +110,8 @@ public interface TimerProxy {
         public void cancelLongPressTimersOf(@NonNull PointerTracker tracker) {}
         @Override
         public void cancelLongPressShiftKeyTimer() {}
+        @Override
+        public void cancelLongPressAlphaSymbolKeyTimer() {}
         @Override
         public void cancelKeyTimersOf(@NonNull PointerTracker tracker) {}
         @Override

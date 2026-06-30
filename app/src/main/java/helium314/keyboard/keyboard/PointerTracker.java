@@ -1258,9 +1258,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private void startLongPressTimer(Key key) {
-        // Note that we need to cancel all active long press shift key timers if any whenever we
-        // start a new long press timer for both non-shift and shift keys.
+        // Note that we need to cancel all active long press shift and symbol key timers if
+        // any whenever we start a new long press timer for both non-shift and shift keys.
         sTimerProxy.cancelLongPressShiftKeyTimer();
+        sTimerProxy.cancelLongPressAlphaSymbolKeyTimer();
         if (sInGesture) return;
         if (key == null) return;
         if (!key.isLongPressEnabled()) return;
