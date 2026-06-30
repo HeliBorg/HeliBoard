@@ -741,12 +741,17 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private void startKeySelectionByDraggingFinger(final Key key) {
+    private void startKeySelectionByDraggingFinger(Key key) {
         if (!mIsInDraggingFinger) {
             // the meta lock keys stay enabled after sliding input, but should not
             // (even without sliding input they actually behave the same... this is just about the graphics)
-            final int code = key.getCode();
-            mIsInSlidingKeyInput = key.isModifier() && code != KeyCode.CTRL_LOCK && code != KeyCode.ALT_LOCK && code != KeyCode.FN_LOCK && code != KeyCode.META_LOCK;
+            int code = key.getCode();
+            if (key.isModifier() && code != KeyCode.CTRL_LOCK && code != KeyCode.ALT_LOCK && code != KeyCode.FN_LOCK && code != KeyCode.META_LOCK) {
+                KeyboardElement element = mKeyboard.mId.getElement();
+                mIsInSlidingKeyInput = !(code == KeyCode.SHIFT && element == KeyboardElement.ALPHABET_SHIFT_LOCKED);
+            } else {
+                mIsInSlidingKeyInput = false;
+            }
         }
         mIsInDraggingFinger = true;
     }
