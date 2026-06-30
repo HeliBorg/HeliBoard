@@ -97,7 +97,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     private val keyHintText = getKeyHintText(context)
     private val spaceBarText = getSpaceBarText(context)
 
-    private fun getAccent(context: Context) = if (isNight) ContextCompat.getColor(context, android.R.color.system_accent1_100)
+    private fun getAccent(context: Context) = if (isNight) ContextCompat.getColor(context, android.R.color.system_accent1_400)
         else ContextCompat.getColor(context, android.R.color.system_accent1_200)
     private fun getGesture(context: Context) = if (isNight) accent
         else ContextCompat.getColor(context, android.R.color.system_accent1_600)
@@ -137,8 +137,6 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     private val adjustedBackgroundFilter: ColorFilter
     private val keyTextFilter: ColorFilter
     private val accentColorFilter: ColorFilter
-    /** color filter for the white action key icons in material theme, switches to gray if necessary for contrast */
-    private val actionKeyIconColorFilter: ColorFilter?
 
     private val backgroundStateList: ColorStateList
     private val keyStateList: ColorStateList
@@ -262,13 +260,6 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
                 else pressedStateList(adjustedKeyBackground, spaceBar)
         }
         keyTextFilter = colorFilter(keyText)
-
-        actionKeyIconColorFilter = when {
-            themeStyle == STYLE_HOLO -> keyTextFilter
-            // the white icon may not have enough contrast, and can't be adjusted by the user
-            isBrightColor(accent) -> colorFilter(Color.DKGRAY)
-            else -> null
-        }
     }
 
     override fun get(color: ColorType): Int = when (color) {
@@ -290,7 +281,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         CLIPBOARD_SUGGESTION_BACKGROUND -> doubleAdjustedBackground
         NAVIGATION_BAR -> navBar
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedKeyText
-        ACTION_KEY_ICON, TOOL_BAR_EXPAND_KEY -> Color.WHITE
+        TOOL_BAR_EXPAND_KEY -> Color.WHITE
     }
 
     override fun setColor(drawable: Drawable, color: ColorType) {
@@ -328,7 +319,6 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         REMOVE_SUGGESTION_ICON, EMOJI_CATEGORY, KEY_TEXT,
             KEY_ICON, ONE_HANDED_MODE_BUTTON, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY -> keyTextFilter
         KEY_PREVIEW_BACKGROUND -> adjustedBackgroundFilter
-        ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> colorFilter(get(color))
     }
 
@@ -388,9 +378,6 @@ class DefaultColors (
     private val keyTextFilter: ColorFilter
     private val suggestionTextFilter = colorFilter(suggestionText)
     private val accentColorFilter = colorFilter(accent)
-
-    /** color filter for the white action key icons in material theme, switches to gray if necessary for contrast */
-    private val actionKeyIconColorFilter: ColorFilter?
 
     private val backgroundStateList: ColorStateList
     private val keyStateList: ColorStateList
@@ -460,12 +447,6 @@ class DefaultColors (
             spaceBarStateList = pressedStateList(brightenOrDarken(spaceBar, true), spaceBar)
         }
         keyTextFilter = colorFilter(keyText)
-        actionKeyIconColorFilter = when {
-            themeStyle == STYLE_HOLO -> keyTextFilter
-            // the white icon may not have enough contrast, and can't be adjusted by the user
-            isBrightColor(accent) -> colorFilter(Color.DKGRAY)
-            else -> null
-        }
     }
 
     override fun get(color: ColorType): Int = when (color) {
@@ -487,7 +468,6 @@ class DefaultColors (
         NAVIGATION_BAR -> navBar
         SUGGESTION_AUTO_CORRECT, EMOJI_CATEGORY, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY, ONE_HANDED_MODE_BUTTON -> suggestionText
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedSuggestionText
-        ACTION_KEY_ICON -> Color.WHITE
     }
 
     override fun setColor(drawable: Drawable, color: ColorType) {
@@ -548,7 +528,6 @@ class DefaultColors (
         KEY_TEXT, KEY_ICON -> keyTextFilter
         REMOVE_SUGGESTION_ICON, EMOJI_CATEGORY, ONE_HANDED_MODE_BUTTON, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY -> suggestionTextFilter
         KEY_PREVIEW_BACKGROUND -> adjustedBackgroundFilter
-        ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> colorFilter(get(color)) // create color filter (not great for performance, so the frequently used filters should be stored)
     }
 }
@@ -613,7 +592,6 @@ private fun activatedStateList(activated: Int, normal: Int): ColorStateList {
 }
 
 enum class ColorType {
-    ACTION_KEY_ICON,
     ACTION_KEY_BACKGROUND,
     ACTION_KEY_POPUP_KEYS_BACKGROUND,
     AUTOFILL_BACKGROUND_CHIP,
