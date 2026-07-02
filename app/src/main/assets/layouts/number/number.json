@@ -36,7 +36,7 @@
     },
     { "label": "0", "type": "numeric" },
     { "$": "variation_selector",
-      "default": { "label": ".", "type": "numeric" },
+      "default": { "label": ".", "type": "numeric", "labelFlags": 1073741824 },
       "date": { "label": "/", "type": "numeric" },
       "time": { "label": ":", "type": "numeric" },
       "datetime": { "label": "/ :|/", "type": "numeric", "popup": { "relevant": [

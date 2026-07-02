@@ -36,7 +36,7 @@
     { "label": "alpha" },
     { "label": "<", "type": "function", "popup": { "main":  { "label": "≤" } } },
     { "label": ">", "type": "function", "popup": { "main":  { "label": "≥" } } },
-    { "label": "comma", "type": "numeric", "width": 0.3 },
+    { "label": "comma", "type": "numeric", "width": 0.3, "labelFlags": 1073741824 },
     { "label": "0", "type": "numeric", "width": 0.3 },
     { "label": "period", "type": "numeric", "width": 0.3 },
     { "label": "=", "type": "function", "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
