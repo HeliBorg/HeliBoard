@@ -172,8 +172,12 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
     }
 
     @Override
-    public boolean isInDoubleTapShiftKeyTimeout() {
-        return hasMessages(MSG_DOUBLE_TAP_SHIFT_KEY);
+    public boolean popDoubleTapShiftKeyTimer() {
+        boolean isDoubleTap = hasMessages(MSG_DOUBLE_TAP_SHIFT_KEY);
+        if (isDoubleTap) {
+            removeMessages(MSG_DOUBLE_TAP_SHIFT_KEY);
+        }
+        return isDoubleTap;
     }
 
     @Override

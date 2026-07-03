@@ -574,8 +574,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mTimerHandler.cancelDoubleTapShiftKeyTimer();
     }
 
-    public boolean isInDoubleTapShiftKeyTimeout() {
-        return mTimerHandler.isInDoubleTapShiftKeyTimeout();
+    public boolean popDoubleTapShiftKeyTimer() {
+        return mTimerHandler.popDoubleTapShiftKeyTimer();
     }
 
     @SuppressLint("ClickableViewAccessibility")

@@ -42,7 +42,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
         fun requestUpdatingShiftState(autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?)
 
         fun startDoubleTapShiftKeyTimer()
-        val isInDoubleTapShiftKeyTimeout: Boolean
+        fun popDoubleTapShiftKeyTimer(): Boolean
         fun cancelDoubleTapShiftKeyTimer()
 
         fun setOneHandedModeEnabled(enabled: Boolean)
@@ -424,7 +424,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
             if (mode != Mode.ALPHABET) {
                 return
             }
-            isInDoubleTapShiftKey = switchActions.isInDoubleTapShiftKeyTimeout
+            isInDoubleTapShiftKey = switchActions.popDoubleTapShiftKeyTimer()
             if (isInDoubleTapShiftKey) {
                 setShifted(ShiftMode.LOCKED)
                 PointerTracker.suppressShiftLongPress()

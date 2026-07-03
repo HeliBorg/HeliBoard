@@ -599,12 +599,12 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
-    public boolean isInDoubleTapShiftKeyTimeout() {
+    public boolean popDoubleTapShiftKeyTimer() {
         if (DEBUG_TIMER_ACTION) {
             Log.d(TAG, "isInDoubleTapShiftKeyTimeout");
         }
         final MainKeyboardView keyboardView = getMainKeyboardView();
-        return keyboardView != null && keyboardView.isInDoubleTapShiftKeyTimeout();
+        return keyboardView != null && keyboardView.popDoubleTapShiftKeyTimer();
     }
 
     /**

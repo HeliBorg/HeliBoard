@@ -69,10 +69,10 @@ public interface TimerProxy {
     void cancelDoubleTapShiftKeyTimer();
 
     /**
-     * Check if a timer of detecting double tapped shift key is running.
-     * @return true if detecting double tapped shift key is on going.
+     * Check if a timer of detecting double tapped shift key is running, then cancel it.
+     * @return true if detecting double tapped shift key was ongoing.
      */
-    boolean isInDoubleTapShiftKeyTimeout();
+    boolean popDoubleTapShiftKeyTimer();
 
     /**
      * Start a timer to fire updating batch input while <code>tracker</code> is on hold.
@@ -112,7 +112,7 @@ public interface TimerProxy {
         @Override
         public void cancelDoubleTapShiftKeyTimer() {}
         @Override
-        public boolean isInDoubleTapShiftKeyTimeout() { return false; }
+        public boolean popDoubleTapShiftKeyTimer() { return false; }
         @Override
         public void startUpdateBatchInputTimer(@NonNull PointerTracker tracker) {}
         @Override
