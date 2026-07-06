@@ -1123,7 +1123,7 @@ public class Key implements Comparable<Key> {
             final String[] popupKeys = PopupKeysUtilsKt.createPopupKeysArray(popupSet, mKeyboardParams, label != null ? label : keySpec);
             mPopupKeysColumnAndFlags = getPopupKeysColumnAndFlagsAndSetNullInArray(params, popupKeys);
             final String[] finalPopupKeys = popupKeys == null ? null : PopupKeySpec.filterOutEmptyString(popupKeys);
-            if (finalPopupKeys != null) {
+            if (finalPopupKeys != null && finalPopupKeys.length > 0) {
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
                 mPopupKeys = new PopupKeySpec[finalPopupKeys.length];
                 for (int i = 0; i < finalPopupKeys.length; i++) {
