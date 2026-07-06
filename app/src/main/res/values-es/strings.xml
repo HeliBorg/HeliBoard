@@ -427,7 +427,6 @@
     <string name="landscape">Horizontal</string>
     <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Solo sugerencias</string>
     <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Oculto</string>
-    <string name="toolbar_hiding_global">Oculta también las barras del portapapeles y los emojis</string>
     <string name="prefs_emoji_key_fit">Escala el tamaño de las teclas de emoticono al tamaño de la fuente</string>
     <string name="prefs_emoji_skin_tone">Tono de piel de emoticonos por defecto</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutral</string>

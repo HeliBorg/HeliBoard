@@ -456,7 +456,6 @@
     <string name="toolbar_mode_suggestion_strip">Само предложения</string>
     <string name="toolbar_mode_hidden">Скрито</string>
     <string name="toolbar_mode_expandable">Клавиши и предложения в лентата с инструменти</string>
-    <string name="toolbar_hiding_global">Скриване и на лентите с инструменти за клипборда и емотиконите</string>
     <string name="landscape">Пейзаж</string>
     <string name="popup_order_and_hint_source">Ред на изскачащите клавиши и източник на съвети</string>
     <string name="show_emoji_descriptions">Показване на описание на емотикони при продължително натискане</string>

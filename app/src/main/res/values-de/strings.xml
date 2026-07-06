@@ -417,7 +417,6 @@
     <string name="toolbar_mode_toolbar_keys">Symbolleiste nur Tasten</string>
     <string name="popup_order_and_hint_source">Popup Tasten Reihenfolge und Vorschlag Quelle</string>
     <string name="toolbar_mode_hidden">Versteckt</string>
-    <string name="toolbar_hiding_global">Auch Zwischenablage und Emoji Symbolleisten verstecken</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="landscape">Querformat</string>
     <string name="toolbar_mode_suggestion_strip">Nur Vorschläge</string>

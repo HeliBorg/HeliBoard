@@ -415,7 +415,6 @@
     <string name="prefs_emoji_skin_tone_neutral">Neutre</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode_suggestion_strip">Només suggeriments</string>
-    <string name="toolbar_hiding_global">Amagar també el porta-retalls i les barres d\'eines d\'emojis</string>
     <string name="toolbar_mode">Mode barra d\'eines</string>
     <string name="toolbar_mode_expandable">Tecles de la barra d\'eines i suggeriments</string>
     <string name="toolbar_mode_toolbar_keys">Només tecles de la barra d\'eines</string>

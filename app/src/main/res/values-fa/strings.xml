@@ -229,7 +229,6 @@
     <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">فقط کلیدهای نوار ابزار</string>
     <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">فقط پیشنهادها</string>
     <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">پنهان</string>
-    <string name="toolbar_hiding_global">پنهان کردن نوار ابزارهای کلیپ‌بورد و ایموجی</string>
     <string name="toolbar_keys">انتخاب کلیدهای نوار ابزار</string>
     <string name="clipboard" tools:keep="@string/clipboard">کلیپ‌بورد</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">پاک کردن کلیپ‌بورد</string>

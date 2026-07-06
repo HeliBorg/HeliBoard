@@ -419,7 +419,6 @@
     <string name="toolbar_mode_expandable">Tööriistariba nupud ja soovitused</string>
     <string name="toolbar_mode_toolbar_keys">Ainult tööriistariba nupud</string>
     <string name="toolbar_mode_hidden">Peidetud</string>
-    <string name="toolbar_hiding_global">Peida ka lõikelaud ja emojide rida</string>
     <string name="popup_order_and_hint_source">Klahvide järjestus hüpikaknas ja vihjete allikas</string>
     <string name="landscape">Rõhtvaade</string>
     <string name="show_emoji_descriptions">Näita emojide kirjeldusi pika vajutusega</string>

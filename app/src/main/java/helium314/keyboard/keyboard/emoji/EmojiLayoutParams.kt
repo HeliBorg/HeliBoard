@@ -22,7 +22,7 @@ internal class EmojiLayoutParams(res: Resources) {
 
     init {
         val sv = Settings.getValues()
-        val defaultKeyboardHeight = ResourceUtils.getSecondaryKeyboardHeight(res, sv)
+        val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, sv)
 
         val keyVerticalGap = (res.getFraction(R.fraction.config_key_vertical_gap_holo,
             defaultKeyboardHeight, defaultKeyboardHeight) * sv.mKeyGapScale).toInt()

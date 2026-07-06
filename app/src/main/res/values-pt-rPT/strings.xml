@@ -422,7 +422,6 @@
     <string name="toolbar_mode">Modo da barra de ferramentas</string>
     <string name="popup_order_and_hint_source">Ordem das teclas de popup e fonte de dicas</string>
     <string name="toolbar_mode_expandable">Teclas da barra de ferramentas e sugestões</string>
-    <string name="toolbar_hiding_global">Ocultar a área de transferência e as barras de ferramentas de emoji</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="subtype_generic_extended">%s (Extendido)</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>

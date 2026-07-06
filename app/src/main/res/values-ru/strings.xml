@@ -419,7 +419,6 @@
     <string name="toolbar_mode_toolbar_keys">Только клавиши</string>
     <string name="toolbar_mode_suggestion_strip">Только подсказки</string>
     <string name="toolbar_mode_hidden">Скрыть</string>
-    <string name="toolbar_hiding_global">Скрыть панели инструментов буфера обмена и эмодзи</string>
     <string name="popup_order_and_hint_source">Порядок всплывающих клавиш и источник подсказок</string>
     <string name="landscape">Альбомный режим</string>
     <string name="show_emoji_descriptions">Показывать описание эмодзи при долгом нажатии</string>

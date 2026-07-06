@@ -422,7 +422,6 @@
     <string name="toolbar_mode_toolbar_keys">仅工具栏键</string>
     <string name="toolbar_mode_suggestion_strip">仅建议</string>
     <string name="toolbar_mode_hidden">隐藏</string>
-    <string name="toolbar_hiding_global">同时隐藏剪贴板和表情符号工具栏</string>
     <string name="popup_order_and_hint_source">弹出键顺序和提示源</string>
     <string name="landscape">横屏</string>
     <string name="show_emoji_descriptions">长按时显示表情符号描述</string>

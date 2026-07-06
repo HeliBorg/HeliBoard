@@ -424,7 +424,6 @@
     <string name="prefs_emoji_skin_tone_neutral">Neutra</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode">Modo da barra de ferramentas</string>
-    <string name="toolbar_hiding_global">Ocultar a área de transferência e as barras de ferramentas de emoji também</string>
     <string name="toolbar_mode_expandable">Teclas da barra de ferramentas e sugestões</string>
     <string name="toolbar_mode_toolbar_keys">Somente teclas da barra de ferramentas</string>
     <string name="toolbar_mode_suggestion_strip">Somente sugestões</string>

@@ -417,7 +417,6 @@
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode_expandable">টুলবার বোতাম ও পরামর্শ</string>
     <string name="toolbar_mode">টুলবার মোড</string>
-    <string name="toolbar_hiding_global">ক্লিপবোর্ড ও ইমোজি টুলবার আড়ালকরণ</string>
     <string name="toolbar_mode_toolbar_keys">কেবল টুলবার বোতাম</string>
     <string name="toolbar_mode_suggestion_strip">কেবল পরামর্শ</string>
     <string name="toolbar_mode_hidden">প্রচ্ছন্ন</string>

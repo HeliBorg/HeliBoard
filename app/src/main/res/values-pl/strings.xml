@@ -463,7 +463,6 @@
     <string name="toolbar_mode_toolbar_keys">Tylko klawisze</string>
     <string name="toolbar_mode_suggestion_strip">Tylko sugestie</string>
     <string name="toolbar_mode_hidden">Ukryty</string>
-    <string name="toolbar_hiding_global">Ukryj także paski schowka i emotikonów</string>
     <string name="landscape">Poziomo</string>
     <string name="popup_order_and_hint_source">Kolejność wyskakujących okienek i źródło wskazówek</string>
     <string name="show_emoji_descriptions">Pokaż opis emoji po długim naciśnięciu</string>

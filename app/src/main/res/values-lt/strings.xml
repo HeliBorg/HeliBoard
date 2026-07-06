@@ -218,7 +218,6 @@
     <string name="toolbar_mode_toolbar_keys">Tik įrankių juostos mygtukai</string>
     <string name="toolbar_mode_suggestion_strip">Tik pasiūlymai</string>
     <string name="toolbar_mode_hidden">Paslėpta</string>
-    <string name="toolbar_hiding_global">Paslėpti iškarpinę ir jaustukų įrankių juostą</string>
     <string name="toolbar_keys">Pasirinkti įrankių juostos mygtukus</string>
     <string name="clipboard" tools:keep="@string/clipboard">iškarpinė</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Išvalyti iškarpinę</string>

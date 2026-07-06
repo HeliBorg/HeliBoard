@@ -228,7 +228,6 @@
     <string name="down" tools:keep="@string/down">Baixo</string>
     <string name="word_left" tools:keep="@string/word_left">Palavra à esquerda</string>
     <string name="toolbar_mode_hidden">Escondido</string>
-    <string name="toolbar_hiding_global">Esconder a área de transferência e barras de ferramentas de emoji também</string>
     <string name="toolbar_keys">Selecionar teclas da barra de ferramentas</string>
     <string name="voice" tools:keep="@string/voice">Entrada de voz</string>
     <string name="toolbar_mode_toolbar_keys">Só teclas da barra de ferramentas</string>

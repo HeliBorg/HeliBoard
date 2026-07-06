@@ -422,7 +422,6 @@
     <string name="show_emoji_descriptions">Erakutsi emojiaren deskribapena luze sakatzean</string>
     <string name="suggest_emojis_summary">Erabili emoji hiztegia iradokizun normaletan</string>
     <string name="suggest_emojis">Iradokitako emojiak</string>
-    <string name="toolbar_hiding_global">Ezkutatu arbela eta emojien tresna-barrak ere</string>
     <string name="toolbar_mode_toolbar_keys">Tresna-barrako gakoak bakarrik</string>
     <string name="toolbar_mode_expandable">Tresna-barrako gakoak eta iradokizunak</string>
     <string name="toolbar_mode_hidden">Ezkutuan</string>

@@ -696,6 +696,9 @@ private object AppUpgrade {
                 remove("narrow_key_gaps")
             }
         }
+        if (oldVersion <= 4003) {
+            prefs.edit { remove("toolbar_hiding_global") }
+        }
         upgradeToolbarPrefs(prefs)
         LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
         prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }

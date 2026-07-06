@@ -348,7 +348,6 @@
     <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Kun verktøylinjetaster</string>
     <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Kun forslag</string>
     <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Skjult</string>
-    <string name="toolbar_hiding_global">Skjul verktøylinje for utklippstavle og emoji</string>
     <string name="split" tools:keep="@string/split">Oppdelt tastatur</string>
     <string name="page_start" tools:keep="@string/page_start">Sidestart</string>
     <string name="page_end" tools:keep="@string/page_end">Sideslutt</string>

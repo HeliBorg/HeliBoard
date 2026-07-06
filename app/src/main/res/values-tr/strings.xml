@@ -380,7 +380,6 @@
     <string name="toolbar_mode_toolbar_keys">Yalnızca araç çubuğu tuşları</string>
     <string name="toolbar_mode_suggestion_strip">Yalnızca öneriler</string>
     <string name="toolbar_mode_hidden">Gizli</string>
-    <string name="toolbar_hiding_global">Pano ve emoji araç çubuklarını da gizle</string>
     <string name="prefs_font_scale">Klavye yazı tipi boyutu</string>
     <string name="custom_font">Dosyadan özel yazı tipi seç</string>
     <string name="prefs_key_emoji_max_sdk">Emoji sürümünü geçersiz kıl</string>

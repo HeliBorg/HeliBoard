@@ -224,7 +224,6 @@
     <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Samo tipke alatne trake</string>
     <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Samo prijedlozi</string>
     <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Sakriveno</string>
-    <string name="toolbar_hiding_global">Sakrij i alatne trake međuspremnika i emojija</string>
     <string name="toolbar_keys">Odaberi tipke alatne trake</string>
     <string name="clipboard" tools:keep="@string/clipboard">Međuspremnik</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Očisti međuspremnik</string>
