@@ -238,7 +238,8 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
                     }
                     InputType.TYPE_CLASS_PHONE -> KeyboardMode.PHONE
                     InputType.TYPE_CLASS_TEXT ->
-                        if (InputTypeUtils.isEmailVariation(variation)) KeyboardMode.EMAIL
+                        if (!Settings.getValues().mUrlEmailLayout) KeyboardMode.TEXT
+                        else if (InputTypeUtils.isEmailVariation(variation)) KeyboardMode.EMAIL
                         else if (variation == InputType.TYPE_TEXT_VARIATION_URI) KeyboardMode.URL
                         else KeyboardMode.TEXT
                     else -> KeyboardMode.TEXT

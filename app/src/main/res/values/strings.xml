@@ -323,6 +323,10 @@
     <string name="show_tld_popup_keys">Show TLD popup keys</string>
     <!-- Description of the setting to show TLD popup keys -->
     <string name="show_tld_popup_keys_summary">Replace period key popups with top level domains when typing URLs and email addresses</string>
+    <!-- Title of the setting to adapt the keyboard layout in URL and email input fields -->
+    <string name="url_email_layout">Adapt layout for URL and email fields</string>
+    <!-- Description of the setting to adapt the keyboard layout in URL and email input fields -->
+    <string name="url_email_layout_summary">Show a slash key in URL fields and an @ key in email fields (in place of the comma), and matching popup keys. Disable to always keep the normal layout.</string>
     <!-- Names of the popup key classes -->
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Number row</string>
     <string name="popup_keys_language" translatable="false" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
