@@ -344,6 +344,32 @@ public final class InputLogic {
             return inputTransaction;
         }
 
+        // A word can extend before the composing region when it starts with characters that don't
+        // start composition on their own, such as digits (e.g. "2u2j"): the leading part is
+        // committed immediately, while only the rest ("u2j") is composing. Committing the picked
+        // suggestion, which includes the leading part, would then duplicate it. If the picked word
+        // starts with the whole word before the cursor, extend the composing region to cover it so
+        // that committing replaces the whole word rather than only the composing part. (#2611)
+        if (mWordComposer.isComposingWord() && !mWordComposer.isBatchMode()) {
+            final String typedWord = mWordComposer.getTypedWord();
+            final int cursor = mConnection.getExpectedSelectionStart();
+            final CharSequence before = mConnection.getTextBeforeCursor(Constants.EDITOR_CONTENTS_CACHE_SIZE, 0);
+            if (before != null && cursor >= 0 && before.length() >= typedWord.length()) {
+                // Non-separator characters committed right before the composing word still belong
+                // to the same word (e.g. leading digits), so include them in the word to replace.
+                int start = before.length() - typedWord.length();
+                while (start > 0) {
+                    final int cp = Character.codePointBefore(before, start);
+                    if (settingsValues.isWordSeparator(cp) || Character.isWhitespace(cp)) break;
+                    start -= Character.charCount(cp);
+                }
+                final String wordBeforeCursor = before.subSequence(start, before.length()).toString();
+                if (wordBeforeCursor.length() > typedWord.length() && suggestion.startsWith(wordBeforeCursor)) {
+                    mConnection.setComposingRegion(cursor - wordBeforeCursor.length(), cursor);
+                }
+            }
+        }
+
         commitChosenWord(settingsValues, suggestion, LastComposedWord.COMMIT_TYPE_MANUAL_PICK, LastComposedWord.NOT_A_SEPARATOR);
         mConnection.endBatchEdit();
         // Don't allow cancellation of manual pick
