@@ -232,8 +232,13 @@ class ClipboardHistoryManager(
             if (InputTypeUtils.isNumberInputType(inputType)) return null
             val imageView = binding.clipboardSuggestionImage
             imageView.isVisible = true
+            // prefer the locally-saved copy (read reliably via our own FileProvider, same as
+            // clipboard history) over the original source app's URI, which the keyboard often
+            // can't read directly here due to clipboard permission restrictions
+            val localEntry = clipboardDao?.getAll()?.firstOrNull { it.timeStamp == timeStamp && it.filename != null }
+            val imageUri = localEntry?.getContentUri(latinIME) ?: clipItem.uri
             try {
-                imageView.setImageURI(clipItem.uri)
+                imageView.setImageURI(imageUri)
             } catch (e: Exception) {
                 Log.w(TAG, "error setting clipboard image", e) // happens with SecurityException: Permission Denial
                 return null
@@ -255,7 +260,6 @@ class ClipboardHistoryManager(
         return clipboardSuggestionView
     }
 
-    /** builds a row of up to [MAX_SPLIT_CLIPBOARD_SUGGESTIONS] chips, one per line, each pasting only that line */
     /**
      * Splits clipboard text into chip-sized chunks, like Gboard.
      * Prefers real line breaks; if there are none (e.g. when copying from a rendered view
@@ -269,6 +273,7 @@ class ClipboardHistoryManager(
         return if (bySentence.size > 1) bySentence else byNewline
     }
 
+    /** builds a row of up to [MAX_SPLIT_CLIPBOARD_SUGGESTIONS] chips, one per line, each pasting only that line */
     private fun createMultiLineSuggestionView(parent: ViewGroup?, lines: List<String>, sensitive: Boolean): View {
         val colors = latinIME.mSettings.current.mColors
         val chipMaxWidth = 120.dpToPx(latinIME.resources)
