@@ -420,7 +420,6 @@
     <string name="toolbar_mode_toolbar_keys">Pouze klávesy panelu nástrojů</string>
     <string name="toolbar_mode_suggestion_strip">Pouze návrhy</string>
     <string name="toolbar_mode_hidden">Skryté</string>
-    <string name="toolbar_hiding_global">Skrýt také panely schránky a emoji</string>
     <string name="toolbar_mode">Režim panelu nástrojů</string>
     <string name="popup_order_and_hint_source">Pořadí vyskakovacích kláves a zdroj tipů</string>
     <string name="landscape">Na šířku</string>

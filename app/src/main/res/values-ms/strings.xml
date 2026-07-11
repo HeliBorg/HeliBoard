@@ -186,7 +186,6 @@
     <string name="toolbar_mode_toolbar_keys">Kekunci bar alat sahaja</string>
     <string name="toolbar_mode_suggestion_strip">Cadangan sahaja</string>
     <string name="toolbar_mode_hidden">Tersembunyi</string>
-    <string name="toolbar_hiding_global">Sembunyi papan klip dan bar alat emoji juga</string>
     <string name="toolbar_keys">Pilih kekunci bar alat</string>
     <string name="clipboard" tools:keep="@string/clipboard">Papan klip</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Kosongkan papan klip</string>

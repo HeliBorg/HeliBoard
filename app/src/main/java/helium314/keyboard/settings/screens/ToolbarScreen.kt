@@ -44,10 +44,8 @@ fun ToolbarScreen(
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val toolbarMode = Settings.readToolbarMode(prefs)
     val clipboardToolbarVisible = toolbarMode != ToolbarMode.HIDDEN
-        || !prefs.getBoolean(Settings.PREF_TOOLBAR_HIDING_GLOBAL, Defaults.PREF_TOOLBAR_HIDING_GLOBAL)
     val items = listOf(
         Settings.PREF_TOOLBAR_MODE,
-        if (toolbarMode == ToolbarMode.HIDDEN) Settings.PREF_TOOLBAR_HIDING_GLOBAL else null,
         if (toolbarMode != ToolbarMode.HIDDEN) Settings.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE else null,
         when (toolbarMode) {
              ToolbarMode.EXPANDABLE, ToolbarMode.TOOLBAR_KEYS -> Settings.PREF_TOOLBAR_KEYS
@@ -82,11 +80,6 @@ fun createToolbarSettings(context: Context) = listOf(
             items,
             Defaults.PREF_TOOLBAR_MODE
         ) {
-            KeyboardSwitcher.getInstance().setThemeNeedsReload()
-        }
-    },
-    Setting(context, Settings.PREF_TOOLBAR_HIDING_GLOBAL, R.string.toolbar_hiding_global) {
-        SwitchPreference(it, Defaults.PREF_TOOLBAR_HIDING_GLOBAL) {
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
     },

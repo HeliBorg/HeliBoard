@@ -295,7 +295,6 @@
     <string name="save_subtype_per_app">Muista kieli sovelluskohtaisesti</string>
     <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Vain ehdotukset</string>
     <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Piilotettu</string>
-    <string name="toolbar_hiding_global">Piilota myös leikepöytä- ja emojipalkit</string>
     <string name="prefs_font_scale">Näppäimistön fontin skaalaus</string>
     <string name="prefs_emoji_font_scale">Emojinäkymän fontin skaalaus</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutraali</string>

@@ -431,7 +431,6 @@
     <string name="prefs_emoji_skin_tone">Tono de pel por defecto para emojis</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutro</string>
     <string name="show_emoji_descriptions">Mostrar descrición do emoji con pulsación longa</string>
-    <string name="toolbar_hiding_global">Ocultar tamén as barras de ferramentas de emoji e portapapeis</string>
     <string name="suggest_emojis">Suxerir emojis</string>
     <string name="suggest_emojis_summary">Usar dicionario de emoji nas suxestións normais</string>
     <string name="suggest_punctuation">Suxestións de puntuación</string>

@@ -463,7 +463,6 @@
     <string name="toolbar_mode_toolbar_keys">Alleen werkbalktoetsen</string>
     <string name="toolbar_mode_suggestion_strip">Alleen suggesties</string>
     <string name="toolbar_mode_hidden">Verborgen</string>
-    <string name="toolbar_hiding_global">Klembord- en emoji-werkbalken ook verbergen</string>
     <string name="popup_order_and_hint_source">Popup toetsvolgorde en bron van hints</string>
     <string name="landscape">Liggend</string>
     <string name="show_emoji_descriptions">Toon emoji-beschrijving bij lang indrukken</string>

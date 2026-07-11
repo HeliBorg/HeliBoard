@@ -423,7 +423,6 @@
     <string name="toolbar_mode_toolbar_keys">Doar tastele barei de instrumente</string>
     <string name="toolbar_mode_suggestion_strip">Doar sugestii</string>
     <string name="toolbar_mode_hidden">Ascuns</string>
-    <string name="toolbar_hiding_global">Ascunde și barele de instrumente pentru clipboard și emoji-uri</string>
     <string name="about_wiki_link">Mergi la Wiki</string>
     <string name="about_wiki_link_description">Wiki-ul poate fi îmbunătățit de orice utilizator GitHub!</string>
     <string name="landscape">Peisaj</string>

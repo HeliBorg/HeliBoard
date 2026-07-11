@@ -128,7 +128,6 @@ public class SettingsValues {
     public final float mSidePaddingScale;
     public final ToolbarMode mToolbarMode;
     public final boolean mToolbarSwipeDownToHide;
-    public final boolean mToolbarHidingGlobal;
     public final boolean mAutoShowToolbar;
     public final boolean mAutoHideToolbar;
     public final boolean mAlphaAfterEmojiInEmojiView;
@@ -152,7 +151,7 @@ public class SettingsValues {
 
     // Deduced settings
     public final boolean mSuggestionStripHiddenPerUserSettings;
-    public final boolean mSecondaryStripVisible;
+    public final boolean mClipboardStripVisible;
     public final int mKeypressVibrationDuration;
     public final float mKeypressSoundVolume;
     public final boolean mAutoCorrectionEnabledPerUserSettings;
@@ -188,7 +187,6 @@ public class SettingsValues {
         // we want to hide the toolbar / suggestion strip entirely if device is locked
         mToolbarMode = mIsLocked ? ToolbarMode.HIDDEN : Settings.readToolbarMode(prefs);
         mToolbarSwipeDownToHide = prefs.getBoolean(Settings.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE, Defaults.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE);
-        mToolbarHidingGlobal = mIsLocked || prefs.getBoolean(Settings.PREF_TOOLBAR_HIDING_GLOBAL, Defaults.PREF_TOOLBAR_HIDING_GLOBAL);
         mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, Defaults.PREF_AUTO_CAP) && ScriptUtils.scriptSupportsUppercase(mLocale);
         mVibrateOn = Settings.readVibrationEnabled(prefs);
         mVibrateInDndMode = prefs.getBoolean(Settings.PREF_VIBRATE_IN_DND_MODE, Defaults.PREF_VIBRATE_IN_DND_MODE);
@@ -268,7 +266,7 @@ public class SettingsValues {
                   || !prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT));
         mSuggestionsEnabled = prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, Defaults.PREF_SHOW_SUGGESTIONS)
             && (mInputAttributes.mShouldShowSuggestions || mOverrideShowingSuggestions) && !mSuggestionStripHiddenPerUserSettings;
-        mSecondaryStripVisible = mToolbarMode != ToolbarMode.HIDDEN || ! mToolbarHidingGlobal;
+        mClipboardStripVisible = mToolbarMode != ToolbarMode.HIDDEN;
         mIncognitoModeEnabled = prefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
         mBottomRowScale = Settings.readBottomRowScale(prefs, isLandscape, isFolded);

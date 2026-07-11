@@ -366,7 +366,6 @@
     <string name="shift_removes_autospace">Shift billentyű leütésekor nincs automatikus szóköz</string>
     <string name="shift_removes_autospace_summary">A Shift billentyű eltávolítja a függőben lévő automatikus szóközt</string>
     <string name="show_popup_keys_main">Nagyon gyakori változatok hozzáadása (alapértelmezett)</string>
-    <string name="toolbar_hiding_global">Vágólap- és emodzsisáv elrejtése</string>
     <string name="split" tools:keep="@string/split">Osztott billentyűzet</string>
     <string name="word_left" tools:keep="@string/word_left">Balra lévő szó</string>
     <string name="word_right" tools:keep="@string/word_right">Jobbra lévő szó</string>

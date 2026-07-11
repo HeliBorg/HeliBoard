@@ -428,7 +428,6 @@
     <string name="toolbar_mode_toolbar_keys">مفاتيح شريط الأدوات فقط</string>
     <string name="toolbar_mode_suggestion_strip">اقتراحات فقط</string>
     <string name="toolbar_mode_hidden">مخفي</string>
-    <string name="toolbar_hiding_global">أخفِ أشرطة أدوات الحافظة والرموز التعبيرية أيضًا</string>
     <string name="popup_order_and_hint_source">ترتيب مفاتيح النوافذ المنبثقة ومصدر التلميحات</string>
     <string name="landscape">أفقي</string>
     <string name="show_emoji_descriptions">أظهر وصف الرموز التعبيرية عند الضغط مطولاً</string>

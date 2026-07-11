@@ -410,7 +410,6 @@
     <string name="toolbar_mode_toolbar_keys">Лише панель інструментів</string>
     <string name="toolbar_mode_suggestion_strip">Лише підказки</string>
     <string name="toolbar_mode_hidden">Приховано</string>
-    <string name="toolbar_hiding_global">Приховати панелі інструментів буфера обміну та емодзі</string>
     <string name="prefs_emoji_key_fit">Масштабувати розмір клавіші емодзі залежно від розміру шрифту</string>
     <string name="prefs_emoji_skin_tone">Тон шкіри емодзі за замовчуванням</string>
     <string name="prefs_emoji_skin_tone_neutral">Нейтральний (жовтий)</string>

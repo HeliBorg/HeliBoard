@@ -217,7 +217,6 @@
     <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">கருவிப்பட்டி விசைகள் மட்டுமே</string>
     <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">பரிந்துரைகள் மட்டுமே</string>
     <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">மறைக்கப்பட்டது</string>
-    <string name="toolbar_hiding_global">இடைநிலைப்பலகை மற்றும் ஈமோசி கருவிப்பட்டிகளையும் மறைக்கவும்</string>
     <string name="toolbar_keys">கருவிப்பட்டி விசைகளைத் தேர்ந்தெடுக்கவும்</string>
     <string name="clipboard" tools:keep="@string/clipboard">இடைநிலைப் பலகை</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">கிளிப்போர்டை அழிக்கவும்</string>

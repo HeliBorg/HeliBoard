@@ -358,7 +358,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
         mKeyboardView.setVisibility(View.GONE);
         mSuggestionStripView.setVisibility(View.GONE);
-        mStripContainer.setVisibility(getSecondaryStripVisibility());
+        // the strip container always shows the emoji category tab strip in emoji view,
+        // independent of toolbar settings
+        mStripContainer.setVisibility(View.VISIBLE);
         mClipboardStripScrollView.setVisibility(View.GONE);
         mEmojiTabStripView.setVisibility(View.VISIBLE);
         mClipboardHistoryView.setVisibility(View.GONE);
@@ -380,7 +382,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mKeyboardView.setVisibility(View.GONE);
         mEmojiTabStripView.setVisibility(View.GONE);
         mSuggestionStripView.setVisibility(View.GONE);
-        mStripContainer.setVisibility(getSecondaryStripVisibility());
+        mStripContainer.setVisibility(getClipboardStripVisibility());
         mClipboardStripScrollView.post(() -> mClipboardStripScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT));
         mClipboardStripScrollView.setVisibility(View.VISIBLE);
         mEmojiPalettesView.setVisibility(View.GONE);
@@ -586,8 +588,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    private static int getSecondaryStripVisibility() {
-        return Settings.getValues().mSecondaryStripVisible? View.VISIBLE : View.GONE;
+    private static int getClipboardStripVisibility() {
+        return Settings.getValues().mClipboardStripVisible? View.VISIBLE : View.GONE;
     }
 
     // Displays a toast-like message with the provided text for a specified duration.

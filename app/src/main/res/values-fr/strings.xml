@@ -423,7 +423,6 @@ Nouveau dictionnaire:
     <string name="toolbar_mode_toolbar_keys">Touches de la barre d\'outils uniquement</string>
     <string name="toolbar_mode_suggestion_strip">Suggestions uniquement</string>
     <string name="toolbar_mode_hidden">Masquée</string>
-    <string name="toolbar_hiding_global">Masquer également le presse-papiers et les barres d\'outils émoji</string>
     <string name="toolbar_mode_expandable">Touches de la barre d\'outil et suggestions</string>
     <string name="landscape">Paysage</string>
     <string name="popup_order_and_hint_source">Ordre des touches popup et source des symboles</string>

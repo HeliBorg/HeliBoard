@@ -417,7 +417,6 @@
     <string name="landscape">במצב אופקי</string>
     <string name="toolbar_mode_suggestion_strip">הצעות בלבד</string>
     <string name="toolbar_mode_hidden">מוסתר</string>
-    <string name="toolbar_hiding_global">הסתרת סרגלי כלי הלוח והאמוג\'ים גם</string>
     <string name="toolbar_mode">מצב סרגל הכלים</string>
     <string name="toolbar_mode_expandable">פקדי סרגל הכלים והצעות</string>
     <string name="toolbar_mode_toolbar_keys">פקדי סרגל הכלים בלבד</string>
