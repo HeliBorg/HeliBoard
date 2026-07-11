@@ -1182,9 +1182,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     // doesn't work in many apps that support normal clipboard pasting, possibly just because they don't have mime types in editorInfo
-    public void commitContent(InputContentInfoCompat contentInfo, @NonNull EditorInfo editorInfo) {
+    public boolean commitContent(InputContentInfoCompat contentInfo, @NonNull EditorInfo editorInfo) {
         mIC = mParent.getCurrentInputConnection();
-        if (isConnected())
-            InputConnectionCompat.commitContent(mIC, editorInfo, contentInfo, InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION, null);
+        if (!isConnected())
+            return false;
+        return InputConnectionCompat.commitContent(mIC, editorInfo, contentInfo, InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION, null);
     }
 }

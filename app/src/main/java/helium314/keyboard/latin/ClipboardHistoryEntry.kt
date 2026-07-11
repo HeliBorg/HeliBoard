@@ -61,7 +61,8 @@ class ClipboardHistoryEntry(
                 textView.text = null
                 return
             }
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
+            // catches OutOfMemoryError too, which can happen when decoding a corrupt or oversized image
             Log.w("ClipboardHistoryEntry", "could not load image for clip $id", e)
         }
         val description = if (text.isNullOrBlank()) ""

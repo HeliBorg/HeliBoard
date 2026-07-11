@@ -155,9 +155,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onContent(content: InputContentInfoCompat) {
         val editorInfo = latinIME.currentInputEditorInfo
         val editorMimeTypes = EditorInfoCompat.getContentMimeTypes(editorInfo)
-        if (editorMimeTypes.any { content.description.hasMimeType(it) }) {
-            connection.commitContent(content, editorInfo)
-        } else if (editorMimeTypes.isEmpty()) { // make the fallback optional?
+        val committed = editorMimeTypes.any { content.description.hasMimeType(it) }
+                && connection.commitContent(content, editorInfo)
+        if (!committed) {
+            // editor didn't declare a matching mime type, or claimed to support it but rejected the content anyway
             latinIME.clipboardHistoryManager.pasteWithoutChangingClips(content)
         }
     }
