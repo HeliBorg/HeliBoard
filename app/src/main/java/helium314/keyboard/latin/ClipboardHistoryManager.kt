@@ -21,6 +21,7 @@ import androidx.core.view.inputmethod.InputContentInfoCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import helium314.keyboard.keyboard.KeyboardTypeface
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.compat.ClipboardManagerCompat
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HapticEvent
@@ -211,7 +212,7 @@ class ClipboardHistoryManager(
         val textView = binding.clipboardSuggestionText
         // use a separate mutable drawable (not the shared one from getIconDrawable) so shrinking it
         // here doesn't also shrink the same icon elsewhere, e.g. the toolbar paste button
-        val clipIcon = latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getNewDrawable(ToolbarKey.PASTE.name.lowercase(), latinIME)
+        val clipIcon = KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.PASTE.name.lowercase(), latinIME)
         val clipIconSize = 16.dpToPx(textView.resources)
         clipIcon?.setBounds(0, 0, clipIconSize, clipIconSize)
         textView.setCompoundDrawablesRelative(clipIcon, null, null, null)
@@ -251,7 +252,7 @@ class ClipboardHistoryManager(
         }
 
         val closeButton = binding.clipboardSuggestionClose
-        closeButton.setImageDrawable(latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase()))
+        closeButton.setImageDrawable(KeyboardIconsSet.instance.getIconDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase()))
         closeButton.setOnClickListener { removeClipboardSuggestion() }
 
         val colors = latinIME.mSettings.current.mColors
@@ -293,7 +294,7 @@ class ClipboardHistoryManager(
             val lineBinding = ClipboardSuggestionBinding.inflate(LayoutInflater.from(latinIME), parent, false)
             val lineText = lineBinding.clipboardSuggestionText
             lineText.maxWidth = chipMaxWidth
-            val lineIcon = latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getNewDrawable(ToolbarKey.PASTE.name.lowercase(), latinIME)
+            val lineIcon = KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.PASTE.name.lowercase(), latinIME)
             val lineIconSize = 16.dpToPx(lineText.resources)
             lineIcon?.setBounds(0, 0, lineIconSize, lineIconSize)
             lineIcon?.let { colors.setColor(it, ColorType.KEY_ICON) }
@@ -320,7 +321,7 @@ class ClipboardHistoryManager(
         scrollView.addView(chipRow, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT))
 
         val closeButton = ImageView(latinIME)
-        closeButton.setImageDrawable(latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase()))
+        closeButton.setImageDrawable(KeyboardIconsSet.instance.getIconDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase()))
         colors.setColor(closeButton, ColorType.REMOVE_SUGGESTION_ICON)
         closeButton.setOnClickListener { removeClipboardSuggestion() }
 
