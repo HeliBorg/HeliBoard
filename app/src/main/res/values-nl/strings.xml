@@ -101,6 +101,8 @@
     <string name="settings_no_limit">Geen limiet</string>
     <string name="clipboard_history_retention_time">Bewaartijd van de geschiedenis</string>
     <string name="delete_swipe">Verwijderen met veegbeweging</string>
+    <string name="delete_word_long_press">Woord verwijderen door lang indrukken</string>
+    <string name="delete_word_long_press_summary">De herhaaltoets of verwijdertoets lang ingedrukt houden verwijdert continu hele woorden</string>
     <string name="enable_clipboard_history">Klembordgeschiedenis inschakelen</string>
     <string name="more_keys_strip_description">Meer toetsen</string>
     <string name="number_row_summary">Cijferregel altijd weergeven</string>

@@ -137,6 +137,8 @@
     <string name="button_backup">Copie de rezervă</string>
     <string name="delete_swipe">Ștergere prin glisare</string>
     <string name="delete_swipe_summary">Efectuează o glisare de la tasta de ștergere pentru a selecta și a elimina simultan porțiuni mai mari de text</string>
+    <string name="delete_word_long_press">Ștergere cuvânt prin apăsare lungă</string>
+    <string name="delete_word_long_press_summary">Apăsarea lungă a tastei de ștergere elimină cuvinte întregi în mod continuu</string>
     <string name="backup_restore_title">Copie de rezervă și restaurare</string>
     <string name="popup_order">Selectează ordinea tastelor pop-up</string>
     <string name="number_row">Rând de numere</string>

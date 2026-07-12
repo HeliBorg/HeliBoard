@@ -96,6 +96,8 @@
     <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
     <string name="number_row_summary">Always show number row</string>
     <string name="delete_swipe">Delete swipe</string>
+    <string name="delete_word_long_press">Delete word on long press</string>
+    <string name="delete_word_long_press_summary">Long pressing delete key deletes whole words continuously</string>
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
     <string name="show_emoji_key">Emoji key</string>
     <string name="incognito">Force incognito mode</string>

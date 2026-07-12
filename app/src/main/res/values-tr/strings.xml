@@ -103,6 +103,8 @@
     <string name="android_spell_checker_settings">HeliBoard yazım denetleyicisi ayarları</string>
     <string name="prefs_keyboard_height_scale">Klavye yükseklik ölçeği</string>
     <string name="delete_swipe">Kadırarak silme</string>
+    <string name="delete_word_long_press">Uzun basarak kelime silme</string>
+    <string name="delete_word_long_press_summary">Silme tuşuna uzun basıldığında tüm kelimeler kesintisiz olarak silinir</string>
     <string name="key_borders">Tuş kenarlıkları</string>
     <string name="day_night_mode">Otomatik gündüz/gece modu</string>
     <string name="spell_checker_service_name">HeliBoard yazım denetleyicisi</string>

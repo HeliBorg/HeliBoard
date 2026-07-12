@@ -117,6 +117,8 @@
     <string name="delete_swipe">احذف بالسحب</string>
     <string name="key_borders">الحدود الرئيسة</string>
     <string name="delete_swipe_summary">أجرِ سحبًا سريعًا على مفتاح الحذف لتُحدِّد وتُزيل أجزاءً كبيرة من النص دفعةً واحدة</string>
+    <string name="delete_word_long_press">احذف الكلمات بالضغط المطول</string>
+    <string name="delete_word_long_press_summary">يؤدي الضغط المطول على مفتاح الحذف إلى حذف كلمات كاملة بشكل مستمر</string>
     <string name="show_hints">أظهِر تلميحات المفاتيح</string>
     <string name="select_input_method">"اختيار أسلوب الإدخال"</string>
     <string name="show_hints_summary">أظهِر تلميحات المفاتيح عند الضغط لفترة طويلة</string>

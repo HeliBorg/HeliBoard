@@ -99,6 +99,8 @@
     <string name="spell_checker_service_name">HeliBoard-stavekontroll</string>
     <string name="android_spell_checker_settings">Innstillinger for HeliBoard-stavekontroll</string>
     <string name="delete_swipe">Sveip for å slette</string>
+    <string name="delete_word_long_press">Slett ord med langt trykk</string>
+    <string name="delete_word_long_press_summary">Ved å holde slettetasten inne slettes hele ord kontinuerlig</string>
     <string name="show_emoji_key">Emoji-tast</string>
     <string name="delete_swipe_summary">Utfør en dragning fra Delete-tasten for å velge og fjerne større deler av tekst samtidig</string>
     <string name="settings_category_additional_keys">Ytterligere taster</string>

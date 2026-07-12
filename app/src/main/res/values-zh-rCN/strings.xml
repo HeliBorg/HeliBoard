@@ -100,6 +100,8 @@
     <string name="enable_clipboard_history">启用剪贴板历史</string>
     <string name="clipboard_history_retention_time">历史保留时间</string>
     <string name="delete_swipe_summary">从删除键滑动，一次选择并删除较大的文本部分</string>
+    <string name="delete_word_long_press">长按删除单词</string>
+    <string name="delete_word_long_press_summary">长按删除键可连续删除完整单词</string>
     <string name="incognito">强制隐身模式</string>
     <string name="show_hints_summary">显示长按提示</string>
     <string name="number_row_summary">始终显示数字行</string>

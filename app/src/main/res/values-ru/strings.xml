@@ -104,6 +104,8 @@
     <string name="url_detection_summary">Попытаться обнаружить URL-адреса и схожие конструкции как единое целое</string>
     <string name="delete_swipe">Удаление смахиванием</string>
     <string name="delete_swipe_summary">Смахните от клавиши удаления, чтобы выделить и сразу удалить большие фрагменты текста</string>
+    <string name="delete_word_long_press">Удаление слова удержанием</string>
+    <string name="delete_word_long_press_summary">Длительное нажатие клавиши удаления непрерывно стирает целые слова</string>
     <string name="backup_restore_title">Резервное копирование и восстановление</string>
     <string name="backup_restore_message">Сохранить или загрузить из файла. Внимание: восстановление перезапишет существующие данные</string>
     <string name="backup_error">Ошибка резервного копирования: %s</string>

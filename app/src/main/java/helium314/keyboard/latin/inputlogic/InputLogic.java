@@ -713,6 +713,12 @@ public final class InputLogic {
                 // Backspace is a functional key, but it affects the contents of the editor.
                 inputTransaction.setDidAffectContents();
                 break;
+
+            case KeyCode.DELETE_WORD:
+                handleDeleteWordEvent(event, inputTransaction, currentKeyboardScript);
+                inputTransaction.setDidAffectContents();
+                break;
+
             case KeyCode.SHIFT:
                 if (KeyboardSwitcher.getInstance().getKeyboard() != null && !KeyboardSwitcher.getInstance().getKeyboard().mId.getElement().isAlphabet())
                     break; // recapitalization and follow-up code should only trigger for alphabet shift, see #1256
@@ -1441,6 +1447,62 @@ public final class InputLogic {
         }
     }
 
+    /**
+     * Handle a press on the swipe-to-delete-word gesture.
+     * @param event The event to handle.
+     * @param inputTransaction The transaction in progress.
+     */
+    private void handleDeleteWordEvent(final Event event, final InputTransaction inputTransaction,
+                                       final String currentKeyboardScript) {
+
+        mSpaceState = SpaceState.NONE;
+        inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
+
+        // Delete the highlighted text, if any
+        if (mConnection.hasSelection()) {
+            final int numCharsDeleted = mConnection.getExpectedSelectionEnd()
+                - mConnection.getExpectedSelectionStart();
+            mConnection.setSelection(mConnection.getExpectedSelectionEnd(),
+                mConnection.getExpectedSelectionEnd());
+            mConnection.deleteTextBeforeCursor(numCharsDeleted);
+            StatsUtils.onBackspaceSelectedText(numCharsDeleted);
+            return;
+        }
+
+        // Clear active composing state (to not skip current word)
+        if (mWordComposer.isComposingWord()) {
+            unlearnWord(mWordComposer.getTypedWord(), inputTransaction.getSettingsValues(),
+                Constants.EVENT_BACKSPACE);
+            resetEntireInputState(mConnection.getExpectedSelectionStart(),
+                mConnection.getExpectedSelectionEnd(), true);
+        }
+        mConnection.finishComposingText();
+
+        // Getting word boundary
+        final TextRange textRange = mConnection.getWordRangeAtCursor(
+            inputTransaction.getSettingsValues().mSpacingAndPunctuations,
+            currentKeyboardScript);
+
+        int charsToDelete = 1;
+        if (textRange != null) {
+            charsToDelete = textRange.getNumberOfCharsInWordBeforeCursor();
+        }
+
+        // For spaces/punctuation, force at least 1 character deletion
+        if (charsToDelete <= 0) {
+            charsToDelete = 1;
+        }
+
+        // Delete word
+        mConnection.deleteTextBeforeCursor(charsToDelete);
+        StatsUtils.onBackspacePressed(charsToDelete);
+
+        // Update the suggestion strip for the new word cursor stopped at
+        if (!mConnection.hasSlowInputConnection() && inputTransaction.getSettingsValues().needsToLookupSuggestions()
+            && inputTransaction.getSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
+            restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues(), currentKeyboardScript);
+        }
+    }
     String getWordAtCursor(final SettingsValues settingsValues, final String currentKeyboardScript) {
         if (!mConnection.hasSelection()
                 && settingsValues.needsToLookupSuggestions()

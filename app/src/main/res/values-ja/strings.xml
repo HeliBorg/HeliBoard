@@ -143,6 +143,8 @@
     <string name="enable_clipboard_history">クリップボード履歴をイネーブルする</string>
     <string name="clipboard_history_retention_time">履歴を保つ時間</string>
     <string name="delete_swipe">デリートスワイプ</string>
+    <string name="delete_word_long_press">長押しで単語を削除</string>
+    <string name="delete_word_long_press_summary">削除キーを長押しすると、単語単位で連続して削除します</string>
     <string name="load_gesture_library_button_delete">ライブラリーをデリートする</string>
     <string name="autospace_before_gesture_typing">ゲスチャー入力の前に自動にスペースする</string>
     <string name="autospace_after_gesture_typing">ゲスチャー入力の後で自動にスペースする</string>

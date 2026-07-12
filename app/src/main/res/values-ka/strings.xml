@@ -108,6 +108,8 @@
     <string name="incognito">ნაძალადევი ინკოგნიტოს რეჟიმი</string>
     <string name="prefs_force_incognito_mode_summary">ახალი სიტყვების სწავლის გამორთვა</string>
     <string name="delete_swipe_summary">ტექსტის დიდი პორციების მოსანიშნად და წასაშლელად წაშლის ღილაკს გაუსვით</string>
+    <string name="delete_word_long_press">სიტყვის წაშლა ხანგრძლივი დაჭერით</string>
+    <string name="delete_word_long_press_summary">წაშლის ღილაკზე ხანგრძლივი დაჭერა მთლიან სიტყვებს უწყვეტად შლის</string>
     <string name="prefs_long_press_keyboard_to_change_lang">შეყვანის მეთოდის გამოტოვების ღილაკით შეცვლა</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">გამოტოვების ღილაკზე დიდხანს დაწოლა შეყვანის მეთოდის მენიუს გაჩვენებთ</string>
     <string name="show_hints">ღილაკის მინიშნებების ჩვენება</string>

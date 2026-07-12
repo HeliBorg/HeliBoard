@@ -101,6 +101,8 @@
     <string name="prefs_keyboard_height_scale">Escala de altura del teclado</string>
     <string name="delete_swipe">Borrar deslizando</string>
     <string name="delete_swipe_summary">Deslice el dedo por la tecla Borrar para seleccionar y eliminar porciones más grandes de texto de una vez</string>
+    <string name="delete_word_long_press">Borrar palabra por pulsación larga</string>
+    <string name="delete_word_long_press_summary">Mantener pulsada la tecla de borrar elimina palabras completas de forma continua</string>
     <string name="prefs_force_incognito_mode_summary">Desactiva el aprendizaje de nuevas palabras</string>
     <string name="incognito">Forzar el modo incógnito</string>
     <string name="more_keys_strip_description">Más teclas</string>

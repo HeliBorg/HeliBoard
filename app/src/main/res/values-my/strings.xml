@@ -158,6 +158,8 @@
     <string name="clipboard_history_pinned_first">အထူးမှတ်သားထားသော အကြောင်းအရာများကို ထိပ်ဆုံးတွင်ပြရန်</string>
     <string name="delete_swipe">ပွတ်ဆွဲ၍ ဖျက်ရန်</string>
     <string name="delete_swipe_summary">နောက်ကြောင်းပြန်ခလုပ်ကိုဖိ၍ ဘယ်ဘက်သို့ပွတ်ဆွဲခြင်းဖြင့် ရိုက်နှိပ်ထားပြီးသော စာများအားလုံးကို သိမ်းကျုံးဖျက်ပါ</string>
+    <string name="delete_word_long_press">ကြာရှည်နှိပ်၍ စာလုံးဖျက်ရန်</string>
+    <string name="delete_word_long_press_summary">ဖျက်ရန်ခလုတ်ကို ကြာရှည်နှိပ်ထားပါက စာလုံးအပြည့်အစုံများကို အစဉ်တစိုက် ဖျက်ပေးပါမည်</string>
     <string name="backup_restore_title">အရန်သိမ်းဆည်းခြင်းနှင့် ပြန်လည်ထည့်သွင်းခြင်း</string>
     <string name="backup_restore_message">ဖိုင်စနစ်တွင် သိမ်းဆည်းခြင်းနှင့် ၎င်းစနစ်မှ ပြန်လည်ထည့်သွင်းခြင်း လုပ်ငန်းများဆောင်ရွက်ရန်။ သတိ - ထည့်သွင်းခြင်းလုပ်ငန်းကိုဆောင်ရွက်ပါက လက်ရှိရှိနေသော အချက်အလက်များအားလုံးကို ပယ်ဖျက်လိမ့်မည်</string>
     <string name="backup_error">%s အရန်သိမ်းဆည်းမှုလုပ်ငန်းမအောင်မြင်ပါ</string>

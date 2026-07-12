@@ -130,6 +130,8 @@
     <string name="use_apps_dict_summary">Guna nama aplikasi dipasang untuk cadangan dan pembetulan</string>
     <string name="disable_personalized_dicts_message">Amaran: Menyahdayakan tetapan ini akan mengosongkan data yang telah dipelajari</string>
     <string name="delete_swipe_summary">Sapu daripada kekunci padam untuk memilih dan membuang teks yang lebih banyak sekaligus</string>
+    <string name="delete_word_long_press">Padam perkataan dengan tekan lama</string>
+    <string name="delete_word_long_press_summary">Menekan lama kekunci padam akan membuang keseluruhan perkataan secara berterusan</string>
     <string name="backup_restore_title">Sandarkan dan pulihkan</string>
     <string name="backup_restore_message">Simpan atau muat daripada fail. Amaran: pemulihan akan menimpa data sedia ada</string>
     <string name="backup_error">Ralat sandaran: %s</string>

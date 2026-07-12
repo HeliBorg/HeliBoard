@@ -106,6 +106,8 @@
     <string name="number_row">Riga dei numeri</string>
     <string name="delete_swipe">Scorri per cancellare</string>
     <string name="delete_swipe_summary">Scorri indietro partendo da \'Backspace\' per rimuovere più caratteri o parole in una sola volta</string>
+    <string name="delete_word_long_press">Cancella parola con pressione prolungata</string>
+    <string name="delete_word_long_press_summary">Tenendo premuto il tasto di cancellazione si eliminano intere parole continuamente</string>
     <string name="incognito">Modalità incognito</string>
     <string name="show_emoji_key">Tasto emoji</string>
     <string name="number_row_summary">Mostra sempre la riga dei numeri</string>

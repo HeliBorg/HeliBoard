@@ -104,6 +104,8 @@
     <string name="settings_no_limit">Sin límite</string>
     <string name="settings_category_suggestions">Sugerencias</string>
     <string name="delete_swipe">Borrar deslizando</string>
+    <string name="delete_word_long_press">Borrar palabra por pulsación larga</string>
+    <string name="delete_word_long_press_summary">Mantener pulsada la tecla de borrar elimina palabras completas de forma continua</string>
     <string name="autospace_after_punctuation">Espacio después del punto</string>
     <string name="incognito">Forzar modo incógnito</string>
     <string name="number_row_summary">Mostrar siempre la fila de números</string>

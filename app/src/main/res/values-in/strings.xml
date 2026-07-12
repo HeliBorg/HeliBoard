@@ -94,6 +94,8 @@
     <string name="prefs_keyboard_height_scale">Skala tinggi keyboard</string>
     <string name="delete_swipe">Gestur hapus</string>
     <string name="delete_swipe_summary">Sentuh dan geser ke kiri pada tombol hapus untuk menghapus beberapa huruf/kata sekaligus</string>
+    <string name="delete_word_long_press">Hapus kata dengan tekan lama</string>
+    <string name="delete_word_long_press_summary">Menekan lama tombol hapus akan menghapus seluruh kata secara terus-menerus</string>
     <string name="settings_category_clipboard_history">Riwayat papan klip</string>
     <string name="settings_no_limit">Tidak ada batas</string>
     <string name="enable_clipboard_history">Aktifkan riwayat papan klip</string>

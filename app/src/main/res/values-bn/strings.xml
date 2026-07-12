@@ -67,6 +67,8 @@
     <string name="clipboard_history_retention_time">ইতিহাস স্থিতির সময়কাল</string>
     <string name="delete_swipe">বিলোপ অভিস্পর্শ</string>
     <string name="delete_swipe_summary">লেখার বড়ো অংশ একসাথে সিলেক্ট করে অপসারণ করার জন্য অভিস্পর্শ করুন</string>
+    <string name="delete_word_long_press">দীর্ঘ চাপে শব্দ বিলোপ</string>
+    <string name="delete_word_long_press_summary">মুছে ফেলার বোতামটি দীর্ঘক্ষণ চেপে রাখলে একের পর এক সম্পূর্ণ শব্দ মুছে যায়</string>
     <string name="secondary_locale">বহুভাষী টাইপিং</string>
     <string name="load_gesture_library">অঙ্গুলিহেলন টাইপিং লাইব্রেরি অধিযোগ</string>
     <string name="load_gesture_library_summary">অঙ্গুলিহেলনের মাধ্যমে টাইপিং সক্রিয় করার জন্য স্থানীয় লাইব্রেরি সরবরাহ</string>

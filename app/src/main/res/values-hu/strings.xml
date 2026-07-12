@@ -103,6 +103,8 @@
     <string name="android_spell_checker_settings">HeliBoard helyesírás-ellenőrző beállításai</string>
     <string name="settings_category_additional_keys">További billentyűk</string>
     <string name="delete_swipe_summary">A törlés billentyűről való csúsztatással nagyobb szövegrészleteket jelölhet ki és távolíthat el</string>
+    <string name="delete_word_long_press">Szó törlése hosszan nyomva tartással</string>
+    <string name="delete_word_long_press_summary">A törlés billentyű hosszan nyomva tartásával folyamatosan törölhet teljes szavakat</string>
     <string name="enable_clipboard_history_summary">Ha le van tiltva, a vágólapbillentyű beilleszti a vágólap tartalmát, ha van</string>
     <string name="clipboard_history_retention_time">Előzmények megőrzésének ideje</string>
     <string name="prefs_keyboard_height_scale">Billentyűzet magassága</string>

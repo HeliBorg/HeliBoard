@@ -122,6 +122,8 @@
     <string name="show_emoji_key">Emoji tekla</string>
     <string name="delete_swipe">Desgaitu irristatzea</string>
     <string name="delete_swipe_summary">Ezabatu teklatik hatza irristatu, testuaren zati handiagoak hautatzeko eta ezabatzeko</string>
+    <string name="delete_word_long_press">Ezabatu hitza luze sakatuta</string>
+    <string name="delete_word_long_press_summary">Ezabatzeko tekla luze sakatzean hitz osoak ezabatzen dira etengabe</string>
     <string name="autospace_after_punctuation_summary">Sartu automatikoki zuriunea puntuazioen ondoren hitz berri bat idaztean</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Aldatu idazketa-metodoa zuriune teklarekin</string>
     <string name="prefs_keyboard_height_scale">Teklatuaren altuera eskala</string>

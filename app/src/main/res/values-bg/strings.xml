@@ -125,6 +125,8 @@
     <string name="gesture_floating_preview_dynamic_summary">Преместете визуализацията по време на жест</string>
     <string name="gesture_trail_fadeout_duration">Продължителност на живота на следата на жеста</string>
     <string name="delete_swipe">Изтриване с плъзгане</string>
+    <string name="delete_word_long_press">Изтриване на дума с дълго натискане</string>
+    <string name="delete_word_long_press_summary">Дългото натискане на клавиша за изтриване изтрива цели думи непрекъснато</string>
     <string name="backup_restore_title">Архивиране и възстановяване</string>
     <string name="load_gesture_library_summary">Осигурете собствена библиотека, за да активирате писането с жестове</string>
     <string name="split_spacer_scale">Разделено разстояние</string>

@@ -269,6 +269,8 @@
     <string name="auto_correction_confidence">Automaattisen korjauksen luottamus</string>
     <string name="show_hints_summary">Näytä pitkän painalluksen vinkit</string>
     <string name="delete_swipe_summary">Pyyhkäise poistonäppäimestä valitaksesi ja poistaaksesi suurempia tekstiosia kerralla</string>
+    <string name="delete_word_long_press">Poista sana pitkällä painalluksella</string>
+    <string name="delete_word_long_press_summary">Poistonäppäimen pitkä painaminen poistaa kokonaisia sanoja jatkuvasti</string>
     <string name="show_popup_keys_more">Lisää yleiset muunnelmat</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Kieli (ensisijaisuus)</string>
     <string name="prefs_always_show_suggestions_summary">Ohita muiden sovellusten pyyntö poistaa ehdotukset käytöstä (saattaa aiheuttaa ongelmia)</string>

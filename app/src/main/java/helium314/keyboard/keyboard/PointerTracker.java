@@ -50,7 +50,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private static final boolean DEBUG_MOVE_EVENT = false;
     private static final boolean DEBUG_LISTENER = false;
     private static final boolean DEBUG_MODE = DebugFlags.DEBUG_ENABLED || DEBUG_EVENT;
-
+    private int mWordDeleteTickCounter = 0;
     static final class PointerTrackerParams {
         public final boolean mKeySelectionByDraggingFinger;
         public final int mTouchNoiseThresholdTime;
@@ -58,6 +58,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         public final int mSuppressKeyPreviewAfterBatchInputDuration;
         public final int mKeyRepeatStartTimeout;
         public final int mKeyRepeatInterval;
+
 
         public PointerTrackerParams(final TypedArray mainKeyboardViewAttr) {
             mKeySelectionByDraggingFinger = mainKeyboardViewAttr.getBoolean(
@@ -1168,9 +1169,24 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             sListener.onReleaseKey(popupKeyCode, false);
             return;
         }
+
         final int code = key.getCode();
+
+        // Delete Word Feature
+        if (code == KeyCode.DELETE && Settings.getValues().mDeleteLongPressEnabled) {
+            mWordDeleteTickCounter = 0; // Reset the pace counter
+
+            // Fire the first word instantly
+            sListener.onCodeInput(KeyCode.DELETE_WORD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+
+            // Tell the static timer proxy to start looping this tracker's onKeyRepeat
+            startKeyRepeatTimer(1);
+            return;
+        }
+        // --------------------------------------
+
         if (code == KeyCode.LANGUAGE_SWITCH
-                || (code == Constants.CODE_SPACE && key.getPopupKeys() == null && Settings.getValues().mSpaceForLangChange)
+            || (code == Constants.CODE_SPACE && key.getPopupKeys() == null && Settings.getValues().mSpaceForLangChange)
         ) {
             // Long pressing the space key invokes IME switcher dialog.
             if (sListener.onCustomRequest(KeyboardActionListener.CustomAction.SHOW_INPUT_METHOD_PICKER)) {
@@ -1334,7 +1350,22 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         mIsDetectingGesture = false;
         final int nextRepeatCount = repeatCount + 1;
-        startKeyRepeatTimer(nextRepeatCount);
+        startKeyRepeatTimer(nextRepeatCount); // Tell the timer to queue up the next 50ms tick
+
+        // Long Press Delete button (Delete Word)
+        if (code == KeyCode.DELETE && Settings.getValues().mDeleteLongPressEnabled) {
+            mWordDeleteTickCounter++;
+
+            // Only execute on every after long press delay
+            if (mWordDeleteTickCounter %
+                Math.round(Settings.getValues().mKeyLongpressTimeout / 50f) == 0) {
+                // FIRE CUSTOM -8 CODE, NOT THE INCOMING -7
+                callListenerOnCodeInput(key, KeyCode.DELETE_WORD, mKeyX, mKeyY, SystemClock.uptimeMillis(), true);
+            }
+            return;
+        }
+        // -----------------------------------
+
         callListenerOnPressAndCheckKeyboardLayoutChange(key, repeatCount);
         callListenerOnCodeInput(key, code, mKeyX, mKeyY, SystemClock.uptimeMillis(), true);
     }
