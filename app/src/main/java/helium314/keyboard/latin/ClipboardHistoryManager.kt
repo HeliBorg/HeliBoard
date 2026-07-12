@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.view.inputmethod.InputContentInfoCompat
@@ -65,6 +66,9 @@ class ClipboardHistoryManager(
         // the clipboard suggestion reacts to any new clip regardless of the history setting,
         // as it reads directly from the live clipboard and doesn't use clipboard history
         dontShowCurrentSuggestion = false
+        // refresh the suggestion strip right away instead of waiting for some unrelated event
+        // (e.g. switching fields) to happen to trigger it next
+        latinIME.setNeutralSuggestionStrip()
         // Make sure we read clipboard content into history only if history setting is set
         if (latinIME.mSettings.current.mClipboardHistoryEnabled) {
             fetchPrimaryClip()
@@ -273,16 +277,17 @@ class ClipboardHistoryManager(
         return if (bySentence.size > 1) bySentence else byNewline
     }
 
-    /** builds a row of up to [MAX_SPLIT_CLIPBOARD_SUGGESTIONS] chips, one per line, each pasting only that line */
+    /**
+     * Builds a row of up to [MAX_SPLIT_CLIPBOARD_SUGGESTIONS] chips, one per line, each pasting only that line.
+     * Chips keep a fixed, readable width (like Gboard) and scroll horizontally instead of shrinking to fit.
+     */
     private fun createMultiLineSuggestionView(parent: ViewGroup?, lines: List<String>, sensitive: Boolean): View {
         val colors = latinIME.mSettings.current.mColors
-        val chipMaxWidth = 120.dpToPx(latinIME.resources)
+        val chipMaxWidth = 130.dpToPx(latinIME.resources)
         val chipMargin = 4.dpToPx(latinIME.resources)
-        val container = LinearLayout(latinIME)
-        container.orientation = LinearLayout.HORIZONTAL
-        // suggestionsStrip only resolves MATCH_PARENT correctly for a direct child that itself
-        // requests MATCH_PARENT height; without this the row (and its chips) shrink to wrap_content
-        container.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT)
+
+        val chipRow = LinearLayout(latinIME)
+        chipRow.orientation = LinearLayout.HORIZONTAL
 
         lines.take(MAX_SPLIT_CLIPBOARD_SUGGESTIONS).forEach { line ->
             val lineBinding = ClipboardSuggestionBinding.inflate(LayoutInflater.from(latinIME), parent, false)
@@ -302,17 +307,28 @@ class ClipboardHistoryManager(
                 dontShowCurrentSuggestion = true
                 latinIME.onTextInput(line)
                 AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it, HapticEvent.KEY_PRESS)
-                container.isGone = true
+                removeClipboardSuggestion()
             }
             val chipParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT)
             chipParams.marginEnd = chipMargin
-            container.addView(lineBinding.root, chipParams)
+            chipRow.addView(lineBinding.root, chipParams)
         }
+
+        val scrollView = HorizontalScrollView(latinIME)
+        scrollView.isHorizontalScrollBarEnabled = false
+        scrollView.overScrollMode = View.OVER_SCROLL_NEVER
+        scrollView.addView(chipRow, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT))
 
         val closeButton = ImageView(latinIME)
         closeButton.setImageDrawable(latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase()))
         colors.setColor(closeButton, ColorType.REMOVE_SUGGESTION_ICON)
         closeButton.setOnClickListener { removeClipboardSuggestion() }
+
+        // the scroll view claims all space left over after the fixed-size close button
+        val container = LinearLayout(latinIME)
+        container.orientation = LinearLayout.HORIZONTAL
+        container.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+        container.addView(scrollView, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f))
         container.addView(closeButton, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT))
 
         return container
@@ -338,7 +354,7 @@ class ClipboardHistoryManager(
         const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
 
         // like Gboard, show at most this many per-line chips for multi-line clipboard content
-        private const val MAX_SPLIT_CLIPBOARD_SUGGESTIONS = 2
+        private const val MAX_SPLIT_CLIPBOARD_SUGGESTIONS = 10
 
         // below this length, a clip fits comfortably in one chip, so sentence-splitting isn't worth the risk of misfiring
         private const val MIN_LENGTH_FOR_SENTENCE_SPLIT = 30
