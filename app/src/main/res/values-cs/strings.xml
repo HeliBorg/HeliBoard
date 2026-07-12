@@ -545,4 +545,5 @@
     <string name="prefs_hint_font_scale">Velikost písma nápovědy klávesy</string>
     <string name="about_community_links">Komunitní odkazy</string>
     <string name="about_community_links_description">Motivy, úprava rozložení, diskuze, …</string>
+    <string name="subtype_tok">Toki pona</string>
 </resources>

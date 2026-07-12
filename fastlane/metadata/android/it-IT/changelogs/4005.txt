@@ -1,0 +1,11 @@
+* Raccolta dati gesti in background
+* File/immagini nella cronologia appunti
+* Tastiera flottante
+* Emoji Unicode 17.0
+* Scala separata per smartphone pieghevoli
+* Modalità touchpad scorrendo sullo spazio
+* Opzione per disattivare popup correttore
+* Cursore per l'affidabilità autocorrezione
+* Cursore per spaziatura ridotta dei tasti
+* Fix di sicurezza su backup zip alterati
+* Altri fix e miglioramenti...

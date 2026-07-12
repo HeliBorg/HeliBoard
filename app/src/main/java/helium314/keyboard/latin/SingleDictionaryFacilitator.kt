@@ -48,7 +48,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
         val suggestionResults = getSuggestionResults(
             ComposedData.createForWord(word),
             NgramContext.getEmptyPrevWordsContext(0),
-            KeyboardSwitcher.getInstance().keyboard, // looks like actual keyboard doesn't matter (composed data doesn't contain coordinates)
+            KeyboardSwitcher.getInstance().keyboard!!, // looks like actual keyboard doesn't matter (composed data doesn't contain coordinates)
             SettingsValuesForSuggestion(false, false),
             Suggest.SESSION_ID_TYPING, SuggestedWords.INPUT_STYLE_TYPING
         )

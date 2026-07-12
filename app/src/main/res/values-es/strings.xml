@@ -543,4 +543,5 @@
     <string name="auto_correct_capitalized_suggestions">Corrección automática de sugerencias en mayúsculas</string>
     <string name="auto_correct_capitalized_suggestions_description">Después de presionar shift para poner en mayúscula las sugerencias, se activará la autocorrección</string>
     <string name="prefs_hint_font_scale">ajustar el tamaño del texto de las atajos visuales</string>
+    <string name="subtype_tok">Toki Pona</string>
 </resources>

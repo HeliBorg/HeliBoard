@@ -1,15 +1,18 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin
 
-import android.inputmethodservice.InputMethodService
-import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.text.InputType
-import android.view.KeyEvent
 import android.view.inputmethod.*
 import androidx.core.content.edit
 import helium314.keyboard.ShadowInputMethodManager2
+import helium314.keyboard.ShadowInputMethodService
+import helium314.keyboard.ShadowInputMethodService.Companion.composingEnd
+import helium314.keyboard.ShadowInputMethodService.Companion.composingStart
+import helium314.keyboard.ShadowInputMethodService.Companion.selectedText
+import helium314.keyboard.ShadowInputMethodService.Companion.selectionEnd
+import helium314.keyboard.ShadowInputMethodService.Companion.selectionStart
 import helium314.keyboard.ShadowLocaleManagerCompat
 import helium314.keyboard.event.Event
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -65,6 +68,14 @@ class InputLogicTest {
     private val composingReader = RichInputConnection::class.java.getDeclaredField("mComposingText").apply { isAccessible = true }
     private val connectionComposingText get() = (composingReader.get(connection) as CharSequence).toString()
 
+    private val textBeforeCursor get() = ShadowInputMethodService.textBeforeCursor
+    private val textAfterCursor get() = ShadowInputMethodService.textAfterCursor
+    private val composingText get() = ShadowInputMethodService.composingText
+    private val text get() = ShadowInputMethodService.text
+    private val cursor get() = ShadowInputMethodService.cursor
+    private var currentInputType get() = ShadowInputMethodService.currentInputType
+        set(value) { ShadowInputMethodService.currentInputType = value }
+
     init {
         ShadowLog.setupLogging()
         ShadowLog.stream = System.out
@@ -73,7 +84,7 @@ class InputLogicTest {
     @Test fun inputCode() {
         input('c')
         assertEquals("c", textBeforeCursor)
-        assertEquals("c", getText())
+        assertEquals("c", getTextFromConnection())
         assertEquals("", textAfterCursor)
         assertEquals("c", composingText)
         latinIME.mHandler.onFinishInput()
@@ -116,7 +127,7 @@ class InputLogicTest {
         setCursorPosition(3) // after first l
         input('i')
         assertEquals("helilo", getWordAtCursor())
-        assertEquals("helilo", getText())
+        assertEquals("helilo", getTextFromConnection())
         assertEquals(4, getCursorPosition())
         assertEquals(4, cursor)
         assertEquals("", composingText)
@@ -128,7 +139,7 @@ class InputLogicTest {
         setCursorPosition(3, weirdTextField = true) // after first l
         input('i')
         assertEquals("helilo", getWordAtCursor())
-        assertEquals("helilo", getText())
+        assertEquals("helilo", getTextFromConnection())
         assertEquals(4, getCursorPosition())
         assertEquals(4, cursor)
     }
@@ -138,7 +149,7 @@ class InputLogicTest {
         setCursorPosition(7) // between m and y
         input('a')
         assertEquals("may", getWordAtCursor())
-        assertEquals("hello may friend", getText())
+        assertEquals("hello may friend", getTextFromConnection())
         assertEquals(8, getCursorPosition())
         assertEquals(8, cursor)
     }
@@ -166,7 +177,7 @@ class InputLogicTest {
         setCursorPosition(3)
         input('ㄲ') // fails, as expected from the hangul issue when processing the event in onCodeInput
         assertEquals("ㅛㅎㄹㄲ혀ㅛ", getWordAtCursor())
-        assertEquals("ㅛㅎㄹㄲ혀ㅛ", getText())
+        assertEquals("ㅛㅎㄹㄲ혀ㅛ", getTextFromConnection())
         assertEquals("ㅛㅎㄹㄲ혀ㅛ", textBeforeCursor + textAfterCursor)
         assertEquals(4, getCursorPosition())
         assertEquals(4, cursor)
@@ -715,9 +726,7 @@ class InputLogicTest {
     fun reset() {
         // reset input connection & facilitator
         currentScript = ScriptUtils.SCRIPT_LATIN
-        text = ""
-        batchEdit = 0
-        currentInputType = InputType.TYPE_CLASS_TEXT
+        ShadowInputMethodService.reset()
         lastAddedWord = ""
 
         // reset settings
@@ -751,7 +760,7 @@ class InputLogicTest {
                 assert(oldBefore + phantomSpaceToInsert + insert == textBeforeCursor || oldBefore + insert == textBeforeCursor)
         }
         assertEquals(oldAfter, textAfterCursor)
-        assertEquals(textBeforeCursor + textAfterCursor, getText())
+        assertEquals(textBeforeCursor + textAfterCursor, getTextFromConnection())
         if (composer.isComposingWord) // if we're not composing any more cursor is always at the end
             assertEquals(oldIsAtEnd, !composer.isCursorFrontOrMiddleOfComposingWord)
         checkConnectionConsistency()
@@ -779,7 +788,7 @@ class InputLogicTest {
             assert(oldBefore + phantomSpaceToInsert + insert == textBeforeCursor || oldBefore + insert == textBeforeCursor)
         assert(oldBefore + insert == textBeforeCursor || "$oldBefore $insert" == textBeforeCursor)
         assertEquals(oldAfter, textAfterCursor)
-        assertEquals(textBeforeCursor + textAfterCursor, getText())
+        assertEquals(textBeforeCursor + textAfterCursor, getTextFromConnection())
         checkConnectionConsistency()
     }
 
@@ -795,7 +804,7 @@ class InputLogicTest {
         // adjust text in inputConnection first, otherwise fixLyingCursorPosition will move cursor
         // to the end of the text
         val fullText = textBeforeCursor + selectedText + textAfterCursor
-        assertEquals(fullText, getText())
+        assertEquals(fullText, getTextFromConnection())
 
         // need to update ic before, otherwise when reloading text cache from ic, ric will load wrong text before cursor
         val oldStart = selectionStart
@@ -813,7 +822,7 @@ class InputLogicTest {
             handleMessages()
         }
 
-        assertEquals(fullText, getText())
+        assertEquals(fullText, getTextFromConnection())
         assertEquals(start, selectionStart)
         assertEquals(end, selectionEnd)
         checkConnectionConsistency()
@@ -828,7 +837,7 @@ class InputLogicTest {
 
     // just sets the text and starts input so connection it set up correctly
     private fun setText(newText: String) {
-        text = newText
+        ShadowInputMethodService.text = newText
         selectionStart = newText.length
         selectionEnd = selectionStart
         composingStart = -1
@@ -886,7 +895,7 @@ class InputLogicTest {
         assertEquals(textAfterCursor, connection.getTextAfterCursor(textAfterCursor.length, 0).toString())
     }
 
-    private fun getText() =
+    private fun getTextFromConnection() =
         connection.getTextBeforeCursor(100, 0).toString() + (connection.getSelectedText(0) ?: "") + connection.getTextAfterCursor(100, 0)
 
     private fun setInputType(inputType: Int) {
@@ -918,208 +927,15 @@ class InputLogicTest {
 
 }
 
-private var currentInputType = InputType.TYPE_CLASS_TEXT
 private var currentScript = ScriptUtils.SCRIPT_LATIN
 private val messages = mutableListOf<Message>() // for latinIME / ShadowInputMethodService
 private val delayedMessages = mutableListOf<Message>() // for latinIME / ShadowInputMethodService
-// inputconnection stuff
-private var batchEdit = 0
-private var text = ""
-private var selectionStart = 0
-private var selectionEnd = 0
-private var composingStart = -1
-private var composingEnd = -1
-// convenience for access
-private val textBeforeCursor get() = text.substring(0, selectionStart)
-private val textAfterCursor get() = text.substring(selectionEnd)
-private val selectedText get() = text.substring(selectionStart, selectionEnd)
-private val cursor get() = if (selectionStart == selectionEnd) selectionStart else -1
-
-// composingText should return everything, but RichInputConnection.mComposingText only returns up to cursor
-private val composingText get() = if (composingStart == -1 || composingEnd == -1) ""
-    else text.substring(composingStart, composingEnd)
-
-// essentially this is the text field we're editing in
-private val ic = object : InputConnection {
-    // pretty clear (though this may be slow depending on the editor)
-    // bad return value here is likely the cause for that weird bug improved/fixed by fixIncorrectLength
-    override fun getTextBeforeCursor(p0: Int, p1: Int): CharSequence = textBeforeCursor.take(p0)
-    // pretty clear (though this may be slow depending on the editor)
-    override fun getTextAfterCursor(p0: Int, p1: Int): CharSequence = textAfterCursor.take(p0)
-    // pretty clear
-    override fun getSelectedText(p0: Int): CharSequence? = if (selectionStart == selectionEnd) null
-        else text.substring(selectionStart, selectionEnd)
-    // inserts text at cursor (right?), and sets it as composing text
-    // this REPLACES currently composing text (even if at a different position)
-    // moves the cursor: positive means relative to composing text start, negative means relative to start
-    override fun setComposingText(newText: CharSequence, cursor: Int): Boolean {
-        // first remove the composing text if any
-        if (composingStart != -1 && composingEnd != -1)
-            text = text.substring(0, composingStart) + text.substring(composingEnd)
-        else // no composing span active, we should remove selected text
-            if (selectionStart != selectionEnd) {
-                text = textBeforeCursor + textAfterCursor
-                selectionEnd = selectionStart
-            }
-        // then set the new text at old composing start
-        // if no composing start, set it at cursor position
-        val insertStart = if (composingStart == -1) selectionStart else composingStart
-        text = text.substring(0, insertStart) + newText + text.substring(insertStart)
-        composingStart = insertStart
-        composingEnd = insertStart + newText.length
-        // the cursor -1 is not clear in documentation, but
-        // "So a value of 1 will always advance you to the position after the full text being inserted"
-        // means that 1 must be composingEnd
-        selectionStart = if (cursor > 0) composingEnd + cursor - 1
-            else -cursor
-        selectionEnd = selectionStart
-        // todo: this should call InputMethodManager#updateSelection(View, int, int, int, int)
-        //  but only after batch edit has ended
-        //  this is not used in RichInputMethodManager, but probably ends up in LatinIME.onUpdateSelection
-        //  -> DO IT (though it will likely only trigger that belatedSelectionUpdate thing, it might be relevant)
-        return true
-    }
-    override fun setComposingRegion(p0: Int, p1: Int): Boolean {
-        println("setComposingRegion, $p0, $p1")
-        composingStart = p0
-        composingEnd = p1
-        return true // never checked
-    }
-    // sets composing text empty, but doesn't change actual text
-    override fun finishComposingText(): Boolean {
-        composingStart = -1
-        composingEnd = -1
-        return true // always true
-    }
-    // as per documentation: "This behaves like calling setComposingText(text, newCursorPosition) then finishComposingText()"
-    override fun commitText(p0: CharSequence, p1: Int): Boolean {
-        setComposingText(p0, p1)
-        finishComposingText()
-        return true // whether we added the text
-    }
-    // just tells the text field that we add many updated, and that the editor should not
-    // send status updates until batch edit ended (not actually used for this simulation)
-    override fun beginBatchEdit(): Boolean {
-        ++batchEdit
-        return true // always true
-    }
-    // end a batch edit, but maybe there are multiple batch edits happening
-    override fun endBatchEdit(): Boolean {
-        if (batchEdit > 0)
-            return --batchEdit == 0
-        return false // returns true if there is still a batch edit ongoing
-    }
-    // should notify about cursor info containing composing text, selection, ...
-    // todo: maybe that could be interesting, implement it?
-    override fun requestCursorUpdates(p0: Int): Boolean {
-        // we call this, but don't have onUpdateCursorAnchorInfo overridden in latinIME, so it does nothing
-        // also currently we don't care about the return value
-        return false
-    }
-    override fun setSelection(p0: Int, p1: Int): Boolean {
-        selectionStart = p0
-        selectionEnd = p1
-        // todo: call InputMethodService.onUpdateSelection(int, int, int, int, int, int), but only after batch edit is done!
-        return true
-    }
-    // delete beforeLength before cursor position, and afterLength after cursor position
-    // chars, not codepoints or glyphs
-    // todo: may delete only one half of a surrogate pair, but this should be avoided by RichInputConnection (maybe throw error)
-    override fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean {
-        // delete only before or after selection
-        text = textBeforeCursor.substring(0, textBeforeCursor.length - beforeLength) +
-                text.substring(selectionStart, selectionEnd) +
-                textAfterCursor.substring(afterLength)
-
-        // if parts of the composing span are deleted, shorten the span (set end to shorter)
-        if (selectionStart <= composingStart) {
-            composingStart -= beforeLength // is this correct?
-            composingEnd -= beforeLength
-        } else if (selectionStart <= composingEnd) {
-            composingEnd -= beforeLength // is this correct?
-        }
-        if (selectionEnd <= composingStart) {
-            composingStart -= afterLength
-            composingEnd -= afterLength
-        } else if (selectionEnd <= composingEnd) {
-            composingEnd -= afterLength
-        }
-        // update selection
-        selectionStart -= beforeLength
-        selectionEnd -= beforeLength
-        return true
-    }
-    override fun sendKeyEvent(p0: KeyEvent): Boolean {
-        if (p0.action != KeyEvent.ACTION_DOWN) return true // only change the text on key down, like RichInputConnection does
-        if (p0.keyCode == KeyEvent.KEYCODE_DEL) {
-            if (selectionEnd == 0) return true // nothing to delete
-            if (selectedText.isEmpty()) {
-                text = text.substring(0, selectionStart - 1) + text.substring(selectionEnd)
-                selectionStart -= 1
-            } else {
-                text = text.substring(0, selectionStart) + text.substring(selectionEnd)
-            }
-            selectionEnd = selectionStart
-            return true
-        }
-        val textToAdd = when (p0.keyCode) {
-            KeyEvent.KEYCODE_ENTER -> "\n"
-            KeyEvent.KEYCODE_DEL -> null
-            KeyEvent.KEYCODE_UNKNOWN -> p0.characters
-            else -> StringUtils.newSingleCodePointString(p0.unicodeChar)
-        }
-        if (textToAdd != null && textToAdd.singleOrNull()?.code != 0) {
-            text = text.substring(0, selectionStart) + textToAdd + text.substring(selectionEnd)
-            selectionStart += textToAdd.length
-            selectionEnd = selectionStart
-            composingStart = -1
-            composingEnd = -1
-        }
-        return true
-    }
-    // implementation is only to work with getTextBeforeCursorAndDetectLaggyConnection
-    override fun getExtractedText(p0: ExtractedTextRequest?, p1: Int): ExtractedText {
-        return ExtractedText().also {
-            it.startOffset = 0
-            it.selectionStart = selectionStart
-            it.selectionEnd = selectionEnd
-        }
-    }
-    // only effect is flashing, so whatever...
-    override fun commitCorrection(p0: CorrectionInfo?): Boolean = true
-    // implement only when necessary
-    override fun getCursorCapsMode(p0: Int): Int = TODO("Not yet implemented")
-    override fun deleteSurroundingTextInCodePoints(p0: Int, p1: Int): Boolean = TODO("Not yet implemented")
-    override fun commitCompletion(p0: CompletionInfo?): Boolean = TODO("Not yet implemented")
-    override fun performEditorAction(p0: Int): Boolean = TODO("Not yet implemented")
-    override fun performContextMenuAction(p0: Int): Boolean = TODO("Not yet implemented")
-    override fun clearMetaKeyStates(p0: Int): Boolean = TODO("Not yet implemented")
-    override fun reportFullscreenMode(p0: Boolean): Boolean = TODO("Not yet implemented")
-    override fun performPrivateCommand(p0: String?, p1: Bundle?): Boolean = TODO("Not yet implemented")
-    override fun getHandler(): Handler = TODO("Not yet implemented")
-    override fun closeConnection() = TODO("Not yet implemented")
-    override fun commitContent(p0: InputContentInfo, p1: Int, p2: Bundle?): Boolean = TODO("Not yet implemented")
-}
 
 // Shadows are handled by Robolectric. @Implementation overrides built-in functionality.
 // This is used for avoiding crashes (LocaleManagerCompat, InputMethodManager, KeyboardSwitcher)
 // and for simulating system stuff (InputMethodService for controlling the InputConnection, which
 // more or less is the contents of the text field), and for setting the current script in
 // KeyboardSwitcher without having to care about InputMethodSubtypes
-
-// could also extend LatinIME, it's not final anyway
-@Implements(InputMethodService::class)
-class ShadowInputMethodService {
-    @Implementation
-    fun getCurrentInputEditorInfo() = EditorInfo().apply {
-        inputType = currentInputType
-        // anything else?
-    }
-    @Implementation
-    fun getCurrentInputConnection() = ic
-    @Implementation
-    fun isInputViewShown() = true // otherwise selection updates will do nothing
-}
 
 @Implements(Handler::class)
 class ShadowHandler {

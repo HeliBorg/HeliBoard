@@ -175,7 +175,7 @@
     <string name="button_backup">حفظ</string>
     <string name="button_restore">استرجاع</string>
     <string name="secondary_locale">الكتابة متعددة اللغات</string>
-    <string name="load_gesture_library_button_load">تحميل المكتبة</string>
+    <string name="load_gesture_library_button_load">حمّل المكتبة</string>
     <string name="load_gesture_library_button_delete">احذف المكتبة</string>
     <string name="load_gesture_library">حمّل مكتبة الإيماءة</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">الرموز</string>
@@ -239,7 +239,7 @@
     <string name="load_gesture_library_message">ستحتاج إلى مكتبة \'%s\'. قد تتعطل المكتبات غير المتوافقة عند استخدام الكتابة بالإيماءات.
 \n
 \nتحذير: تحميل التعليمات البرمجية الخارجية يمكن أن يشكل خطراً أمنياً. استخدم فقط مكتبة من مصدر تثق به.</string>
-    <string name="checksum_mismatch_message">ملف مكتبة غير معروف. هل أنت متأكد أنك حصلت عليه من مصدر موثوق به وأنه مخصص لـ \'%s\'؟</string>
+    <string name="checksum_mismatch_message">ملف مكتبة مجهولة. أمتأكد أنك حصلت عليه من مصدر موثوق به وأنه مخصص لـ \'%s\'؟</string>
     <string name="show_popup_keys_title">اعرض المزيد من الحروف مع علامات التشكيل في النافذة المنبثقة</string>
     <string name="show_popup_keys_more">أضف المتغيرات المشتركة</string>
     <string name="show_popup_keys_all">أضف جميع المتغيرات المتاحة</string>
@@ -552,4 +552,5 @@
     <string name="prefs_hint_font_scale">مقياس خط التلميحات الرئيسية</string>
     <string name="about_community_links">روابط المجتمع</string>
     <string name="about_community_links_description">السمات، محرِّر التخطيط، المناقشات، …</string>
+    <string name="subtype_tok">Toki Pona</string>
 </resources>

@@ -548,4 +548,5 @@ Nouveau dictionnaire:
     <string name="prefs_hint_font_scale">Taille de police des infobulles</string>
     <string name="about_community_links">Liens communautaires</string>
     <string name="about_community_links_description">Thèmes, éditeur de mise en page, discussions, …</string>
+    <string name="subtype_tok">Toki Pona</string>
 </resources>

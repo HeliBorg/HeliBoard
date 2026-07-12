@@ -116,7 +116,6 @@ public class SettingsValues {
     public final boolean mIsSplitKeyboardEnabled;
     public final float mSplitKeyboardSpacerRelativeWidth;
     public final boolean mQuickPinToolbarKeys;
-    public final int mScreenMetrics;
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
     public final boolean mUseAppsDictionary;
@@ -145,6 +144,17 @@ public class SettingsValues {
     public final boolean mIsFloatingKeyboard;
     public final int mFloatingWidth;
     public final int mFloatingHeight;
+    public final int mKeypressVibrationDuration;
+    public final float mKeypressSoundVolume;
+    public final boolean mAutoCorrectionEnabledPerUserSettings;
+    public final boolean mAutoCorrectCapitalizedSuggestion;
+    public final boolean mBackspaceRevertsAutocorrect;
+    public final boolean mAutoCorrectShortcuts;
+    public final boolean mSuggestionsEnabled;
+    private final boolean mOverrideShowingSuggestions;
+    public final boolean mSuggestClipboardContent;
+    public final boolean mIncognitoModeEnabled;
+    public final boolean mLongPressSymbolsForNumpad;
 
     // From the input box
     @NonNull
@@ -152,22 +162,10 @@ public class SettingsValues {
 
     // Deduced settings
     public final boolean mSuggestionStripHiddenPerUserSettings;
-    public final boolean mSecondaryStripVisible;
-    public final int mKeypressVibrationDuration;
-    public final float mKeypressSoundVolume;
-    public final boolean mAutoCorrectionEnabledPerUserSettings;
     public final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
-    public final boolean mAutoCorrectCapitalizedSuggestion;
-    public final boolean mBackspaceRevertsAutocorrect;
     public final int mScoreLimitForAutocorrect;
-    public final boolean mAutoCorrectShortcuts;
-    public final boolean mSuggestionsEnabled;
-    private final boolean mOverrideShowingSuggestions;
-    public final boolean mSuggestClipboardContent;
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
-    public final boolean mIncognitoModeEnabled;
-    public final boolean mLongPressSymbolsForNumpad;
     public final boolean mIsLocked;
 
     // User-defined colors
@@ -238,8 +236,8 @@ public class SettingsValues {
         mSuggestClipboardContent = prefs.getBoolean(Settings.PREF_SUGGEST_CLIPBOARD_CONTENT, Defaults.PREF_SUGGEST_CLIPBOARD_CONTENT);
         mDoubleSpacePeriodTimeout = 1100; // ms
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
-        final boolean isLandscape = mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE;
-        final float displayWidthDp = TypedValueCompat.pxToDp(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics());
+        boolean isLandscape = mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE;
+        float displayWidthDp = TypedValueCompat.pxToDp(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics());
         boolean isFolded = FoldableUtils.INSTANCE.isFolded();
         mIsSplitKeyboardEnabled = Settings.readSplitKeyboardEnabled(prefs, isLandscape, isFolded);
         // determine spacerWidth from display width and scale setting
@@ -247,7 +245,6 @@ public class SettingsValues {
                 ? Math.min(Math.max((displayWidthDp - 600) / 600f + 0.15f, 0.15f), 0.35f) * Settings.readSplitSpacerScale(prefs, isLandscape, isFolded)
                 : 0f;
         mQuickPinToolbarKeys = mToolbarMode == ToolbarMode.EXPANDABLE && prefs.getBoolean(Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, Defaults.PREF_QUICK_PIN_TOOLBAR_KEYS);
-        mScreenMetrics = Settings.readScreenMetrics(res);
 
         // Compute other readable settings
         mKeyLongpressTimeout = prefs.getInt(Settings.PREF_KEY_LONGPRESS_TIMEOUT, Defaults.PREF_KEY_LONGPRESS_TIMEOUT);
@@ -268,7 +265,6 @@ public class SettingsValues {
                   || !prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT));
         mSuggestionsEnabled = prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, Defaults.PREF_SHOW_SUGGESTIONS)
             && (mInputAttributes.mShouldShowSuggestions || mOverrideShowingSuggestions) && !mSuggestionStripHiddenPerUserSettings;
-        mSecondaryStripVisible = mToolbarMode != ToolbarMode.HIDDEN || ! mToolbarHidingGlobal;
         mIncognitoModeEnabled = prefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
         mBottomRowScale = Settings.readBottomRowScale(prefs, isLandscape, isFolded);
@@ -386,6 +382,10 @@ public class SettingsValues {
 
     public boolean hasSameOrientation(final Configuration configuration) {
         return mDisplayOrientation == configuration.orientation;
+    }
+
+    public boolean isSecondaryStripVisible() {
+        return mToolbarMode != ToolbarMode.HIDDEN || !mToolbarHidingGlobal;
     }
 
     private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context ctx) {

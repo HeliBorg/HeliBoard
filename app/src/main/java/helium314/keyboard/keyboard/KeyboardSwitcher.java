@@ -226,7 +226,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    public Keyboard getKeyboard() {
+    @Nullable public Keyboard getKeyboard() {
         if (mKeyboardView != null) {
             return mKeyboardView.getKeyboard();
         }
@@ -587,7 +587,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     private static int getSecondaryStripVisibility() {
-        return Settings.getValues().mSecondaryStripVisible? View.VISIBLE : View.GONE;
+        return Settings.getValues().isSecondaryStripVisible()? View.VISIBLE : View.GONE;
     }
 
     // Displays a toast-like message with the provided text for a specified duration.
@@ -736,12 +736,13 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     @SuppressLint("InflateParams")
-    public View onCreateInputView(@NonNull Context displayContext, final boolean isHardwareAcceleratedDrawingEnabled) {
+    public View onCreateInputView(@NonNull Context displayContext, boolean isHardwareAcceleratedDrawingEnabled) {
+        Log.d(TAG, "create new input view");
         if (mKeyboardView != null) {
             mKeyboardView.closing();
         }
         PointerTracker.clearOldViewData();
-        final SharedPreferences prefs = KtxKt.prefs(displayContext);
+        SharedPreferences prefs = KtxKt.prefs(displayContext);
         if (mSuggestionStripView != null)
             prefs.unregisterOnSharedPreferenceChangeListener(mSuggestionStripView);
         if (mClipboardHistoryView != null)

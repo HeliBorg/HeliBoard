@@ -543,4 +543,5 @@
     <string name="auto_correct_capitalized_suggestions_description">Нажатие Shift меняет регистр подсказки и активирует автоисправление</string>
     <string name="prefs_hint_font_scale">Масштаб шрифта подсказок клавиш</string>
     <string name="about_community_links_description">Темы, редактор макета, обсуждения…</string>
+    <string name="subtype_tok">Токи пона</string>
 </resources>

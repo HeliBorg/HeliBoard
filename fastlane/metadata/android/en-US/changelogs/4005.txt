@@ -1,0 +1,12 @@
+* add background gesture data gathering
+* add file / image functionality to clipboard history
+* add floating keyboard
+* add Unicode 17.0 emojis
+* add separate scale settings for foldedable phones
+* add touchpad mode on space slide
+* add option to disable spell checker suggestion popup
+* change autocorrect confidence to a slider
+* add key gaps width slider
+* distribute toolbar keys evenly
+* fix security issue when restoring backup from manipulated zip file
+* and more fixes and improvements...

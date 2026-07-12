@@ -546,4 +546,5 @@
     <string name="auto_correct_capitalized_suggestions">Автоматичне виправлення пропозицій з великої літери</string>
     <string name="about_community_links">Посилання спільноти</string>
     <string name="about_community_links_description">Теми, макети, обговорення, …</string>
+    <string name="subtype_tok">Токі Пона</string>
 </resources>
