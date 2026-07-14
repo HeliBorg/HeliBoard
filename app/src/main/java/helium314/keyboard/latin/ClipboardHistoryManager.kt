@@ -63,8 +63,11 @@ class ClipboardHistoryManager(
         // Make sure we read clipboard content only if history settings is set
         if (latinIME.mSettings.current.mClipboardHistoryEnabled) {
             fetchPrimaryClip()
-            dontShowCurrentSuggestion = false
         }
+        dontShowCurrentSuggestion = false
+
+        if (!tempPrimaryClip && latinIME.isInputViewShown)
+            latinIME.tryShowClipboardSuggestion()
     }
 
     // todo for later
