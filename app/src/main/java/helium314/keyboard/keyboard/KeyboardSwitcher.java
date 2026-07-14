@@ -437,6 +437,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
                 mMainKeyboardFrame.setVisibility(View.VISIBLE);
                 mKeyboardView.setVisibility(View.VISIBLE);
+                // todo: this doesn't tell KeyboardState that this mode has been set.
+                //  example: if you press physical alt the more symbols keyboard will appear,
+                //  but if you then do 2 D-pad space swipes it'll return to alpha instead
+                //  because KeyboardState thinks the `mode` is alphabet when doing the
+                //  initial toggle.
                 setKeyboard(toggleState.mKeyboardElement, toggleState);
             }
         }
