@@ -9,7 +9,6 @@ package helium314.keyboard.latin.inputlogic;
 import static helium314.keyboard.latin.common.SuggestionSpanUtilsKt.getTextWithSuggestionSpan;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -25,7 +24,6 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import helium314.keyboard.compat.AppWorkarounds;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
@@ -1690,7 +1688,7 @@ public final class InputLogic {
         mConnection.deleteTextBeforeCursor(numCharsSelected);
         TextPlacement replacement = mRecapitalizeStatus.textReplacement();
         mConnection.commitText(replacement.text, 0);
-        mConnection.setSelection(replacement.selectionStart, replacement.selectionEnd());
+        mConnection.setSelection(replacement.startPosition, replacement.endPosition());
     }
 
     private void performAdditionToUserHistoryDictionary(final SettingsValues settingsValues,
