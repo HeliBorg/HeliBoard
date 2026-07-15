@@ -714,16 +714,14 @@ public final class InputLogic {
                 break;
             case KeyCode.SHIFT: {
                 var keyboard = KeyboardSwitcher.getInstance().getKeyboard();
-                boolean isDpad = false;
                 if (keyboard != null) {
                     KeyboardElement element = keyboard.mId.getElement();
-                    isDpad = element == KeyboardElement.DPAD;
-                    if (!element.isAlphabet() && !isDpad) {
+                    if (!element.isAlphabet() && element != KeyboardElement.DPAD) {
                         // recapitalization and follow-up code should only trigger for alphabet/d-pad shift, see #1256
                         break;
                     }
                 }
-                performRecapitalization(sv, isDpad, currentKeyboardScript);
+                performRecapitalization(sv);
                 inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
                 inputTransaction.setRequiresUpdateSuggestions();
                 if (mSpaceState == SpaceState.PHANTOM && sv.mShiftRemovesAutospace)
@@ -1649,8 +1647,8 @@ public final class InputLogic {
      * Performs a recapitalization event.
      * @param settingsValues The current settings values.
      */
-    private void performRecapitalization(SettingsValues settingsValues, boolean greedy, String currentKeyboardScript) {
-        if (!(greedy || mConnection.hasSelection()) || !mRecapitalizeStatus.isEnabled()) {
+    private void performRecapitalization(SettingsValues settingsValues) {
+        if (!mConnection.hasSelection() || !mRecapitalizeStatus.isEnabled()) {
             return; // No selection or recapitalize is disabled for now
         }
         int selectionStart = mConnection.getExpectedSelectionStart();
@@ -1665,22 +1663,10 @@ public final class InputLogic {
         // If we have a recapitalize in progress, use it; otherwise, start a new one.
         if (!mRecapitalizeStatus.isStarted()
                 || !mRecapitalizeStatus.isSetAt(selectionStart, selectionEnd)) {
-            SpacingAndPunctuations spacingAndPunctuations = settingsValues.mSpacingAndPunctuations;
-            CharSequence selectedText;
-            if (greedy && numCharsSelected == 0) {
-                TextRange range = mConnection.getWordRangeAtCursor(spacingAndPunctuations, currentKeyboardScript);
-                if (range == null) return; // Race condition with the input connection
-                selectionEnd = selectionStart + range.getNumberOfCharsInWordAfterCursor();
-                selectionStart -= range.getNumberOfCharsInWordBeforeCursor();
-                numCharsSelected = selectionEnd - selectionStart;
-                if (numCharsSelected == 0) return; // Nothing to recapitalize
-                selectedText = range.mWord;
-            } else {
-                selectedText = mConnection.getSelectedText(0 /* flags, 0 for no styles */);
-                if (TextUtils.isEmpty(selectedText)) return; // Race condition with the input connection
-            }
+            CharSequence selectedText = mConnection.getSelectedText(0 /* flags, 0 for no styles */);
+            if (TextUtils.isEmpty(selectedText)) return; // Race condition with the input connection
             mRecapitalizeStatus.start(selectedText.toString(), selectionStart, settingsValues.mLocale,
-                    spacingAndPunctuations.mSortedWordSeparators);
+                    settingsValues.mSpacingAndPunctuations.mSortedWordSeparators);
         }
         mConnection.finishComposingText();
         mRecapitalizeStatus.rotate();
