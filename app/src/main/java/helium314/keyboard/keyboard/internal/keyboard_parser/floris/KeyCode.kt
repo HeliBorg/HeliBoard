@@ -72,7 +72,6 @@ object KeyCode {
     const val NUMPAD =                      -205 // VIEW_NUMERIC_ADVANCED
     const val VIEW_PHONE =                  -206
     const val VIEW_PHONE2 =                 -207
-    const val DPAD =                        -208
 
     const val IME_UI_MODE_TEXT =            -211
     const val EMOJI =                       -212 // IME_UI_MODE_MEDIA
@@ -184,6 +183,7 @@ object KeyCode {
     const val INLINE_EMOJI_SEARCH_DONE =  -10051
     const val BACKGROUND_GATHERING =         -10052 // will be useless after removal of gesture data gathering (keep for compatibility)
     const val BACKGROUND_GATHERING_TEMP_OFF =-10053 // will be useless after removal of gesture data gathering (keep for compatibility)
+    const val DPAD =                      -10054
 
 
     // Intents
@@ -199,7 +199,7 @@ object KeyCode {
         REDO, ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT, CLIPBOARD_COPY, CLIPBOARD_PASTE, CLIPBOARD_SELECT_ALL,
         CLIPBOARD_SELECT_WORD, TOGGLE_INCOGNITO_MODE, TOGGLE_AUTOCORRECT, MOVE_START_OF_LINE, MOVE_END_OF_LINE,
         MOVE_START_OF_PAGE, MOVE_END_OF_PAGE, SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED, CTRL, ALT,
-        FN, CLIPBOARD_CLEAR_HISTORY, NUMPAD, DPAD, IME_HIDE_UI, CTRL_LOCK, ALT_LOCK, FN_LOCK, SYSTEM_INPUT_METHOD_PICKER,
+        FN, CLIPBOARD_CLEAR_HISTORY, NUMPAD, IME_HIDE_UI, CTRL_LOCK, ALT_LOCK, FN_LOCK, SYSTEM_INPUT_METHOD_PICKER,
         TOGGLE_FLOATING_WINDOW,
 
         // heliboard only
@@ -209,7 +209,7 @@ object KeyCode {
         MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK,
         TIMESTAMP, CTRL_LEFT, CTRL_RIGHT, ALT_LEFT, ALT_RIGHT, META_LEFT, META_RIGHT, SEND_INTENT_ONE, SEND_INTENT_TWO,
         SEND_INTENT_THREE, EMOJI_SEARCH, INLINE_EMOJI_SEARCH_DONE, META_LOCK,
-        BACKGROUND_GATHERING, BACKGROUND_GATHERING_TEMP_OFF
+        BACKGROUND_GATHERING, BACKGROUND_GATHERING_TEMP_OFF, DPAD,
         -> this
 
         // conversion

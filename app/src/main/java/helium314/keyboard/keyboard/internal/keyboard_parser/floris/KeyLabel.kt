@@ -50,7 +50,6 @@ object KeyLabel {
         "view_characters" -> ALPHA
         "view_symbols" -> SYMBOL
         "view_numeric_advanced" -> NUMPAD
-        // todo: does FlorisBoard have a d-pad/editing layout?
         "view_phone" -> ALPHA // phone keyboard is treated like alphabet, just with different layout
         "view_phone2" -> SYMBOL // phone symbols
         "ime_ui_mode_media" -> toolbarKeyStrings[ToolbarKey.EMOJI]!!
