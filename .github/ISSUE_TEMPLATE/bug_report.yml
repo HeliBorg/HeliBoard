@@ -1,0 +1,111 @@
+name: Bug Report
+description: Create a report to help us improve
+title: "[Bug] "
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please see the appropriate readme section for issue reporting guidelines: https://github.com/HeliBorg/HeliBoard?tab=readme-ov-file#reporting-issues
+        tl;dr:
+        * search for duplicates, also in closed issues
+        * a single issue per topic
+        * reduce screenshot size
+        * write it yourself
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I make sure that the issue is NOT a duplicate of any both open and closed issues
+          required: true
+        - label: I make sure I am using the LATEST version - check [here](https://github.com/HeliBorg/HeliBoard/releases)
+          required: true
+        - label: I understand that issues regarding layout customization most likely will be resolved by editing JSON file
+          required: true
+        - label: I have attached the error report in the issue
+          required: false
+        - label: I have reduced any attached screenshot image size
+          required: false
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is
+      placeholder: | 
+        Tell us what happened.
+        ONLY add screenshots when they add real value.
+        If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: Describe how the app should behave
+      placeholder:
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Frequency
+      description: How often does this bug occur?
+      options:
+        - Always (100% of the time)
+        - Often (80-90% of the time)
+        - Sometimes (40-60% of the time)
+        - Rarely (10-30% of the time)
+        - Only once (single occurrence)
+      default: 4
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Steps to reproduce the bug
+      description: Please provide detailed steps to reproduce the issue
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+
+        In case you cannot reproduce the bug, say so and provide information about when the bug may occur for you. 
+        Settings and the app you're writing in are usually important, please don't omit them.
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Please provide the explicit version (not just "latest"), or if you build the app yourself specify the latest commit.
+      placeholder: e.g. 4.1.3
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device and ROM
+      description: What device and Android Version are you using?
+      placeholder: e.g. Samsung Galaxy S24, OneUI 8 Android 16
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here
+      placeholder: Any additional information that might help us understand the issue
+    validations:
+      required: false
