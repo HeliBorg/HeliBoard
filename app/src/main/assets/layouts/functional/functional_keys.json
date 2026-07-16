@@ -17,7 +17,7 @@
     { "label": "space" },
     { "$": "keyboard_state_selector",
       "symbols": { "label": "dpad" },
-      "dpad": { "label": "symbol", "labelFlags": "16384" }
+      "dpad": { "label": "symbol" }
     },
     { "label": "period", "labelFlags": 1073741824 },
     { "label": "action", "width": 0.15, "labelFlags": 1073741824 }
