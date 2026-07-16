@@ -96,7 +96,7 @@ fun MainSettingsScreen(
                 Preference(
                     name = stringResource(R.string.settings_screen_secondary_layouts),
                     onClick = onClickLayouts,
-                    icon = R.drawable.ic_ime_switcher
+                    icon = R.drawable.ic_settings_layout
                 ) { NextScreenIcon() }
                 Preference(
                     name = stringResource(R.string.dictionary_settings_category),

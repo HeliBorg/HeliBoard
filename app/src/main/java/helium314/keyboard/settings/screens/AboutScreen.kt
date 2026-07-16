@@ -157,7 +157,7 @@ fun createAboutSettings(context: Context) = listOf(
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },
-            icon = R.drawable.ic_link
+            icon = R.drawable.ic_settings_about_community
         )
      },
     Setting(context, SettingsWithoutKey.GITHUB, R.string.about_github_link) {
