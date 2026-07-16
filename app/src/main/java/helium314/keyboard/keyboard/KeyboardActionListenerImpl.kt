@@ -350,6 +350,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             }
             gestureMoveForwardHaptics(text.isNotEmpty())
         }
+        inputLogic.nextUpdateIsMove = true
 
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
         // issues:
