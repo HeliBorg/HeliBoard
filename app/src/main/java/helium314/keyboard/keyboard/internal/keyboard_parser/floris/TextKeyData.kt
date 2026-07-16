@@ -412,11 +412,7 @@ sealed interface KeyData : AbstractKeyData {
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
             KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.DPAD, KeyLabel.CTRL, KeyLabel.ALT,
-            KeyLabel.FN, KeyLabel.META, KeyLabel.EMOJI_SEARCH,
-            toolbarKeyStrings[ToolbarKey.UNDO], toolbarKeyStrings[ToolbarKey.REDO],
-            toolbarKeyStrings[ToolbarKey.SELECT_ALL], toolbarKeyStrings[ToolbarKey.SELECT_WORD],
-            toolbarKeyStrings[ToolbarKey.COPY], toolbarKeyStrings[ToolbarKey.CUT], toolbarKeyStrings[ToolbarKey.PASTE],
-            toolbarKeyStrings[ToolbarKey.CLIPBOARD], toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.FN, KeyLabel.META, KeyLabel.EMOJI_SEARCH, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
             KeyLabel.SHIFT -> return Key.BACKGROUND_TYPE_FUNCTIONAL
