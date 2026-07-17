@@ -9,6 +9,7 @@ package helium314.keyboard.latin.inputlogic;
 import static helium314.keyboard.latin.common.SuggestionSpanUtilsKt.getTextWithSuggestionSpan;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -24,6 +25,7 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import helium314.keyboard.compat.AppWorkarounds;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
@@ -569,23 +571,22 @@ public final class InputLogic {
         final int codePointBeforeCursor = mConnection.getCodePointBeforeCursor();
         if (Character.isLetterOrDigit(codePointBeforeCursor)
                 || settingsValues.isUsuallyFollowedBySpace(codePointBeforeCursor)) {
-            int autoCapsState = getCurrentAutoCapsState(settingsValues);
             // autoShiftHasBeenOverridden is weird
             // before switching CapsMode to enum, it was CapsMode != autoCapsState
             // autoCapsState is 0 (off), 0x1000, 0x2000, 0x4000 or a combination
             // old CapsMode was 0 (off), 1, 3, 5, 7
             // meaning both were incompatible, and the check was just returning whether both were 0
             // todo: maybe adjust this?
-            boolean autoShiftHasBeenOverridden = keyboardSwitcher.getKeyboardCapsMode() == CapsMode.OFF && autoCapsState != 0;
+            boolean autoShiftHasBeenOverridden = keyboardSwitcher.getKeyboardCapsMode() == CapsMode.OFF && getCurrentAutoCapsState(settingsValues) != 0;
             if (settingsValues.mAutospaceBeforeGestureTyping)
-                mSpaceState = SpaceState.PHANTOM;
+                mSpaceState = SpaceState.PHANTOM; // influences autoCapsState
             if (!autoShiftHasBeenOverridden) {
                 // When we change the space state, we need to update the shift state of the
                 // keyboard unless it has been overridden manually. This is happening for example
                 // after typing some letters and a period, then gesturing; the keyboard is not in
                 // caps mode yet, but since a gesture is starting, it should go in caps mode,
                 // unless the user explicitly said it should not.
-                keyboardSwitcher.requestUpdatingShiftState(autoCapsState, getCurrentRecapitalizeState());
+                keyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(settingsValues), getCurrentRecapitalizeState());
             }
         }
         mConnection.endBatchEdit();
@@ -742,11 +743,11 @@ public final class InputLogic {
                 // is being handled in {@link KeyboardState#onEvent(Event,int)}.
                 // If disabled, current clipboard content is committed.
                 if (!sv.mClipboardHistoryEnabled) {
-                    sendDownUpKeyEvent(KeyEvent.KEYCODE_PASTE);
+                    paste(mLatinIME.getCurrentInputEditorInfo().packageName);
                 }
                 break;
             case KeyCode.CLIPBOARD_PASTE:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_PASTE);
+                paste(mLatinIME.getCurrentInputEditorInfo().packageName);
                 break;
             case KeyCode.SHIFT_ENTER:
                 // todo: try using sendDownUpKeyEventWithMetaState() and remove the key code maybe
@@ -1518,6 +1519,11 @@ public final class InputLogic {
     private boolean tryStripSpaceAndReturnWhetherShouldSwapInstead(final Event event,
             final InputTransaction inputTransaction) {
         final int codePoint = event.getCodePoint();
+        if (codePoint == INLINE_EMOJI_SEARCH_MARKER && mEmojiDictionaryFacilitator != null) {
+            // Avoid interfering with inline emoji search
+            return false;
+        }
+
         final boolean isFromSuggestionStrip = event.isSuggestionStripPress();
         if (Constants.CODE_ENTER == codePoint &&
                 SpaceState.SWAP_PUNCTUATION == inputTransaction.getSpaceState()) {
@@ -2642,6 +2648,15 @@ public final class InputLogic {
     // never need to know this.
     public int getComposingLength() {
         return mWordComposer.size();
+    }
+
+    private void paste(String packageName) {
+        sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
+        // looks like there are more apps that don't care about KeyEvent.KEYCODE_PASTE but work with CTRL+V
+        // so let's try using CRTL+V and hope there are no apps that require different things
+//        if (AppWorkarounds.INSTANCE.doesntCareAboutKeycodePaste(packageName) || Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+//            sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
+//        else sendDownUpKeyEvent(KeyEvent.KEYCODE_PASTE);
     }
 
     private void enterInlineEmojiSearchIfNeeded(int codePoint, SettingsValues settingsValues) {

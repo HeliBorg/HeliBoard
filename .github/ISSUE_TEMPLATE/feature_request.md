@@ -10,6 +10,7 @@ tl;dr:
 * check FAQ / hidden features
 * a single issue per topic
 * ONLY add screenshots when necessary, and reduce their size
+* write it yourself
 
 <!--
 issue template below, please remove above text before submitting (and the template too if you think it's a good idea)

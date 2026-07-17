@@ -3,6 +3,8 @@ package helium314.keyboard.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -73,7 +75,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomTool
     INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
     AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
     CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
-    CLOSE_HISTORY -> KeyCode.ALPHA
+    CLOSE_HISTORY -> KeyCode.CLIPBOARD
     EMOJI -> KeyCode.EMOJI
     LEFT -> KeyCode.ARROW_LEFT
     RIGHT -> KeyCode.ARROW_RIGHT
@@ -243,6 +245,15 @@ fun getCustomLongpressKeyCode(key: ToolbarKey, prefs: SharedPreferences): Int? {
 
 fun clearCustomToolbarKeyCodes() {
     customToolbarKeyCodes = null
+}
+
+fun repeatToolbarKey(view: View, onClick: (view: View) -> Unit) {
+    view.handler.postDelayed({
+        if (view.isPressed) {
+            onClick(view)
+            repeatToolbarKey(view, onClick)
+        }
+    }, ViewConfiguration.getKeyRepeatDelay().toLong())
 }
 
 private var customToolbarKeyCodes: EnumMap<ToolbarKey, Pair<Int?, Int?>>? = null

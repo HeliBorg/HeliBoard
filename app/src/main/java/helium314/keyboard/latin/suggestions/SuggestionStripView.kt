@@ -58,6 +58,7 @@ import helium314.keyboard.latin.utils.getPinnedToolbarKeys
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.removePinnedKey
+import helium314.keyboard.latin.utils.repeatToolbarKey
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.abs
@@ -155,25 +156,21 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             setToolbarVisibility(true)
         }
 
-        // toolbar keys setup
-        if (mToolbarMode == ToolbarMode.TOOLBAR_KEYS || mToolbarMode == ToolbarMode.EXPANDABLE) {
-            for (key in getEnabledToolbarKeys(context.prefs())) {
-                val button = createToolbarKey(context, key)
-                button.layoutParams = toolbarKeyLayoutParams
-                setupKey(button, colors)
-                toolbar.addView(button)
-            }
+        // toolbar keys setup (no need to hide them any more when locked, because then suggestion strip is gone anyway
+        for (key in getEnabledToolbarKeys(context.prefs())) {
+            val button = createToolbarKey(context, key)
+            button.layoutParams = toolbarKeyLayoutParams
+            setupKey(button, colors)
+            toolbar.addView(button)
         }
-        if (!isGone && !Settings.getValues().mSuggestionStripHiddenPerUserSettings) {
-            for (pinnedKey in getPinnedToolbarKeys(context.prefs())) {
-                val button = createToolbarKey(context, pinnedKey)
-                button.layoutParams = toolbarKeyLayoutParams
-                setupKey(button, colors)
-                pinnedKeys.addView(button)
-                val pinnedKeyInToolbar = toolbar.findViewWithTag<View>(pinnedKey)
-                if (pinnedKeyInToolbar != null && Settings.getValues().mQuickPinToolbarKeys)
-                    pinnedKeyInToolbar.background = enabledToolKeyBackground
-            }
+        for (pinnedKey in getPinnedToolbarKeys(context.prefs())) {
+            val button = createToolbarKey(context, pinnedKey)
+            button.layoutParams = toolbarKeyLayoutParams
+            setupKey(button, colors)
+            pinnedKeys.addView(button)
+            val pinnedKeyInToolbar = toolbar.findViewWithTag<View>(pinnedKey)
+            if (pinnedKeyInToolbar != null && Settings.getValues().mQuickPinToolbarKeys)
+                pinnedKeyInToolbar.background = enabledToolKeyBackground
         }
         toolbarContainer.doOnNextLayout {
             // set min with of the toolbar so the weight of the toolbar keys actually does something
@@ -377,7 +374,10 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         val tag = view.tag as? ToolbarKey ?: return
         if (!Settings.getValues().mQuickPinToolbarKeys || view.parent === pinnedKeys) {
             val longClickCode = getCodeForToolbarKeyLongClick(tag)
-            if (longClickCode != KeyCode.UNSPECIFIED) {
+            if (longClickCode == KeyCode.KEY_REPEAT) {
+                onClick(view)
+                repeatToolbarKey(view) { onClick(view) }
+            } else if (longClickCode != KeyCode.UNSPECIFIED) {
                 listener.onCodeInput(longClickCode, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false)
             }
         } else if (view.parent === toolbar) {

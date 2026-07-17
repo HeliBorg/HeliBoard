@@ -314,7 +314,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
-    Setting(context, Settings.PREF_HINT_FONT_SCALE, R.string.prefs_font_scale) { setting ->
+    Setting(context, Settings.PREF_HINT_FONT_SCALE, R.string.prefs_hint_font_scale) { setting ->
         SliderPreference(
             name = setting.title,
             key = setting.key,

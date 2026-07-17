@@ -102,10 +102,10 @@ private fun ToolbarKeyCustomizer(
         onDismissRequest = onDismissRequest,
         onConfirmed = {
             val codes = readCustomKeyCodes(prefs)
-            codes[key] = checkCode(code) to checkCode(longPressCode)
+            codes[key] = checkCode(code) to checkCode(longPressCode, true)
             writeCustomKeyCodes(prefs, codes)
         },
-        checkOk = { checkCode(code) != null && checkCode(longPressCode) != null },
+        checkOk = { checkCode(code) != null && checkCode(longPressCode, true) != null },
         neutralButtonText = if (readCustomKeyCodes(prefs).containsKey(key))
                 stringResource(R.string.button_default)
             else null,
@@ -141,8 +141,8 @@ private fun ToolbarKeyCustomizer(
     )
 }
 
-private fun checkCode(code: TextFieldValue) = runCatching {
-    code.text.toIntOrNull()?.takeIf { it.checkAndConvertCode() <= Char.MAX_VALUE.code }
+private fun checkCode(code: TextFieldValue, longPress: Boolean = false) = runCatching {
+    code.text.toIntOrNull()?.takeIf { it.checkAndConvertCode(longPress) <= Char.MAX_VALUE.code }
 }.getOrNull()
 
 @Preview

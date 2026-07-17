@@ -55,6 +55,9 @@ When contributing to the app, please:
 * Make a draft PR when you intend to still work on it. Submitting an unfinished PR can be a good idea when you're not sure how to best continue and would like some comments.
 * When you fix a bug without opening an issue, please provide a way to reproduce the bug (see [bug report template](.github/ISSUE_TEMPLATE/bug_report.md))
 * Noticeable adjustments (keyboard UI, default layouts, ...) should either provide a benefit for everyone, or be optional.
+* If your contribution contains code that is not your own, provide a link to the source
+  * This is especially relevant to be sure the code's license is compatible to HeliBoard's GPL3
+  * Note that with LLM generated PRs you might add code with an incompatible license. Better make sure the LLM you're using is trained only with GPL3 compatible code.
 
 Further things to consider (though irrelevant for most PRs):
 * APK size:
@@ -62,8 +65,6 @@ Further things to consider (though irrelevant for most PRs):
   * Small increases like when adding code or layouts are never an issue
 * Do not add proprietary code or binary blobs. If it turns out to be necessary for a feature you want to add, it might be acceptable when the user opts in and imports those parts, like it's done for glide typing.
 * Privacy: Only relevant when adding some form of communication with other apps. Internet permission will not be added.
-* If your contribution contains code that is not your own, provide a link to the source
-  * This is especially relevant to be sure the code's license is compatible to HeliBoard's GPL3
 
 ## Necessary
 
@@ -71,7 +72,9 @@ Some parts of the guidelines are necessary to fulfill for facilitating code revi
 Your PR should:
 - **Be only about a single thing**. Mixing unrelated or semi-related contributions into a single PR is hard to review and can get messy. As a general rule: if one part doesn't need the other one(s), it should be separate PRs. If one feature builds on top of another one, but the base is usable on its own, do a PR for the base and then a follow-up once it's merged.
 - **Have a proper description**. A good description helps _a lot_ for understanding what you intend to achieve with the changes, and for understanding the code. This is relevant for separating wanted from unintended changes in behavior during review.
-- **No translations**. Translations should be done using [Weblate](https://translate.codeberg.org/projects/heliboard/). Exception is when you add new resource strings, those can be added right away.
+- **Not contain translations**. Translations should be done using [Weblate](https://translate.codeberg.org/projects/heliboard/). Exception is when you add new resource strings, those can be added right away.
+- **Not be LLM generated**. LLMs enable contributors to quickly generate code that often is bulky and contains parts that are hard to understand. When the you do not understand the code, it's not possible to discuss such parts. See also [AI_USAGE.md](AI_USAGE.md).
+- **Not contain LLM generated discussion / description**. LLMs typically generate verbose and useless descriptions. Please save us some time and write it yourself, otherwise actual discussion is impossible.
 
 Please leave dependency upgrades to the maintainers, unless you state a good reason why they should be done now.
 

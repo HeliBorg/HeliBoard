@@ -451,4 +451,7 @@
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emojien beheko errenkada ekintza-teklarekin</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Arbelaren beheko errenkada ekintza-teklarekin</string>
     <string name="prefs_bottom_row_scale">Beheko lerroaren eskala</string>
+    <string name="toolbar_swipe_down_to_hide">Ezkutatu teklatua irristatuz</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Irristatu tresna barran behera teklatua ixteko</string>
+    <string name="auto_correct_capitalized_suggestions">Zuzendu automatikoki larriz idatzitako iradokizunak</string>
 </resources>

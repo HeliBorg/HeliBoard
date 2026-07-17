@@ -65,7 +65,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         if (params.mId.element.isBottomRow) {
             heightRescale = 4f
             // to have same height as alpha keyboard we act as if we had the default number of rows
-            val virtualRows = if (params.mId.numberRowEnabled) 5 else 4
+            val virtualRows = if (Settings.getValues().mShowsNumberRow) 5 else 4 // determine from Settings, because it's not actually in params for bottom rows
             // params rescale is not perfect, especially mTopPadding may cause 1 pixel offsets because it's already been converted to int once
             params.mOccupiedHeight /= virtualRows
             params.mBaseHeight /= virtualRows

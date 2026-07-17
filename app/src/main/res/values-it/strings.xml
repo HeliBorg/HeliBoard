@@ -389,7 +389,7 @@
     <string name="prefs_emoji_font_scale">Dimensione delle emoji</string>
     <string name="prefs_side_padding_scale">Spaziatura laterale</string>
     <string name="number_row_hints">Mostra suggerimenti sulla riga dei numeri</string>
-    <string name="auto_correct_shortcuts">Scorciatoie correzione</string>
+    <string name="auto_correct_shortcuts">Correggi automaticamente le scorciatoie</string>
     <string name="name_invalid">Nome non valido</string>
     <string name="prefs_language_swipe_distance">Distanza del trascinamento per il cambio lingua</string>
     <string name="custom_subtype">Sotto-tipo personalizzato</string>
@@ -546,4 +546,6 @@
     <string name="gesture_data_background_gathering_review_message">Utilizzando la schermata &lt;i&gt;%1$s&lt;/i&gt; puoi controllare e filtrare i dati raccolti, eliminare quelli che ritieni troppo sensibili e condividerli. I pulsanti di eliminazione e condivisione agiranno sui dati filtrati o sulla selezione, nel caso in cui tu utilizzi la pressione prolungata per selezionare le parole. (Nota che la \"normale\" icona di condivisione all\'esterno della schermata &lt;i&gt;%1$s&lt;/i&gt; condividerà solo i dati della raccolta attiva.)&lt;br&gt; L\'ordine dei dati condivisi è casuale, in modo da non poter dedurre nient\'altro che le singole parole.&lt;br&gt; Se desideri visualizzare i dati completi memorizzati per un gesto, puoi condividerli in un file e caricare il file in &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
     <string name="gesture_data_no_known_dict">La raccolta in background acquisisce solo parole da dizionari integrati o presenti nell\'&lt;a href=%s&gt;archivio dei dizionari&lt;/a&gt;. Al momento non hai attivato nessun dizionario di questo tipo.</string>
     <string name="gesture_data_swipe_o_scope">Strumento per la visualizzazione dei dati sui gesti: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="auto_correct_capitalized_suggestions">Correggi automaticamente i suggerimenti con iniziale maiuscola</string>
+    <string name="auto_correct_capitalized_suggestions_description">Dopo aver premuto shift per avere suggerimenti con l\'iniziale maiuscola, si attiverà la correzione automatica</string>
 </resources>

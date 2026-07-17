@@ -36,9 +36,10 @@ import helium314.keyboard.event.Event;
 import helium314.keyboard.keyboard.clipboard.ClipboardHistoryView;
 import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
 import helium314.keyboard.keyboard.internal.KeyboardState;
+import helium314.keyboard.keyboard.internal.LayoutDirective;
+import helium314.keyboard.keyboard.internal.ShiftMode;
 import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt;
 import helium314.keyboard.latin.CapsMode;
-import helium314.keyboard.latin.utils.FloatingKeyboardUtils;
 import helium314.keyboard.latin.InputView;
 import helium314.keyboard.latin.KeyboardWrapperView;
 import helium314.keyboard.latin.LatinIME;
@@ -50,6 +51,7 @@ import helium314.keyboard.latin.settings.SettingsKt;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.utils.CapsModeUtils;
+import helium314.keyboard.latin.utils.FloatingKeyboardUtils;
 import helium314.keyboard.latin.utils.FoldableUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
@@ -226,7 +228,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    public Keyboard getKeyboard() {
+    @Nullable public Keyboard getKeyboard() {
         if (mKeyboardView != null) {
             return mKeyboardView.getKeyboard();
         }
@@ -240,9 +242,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mState.onResetKeyboardStateToAlphabet(currentAutoCapsState, currentRecapitalizeState);
     }
 
-    public void onPressKey(final int code, final boolean isSinglePointer,
-            final int currentAutoCapsState, @Nullable final RecapitalizeMode currentRecapitalizeState) {
-        mState.onPressKey(code, isSinglePointer, currentAutoCapsState, currentRecapitalizeState);
+    public void onPressKey(int code, int pointerCount, int currentAutoCapsState,
+            @Nullable RecapitalizeMode currentRecapitalizeState) {
+        mState.onPressKey(code, pointerCount, currentAutoCapsState, currentRecapitalizeState);
     }
 
     public void onReleaseKey(final int code, final boolean withSliding,
@@ -257,47 +259,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
-    public void setAlphabetKeyboard() {
+    public void setAlphabetKeyboard(@NonNull ShiftMode shiftMode) {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetKeyboard");
         }
-        setKeyboard(KeyboardElement.ALPHABET, KeyboardSwitchState.OTHER);
-    }
-
-    // Implements {@link KeyboardState.SwitchActions}.
-    @Override
-    public void setAlphabetManualShiftedKeyboard() {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetManualShiftedKeyboard");
-        }
-        setKeyboard(KeyboardElement.ALPHABET_MANUAL_SHIFTED, KeyboardSwitchState.OTHER);
-    }
-
-    // Implements {@link KeyboardState.SwitchActions}.
-    @Override
-    public void setAlphabetAutomaticShiftedKeyboard() {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetAutomaticShiftedKeyboard");
-        }
-        setKeyboard(KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED, KeyboardSwitchState.OTHER);
-    }
-
-    // Implements {@link KeyboardState.SwitchActions}.
-    @Override
-    public void setAlphabetShiftLockedKeyboard() {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetShiftLockedKeyboard");
-        }
-        setKeyboard(KeyboardElement.ALPHABET_SHIFT_LOCKED, KeyboardSwitchState.OTHER);
-    }
-
-    // Implements {@link KeyboardState.SwitchActions}.
-    @Override
-    public void setAlphabetShiftLockShiftedKeyboard() {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetShiftLockShiftedKeyboard");
-        }
-        setKeyboard(KeyboardElement.ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardSwitchState.OTHER);
+        setKeyboard(shiftMode.element, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -398,12 +364,16 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     @Override
-    public void toggleNumpad(final boolean withSliding, final int autoCapsFlags,
-            @Nullable final RecapitalizeMode recapitalizeMode, final boolean forceReturnToAlpha) {
+    public void toggleLayout(@NonNull LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode) {
+        mState.toggleLayout(layout, autoCapsFlags, recapitalizeMode);
+    }
+
+    @Override
+    public void onLongPressAlphaSymbolForNumpad() {
         if (DEBUG_ACTION) {
-            Log.d(TAG, "toggleNumpad");
+            Log.d(TAG, "onLongPressAlphaSymbol");
         }
-        mState.toggleNumpad(withSliding, autoCapsFlags, recapitalizeMode, forceReturnToAlpha, true);
+        mState.onLongPressAlphaSymbolForNumpad();
     }
 
     public enum KeyboardSwitchState {
@@ -443,7 +413,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (currentState == toggleState) {
             mLatinIME.stopShowingInputView();
             mLatinIME.hideWindow();
-            setAlphabetKeyboard();
+            setAlphabetKeyboard(ShiftMode.UNSHIFT);
         } else {
             mLatinIME.startShowingInputView(true);
             if (toggleState == KeyboardSwitchState.EMOJI) {
@@ -491,7 +461,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     @Override
     public void cancelDoubleTapShiftKeyTimer() {
         if (DEBUG_TIMER_ACTION) {
-            Log.d(TAG, "setAlphabetKeyboard");
+            Log.d(TAG, "cancelDoubleTapShiftKeyTimer");
         }
         final MainKeyboardView keyboardView = getMainKeyboardView();
         if (keyboardView != null) {
@@ -587,7 +557,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     private static int getSecondaryStripVisibility() {
-        return Settings.getValues().mSecondaryStripVisible? View.VISIBLE : View.GONE;
+        return Settings.getValues().isSecondaryStripVisible()? View.VISIBLE : View.GONE;
     }
 
     // Displays a toast-like message with the provided text for a specified duration.
@@ -634,12 +604,12 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
-    public boolean isInDoubleTapShiftKeyTimeout() {
+    public boolean popDoubleTapShiftKeyTimer() {
         if (DEBUG_TIMER_ACTION) {
             Log.d(TAG, "isInDoubleTapShiftKeyTimeout");
         }
         final MainKeyboardView keyboardView = getMainKeyboardView();
-        return keyboardView != null && keyboardView.isInDoubleTapShiftKeyTimeout();
+        return keyboardView != null && keyboardView.popDoubleTapShiftKeyTimer();
     }
 
     /**
@@ -736,12 +706,13 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     @SuppressLint("InflateParams")
-    public View onCreateInputView(@NonNull Context displayContext, final boolean isHardwareAcceleratedDrawingEnabled) {
+    public View onCreateInputView(@NonNull Context displayContext, boolean isHardwareAcceleratedDrawingEnabled) {
+        Log.d(TAG, "create new input view");
         if (mKeyboardView != null) {
             mKeyboardView.closing();
         }
         PointerTracker.clearOldViewData();
-        final SharedPreferences prefs = KtxKt.prefs(displayContext);
+        SharedPreferences prefs = KtxKt.prefs(displayContext);
         if (mSuggestionStripView != null)
             prefs.unregisterOnSharedPreferenceChangeListener(mSuggestionStripView);
         if (mClipboardHistoryView != null)

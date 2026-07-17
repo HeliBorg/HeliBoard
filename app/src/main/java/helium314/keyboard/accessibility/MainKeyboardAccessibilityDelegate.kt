@@ -132,14 +132,6 @@ class MainKeyboardAccessibilityDelegate(
                 }
                 R.string.spoken_description_shiftmode_on
             }
-            KeyboardElement.ALPHABET_SHIFT_LOCK_SHIFTED -> {
-                if (lastElementId == KeyboardElement.ALPHABET_SHIFT_LOCKED) {
-                    // Resetting caps locked mode by pressing the shift key causes the transition
-                    // from shift locked to shift lock shifted that should be silently ignored.
-                    return
-                }
-                R.string.spoken_description_shiftmode_locked
-            }
             KeyboardElement.ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_shiftmode_locked
             KeyboardElement.SYMBOLS -> R.string.spoken_description_mode_symbol
             KeyboardElement.SYMBOLS_SHIFTED -> R.string.spoken_description_mode_symbol_shift

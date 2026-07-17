@@ -1,0 +1,10 @@
+* Erfassung von Hintergrund-Gesten-Daten hinzufügt
+* Datei-/Bildfunktionen zum Zwischenablageverlauf hinzufügt
+* Schwebende-Tastatur hinzufügt
+* Unicode 17.0-Emojis hinzufügt
+* Eigene Skalierungseinstellungen für faltbare Smartphones hinzufügt
+* Touchpad-Modus auf Leertaste hinzufügt
+* Option zum Deaktivieren des Rechtschreibungs-Popups hinzufügt
+* Autokorrektur und Tastenabstand nur über Schieberegler einstellbar
+* Sicherheitslücke beim Wiederherstellen eines manipulierten Backups behoben
+* ...

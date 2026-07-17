@@ -184,6 +184,8 @@ object KeyCode {
     const val BACKGROUND_GATHERING =         -10052 // will be useless after removal of gesture data gathering (keep for compatibility)
     const val BACKGROUND_GATHERING_TEMP_OFF =-10053 // will be useless after removal of gesture data gathering (keep for compatibility)
 
+    // Valid for long press only
+    const val KEY_REPEAT =                -11000
 
     // Intents
     const val SEND_INTENT_ONE =            -20000
@@ -191,7 +193,7 @@ object KeyCode {
     const val SEND_INTENT_THREE =          -20002
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
-    fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
+    fun Int.checkAndConvertCode(longPress: Boolean = false): Int = if (this > 0) this else when (this) {
         // working
         CURRENCY_SLOT_1, CURRENCY_SLOT_2, CURRENCY_SLOT_3, CURRENCY_SLOT_4, CURRENCY_SLOT_5, CURRENCY_SLOT_6,
         VOICE_INPUT, LANGUAGE_SWITCH, SETTINGS, DELETE, ALPHA, SYMBOL, EMOJI, CLIPBOARD, CLIPBOARD_CUT, UNDO,
@@ -210,6 +212,8 @@ object KeyCode {
         SEND_INTENT_THREE, EMOJI_SEARCH, INLINE_EMOJI_SEARCH_DONE, META_LOCK,
         BACKGROUND_GATHERING, BACKGROUND_GATHERING_TEMP_OFF
         -> this
+
+        KEY_REPEAT if (longPress) -> this
 
         // conversion
         IME_UI_MODE_TEXT -> ALPHA

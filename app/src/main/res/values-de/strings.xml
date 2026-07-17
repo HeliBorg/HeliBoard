@@ -448,4 +448,6 @@
     <string name="search_field_placeholder">Suche</string>
     <string name="folded">Eingeklappt</string>
     <string name="emoji_search_title">Suche nach Emojis</string>
+    <string name="auto_correct_capitalized_suggestions">Vorgeschlagene Großschreibung automatisch korrigieren</string>
+    <string name="auto_correct_capitalized_suggestions_description">Nachdem die Umschalttaste für die Großschreibung gedrückt wurde, wird die Autokorrektur aktiviert</string>
 </resources>

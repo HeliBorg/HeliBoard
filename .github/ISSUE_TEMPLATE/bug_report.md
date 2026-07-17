@@ -9,6 +9,7 @@ tl;dr:
 * search for duplicates, also in closed issues
 * a single issue per topic
 * reduce screenshot size
+* write it yourself
 
 <!--
 issue template below, please remove above text before submitting (and the template too if you think it's a good idea)

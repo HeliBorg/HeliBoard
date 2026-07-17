@@ -529,6 +529,9 @@ public class KeyboardView extends View {
                                       : params.mHintLabelVerticalAdjustment * iconSize;
             hintIcon.setColorFilter(key.selectHintTextColor(params), PorterDuff.Mode.MULTIPLY);
             drawIcon(canvas, hintIcon, (int)hintX, (int)(hintBaseline + adjustmentY), iconSize, iconSize);
+        } else if (key.getPopupKeys() != null && ! key.hasNoPanelAutoPopupKey()
+                        && (key.hasActionKeyBackground() || key.getBackgroundType() == Key.BACKGROUND_TYPE_FUNCTIONAL)) {
+            drawKeyPopupHint(key, canvas, paint, params);
         }
 
         // Draw key icon.
@@ -543,10 +546,6 @@ public class KeyboardView extends View {
             int iconX = (keyWidth - iconWidth) / 2; // Align horizontally center.
             setKeyIconColor(key, icon);
             drawIcon(canvas, icon, iconX, iconY, iconWidth, iconHeight);
-        }
-
-        if (key.hasPopupHint() && key.getPopupKeys() != null) {
-            drawKeyPopupHint(key, canvas, paint, params);
         }
     }
 

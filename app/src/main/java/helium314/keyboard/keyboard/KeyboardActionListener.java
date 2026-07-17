@@ -8,11 +8,14 @@ package helium314.keyboard.keyboard;
 
 import android.view.KeyEvent;
 
+import androidx.annotation.Nullable;
 import androidx.core.view.inputmethod.InputContentInfoCompat;
 
 import helium314.keyboard.event.HapticEvent;
+import helium314.keyboard.keyboard.internal.LayoutDirective;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.utils.RecapitalizeMode;
 
 public interface KeyboardActionListener {
     /**
@@ -22,10 +25,10 @@ public interface KeyboardActionListener {
      * @param primaryCode the unicode of the key being pressed. If the touch is not on a valid key,
      *            the value will be zero.
      * @param repeatCount how many times the key was repeated. Zero if it is the first press.
-     * @param isSinglePointer true if pressing has occurred while no other key is being pressed.
+     * @param pointerCount the number of pointers being tracked, including this one.
      * @param hapticEvent the type of haptic feedback to perform.
      */
-    void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer, HapticEvent hapticEvent);
+    void onPressKey(int primaryCode, int repeatCount, int pointerCount, HapticEvent hapticEvent);
 
     void onLongPressKey(int primaryCode);
 
@@ -115,7 +118,8 @@ public interface KeyboardActionListener {
     boolean onHorizontalSpaceSwipe(int steps);
     boolean onVerticalSpaceSwipe(int steps);
     void onEndSpaceSwipe();
-    boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha);
+    void toggleLayout(LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode);
+    void onLongPressAlphaSymbolForNumpad();
 
     void onMoveDeletePointer(int steps);
     void onUpWithDeletePointerActive();
@@ -128,7 +132,7 @@ public interface KeyboardActionListener {
 
     class Adapter implements KeyboardActionListener {
         @Override
-        public void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer, HapticEvent hapticEvent) {}
+        public void onPressKey(int primaryCode, int repeatCount, int pointerCount, HapticEvent hapticEvent) {}
         @Override
         public void onLongPressKey(int primaryCode) {}
         @Override
@@ -168,9 +172,9 @@ public interface KeyboardActionListener {
             return false;
         }
         @Override
-        public boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha) {
-            return false;
-        }
+        public void toggleLayout(LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode) {}
+        @Override
+        public void onLongPressAlphaSymbolForNumpad() {}
         @Override
         public void onEndSpaceSwipe() {}
         @Override

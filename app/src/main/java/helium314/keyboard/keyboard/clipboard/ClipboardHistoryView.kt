@@ -38,6 +38,7 @@ import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.repeatToolbarKey
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 
 @SuppressLint("CustomViewStyleable")
@@ -70,10 +71,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val keyboardViewAttr = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         keyboardViewAttr.recycle()
-        if (Settings.getValues().mSecondaryStripVisible) {
-            getEnabledClipboardToolbarKeys(context.prefs())
-                .forEach { toolbarKeys.add(createToolbarKey(context, it)) }
-        }
+        getEnabledClipboardToolbarKeys(context.prefs())
+            .forEach { toolbarKeys.add(createToolbarKey(context, it)) }
         fitsSystemWindows = true
     }
 
@@ -216,7 +215,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
         if (tag is ToolbarKey) {
             AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_LONG_PRESS)
             val longClickCode = getCodeForToolbarKeyLongClick(tag)
-            if (longClickCode != KeyCode.UNSPECIFIED) {
+            if (longClickCode == KeyCode.KEY_REPEAT) {
+                onClick(view)
+                repeatToolbarKey(view) { onClick(view) }
+            } else if (longClickCode != KeyCode.UNSPECIFIED) {
                 keyboardActionListener.onCodeInput(
                     longClickCode,
                     Constants.NOT_A_COORDINATE,
@@ -230,7 +232,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     override fun onKeyDown(clipId: Long) {
-        keyboardActionListener.onPressKey(KeyCode.NOT_SPECIFIED, 0, true, HapticEvent.KEY_PRESS)
+        keyboardActionListener.onPressKey(KeyCode.NOT_SPECIFIED, 0, 1, HapticEvent.KEY_PRESS)
     }
 
     override fun onKeyUp(clipId: Long) {

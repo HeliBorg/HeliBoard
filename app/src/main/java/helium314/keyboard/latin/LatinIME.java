@@ -1422,12 +1422,12 @@ public class LatinIME extends InputMethodService implements
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
     }
 
-    public void onTextInput(final String rawText) {
+    public void onTextInput(@Nullable String rawText) {
+        if (rawText == null) return;
         // TODO: have the keyboard pass the correct key code when we need it.
-        final Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS, null);
-        final InputTransaction completeInputTransaction =
-                mInputLogic.onTextInput(mSettings.getCurrent(), event,
-                        mKeyboardSwitcher.getKeyboardCapsMode(), mHandler);
+        Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS, null);
+        InputTransaction completeInputTransaction = mInputLogic.onTextInput(mSettings.getCurrent(),
+            event, mKeyboardSwitcher.getKeyboardCapsMode(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
         mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());

@@ -1,0 +1,11 @@
+* verzameling van achtergrondgebarengegevens
+* bestand/afbeeldingsfunctionaliteit in klembordgeschiedenis
+* zwevend toetsenbord
+* Unicode 17.0 emoji's
+* afzonderlijke schaalinstellingen voor opvouwbare telefoons
+* touchpad-modus op space slide
+* optie tbv popup spellingcontrole suggestie
+* schuifregelaar vertrouwen van autocorrectie
+* sleutelopeningen in schuifregelaar
+* mogelijk beveiligingsprobleem opgelost bij herstel van back-up uit gemanipuleerd zip-bestand
+* en meer oplossingen en verbeteringen...

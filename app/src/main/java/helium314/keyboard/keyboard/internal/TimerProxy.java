@@ -53,6 +53,11 @@ public interface TimerProxy {
     void cancelLongPressShiftKeyTimer();
 
     /**
+     * Cancel a timer for detecting a long pressed alpha/symbol key.
+     */
+    void cancelLongPressAlphaSymbolKeyTimer();
+
+    /**
      * Cancel timers for detecting repeated key press, long pressed key, and long pressed shift key.
      * @param tracker the {@link PointerTracker} that starts timers to be canceled.
      */
@@ -69,10 +74,10 @@ public interface TimerProxy {
     void cancelDoubleTapShiftKeyTimer();
 
     /**
-     * Check if a timer of detecting double tapped shift key is running.
-     * @return true if detecting double tapped shift key is on going.
+     * Check if a timer of detecting double tapped shift key is running, then cancel it.
+     * @return true if detecting double tapped shift key was ongoing.
      */
-    boolean isInDoubleTapShiftKeyTimeout();
+    boolean popDoubleTapShiftKeyTimer();
 
     /**
      * Start a timer to fire updating batch input while <code>tracker</code> is on hold.
@@ -106,13 +111,15 @@ public interface TimerProxy {
         @Override
         public void cancelLongPressShiftKeyTimer() {}
         @Override
+        public void cancelLongPressAlphaSymbolKeyTimer() {}
+        @Override
         public void cancelKeyTimersOf(@NonNull PointerTracker tracker) {}
         @Override
         public void startDoubleTapShiftKeyTimer() {}
         @Override
         public void cancelDoubleTapShiftKeyTimer() {}
         @Override
-        public boolean isInDoubleTapShiftKeyTimeout() { return false; }
+        public boolean popDoubleTapShiftKeyTimer() { return false; }
         @Override
         public void startUpdateBatchInputTimer(@NonNull PointerTracker tracker) {}
         @Override

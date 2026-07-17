@@ -121,7 +121,7 @@ class ShiftStateSelector(
             KeyboardElement.ALPHABET, KeyboardElement.SYMBOLS -> unshifted ?: default
             KeyboardElement.ALPHABET_MANUAL_SHIFTED -> shiftedManual ?: manualOrLocked ?: shifted ?: default
             KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED -> shiftedAutomatic ?: shifted ?: default
-            KeyboardElement.ALPHABET_SHIFT_LOCKED, KeyboardElement.ALPHABET_SHIFT_LOCK_SHIFTED -> capsLock ?: manualOrLocked ?: shifted ?: default
+            KeyboardElement.ALPHABET_SHIFT_LOCKED -> capsLock ?: manualOrLocked ?: shifted ?: default
             else -> default // or rather unshifted?
         }?.compute(params)
     }

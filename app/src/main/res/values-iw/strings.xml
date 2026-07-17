@@ -542,4 +542,5 @@
     <string name="gesture_data_background_gathering_allowed_apps">יישומים מורשים: %s</string>
     <string name="gesture_data_background_gathering_manual_save">שמיטה כברירת-מחדל</string>
     <string name="gesture_data_background_gathering_manual_save_summary">הנתונים יישמרו ידנית באמצעות פקד סרגל הכלים</string>
+    <string name="subtype_tok">טוקי פונה</string>
 </resources>

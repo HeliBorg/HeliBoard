@@ -247,7 +247,7 @@ class Event private constructor(
          * @return an event for this text.
          */
         @JvmStatic
-        fun createSoftwareTextEvent(text: CharSequence?, keyCode: Int, nextEvent: Event? = null) =
+        fun createSoftwareTextEvent(text: CharSequence, keyCode: Int, nextEvent: Event? = null) =
             Event(eventType = EVENT_TYPE_SOFTWARE_GENERATED_STRING, text = text, keyCode = keyCode, nextEvent = nextEvent)
 
         /**

@@ -574,8 +574,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mTimerHandler.cancelDoubleTapShiftKeyTimer();
     }
 
-    public boolean isInDoubleTapShiftKeyTimeout() {
-        return mTimerHandler.isInDoubleTapShiftKeyTimeout();
+    public boolean popDoubleTapShiftKeyTimer() {
+        return mTimerHandler.popDoubleTapShiftKeyTimer();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -715,7 +715,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
                 drawLanguageOnSpacebar(key, canvas, paint);
             }
             // Whether space key needs to show the "..." popup hint for special purposes
-            if (key.isLongPressEnabled() && mHasMultipleEnabledIMEsOrSubtypes) {
+            if (key.isLongPressEnabled() && mHasMultipleEnabledIMEsOrSubtypes && Settings.getValues().mSpaceForLangChange) {
                 drawKeyPopupHint(key, canvas, paint, params);
             }
         } else if (code == KeyCode.LANGUAGE_SWITCH) {

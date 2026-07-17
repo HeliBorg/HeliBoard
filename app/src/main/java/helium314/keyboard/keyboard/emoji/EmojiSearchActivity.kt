@@ -82,6 +82,7 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.KeyboardTypeface
 import helium314.keyboard.keyboard.internal.KeyboardBuilder
 import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.keyboard.internal.ShiftMode
 import helium314.keyboard.keyboard.internal.keyboard_parser.EMOJI_HINT_LABEL
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.getCode
@@ -323,7 +324,7 @@ class EmojiSearchActivity : ComponentActivity() {
                     if (it.mHasShortcuts) it.mShortcutTargets[0]?.mWord else null
                 } else null
         })
-        KeyboardSwitcher.getInstance().setAlphabetKeyboard()
+        KeyboardSwitcher.getInstance().setAlphabetKeyboard(ShiftMode.UNSHIFT)
         Log.d(TAG, "init end")
     }
 

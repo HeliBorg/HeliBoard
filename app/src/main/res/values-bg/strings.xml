@@ -580,4 +580,5 @@
     <string name="prefs_hint_font_scale">Мащаб на шрифта за ключови подсказки</string>
     <string name="about_community_links">Връзки към общността</string>
     <string name="about_community_links_description">Теми, редактор на оформление, дискусии, …</string>
+    <string name="subtype_tok">Токи Пона</string>
 </resources>

@@ -21,6 +21,7 @@ import helium314.keyboard.keyboard.KeyboardTypeface
 import helium314.keyboard.compat.ClipboardManagerCompat
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HapticEvent
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
@@ -189,7 +190,7 @@ class ClipboardHistoryManager(
         // create the view
         val binding = ClipboardSuggestionBinding.inflate(LayoutInflater.from(latinIME), parent, false)
         val textView = binding.clipboardSuggestionText
-        val clipIcon = latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.PASTE.name.lowercase())
+        val clipIcon = KeyboardIconsSet.instance.getIconDrawable(ToolbarKey.PASTE.name.lowercase())
         textView.setCompoundDrawablesRelativeWithIntrinsicBounds(clipIcon, null, null, null)
         val inputType = editorInfo?.inputType ?: InputType.TYPE_NULL
         if (hasText) {
@@ -222,7 +223,7 @@ class ClipboardHistoryManager(
         }
 
         val closeButton = binding.clipboardSuggestionClose
-        closeButton.setImageDrawable(latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase()))
+        closeButton.setImageDrawable(KeyboardIconsSet.instance.getIconDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase()))
         closeButton.setOnClickListener { removeClipboardSuggestion() }
 
         val colors = latinIME.mSettings.current.mColors
