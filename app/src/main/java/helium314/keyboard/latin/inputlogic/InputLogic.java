@@ -71,6 +71,7 @@ import helium314.keyboard.latin.utils.TextPlacement;
 import helium314.keyboard.latin.utils.TextRange;
 import helium314.keyboard.latin.utils.TimestampKt;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TreeSet;
@@ -83,6 +84,9 @@ public final class InputLogic {
     private static final String TAG = InputLogic.class.getSimpleName();
     private static final char INLINE_EMOJI_SEARCH_MARKER = ':';
     private static final int[] EMPTY_CODE_POINTS = new int[0];
+    private static final Locale THAI_LOCALE = Locale.forLanguageTag("th");
+    private static final ThreadLocal<BreakIterator> THAI_WORD_BREAK_ITERATOR =
+            ThreadLocal.withInitial(() -> BreakIterator.getWordInstance(THAI_LOCALE));
 
     // TODO : Remove this member when we can.
     final LatinIME mLatinIME;
@@ -1086,6 +1090,7 @@ public final class InputLogic {
             if (mWordComposer.isSingleLetter()) {
                 mWordComposer.setCapitalizedModeAtStartComposingTime(inputTransaction.getShiftState());
             }
+            maybeCommitCompletedWordSegments(settingsValues);
             setComposingTextInternal(getTextWithUnderline(mWordComposer.getTypedWord()), 1);
         } else {
             final boolean swapWeakSpace = tryStripSpaceAndReturnWhetherShouldSwapInstead(event, inputTransaction);
@@ -1105,6 +1110,54 @@ public final class InputLogic {
         inputTransaction.setRequiresUpdateSuggestions();
     }
 
+    private void maybeCommitCompletedWordSegments(final SettingsValues settingsValues) {
+        if (!ScriptUtils.needsWordSegmentation(settingsValues.mLocale)
+                || settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
+            return;
+        }
+
+        final String typedWord = mWordComposer.getTypedWord();
+        final int length = typedWord.length();
+        if (length <= 1) {
+            return;
+        }
+
+        final BreakIterator iterator = THAI_WORD_BREAK_ITERATOR.get();
+        iterator.setText(typedWord);
+        int segmentStart = iterator.first();
+        int wordBoundary = iterator.next();
+        boolean didCommitSegment = false;
+        while (wordBoundary != BreakIterator.DONE && wordBoundary < length) {
+            final String completedWordSegment = typedWord.substring(segmentStart, wordBoundary);
+            if (!TextUtils.isEmpty(completedWordSegment)) {
+                commitCompletedWordSegment(settingsValues, completedWordSegment);
+                didCommitSegment = true;
+            }
+            segmentStart = wordBoundary;
+            wordBoundary = iterator.next();
+        }
+        if (!didCommitSegment) {
+            return;
+        }
+
+        final String remainingWord = typedWord.substring(segmentStart);
+        final int[] codePoints = StringUtils.toCodePointArray(remainingWord);
+        mWordComposer.setComposingWord(codePoints,
+                mLatinIME.getCoordinatesForCurrentKeyboard(codePoints));
+    }
+
+    private void commitCompletedWordSegment(final SettingsValues settingsValues,
+            final String completedWordSegment) {
+        final NgramContext ngramContext = getNgramContextFromNthPreviousWordForSuggestion(
+                settingsValues.mSpacingAndPunctuations, 2);
+        mConnection.commitText(completedWordSegment, 1);
+        performAdditionToUserHistoryDictionary(settingsValues, completedWordSegment, ngramContext);
+        mLastComposedWord = new LastComposedWord(new ArrayList<>(), null, completedWordSegment,
+                completedWordSegment, LastComposedWord.NOT_A_SEPARATOR, ngramContext,
+                CapsMode.OFF);
+        StatsUtils.onWordCommitUserTyped(completedWordSegment, mWordComposer.isBatchMode());
+    }
+
     private boolean isCursorAtStartOrAfterSeparator(SettingsValues settingsValues) {
         var codePointBeforeCursor = mConnection.getCodePointBeforeCursor();
         return codePointBeforeCursor == Constants.NOT_A_CODE
@@ -1121,10 +1174,12 @@ public final class InputLogic {
         final int codePoint = event.getCodePoint();
         final SettingsValues settingsValues = inputTransaction.getSettingsValues();
         final boolean wasComposingWord = mWordComposer.isComposingWord();
+        final boolean needsSegmentation = ScriptUtils.needsWordSegmentation(settingsValues.mLocale);
         // We avoid sending spaces in languages without spaces if we were composing.
         final boolean shouldAvoidSendingCode = Constants.CODE_SPACE == codePoint
                 && !settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
-                && wasComposingWord;
+                && wasComposingWord
+                && !needsSegmentation;
 
         if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
