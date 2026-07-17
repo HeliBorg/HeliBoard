@@ -38,9 +38,9 @@ body:
     attributes:
       label: Describe the bug
       description: | 
-        A clear and concise description of what the bug is.
-        ONLY add screenshots when they add real value.
-        If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable.
+        A clear and concise description of what the bug is
+        ONLY add screenshots when they add real value
+        If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable
       placeholder:
     validations:
       required: true
@@ -74,9 +74,9 @@ body:
     attributes:
       label: Steps to reproduce the bug
       description: |
-        Please provide detailed steps to reproduce the issue.
-        In case you cannot reproduce the bug, say so and provide information about when the bug may occur for you. 
-        Settings and the app you're writing in are usually important, please don't omit them.
+        Please provide detailed steps to reproduce the issue
+        In case you cannot reproduce the bug, say so and provide information about when the bug may occur for you
+        Settings and the app you're writing in are usually important, please don't omit them
       placeholder: |
         1. Go to '...'
         2. Click on '...'
