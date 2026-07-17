@@ -10,21 +10,23 @@ body:
       value: |
         Please see the appropriate readme section for issue reporting guidelines: https://github.com/HeliBorg/HeliBoard?tab=readme-ov-file#reporting-issues
         tl;dr:
-        * search for duplicates, also in closed issues
-        * a single issue per topic
-        * reduce screenshot size
-        * write it yourself
+          * search for duplicates, also in closed issues
+          * a single issue per topic
+          * reduce screenshot size
+          * write it yourself
 
   - type: checkboxes
     id: checklist
     attributes:
       label: Checklist
       options:
-        - label: I make sure that the issue is NOT a duplicate of any both open and closed issues
+        - label: I confirm that the issue is NOT a duplicate of any both OPEN and CLOSED issues
           required: true
-        - label: I make sure I am using the LATEST version - check [here](https://github.com/HeliBorg/HeliBoard/releases)
+        - label: I confirm I am using the LATEST version - check [here](https://github.com/HeliBorg/HeliBoard/releases)
           required: true
         - label: I understand that issues regarding layout customization most likely will be resolved by editing JSON file
+          required: true
+        - label: I write this issue by myself, if it is AI-generated I have verify the correctness of the provided info
           required: true
         - label: I have attached the error report in the issue
           required: false
@@ -35,11 +37,11 @@ body:
     id: bug-description
     attributes:
       label: Describe the bug
-      description: A clear and concise description of what the bug is
-      placeholder: | 
-        Tell us what happened.
+      description: | 
+        A clear and concise description of what the bug is
         ONLY add screenshots when they add real value.
         If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable.
+      placeholder:
     validations:
       required: true
 
@@ -71,15 +73,15 @@ body:
     id: reproduction-steps
     attributes:
       label: Steps to reproduce the bug
-      description: Please provide detailed steps to reproduce the issue
+      description: |
+        Please provide detailed steps to reproduce the issue      
+        In case you cannot reproduce the bug, say so and provide information about when the bug may occur for you. 
+        Settings and the app you're writing in are usually important, please don't omit them.
       placeholder: |
         1. Go to '...'
         2. Click on '...'
         3. Scroll down to '...'
         4. See error
-
-        In case you cannot reproduce the bug, say so and provide information about when the bug may occur for you. 
-        Settings and the app you're writing in are usually important, please don't omit them.
     validations:
       required: false
 
@@ -93,11 +95,20 @@ body:
       required: true
 
   - type: input
+    id: rom
+    attributes:
+      label: ROM version
+      description: What Android Version and ROM are you using?
+      placeholder: e.g. OneUI 8 Android 16
+    validations:
+      required: true
+      
+  - type: input
     id: device
     attributes:
-      label: Device and ROM
-      description: What device and Android Version are you using?
-      placeholder: e.g. Samsung Galaxy S24, OneUI 8 Android 16
+      label: Device
+      description: What device are you using?
+      placeholder: e.g. Samsung Galaxy S24
     validations:
       required: false
 
