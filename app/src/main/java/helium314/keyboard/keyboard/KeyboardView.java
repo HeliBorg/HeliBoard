@@ -544,7 +544,7 @@ public class KeyboardView extends View {
                 ? keyHeight - iconHeight
                 : (keyHeight - iconHeight) / 2; // Align vertically center.
             int iconX = (keyWidth - iconWidth) / 2; // Align horizontally center.
-            setKeyIconColor(key, icon);
+            setKeyIconColor(key, icon, keyboard);
             drawIcon(canvas, icon, iconX, iconY, iconWidth, iconHeight);
         }
     }
@@ -637,9 +637,14 @@ public class KeyboardView extends View {
         freeOffscreenBuffer();
     }
 
-    private void setKeyIconColor(Key key, Drawable icon) {
+    private void setKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
         if (key.hasActionKeyBackground()) {
             mColors.setColor(icon, ColorType.ACTION_KEY_ICON);
+        } else if (key.isShift() && keyboard != null) {
+            if (keyboard.mId.getElement().isAlphabetShifted())
+                mColors.setColor(icon, ColorType.SHIFT_KEY_ICON);
+            else
+                mColors.setColor(icon, ColorType.KEY_ICON); // normal key if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
             mColors.setColor(icon, ColorType.KEY_ICON);
         } else if (this instanceof PopupKeysKeyboardView) {

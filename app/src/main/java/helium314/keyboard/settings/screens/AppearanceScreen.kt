@@ -60,6 +60,7 @@ fun AppearanceScreen(
         R.string.settings_screen_theme,
         Settings.PREF_THEME_STYLE,
         Settings.PREF_ICON_STYLE,
+        Settings.PREF_ACCENT_SHIFTED_ICON,
         Settings.PREF_CUSTOM_ICON_NAMES,
         Settings.PREF_THEME_COLORS,
         Settings.PREF_THEME_KEY_BORDERS,
@@ -138,6 +139,9 @@ fun createAppearanceSettings(context: Context) = listOf(
             KeyboardIconsSet.needsReload = true // only relevant for Settings.PREF_CUSTOM_ICON_NAMES
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
+    },
+    Setting(context, Settings.PREF_ACCENT_SHIFTED_ICON, R.string.accent_shifted_icon) {
+        SwitchPreference(it, Defaults.PREF_ACCENT_SHIFTED_ICON) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_CUSTOM_ICON_NAMES, R.string.customize_icons) { setting ->
         var showDialog by rememberSaveable { mutableStateOf(false) }
