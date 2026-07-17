@@ -430,7 +430,7 @@ public class KeyboardView extends View {
                 if (StringUtilsKt.isEmoji(label))
                     paint.setColor(key.selectTextColor(params) | 0xFF000000); // ignore alpha for emojis (though actually color isn't applied anyway and we could just set white)
                 else if (key.hasActionKeyBackground())
-                    paint.setColor(mColors.get(ColorType.KEY_ICON));
+                    paint.setColor(mColors.get(ColorType.ACTION_KEY_ICON));
                 else if (this instanceof EmojiPageKeyboardView)
                     paint.setColor(mColors.get(ColorType.EMOJI_KEY_TEXT));
                 else if (this instanceof PopupKeysKeyboardView)
@@ -639,7 +639,9 @@ public class KeyboardView extends View {
     }
 
     private void setKeyIconColor(Key key, Drawable icon) {
-        if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
+        if (key.hasActionKeyBackground()) {
+            mColors.setColor(icon, ColorType.ACTION_KEY_ICON);
+        } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
             mColors.setColor(icon, ColorType.KEY_ICON);
         } else if (this instanceof PopupKeysKeyboardView) {
             mColors.setColor(icon, ColorType.POPUP_KEY_ICON);
