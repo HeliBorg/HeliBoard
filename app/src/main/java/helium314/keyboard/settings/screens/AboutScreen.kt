@@ -91,7 +91,7 @@ fun createAboutSettings(context: Context) = listOf(
                 prefs.edit { putBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, true) }
                 Toast.makeText(ctx, R.string.prefs_debug_settings_enabled, Toast.LENGTH_LONG).show()
             },
-            icon = R.drawable.ic_settings_about
+            icon = R.drawable.ic_settings_about_version
         )
     },
     Setting(context, SettingsWithoutKey.LICENSE, R.string.license, R.string.gnu_gpl) {
@@ -157,7 +157,7 @@ fun createAboutSettings(context: Context) = listOf(
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },
-            icon = R.drawable.ic_link
+            icon = R.drawable.ic_settings_about_community
         )
      },
     Setting(context, SettingsWithoutKey.GITHUB, R.string.about_github_link) {
