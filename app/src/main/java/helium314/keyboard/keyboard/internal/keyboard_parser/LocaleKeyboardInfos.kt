@@ -22,7 +22,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     private val extraKeys = Array<MutableList<KeyData>?>(5) { null }
     var labelSymbol = "\\?123"
         private set
-    val labelSymbol2 = "!?#"
+    val labelSymbolInNumpad = "!?#"
     var labelAlphabet = "ABC"
         private set
     private var labelShiftSymbol = "= \\\\ <"

@@ -98,7 +98,7 @@ object KeyLabel {
             } else {
                 params.mLocaleKeyboardInfos.labelAlphabet
             }
-            SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol2
+            SYMBOL -> params.mLocaleKeyboardInfos.labelSymbolInNumpad
             ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
             COMMA -> params.mLocaleKeyboardInfos.labelComma
             PERIOD -> getPeriodLabel(params)
