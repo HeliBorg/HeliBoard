@@ -1187,8 +1187,4 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (isConnected())
             InputConnectionCompat.commitContent(mIC, editorInfo, contentInfo, InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION, null);
     }
-
-    public int getComposingLength() {
-        return mComposingText.length();
-    }
 }
