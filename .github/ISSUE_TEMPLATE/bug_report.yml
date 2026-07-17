@@ -24,7 +24,7 @@ body:
           required: true
         - label: I confirm I am using the LATEST version - check [here](https://github.com/HeliBorg/HeliBoard/releases)
           required: true
-        - label: I understand that issues regarding layout customization most likely will be resolved by editing [JSON file](https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md#json-format_
+        - label: I understand that issues regarding layout customization most likely will be resolved by editing [JSON file](https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md#json-format)
           required: true
         - label: I write this issue by myself, if it is AI-generated I have verify the correctness of the provided info
           required: true
