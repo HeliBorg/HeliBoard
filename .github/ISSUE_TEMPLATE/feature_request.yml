@@ -23,7 +23,7 @@ body:
       options:
         - label: I have searched for existing issues (open and closed) and confirmed this feature hasn't been requested before
           required: true
-        - label: I understand that requests regarding layout customization most likely will be resolved by editing [JSON file](https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md#json-format_
+        - label: I understand that requests regarding layout customization most likely will be resolved by editing [JSON file](https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md#json-format)
           required: true
         - label: I believe this feature request will benefit more than 10% of users, not just myself
           required: true
