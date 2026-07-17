@@ -364,7 +364,7 @@ public final class InputLogic {
     }
 
     /** indicates that the next selection update is expected to be a cursor move (triggered by space swipe) */
-    public boolean nextUpdateIsMove = false;
+    public long moveExpectedUntil = 0L;
 
     /**
      * Consider an update to the cursor position. Evaluate whether this update has happened as
@@ -379,11 +379,8 @@ public final class InputLogic {
      */
     public boolean onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart,
              int newSelEnd, int composingSpanStart, int composingSpanEnd, SettingsValues settingsValues) {
-        if (nextUpdateIsMove) {
-            nextUpdateIsMove = false;
-            // sanity check because some apps don't stick to Android documentation and don't do onUpdateSelection when they should
-            if (newSelStart == newSelEnd && composingSpanEnd - composingSpanStart == mConnection.getComposingLength())
-                return true;
+        if (moveExpectedUntil > SystemClock.elapsedRealtime()) {
+            moveExpectedUntil = 0L;
         }
         if (mConnection.isBelatedExpectedUpdate(oldSelStart, newSelStart, oldSelEnd, newSelEnd, composingSpanStart, composingSpanEnd)) {
             return false;
