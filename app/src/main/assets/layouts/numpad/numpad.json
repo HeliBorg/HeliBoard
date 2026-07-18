@@ -40,11 +40,11 @@
   ],
   [
     { "label": "alpha", "width": 0.15 },
-    { "label": "comma", "width": 0.1, "labelFlags": 1073741824 },
-    { "label": "symbol", "width": 0.1 },
+    { "label": "comma", "width": 0.116, "labelFlags": 1073741824 },
+    { "label": "symbol", "width": 0.116 },
     { "label": "0", "type": "numeric" },
-    { "label": "=", "type": "function", "width": 0.1, "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
-    { "label": "period", "width": 0.1 },
+    { "label": "=", "type": "function", "width": 0.116, "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
+    { "label": "period", "width": 0.116 },
     { "label": "action", "width": 0.15 }
   ]
 ]
