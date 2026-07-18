@@ -231,7 +231,7 @@ class ClipboardHistoryManager(
 
         val colors = latinIME.mSettings.current.mColors
         textView.setTextColor(colors.get(ColorType.KEY_TEXT))
-        clipIcon?.let { colors.setColor(it, ColorType.CLIPBOARD_PIN) }
+        clipIcon?.let { colors.setColor(it, ColorType.KEY_ICON) }
         colors.setColor(closeButton, ColorType.REMOVE_SUGGESTION_ICON)
         colors.setBackground(binding.root, ColorType.CLIPBOARD_SUGGESTION_BACKGROUND)
 
