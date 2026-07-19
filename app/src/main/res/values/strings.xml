@@ -532,6 +532,14 @@ language, hence "No language". -->
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbols</string>
     <!-- Name for symbols layout for arabic language -->
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbols (Arabic)</string>
+    <!-- Name for symbols layout matching the German (QWERTZ) physical keyboard -->
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Symbols (German)</string>
+    <!-- Name for symbols layout matching Nordic physical keyboards -->
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Symbols (Nordic)</string>
+    <!-- Name for symbols layout matching the UK physical keyboard -->
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Symbols (UK)</string>
+    <!-- Name for symbols layout matching the Spanish physical keyboard -->
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Symbols (Spanish)</string>
     <!-- Name for more symbols layout (when pressing shift) -->
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">More symbols</string>
     <!-- Name for phone layout -->

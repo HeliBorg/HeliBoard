@@ -61,9 +61,9 @@ class SubtypeTest {
         SubtypeUtilsAdditional.changeAdditionalSubtype(from.toSettingsSubtype(), to, latinIME)
         assertEquals(to, SubtypeSettings.getEnabledSubtypes(false).single().toSettingsSubtype())
 
-        // change the new subtype to effectively be the same as original resource subtype
-        val toNew = to.withoutLayout(LayoutType.SYMBOLS)
-        assertEquals(from.toSettingsSubtype(), toNew)
+        // change the new subtype back to the original resource subtype (which may itself
+        // carry a regional SYMBOLS layout, so revert to it directly instead of assuming none)
+        val toNew = from.toSettingsSubtype()
         SubtypeUtilsAdditional.changeAdditionalSubtype(to, toNew, latinIME)
         assertEquals(emptyList(), SubtypeSettings.getAdditionalSubtypes().map { it.toSettingsSubtype() })
         assertEquals(from.toSettingsSubtype(), SubtypeSettings.getEnabledSubtypes(false).single().toSettingsSubtype())
