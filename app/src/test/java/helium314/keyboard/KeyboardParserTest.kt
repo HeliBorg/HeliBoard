@@ -498,6 +498,24 @@ f""", // no newline at the end
         }
     }
 
+    // Every symbols layout's first row is triple-purpose: the symbols page first row, the digit
+    // long-press popups when the number row is off (numberRowInSymbols), and the symbol hints on
+    // the alphabet keys (addSymbolPopupKeys). The number row maps 1:1 onto it, so it must have
+    // exactly 10 keys, and % must stay reachable there even without the number row (see issue #428).
+    @Test fun symbolsLayoutsFirstRowInvariant() {
+        val dir = File("src/main/assets/layouts/symbols")
+        dir.walk().forEach {
+            if (it.isDirectory || !it.name.endsWith(".txt")) return@forEach
+            val firstRow = LayoutParser.parseSimpleString(it.readText()).first()
+                .mapNotNull { key -> key.compute(params)?.toKeyParams(params) }
+            assertEquals(10, firstRow.size, "${it.name}: first symbols row must have 10 keys")
+            val percentReachable = firstRow.any { k ->
+                k.mLabel == "%" || k.mPopupKeys?.any { p -> p.mLabel == "%" } == true
+            }
+            assertTrue(percentReachable, "${it.name}: % must stay reachable in the first symbols row")
+        }
+    }
+
     @Test fun simpleWithLabelPopupHasCode() {
         val keys = LayoutParser.parseSimpleString("""
             a symbol

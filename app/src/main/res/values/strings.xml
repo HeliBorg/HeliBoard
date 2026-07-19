@@ -540,6 +540,14 @@ language, hence "No language". -->
     <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Symbols (UK)</string>
     <!-- Name for symbols layout matching the Spanish physical keyboard -->
     <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Symbols (Spanish)</string>
+    <!-- Name for symbols layout matching the Italian physical keyboard -->
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Symbols (Italian)</string>
+    <!-- Name for symbols layout matching the generic ISO physical keyboard (Icelandic, Portuguese, Croatian, Latin-American Spanish, …) -->
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Symbols (ISO)</string>
+    <!-- Name for symbols layout matching the Brazilian ABNT2 physical keyboard -->
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Symbols (Brazilian)</string>
+    <!-- Name for symbols layout matching the Turkish-Q physical keyboard -->
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Symbols (Turkish)</string>
     <!-- Name for more symbols layout (when pressing shift) -->
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">More symbols</string>
     <!-- Name for phone layout -->
