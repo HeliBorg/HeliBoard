@@ -365,7 +365,7 @@ public final class InputLogic {
         return inputTransaction;
     }
 
-    /** indicates that the next selection update is expected to be a cursor move (triggered by space swipe, not arrow keys) */
+    /** indicates that the next selection update is expected to be a cursor move (though not needed for arrow keys) */
     public void setExpectCursorMove() {
         mCursorMoveExpectedUntil = SystemClock.elapsedRealtime() + 500;
     }
