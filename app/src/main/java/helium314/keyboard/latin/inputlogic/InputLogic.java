@@ -9,7 +9,6 @@ package helium314.keyboard.latin.inputlogic;
 import static helium314.keyboard.latin.common.SuggestionSpanUtilsKt.getTextWithSuggestionSpan;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -25,7 +24,6 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import helium314.keyboard.compat.AppWorkarounds;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
@@ -128,6 +126,8 @@ public final class InputLogic {
     private String mWordBeingCorrectedByCursor = null;
 
     private boolean mJustRevertedACommit = false;
+
+    private long mCursorMoveExpectedUntil = 0L;
 
     /**
      * Create a new instance of the input logic.
@@ -363,8 +363,16 @@ public final class InputLogic {
         return inputTransaction;
     }
 
-    /** indicates that the next selection update is expected to be a cursor move (triggered by space swipe) */
-    public long moveExpectedUntil = 0L;
+    /** indicates that the next selection update is expected to be a cursor move (triggered by space swipe, not arrow keys) */
+    public void setExpectCursorMove() {
+        mCursorMoveExpectedUntil = SystemClock.elapsedRealtime() + 500;
+    }
+
+    private boolean isExpectCursorMove() {
+        boolean isMove = mCursorMoveExpectedUntil > SystemClock.elapsedRealtime();
+        mCursorMoveExpectedUntil = 0L;
+        return isMove;
+    }
 
     /**
      * Consider an update to the cursor position. Evaluate whether this update has happened as
@@ -379,11 +387,10 @@ public final class InputLogic {
      */
     public boolean onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart,
              int newSelEnd, int composingSpanStart, int composingSpanEnd, SettingsValues settingsValues) {
-        if (moveExpectedUntil > SystemClock.elapsedRealtime()) {
-            moveExpectedUntil = 0L;
-        }
         if (mConnection.isBelatedExpectedUpdate(oldSelStart, newSelStart, oldSelEnd, newSelEnd, composingSpanStart, composingSpanEnd)) {
-            return false;
+            // return whether we expect a user-initiated explicit cursor move (i.e. not as result of other input, but e.g. space swipe)
+            // note that arrow keys are not considered, because for them isBelatedExpectedUpdate returns false
+            return isExpectCursorMove();
         }
 
         // if all text is gone, we treat it like onStartInput

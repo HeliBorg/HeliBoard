@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.keyboard
 
-import android.os.SystemClock
 import android.text.InputType
 import android.util.SparseArray
 import android.view.KeyEvent
@@ -351,9 +350,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             }
             gestureMoveForwardHaptics(text.isNotEmpty())
         }
-        // onUpdateSelection after connection.setSelection is expected and doesn't trigger the shift state update
-        // so we force it when only moving the cursor, but only if onUpdateSelection is coming soon
-        inputLogic.moveExpectedUntil = SystemClock.elapsedRealtime() + 500
+        inputLogic.setExpectCursorMove()
 
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
         // issues:
