@@ -370,7 +370,7 @@ public final class InputLogic {
         mCursorMoveExpectedUntil = SystemClock.elapsedRealtime() + 500;
     }
 
-    private boolean isExpectCursorMove() {
+    private boolean mightBeExpectedCursorMove() {
         boolean isMove = mCursorMoveExpectedUntil > SystemClock.elapsedRealtime();
         mCursorMoveExpectedUntil = 0L;
         return isMove;
@@ -389,10 +389,11 @@ public final class InputLogic {
      */
     public boolean onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart,
              int newSelEnd, int composingSpanStart, int composingSpanEnd, SettingsValues settingsValues) {
+        boolean expectCursorMove = mightBeExpectedCursorMove(); // reset the timer
         if (mConnection.isBelatedExpectedUpdate(oldSelStart, newSelStart, oldSelEnd, newSelEnd, composingSpanStart, composingSpanEnd)) {
             // return whether we expect a user-initiated explicit cursor move (i.e. not as result of other input, but e.g. space swipe)
             // note that arrow keys are not considered, because for them isBelatedExpectedUpdate returns false
-            return isExpectCursorMove();
+            return expectCursorMove;
         }
 
         // if all text is gone, we treat it like onStartInput
