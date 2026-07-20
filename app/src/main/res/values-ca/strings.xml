@@ -192,6 +192,15 @@
     <string name="clipboard_toolbar_keys">Selecciona les tecles de la barra d\'eines del porta-retalls</string>
     <string name="close_history" tools:keep="@string/close_history">Tanca l\'historial del porta-retalls</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbols (Àrab)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Símbols (Alemany)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Símbols (Nòrdic)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Símbols (Britànic)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Símbols (Espanyol)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Símbols (Italià)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Símbols (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Símbols (Brasiler)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Símbols (Turc)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Símbols (Suís)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbols</string>
     <string name="load">Carrega</string>
     <string name="show_popup_keys_title">Mostra més lletres amb signes diacrítics a l\'ampliació</string>
