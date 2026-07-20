@@ -696,6 +696,44 @@ private object AppUpgrade {
                 remove("narrow_key_gaps")
             }
         }
+        if (oldVersion <= 4004) {
+            // region-specific SYMBOLS layouts were added to many subtypes in method.xml; extend
+            // stored subtype prefs the same way so they keep matching the resource subtypes, and
+            // so existing additional subtypes of these locales get the regional symbols page too
+            val regionalSymbols = mapOf(
+                "de" to "symbols_de", "de-DE" to "symbols_de",
+                "sv" to "symbols_nordic", "da" to "symbols_nordic", "nb" to "symbols_nordic",
+                "fi" to "symbols_nordic", "et-EE" to "symbols_nordic",
+                "en-GB" to "symbols_uk",
+                "es" to "symbols_es", "ca" to "symbols_es", "gl-ES" to "symbols_es", "eu-ES" to "symbols_es",
+                "it" to "symbols_it",
+                "is" to "symbols_iso", "pt-PT" to "symbols_iso", "es-419" to "symbols_iso",
+                "es-US" to "symbols_iso", "hr" to "symbols_iso", "sr-Latn" to "symbols_iso", "sl" to "symbols_iso",
+                "pt-BR" to "symbols_br",
+                "tr" to "symbols_tr",
+            )
+            fun SettingsSubtype.withRegionalSymbols(): SettingsSubtype {
+                val regional = regionalSymbols[locale.toLanguageTag()] ?: return this
+                if (layoutName(LayoutType.SYMBOLS) != null) return this // explicitly chosen symbols layout, keep it
+                return withLayout(LayoutType.SYMBOLS, regional)
+            }
+            listOf(Settings.PREF_ENABLED_SUBTYPES, Settings.PREF_ADDITIONAL_SUBTYPES).forEach { key ->
+                if (!prefs.contains(key)) return@forEach
+                val value = prefs.getString(key, "")!!
+                val new = value.split(Separators.SETS).filter { it.isNotEmpty() }
+                    .joinToString(Separators.SETS) { it.toSettingsSubtype().withRegionalSymbols().toPref() }
+                if (new != value) prefs.edit { putString(key, new) }
+            }
+            (prefs.all.keys.filter { it.startsWith(Settings.PREF_SAVED_APP_SUBTYPE_PREFIX) } + Settings.PREF_SELECTED_SUBTYPE).forEach { key ->
+                if (!prefs.contains(key)) return@forEach
+                val value = prefs.getString(key, "")!!
+                if (value.isEmpty()) return@forEach
+                val new = value.toSettingsSubtype().withRegionalSymbols().toPref()
+                if (new != value) prefs.edit { putString(key, new) }
+            }
+            // subtypes were already loaded from the not-yet-migrated prefs in SubtypeSettings.init
+            SubtypeSettings.reloadEnabledSubtypes(context)
+        }
         upgradeToolbarPrefs(prefs)
         LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
         prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
