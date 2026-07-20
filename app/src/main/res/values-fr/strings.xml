@@ -286,6 +286,15 @@ Nouveau dictionnaire:
     <string name="show_horizontal_space_swipe">Balayage horizontal de la barre d\'espace</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Pavé numérique (paysage)</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboles (Arabe)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Symboles (Allemand)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Symboles (Nordique)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Symboles (Britannique)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Symboles (Espagnol)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Symboles (Italien)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Symboles (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Symboles (Brésilien)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Symboles (Turc)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Symboles (Suisse)</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Symboles du pavé téléphonique</string>
     <string name="layout_number" tools:keep="@string/layout_number">Chiffres</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Pavé numérique</string>

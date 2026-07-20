@@ -187,6 +187,15 @@
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Tákn</string>
     <string name="customize_background_image">Setja bakgrunnsmynd</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Tákn (arabísk)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Tákn (þýsk)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Tákn (norræn)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Tákn (bresk)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Tákn (spænsk)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Tákn (ítölsk)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Tákn (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Tákn (brasilísk)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Tákn (tyrknesk)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Tákn (svissnesk)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Fleiri tákn</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Símatákn</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Talnaborð</string>

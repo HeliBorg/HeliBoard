@@ -218,6 +218,15 @@
     <string name="edit_layout">Toque para editar o layout bruto</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Árabe)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Símbolos (Alemão)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Símbolos (Nórdico)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Símbolos (Britânico)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Símbolos (Espanhol)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Símbolos (Italiano)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Símbolos (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Símbolos (Brasileiro)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Símbolos (Turco)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Símbolos (Suíço)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Mais símbolos</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefone</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Símbolos de telefone</string>

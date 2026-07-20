@@ -275,6 +275,15 @@
     <string name="available_dictionary_experimental">%s (experimentell)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabisch)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Symbole (deutsch)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Symbole (nordisch)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Symbole (britisch)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Symbole (spanisch)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Symbole (italienisch)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Symbole (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Symbole (brasilianisch)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Symbole (türkisch)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Symbole (schweizerisch)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonsymbole</string>
     <string name="layout_number" tools:keep="@string/layout_number">Zahlen</string>

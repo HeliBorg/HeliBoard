@@ -189,6 +189,15 @@
     <string name="prefs_bottom_padding_scale">Bodemafstand schaal</string>
     <string name="delete_layout">Aangepaste lay-out %s verwijderen?</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbolen (Arabisch)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Symbolen (Duits)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Symbolen (Noords)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Symbolen (Brits)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Symbolen (Spaans)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Symbolen (Italiaans)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Symbolen (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Symbolen (Braziliaans)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Symbolen (Turks)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Symbolen (Zwitsers)</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Aangepast</string>
     <string name="show_horizontal_space_swipe">Horizontaal veeggebaar over spatiebalk</string>
     <string name="close_history" tools:keep="@string/close_history">Klembordgeschiedenis sluiten</string>

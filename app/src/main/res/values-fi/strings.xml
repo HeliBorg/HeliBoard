@@ -317,6 +317,15 @@
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktionäppäimet (symbolit)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktionäppäimet (lisää symboleja)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbolit</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Symbolit (saksalainen)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Symbolit (pohjoismainen)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Symbolit (brittiläinen)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Symbolit (espanjalainen)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Symbolit (italialainen)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Symbolit (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Symbolit (brasilialainen)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Symbolit (turkkilainen)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Symbolit (sveitsiläinen)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Lisää symboleja</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Puhelinsymbolit</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numeronäppäimistö</string>
