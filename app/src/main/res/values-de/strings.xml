@@ -393,6 +393,8 @@
     <string name="subtype_baishakhi_bn_IN">%s (Baisakhi)</string>
     <string name="show_tld_popup_keys">Zeige TLD-Popup-Tasten</string>
     <string name="show_tld_popup_keys_summary">Ersetze Punkt-Tastenpopups mit Top-Level-Domains wenn URLs und Mailadressen eingegeben werden</string>
+    <string name="url_email_layout">Layout für URL- und E-Mail-Felder anpassen</string>
+    <string name="url_email_layout_summary">Zeige in URL-Feldern eine Schrägstrich-Taste und in E-Mail-Feldern eine @-Taste (anstelle des Kommas) samt passender Popup-Tasten. Deaktivieren, um immer das normale Layout zu behalten.</string>
     <string name="prefs_always_show_suggestions_except_web_text">Nicht immer Vorschläge für Web-Editierfelder anzeigen</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Zahlenreihe (Basis)</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Web-Eingabefelder (meist in Browsern) sind eine häufige Ursache für Probleme mit der Einstellung \"Immer Vorschläge anzeigen\"</string>
