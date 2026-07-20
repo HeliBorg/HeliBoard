@@ -246,7 +246,14 @@ fun mightBeEmoji(text: CharSequence): Boolean {
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
 /** returns whether the text is a single emoji */
-fun isEmoji(text: CharSequence): Boolean = text.toString().isSingleGrapheme && mightBeEmoji(text) && text.matches(singleEmojiRegex)
+// the standalone regional indicator check comes first because the RGI-based singleEmojiRegex only
+// matches indicator pairs (country flags), and isSingleGrapheme falls back to that regex too,
+// but the flags category also offers the standalone indicator letters
+fun isEmoji(text: CharSequence): Boolean = text.isSingleRegionalIndicator
+        || (text.toString().isSingleGrapheme && mightBeEmoji(text) && text.matches(singleEmojiRegex))
+
+private val CharSequence.isSingleRegionalIndicator: Boolean
+    get() = length == 2 && Character.codePointAt(this, 0) in 0x1F1E6..0x1F1FF
 
 // from https://github.com/chattymin/Pebble/blob/main/pebble/src/main/java/com/chattymin/pebble/LocalBreakIterator.kt, Apache-2.0 license
 // there is more potentially useful code like String.graphemeLength (should be graphemeCount though)
