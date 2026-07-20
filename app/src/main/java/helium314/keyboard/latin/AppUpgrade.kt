@@ -702,6 +702,7 @@ private object AppUpgrade {
             // so existing additional subtypes of these locales get the regional symbols page too
             val regionalSymbols = mapOf(
                 "de" to "symbols_de", "de-DE" to "symbols_de",
+                "de-CH" to "symbols_ch", "fr-CH" to "symbols_ch", "it-CH" to "symbols_ch",
                 "sv" to "symbols_nordic", "da" to "symbols_nordic", "nb" to "symbols_nordic",
                 "fi" to "symbols_nordic", "et-EE" to "symbols_nordic",
                 "en-GB" to "symbols_uk",
@@ -709,6 +710,7 @@ private object AppUpgrade {
                 "it" to "symbols_it",
                 "is" to "symbols_iso", "pt-PT" to "symbols_iso", "es-419" to "symbols_iso",
                 "es-US" to "symbols_iso", "hr" to "symbols_iso", "sr-Latn" to "symbols_iso", "sl" to "symbols_iso",
+                "sr" to "symbols_iso",
                 "pt-BR" to "symbols_br",
                 "tr" to "symbols_tr",
             )

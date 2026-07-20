@@ -288,7 +288,7 @@
         android:imeSubtypeLocale="de_CH"
         android:languageTag="de-CH"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwertz+,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwertz+|SYMBOLS:symbols_ch,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -414,7 +414,7 @@
         android:imeSubtypeLocale="fr_CH"
         android:languageTag="fr-CH"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwertz+,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwertz+|SYMBOLS:symbols_ch,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -571,7 +571,7 @@
         android:imeSubtypeLocale="it_CH"
         android:languageTag="it-CH"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwertz+,AsciiCapable,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwertz+|SYMBOLS:symbols_ch,AsciiCapable,EmojiCapable"
         android:isAsciiCapable="true"
     />
     <!-- Java uses the deprecated "iw" code instead of the standard "he" code for Hebrew. -->
@@ -1016,7 +1016,7 @@
         android:imeSubtypeLocale="sr"
         android:languageTag="sr"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:serbian,SupportTouchPositionCorrection,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:serbian|SYMBOLS:symbols_iso,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="false"
     />
     <!-- This Serbian Latin keyboard is a preliminary layout.

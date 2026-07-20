@@ -548,6 +548,8 @@ language, hence "No language". -->
     <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Symbols (Brazilian)</string>
     <!-- Name for symbols layout matching the Turkish-Q physical keyboard -->
     <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Symbols (Turkish)</string>
+    <!-- Name for symbols layout matching the Swiss physical keyboard (German, French, Italian) -->
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Symbols (Swiss)</string>
     <!-- Name for more symbols layout (when pressing shift) -->
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">More symbols</string>
     <!-- Name for phone layout -->
