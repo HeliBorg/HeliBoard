@@ -504,6 +504,7 @@ f""", // no newline at the end
     // exactly 10 keys, and % must stay reachable there even without the number row (see issue #428).
     @Test fun symbolsLayoutsFirstRowInvariant() {
         val dir = File("src/main/assets/layouts/symbols")
+        var checked = 0
         dir.walk().forEach {
             if (it.isDirectory || !it.name.endsWith(".txt")) return@forEach
             val firstRow = LayoutParser.parseSimpleString(it.readText()).first()
@@ -513,7 +514,10 @@ f""", // no newline at the end
                 k.mLabel == "%" || k.mPopupKeys?.any { p -> p.mLabel == "%" } == true
             }
             assertTrue(percentReachable, "${it.name}: % must stay reachable in the first symbols row")
+            checked++
         }
+        // guard against the test silently passing when the layouts are not found (e.g. wrong working directory)
+        assertTrue(checked >= 10, "expected at least 10 symbols layouts, but found $checked")
     }
 
     @Test fun simpleWithLabelPopupHasCode() {
