@@ -78,7 +78,7 @@ object SubtypeSettings {
             val match = enabledFromSettings.firstOrNull {
                 !it.isAdditionalSubtype(context.prefs())
                     && it.locale == subtype.locale()
-                    && it.mainLayoutName() == subtype.mainLayoutNameOrQwerty()
+                    && (it.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY) == subtype.mainLayoutNameOrQwerty()
             }
             // the match is done on locale and main layout name, like in loadEnabledSubtypes
             if (match == null || !removeEnabledSubtype(prefs, match)) {
@@ -103,13 +103,27 @@ object SubtypeSettings {
         val subtype = enabledSubtypes.firstOrNull { it.toSettingsSubtype() == selectedSubtype }
         if (subtype != null) {
             return subtype
-        } else if (enabledSubtypes.isNotEmpty()) {
-            Log.w(TAG, "selected subtype $selectedSubtype / ${prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)} not found")
         }
-        if (enabledSubtypes.isNotEmpty())
+        // the stored selected subtype may be stale when extra values of a resource subtype
+        // changed in method.xml, so match on locale and main layout like loadEnabledSubtypes
+        // does, and heal the pref so exact matching works again (prefer resource subtypes,
+        // because a stale pref that gets here is a resource subtype serialization)
+        val sameLocaleAndLayout = enabledSubtypes.filter {
+            it.locale() == selectedSubtype.locale
+                    && it.mainLayoutNameOrQwerty() == (selectedSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY)
+        }
+        val fuzzyMatch = sameLocaleAndLayout.firstOrNull { !isAdditionalSubtype(it) } ?: sameLocaleAndLayout.firstOrNull()
+        if (fuzzyMatch != null) {
+            setSelectedSubtype(prefs, fuzzyMatch)
+            return fuzzyMatch
+        }
+        if (enabledSubtypes.isNotEmpty()) {
+            Log.w(TAG, "selected subtype $selectedSubtype / ${prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)} not found")
             return enabledSubtypes.first()
+        }
         val defaultSubtypes = getDefaultEnabledSubtypes()
-        return defaultSubtypes.firstOrNull { it.locale() == selectedSubtype.locale && it.mainLayoutName() == it.mainLayoutName() }
+        return defaultSubtypes.firstOrNull { it.locale() == selectedSubtype.locale && it.mainLayoutNameOrQwerty() == (selectedSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY) }
+            ?: defaultSubtypes.firstOrNull { it.locale() == selectedSubtype.locale }
             ?: defaultSubtypes.firstOrNull { it.locale().language == selectedSubtype.locale.language }
             ?: defaultSubtypes.first()
     }
@@ -250,6 +264,7 @@ object SubtypeSettings {
     private fun loadEnabledSubtypes(context: Context) {
         val prefs = context.prefs()
         val settingsSubtypes = createSettingsSubtypes(prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!)
+        val stale = mutableMapOf<SettingsSubtype, SettingsSubtype>()
         for (settingsSubtype in settingsSubtypes) {
             if (settingsSubtype.isAdditionalSubtype(prefs)) {
                 enabledSubtypes.add(settingsSubtype.toAdditionalSubtype())
@@ -278,6 +293,15 @@ object SubtypeSettings {
             }
 
             enabledSubtypes.add(subtype)
+            if (subtype.toSettingsSubtype() != settingsSubtype)
+                stale[settingsSubtype] = subtype.toSettingsSubtype()
+        }
+        if (stale.isNotEmpty()) {
+            // extra values of a resource subtype changed in method.xml (e.g. a SYMBOLS layout was
+            // added) -> store the current serialization, because exact-match consumers like
+            // getSelectedSubtype and changeAdditionalSubtype would keep working on stale strings
+            val current = createSettingsSubtypes(prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!)
+            prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, createPrefSubtypes(current.map { stale[it] ?: it })) }
         }
     }
 
