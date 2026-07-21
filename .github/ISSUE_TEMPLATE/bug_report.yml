@@ -50,7 +50,10 @@ body:
     attributes:
       label: Expected Behavior
       description: Describe how the app should behave
-      placeholder:
+      placeholder: |
+        Actual: 
+
+        Expected:
     validations:
       required: true
       
