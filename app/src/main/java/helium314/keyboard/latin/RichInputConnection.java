@@ -212,6 +212,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
     }
 
+
+    public void restartBatchEdit() {
+        if (mNestLevel == 1) {
+            endBatchEdit();
+            beginBatchEdit();
+        }
+    }
+
     /**
      * Reset the cached text and retrieve it again from the editor.
      * <p>
@@ -478,19 +486,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final long startTime = SystemClock.uptimeMillis();
         final CharSequence result = mIC.getTextBeforeCursor(n, flags);
         detectLaggyConnection(operation, timeout, startTime);
-
-        // only do the consistency check if we actually have text (i.e. we're not coming from some reload / reset)
-        if ((mCommittedTextBeforeComposingText.length() > 0 || mComposingText.length() > 0)
-                && result != null && !checkTextBeforeCursorConsistency(result)) {
-            // inconsistent state can occur for (at least) two reasons
-            // 1. the app actively changes text field content, e.g. joplin when deleting list markers like "2."
-            // 2. the app has outdated contents in the text field, e.g. com.farmerbb.notepad returns the
-            //     just deleted char right after deletion, instead of the correct one
-            //     todo: understand where this inconsistent state comes from, is it really the other app's fault, or is it HeliBoard?
-            Log.w(TAG, "cached text out of sync, reloading");
-            reloadCursorPosition();
-            reloadTextCache();
-        }
         return result;
     }
 
@@ -863,6 +858,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (!isConnected()) {
             return null;
         }
+        // In some editors, due to batch edit, we will receive stale information after having
+        // just performed an action (e.g. deleted text). Restarting batch edit will force
+        // the editor to process actions so far.
+        restartBatchEdit();
         CharSequence before = getTextBeforeCursorAndDetectLaggyConnection(
                 OPERATION_GET_WORD_RANGE_AT_CURSOR,
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
