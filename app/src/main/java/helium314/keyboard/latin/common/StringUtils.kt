@@ -247,8 +247,8 @@ fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointStri
 
 /** returns whether the text is a single emoji */
 // the standalone regional indicator check comes first because the RGI-based singleEmojiRegex only
-// matches indicator pairs (country flags), and isSingleGrapheme falls back to that regex too,
-// but the flags category also offers the standalone indicator letters
+// matches indicator pairs (country flags), so the second clause can't recognise the standalone
+// indicator letters that the flags category also offers
 fun isEmoji(text: CharSequence): Boolean = text.isSingleRegionalIndicator
         || (text.toString().isSingleGrapheme && mightBeEmoji(text) && text.matches(singleEmojiRegex))
 
@@ -279,7 +279,8 @@ val String.isSingleGrapheme: Boolean get() {
         iterator.next()
         if (iterator.next() != BreakIterator.DONE) return false
         // we have a single grapheme, but " 🏼" is detected as single grapheme which we don't want
-        return if ('\uD83C' !in this) true // does not contain skin tone
+        return if (isSingleRegionalIndicator) true // standalone regional indicator (🇦–🇿): one code point
+        else if ('\uD83C' !in this) true // does not contain skin tone
         else singleEmojiRegex.matches(this) // single grapheme only if it's a single emoji
     }
     // got IllegalArgumentException: Invalid index on iterator.next()
