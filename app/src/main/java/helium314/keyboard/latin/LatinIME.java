@@ -1218,7 +1218,11 @@ public class LatinIME extends InputMethodService implements
                 touchLeft = xy.component1();
                 touchTop = xy.component2();
                 touchRight = touchLeft + mSettings.getCurrent().mFloatingWidth;
-                touchBottom = touchTop + mSettings.getCurrent().mFloatingHeight + stripHeight + (int)FloatingKeyboardUtils.getFloatingHandleHeight(getResources());
+                // the floating input view wraps the whole floating keyboard (suggestion strip + keyboard +
+                // drag/resize handles), so its measured height is the exact reach; the old estimate used the
+                // configured mFloatingHeight, which is smaller than the rendered keyboard, leaving the bottom
+                // handles outside the touchable region (touches fell through to the app behind)
+                touchBottom = touchTop + inputHeight;
             }
             outInsets.touchableInsets = InputMethodService.Insets.TOUCHABLE_INSETS_REGION;
             outInsets.touchableRegion.set(touchLeft, touchTop, touchRight, touchBottom);

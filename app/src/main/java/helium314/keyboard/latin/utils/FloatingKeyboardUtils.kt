@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Rect
+import android.os.Build
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.edit
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -27,6 +30,16 @@ object FloatingKeyboardUtils {
     fun setFloating(view: View?) {
         val lp = view?.layoutParams as? ViewGroup.MarginLayoutParams ?: return
         view.getWindowVisibleDisplayFrame(windowFrame)
+        // Android 15+ enforces edge-to-edge, so the IME window draws behind the navigation bar and the
+        // visible frame still spans behind it; the bottom drag/resize handles would otherwise end up
+        // under the nav bar. Subtract the window's nav bar inset to keep them reachable. Older versions
+        // keep the IME above the nav bar, so no adjustment is needed there (and applying it could
+        // subtract the nav bar height a second time and lift the keyboard off the bottom).
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            val navBarBottom = ViewCompat.getRootWindowInsets(view)
+                ?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
+            windowFrame.bottom -= navBarBottom
+        }
         extraHeight = getSuggestionStripHeight(view.resources) + getFloatingHandleHeight(view.resources)
         val (x, y) = readPosition(
             view.context,
