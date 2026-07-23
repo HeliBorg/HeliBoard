@@ -198,6 +198,13 @@ class KeyboardState(private val switchActions: SwitchActions) {
         }
         if (mode == layout.mode()) {
             loadPreviousLayout(autoCapsFlags, recapitalizeMode)
+        } else if (!isInLayoutSlide && (mode == Mode.NUMPAD || mode == Mode.DPAD) && (layout == Utility.NUMPAD || layout == Utility.DPAD)) {
+            // numpad and dpad are sibling overlays: switching directly from one to the other must not
+            // push onto the previous-layout stack, otherwise closing the new overlay would fall back to
+            // the other overlay instead of the layout they were both opened over (usually the alphabet).
+            // only for a deliberate (non-sliding) switch: while sliding, the tail below pops the pushed
+            // entry, so we must take the regular setLayout path to keep that accounting balanced.
+            loadLayout(layout)
         } else {
             setLayout(layout)
         }
