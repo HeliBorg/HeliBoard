@@ -417,7 +417,9 @@ class DefaultColors (
             adjustedBackground = darken(background)
             doubleAdjustedBackground = darken(adjustedBackground)
         }
-        adjustedBackgroundStateList = pressedStateList(doubleAdjustedBackground, adjustedBackground)
+        // popup selection highlight uses the theme accent so it is clearly noticeable (#2440),
+        // consistent with the dynamic theme, instead of the barely-visible doubleAdjustedBackground
+        adjustedBackgroundStateList = pressedStateList(accent, adjustedBackground)
 
         val stripBackground: Int
         val pressedStripElementBackground: Int
