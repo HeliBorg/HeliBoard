@@ -239,6 +239,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         }
 
         toolbarExpandKey.scaleX = (if (toolbarVisible) -1f else 1f) * direction
+        updateExpandKeyImage() // toggling the toolbar changes whether incognito is shown on the expand key
     }
 
     fun setSuggestions(suggestions: SuggestedWords, isRtlLanguage: Boolean) {
@@ -511,17 +512,22 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         val settingsValues = Settings.getValues()
 
         val toolbarIsExpandable = settingsValues.mToolbarMode == ToolbarMode.EXPANDABLE
-        if (settingsValues.mIncognitoModeEnabled) {
-            toolbarExpandKey.setImageDrawable(incognitoIcon)
-            toolbarExpandKey.isVisible = true
-        } else {
-            toolbarExpandKey.setImageDrawable(toolbarArrowIcon)
-            toolbarExpandKey.isVisible = toolbarIsExpandable
-        }
+        updateExpandKeyImage()
+        // keep the expand key around while it can toggle the toolbar, or to show the incognito
+        // status while the toolbar is collapsed
+        toolbarExpandKey.isVisible = toolbarIsExpandable ||
+                (settingsValues.mIncognitoModeEnabled && !toolbarContainer.isVisible)
 
         toolbarExpandKey.setOnClickListener(if (!toolbarIsExpandable) null else this)
         pinnedKeys.visibility = suggestionsStrip.visibility
         isExternalSuggestionVisible = false
+    }
+
+    /** Show the incognito indicator on the expand key only while the toolbar is collapsed. When the
+     *  toolbar is open, the incognito toolbar key already indicates it, so this avoids showing it twice. */
+    private fun updateExpandKeyImage() {
+        val showIncognito = Settings.getValues().mIncognitoModeEnabled && !toolbarContainer.isVisible
+        toolbarExpandKey.setImageDrawable(if (showIncognito) incognitoIcon else toolbarArrowIcon)
     }
 
     private fun addKeyToPinnedKeys(pinnedKey: ToolbarKey) {
