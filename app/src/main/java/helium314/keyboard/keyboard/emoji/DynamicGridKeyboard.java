@@ -180,6 +180,9 @@ final class DynamicGridKeyboard extends Keyboard {
     public void removeAllKeys() {
         synchronized (mLock) {
             mGridKeys.clear();
+            // also drop keys typed while viewing the recents tab that haven't been flushed yet,
+            // otherwise they get re-added on the next flushPendingRecentKeys() after a clear-all
+            mPendingKeys.clear();
             mCachedGridKeys = null;
         }
     }
