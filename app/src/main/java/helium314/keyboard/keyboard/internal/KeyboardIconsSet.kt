@@ -79,10 +79,6 @@ class KeyboardIconsSet private constructor() {
         const val NAME_SWITCH_ONEHANDED_KEY = "switch_onehanded_key"
         const val NAME_RESIZE_ONEHANDED_KEY = "resize_onehanded_key"
         const val NAME_TOOLBAR_KEY = "toolbar_key"
-        // incognito glasses with an expand chevron baked in; shown on the collapsed expand key while
-        // incognito is active (the chevron hints it still expands the toolbar, see upstream #223/#224).
-        // the plain INCOGNITO toolbar toggle uses a chevron-less icon instead.
-        const val NAME_INCOGNITO_INDICATOR = "incognito_indicator"
         const val NAME_BIN = "bin"
 
         // names used in the past, and we can't just delete them because they might still be in use in some layouts
@@ -123,7 +119,6 @@ class KeyboardIconsSet private constructor() {
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left,
             NAME_RESIZE_ONEHANDED_KEY to        R.drawable.ic_arrow_horizontal,
             NAME_TOOLBAR_KEY to                 R.drawable.ic_arrow_right,
-            NAME_INCOGNITO_INDICATOR to         R.drawable.sym_keyboard_incognito_holo,
             NAME_BIN to                         R.drawable.ic_bin,
         ).apply {
             ToolbarKey.entries.forEach {
@@ -188,7 +183,6 @@ class KeyboardIconsSet private constructor() {
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left,
             NAME_RESIZE_ONEHANDED_KEY to        R.drawable.ic_arrow_horizontal,
             NAME_TOOLBAR_KEY to                 R.drawable.ic_arrow_right,
-            NAME_INCOGNITO_INDICATOR to         R.drawable.sym_keyboard_incognito_lxx,
             NAME_BIN to                         R.drawable.ic_bin,
         ).apply {
             ToolbarKey.entries.forEach {
@@ -253,7 +247,6 @@ class KeyboardIconsSet private constructor() {
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left_rounded,
             NAME_RESIZE_ONEHANDED_KEY to        R.drawable.ic_arrow_horizontal_rounded,
             NAME_TOOLBAR_KEY to                 R.drawable.ic_arrow_right_rounded,
-            NAME_INCOGNITO_INDICATOR to         R.drawable.sym_keyboard_incognito_lxx,
             NAME_BIN to                         R.drawable.ic_bin_rounded,
         ).apply {
             ToolbarKey.entries.forEach {

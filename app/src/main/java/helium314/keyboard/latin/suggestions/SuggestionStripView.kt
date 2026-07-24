@@ -64,11 +64,6 @@ import kotlin.math.min
 import androidx.core.view.isGone
 import helium314.keyboard.latin.utils.onClickToolbarKey
 import helium314.keyboard.latin.utils.onLongClickToolbarKey
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @SuppressLint("InflateParams")
 class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int) :
@@ -121,9 +116,6 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private val pinnedKeys: ViewGroup = findViewById(R.id.pinned_keys)
     private val suggestionsStrip: ViewGroup = findViewById(R.id.suggestions_strip)
     private val toolbarExpandKey = findViewById<ImageButton>(R.id.suggestions_strip_toolbar_key)
-    // the collapsed expand key shows the incognito glasses *with* an expand chevron (see upstream #224),
-    // which is a different icon than the plain glasses used for the INCOGNITO toolbar toggle itself
-    private val incognitoIcon = KeyboardIconsSet.instance.getNewDrawable(KeyboardIconsSet.NAME_INCOGNITO_INDICATOR, context)
     private val toolbarArrowIcon = KeyboardIconsSet.instance.getNewDrawable(KeyboardIconsSet.NAME_TOOLBAR_KEY, context)
     private val defaultToolbarBackground: Drawable = toolbarExpandKey.background
     private val enabledToolKeyBackground = GradientDrawable()
@@ -243,7 +235,6 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         }
 
         toolbarExpandKey.scaleX = (if (toolbarVisible) -1f else 1f) * direction
-        updateExpandKeyImage() // toggling the toolbar changes whether incognito is shown on the expand key
     }
 
     fun setSuggestions(suggestions: SuggestedWords, isRtlLanguage: Boolean) {
@@ -296,8 +287,6 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         setToolbarButtonsActivatedStateOnPrefChange(pinnedKeys, key)
         setToolbarButtonsActivatedStateOnPrefChange(toolbar, key)
-        if (key == Settings.PREF_ALWAYS_INCOGNITO_MODE)
-            GlobalScope.launch { delay(10); withContext(Dispatchers.Main) { updateKeys() } }
     }
 
     /** refresh the toolbar toggle highlights, e.g. after the keyboard mode (numpad/dpad) changed */
@@ -526,27 +515,17 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
         val toolbarIsExpandable = settingsValues.mToolbarMode == ToolbarMode.EXPANDABLE
         updateExpandKeyImage()
-        // keep the expand key around while it can toggle the toolbar, or to show the incognito
-        // status while the toolbar is collapsed
-        toolbarExpandKey.isVisible = toolbarIsExpandable ||
-                (settingsValues.mIncognitoModeEnabled && !toolbarContainer.isVisible)
+        // the expand key is only needed when it can toggle the toolbar
+        toolbarExpandKey.isVisible = toolbarIsExpandable
 
         toolbarExpandKey.setOnClickListener(if (!toolbarIsExpandable) null else this)
         pinnedKeys.visibility = suggestionsStrip.visibility
         isExternalSuggestionVisible = false
     }
 
-    /** Show the incognito indicator on the expand key only while the toolbar is collapsed. When the
-     *  toolbar is open, the incognito toolbar key already indicates it, so this avoids showing it twice. */
     private fun updateExpandKeyImage() {
-        val showIncognito = Settings.getValues().mIncognitoModeEnabled && !toolbarContainer.isVisible
-        toolbarExpandKey.setImageDrawable(if (showIncognito) incognitoIcon else toolbarArrowIcon)
-        // tint the incognito indicator with the accent (EMOJI_CATEGORY_SELECTED -> accent, same color the
-        // active toolbar toggles use), and the plain expand arrow with the normal expand-key color
-        Settings.getValues().mColors.setColor(
-            toolbarExpandKey,
-            if (showIncognito) ColorType.EMOJI_CATEGORY_SELECTED else ColorType.TOOL_BAR_EXPAND_KEY
-        )
+        toolbarExpandKey.setImageDrawable(toolbarArrowIcon)
+        Settings.getValues().mColors.setColor(toolbarExpandKey, ColorType.TOOL_BAR_EXPAND_KEY)
     }
 
     private fun addKeyToPinnedKeys(pinnedKey: ToolbarKey) {
