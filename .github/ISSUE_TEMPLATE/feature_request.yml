@@ -6,14 +6,7 @@ assignees: []
 body:
   - type: markdown
     attributes:
-      value: |
-        Please see the appropriate readme section for [issue reporting guidelines](https://github.com/HeliBorg/HeliBoard?tab=readme-ov-file#reporting-issues)
-        tl;dr:
-          * search for duplicates, also in closed issues
-          * check FAQ / hidden features
-          * a single issue per topic
-          * ONLY add screenshots when necessary, and reduce their size
-          * write it yourself
+      value: Please see the appropriate readme section for [issue reporting guidelines](https://github.com/HeliBorg/HeliBoard?tab=readme-ov-file#reporting-issues)
 
   - type: checkboxes
     id: checklist
