@@ -1,5 +1,6 @@
 [
   [
+    { "$": "keyboard_state_selector", "dpad": { "type": "placeholder", "width": 0.1 } },
     { "type": "placeholder" },
     { "label": "delete", "width": 0.1 }
   ],
@@ -7,6 +8,7 @@
     { "type": "placeholder" }
   ],
   [
+    { "$": "keyboard_state_selector", "dpad": { "type": "placeholder", "width": 0.1 } },
     { "type": "placeholder" },
     { "label": "action", "width": 0.1, "labelFlags": 1073741824 }
   ],
@@ -23,8 +25,12 @@
       "uri":      { "label": "/", "labelFlags": 1073741824, "groupId": 1, "type": "function" }
     },
     { "$": "keyboard_state_selector", "languageKeyEnabled": { "$": "keyboard_state_selector", "alphabet": { "label": "language_switch" }}},
-    { "$": "keyboard_state_selector", "symbols": { "label": "numpad" }},
+    { "$": "keyboard_state_selector", "symbols": { "label": "numpad" } },
     { "label": "space" },
+    { "$": "keyboard_state_selector",
+      "symbols": { "label": "dpad" },
+      "dpad": { "label": "symbol" }
+    },
     { "label": "period" },
     { "$": "variation_selector",
       "default":  { "label": "emoji" },

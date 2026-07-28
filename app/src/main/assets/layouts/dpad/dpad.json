@@ -1,0 +1,21 @@
+[
+  [
+    { "label": "copy", "type": "function", "popup": { "main": { "label": "cut" } } },
+    { "label": "full_left", "width": 0.15, "popup": { "main": { "label": "page_start" } } },
+    { "label": "up", "width": 0.2 },
+    { "label": "full_right", "width": 0.15, "popup": { "main": { "label": "page_end" } } },
+    { "label": "paste", "type": "function", "popup": { "main": { "label": "clipboard" } } }
+  ],
+  [
+    { "label": "left", "width": 0.2 },
+    { "label": "select_word", "type": "function", "width": 0.2, "popup": { "main": { "label": "select_all" } } },
+    { "label": "right", "width": 0.2 }
+  ],
+  [
+    { "label": "undo", "type": "function" },
+    { "label": "word_left", "width": 0.15 },
+    { "label": "down", "width": 0.2 },
+    { "label": "word_right", "width": 0.15 },
+    { "label": "redo", "type": "function" }
+  ]
+]

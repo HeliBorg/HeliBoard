@@ -24,7 +24,6 @@ import helium314.keyboard.keyboard.PointerTracker
 import helium314.keyboard.keyboard.internal.KeyDrawParams
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.ClipboardHistoryManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
@@ -34,9 +33,9 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.createToolbarKey
-import helium314.keyboard.latin.utils.getCodeForToolbarKey
-import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
+import helium314.keyboard.latin.utils.onClickToolbarKey
+import helium314.keyboard.latin.utils.onLongClickToolbarKey
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 
@@ -198,29 +197,17 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     override fun onClick(view: View) {
-        val tag = view.tag
-        if (tag is ToolbarKey) {
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_PRESS)
-            val code = getCodeForToolbarKey(tag)
-            if (code != KeyCode.UNSPECIFIED) {
-                keyboardActionListener.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                return
+        if (view.tag is ToolbarKey) {
+            onClickToolbarKey(view) {
+                keyboardActionListener.onCodeInput(it, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
             }
         }
     }
 
     override fun onLongClick(view: View): Boolean {
-        val tag = view.tag
-        if (tag is ToolbarKey) {
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_LONG_PRESS)
-            val longClickCode = getCodeForToolbarKeyLongClick(tag)
-            if (longClickCode != KeyCode.UNSPECIFIED) {
-                keyboardActionListener.onCodeInput(
-                    longClickCode,
-                    Constants.NOT_A_COORDINATE,
-                    Constants.NOT_A_COORDINATE,
-                    false
-                )
+        if (view.tag is ToolbarKey) {
+            onLongClickToolbarKey(view) { code, isRepeat ->
+                keyboardActionListener.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, isRepeat)
             }
             return true
         }

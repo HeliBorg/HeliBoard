@@ -19,7 +19,11 @@
     { "$": "keyboard_state_selector", "emojiKeyEnabled": { "$": "keyboard_state_selector", "alphabet": { "label": "emoji" }}},
     { "$": "keyboard_state_selector", "symbols": { "label": "numpad" }},
     { "label": "space" },
-    { "$": "keyboard_state_selector", "alphabet": { "label": ";" }},
+    { "$": "keyboard_state_selector",
+      "alphabet": { "label": ";" },
+      "symbols": { "label": "dpad" },
+      "dpad": { "label": "symbol" }
+    },
     { "label": "period", "labelFlags": 1073741824 },
     { "label": "action", "width": 0.15 }
   ]

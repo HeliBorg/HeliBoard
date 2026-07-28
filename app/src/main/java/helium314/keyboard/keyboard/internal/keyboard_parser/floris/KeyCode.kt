@@ -183,7 +183,10 @@ object KeyCode {
     const val INLINE_EMOJI_SEARCH_DONE =  -10051
     const val BACKGROUND_GATHERING =         -10052 // will be useless after removal of gesture data gathering (keep for compatibility)
     const val BACKGROUND_GATHERING_TEMP_OFF =-10053 // will be useless after removal of gesture data gathering (keep for compatibility)
+    const val DPAD =                      -10054
 
+    // Valid in popups and for toolbar key long press only
+    const val KEY_REPEAT =                -11000
 
     // Intents
     const val SEND_INTENT_ONE =            -20000
@@ -191,7 +194,7 @@ object KeyCode {
     const val SEND_INTENT_THREE =          -20002
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
-    fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
+    fun Int.checkAndConvertCode(longPress: Boolean = false): Int = if (this > 0) this else when (this) {
         // working
         CURRENCY_SLOT_1, CURRENCY_SLOT_2, CURRENCY_SLOT_3, CURRENCY_SLOT_4, CURRENCY_SLOT_5, CURRENCY_SLOT_6,
         VOICE_INPUT, LANGUAGE_SWITCH, SETTINGS, DELETE, ALPHA, SYMBOL, EMOJI, CLIPBOARD, CLIPBOARD_CUT, UNDO,
@@ -208,8 +211,10 @@ object KeyCode {
         MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK,
         TIMESTAMP, CTRL_LEFT, CTRL_RIGHT, ALT_LEFT, ALT_RIGHT, META_LEFT, META_RIGHT, SEND_INTENT_ONE, SEND_INTENT_TWO,
         SEND_INTENT_THREE, EMOJI_SEARCH, INLINE_EMOJI_SEARCH_DONE, META_LOCK,
-        BACKGROUND_GATHERING, BACKGROUND_GATHERING_TEMP_OFF
+        BACKGROUND_GATHERING, BACKGROUND_GATHERING_TEMP_OFF, DPAD,
         -> this
+
+        KEY_REPEAT if (longPress) -> this
 
         // conversion
         IME_UI_MODE_TEXT -> ALPHA
@@ -221,8 +226,8 @@ object KeyCode {
     }
 
     fun Int.isModifier() = when (this) {
-        SHIFT, SYMBOL_ALPHA, ALPHA, SYMBOL, NUMPAD, FN, CTRL, CTRL_LEFT, CTRL_RIGHT, CTRL_LOCK, ALT, ALT_LEFT, ALT_RIGHT,
-        ALT_LOCK, META, META_LEFT, META_RIGHT, META_LOCK, -> true
+        SHIFT, SYMBOL_ALPHA, ALPHA, SYMBOL, NUMPAD, DPAD, FN, CTRL, CTRL_LEFT, CTRL_RIGHT, CTRL_LOCK,
+        ALT, ALT_LEFT, ALT_RIGHT, ALT_LOCK, META, META_LEFT, META_RIGHT, META_LOCK, -> true
         else -> false
     }
 

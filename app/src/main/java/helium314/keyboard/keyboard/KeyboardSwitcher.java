@@ -364,6 +364,14 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     @Override
+    public void setDpadKeyboard() {
+        if (DEBUG_ACTION) {
+            Log.d(TAG, "setDpadKeyboard");
+        }
+        setKeyboard(KeyboardElement.DPAD, KeyboardSwitchState.OTHER);
+    }
+
+    @Override
     public void toggleLayout(@NonNull LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode) {
         mState.toggleLayout(layout, autoCapsFlags, recapitalizeMode);
     }
@@ -429,6 +437,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
                 mMainKeyboardFrame.setVisibility(View.VISIBLE);
                 mKeyboardView.setVisibility(View.VISIBLE);
+                // todo: this doesn't tell KeyboardState that this mode has been set.
+                //  example: if you press physical alt the more symbols keyboard will appear,
+                //  but if you then do 2 D-pad space swipes it'll return to alpha instead
+                //  because KeyboardState thinks the `mode` is alphabet when doing the
+                //  initial toggle.
                 setKeyboard(toggleState.mKeyboardElement, toggleState);
             }
         }

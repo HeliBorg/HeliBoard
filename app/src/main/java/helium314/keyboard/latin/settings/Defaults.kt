@@ -36,6 +36,7 @@ object Defaults {
         LayoutType.NUMBER_ROW -> "number_row"
         LayoutType.NUMPAD -> "numpad"
         LayoutType.NUMPAD_LANDSCAPE -> "numpad_landscape"
+        LayoutType.DPAD -> "dpad"
         LayoutType.PHONE -> "phone"
         LayoutType.PHONE_SYMBOLS -> "phone_symbols"
         LayoutType.EMOJI_BOTTOM -> "emoji_bottom_row"
@@ -178,7 +179,7 @@ object Defaults {
     const val PREF_REMOVE_REDUNDANT_POPUPS = false
     const val PREF_SPACE_BAR_TEXT = ""
     const val PREF_TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss"
-    const val PREF_EMOJI_RECENT_KEYS = ""
+    const val PREF_RECENT_EMOJIS = ""
     const val PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = 0
     const val PREF_SHOW_DEBUG_SETTINGS = false
     val PREF_DEBUG_MODE = BuildConfig.DEBUG

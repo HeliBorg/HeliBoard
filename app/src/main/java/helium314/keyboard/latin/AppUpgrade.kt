@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin
 
 import android.annotation.SuppressLint
@@ -7,11 +8,13 @@ import helium314.keyboard.compat.isDeviceLocked
 import helium314.keyboard.compat.isUserLocked
 import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.emoji.RecentEmojis
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.common.encodeBase36
 import helium314.keyboard.latin.database.ClipboardDao
 import helium314.keyboard.latin.settings.Defaults
@@ -22,6 +25,7 @@ import helium314.keyboard.latin.settings.createPrefKeyForBooleanSettings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils.USER_DICTIONARY_SUFFIX
+import helium314.keyboard.latin.utils.JsonUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
@@ -694,6 +698,14 @@ private object AppUpgrade {
                     putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEY_GAP_SCALE_PREFIX, 3, 2), 1.1f)
                 }
                 remove("narrow_key_gaps")
+            }
+        }
+        if (oldVersion <= 4005) {
+            if (prefs.contains("emoji_recent_keys")) {
+                val old = JsonUtils.jsonStrToList(prefs.getString("emoji_recent_keys", ""))
+                    .mapNotNull { it as? String ?: (it as? Int)?.let { StringUtils.newSingleCodePointString(it) } }
+                RecentEmojis.set(old)
+                prefs.edit { remove("emoji_recent_keys")  }
             }
         }
         upgradeToolbarPrefs(prefs)

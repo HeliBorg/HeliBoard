@@ -2,14 +2,14 @@ package helium314.keyboard.latin.utils;
 
 public final class TextPlacement {
     public String text;
-    public final int selectionStart;
+    public final int startPosition;
 
-    public TextPlacement(String text, int selectionStart) {
+    public TextPlacement(String text, int startPosition) {
         this.text = text;
-        this.selectionStart = selectionStart;
+        this.startPosition = startPosition;
     }
 
-    public int selectionEnd() {
-        return selectionStart + text.length();
+    public int endPosition() {
+        return startPosition + text.length();
     }
 }

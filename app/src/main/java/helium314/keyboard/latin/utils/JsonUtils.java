@@ -7,17 +7,15 @@
 package helium314.keyboard.latin.utils;
 
 import android.util.JsonReader;
-import android.util.JsonWriter;
-import helium314.keyboard.latin.utils.Log;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// todo: remove around end of 2026 (used only for upgrading old recent emoji pref)
 public final class JsonUtils {
     private static final String TAG = JsonUtils.class.getSimpleName();
 
@@ -53,32 +51,6 @@ public final class JsonUtils {
             close(reader);
         }
         return Collections.emptyList();
-    }
-
-    public static String listToJsonStr(final List<Object> list) {
-        if (list == null || list.isEmpty()) {
-            return EMPTY_STRING;
-        }
-        final StringWriter sw = new StringWriter();
-        final JsonWriter writer = new JsonWriter(sw);
-        try {
-            writer.beginArray();
-            for (final Object o : list) {
-                writer.beginObject();
-                if (o instanceof Integer) {
-                    writer.name(INTEGER_CLASS_NAME).value((Integer)o);
-                } else if (o instanceof String) {
-                    writer.name(STRING_CLASS_NAME).value((String)o);
-                }
-                writer.endObject();
-            }
-            writer.endArray();
-            return sw.toString();
-        } catch (final IOException ignored) {
-        } finally {
-            close(writer);
-        }
-        return EMPTY_STRING;
     }
 
     private static void close(final Closeable closeable) {

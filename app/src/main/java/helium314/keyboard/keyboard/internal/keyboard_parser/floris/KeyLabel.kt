@@ -21,6 +21,7 @@ object KeyLabel {
     const val DELETE = "delete"
     const val SHIFT = "shift"
     const val NUMPAD = "numpad"
+    const val DPAD = "dpad"
     const val SYMBOL = "symbol"
     const val ALPHA = "alpha"
     const val SYMBOL_ALPHA = "symbol_alpha"
@@ -92,8 +93,12 @@ object KeyLabel {
 
     fun keyLabelToActualLabel(label: String, params: KeyboardParams): String {
         val newLabel = when (label) {
-            SYMBOL_ALPHA -> if (params.mId.element.isAlphabet) params.mLocaleKeyboardInfos.labelSymbol else params.mLocaleKeyboardInfos.labelAlphabet
-            SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol
+            SYMBOL_ALPHA -> if (params.mId.element.isAlphabet) {
+                params.mLocaleKeyboardInfos.labelSymbol
+            } else {
+                params.mLocaleKeyboardInfos.labelAlphabet
+            }
+            SYMBOL -> params.mLocaleKeyboardInfos.labelSymbolInNumpad
             ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
             COMMA -> params.mLocaleKeyboardInfos.labelComma
             PERIOD -> getPeriodLabel(params)
@@ -155,7 +160,7 @@ object KeyLabel {
     }
 
     private fun getSpaceLabel(params: KeyboardParams): String =
-        if (params.mId.element.isAlphaOrSymbol || params.mId.element.isBottomRow)
+        if (params.mId.element.takesFunctionalKeys || params.mId.element.isBottomRow)
             "!icon/space_key|!code/key_space"
         else "!icon/space_key_for_number_layout|!code/key_space"
 

@@ -9,7 +9,6 @@ package helium314.keyboard.latin.inputlogic;
 import static helium314.keyboard.latin.common.SuggestionSpanUtilsKt.getTextWithSuggestionSpan;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -25,10 +24,10 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import helium314.keyboard.compat.AppWorkarounds;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
+import helium314.keyboard.keyboard.KeyboardElement;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
@@ -128,6 +127,8 @@ public final class InputLogic {
     private String mWordBeingCorrectedByCursor = null;
 
     private boolean mJustRevertedACommit = false;
+
+    private long mCursorMoveExpectedUntil = 0L;
 
     /**
      * Create a new instance of the input logic.
@@ -363,6 +364,17 @@ public final class InputLogic {
         return inputTransaction;
     }
 
+    /** indicates that the next selection update is expected to be a cursor move (though not needed for arrow keys) */
+    public void setExpectCursorMove() {
+        mCursorMoveExpectedUntil = SystemClock.elapsedRealtime() + 500;
+    }
+
+    private boolean mightBeExpectedCursorMove() {
+        boolean isMove = mCursorMoveExpectedUntil > SystemClock.elapsedRealtime();
+        mCursorMoveExpectedUntil = 0L;
+        return isMove;
+    }
+
     /**
      * Consider an update to the cursor position. Evaluate whether this update has happened as
      * part of normal typing or whether it was an explicit cursor move by the user. In any case,
@@ -374,10 +386,13 @@ public final class InputLogic {
      * @param settingsValues the current values of the settings.
      * @return whether the cursor has moved as a result of user interaction.
      */
-    public boolean onUpdateSelection(final int oldSelStart, final int oldSelEnd, final int newSelStart,
-             final int newSelEnd, final int composingSpanStart, final int composingSpanEnd, final SettingsValues settingsValues) {
+    public boolean onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart,
+             int newSelEnd, int composingSpanStart, int composingSpanEnd, SettingsValues settingsValues) {
+        boolean expectCursorMove = mightBeExpectedCursorMove(); // reset the timer
         if (mConnection.isBelatedExpectedUpdate(oldSelStart, newSelStart, oldSelEnd, newSelEnd, composingSpanStart, composingSpanEnd)) {
-            return false;
+            // return whether we expect a user-initiated explicit cursor move (i.e. not as result of other input, but e.g. space swipe)
+            // note that arrow keys are not considered, because for them isBelatedExpectedUpdate returns false
+            return expectCursorMove;
         }
 
         // if all text is gone, we treat it like onStartInput
@@ -713,19 +728,28 @@ public final class InputLogic {
                 // Backspace is a functional key, but it affects the contents of the editor.
                 inputTransaction.setDidAffectContents();
                 break;
-            case KeyCode.SHIFT:
-                if (KeyboardSwitcher.getInstance().getKeyboard() != null && !KeyboardSwitcher.getInstance().getKeyboard().mId.getElement().isAlphabet())
-                    break; // recapitalization and follow-up code should only trigger for alphabet shift, see #1256
+            case KeyCode.SHIFT: {
+                var keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+                if (keyboard != null) {
+                    KeyboardElement element = keyboard.mId.getElement();
+                    if (!element.isAlphabet() && element != KeyboardElement.DPAD) {
+                        // recapitalization and follow-up code should only trigger for alphabet/d-pad shift, see #1256
+                        break;
+                    }
+                }
                 performRecapitalization(sv);
                 inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
                 inputTransaction.setRequiresUpdateSuggestions();
                 if (mSpaceState == SpaceState.PHANTOM && sv.mShiftRemovesAutospace)
                     mSpaceState = SpaceState.NONE;
                 break;
-            case KeyCode.CAPS_LOCK:
-                if (KeyboardSwitcher.getInstance().getKeyboard() == null || KeyboardSwitcher.getInstance().getKeyboard().mId.getElement().isAlphabet())
+            }
+            case KeyCode.CAPS_LOCK: {
+                var keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+                if (keyboard == null || keyboard.mId.getElement().isAlphabet())
                     inputTransaction.setRequiresUpdateSuggestions();
                 break;
+            }
             case KeyCode.SETTINGS:
                 onSettingsKeyPressed();
                 break;
@@ -861,7 +885,8 @@ public final class InputLogic {
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
-            case KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE, KeyCode.TOGGLE_FLOATING_WINDOW:
+            case KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE, KeyCode.TOGGLE_FLOATING_WINDOW,
+                 KeyCode.KEY_REPEAT: // can be configured on main layout using !code/-11000, and we shouldn't crash on this in debug mode
                 break;
             default:
                 if (KeyCode.INSTANCE.isModifier(keyCode))
@@ -1639,14 +1664,15 @@ public final class InputLogic {
      * Performs a recapitalization event.
      * @param settingsValues The current settings values.
      */
-    private void performRecapitalization(final SettingsValues settingsValues) {
+    private void performRecapitalization(SettingsValues settingsValues) {
         if (!mConnection.hasSelection() || !mRecapitalizeStatus.isEnabled()) {
             return; // No selection or recapitalize is disabled for now
         }
-        final int selectionStart = mConnection.getExpectedSelectionStart();
-        final int selectionEnd = mConnection.getExpectedSelectionEnd();
-        final int numCharsSelected = selectionEnd - selectionStart;
-        if (numCharsSelected > Constants.MAX_CHARACTERS_FOR_RECAPITALIZATION) {
+        int selectionStart = mConnection.getExpectedSelectionStart();
+        int selectionEnd = mConnection.getExpectedSelectionEnd();
+        int numCharsSelected = selectionEnd - selectionStart;
+        if (numCharsSelected > Constants.MAX_CHARACTERS_FOR_RECAPITALIZATION
+                || numCharsSelected < -Constants.MAX_CHARACTERS_FOR_RECAPITALIZATION) {
             // We bail out if we have too many characters for performance reasons. We don't want
             // to suck possibly multiple-megabyte data.
             return;
@@ -1654,8 +1680,7 @@ public final class InputLogic {
         // If we have a recapitalize in progress, use it; otherwise, start a new one.
         if (!mRecapitalizeStatus.isStarted()
                 || !mRecapitalizeStatus.isSetAt(selectionStart, selectionEnd)) {
-            final CharSequence selectedText =
-                    mConnection.getSelectedText(0 /* flags, 0 for no styles */);
+            CharSequence selectedText = mConnection.getSelectedText(0 /* flags, 0 for no styles */);
             if (TextUtils.isEmpty(selectedText)) return; // Race condition with the input connection
             mRecapitalizeStatus.start(selectedText.toString(), selectionStart, settingsValues.mLocale,
                     settingsValues.mSpacingAndPunctuations.mSortedWordSeparators);
@@ -1664,9 +1689,9 @@ public final class InputLogic {
         mRecapitalizeStatus.rotate();
         mConnection.setSelection(selectionEnd, selectionEnd);
         mConnection.deleteTextBeforeCursor(numCharsSelected);
-        final TextPlacement replacement = mRecapitalizeStatus.textReplacement();
+        TextPlacement replacement = mRecapitalizeStatus.textReplacement();
         mConnection.commitText(replacement.text, 0);
-        mConnection.setSelection(replacement.selectionStart, replacement.selectionEnd());
+        mConnection.setSelection(replacement.startPosition, replacement.endPosition());
     }
 
     private void performAdditionToUserHistoryDictionary(final SettingsValues settingsValues,

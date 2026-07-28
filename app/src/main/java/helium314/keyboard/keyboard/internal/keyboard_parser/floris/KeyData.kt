@@ -34,7 +34,7 @@ interface AbstractKeyData {
      *
      * @return A [KeyData] object or null if no computation is possible.
      */
-    fun compute(params: KeyboardParams): KeyData?
+    fun compute(params: KeyboardParams, isPopup: Boolean = false): KeyData?
 
     /**
      * Returns the data described by this key as a string.
@@ -70,7 +70,7 @@ class CaseSelector(
     val lower: AbstractKeyData,
     val upper: AbstractKeyData,
 ) : AbstractKeyData {
-    override fun compute(params: KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams, isPopup: Boolean): KeyData? {
         return (if (params.mId.element.isAlphabetShifted) { upper } else { lower }).compute(params)
     }
 
@@ -116,7 +116,7 @@ class ShiftStateSelector(
     val default: AbstractKeyData? = null,
     val manualOrLocked: AbstractKeyData? = null,
 ) : AbstractKeyData {
-    override fun compute(params: KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams, isPopup: Boolean): KeyData? {
         return when (params.mId.element) {
             KeyboardElement.ALPHABET, KeyboardElement.SYMBOLS -> unshifted ?: default
             KeyboardElement.ALPHABET_MANUAL_SHIFTED -> shiftedManual ?: manualOrLocked ?: shifted ?: default
@@ -173,7 +173,7 @@ data class VariationSelector(
     val time: AbstractKeyData? = null,
     val datetime: AbstractKeyData? = null,
 ) : AbstractKeyData {
-    override fun compute(params: KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams, isPopup: Boolean): KeyData? {
         return when {
             params.mId.isPasswordInput -> password ?: default
             params.mId.mode == KeyboardMode.EMAIL -> email ?: default
@@ -199,6 +199,7 @@ data class VariationSelector(
  * @property languageKeyEnabled The key data to use if [KeyboardId.languageSwitchKeyEnabled] is true.
  * @property symbols The key data to use if [KeyboardId.element] is [KeyboardElement.SYMBOLS].
  * @property moreSymbols The key data to use if [KeyboardId.element] is [KeyboardElement.SYMBOLS_SHIFTED].
+ * @property dpad The key data to use if [KeyboardId.element] is [KeyboardElement.DPAD].
  * @property alphabet The key data to use if [KeyboardElement.isAlphabet] is true.
  * @property default The default key data which should be used in case none of the other conditions have a matching non-null
  * AbstractKeyData. Can be null, in this case no key is displayed.
@@ -210,11 +211,12 @@ class KeyboardStateSelector(
     val languageKeyEnabled: AbstractKeyData? = null,
     val symbols: AbstractKeyData? = null,
     val moreSymbols: AbstractKeyData? = null,
+    val dpad: AbstractKeyData? = null,
     val alphabet: AbstractKeyData? = null,
     val default: AbstractKeyData? = null,
     val emojiSearchAvailable: AbstractKeyData? = null,
 ) : AbstractKeyData {
-    override fun compute(params: KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams, isPopup: Boolean): KeyData? {
         if (params.mId.emojiKeyEnabled)
             emojiKeyEnabled?.compute(params)?.let { return it }
         if (params.mId.languageSwitchKeyEnabled)
@@ -223,6 +225,8 @@ class KeyboardStateSelector(
             symbols?.compute(params)?.let { return it }
         if (params.mId.element == KeyboardElement.SYMBOLS_SHIFTED)
             moreSymbols?.compute(params)?.let { return it }
+        if (params.mId.element == KeyboardElement.DPAD)
+            dpad?.compute(params)?.let { return it }
         if (params.mId.element.isAlphabet)
             alphabet?.compute(params)?.let { return it }
         if (params.mId.emojiSearchAvailable)
@@ -259,7 +263,7 @@ class LayoutDirectionSelector(
     val ltr: AbstractKeyData,
     val rtl: AbstractKeyData,
 ) : AbstractKeyData {
-    override fun compute(params: KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams, isPopup: Boolean): KeyData? {
         return (if (params.mId.subtype.isRtlSubtype) { rtl } else { ltr }).compute(params)
     }
 
@@ -290,7 +294,7 @@ class CharWidthSelector(
     val full: AbstractKeyData?,
     val half: AbstractKeyData?,
 ) : AbstractKeyData {
-    override fun compute(params: KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams, isPopup: Boolean): KeyData? {
         throw UnsupportedOperationException("char_width_selector not (yet) supported")
 //        val data = if (params.halfWidth) { half } else { full }
 //        return data?.compute(params)
@@ -323,7 +327,7 @@ class KanaSelector(
     val hira: AbstractKeyData,
     val kata: AbstractKeyData,
 ) : AbstractKeyData {
-    override fun compute(params: KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams, isPopup: Boolean): KeyData? {
         throw UnsupportedOperationException("kana_selector not (yet) supported")
 //        val data = if (evaluator.state.isKanaKata) { kata } else { hira }
 //        return data.compute(evaluator)

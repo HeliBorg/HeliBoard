@@ -305,7 +305,7 @@ sealed interface KeyData : AbstractKeyData {
         }
     }
 
-    override fun compute(params: KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams, isPopup: Boolean): KeyData? {
         require(groupId in GROUP_NO_DEFAULT_POPUP..GROUP_ENTER) { "only groupIds from -1 to 3 are supported" }
         require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
         require(width >= 0f || width == -1f) { "illegal width $width" }
@@ -315,7 +315,7 @@ sealed interface KeyData : AbstractKeyData {
             return null
         }
 
-        val newCode = code.checkAndConvertCode()
+        val newCode = code.checkAndConvertCode(isPopup)
         val newLabelFlags = if (labelFlags == 0 && params.mId.element.isNumberLayout) {
             if (type == KeyType.NUMERIC) {
                 when (params.mId.element) {
@@ -411,7 +411,7 @@ sealed interface KeyData : AbstractKeyData {
         // functional keys
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
-            KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.CTRL, KeyLabel.ALT,
+            KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.DPAD, KeyLabel.CTRL, KeyLabel.ALT,
             KeyLabel.FN, KeyLabel.META, KeyLabel.EMOJI_SEARCH, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
@@ -425,7 +425,7 @@ sealed interface KeyData : AbstractKeyData {
     }
 
     private fun getDefaultWidth(params: KeyboardParams): Float {
-        return if (label == KeyLabel.SPACE && params.mId.element.isAlphaOrSymbol) -1f
+        return if (label == KeyLabel.SPACE && params.mId.element.takesFunctionalKeys) -1f
         else if (type == KeyType.NUMERIC && params.mId.element.isNumberLayout) -1f
         else params.mDefaultKeyWidth
     }
@@ -436,7 +436,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.PERIOD -> Key.LABEL_FLAGS_PRESERVE_CASE or
                     // in functional_keys.json the label flag is already defined, let's not override it in case it's removed by the user
-                    if (!params.mId.element.isAlphaOrSymbol && shouldShowTldPopups(params)) Key.LABEL_FLAGS_DISABLE_HINT_LABEL else 0
+                    if (!params.mId.element.takesFunctionalKeys && shouldShowTldPopups(params)) Key.LABEL_FLAGS_DISABLE_HINT_LABEL else 0
             KeyLabel.ACTION -> {
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or
                         KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
@@ -593,7 +593,7 @@ class MultiTextKeyData(
 ) : KeyData {
     @Transient override val code: Int = KeyCode.MULTIPLE_CODE_POINTS
 
-    override fun compute(params: KeyboardParams): KeyData {
+    override fun compute(params: KeyboardParams, isPopup: Boolean): KeyData {
         // todo: does this work? maybe convert label to | style?
         //  but if i allow negative codes, ctrl+z could be on a single key (but floris doesn't support this anyway)
         return this

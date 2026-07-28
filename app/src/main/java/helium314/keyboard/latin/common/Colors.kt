@@ -279,7 +279,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         GESTURE_TRAIL -> gesture
         KEY_TEXT, SUGGESTION_AUTO_CORRECT, REMOVE_SUGGESTION_ICON, EMOJI_KEY_TEXT, KEY_PREVIEW_TEXT, POPUP_KEY_TEXT,
             KEY_ICON, POPUP_KEY_ICON, ONE_HANDED_MODE_BUTTON, EMOJI_CATEGORY, TOOL_BAR_KEY, FUNCTIONAL_KEY_TEXT,
-            EMOJI_SEARCH_TEXT -> keyText
+            EMOJI_SEARCH_TEXT, CLIPBOARD_SUGGESTION_ICON -> keyText
         KEY_HINT_TEXT -> keyHintText
         SPACE_BAR_TEXT -> spaceBarText
         FUNCTIONAL_KEY_BACKGROUND, EMOJI_SEARCH_BACKGROUND -> if (!isNight) functionalKey else doubleAdjustedKeyBackground
@@ -288,7 +288,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         KEY_BACKGROUND -> keyBackground
         ACTION_KEY_POPUP_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackground else accent
         STRIP_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackground else background
-        CLIPBOARD_SUGGESTION_BACKGROUND -> doubleAdjustedBackground
+        CLIPBOARD_SUGGESTION_BACKGROUND -> keyBackground
         NAVIGATION_BAR -> navBar
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedKeyText
         ACTION_KEY_ICON, TOOL_BAR_EXPAND_KEY -> Color.WHITE
@@ -338,7 +338,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
             view.setBackgroundColor(Color.WHITE) // set white to make the color filters work
         when (color) {
             KEY_PREVIEW_BACKGROUND -> view.background.colorFilter = adjustedBackgroundFilter
-            FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, MORE_SUGGESTIONS_WORD_BACKGROUND, SPACE_BAR_BACKGROUND, STRIP_BACKGROUND -> setColor(view.background, color)
+            FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, MORE_SUGGESTIONS_WORD_BACKGROUND, SPACE_BAR_BACKGROUND, STRIP_BACKGROUND, CLIPBOARD_SUGGESTION_BACKGROUND -> setColor(view.background, color)
             ONE_HANDED_MODE_BUTTON -> setColor(view.background, if (keyboardBackground == null) MAIN_BACKGROUND else STRIP_BACKGROUND)
             MORE_SUGGESTIONS_BACKGROUND -> view.background.colorFilter = backgroundFilter
             POPUP_KEYS_BACKGROUND ->
@@ -477,7 +477,7 @@ class DefaultColors (
         TOOL_BAR_EXPAND_KEY_BACKGROUND, CLIPBOARD_SUGGESTION_BACKGROUND -> doubleAdjustedBackground
         GESTURE_TRAIL -> gesture
         KEY_TEXT, REMOVE_SUGGESTION_ICON, FUNCTIONAL_KEY_TEXT, KEY_ICON, EMOJI_KEY_TEXT,
-            POPUP_KEY_TEXT, POPUP_KEY_ICON, KEY_PREVIEW_TEXT, EMOJI_SEARCH_TEXT -> keyText
+            POPUP_KEY_TEXT, POPUP_KEY_ICON, KEY_PREVIEW_TEXT, EMOJI_SEARCH_TEXT, CLIPBOARD_SUGGESTION_ICON -> keyText
         KEY_HINT_TEXT -> keyHintText
         SPACE_BAR_TEXT -> spaceBarText
         FUNCTIONAL_KEY_BACKGROUND, EMOJI_SEARCH_BACKGROUND -> functionalKey
@@ -649,6 +649,7 @@ enum class ColorType {
     REMOVE_SUGGESTION_ICON,
     STRIP_BACKGROUND,
     CLIPBOARD_SUGGESTION_BACKGROUND,
+    CLIPBOARD_SUGGESTION_ICON,
     SUGGESTED_WORD,
     SUGGESTION_AUTO_CORRECT,
     SUGGESTION_TYPED_WORD,

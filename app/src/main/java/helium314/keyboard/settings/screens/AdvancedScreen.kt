@@ -118,6 +118,7 @@ fun createAdvancedSettings(context: Context) = listOf(
             stringResource(R.string.space_swipe_move_cursor_entry) to KeyboardActionListener.SwipeAction.MOVE_CURSOR.name,
             stringResource(R.string.switch_language) to KeyboardActionListener.SwipeAction.SWITCH_LANGUAGE.name,
             stringResource(R.string.space_swipe_toggle_numpad_entry) to KeyboardActionListener.SwipeAction.TOGGLE_NUMPAD.name,
+            stringResource(R.string.space_swipe_toggle_dpad_entry) to KeyboardActionListener.SwipeAction.TOGGLE_DPAD.name,
             stringResource(R.string.action_none) to KeyboardActionListener.SwipeAction.NONE.name,
         )
         ListPreference(it, items, Defaults.PREF_SPACE_HORIZONTAL_SWIPE)
@@ -127,6 +128,7 @@ fun createAdvancedSettings(context: Context) = listOf(
             stringResource(R.string.space_swipe_move_cursor_entry) to KeyboardActionListener.SwipeAction.MOVE_CURSOR.name,
             stringResource(R.string.switch_language) to KeyboardActionListener.SwipeAction.SWITCH_LANGUAGE.name,
             stringResource(R.string.space_swipe_toggle_numpad_entry) to KeyboardActionListener.SwipeAction.TOGGLE_NUMPAD.name,
+            stringResource(R.string.space_swipe_toggle_dpad_entry) to KeyboardActionListener.SwipeAction.TOGGLE_DPAD.name,
             stringResource(R.string.space_swipe_hide_keyboard_entry) to KeyboardActionListener.SwipeAction.HIDE_KEYBOARD.name,
             stringResource(R.string.space_swipe_touchpad_mode_entry) to KeyboardActionListener.SwipeAction.TOUCHPAD_MODE.name,
             stringResource(R.string.action_none) to KeyboardActionListener.SwipeAction.NONE.name,

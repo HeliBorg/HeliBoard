@@ -3,13 +3,17 @@ package helium314.keyboard.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.core.content.edit
 import androidx.core.view.forEach
+import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.settings.Defaults
@@ -61,6 +65,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomTool
     VOICE -> KeyCode.VOICE_INPUT
     CLIPBOARD -> KeyCode.CLIPBOARD
     NUMPAD -> KeyCode.NUMPAD
+    DPAD -> KeyCode.DPAD
     UNDO -> KeyCode.UNDO
     REDO -> KeyCode.REDO
     SETTINGS -> KeyCode.SETTINGS
@@ -100,12 +105,12 @@ fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getC
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_ALL
     COPY -> KeyCode.CLIPBOARD_CUT
     PASTE -> KeyCode.CLIPBOARD
-    LEFT -> KeyCode.WORD_LEFT
-    RIGHT -> KeyCode.WORD_RIGHT
-    UP -> KeyCode.PAGE_UP
-    DOWN -> KeyCode.PAGE_DOWN
-    WORD_LEFT -> KeyCode.MOVE_START_OF_LINE
-    WORD_RIGHT -> KeyCode.MOVE_END_OF_LINE
+    LEFT -> KeyCode.KEY_REPEAT
+    RIGHT -> KeyCode.KEY_REPEAT
+    UP -> KeyCode.KEY_REPEAT
+    DOWN -> KeyCode.KEY_REPEAT
+    WORD_LEFT -> KeyCode.KEY_REPEAT
+    WORD_RIGHT -> KeyCode.KEY_REPEAT
     PAGE_UP -> KeyCode.MOVE_START_OF_PAGE
     PAGE_DOWN -> KeyCode.MOVE_END_OF_PAGE
     BACKGROUND_GATHERING -> KeyCode.BACKGROUND_GATHERING_TEMP_OFF
@@ -114,7 +119,7 @@ fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getC
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
-    VOICE, CLIPBOARD, NUMPAD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, PASTE, ONE_HANDED, FLOATING, SPLIT,
+    VOICE, CLIPBOARD, NUMPAD, DPAD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, PASTE, ONE_HANDED, FLOATING, SPLIT,
     INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI, LEFT, RIGHT, UP, DOWN, WORD_LEFT, WORD_RIGHT,
     PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END, BACKGROUND_GATHERING
 }
@@ -243,6 +248,34 @@ fun getCustomLongpressKeyCode(key: ToolbarKey, prefs: SharedPreferences): Int? {
 
 fun clearCustomToolbarKeyCodes() {
     customToolbarKeyCodes = null
+}
+
+fun onClickToolbarKey(view: View, onCodeInput: (Int) -> Unit) {
+    AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, view, HapticEvent.KEY_PRESS)
+    val code = getCodeForToolbarKey(view.tag as ToolbarKey)
+    if (code != KeyCode.UNSPECIFIED) {
+        onCodeInput(code)
+    }
+}
+
+fun onLongClickToolbarKey(view: View, onCodeInput: (Int, Boolean) -> Unit) {
+    AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, view, HapticEvent.KEY_LONG_PRESS)
+    val longClickCode = getCodeForToolbarKeyLongClick(view.tag as ToolbarKey)
+    if (longClickCode == KeyCode.KEY_REPEAT) {
+        onClickToolbarKey(view) { onCodeInput(it, false) }
+        repeatToolbarKey(view) { onClickToolbarKey(view) { onCodeInput(it, true) } }
+    } else if (longClickCode != KeyCode.UNSPECIFIED) {
+        onCodeInput(longClickCode, false)
+    }
+}
+
+private fun repeatToolbarKey(view: View, onClick: (view: View) -> Unit) {
+    view.handler.postDelayed({
+        if (view.isPressed) {
+            onClick(view)
+            repeatToolbarKey(view, onClick)
+        }
+    }, view.resources.getInteger(R.integer.config_key_repeat_interval).toLong())
 }
 
 private var customToolbarKeyCodes: EnumMap<ToolbarKey, Pair<Int?, Int?>>? = null

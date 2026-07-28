@@ -514,6 +514,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 // take last char from mCommittedTextBeforeComposingText, consider composing length
                 final int index = mCommittedTextBeforeComposingText.length() - 1 - (i - composingLength);
                 if (index < mCommittedTextBeforeComposingText.length() && index >= 0)
+                    // todo: this can still cause an exception if mCommittedTextBeforeComposingText changes just at the right time (different threads!)
                     currentCachedChar = mCommittedTextBeforeComposingText.charAt(index);
                 else return lastIndex > 100; // still let it pass if the same character is repeated many times, but cached text too short
             }

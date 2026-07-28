@@ -4,7 +4,6 @@ package helium314.keyboard.keyboard.internal.keyboard_parser
 import android.content.Context
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.KeyboardElement
-import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.toTextKey
@@ -23,6 +22,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     private val extraKeys = Array<MutableList<KeyData>?>(5) { null }
     var labelSymbol = "\\?123"
         private set
+    val labelSymbolInNumpad = "!?#"
     var labelAlphabet = "ABC"
         private set
     private var labelShiftSymbol = "= \\\\ <"

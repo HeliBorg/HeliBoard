@@ -1,6 +1,6 @@
 [
-  [
-    { "label": "+", "type":  "function", "popup": {
+  [ 
+    { "label": "+", "type": "function", "width": 0.15, "popup": {
       "relevant": [
         { "label": "(" },
         { "label": "<" },
@@ -10,10 +10,10 @@
     { "label": "1", "type": "numeric" },
     { "label": "2", "type": "numeric" },
     { "label": "3", "type": "numeric" },
-    { "label": "%", "type":  "function", "popup": { "main": { "label": "$$$"} }, "labelFlags": 512 }
+    { "label": "%", "type": "function", "width": 0.15, "popup": { "main": { "label": "$$$"} }, "labelFlags": 512 }
   ],
   [
-    { "label": "-", "type":  "function", "popup": {
+    { "label": "-", "type": "function", "width": 0.15, "popup": {
       "relevant": [
         { "label": ")" },
         { "label": ">" },
@@ -23,10 +23,10 @@
     { "label": "4", "type": "numeric" },
     { "label": "5", "type": "numeric" },
     { "label": "6", "type": "numeric" },
-    { "label": "space", "type":  "function" }
+    { "label": "space", "type": "function", "width": 0.15 }
   ],
   [
-    { "label": "*", "type":  "function", "popup": {
+    { "label": "*", "type": "function", "width": 0.15, "popup": {
       "relevant": [
         { "label": "/" },
         { "label": "×" },
@@ -36,15 +36,15 @@
     { "label": "7", "type": "numeric" },
     { "label": "8", "type": "numeric" },
     { "label": "9", "type": "numeric" },
-    { "label": "delete" }
+    { "label": "delete", "width": 0.15 }
   ],
   [
-    { "label": "alpha" },
-    { "label": "comma", "width":  0.1, "labelFlags": 1073741824 },
-    { "label": "symbol", "width":  0.12 },
+    { "label": "alpha", "width": 0.15 },
+    { "label": "comma", "width": 0.116, "labelFlags": 1073741824 },
+    { "label": "symbol", "width": 0.116 },
     { "label": "0", "type": "numeric" },
-    { "label": "=", "type": "function", "width":  0.12, "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
-    { "label": "period", "width":  0.1 },
-    { "label": "action" }
+    { "label": "=", "type": "function", "width": 0.116, "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
+    { "label": "period", "width": 0.116 },
+    { "label": "action", "width": 0.15 }
   ]
 ]
