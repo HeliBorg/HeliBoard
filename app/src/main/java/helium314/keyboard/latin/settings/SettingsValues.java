@@ -75,6 +75,7 @@ public class SettingsValues {
     public final boolean mShowsHints;
     public final boolean mShowsPopupHints;
     public final boolean mShowTldPopupKeys;
+    public final boolean mUrlEmailLayout;
     public final boolean mSpaceForLangChange;
     public final boolean mShowsEmojiKey;
     public final boolean mVarToolbarDirection;
@@ -210,6 +211,7 @@ public class SettingsValues {
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, Defaults.PREF_SHOW_POPUP_HINTS);
         mShowTldPopupKeys = prefs.getBoolean(Settings.PREF_SHOW_TLD_POPUP_KEYS, Defaults.PREF_SHOW_TLD_POPUP_KEYS);
+        mUrlEmailLayout = prefs.getBoolean(Settings.PREF_URL_EMAIL_LAYOUT, Defaults.PREF_URL_EMAIL_LAYOUT);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, Defaults.PREF_SPACE_TO_CHANGE_LANG);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, Defaults.PREF_SHOW_EMOJI_KEY);
         mVarToolbarDirection = mToolbarMode != ToolbarMode.HIDDEN && prefs.getBoolean(Settings.PREF_VARIABLE_TOOLBAR_DIRECTION, Defaults.PREF_VARIABLE_TOOLBAR_DIRECTION);
