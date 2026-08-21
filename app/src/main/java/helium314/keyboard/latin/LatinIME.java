@@ -46,6 +46,7 @@ import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
 import helium314.keyboard.keyboard.emoji.EmojiSearchActivity;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
+import helium314.keyboard.keyboard.voice.VoiceTranscriber;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
 import helium314.keyboard.dictionarypack.DictionaryPackConstants;
 import helium314.keyboard.event.Event;
@@ -186,6 +187,7 @@ public class LatinIME extends InputMethodService implements
 
     private GestureConsumer mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
 
+    private VoiceTranscriber mVoiceTranscriber;
     private final ClipboardHistoryManager mClipboardHistoryManager = new ClipboardHistoryManager(this);
 
     public static final class UIHandler extends LeakGuardHandlerWrapper<LatinIME> {
@@ -549,6 +551,15 @@ public class LatinIME extends InputMethodService implements
         super.onCreate();
 
         loadSettings();
+        // TODO LOL: this probably isn't the initialization strategy we want for
+        //  this thing—I'm not sure this is the intended use of
+        //  "displayContext"? and I don't know how the LatinIME lifecycle works,
+        //  this is just here for debug purposes. we also probably want to have
+        //  a config option for lazy vs. eager initialization of the speech
+        //  recognizer, as that takes some time. some may prefer reducing lag at
+        //  keyboard load, others may want to reduce lag for the first press of
+        //  the voice key.
+        mVoiceTranscriber = new VoiceTranscriber(mDisplayContext);
         mClipboardHistoryManager.onCreate();
         mHandler.onCreate();
         if (FoldableUtils.INSTANCE.isFoldable())
@@ -692,6 +703,13 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onDestroy() {
+        // TODO LOL: i don't actually have any idea how the LatinIME lifecycle
+        //  works. to prevent resource leaks, we need to attach the speech
+        //  recognizer to the lifecycle of something that makes sense for what
+        //  it is, and someone with more knowledge than me needs to make that
+        //  decision.
+        mVoiceTranscriber.destroy();
+        mVoiceTranscriber = null;
         mClipboardHistoryManager.onDestroy();
         mDictionaryFacilitator.closeDictionaries();
         mSettings.onDestroy();
@@ -1412,7 +1430,14 @@ public class LatinIME extends InputMethodService implements
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
         if (KeyCode.VOICE_INPUT == event.getKeyCode()) {
-            mRichImm.switchToShortcutIme(this);
+            if (true) {
+                // TODO LOL: we need to choose whether to do this or that based on
+                //  user preferences and what apps/services are available on the
+                //  device.
+                mVoiceTranscriber.toggleListening();
+            } else {
+                mRichImm.switchToShortcutIme(this);
+            }
         }
         final InputTransaction completeInputTransaction =
                 mInputLogic.onCodeInput(mSettings.getCurrent(), event,
