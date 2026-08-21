@@ -65,6 +65,10 @@ public final class VoiceTranscriber {
         Log.d(TAG, text);
     }
 
+    public void stopListening() {
+        mSpeech.stopListening();
+    }
+
     public void destroy() {
         mSpeech.destroy();
     }
@@ -103,6 +107,11 @@ public final class VoiceTranscriber {
                 return;
             }
 
+            // todo: the Google recognizer will put a leading space if it's
+            //  not the first transcription in the recording session. instead,
+            //  we should trim that and ourselves be the judge of whether the
+            //  transcription should be space-padded based on caret/selection
+            //  position and language properties.
             typeOut(recognitions.get(0));
             // so in theory, RESULTS_RECOGNITION is a list of different guesses
             // for what the user said. in practice with the Google recognizer, I
