@@ -39,6 +39,10 @@ public final class VoiceTranscriber {
         //  asks nicely for that. ultimately, i'm 80% sure whether it's actually
         //  on-device and private is up to whether you trust the developer. this
         //  should be communicated to the user.
+        // todo: we need to replace the recognizer as soon as the user changes
+        //  their preferred recognizer in the system settings.
+        // TODO LOL: this call crashes when no service is available, so we need
+        //  to not do any of this if there's no recognizer.
         mSpeech = SpeechRecognizer.createSpeechRecognizer(ctx);
         mSpeech.setRecognitionListener(new SpeechListener());
     }
