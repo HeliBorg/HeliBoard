@@ -1137,6 +1137,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void hideWindow() {
         Log.i(TAG, "hideWindow");
+        // TODO LOL: stop listening when the screen locks
         mVoiceTranscriber.stopListening();
         if (hasSuggestionStripView() && mSettings.getCurrent().mToolbarMode == ToolbarMode.EXPANDABLE)
             mSuggestionStripView.setToolbarVisibility(false);
