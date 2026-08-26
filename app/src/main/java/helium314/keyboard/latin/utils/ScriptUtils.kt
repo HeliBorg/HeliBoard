@@ -33,6 +33,7 @@ object ScriptUtils {
     const val SCRIPT_THAI = "Thai"
     const val SCRIPT_HANGUL = "Hang"
     const val SCRIPT_GUJARATI = "Gujr"
+    const val SCRIPT_KATAKANA_HIRAGANA = "Hrkt"
 
     @JvmStatic
     fun scriptSupportsUppercase(locale: Locale): Boolean {
@@ -146,6 +147,12 @@ object ScriptUtils {
             SCRIPT_GUJARATI ->
                 // Gujarati unicode block is U+0A80..U+0AFF
                 codePoint in 0xA80..0xAFF
+            SCRIPT_KATAKANA_HIRAGANA ->
+                // Hiragana unicode block is U+3040..U+309F
+                // Katakana unicode block is U+30A0..U+30FF
+                // halfwidth unicode block is Katakana U+FF66..U+FF9F
+                // CJK Unified Ideographs unicode block is U+4E00..U+9FFF
+                codePoint in 0x3040..0x30FF || codePoint in 0xFF66..0xFF9F || codePoint in 0x4E00..0x9FFF
             SCRIPT_UNKNOWN -> true
             else -> throw RuntimeException("Unknown value of script: $script")
         }
@@ -178,6 +185,7 @@ object ScriptUtils {
             "te" -> SCRIPT_TELUGU
             "th" -> SCRIPT_THAI
             "ko" -> SCRIPT_HANGUL
+            "ja" -> SCRIPT_KATAKANA_HIRAGANA
             "hi", "mr", "ne" -> SCRIPT_DEVANAGARI
             "kn" -> SCRIPT_KANNADA
             "gu" -> SCRIPT_GUJARATI

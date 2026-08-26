@@ -1,0 +1,30 @@
+[
+  [
+    { "code": 57345, "label": "↺", "width": 0.2, "type": "function" },
+    { "label": "あ", "width": 0.2, "popup": { "relevant": [ { "label": "う" }, { "label": "い" }, { "label": "え" }, { "label": "お" } ] } },
+    { "label": "か", "width": 0.2, "popup": { "relevant": [ { "label": "く" }, { "label": "き" }, { "label": "け" }, { "label": "こ" } ] } },
+    { "label": "さ", "width": 0.2, "popup": { "relevant": [ { "label": "す" }, { "label": "し" }, { "label": "せ" }, { "label": "そ" } ] } },
+    { "label": "delete", "width": 0.2 }
+  ],
+  [
+    { "code": -21, "label": "←", "width": 0.2, "type": "function" },
+    { "label": "た", "width": 0.2, "popup": { "relevant": [ { "label": "つ" }, { "label": "ち" }, { "label": "て" }, { "label": "と" } ] } },
+    { "label": "な", "width": 0.2, "popup": { "relevant": [ { "label": "ぬ" }, { "label": "に" }, { "label": "ね" }, { "label": "の" } ] } },
+    { "label": "は", "width": 0.2, "popup": { "relevant": [ { "label": "ふ" }, { "label": "ひ" }, { "label": "へ" }, { "label": "ほ" } ] } },
+    { "code": -22, "label": "→", "width": 0.2, "type": "function" }
+  ],
+  [
+    { "label": "emoji", "width": 0.2 },
+    { "label": "ま", "width": 0.2, "popup": { "relevant": [ { "label": "む" }, { "label": "み" }, { "label": "め" }, { "label": "も" } ] } },
+    { "label": "や", "width": 0.2, "popup": { "relevant": [ { "label": "ゆ" }, { "label": "ゃ" }, { "label": "ょ" }, { "label": "よ" } ] } },
+    { "label": "ら", "width": 0.2, "popup": { "relevant": [ { "label": "る" }, { "label": "り" }, { "label": "れ" }, { "label": "ろ" } ] } },
+    { "label": "space", "width": 0.2 }
+  ],
+  [
+    { "label": "symbol_alpha", "width": 0.2 },
+    { "code": 57344, "label": "゛゜", "width": 0.2 },
+    { "label": "わ", "width": 0.2, "popup": { "relevant": [ { "label": "ん" }, { "label": "を" }, { "label": "ー" }, { "label": "～" } ] } },
+    { "code": 12289, "label": "、？！。…", "width": 0.2, "popup": { "relevant": [ { "label": "？" }, { "label": "。" }, { "label": "！" }, { "label": "…" } ] } },
+    { "label": "action", "width": 0.2 }
+  ]
+]
