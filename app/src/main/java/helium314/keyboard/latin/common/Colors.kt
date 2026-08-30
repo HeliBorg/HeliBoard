@@ -196,7 +196,9 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         }
         adjustedBackgroundStateList =
             if (themeStyle == STYLE_HOLO) {
-                pressedStateList(accent, adjustedBackground)
+                // in dark mode the popup selection highlight (system_accent1_100) is glaringly light;
+                // dim it, matching how the Material night popup already uses a darkened accent
+                pressedStateList(if (isNight) doubleAdjustedAccent else accent, adjustedBackground)
             } else if (isNight) {
                 if (hasKeyBorders) pressedStateList(doubleAdjustedAccent, keyBackground)
                 else pressedStateList(adjustedAccent, adjustedKeyBackground)
@@ -415,7 +417,9 @@ class DefaultColors (
             adjustedBackground = darken(background)
             doubleAdjustedBackground = darken(adjustedBackground)
         }
-        adjustedBackgroundStateList = pressedStateList(doubleAdjustedBackground, adjustedBackground)
+        // popup selection highlight uses the theme accent so it is clearly noticeable (#2440),
+        // consistent with the dynamic theme, instead of the barely-visible doubleAdjustedBackground
+        adjustedBackgroundStateList = pressedStateList(accent, adjustedBackground)
 
         val stripBackground: Int
         val pressedStripElementBackground: Int
