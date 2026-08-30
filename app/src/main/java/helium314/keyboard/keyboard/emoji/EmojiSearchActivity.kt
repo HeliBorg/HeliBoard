@@ -319,6 +319,9 @@ class EmojiSearchActivity : ComponentActivity() {
                 finish()
             }
 
+            override fun onRemoveRecentKey(key: Key) {
+            }
+
             override fun getDescription(emoji: String): String? = if (Settings.getValues().mShowEmojiDescriptions)
                 dictionaryFacilitator?.getWordProperty(getEmojiNeutralVersion(emoji))?.let {
                     if (it.mHasShortcuts) it.mShortcutTargets[0]?.mWord else null

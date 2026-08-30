@@ -845,6 +845,7 @@ New dictionary:
 \n► Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. &lt;br&gt; &lt;br&gt;
 \n► Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin). &lt;br&gt; &lt;br&gt;
 \n► Swipe left in clipboard view to remove an entry (except when it\'s pinned) &lt;br&gt; &lt;br&gt;
+\n► Long-press an emoji in the recent category to show a delete button that removes it, or long-press the recent category tab to clear all recent emojis. &lt;br&gt; &lt;br&gt;
 \n► Select text and press shift to switch between uppercase, lowercase and capitalize words. &lt;br&gt; &lt;br&gt;
 \n► You can add dictionaries by opening them in a file explorer: &lt;br&gt;
 \n\t• This only works with &lt;i&gt;content-uris&lt;/i&gt; and not with &lt;i&gt;file-uris&lt;/i&gt;, meaning that it may not work with some file explorers. &lt;br&gt; &lt;br&gt;

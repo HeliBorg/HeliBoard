@@ -164,6 +164,35 @@ final class DynamicGridKeyboard extends Keyboard {
         }
     }
 
+    public boolean isRecents() {
+        return mIsRecents;
+    }
+
+    public void removeKey(final Key usedKey) {
+        synchronized (mLock) {
+            boolean removed = false;
+            while (mGridKeys.remove(usedKey)) {
+                // Remove all keys matching the removed one.
+                removed = true;
+            }
+            if (!removed) {
+                return;
+            }
+            mCachedGridKeys = null;
+            updateKeyCoordinates();
+        }
+        if (mIsRecents) {
+            removeRecentKey(usedKey);
+        }
+    }
+
+    public void clearRecentKeys() {
+        removeAllKeys();
+        if (mIsRecents) {
+            RecentEmojis.clear();
+        }
+    }
+
     private void addKey(final Key usedKey, final boolean addFirst) {
         if (usedKey == null) {
             return;
@@ -191,18 +220,22 @@ final class DynamicGridKeyboard extends Keyboard {
             while (mGridKeys.size() > mMaxKeyCount) {
                 mGridKeys.removeLast();
             }
-            int index = 0;
-            for (final GridKey gridKey : mGridKeys) {
-                while (mEmptyColumnIndices.contains(index % mColumnsNum)) {
-                    index++;
-                }
-                final int keyX0 = getKeyX0(index);
-                final int keyY0 = getKeyY0(index);
-                final int keyX1 = getKeyX1(index);
-                final int keyY1 = getKeyY1(index);
-                gridKey.updateCoordinates(keyX0, keyY0, keyX1, keyY1);
+            updateKeyCoordinates();
+        }
+    }
+
+    private void updateKeyCoordinates() {
+        int index = 0;
+        for (final GridKey gridKey : mGridKeys) {
+            while (mEmptyColumnIndices.contains(index % mColumnsNum)) {
                 index++;
             }
+            final int keyX0 = getKeyX0(index);
+            final int keyY0 = getKeyY0(index);
+            final int keyX1 = getKeyX1(index);
+            final int keyY1 = getKeyY1(index);
+            gridKey.updateCoordinates(keyX0, keyY0, keyX1, keyY1);
+            index++;
         }
     }
 
@@ -211,6 +244,13 @@ final class DynamicGridKeyboard extends Keyboard {
         String outputText = key.getOutputText();
         if (outputText != null) RecentEmojis.add(outputText);
         else RecentEmojis.addCodepoint(key.getCode());
+    }
+
+    private void removeRecentKey(@Nullable Key key) {
+        if (key == null) return;
+        String outputText = key.getOutputText();
+        if (outputText != null) RecentEmojis.remove(outputText);
+        else RecentEmojis.removeCodepoint(key.getCode());
     }
 
     private Key getKeyByCode(final Collection<DynamicGridKeyboard> keyboards,
@@ -302,6 +342,11 @@ final class DynamicGridKeyboard extends Keyboard {
         public GridKey(@NonNull final Key originalKey, @Nullable final PopupKeySpec[] popupKeys,
              @Nullable final String labelHint, final int backgroundType) {
             super(originalKey, popupKeys, labelHint, backgroundType);
+        }
+
+        public GridKey(@NonNull final Key originalKey, @Nullable final PopupKeySpec[] popupKeys,
+             @Nullable final String labelHint, final int backgroundType, final int popupKeysColumnNumber) {
+            super(originalKey, popupKeys, labelHint, backgroundType, popupKeysColumnNumber);
         }
 
         public void updateCoordinates(final int x0, final int y0, final int x1, final int y1) {

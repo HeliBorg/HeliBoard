@@ -23,6 +23,11 @@ public interface EmojiViewCallback {
     void onReleaseKey(Key key);
 
     /**
+     * Called when a key in the recents category is long-pressed, to remove it from recents.
+     */
+    void onRemoveRecentKey(Key key);
+
+    /**
      * Called from keyboard view to get an emoji description
      */
     String getDescription(String emoji);

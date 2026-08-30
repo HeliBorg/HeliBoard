@@ -127,6 +127,7 @@ object KeyCode {
     const val CJK_SPACE =                  12288
 
     // heliboard only codes
+    const val EMOJI_RECENT_REMOVE =       -10000 // remove a single emoji from the recents category
     const val SYMBOL_ALPHA =              -10001
     const val TOGGLE_ONE_HANDED_MODE =    -10002
     const val TOGGLE_ONE_HANDED_MODE_2 =  -10003 // does the same as TOGGLE_ONE_HANDED_MODE (used to be start & stop)
@@ -211,7 +212,7 @@ object KeyCode {
         MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK,
         TIMESTAMP, CTRL_LEFT, CTRL_RIGHT, ALT_LEFT, ALT_RIGHT, META_LEFT, META_RIGHT, SEND_INTENT_ONE, SEND_INTENT_TWO,
         SEND_INTENT_THREE, EMOJI_SEARCH, INLINE_EMOJI_SEARCH_DONE, META_LOCK,
-        BACKGROUND_GATHERING, BACKGROUND_GATHERING_TEMP_OFF, DPAD,
+        BACKGROUND_GATHERING, BACKGROUND_GATHERING_TEMP_OFF, DPAD, EMOJI_RECENT_REMOVE
         -> this
 
         KEY_REPEAT if (longPress) -> this

@@ -246,6 +246,12 @@ public final class EmojiPalettesView extends LinearLayout
         host.addView(iconView);
         iconView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
         iconView.setOnClickListener(this);
+        if (category == EmojiCategory.Category.RECENTS) {
+            iconView.setOnLongClickListener(v -> {
+                clearRecentKeys();
+                return true;
+            });
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -315,6 +321,25 @@ public final class EmojiPalettesView extends LinearLayout
         mKeyboardActionListener.onReleaseKey(code, false);
         if (Settings.getValues().mAlphaAfterEmojiInEmojiView)
             mKeyboardActionListener.onCodeInput(KeyCode.ALPHA, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
+    }
+
+    /**
+     * Called from {@link EmojiPageKeyboardView} through {@link EmojiViewCallback}
+     * interface to remove a single emoji from the recents category.
+     */
+    @Override
+    public void onRemoveRecentKey(final Key key) {
+        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_LONG_PRESS);
+        getRecentsKeyboard().removeKey(key);
+        if (initialized)
+            mPager.getAdapter().notifyItemChanged(mEmojiCategory.getRecentTabId());
+    }
+
+    private void clearRecentKeys() {
+        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_LONG_PRESS);
+        getRecentsKeyboard().clearRecentKeys();
+        if (initialized)
+            mPager.getAdapter().notifyItemChanged(mEmojiCategory.getRecentTabId());
     }
 
     @Override

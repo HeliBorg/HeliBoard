@@ -30,6 +30,23 @@ object RecentEmojis {
          if (emoji > 0) add(StringUtils.newSingleCodePointString(emoji))
      }
 
+    @JvmStatic
+    fun remove(emoji: String) {
+        if (emoji.isEmpty()) return
+        val recents = get()
+        if (recents.removeAll { it == emoji }) set(recents)
+    }
+
+    @JvmStatic
+    fun removeCodepoint(emoji: Int) {
+        if (emoji > 0) remove(StringUtils.newSingleCodePointString(emoji))
+    }
+
+    @JvmStatic
+    fun clear() {
+        set(emptyList())
+    }
+
     fun get(): MutableList<String> {
         val pref = prefs.getString(Settings.PREF_RECENT_EMOJIS, Defaults.PREF_RECENT_EMOJIS)
         if (pref.isNullOrEmpty()) return mutableListOf()

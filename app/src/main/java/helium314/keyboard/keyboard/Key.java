@@ -234,6 +234,24 @@ public class Key implements Comparable<Key> {
      */
     protected Key(@NonNull final Key key, @Nullable final PopupKeySpec[] popupKeys,
                 @Nullable final String labelHint, final int backgroundType) {
+        this(key, popupKeys, labelHint, backgroundType, key.getPopupKeysColumnNumber());
+    }
+
+    /**
+     * Copy constructor that overrides the number of popup key columns.
+     *
+     * <p>The source key may report zero columns (e.g. emoji recent keys restored from settings),
+     * which cannot lay out popup keys. Callers that assign popup keys can pass an explicit column
+     * count here instead of relying on the source key.</p>
+     *
+     * @param key the original key.
+     * @param popupKeys the popup keys that should be assigned to this key.
+     * @param labelHint the label hint that should be assigned to this key.
+     * @param backgroundType the background type that should be assigned to this key.
+     * @param popupKeysColumnNumber the number of columns to lay the popup keys out in.
+     */
+    protected Key(@NonNull final Key key, @Nullable final PopupKeySpec[] popupKeys,
+                @Nullable final String labelHint, final int backgroundType, final int popupKeysColumnNumber) {
         // Final attributes.
         mCode = key.mCode;
         mLabel = key.mLabel;
@@ -249,7 +267,8 @@ public class Key implements Comparable<Key> {
         mY = key.mY;
         mHitBox.set(key.mHitBox);
         mPopupKeys = popupKeys;
-        mPopupKeysColumnAndFlags = key.mPopupKeysColumnAndFlags;
+        mPopupKeysColumnAndFlags = (key.mPopupKeysColumnAndFlags & ~POPUP_KEYS_COLUMN_NUMBER_MASK)
+                | (popupKeysColumnNumber & POPUP_KEYS_COLUMN_NUMBER_MASK);
         mBackgroundType = backgroundType;
         mActionFlags = key.mActionFlags;
         mKeyVisualAttributes = key.mKeyVisualAttributes;

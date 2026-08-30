@@ -38,11 +38,14 @@ import helium314.keyboard.keyboard.KeyboardView;
 import helium314.keyboard.keyboard.PopupKeysKeyboard;
 import helium314.keyboard.keyboard.PopupKeysKeyboardView;
 import helium314.keyboard.keyboard.PopupKeysPanel;
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.PopupKeySpec;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.settings.Settings;
 
+import java.util.Locale;
 import java.util.WeakHashMap;
 
 /**
@@ -56,11 +59,19 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     private static final long KEY_PRESS_DELAY_TIME = 250;  // msec
     private static final long KEY_RELEASE_DELAY_TIME = 30;  // msec
 
+    // Single delete button shown when long-pressing a key in the recents category.
+    private static final PopupKeySpec[] REMOVE_RECENT_POPUP_KEYS = {
+            new PopupKeySpec(KeyboardIconsSet.PREFIX_ICON + KeyboardIconsSet.NAME_BIN
+                    + "|!code/" + KeyCode.EMOJI_RECENT_REMOVE, false, Locale.ROOT)
+    };
+
     private static final EmojiViewCallback EMPTY_EMOJI_VIEW_CALLBACK = new EmojiViewCallback() {
         @Override
         public void onPressKey(final Key key) {}
         @Override
         public void onReleaseKey(final Key key) {}
+        @Override
+        public void onRemoveRecentKey(final Key key) {}
         @Override
         public String getDescription(String emoji) {
             return null;
@@ -200,6 +211,51 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         return mPopupKeysKeyboardView;
     }
 
+    // Builds a single-key popup holding a delete button, used to remove a key from the recents category.
+    @NonNull
+    private PopupKeysPanel showRemoveKeyboard(@NonNull final Key key) {
+        Keyboard popupKeysKeyboard = mPopupKeysKeyboardCache.get(key);
+        if (popupKeysKeyboard == null) {
+            // A recent key restored from settings can report zero popup-key columns, which cannot
+            // lay out popup keys. Give the remove popup one column per delete button it contains.
+            final Key removeKey = new DynamicGridKeyboard.GridKey(key, REMOVE_RECENT_POPUP_KEYS, null,
+                    key.getBackgroundType(), REMOVE_RECENT_POPUP_KEYS.length);
+            // The delete button is icon-only, so size the single-key popup explicitly instead of
+            // measuring a label (which would divide by a zero base width). Fall back to the most
+            // common key height so the width is always non-zero.
+            final Keyboard keyboard = getKeyboard();
+            final int keyWidth = Math.max(key.getHitBox().width(), keyboard.mMostCommonKeyHeight);
+            final int keyHeight = Math.max(key.getHitBox().height(), keyboard.mMostCommonKeyHeight);
+            final PopupKeysKeyboard.Builder builder = new PopupKeysKeyboard.Builder(
+                    getContext(), removeKey, keyboard, true, keyWidth, keyHeight, newLabelPaint(removeKey));
+            popupKeysKeyboard = builder.build();
+            mPopupKeysKeyboardCache.put(key, popupKeysKeyboard);
+        }
+
+        mPopupKeysKeyboardView.setKeyboard(popupKeysKeyboard);
+        mPopupKeysKeyboardView.setVisibility(VISIBLE);
+        return mPopupKeysKeyboardView;
+    }
+
+    // Wraps the regular callback so that selecting the delete button removes the given recent key,
+    // while emoji descriptions keep being resolved through the original callback.
+    private EmojiViewCallback createRemoveRecentCallback(@NonNull final Key key) {
+        return new EmojiViewCallback() {
+            @Override
+            public void onPressKey(final Key pressedKey) {}
+            @Override
+            public void onReleaseKey(final Key releasedKey) {
+                mEmojiViewCallback.onRemoveRecentKey(key);
+            }
+            @Override
+            public void onRemoveRecentKey(final Key removedKey) {}
+            @Override
+            public String getDescription(final String emoji) {
+                return mEmojiViewCallback.getDescription(emoji);
+            }
+        };
+    }
+
     private void dismissPopupKeysPanel() {
         if (isShowingPopupKeysPanel()) {
             mPopupKeysPanel.dismissPopupKeysPanel();
@@ -298,7 +354,13 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         }
 
         var descriptionPanel = showDescription(key);
-        final PopupKeysPanel popupKeysPanel = showPopupKeysKeyboard(key);
+        // In the recents category, long-pressing a key offers a delete button to remove it from
+        // recents (similar to deleting a suggestion), instead of the skin tone variants panel.
+        final Keyboard keyboard = getKeyboard();
+        final boolean isRecents = keyboard instanceof DynamicGridKeyboard && ((DynamicGridKeyboard) keyboard).isRecents();
+        final PopupKeysPanel popupKeysPanel = isRecents ? showRemoveKeyboard(key) : showPopupKeysKeyboard(key);
+        // Route the delete button to recents removal, everything else to the regular callback.
+        final EmojiViewCallback callback = isRecents ? createRemoveRecentCallback(key) : mEmojiViewCallback;
 
         final int x = mLastX;
         final int y = mLastY;
@@ -314,7 +376,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
                     : key.getX() + key.getWidth() / 2;
             final int pointY = key.getY() - getKeyboard().mVerticalGap;
             (popupKeysPanel != null? popupKeysPanel : descriptionPanel)
-                            .showPopupKeysPanel(this, this, pointX, pointY, mEmojiViewCallback);
+                            .showPopupKeysPanel(this, this, pointX, pointY, callback);
         }
 
         if (popupKeysPanel != null) {
