@@ -23,6 +23,7 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.combiningRange
 import helium314.keyboard.latin.common.moveStepsToCharCount
+import helium314.keyboard.latin.common.moveWordStepsToCharCount
 import helium314.keyboard.latin.define.ProductionFlags
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
@@ -255,7 +256,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onMoveDeletePointer(steps: Int) {
         inputLogic.finishInput()
         val end = connection.expectedSelectionEnd
-        val actualSteps = actualSteps(steps)
+        val actualSteps = if (Settings.getValues().mSwipeDeleteByWord) wordSteps(steps) else actualSteps(steps)
         val start = connection.expectedSelectionStart + actualSteps
         if (start > end) return
         gestureMoveBackHaptics()
@@ -266,6 +267,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val text = if (steps > 0) connection.getSelectedText(0) ?: return steps
         else connection.getTextBeforeCursor(-steps * 4, 0) ?: return steps
         return moveStepsToCharCount(text, steps)
+    }
+
+    private fun wordSteps(steps: Int): Int {
+        val text = if (steps > 0) connection.getSelectedText(0) ?: return steps
+        else connection.getTextBeforeCursor(maxOf(50, -steps * 20), 0) ?: return steps
+        return moveWordStepsToCharCount(text, steps)
     }
 
     override fun onUpWithDeletePointerActive() {
