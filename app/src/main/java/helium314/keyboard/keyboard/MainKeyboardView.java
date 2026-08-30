@@ -485,6 +485,15 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         if (popupKeys == null) {
             return null;
         }
+        // 12-key flick requires some specialized coordinates
+        if (FlickKeysPanel.isFlickKey(key)) {
+            final FlickKeysPanel flickPanel = new FlickKeysPanel(getContext());
+            flickPanel.setKey(key);
+            final int pointX = key.getX() + key.getWidth() / 2;
+            final int pointY = key.getY() + key.getHeight() / 2;
+            flickPanel.showPopupKeysPanel(this, this, pointX, pointY, mKeyboardActionListener);
+            return flickPanel;
+        }
         Keyboard popupKeysKeyboard = mPopupKeysKeyboardCache.get(key);
         if (popupKeysKeyboard == null) {
             // {@link KeyPreviewDrawParams#mPreviewVisibleWidth} should have been set at
