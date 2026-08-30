@@ -43,11 +43,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.unit.dp
+import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.BackButton
 import helium314.keyboard.latin.utils.CloseIcon
@@ -241,7 +244,8 @@ fun ExpandableSearchField(
             singleLine = true,
             colors = colors,
             textStyle = contentTextDirectionStyle,
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search,
+                hintLocales = LocaleList(LocalConfiguration.current.locale().toLanguageTag()))
         )
     }
 }
