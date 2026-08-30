@@ -469,6 +469,8 @@
     <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <!-- Description for "LANGUAGE_NAME" (Khipro) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <!-- Description for "LANGUAGE_NAME" (Avro Phonetic) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_avro_bn">%s (Avro Phonetic)</string>
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_generic_compact">%s (Compact)</string>
     <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype with explicit keyboard layout -->
