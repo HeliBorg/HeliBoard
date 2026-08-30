@@ -1062,11 +1062,17 @@ public class LatinIME extends InputMethodService implements
                     + ", cs=" + composingSpanStart + ", ce=" + composingSpanEnd);
         }
 
+        final SettingsValues settingsValues = mSettings.getCurrent();
+        if (hasSuggestionStripView() && settingsValues.mAutoShowToolbar && composingSpanEnd != - 1 && newSelStart != oldSelStart
+            && newSelStart != oldSelStart + 1 && newSelStart != oldSelStart - 1 && newSelStart != composingSpanEnd) {
+            // Auto-show toolbar except while typing and picking suggestions
+            mSuggestionStripView.setToolbarVisibility(true);
+        }
+
         // This call happens whether our view is displayed or not, but if it's not then we should
         // not attempt recorrection. This is true even with a hardware keyboard connected: if the
         // view is not displayed we have no means of showing suggestions anyway, and if it is then
         // we want to show suggestions anyway.
-        final SettingsValues settingsValues = mSettings.getCurrent();
         if (isInputViewShown()
                 && mInputLogic.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
                 composingSpanStart, composingSpanEnd, settingsValues)) {
@@ -1502,7 +1508,7 @@ public class LatinIME extends InputMethodService implements
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
             // Auto hide the toolbar if dictionary suggestions are available
-            if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries) {
+            if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries && ! mInputLogic.isResumed()) {
                 mSuggestionStripView.setToolbarVisibility(false);
             }
         }
