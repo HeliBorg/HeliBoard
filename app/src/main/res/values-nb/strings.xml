@@ -508,4 +508,50 @@
     <string name="prefs_key_gap_scale">Avstand mellom tastene</string>
     <string name="toolbar_only_with_hw_keyboard">Vis kun verktøylinjen ved fysisk tastatur</string>
     <string name="toolbar_only_with_hw_keyboard_summary">Du må fortsatt aktivere visning av skjermtastaturet i systeminnstillingene</string>
+    <string name="auto_correct_capitalized_suggestions">Autokorriger forslag med stor forbokstav</string>
+    <string name="auto_correct_capitalized_suggestions_description">Autokorrektur utløses etter at du har trykket shift for å gi forslagene stor forbokstav</string>
+    <string name="clipboard_history_files">Legg til bilder og andre filer i utklippstavlehistorikken</string>
+    <string name="clipboard_history_max_file_size">Størrelsesgrense for utklippstavlen</string>
+    <string name="item_description">Beskrivelse: %s</string>
+    <string name="item_type">Type: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="prefs_hint_font_scale">Skriftstørrelse for tastehint</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4 rader)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="about_community_links">Fellesskapslenker</string>
+    <string name="about_community_links_description">Temaer, oppsettredigering, diskusjoner …</string>
+    <string name="space_swipe_toggle_dpad_entry">Slå på/av D-pad</string>
+    <string name="gesture_data_share_duplicate">Du kan dele allerede innsendte data på nytt hvis du ikke er sikker på at de ble mottatt riktig. Vi oppdager og fjerner duplikater når dataene behandles.</string>
+    <string name="gesture_data_active">Aktiv innsamling</string>
+    <string name="background_gesture_data_links">Informasjon om bakgrunnsinnsamling:</string>
+    <string name="gesture_data_background_gathering_switch">Bruk bakgrunnsinnsamling av data</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Tillatte apper: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Forkast som standard</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Data lagres manuelt via verktøylinjetasten</string>
+    <string name="gesture_data_background_gathering_info">Mer informasjon</string>
+    <string name="gesture_data_background_gathering_info_message">Når du slår på bakgrunnsinnsamling av data, kan HeliBoard registrere sveipebevegelser du skriver i andre apper. Dette er svært nyttig for sveipeskriving-prosjektet, siden det kan gi en betydelig mengde data, om enn med lavere kvalitet enn aktiv innsamling. Bakgrunnsinnsamling er ikke en erstatning for aktivt innsamlede data, men ment som et tillegg, ettersom datakvalitet er viktigere enn mengde.\n\nBakgrunnsinnsamling kan lett samle inn data du anser som for private til å dele, selv om de publiseres anonymt. Derfor ønsker vi å tydeliggjøre når bevegelsesdata samles inn, og hvordan du kan påvirke det.\n\nDu finner en video som forklarer mer om bakgrunnsinnsamling i lenkeseksjonen nederst til høyre på denne skjermen.</string>
+    <string name="gesture_data_background_gathering_indicator">Indikator for datainnsamling</string>
+    <string name="gesture_data_background_gathering_indicator_message">Når bevegelsesdata kan bli registrert, vises et indikatorikon nederst til venstre på tastaturet. Når sirkelen er fylt, er minst én bevegelse samlet inn og venter på å bli lagret. Data lagres enten med verktøylinjetasten (se &lt;i&gt;%1$s&lt;/i&gt;) eller automatisk (når &lt;i&gt;%2$s&lt;/i&gt; er deaktivert). Automatisk lagring skjer vanligvis ved bytte av tekstfelt eller når tastaturet lukkes, men kan også skje hvis tekstfeltet endres av andre grunner. Når data lagres, blir indikatoren grønn en kort stund.</string>
+    <string name="gesture_data_background_gathering_control">Slik styrer du hva som lagres</string>
+    <string name="gesture_data_background_gathering_control_message">Uavhengig av innstillingene er bakgrunnsinnsamling deaktivert i inkognitomodus. Den er også deaktivert for inndatafelt merket som sensitive (passord, e-post, eller når inndatafeltet ber tastaturet om ikke å lære ordene). Kun ord som finnes i en hovedordbok (innebygd eller fra &lt;a href=%5$s&gt;ordbok-repositoriet&lt;/a&gt;) blir samlet inn. &lt;br&gt;&lt;br&gt; Med &lt;i&gt;%1$s&lt;/i&gt; kan du velge hvilke apper du vil tillate bakgrunnsinnsamling i. Standardinnstillingen deaktiverer alle apper, med aktivering per app. Du kan i stedet velge å aktivere alle apper og deaktivere per app. Det er mer praktisk, men vil automatisk tillate datainnsamling fra nylig installerte apper. Dette kan føre til at det samles inn data du ikke forventet. &lt;br&gt;&lt;br&gt; Med &lt;i&gt;%2$s&lt;/i&gt; kan du utelate bestemte sensitive ord. Når du sveiper et utelatt ord, viser indikatorikonet fortsatt fylt ikon («data venter på å bli lagret»), men dataene forkastes der de normalt ville blitt lagret. Blokkerte ord som allerede ble lagret før ordet ble blokkert, forkastes ved eksport av data.&lt;br&gt; Merk at bakgrunnsinnsamling kun samler inn ord som allerede finnes i en hovedordbok, så de eneste ordene du sannsynligvis trenger å blokkere, er vanlige ord som kan brukes til å identifisere deg, som navn, gate, by, område osv. &lt;br&gt;&lt;br&gt; Når &lt;i&gt;%3$s&lt;/i&gt; er aktivert, lagres data bare hvis du velger å gjøre det manuelt med verktøylinjetasten &lt;i&gt;%4$s&lt;/i&gt; (se nedenfor). Hvis data ikke lagres, slettes ventende data ved bytte av inndatafelt eller når tastaturet lukkes.&lt;br&gt; Utelatelse av apper og ord gjelder fortsatt i denne modusen. &lt;br&gt;&lt;br&gt; Verktøylinjetasten &lt;i&gt;%4$s&lt;/i&gt; kan brukes til å styre datainnsamlingen. Effekten av et trykk avhenger av gjeldende tilstand: Når bakgrunnsinnsamling er deaktivert, blir den aktivert.&lt;br&gt; Et langt trykk deaktiverer innsamling i fem minutter.&lt;br&gt; Du kan aktivere bakgrunnsinnsamling igjen tidligere med et vanlig tastetrykk.&lt;br&gt; Når &lt;i&gt;%3$s&lt;/i&gt; er aktivert, lagres ventende data.&lt;br&gt; Ellers forkastes ventende data.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">På skjermen &lt;i&gt;%1$s&lt;/i&gt; kan du kontrollere og filtrere de innsamlede dataene, slette data du anser som for sensitive, og dele data. Slette- og deleknappene virker på de filtrerte dataene, eller på utvalget hvis du bruker langt trykk for å velge ord. (Merk at det «vanlige» delingsikonet utenfor skjermen &lt;i&gt;%1$s&lt;/i&gt; kun deler data fra aktiv innsamling.)&lt;br&gt; Rekkefølgen på delte data er tilfeldig, slik at ikke noe mer enn de enkelte ordene kan utledes.&lt;br&gt; Hvis du vil se alle dataene som er lagret for en bevegelse, kan du dele dem til en fil og laste inn filen i &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="gesture_data_background_apps_button">Administrer tillatte apper</string>
+    <string name="gesture_data_background_apps">Velg apper som skal inkluderes i bakgrunnsinnsamlingen</string>
+    <string name="gesture_data_background_apps_include_default">Inkluder apper som standard</string>
+    <string name="gesture_data_background_excluded_words_button">Administrer utelatte ord</string>
+    <string name="gesture_data_background_dictionary">Ordbok: %s</string>
+    <string name="gesture_data_background_position">Posisjon: %s</string>
+    <string name="gesture_data_background_exclude_words">Utelat ord fra bakgrunnsinnsamling</string>
+    <string name="gesture_data_long_press_select_hint">Langt trykk for å velge</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Bakgrunnsinnsamling av data</string>
+    <string name="gesture_data_show_active">Vis aktivt innsamlede data</string>
+    <string name="gesture_data_show_background">Vis bakgrunnsdata</string>
+    <string name="gesture_data_include_shared">Inkluder allerede innsendte data</string>
+    <string name="gesture_data_shared">innsendt</string>
+    <string name="gesture_data_saving">Lagrer… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Velkommen til bakgrunnsinnsamling av data!&lt;br&gt; Vil du legge til tasten &lt;i&gt;%1$s&lt;/i&gt; på verktøylinjen? Du kan bruke den til å styre datainnsamlingen. Les mer om den med knappen &lt;i&gt;%2$s&lt;/i&gt;. &lt;br&gt;&lt;br&gt; Som standard er bakgrunnsinnsamling deaktivert for alle apper. Det betyr at ingenting samles inn før du har valgt hvilke apper du tillater. Du kan endre det %3$s.</string>
+    <string name="gesture_data_add_key">Legg til verktøylinjetast</string>
+    <string name="gesture_data_no_known_dict">Bakgrunnsinnsamling samler kun inn ord fra ordbøker som er innebygd eller tilgjengelige i &lt;a href=%s&gt;ordbok-repositoriet&lt;/a&gt;. Du har for øyeblikket ingen slik ordbok aktivert.</string>
+    <string name="gesture_data_swipe_o_scope">Verktøy for visualisering av bevegelsesdata: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

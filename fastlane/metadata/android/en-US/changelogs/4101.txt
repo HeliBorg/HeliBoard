@@ -1,0 +1,10 @@
+* add D-Pad
+* allow using key repeat as long-press code for toolbar keys and popups, and set it default for toolbar arrow keys
+* improve clipboard suggestion
+* update settings icons
+* more consistent display of popup hints
+* tune numpad key widths to align them with number layout
+* fix sometimes disappearing toolbar keys
+* add separate ColorType for clipboard suggestion
+* properly update shift state when moving the cursor with arrow keys
+* move colors (night) setting next to colors setting

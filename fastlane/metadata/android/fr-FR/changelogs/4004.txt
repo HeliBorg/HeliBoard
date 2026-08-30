@@ -1,0 +1,12 @@
+* collecte données gestuelles arrière-plan
+* ajout fichiers/images à l'historique presse-papiers
+* clavier flottant
+* émojis Unicode 17.0
+* réglages échelle séparés pour téléphones pliables
+* mode touchpad sur glissement espace
+* option désactivation popup correction
+* transformation confiance autocorrection en curseur
+*curseur épaisseur intervalle touches
+* espacement égal boutons barre outils
+* correction problème sécurité si restauration backup issu de zip modifié
+* autres corrections & améliorations...

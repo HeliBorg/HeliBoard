@@ -465,4 +465,85 @@
     <string name="gesture_data_active_start">Započni aktivno prikupljanje</string>
     <string name="gesture_data_active_stop">Zaustavi aktivno prikupljanje</string>
     <string name="gesture_data_share_all">Podijeli sve riječi (%s)</string>
+    <string name="toolbar_swipe_down_to_hide">Sakrij tipkovnicu povlačenjem</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Povucite alatnu traku prema dolje za zatvaranje tipkovnice</string>
+    <string name="auto_correct_capitalized_suggestions">Automatski ispravljaj prijedloge s velikim početnim slovom</string>
+    <string name="auto_correct_capitalized_suggestions_description">Nakon pritiska tipke Shift za pisanje prijedloga velikim početnim slovom pokrenut će se automatsko ispravljanje</string>
+    <string name="custom_punctuation_suggestions">Postavi prijedloge interpunkcije</string>
+    <string name="clipboard_history_files">Dodaj slike i druge datoteke u povijest međuspremnika</string>
+    <string name="clipboard_history_max_file_size">Ograničenje veličine međuspremnika</string>
+    <string name="item_description">Opis: %s</string>
+    <string name="item_type">Vrsta: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="timestamp_description">Tipku vremenske oznake možete dodati pomoću prilagođenog rasporeda s tipkom \'timestamp\' ili kodom tipke -10043</string>
+    <string name="floating" tools:keep="@string/floating">Plutajuća tipkovnica</string>
+    <string name="prefs_key_gap_scale">Veličina razmaka tipki</string>
+    <string name="prefs_bottom_row_scale">Veličina donjeg retka</string>
+    <string name="prefs_hint_font_scale">Veličina fonta pomoćnih oznaka tipki</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4 retka)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="about_community_links">Poveznice zajednice</string>
+    <string name="about_community_links_description">Teme, uređivač rasporeda, diskusije, …</string>
+    <string name="space_swipe_toggle_dpad_entry">Prebaci na D-pad</string>
+    <string name="space_swipe_touchpad_mode_entry">Način dodirne podloge</string>
+    <string name="touchpad_sensitivity">Osjetljivost dodirne podloge</string>
+    <string name="touchpad_edge_scroll">Pomicanje na rubu dodirne podloge</string>
+    <string name="touchpad_edge_scroll_description">Automatski pomiče prikaz kada kliznete do ruba tipkovnice</string>
+    <string name="toolbar_only_with_hw_keyboard">Prikaži samo alatnu traku uz fizičku tipkovnicu</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">I dalje morate omogućiti prikaz virtualne tipkovnice u postavkama sustava</string>
+    <string name="folded">Preklopljeno</string>
+    <string name="ask_later">Pitaj me kasnije</string>
+    <string name="spell_check_suggestions">Prikaži prijedloge provjere pravopisa</string>
+    <string name="spell_check_suggestions_summary">Prikazuje prijedloge kada se odabere riječ podcrtana crvenom bojom. Zahtijeva postavljanje aplikacije kao zadanog alata za provjeru pravopisa.</string>
+    <string name="gesture_data_description_privacy">Privatnost\n\nPodaci koje šaljete sastoje se od ciljne riječi, rasporeda i dimenzija tipkovnice, geste (vremena i koordinate), prijedloga trenutne biblioteke, hasha korištenih rječnika, verzije aplikacije, načina prikupljanja podataka, informacije je li biblioteka za pisanje kretnjama „zadana” Googleova biblioteka te ID-a uz svaku gestu.\nPoslani podaci bit će preuzeti i izbrisani iz ProtonMail sandučića u kojem su pohranjeni čim to bude moguće. Nakon završetka faze prikupljanja podataka gesti, prikupljeni skup podataka svih korisnika bit će objavljen pod licencijom Creative Commons BY-SA 4.0.\n\nRadi zaštite Vaše privatnosti nećete biti izričito navedeni kao autor. Zasluge će biti navedene kao „The HeliBoard Gesture Data Project Contributors”. Podatke koje generirate na ovom zaslonu ne bi trebalo biti moguće povezati s Vašim identitetom. Međutim, moglo bi biti moguće utvrditi koje je geste napravila ista osoba. To je moguće npr. na temelju prilagođenog rasporeda tipkovnice, dimenzija tipkovnice, jezika ili individualnog stila izvođenja gesti.</string>
+    <string name="gesture_data_share_duplicate">Već poslane podatke možete ponovo podijeliti ako niste sigurni jesu li ispravno primljeni. Duplikate otkrivamo i uklanjamo prilikom obrade podataka.</string>
+    <string name="gesture_data_please_switch_keyboard">Prijeđite na %s</string>
+    <string name="gesture_data_next_save">Zabilježeno je „%s”. Kliknite ako ste sigurni da ste gestu izveli ispravno</string>
+    <string name="gesture_data_active_description">Dotaknite &lt;i&gt;Započni aktivno prikupljanje&lt;/i&gt;, po želji promijenite rječnik i počnite gestama unositi prikazanu riječ.&lt;br/&gt; Ako Vaša gesta odgovara riječi, podaci se spremaju i prikazuje se sljedeća riječ. U suprotnom možete pokušati ponovo, preskočiti riječ ili potvrditi da ste gestu izveli ispravno.&lt;br/&gt; Možete koristiti samo rječnike koji su ugrađeni u aplikaciju ili dostupni u &lt;a href=%s&gt;repozitoriju rječnika&lt;/a&gt;; druge riječi neće se koristiti.</string>
+    <string name="gesture_data_active">Aktivno prikupljanje</string>
+    <string name="gesture_data_ends_at">Faza prikupljanja podataka gesti završava %s. Pošaljite svoje podatke prije tog datuma.</string>
+    <string name="gesture_data_ended">Faza prikupljanja podataka gesti završila je %s. Možete podijeliti postojeće podatke, ali ne i dodavati nove.</string>
+    <string name="gesture_data_share_new">Podijeli još neposlane riječi (%s)</string>
+    <string name="gesture_data_delete_dialog">Imate podatke za %1$s novih i %2$s već podijeljenih riječi.</string>
+    <string name="gesture_data_share_limit">Kako se ne bi premašila ograničenja veličine, izvest će se samo prvih %s riječi</string>
+    <string name="gesture_data_delete_dialog_all">Izbriši sve riječi (%s)</string>
+    <string name="gesture_data_delete_dialog_confirm">Jeste li sigurni? Ovime će se izbrisati %s riječi. Provjerite jesu li Vaši podaci poslani!</string>
+    <string name="gesture_data_delete_dialog_submitted">Izbriši poslane riječi (%s)</string>
+    <string name="gesture_data_many_not_shared_words">Imate više od %s riječi koje čekaju na slanje</string>
+    <string name="gesture_data_email_body">VAŽNO:\n\nPozdrav!\nPodsjećamo da će ovi podaci biti javno objavljeni pod licencijom CC BY-SA 4.0, a Vi radi zaštite privatnosti nećete biti navedeni kao autor.\n\nHvala što s nama dijelite prava na svoje podatke. Dobro ćemo ih iskoristiti!\n\nImajte na umu da promjena teksta ove obavijesti ne mijenja ono što ćemo učiniti s Vašim podacima. Ovo nije ugovor koji se može mijenjati, već samo prijateljski podsjetnik!\nAko nam uz podatke želite poslati poruku, napišite ju ispod crte.\n---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Pozdrav!\nBudući da ste instalirali biblioteku za pisanje kretnjama, možda će Vas zanimati HeliBoardov projekt stvaranja potpuno otvorene biblioteke za pisanje kretnjama. Možete pomoći doprinošenjem podataka gesti. Za više informacija posjetite zaslon za prikupljanje podataka gesti.</string>
+    <string name="gesture_data_reminder_message">Pozdrav!\nRanije ste koristili prikupljanje podataka gesti, ali već dulje vrijeme niste dodali podatke. Želite li ponovo doprinijeti?</string>
+    <string name="gesture_data_take_me_there">Odvedi me tamo</string>
+    <string name="background_gesture_data_links">Informacije o pozadinskom prikupljanju:</string>
+    <string name="gesture_data_links">Informacije o aktivnom prikupljanju:</string>
+    <string name="gesture_data_background_gathering_switch">Koristi pozadinsko prikupljanje podataka</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Dopuštene aplikacije: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Zadano odbacivanje</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Podaci se spremaju ručno pomoću tipke alatne trake</string>
+    <string name="gesture_data_background_gathering_info">Više informacija</string>
+    <string name="gesture_data_background_gathering_info_message">Uključivanje pozadinskog prikupljanja podataka omogućuje HeliBoardu bilježenje gesti koje unosite u drugim aplikacijama. To je vrlo korisno za projekt pisanja kretnjama jer može proizvesti znatnu količinu podataka, iako niže kvalitete od aktivnog prikupljanja. Pozadinsko prikupljanje podataka nije zamjena za aktivno prikupljene podatke, već dodatak, jer je kvaliteta podataka važnija od količine.\n\nPozadinsko prikupljanje ima velik potencijal prikupljanja podataka koje možda smatrate previše privatnima za dijeljenje, čak i kada se objavljuju anonimno. Zbog toga želimo pojasniti kada se podaci gesti prikupljaju i kako na to možete utjecati.\n\nVideozapis koji detaljnije objašnjava pozadinsko prikupljanje podataka možete pronaći u odjeljku s poveznicama u donjem desnom dijelu ovog zaslona.</string>
+    <string name="gesture_data_background_gathering_indicator">Indikator prikupljanja podataka</string>
+    <string name="gesture_data_background_gathering_indicator_message">Kad god se podaci gesti mogu bilježiti, u donjem lijevom dijelu tipkovnice vidjet ćete ikonu indikatora. Kada je krug ispunjen, prikupljena je barem jedna gesta koja čeka na spremanje. Podaci se spremaju pomoću tipke alatne trake (pogledajte &lt;i&gt;%1$s&lt;/i&gt;) ili automatski (kada je &lt;i&gt;%2$s&lt;/i&gt; onemogućeno). Automatsko spremanje obično se događa pri promjeni polja za unos teksta ili zatvaranju tipkovnice, ali i ako se polje za unos promijeni iz nekog drugog razloga. Dok se podaci spremaju, indikator će nakratko postati zelen.</string>
+    <string name="gesture_data_background_gathering_control">Kako upravljati onim što se sprema</string>
+    <string name="gesture_data_background_gathering_control_message">Neovisno o postavkama, pozadinsko prikupljanje podataka onemogućeno je u anonimnom načinu rada. Također je onemogućeno za polja za unos označena kao osjetljiva (lozinke, e-pošta ili kad god polje za unos zatraži od tipkovnice da ne uči riječi). Prikupljat će se samo riječi koje se nalaze u glavnom rječniku (ugrađenom ili iz &lt;a href=%5$s&gt;repozitorija rječnika&lt;/a&gt;). &lt;br&gt;&lt;br&gt; Pomoću &lt;i&gt;%1$s&lt;/i&gt; možete odabrati u kojim aplikacijama želite dopustiti pozadinsko prikupljanje podataka. Zadana postavka onemogućuje sve aplikacije, uz uključivanje po aplikaciji. Umjesto toga možete omogućiti sve aplikacije i isključivati ih pojedinačno. To je praktičnije, ali će automatski dopustiti prikupljanje podataka iz novoinstaliranih aplikacija. Time bi se mogli prikupiti podaci koje niste očekivali. &lt;br&gt;&lt;br&gt; Pomoću &lt;i&gt;%2$s&lt;/i&gt; možete isključiti određene osjetljive riječi. Kada gestom unesete isključenu riječ, ikona indikatora i dalje će prikazivati ispunjenu ikonu („podaci čekaju na spremanje”), ali podaci će biti odbačeni u trenutku kada bi se inače spremili. Sve blokirane riječi koje su spremljene prije nego što je riječ blokirana bit će odbačene pri izvozu podataka.&lt;br&gt; Imajte na umu da će pozadinsko prikupljanje prikupljati samo riječi koje se već nalaze u glavnom rječniku, pa su jedine riječi koje ćete vjerojatno trebati blokirati česte riječi po kojima biste se mogli osobno identificirati, kao što su: Vaše ime, ulica, grad, područje itd. &lt;br&gt;&lt;br&gt; Kada je &lt;i&gt;%3$s&lt;/i&gt; omogućeno, podaci se spremaju samo ako to ručno odaberete pomoću tipke alatne trake &lt;i&gt;%4$s&lt;/i&gt; (pogledajte dolje). Ako se podaci ne spreme, podaci na čekanju bit će izbrisani pri promjeni polja za unos ili zatvaranju tipkovnice.&lt;br&gt; Isključenja aplikacija i riječi vrijede i u ovom načinu rada. &lt;br&gt;&lt;br&gt; Tipkom alatne trake &lt;i&gt;%4$s&lt;/i&gt; može se upravljati prikupljanjem podataka. Učinak pritiska ovisi o trenutnom stanju: kada je pozadinsko prikupljanje onemogućeno, bit će omogućeno.&lt;br&gt; Dugi pritisak onemogućit će prikupljanje na pet minuta.&lt;br&gt; Pozadinsko prikupljanje podataka možete ranije ponovo omogućiti običnim pritiskom tipke.&lt;br&gt; Kada je &lt;i&gt;%3$s&lt;/i&gt; omogućeno, podaci na čekanju bit će spremljeni.&lt;br&gt; U suprotnom, podaci na čekanju bit će odbačeni.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Na zaslonu &lt;i&gt;%1$s&lt;/i&gt; možete provjeriti i filtrirati prikupljene podatke, izbrisati podatke koje smatrate previše osjetljivima i podijeliti podatke. Gumbi za brisanje i dijeljenje djeluju na filtrirane podatke ili na odabir ako dugim pritiskom odaberete riječi. (Imajte na umu da će „obična” ikona za dijeljenje izvan zaslona &lt;i&gt;%1$s&lt;/i&gt; podijeliti samo podatke aktivnog prikupljanja.)&lt;br&gt; Redoslijed podijeljenih podataka je nasumičan, tako da se ne može zaključiti ništa više od pojedinačnih riječi.&lt;br&gt; Ako želite vidjeti sve podatke pohranjene za neku gestu, možete ih podijeliti u datoteku i učitati datoteku u &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="gesture_data_background_apps_button">Upravljaj dopuštenim aplikacijama</string>
+    <string name="gesture_data_background_apps">Odaberite aplikacije koje će biti uključene u pozadinsko prikupljanje podataka</string>
+    <string name="gesture_data_background_apps_include_default">Zadano uključivanje aplikacija</string>
+    <string name="gesture_data_background_excluded_words_button">Upravljaj isključenim riječima</string>
+    <string name="gesture_data_background_dictionary">Rječnik: %s</string>
+    <string name="gesture_data_background_position">Pozicija: %s</string>
+    <string name="gesture_data_background_exclude_words">Isključi riječ iz pozadinskog prikupljanja</string>
+    <string name="gesture_data_long_press_select_hint">Dugo pritisnite za odabir</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Pozadinsko prikupljanje podataka</string>
+    <string name="gesture_data_show_active">Prikaži aktivno prikupljene podatke</string>
+    <string name="gesture_data_show_background">Prikaži pozadinske podatke</string>
+    <string name="gesture_data_include_shared">Uključi već poslane podatke</string>
+    <string name="gesture_data_shared">poslano</string>
+    <string name="gesture_data_saving">Spremanje… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Dobro došli u pozadinsko prikupljanje podataka!&lt;br&gt; Želite li dodati tipku &lt;i&gt;%1$s&lt;/i&gt; u alatnu traku? Pomoću nje možete upravljati prikupljanjem podataka; više o tome saznajte pomoću gumba &lt;i&gt;%2$s&lt;/i&gt;. &lt;br&gt;&lt;br&gt; Prema zadanim postavkama pozadinsko prikupljanje onemogućeno je za sve aplikacije. To znači da se ništa neće prikupljati dok ne odaberete koje aplikacije dopuštate. To možete promijeniti %3$s.</string>
+    <string name="gesture_data_add_key">Dodaj tipku alatne trake</string>
+    <string name="gesture_data_no_known_dict">Pozadinsko prikupljanje prikuplja samo riječi iz rječnika koji su ugrađeni ili dostupni u &lt;a href=%s&gt;repozitoriju rječnika&lt;/a&gt;. Trenutno nemate omogućen nijedan takav rječnik.</string>
+    <string name="gesture_data_swipe_o_scope">Alat za vizualizaciju podataka gesti: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

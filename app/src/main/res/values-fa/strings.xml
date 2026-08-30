@@ -500,4 +500,50 @@
     <string name="gesture_data_reminder_message">سلام!\n شما قبلاً از ویژگی جمع‌آوری داده‌های اشاره‌ای استفاده کرده‌اید، اما مدتی است که داده‌ای اضافه نکرده‌اید. آیا مایل هستید دوباره مشارکت کنید؟</string>
     <string name="gesture_data_take_me_there">مرا به آنجا ببر</string>
     <string name="gesture_data_links">اطلاعات درباره جمع‌آوری داده‌های اشاره‌ای در:</string>
+    <string name="auto_correct_capitalized_suggestions">تصحیح خودکار پیشنهادهای با حرف بزرگ</string>
+    <string name="auto_correct_capitalized_suggestions_description">پس از فشردن کلید Shift برای بزرگ‌نویسی پیشنهادها، تصحیح خودکار اعمال می‌شود</string>
+    <string name="clipboard_history_files">افزودن تصاویر و سایر فایل‌ها به تاریخچه کلیپ‌بورد</string>
+    <string name="clipboard_history_max_file_size">محدودیت حجم کلیپ‌بورد</string>
+    <string name="item_description">توضیحات: %s</string>
+    <string name="item_type">نوع: %s</string>
+    <string name="abbreviation_unit_mb">%s مگابایت</string>
+    <string name="prefs_hint_font_scale">اندازه قلم راهنمای کلید</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (۴ ردیفه)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">پد جهت‌نما (D-pad)</string>
+    <string name="about_community_links">پیوندهای انجمن</string>
+    <string name="about_community_links_description">پوسته‌ها، ویرایشگر چیدمان، گفتگوها و…</string>
+    <string name="space_swipe_toggle_dpad_entry">تغییر به پد جهت‌نما (D-pad)</string>
+    <string name="gesture_data_share_duplicate">در صورتی که مطمئن نیستید داده‌های قبلاً ارسال‌شده به‌درستی دریافت شده‌اند، می‌توانید آن‌ها را دوباره به اشتراک بگذارید. ما هنگام پردازش داده‌ها، موارد تکراری را شناسایی و حذف می‌کنیم.</string>
+    <string name="gesture_data_active">جمع‌آوری فعال</string>
+    <string name="background_gesture_data_links">اطلاعات درباره جمع‌آوری در پس‌زمینه:</string>
+    <string name="gesture_data_background_gathering_switch">استفاده از جمع‌آوری داده‌ها در پس‌زمینه</string>
+    <string name="gesture_data_background_gathering_allowed_apps">برنامه‌های مجاز: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">دور ریختن به‌صورت پیش‌فرض</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">داده‌ها به‌صورت دستی از طریق کلید نوار ابزار ذخیره می‌شوند</string>
+    <string name="gesture_data_background_gathering_info">اطلاعات بیشتر</string>
+    <string name="gesture_data_background_gathering_info_message">فعال کردن جمع‌آوری داده‌ها در پس‌زمینه به HeliBoard اجازه می‌دهد اشاراتی را که در برنامه‌های دیگر تایپ می‌کنید ثبت کند. این کار برای پروژه تایپ اشاره‌ای بسیار مفید است، زیرا می‌تواند حجم قابل توجهی داده تولید کند، هرچند با کیفیتی پایین‌تر از جمع‌آوری فعال. جمع‌آوری داده‌ها در پس‌زمینه جایگزینی برای داده‌های جمع‌آوری فعال نیست، بلکه مکملی برای آن است، چرا که کیفیت داده‌ها مهم‌تر از کمیت آن‌هاست.\n\nجمع‌آوری در پس‌زمینه احتمال بالایی دارد داده‌هایی را جمع‌آوری کند که ممکن است آن‌ها را حتی در صورت انتشار ناشناس، برای اشتراک‌گذاری بیش از حد خصوصی بدانید. به همین دلیل می‌خواهیم روشن کنیم که چه زمانی داده‌های اشاره‌ای جمع‌آوری می‌شوند و چگونه می‌توانید بر آن تأثیر بگذارید.\n\nویدیویی با توضیحات بیشتر درباره جمع‌آوری داده‌ها در پس‌زمینه در بخش پیوندهای پایین این صفحه موجود است.</string>
+    <string name="gesture_data_background_gathering_indicator">نشانگر جمع‌آوری داده</string>
+    <string name="gesture_data_background_gathering_indicator_message">هر زمان که امکان ثبت داده‌های اشاره‌ای وجود داشته باشد، یک آیکون نشانگر در گوشه پایین صفحه‌کلید خواهید دید. وقتی دایره پر باشد، حداقل یک اشاره جمع‌آوری شده و در انتظار ذخیره است. داده‌ها یا از طریق کلید نوار ابزار (نگاه کنید به &lt;i&gt;%1$s&lt;/i&gt;) یا به‌صورت خودکار (وقتی &lt;i&gt;%2$s&lt;/i&gt; غیرفعال باشد) ذخیره می‌شوند. ذخیره خودکار معمولاً هنگام جابجایی بین فیلدهای متنی یا بستن صفحه‌کلید انجام می‌شود، اما ممکن است در صورت تغییر فیلد متنی به دلایل دیگر نیز رخ دهد. هنگام ذخیره شدن داده‌ها، نشانگر برای مدت کوتاهی سبز می‌شود.</string>
+    <string name="gesture_data_background_gathering_control">نحوه کنترل آنچه ذخیره می‌شود</string>
+    <string name="gesture_data_background_gathering_control_message">مستقل از تنظیمات، جمع‌آوری داده‌ها در پس‌زمینه هنگام استفاده از حالت ناشناس غیرفعال است. همچنین برای فیلدهای ورودی حساس (گذرواژه‌ها، ایمیل، یا هر زمان که فیلد ورودی از صفحه‌کلید بخواهد کلمات را یاد نگیرد) غیرفعال است. فقط کلماتی که در یک واژه‌نامه اصلی (داخلی یا از &lt;a href=%5$s&gt;مخزن واژه‌نامه‌ها&lt;/a&gt;) وجود دارند جمع‌آوری خواهند شد. &lt;br&gt;&lt;br&gt; با استفاده از &lt;i&gt;%1$s&lt;/i&gt; می‌توانید انتخاب کنید که در کدام برنامه‌ها جمع‌آوری داده در پس‌زمینه مجاز باشد. تنظیم پیش‌فرض همه برنامه‌ها را غیرفعال می‌کند و هر برنامه باید جداگانه فعال شود. در عوض می‌توانید همه برنامه‌ها را فعال کنید و برنامه‌ها را جداگانه مستثنا کنید. این کار راحت‌تر است، اما جمع‌آوری داده از برنامه‌های تازه نصب‌شده را به‌طور خودکار مجاز می‌کند و ممکن است داده‌هایی جمع‌آوری شود که انتظارش را نداشتید. &lt;br&gt;&lt;br&gt; با &lt;i&gt;%2$s&lt;/i&gt; می‌توانید کلمات حساس خاصی را مستثنا کنید. هنگام تایپ اشاره‌ای یک کلمه مستثناشده، آیکون نشانگر همچنان حالت پر («داده در انتظار ذخیره») را نشان می‌دهد، اما داده در زمانی که به‌طور معمول ذخیره می‌شد دور ریخته خواهد شد. کلمات مسدودشده‌ای که پیش از مسدود شدن ذخیره شده باشند، هنگام استخراج داده‌ها دور ریخته می‌شوند.&lt;br&gt; توجه داشته باشید که جمع‌آوری در پس‌زمینه فقط کلماتی را جمع‌آوری می‌کند که از قبل در یک واژه‌نامه اصلی وجود دارند؛ بنابراین احتمالاً تنها کلماتی که لازم است مسدود کنید، کلمات رایجی هستند که می‌توانند هویت شما را مشخص کنند، مانند: نام، خیابان، شهر، منطقه و غیره. &lt;br&gt;&lt;br&gt; وقتی &lt;i&gt;%3$s&lt;/i&gt; فعال باشد، داده‌ها فقط در صورتی ذخیره می‌شوند که خودتان به‌صورت دستی با کلید نوار ابزار &lt;i&gt;%4$s&lt;/i&gt; این کار را انجام دهید (در ادامه ببینید). اگر داده‌ها ذخیره نشوند، داده‌های در انتظار هنگام تغییر فیلد ورودی یا بستن صفحه‌کلید حذف خواهند شد.&lt;br&gt; استثنائات برنامه‌ها و کلمات در این حالت نیز اعمال می‌شوند. &lt;br&gt;&lt;br&gt; کلید نوار ابزار &lt;i&gt;%4$s&lt;/i&gt; برای کنترل جمع‌آوری داده‌ها قابل استفاده است. اثر فشردن آن به وضعیت فعلی بستگی دارد: وقتی جمع‌آوری در پس‌زمینه غیرفعال باشد، فعال می‌شود.&lt;br&gt; لمس طولانی، جمع‌آوری را برای پنج دقیقه غیرفعال می‌کند.&lt;br&gt; می‌توانید با یک فشردن عادی، جمع‌آوری در پس‌زمینه را زودتر دوباره فعال کنید.&lt;br&gt; وقتی &lt;i&gt;%3$s&lt;/i&gt; فعال باشد، داده‌های در انتظار ذخیره می‌شوند.&lt;br&gt; در غیر این صورت، داده‌های در انتظار دور ریخته می‌شوند.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">با استفاده از صفحه &lt;i&gt;%1$s&lt;/i&gt; می‌توانید داده‌های جمع‌آوری‌شده را بررسی و فیلتر کنید، داده‌هایی را که بیش از حد حساس می‌دانید حذف کنید و داده‌ها را به اشتراک بگذارید. دکمه‌های حذف و اشتراک‌گذاری روی داده‌های فیلترشده، یا در صورت انتخاب کلمات با لمس طولانی، روی موارد انتخاب‌شده عمل می‌کنند. (توجه کنید که آیکون اشتراک‌گذاری «عادی» خارج از صفحه &lt;i&gt;%1$s&lt;/i&gt; فقط داده‌های جمع‌آوری فعال را به اشتراک می‌گذارد.)&lt;br&gt; ترتیب داده‌های اشتراک‌گذاری‌شده تصادفی می‌شود، بنابراین چیزی بیش از تک‌تک کلمات قابل استنتاج نیست.&lt;br&gt; اگر می‌خواهید داده‌های کامل ذخیره‌شده برای یک اشاره را ببینید، می‌توانید آن را در یک فایل به اشتراک بگذارید و فایل را در &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt; بارگیری کنید.</string>
+    <string name="gesture_data_background_apps_button">مدیریت برنامه‌های مجاز</string>
+    <string name="gesture_data_background_apps">انتخاب برنامه‌ها برای جمع‌آوری داده در پس‌زمینه</string>
+    <string name="gesture_data_background_apps_include_default">شامل کردن برنامه‌ها به‌صورت پیش‌فرض</string>
+    <string name="gesture_data_background_excluded_words_button">مدیریت کلمات مستثناشده</string>
+    <string name="gesture_data_background_dictionary">واژه‌نامه: %s</string>
+    <string name="gesture_data_background_position">موقعیت: %s</string>
+    <string name="gesture_data_background_exclude_words">مستثنا کردن کلمه از جمع‌آوری در پس‌زمینه</string>
+    <string name="gesture_data_long_press_select_hint">برای انتخاب، لمس طولانی کنید</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">جمع‌آوری داده در پس‌زمینه</string>
+    <string name="gesture_data_show_active">نمایش داده‌های جمع‌آوری فعال</string>
+    <string name="gesture_data_show_background">نمایش داده‌های پس‌زمینه</string>
+    <string name="gesture_data_include_shared">شامل کردن داده‌های قبلاً ارسال‌شده</string>
+    <string name="gesture_data_shared">ارسال‌شده</string>
+    <string name="gesture_data_saving">در حال ذخیره… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">به جمع‌آوری داده‌ها در پس‌زمینه خوش آمدید!&lt;br&gt; آیا مایلید کلید &lt;i&gt;%1$s&lt;/i&gt; به نوار ابزار اضافه شود؟ می‌توانید از آن برای کنترل جمع‌آوری داده‌ها استفاده کنید؛ اطلاعات بیشتر را با دکمه &lt;i&gt;%2$s&lt;/i&gt; بخوانید. &lt;br&gt;&lt;br&gt; به‌صورت پیش‌فرض، جمع‌آوری در پس‌زمینه برای همه برنامه‌ها غیرفعال است. یعنی تا زمانی که برنامه‌های مجاز را انتخاب نکنید، چیزی جمع‌آوری نخواهد شد. می‌توانید آن را %3$s تغییر دهید.</string>
+    <string name="gesture_data_add_key">افزودن کلید نوار ابزار</string>
+    <string name="gesture_data_no_known_dict">جمع‌آوری در پس‌زمینه فقط کلماتی را جمع‌آوری می‌کند که از واژه‌نامه‌های داخلی برنامه یا واژه‌نامه‌های موجود در &lt;a href=%s&gt;مخزن واژه‌نامه‌ها&lt;/a&gt; می‌آیند. در حال حاضر هیچ واژه‌نامه‌ای از این نوع فعال ندارید.</string>
+    <string name="gesture_data_swipe_o_scope">ابزار مصورسازی داده‌های اشاره‌ای: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

@@ -228,7 +228,7 @@
     <string name="prefs_bottom_padding_scale">Alumiste veeriste mõõtkava</string>
     <string name="prefs_long_press_symbol_for_numpad">Sümbolklahvi pika vajutusega avaneb numbriline klahvistik</string>
     <string name="show_popup_hints">Näita funktsionaalseid vihjeid</string>
-    <string name="show_popup_hints_summary">Näita vihjeid, kui klahvi pika vajutusega on võimalik kasutada täiendavad funktsionaalsust</string>
+    <string name="show_popup_hints_summary">Näita vihjet, kui funktsiooniklahvi pika vajutusega avaneb hüpikaken</string>
     <string name="remove_redundant_popups">Eemalda mittevajalikud hüpikvalikud</string>
     <string name="remove_redundant_popups_summary">Ära käivita hüpikvalikuid, mis on juba olemas klaviatuuri tavapaigutuses</string>
     <string name="internal_dictionary_summary">Sisemine põhisõnastik</string>
@@ -544,4 +544,6 @@
     <string name="about_community_links">Kogukonna lingid</string>
     <string name="about_community_links_description">Kujundused, klahvipaigutused, arutelud, …</string>
     <string name="subtype_tok">Toki Pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">Suunaklahvistik</string>
+    <string name="space_swipe_toggle_dpad_entry">Lülita suunaklahvistik sisse/välja</string>
 </resources>

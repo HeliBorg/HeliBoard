@@ -87,6 +87,16 @@ class ClipboardHistoryManager(
         }
     }
 
+    fun getPrimaryClipIfText(): String? {
+        if (tempPrimaryClip) return null // avoid updating history
+        val clipData = clipboardManager.primaryClip ?: return null
+        if (clipData.itemCount == 0) return null
+        val clipItem = clipData.getItemAt(0) ?: return null
+        return if (clipData.description?.hasMimeType("text/*") == true)
+            clipItem.coerceToText(latinIME).toString().takeIf { it.isNotEmpty() }
+        else null
+    }
+
     // fallback method because in some apps there is no supported mime type and commitContend does nothing,
     // but KeyEvent.KEYCODE_PASTE for pasting from primary clip works fine
     // (actually we do change the primary clip, but (try to) revert immediately)

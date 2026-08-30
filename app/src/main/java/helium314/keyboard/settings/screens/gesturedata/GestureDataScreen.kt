@@ -717,13 +717,16 @@ private fun BinaryDictionary.addWords(words: MutableList<WeightedWord>) {
 }
 
 private fun calculateWordWeight(frequency: Int, length: Int): Double {
-    // val length_percent = length / 48.0
-    // val min_length = 2.0
-    // val lenBias = min_length * (1.0 - length_percent) + (4.0 * length_percent)
     val freq = frequency.toDouble()
-    val weight = 2.0.pow(freq/8.9)
-
-    return weight // lenBias
+    val weight = 2.0.pow(freq/14.0) * when (length) {
+        2 -> .5
+        3 -> .9
+        4 -> 1.0
+        5 -> .8
+        6 -> .5
+        else -> 2.0/length
+    }
+    return weight
 }
 
 // words will be added to the list while we're choosing -> ignore the new words

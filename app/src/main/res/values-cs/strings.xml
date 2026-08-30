@@ -252,7 +252,7 @@
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Vymazat schránku</string>
     <string name="voice" tools:keep="@string/voice">Hlasové zadávání</string>
     <string name="full_right" tools:keep="@string/full_right">Úplně vpravo</string>
-    <string name="show_popup_hints_summary">Zobrazit tipy, pokud dlouhé stisknutí klávesy aktivuje další funkce</string>
+    <string name="show_popup_hints_summary">Zobrazit tipy, pokud dlouhé stisknutí klávesy otevře vyskakovací okénko</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
@@ -546,4 +546,6 @@
     <string name="about_community_links">Komunitní odkazy</string>
     <string name="about_community_links_description">Motivy, úprava rozložení, diskuze, …</string>
     <string name="subtype_tok">Toki pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">Směrové klávesy</string>
+    <string name="space_swipe_toggle_dpad_entry">Přepnout směrové klávesy</string>
 </resources>

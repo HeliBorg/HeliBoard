@@ -183,7 +183,7 @@
     <string name="localized_number_row">Aangepaste Cijferregel</string>
     <string name="localized_number_row_summary">Voorkeur voor regionale cijfers i.p.v. latijns</string>
     <string name="hint_source">Bron voor hints kiezen</string>
-    <string name="show_popup_hints_summary">Hints tonen als lang drukken op een toets extra functionaliteit activeert</string>
+    <string name="show_popup_hints_summary">Toon hint als het lang indrukken van een functionele toets een pop-up opent</string>
     <string name="popup_order">Volgorde pop-up toets kiezen</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Cijferregel</string>
     <string name="prefs_bottom_padding_scale">Bodemafstand schaal</string>
@@ -305,42 +305,7 @@
     <string name="theme_colors_night">Kleuren (nacht)</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceaan</string>
-    <string name="hidden_features_message">► Lang drukken van vastgezette werkbalktoetsen resulteert in extra functionaliteit: &lt;br&gt;
-\n\t• klembord &amp;#65515; plakken&lt;br&gt;
-\n\t• links/rechts verplaatsen &amp;#65515; woord links/rechts verplaatsen &lt;br&gt;
-\n\t• omhoog/omlaag verplaatsen &amp;#65515; pagina omhoog/omlaag &lt;br&gt;
-\n\t• woord links/rechts &amp;#65515; regel begin/einde &lt;br&gt;
-\n\t• pagina omhoog/omlaag &amp;#65515; pagina begin/einde &lt;br&gt;
-\n\t• kopiëren &amp;#65515; knippen &lt;br&gt;
-\n\t• woord selecteren &amp;#8596; alles selecteren&lt;br&gt;
-\n\t• ongedaan maken &amp;#8596; opnieuw &lt;br&gt; &lt;br&gt;
-\n► Lang drukken van toetsen in de suggestieregel zet deze daarin vast. &lt;br&gt; &lt;br&gt;
-\n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Bediening met één hand, Instellingen, of de taal te wisselen: &lt;br&gt;
-\n\t• Emoji-weergave en taal-schakelaar verdwijnen wanneer de corresponderende toets is geactiveerd; &lt;br&gt;
-\n\t• Voor sommige lay-outs is het niet de komma-toets, maar de toets op dezelfde positie (bijvoorbeeld \\\'q\\\' bij een Dvorak-lay-out). &lt;br&gt; &lt;br&gt;
-\n► Wanneer incognitomodus is ingeschakeld, worden er geen woorden geleerd en worden er geen emoji\'s aan de lijst recent toegevoegd.&lt;br&gt; &lt;br&gt;
-\n► Druk op het Incognito-pictogram om toegang te krijgen tot de werkbalk. &lt;br&gt; &lt;br&gt;
-\n► Vegende toetsinvoer: Veeg van shift naar een andere toets om een enkele hoofdletter te typen: &lt;br&gt;
-\n\t• Dit werkt ook voor de \\\'?123\\\'-toets om een enkel symbool te typen vanaf het toetsenbord van de symbolen en voor gerelateerde toetsen. &lt;br&gt; &lt;br&gt;
-\n► Houd de shift- of symbolentoets ingedrukt, druk op een of meer toetsen en laat vervolgens de shift- of symbolentoets los om terug te keren naar het vorige toetsenbord. &lt;br&gt; &lt;br&gt;
-\n► Druk lang op een suggestie in de suggestiestrip om meer suggesties te tonen en een verwijderknop om deze suggestie te verwijderen. &lt;br&gt; &lt;br&gt;
-\n► Veeg omhoog van een suggestie om meer suggesties te openen en geef de suggestie om het te selecteren vrij. &lt;br&gt; &lt;br&gt;
-\n► Druk lang op een item in de klembordgeschiedenis om het vast te pinnen (in het klembord bewaren totdat je het losmaakt). &lt;br&gt; &lt;br&gt;
-\n► Veeg links in de klembordweergave om een item te verwijderen (behalve wanneer het vastgemaakt is) &lt;br&gt; &lt;br&gt;
-\n► Selecteer tekst en druk op shift om te schakelen tussen hoofdletters, kleine letters en hoofdletters. &lt;br&gt; &lt;br&gt;
-\n► Je kunt woordenboeken toevoegen door ze te openen in een bestandsverkenner: &lt;br&gt;
-\n\t• Dit werkt alleen met &lt;i&gt;inhoud-uris&lt;/i&gt; en niet met &lt;i&gt;bestand-uris&lt;/i&gt;, wat betekent dat het mogelijk niet werkt met sommige bestandsverkenners. &lt;br&gt; &lt;br&gt;
-\n► Voor gebruikers die handmatige back-ups maken met roottoegang: &lt;br&gt;
-\n\t• Vanaf Android 7 bevindt het bestand met gedeelde voorkeuren zich niet op de standaardlocatie, omdat de app %s gebruikt. Dit is nodig zodat de instellingen kunnen worden gelezen voordat het apparaat wordt ontgrendeld, bv. bij het opstarten; &lt;br&gt;
-\n\t• Het bestand bevindt zich in /data/user_de/0/package_id/shared_prefs/ hoewel dit kan afhangen van het apparaat en de Android-versie. &lt;br&gt; &lt;br&gt;
-\n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-\n► Druk lang op een suggestie om het bronwoordenboek te tonen. &lt;br&gt; &lt;br&gt;
-\n► Bij gebruik van een Debug APK, kunt u foutopsporingsinstellingen vinden in de geavanceerde voorkeuren, hoewel het nut beperkt is, behalve voor het dumpen van woordenboeken in het logboek. &lt;br&gt;
-\n\t• Voor een release-APK moet je meermaals op de versie tikken in &lt;i&gt;Over&lt;/i&gt;, dan kunt u debug-instellingen vinden in&lt;i&gt;Geavanceerde voorkeuren&lt;/i&gt;. &lt;br&gt;
-\n\t• Bij het inschakelen van &lt;i&gt;Suggestie-informatie tonen&lt;/i&gt;, zullen suggesties enkele kleine cijfers bevatten met een interne score en een bronwoordenboek. &lt;br&gt; &lt;br&gt;
-\n► In het geval van een applicatiecrash, wordt u gevraagd of u de crashlogboeken wilt wanneer u de instellingen opent. &lt;br&gt; &lt;br&gt;
-\n► Bij het gebruik van meertalig typen zal de spatiebalk een betrouwbaarheidswaarde tonen die wordt gebruikt voor het bepalen van de momenteel gebruikte taal. &lt;br&gt; &lt;br&gt;
-\n► Suggesties hebben een aantal kleine cijfers bovenaan met een interne score en een bronwoordenboek (kan worden uitgeschakeld).</string>
+    <string name="hidden_features_message">► Lang drukken van vastgezette werkbalktoetsen resulteert in extra functionaliteit: &lt;br&gt; \n\t• klembord &amp;#65515; plakken&lt;br&gt; \n\t• links/rechts verplaatsen &amp;#65515; woord links/rechts verplaatsen &lt;br&gt; \n\t• omhoog/omlaag verplaatsen &amp;#65515; pagina omhoog/omlaag &lt;br&gt; \n\t• woord links/rechts &amp;#65515; regel begin/einde &lt;br&gt; \n\t• pagina omhoog/omlaag &amp;#65515; pagina begin/einde &lt;br&gt; \n\t• kopiëren &amp;#65515; knippen &lt;br&gt; \n\t• woord selecteren &amp;#8596; alles selecteren&lt;br&gt; \n\t• ongedaan maken &amp;#8596; opnieuw &lt;br&gt; &lt;br&gt; \n► Lang drukken van toetsen in de suggestieregel zet deze daarin vast. &lt;br&gt; &lt;br&gt; \n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Bediening met één hand, Instellingen, of de taal te wisselen: &lt;br&gt; \n\t• Emoji-weergave en taal-schakelaar verdwijnen wanneer de corresponderende toets is geactiveerd; &lt;br&gt; \n\t• Voor sommige lay-outs is het niet de komma-toets, maar de toets op dezelfde positie (bijvoorbeeld \\\'q\\\' bij een Dvorak-lay-out). &lt;br&gt; &lt;br&gt; \n► Wanneer incognitomodus is ingeschakeld, worden er geen woorden geleerd en worden er geen emoji\'s aan de lijst recent toegevoegd.&lt;br&gt; &lt;br&gt; \n► Druk op het Incognito-pictogram om toegang te krijgen tot de werkbalk. &lt;br&gt; &lt;br&gt; \n► Vegende toetsinvoer: Veeg van shift naar een andere toets om een enkele hoofdletter te typen: &lt;br&gt; \n\t• Dit werkt ook voor de \\\'?123\\\'-toets om een enkel symbool te typen vanaf het toetsenbord van de symbolen en voor gerelateerde toetsen. &lt;br&gt; &lt;br&gt; \n► Houd de shift- of symbolentoets ingedrukt, druk op een of meer toetsen en laat vervolgens de shift- of symbolentoets los om terug te keren naar het vorige toetsenbord. &lt;br&gt; &lt;br&gt; \n► Druk lang op een suggestie in de suggestiestrip om meer suggesties te tonen en een verwijderknop om deze suggestie te verwijderen. &lt;br&gt; &lt;br&gt; \n► Veeg omhoog van een suggestie om meer suggesties te openen en geef de suggestie om het te selecteren vrij. &lt;br&gt; &lt;br&gt; \n► Druk lang op een item in de klembordgeschiedenis om het vast te pinnen (in het klembord bewaren totdat je het losmaakt). &lt;br&gt; &lt;br&gt; \n► Veeg links in de klembordweergave om een item te verwijderen (behalve wanneer het vastgemaakt is) &lt;br&gt; &lt;br&gt; \n► Selecteer tekst en druk op shift om te schakelen tussen hoofdletters, kleine letters en hoofdletters. &lt;br&gt; &lt;br&gt; \n► Je kunt woordenboeken toevoegen door ze te openen in een bestandsverkenner: &lt;br&gt; \n\t• Dit werkt alleen met &lt;i&gt;inhoud-uris&lt;/i&gt; en niet met &lt;i&gt;bestand-uris&lt;/i&gt;, wat betekent dat het mogelijk niet werkt met sommige bestandsverkenners. &lt;br&gt; &lt;br&gt; \n► Voor gebruikers die handmatige back-ups maken met roottoegang: &lt;br&gt; \n\t• Vanaf Android 7 bevindt het bestand met gedeelde voorkeuren zich niet op de standaardlocatie, omdat de app %s gebruikt. Dit is nodig zodat de instellingen kunnen worden gelezen voordat het apparaat wordt ontgrendeld, bv. bij het opstarten; &lt;br&gt; \n\t• Het bestand bevindt zich in /data/user_de/0/package_id/shared_prefs/ hoewel dit kan afhangen van het apparaat en de Android-versie. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Druk lang op een suggestie om het bronwoordenboek te tonen. &lt;br&gt; &lt;br&gt; \n► Bij gebruik van een Debug APK, kunt u foutopsporingsinstellingen vinden in de geavanceerde voorkeuren, hoewel het nut beperkt is, behalve voor het dumpen van woordenboeken in het logboek. &lt;br&gt; \n\t• Voor een release-APK moet je meermaals op de versie tikken in &lt;i&gt;Over&lt;/i&gt;, dan kunt u debug-instellingen vinden in&lt;i&gt;Geavanceerde voorkeuren&lt;/i&gt;. &lt;br&gt; \n\t• Bij het inschakelen van &lt;i&gt;Suggestie-informatie tonen&lt;/i&gt;, zullen suggesties enkele kleine cijfers bevatten met een interne score en een bronwoordenboek. &lt;br&gt; &lt;br&gt; \n► In het geval van een applicatiecrash, wordt u gevraagd of u de crashlogboeken wilt wanneer u de instellingen opent. &lt;br&gt; &lt;br&gt; \n► Bij het gebruik van meertalig typen zal de spatiebalk een betrouwbaarheidswaarde tonen die wordt gebruikt voor het bepalen van de momenteel gebruikte taal. &lt;br&gt; &lt;br&gt; \n► Suggesties hebben een aantal kleine cijfers bovenaan met een interne score en een bronwoordenboek (kan worden uitgeschakeld).</string>
     <string name="prefs_always_show_suggestions_summary">Verzoeken van andere apps om suggesties uit te schakelen negeren (kan problemen veroorzaken)</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functietoetsen</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functietoetsen (symbolen)</string>
@@ -588,4 +553,6 @@
     <string name="about_community_links">Gemeenschapslinks</string>
     <string name="about_community_links_description">Thema\'s, lay-outeditor, discussies, …</string>
     <string name="subtype_tok">Toki Pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="space_swipe_toggle_dpad_entry">D-pad omschakelen</string>
 </resources>

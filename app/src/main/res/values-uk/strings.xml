@@ -547,4 +547,6 @@
     <string name="about_community_links">Посилання спільноти</string>
     <string name="about_community_links_description">Теми, макети, обговорення, …</string>
     <string name="subtype_tok">Токі Пона</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="space_swipe_toggle_dpad_entry">Перемикати D-pad</string>
 </resources>

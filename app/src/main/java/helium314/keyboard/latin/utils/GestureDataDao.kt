@@ -71,7 +71,7 @@ class GestureDataDao(val db: Database) {
             null,
             null,
             null,
-            "RANDOM()"
+            "$COLUMN_DATA DESC",
         ).use {
             val exclusions = GestureDataGatheringSettings.getWordExclusions(context)
             while (it.moveToNext()) {
@@ -88,7 +88,7 @@ class GestureDataDao(val db: Database) {
             null,
             null,
             null,
-            "RANDOM()"
+            "$COLUMN_DATA DESC",
         ).use {
             val exclusions = GestureDataGatheringSettings.getWordExclusions(context)
             while (it.moveToNext()) {

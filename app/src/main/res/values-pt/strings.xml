@@ -442,4 +442,108 @@
     <string name="number_row_in_symbols">Mostrar fila de números no modo de símbolos</string>
     <string name="custom_emoji_font">Definir fonte de emojis personalizada de ficheiro</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas funcionais (Khipro)</string>
+    <string name="toolbar_swipe_down_to_hide">Esconder teclado ao deslizar</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Deslize para baixo na barra de ferramentas para fechar o teclado</string>
+    <string name="auto_correct_capitalized_suggestions">Autocorrigir sugestões capitalizadas</string>
+    <string name="auto_correct_capitalized_suggestions_description">Após pressionar shift para capitalizar as sugestões, a autocorreção será acionada</string>
+    <string name="custom_punctuation_suggestions">Definir sugestões de pontuação</string>
+    <string name="clipboard_history_files">Adicionar imagens e outros ficheiros ao histórico da área de transferência</string>
+    <string name="clipboard_history_max_file_size">Limite de tamanho da área de transferência</string>
+    <string name="item_description">Descrição: %s</string>
+    <string name="item_type">Tipo: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="timestamp_description">Pode adicionar a tecla de horário usando um layout personalizado com a tecla \'timestamp\', ou o código de tecla -10043</string>
+    <string name="floating" tools:keep="@string/floating">Teclado Flutuante</string>
+    <string name="prefs_key_gap_scale">Espaço entre teclas</string>
+    <string name="prefs_bottom_row_scale">Escala da fila inferior</string>
+    <string name="prefs_hint_font_scale">Tamanho da fonte das dicas de teclas</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4 filas)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="about_community_links">Links da comunidade</string>
+    <string name="about_community_links_description">Temas, editor de layouts, discussões, …</string>
+    <string name="space_swipe_toggle_dpad_entry">Ativar D-pad</string>
+    <string name="space_swipe_touchpad_mode_entry">Modo touchpad</string>
+    <string name="touchpad_sensitivity">Sensibilidade do touchpad</string>
+    <string name="touchpad_edge_scroll">Deslocamento nas margens do touchpad</string>
+    <string name="touchpad_edge_scroll_description">Deslocar automaticamente ao deslizar até à margem do teclado</string>
+    <string name="toolbar_only_with_hw_keyboard">Mostrar só a barra de ferramentas com teclado físico</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Ainda precisa de ativar a exibição do teclado virtual nas definições do sistema</string>
+    <string name="folded">Dobrado</string>
+    <string name="emoji_search_title">Pesquisar emojis</string>
+    <string name="search_field_placeholder">Pesquisar</string>
+    <string name="ask_later">Perguntar mais tarde</string>
+    <string name="spell_check_suggestions">Mostrar sugestões do verificador ortográfico</string>
+    <string name="spell_check_suggestions_summary">Mostrar sugestões ao selecionar uma palavra sublinhada a vermelho. Requer definir a app como verificador ortográfico padrão.</string>
+    <string name="gesture_data_screen">Recolha de dados de gestos</string>
+    <string name="gesture_data_description">&lt;b&gt;Bem-vindo ao ecrã de recolha de dados de gestos!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Este é parte de um &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projeto financiado pela NLnet&lt;/a&gt; que pretende produzir uma biblioteca de escrita por gestos totalmente open source, capaz de substituir a biblioteca de código fechado da Google.&lt;br/&gt; O resultado está planeado como uma substituição simples para teclados baseados em AOSP, mas também utilizável com outros teclados, p. ex. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Para desenvolver a biblioteca, é extremamente útil ter disponíveis dados de gestos detalhados em diferentes idiomas e de diferentes utilizadores.&lt;br/&gt; Ao recolher e submeter dados de escrita por gestos, pode contribuir para um conjunto aberto de dados de gestos que será usado para o desenvolvimento da biblioteca. O conjunto de dados será publicado sob a licença CC BY-SA 4.0 algum tempo após o fim da fase de recolha de dados em %s. Assim que tiver recolhido dados, pode submetê-los usando o ícone de partilha no fundo deste ecrã.</string>
+    <string name="gesture_data_info">O que é isto?</string>
+    <string name="gesture_data_description_modes">A forma \"segura\" de contribuir é o modo de &lt;i&gt;recolha ativa&lt;/i&gt;, em que lhe é mostrada uma palavra específica e insere essa palavra usando a escrita por gestos.&lt;br&gt; Também pode usar o modo de &lt;i&gt;recolha em segundo plano&lt;/i&gt;, em que pode fornecer amostras da sua escrita por gestos normal noutras apps. Devido à sensibilidade desta abordagem, este modo é opcional, configurável e tem um ecrã de revisão para os dados que está prestes a submeter.</string>
+    <string name="gesture_data_description_privacy">Privacidade\n\n Os dados que submete consistem em palavra-alvo, layout e dimensões do teclado, gesto (tempos e coordenadas), sugestões da biblioteca atual, hash dos dicionários usados, versão da app, modo de recolha de dados, se a biblioteca de escrita por gestos é a biblioteca \"padrão\" da Google, e um ID associado a cada gesto.\n Os dados submetidos serão descarregados e apagados da caixa de correio ProtonMail onde estão armazenados, logo que possível. Após o fim da fase de recolha de dados de gestos, o conjunto de dados acumulado de todos os utilizadores será publicado sob a licença Creative Commons BY-SA 4.0.\n\n Como parte da tentativa de proteger a sua privacidade, não será listado explicitamente como autor. O seu crédito será como \"The HeliBoard Gesture Data Project Contributors.\" Não deverá ser possível associar os dados que gera neste ecrã à sua identidade. No entanto, poderá ser possível determinar que gestos foram feitos pela mesma pessoa. Isto pode ser feito, p. ex., a partir de um layout de teclado personalizado, das dimensões do teclado, do idioma ou do estilo de gestos individual.</string>
+    <string name="gesture_data_privacy">Privacidade</string>
+    <string name="gesture_data_get_data">Partilhar ficheiro de dados de gestos</string>
+    <string name="gesture_data_delete_data">Limpar dados de gestos</string>
+    <string name="gesture_data_send_mail">Enviar dados por email</string>
+    <string name="gesture_data_copy_mail">Copiar endereço de email</string>
+    <string name="gesture_data_mail_use">Note que o endereço de email se destina a submissões de dados; poderá não receber respostas rápidas ou consistentes.</string>
+    <string name="gesture_data_share_duplicate">Pode partilhar novamente dados já submetidos, caso não tenha a certeza de que foram recebidos corretamente. Detetamos e removemos duplicados ao processar os dados.</string>
+    <string name="gesture_data_please_type">Por favor escreva com gestos:</string>
+    <string name="gesture_data_please_switch_keyboard">Por favor mude para %s</string>
+    <string name="gesture_data_next_save">Recebido \"%s\". Clique se tem a certeza de que fez o gesto corretamente</string>
+    <string name="gesture_data_next">Saltar palavra</string>
+    <string name="gesture_data_active_count">%1$s palavras nesta sessão, %2$s palavras no total (%3$s já submetidas ou apagadas)</string>
+    <string name="gesture_data_review_screen_title">Rever e partilhar dados de gestos</string>
+    <string name="gesture_data_words_selected">%s palavras</string>
+    <string name="gesture_data_date_range">Intervalo de datas</string>
+    <string name="gesture_data_much_data">Tem muitos dados por submeter. Por favor submeta e depois remova os dados antigos.</string>
+    <string name="gesture_data_how_to_use">Como usar</string>
+    <string name="gesture_data_active_description">Toque em &lt;i&gt;Iniciar recolha ativa&lt;/i&gt;, mude opcionalmente o dicionário e comece a escrever com gestos a palavra apresentada.&lt;br/&gt; Se o seu gesto corresponder à palavra, os dados são guardados e a palavra seguinte é apresentada. Caso contrário, pode tentar novamente, saltar a palavra ou confirmar que fez o gesto corretamente.&lt;br/&gt; Só pode usar dicionários incluídos na app ou disponíveis no &lt;a href=%s&gt;repositório de dicionários&lt;/a&gt;; não serão usadas outras palavras.</string>
+    <string name="gesture_data_active">Recolha ativa</string>
+    <string name="gesture_data_active_start">Iniciar recolha ativa</string>
+    <string name="gesture_data_active_stop">Parar recolha ativa</string>
+    <string name="gesture_data_ends_at">A fase de recolha de dados de gestos terminará em %s. Por favor submeta os seus dados antes dessa data.</string>
+    <string name="gesture_data_ended">A fase de recolha de dados de gestos terminou em %s. Pode partilhar os dados existentes, mas não adicionar nada de novo.</string>
+    <string name="gesture_data_share_all">Partilhar todas as %s palavras</string>
+    <string name="gesture_data_share_new">Partilhar %s palavras ainda não submetidas</string>
+    <string name="gesture_data_delete_dialog">Tem dados de %1$s palavras novas e %2$s já partilhadas.</string>
+    <string name="gesture_data_share_limit">Para evitar exceder limites de tamanho, só as primeiras %s palavras serão exportadas</string>
+    <string name="gesture_data_delete_dialog_all">Apagar todas as %s palavras</string>
+    <string name="gesture_data_delete_dialog_confirm">Tem a certeza? Isto irá apagar %s palavras. Certifique-se de que os seus dados partilhados foram submetidos!</string>
+    <string name="gesture_data_delete_dialog_submitted">Apagar %s palavras submetidas</string>
+    <string name="gesture_data_many_not_shared_words">Tem mais de %s palavras à espera de serem submetidas</string>
+    <string name="gesture_data_email_body">IMPORTANTE:\n\n Olá!\n Como lembrete, estes dados serão partilhados publicamente sob a licença CC BY-SA 4.0, e não será listado como autor, para proteger a sua privacidade.\n\n Obrigado por partilhar connosco os direitos sobre os seus dados. Iremos fazer bom uso deles!\n\n Note que alterar o texto deste aviso não muda o que faremos com os seus dados. Isto não é um contrato para ser modificado, é apenas um lembrete amigável!\n Se quiser enviar-nos uma mensagem juntamente com os seus dados, escreva-a abaixo desta linha.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Olá!\n Já que instalou a biblioteca de escrita por gestos, poderá estar interessado no projeto do HeliBoard para criar uma biblioteca de escrita por gestos totalmente aberta. Pode ajudar contribuindo com dados de gestos. Para mais informações, visite o ecrã de recolha de dados de gestos.</string>
+    <string name="gesture_data_reminder_message">Olá!\n Usou anteriormente a recolha de dados de gestos, mas já não adiciona dados há algum tempo. Quer contribuir novamente?</string>
+    <string name="gesture_data_take_me_there">Levar-me lá</string>
+    <string name="background_gesture_data_links">Informação sobre a recolha em segundo plano:</string>
+    <string name="gesture_data_links">Informação sobre a recolha ativa:</string>
+    <string name="gesture_data_background_gathering_switch">Usar recolha de dados em segundo plano</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Apps permitidas: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Descartar por padrão</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Os dados são guardados manualmente através da tecla da barra de ferramentas</string>
+    <string name="gesture_data_background_gathering_info">Mais informações</string>
+    <string name="gesture_data_background_gathering_info_message">Ativar a recolha de dados em segundo plano permite ao HeliBoard registar os gestos que escreve noutras apps. Isto é muito útil para o projeto de escrita por gestos, pois pode produzir uma quantidade considerável de dados, embora com menor qualidade do que a recolha ativa. A recolha de dados em segundo plano não substitui os dados recolhidos ativamente; destina-se a ser um complemento, pois a qualidade dos dados é mais importante do que a quantidade.\n\n A recolha em segundo plano tem grande potencial de recolher dados que pode considerar demasiado privados para partilhar, mesmo quando publicados anonimamente. Por esta razão, queremos clarificar quando os dados de gestos estão a ser recolhidos e como pode influenciá-lo.\n\n Pode encontrar um vídeo que explica mais sobre a recolha de dados em segundo plano na secção de links, no canto inferior direito deste ecrã.</string>
+    <string name="gesture_data_background_gathering_indicator">Indicador de recolha de dados</string>
+    <string name="gesture_data_background_gathering_indicator_message">Sempre que dados de gestos possam ser registados, verá um ícone indicador no canto inferior esquerdo do teclado. Quando o círculo está preenchido, pelo menos um gesto foi recolhido e está à espera de ser guardado. Os dados são guardados usando a tecla da barra de ferramentas (ver &lt;i&gt;%1$s&lt;/i&gt;) ou automaticamente (quando &lt;i&gt;%2$s&lt;/i&gt; está desativado). A gravação automática acontece normalmente ao mudar de campo de texto ou ao fechar o teclado, mas também pode acontecer se o campo de texto mudar por outra razão. Quando os dados estão a ser guardados, o indicador ficará verde por um curto período.</string>
+    <string name="gesture_data_background_gathering_control">Como controlar o que é guardado</string>
+    <string name="gesture_data_background_gathering_control_message">Independentemente das definições, a recolha de dados em segundo plano é desativada ao usar o modo incógnito. Também é desativada para campos de introdução marcados como sensíveis (palavras-passe, email, ou sempre que o campo de introdução pede ao teclado para não aprender as palavras). Só serão recolhidas palavras que estejam num dicionário principal (incluído na app ou do &lt;a href=%5$s&gt;repositório de dicionários&lt;/a&gt;). &lt;br&gt;&lt;br&gt; Usando &lt;i&gt;%1$s&lt;/i&gt; pode selecionar em que apps quer permitir a recolha de dados em segundo plano. A definição padrão desativa todas as apps, com ativação individual por app. Pode, em vez disso, optar por ativar todas as apps e desativar individualmente por app. Fazê-lo é mais conveniente, mas permitirá automaticamente a recolha de dados de apps recém-instaladas. Isto poderia causar a recolha de dados que não esperava. &lt;br&gt;&lt;br&gt; Com &lt;i&gt;%2$s&lt;/i&gt; pode excluir palavras sensíveis específicas. Ao fazer o gesto de uma palavra excluída, o ícone indicador ainda mostrará o ícone preenchido (\"dados à espera de serem guardados\"), mas os dados serão descartados quando normalmente seriam guardados. Quaisquer palavras bloqueadas que já tenham sido guardadas antes de a palavra ser bloqueada serão descartadas ao exportar os dados.&lt;br&gt; Note que a recolha em segundo plano só recolhe palavras que já estão num dicionário principal, portanto as únicas palavras que provavelmente precisará de bloquear são palavras comuns que poderiam ser usadas para o identificar pessoalmente, tais como: o seu nome, rua, cidade, região, etc. &lt;br&gt;&lt;br&gt; Quando &lt;i&gt;%3$s&lt;/i&gt; está ativado, os dados só são guardados se optar por fazê-lo manualmente usando a tecla da barra de ferramentas &lt;i&gt;%4$s&lt;/i&gt; (ver abaixo). Se os dados não forem guardados, os dados pendentes serão apagados ao mudar de campo de introdução ou ao fechar o teclado.&lt;br&gt; As exclusões de apps e palavras continuam a aplicar-se neste modo. &lt;br&gt;&lt;br&gt; A tecla da barra de ferramentas &lt;i&gt;%4$s&lt;/i&gt; pode ser usada para controlar a recolha de dados. O efeito de um toque depende do estado atual: Quando a recolha em segundo plano está desativada, será ativada.&lt;br&gt; Um toque longo desativará a recolha durante cinco minutos.&lt;br&gt; Pode reativar a recolha de dados em segundo plano mais cedo com um toque normal na tecla.&lt;br&gt; Quando &lt;i&gt;%3$s&lt;/i&gt; está ativado, os dados pendentes serão guardados.&lt;br&gt; Caso contrário, os dados pendentes serão descartados.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Usando o ecrã &lt;i&gt;%1$s&lt;/i&gt; pode verificar e filtrar os dados recolhidos, apagar dados que considere demasiado sensíveis e partilhar dados. Os botões de apagar e partilhar operam sobre os dados filtrados, ou sobre a seleção se usar o toque longo para selecionar palavras. (Note que o ícone de partilha \"normal\" fora do ecrã &lt;i&gt;%1$s&lt;/i&gt; só partilhará dados da recolha ativa.)&lt;br&gt; A ordem dos dados partilhados é aleatória, pelo que nada mais do que as palavras individuais pode ser deduzido.&lt;br&gt; Se quiser ver os dados completos armazenados para um gesto, pode partilhá-los para um ficheiro e carregar o ficheiro no &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="gesture_data_background_apps_button">Gerir apps permitidas</string>
+    <string name="gesture_data_background_apps">Selecionar apps a incluir na recolha de dados em segundo plano</string>
+    <string name="gesture_data_background_apps_include_default">Incluir apps por padrão</string>
+    <string name="gesture_data_background_excluded_words_button">Gerir palavras excluídas</string>
+    <string name="gesture_data_background_dictionary">Dicionário: %s</string>
+    <string name="gesture_data_background_position">Posição: %s</string>
+    <string name="gesture_data_background_exclude_words">Excluir palavra da recolha em segundo plano</string>
+    <string name="gesture_data_long_press_select_hint">Toque longo para selecionar</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Recolha de dados em segundo plano</string>
+    <string name="gesture_data_show_active">Mostrar dados recolhidos ativamente</string>
+    <string name="gesture_data_show_background">Mostrar dados de segundo plano</string>
+    <string name="gesture_data_include_shared">Incluir dados já submetidos</string>
+    <string name="gesture_data_shared">submetida</string>
+    <string name="gesture_data_saving">A guardar… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Bem-vindo à recolha de dados em segundo plano!&lt;br&gt; Deseja adicionar a tecla &lt;i&gt;%1$s&lt;/i&gt; à barra de ferramentas? Pode usá-la para controlar a recolha de dados; leia mais sobre isso usando o botão &lt;i&gt;%2$s&lt;/i&gt;. &lt;br&gt;&lt;br&gt; Por padrão, a recolha em segundo plano está desativada para todas as apps. Isto significa que nada será recolhido até escolher que apps permite. Pode alterá-lo %3$s.</string>
+    <string name="gesture_data_add_key">Adicionar tecla à barra de ferramentas</string>
+    <string name="gesture_data_no_known_dict">A recolha em segundo plano só recolhe palavras provenientes de dicionários incluídos na app ou disponíveis no &lt;a href=%s&gt;repositório de dicionários&lt;/a&gt;. Atualmente não tem nenhum desses dicionários ativado.</string>
+    <string name="gesture_data_swipe_o_scope">Ferramenta para visualizar dados de gestos: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

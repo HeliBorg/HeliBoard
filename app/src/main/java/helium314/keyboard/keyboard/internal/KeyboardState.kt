@@ -150,7 +150,11 @@ class KeyboardState(private val switchActions: SwitchActions) {
         }
         prevLayouts.wipe()
         if (mode == Mode.ALPHABET) {
-            return
+            // todo
+            //  Currently we want to always load the alphabet keyboard, because KeyboadSwitcher.setEmojiKeyboard (and others)
+            //  might be called from other places than KeyboardState, in which case we have the wrong mode and prevLayouts.
+            //  a proper fix would be to either check the state in all SwitchActions, or make sure they are only called from KeyboardState.
+            //return
         }
         loadLayout(Alphabet(shiftMode, autoCapsFlags, recapitalizeMode))
     }

@@ -1,12 +1,12 @@
-* Recopilación de datos de gestos en segundo plano
-* Archivos e imágenes en el historial del portapapeles
-* Teclado flotante
-* Emojis Unicode 17.0
-* Ajustes de escala para teléfonos plegables
-* Modo touchpad al deslizar la barra espaciadora
-* Opción para desactivar sugerencias del corrector
-* Deslizador de autocorrección
-* Deslizador de separación entre teclas
-* Distribución uniforme de la barra de herramientas
-* Corrección de seguridad al restaurar ZIP manipulado
-* Más correcciones y mejoras…
+* datos de gestos en segundo plano
+* archivos/imágenes en portapapeles
+* teclado flotante
+* emojis Unicode 17.0
+* escala para pantallas plegables
+* modo touchpad en barra espaciadora
+* desactivar emergente de corrector
+* autocorrección mediante barra deslizante
+* barra para espacio entre teclas.
+* teclas de herramientas uniformes
+* seguridad: restaurar desde zip
+* correcciones y mejoras...

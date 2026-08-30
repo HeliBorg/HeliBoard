@@ -1,1 +1,10 @@
-recapitalizing
+* ajout recherche émoji (implique dictionnaire émoji)
+* ajout option collecte données gestuelles (implique bibliothèque saisie gestuelle)
+* entourer texte sélectionné d'accolades et similaires au lieu de remplacer le texte
+* permettre police distincte pour émojis
+* rendre numéro ligne optionnel dans symboles
+* diminuer erreurs correction pour adresses mail
+* correction mouvements curseur sur barre espace pour le texte RTL + non-RTL
+* ne pas tronquer la sélection lors capitalisation
+* améliorer combineur khipro
+* corrections & améliorations mineures

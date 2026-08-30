@@ -233,7 +233,7 @@
     <string name="localized_number_row">本地化数字行</string>
     <string name="localized_number_row_summary">更喜欢本地化数字而不是拉丁数字</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">语言（优先级）</string>
-    <string name="show_popup_hints_summary">如果长按某个键会触发其他功能，则显示提示</string>
+    <string name="show_popup_hints_summary">如果长按功能键打开弹出窗口则显示提示</string>
     <string name="emoji" tools:keep="@string/emoji">表情符号</string>
     <string name="show_popup_hints">显示功能提示</string>
     <string name="prefs_long_press_symbol_for_numpad">长按数字键盘符号键</string>
@@ -539,4 +539,14 @@
     <string name="prefs_hint_font_scale">按键提示字体比例</string>
     <string name="about_community_links">社区链接</string>
     <string name="about_community_links_description">主题、布局编辑器、讨论…</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">方向键盘</string>
+    <string name="space_swipe_toggle_dpad_entry">切换方向键盘</string>
+    <string name="gesture_data_background_gathering_info_message">开启后台数据收集后，HeliBoard 可以记录您在其他应用中的滑行输入。这对滑行输入项目非常有用，因为它可以产生相当可观的数据量，尽管质量低于主动收集。后台数据收集并不能替代主动收集的数据，而是作为补充，因为数据质量比数量更重要。\n\n后台收集很有可能收集到您认为过于私密而不宜分享的数据，即使数据以匿名方式发布。因此，我们希望向您说明何时会收集滑行输入数据，以及您可以如何控制。\n\n您可以在此屏幕右下角的链接部分找到详细介绍后台数据收集的视频。</string>
+    <string name="gesture_data_background_gathering_indicator_message">每当可能记录滑行输入数据时，键盘左下角都会显示一个指示图标。当圆圈被填满时，表示至少已收集了一次滑行输入并正在等待保存。数据可通过工具栏键保存（参见&lt;i&gt;%1$s&lt;/i&gt;），或自动保存（当&lt;i&gt;%2$s&lt;/i&gt;被禁用时）。自动保存通常发生在切换文本字段或关闭键盘时，但如果文本字段因其他原因发生变化，也可能会自动保存。保存数据时，指示图标会短暂变为绿色。</string>
+    <string name="gesture_data_background_gathering_control_message">无论设置如何，使用隐身模式时后台数据收集都会被禁用。对于标记为敏感的输入字段（密码、电子邮件，或输入字段要求键盘不学习字词的情况），后台数据收集同样会被禁用。只会收集主字典（内置或来自&lt;a href=%5$s&gt;字典仓库&lt;/a&gt;）中的字词。&lt;br&gt;&lt;br&gt;通过&lt;i&gt;%1$s&lt;/i&gt;，您可以选择允许在哪些应用中进行后台数据收集。默认设置会禁用所有应用，需按应用逐个启用。您也可以改为启用所有应用，再按应用逐个禁用。这样更方便，但会自动允许从新安装的应用中收集数据，可能导致收集到您意料之外的数据。&lt;br&gt;&lt;br&gt;通过&lt;i&gt;%2$s&lt;/i&gt;，您可以排除特定的敏感字词。滑行输入被排除的字词时，指示图标仍会显示为填满状态（“数据等待保存”），但这些数据会在本应保存时被舍弃。在字词被屏蔽之前已保存的该字词数据，将在导出数据时被舍弃。&lt;br&gt;请注意，后台收集只会收集已存在于主字典中的字词，因此您可能需要屏蔽的只是那些可用于识别您个人身份的常见字词，例如：您的姓名、街道、城市、地区等。&lt;br&gt;&lt;br&gt;启用&lt;i&gt;%3$s&lt;/i&gt;后，只有当您使用&lt;i&gt;%4$s&lt;/i&gt;工具栏键手动保存时，数据才会被保存（见下文）。如果数据未保存，待保存的数据将在更改输入字段或关闭键盘时被删除。&lt;br&gt;在此模式下，应用和字词排除规则仍然适用。&lt;br&gt;&lt;br&gt;&lt;i&gt;%4$s&lt;/i&gt;工具栏键可用于控制数据收集。按下该键的效果取决于当前状态：当后台收集处于禁用状态时，按下会将其启用。&lt;br&gt;长按会将收集禁用五分钟。&lt;br&gt;您可以通过普通按键提前重新启用后台数据收集。&lt;br&gt;当&lt;i&gt;%3$s&lt;/i&gt;已启用时，待保存的数据将被保存。&lt;br&gt;否则，待保存的数据将被舍弃。&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">通过&lt;i&gt;%1$s&lt;/i&gt;界面，您可以检查和筛选已收集的数据，删除您认为过于敏感的数据，并分享数据。删除和分享按钮将作用于筛选后的数据；如果您通过长按选择了字词，则作用于所选内容。（请注意，&lt;i&gt;%1$s&lt;/i&gt;界面之外的“普通”分享图标只会分享主动收集的数据。）&lt;br&gt;分享数据的顺序是随机的，因此除单个字词外无法推断出更多信息。&lt;br&gt;如果您想查看某次滑行输入存储的完整数据，可以将其分享到文件，然后在&lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;中加载该文件。</string>
+    <string name="gesture_data_first_enable_dialog">欢迎使用后台数据收集！&lt;br&gt;是否要将&lt;i&gt;%1$s&lt;/i&gt;键添加到工具栏？您可以用它来控制数据收集，并可通过&lt;i&gt;%2$s&lt;/i&gt;按钮了解更多信息。&lt;br&gt;&lt;br&gt;默认情况下，所有应用的后台收集均已禁用。这意味着在您选择允许哪些应用之前，不会收集任何内容。您可以在%3$s更改此设置。</string>
+    <string name="gesture_data_no_known_dict">后台收集只会收集来自内置字典或&lt;a href=%s&gt;字典仓库&lt;/a&gt;中可用字典的字词。您当前没有启用任何此类字典。</string>
+    <string name="gesture_data_swipe_o_scope">滑行输入数据可视化工具：&lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

@@ -85,7 +85,7 @@
     <string name="show_hints">বোতামের ইঙ্গিত প্রদর্শন</string>
     <string name="show_hints_summary">দীর্ঘ চাপের ইঙ্গিত প্রদর্শন</string>
     <string name="show_popup_hints">ফাংশনাল ইঙ্গিত প্রদর্শন</string>
-    <string name="show_popup_hints_summary">কোনো বোতামে দীর্ঘ চাপে অতিরিক্ত ফাংশন থাকলে তার ইঙ্গিত দেখাবে</string>
+    <string name="show_popup_hints_summary">ফাংশনাল বোতামে দীর্ঘ চাপে পপআপ থাকলে ইঙ্গিত দেখাবে</string>
     <string name="prefs_long_press_keyboard_to_change_lang">স্পেস বোতামে ইনপুট পদ্ধতি পরিবর্তন</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">স্পেস বোতামে দীর্ঘ চাপ দিয়ে ইনপুট পদ্ধতি নির্বাচনের মেনু আনয়ন</string>
     <string name="prefs_keyboard_height_scale">কিবোর্ডের উচ্চতার স্কেল</string>
@@ -545,4 +545,6 @@
     <string name="about_community_links">সম্প্রদায়ের সংযোগ</string>
     <string name="about_community_links_description">থিম, লেআউট সম্পাদনা, আলোচনা, …</string>
     <string name="subtype_tok">টোকি পোনা</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">ডি-প্যাড</string>
+    <string name="space_swipe_toggle_dpad_entry">ডি-প্যাডে অবস্থান্তর</string>
 </resources>

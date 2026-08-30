@@ -252,7 +252,7 @@
     <string name="up" tools:keep="@string/up">מעלה</string>
     <string name="emoji" tools:keep="@string/emoji">אימוג\'י</string>
     <string name="show_popup_hints">הצגת רמזים פונקציונליים</string>
-    <string name="show_popup_hints_summary">הצגת רמזים אם לחיצה ממושכת תגרום להפעלת פונקציונליות נוספת</string>
+    <string name="show_popup_hints_summary">הצגת רמז אם לחיצה ממושכת על מקש פונקציונלי פותחת בועית</string>
     <string name="prefs_long_press_symbol_for_numpad">כפתור סימנים בלחיצה ממושכת עבור numpad</string>
     <string name="prefs_bottom_padding_scale">קנה-מידה גובה המרווח התחתון</string>
     <string name="replace_dictionary_message">להחליף את המילון „%1$s” שנוסף ידנית? \n \nהמילון הנוכחי: \n%2$s \n \nהמילון החדש: \n%3$s</string>
@@ -543,4 +543,9 @@
     <string name="gesture_data_background_gathering_manual_save">שמיטה כברירת-מחדל</string>
     <string name="gesture_data_background_gathering_manual_save_summary">הנתונים יישמרו ידנית באמצעות פקד סרגל הכלים</string>
     <string name="subtype_tok">טוקי פונה</string>
+    <string name="space_swipe_toggle_dpad_entry">מעבר למקשי הכיוון (D-pad)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">מקשי כיוון (D-pad)</string>
+    <string name="subtype_probhat_bn_BD">%s (פרובהאט)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_student">%s (סטודנט)</string>
 </resources>

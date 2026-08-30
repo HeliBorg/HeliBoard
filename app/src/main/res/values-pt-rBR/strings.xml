@@ -501,4 +501,58 @@
     <string name="custom_punctuation_suggestions">Configurar sugestões de pontuação</string>
     <string name="space_swipe_touchpad_mode_entry">Modo touchpad</string>
     <string name="touchpad_sensitivity">Sensibilidade do touchpad</string>
+    <string name="auto_correct_capitalized_suggestions">Auto-corrigir sugestões com inicial maiúscula</string>
+    <string name="auto_correct_capitalized_suggestions_description">Após pressionar shift para deixar as sugestões com inicial maiúscula, a correção automática será acionada</string>
+    <string name="clipboard_history_files">Adicionar imagens e outros arquivos ao histórico da área de transferência</string>
+    <string name="clipboard_history_max_file_size">Limite de tamanho da área de transferência</string>
+    <string name="item_description">Descrição: %s</string>
+    <string name="item_type">Tipo: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="floating" tools:keep="@string/floating">Teclado flutuante</string>
+    <string name="prefs_key_gap_scale">Escala do espaço entre as teclas</string>
+    <string name="prefs_hint_font_scale">Escala da fonte das dicas de tecla</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4 linhas)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">Teclado direcional</string>
+    <string name="about_community_links">Links da comunidade</string>
+    <string name="about_community_links_description">Temas, editor de layouts, discussões, …</string>
+    <string name="space_swipe_toggle_dpad_entry">Ativar teclado direcional</string>
+    <string name="touchpad_edge_scroll">Rolagem na borda do touchpad</string>
+    <string name="touchpad_edge_scroll_description">Rolar automaticamente ao deslizar até a borda do teclado</string>
+    <string name="toolbar_only_with_hw_keyboard">Mostrar apenas a barra de ferramentas com teclado físico</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Você ainda precisa ativar a exibição do teclado virtual nas configurações do sistema</string>
+    <string name="spell_check_suggestions">Mostrar sugestões do verificador ortográfico</string>
+    <string name="spell_check_suggestions_summary">Mostrar sugestões ao selecionar uma palavra sublinhada em vermelho. É necessário definir o app como verificador ortográfico padrão.</string>
+    <string name="gesture_data_share_duplicate">Você pode compartilhar novamente dados já enviados, caso não tenha certeza de que foram recebidos corretamente. Nós detectamos e removemos duplicatas ao processar os dados.</string>
+    <string name="gesture_data_active">Coleta ativa</string>
+    <string name="background_gesture_data_links">Informações sobre a coleta em segundo plano:</string>
+    <string name="gesture_data_background_gathering_switch">Usar coleta de dados em segundo plano</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Apps permitidos: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Descartar por padrão</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Os dados são salvos manualmente pela tecla da barra de ferramentas</string>
+    <string name="gesture_data_background_gathering_info">Mais informações</string>
+    <string name="gesture_data_background_gathering_info_message">Ativar a coleta de dados em segundo plano permite que o Heliboard registre os gestos que você digita em outros apps. Isso é muito útil para o projeto de digitação por gestos, pois pode produzir uma quantidade considerável de dados, embora com qualidade inferior à da coleta ativa. A coleta de dados em segundo plano não substitui os dados coletados ativamente; ela é um complemento, já que a qualidade dos dados é mais importante que a quantidade.\n\nA coleta em segundo plano tem grande potencial de registrar dados que você pode considerar privados demais para compartilhar, mesmo quando publicados anonimamente. Por isso, queremos esclarecer quando os dados de gestos estão sendo coletados e como você pode influenciar isso.\n\nVocê pode encontrar um vídeo explicando mais sobre a coleta de dados em segundo plano na seção de links no canto inferior direito desta tela.</string>
+    <string name="gesture_data_background_gathering_indicator">Indicador de coleta de dados</string>
+    <string name="gesture_data_background_gathering_indicator_message">Sempre que dados de gestos puderem ser registrados, você verá um ícone indicador no canto inferior esquerdo do teclado. Quando o círculo estiver preenchido, pelo menos um gesto foi coletado e está aguardando para ser salvo. Os dados são salvos usando a tecla da barra de ferramentas (veja &lt;i&gt;%1$s&lt;/i&gt;) ou automaticamente (quando &lt;i&gt;%2$s&lt;/i&gt; está desativado). O salvamento automático geralmente ocorre ao trocar de campo de texto ou fechar o teclado, mas também pode ocorrer se o campo de texto mudar por algum outro motivo. Quando os dados estão sendo salvos, o indicador ficará verde por um curto período.</string>
+    <string name="gesture_data_background_gathering_control">Como controlar o que é salvo</string>
+    <string name="gesture_data_background_gathering_control_message">Independentemente das configurações, a coleta de dados em segundo plano fica desativada ao usar o modo privativo. Ela também fica desativada em campos de entrada marcados como sensíveis (senhas, e-mail, ou sempre que o campo de entrada solicitar que o teclado não aprenda as palavras). Somente palavras que estejam em um dicionário principal (integrado ou do &lt;a href=%5$s&gt;repositório de dicionários&lt;/a&gt;) serão coletadas.&lt;br&gt;&lt;br&gt; Usando &lt;i&gt;%1$s&lt;/i&gt; você pode selecionar em quais apps deseja permitir a coleta de dados em segundo plano. A configuração padrão desativa todos os apps, com ativação individual por app. Você pode, em vez disso, ativar todos os apps e desativar individualmente por app. Isso é mais conveniente, mas permitirá automaticamente a coleta de dados de apps recém-instalados, o que pode fazer com que sejam coletados dados que você não esperava.&lt;br&gt;&lt;br&gt; Com &lt;i&gt;%2$s&lt;/i&gt; você pode excluir palavras sensíveis específicas. Ao fazer o gesto de uma palavra excluída, o ícone indicador ainda mostrará o ícone preenchido (\"dados aguardando para serem salvos\"), mas os dados serão descartados quando normalmente seriam salvos. Palavras bloqueadas que já tiverem sido salvas antes do bloqueio serão descartadas ao exportar os dados.&lt;br&gt; Observe que a coleta em segundo plano só registra palavras que já estão em um dicionário principal; portanto, as únicas palavras que você provavelmente precisará bloquear são palavras comuns que poderiam identificá-lo pessoalmente, como: seu nome, rua, cidade, região etc.&lt;br&gt;&lt;br&gt; Quando &lt;i&gt;%3$s&lt;/i&gt; está ativado, os dados só são salvos se você optar por salvá-los manualmente usando a tecla &lt;i&gt;%4$s&lt;/i&gt; da barra de ferramentas (veja abaixo). Se os dados não forem salvos, os dados pendentes serão excluídos ao trocar de campo de entrada ou fechar o teclado.&lt;br&gt; As exclusões de apps e palavras continuam valendo nesse modo.&lt;br&gt;&lt;br&gt; A tecla &lt;i&gt;%4$s&lt;/i&gt; da barra de ferramentas pode ser usada para controlar a coleta de dados. O efeito de um toque depende do estado atual: quando a coleta em segundo plano está desativada, ela será ativada.&lt;br&gt; Um toque longo desativará a coleta por cinco minutos.&lt;br&gt; Você pode reativar a coleta de dados em segundo plano antes disso com um toque normal.&lt;br&gt; Quando &lt;i&gt;%3$s&lt;/i&gt; está ativado, os dados pendentes serão salvos.&lt;br&gt; Caso contrário, os dados pendentes serão descartados.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Na tela &lt;i&gt;%1$s&lt;/i&gt; você pode verificar e filtrar os dados coletados, excluir dados que considerar sensíveis demais e compartilhar dados. Os botões de excluir e compartilhar atuam sobre os dados filtrados, ou sobre a seleção, se você usar o toque longo para selecionar palavras. (Observe que o ícone de compartilhamento \"normal\" fora da tela &lt;i&gt;%1$s&lt;/i&gt; só compartilhará dados da coleta ativa.)&lt;br&gt; A ordem dos dados compartilhados é aleatória, de modo que nada além das palavras individuais pode ser deduzido.&lt;br&gt; Se você quiser ver todos os dados armazenados de um gesto, pode compartilhá-los em um arquivo e carregar o arquivo no &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="gesture_data_background_apps_button">Gerenciar apps permitidos</string>
+    <string name="gesture_data_background_apps">Selecionar apps a incluir na coleta de dados em segundo plano</string>
+    <string name="gesture_data_background_apps_include_default">Incluir apps por padrão</string>
+    <string name="gesture_data_background_excluded_words_button">Gerenciar palavras excluídas</string>
+    <string name="gesture_data_background_dictionary">Dicionário: %s</string>
+    <string name="gesture_data_background_position">Posição: %s</string>
+    <string name="gesture_data_background_exclude_words">Excluir palavra da coleta em segundo plano</string>
+    <string name="gesture_data_long_press_select_hint">Toque longo para selecionar</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Coleta de dados em segundo plano</string>
+    <string name="gesture_data_show_active">Mostrar dados coletados ativamente</string>
+    <string name="gesture_data_show_background">Mostrar dados em segundo plano</string>
+    <string name="gesture_data_include_shared">Incluir dados já enviados</string>
+    <string name="gesture_data_shared">enviada</string>
+    <string name="gesture_data_saving">Salvando… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Boas-vindas à coleta de dados em segundo plano!&lt;br&gt; Deseja adicionar a tecla &lt;i&gt;%1$s&lt;/i&gt; à barra de ferramentas? Você pode usá-la para controlar a coleta de dados; leia mais sobre isso usando o botão &lt;i&gt;%2$s&lt;/i&gt;.&lt;br&gt;&lt;br&gt; Por padrão, a coleta em segundo plano fica desativada para todos os apps. Isso significa que nada será coletado até que você escolha quais apps permitir. Você pode alterar isso %3$s.</string>
+    <string name="gesture_data_add_key">Adicionar tecla à barra de ferramentas</string>
+    <string name="gesture_data_no_known_dict">A coleta em segundo plano só registra palavras provenientes de dicionários integrados ou disponíveis no &lt;a href=%s&gt;repositório de dicionários&lt;/a&gt;. No momento, você não tem nenhum dicionário desse tipo ativado.</string>
+    <string name="gesture_data_swipe_o_scope">Ferramenta para visualizar dados de gestos: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

@@ -7,10 +7,10 @@
     <string name="use_contacts_dict">"Kişi adlarını denetle"</string>
     <string name="vibrate_on_keypress">"Tuşa basıldığında titret"</string>
     <string name="sound_on_keypress">"Tuşa basıldığında ses çıkar"</string>
-    <string name="popup_on_keypress">Tuşa basıldığında açılır pencere aç</string>
+    <string name="popup_on_keypress">Tuş basımında önizleme</string>
     <string name="settings_screen_preferences">Tercihler</string>
-    <string name="settings_screen_gesture">Hareketle yazma</string>
-    <string name="settings_screen_correction">"Metin düzeltme"</string>
+    <string name="settings_screen_gesture">Kaydırarak Yazma</string>
+    <string name="settings_screen_correction">Metin düzeltme</string>
     <string name="settings_screen_advanced">"Gelişmiş"</string>
     <string name="settings_screen_theme">"Tema"</string>
     <string name="enable_split_keyboard">"Bölünmüş klavyeyi etkinleştir"</string>
@@ -29,7 +29,7 @@
     <string name="prefs_show_suggestions">"Düzeltme önerilerini göster"</string>
     <string name="prefs_show_suggestions_summary">"Yazarken, önerilen kelimeleri görüntüle"</string>
     <string name="prefs_block_potentially_offensive_title">"Rahatsız edici kelimeleri engelle"</string>
-    <string name="prefs_block_potentially_offensive_summary">"Rahatsız edici olabilecek kelimeleri önermez"</string>
+    <string name="prefs_block_potentially_offensive_summary">Rahatsız edici olabilecek kelimeleri önerme</string>
     <string name="autocorrect">"Otomatik düzelt"</string>
     <string name="auto_correction_summary">Boşluk tuşu ve noktalama işaretleri yanlış yazılan kelimeleri otomatik düzeltir</string>
     <string name="auto_correction_threshold_mode_off">"Kapalı"</string>
@@ -448,4 +448,111 @@
     <string name="toolbar_swipe_down_to_hide_summary">Klavyeyi kapatmak için araç çubuğunu aşağı kaydır</string>
     <string name="custom_emoji_font">Dosyadan özel emoji fontu ayarla</string>
     <string name="prefs_bottom_row_scale">Alt satır ölçeği</string>
+    <string name="auto_correct_capitalized_suggestions">Büyük harfli önerileri otomatik düzelt</string>
+    <string name="auto_correct_capitalized_suggestions_description">Önerileri büyük harf yapmak için Shift tuşuna basıldıktan sonra otomatik düzeltme tetiklenir</string>
+    <string name="custom_punctuation_suggestions">Noktalama önerilerini ayarla</string>
+    <string name="clipboard_history_files">Görselleri ve diğer dosyaları pano geçmişine ekle</string>
+    <string name="clipboard_history_max_file_size">Pano boyutu sınırı</string>
+    <string name="item_description">Açıklama: %s</string>
+    <string name="item_type">Tür: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="timestamp_description">Zaman damgası tuşunu, \'timestamp\' tuşu içeren özel bir düzenle veya -10043 tuş koduyla ekleyebilirsin</string>
+    <string name="number_row_in_symbols">Sembol görünümünde sayı satırını göster</string>
+    <string name="floating" tools:keep="@string/floating">Kayan klavye</string>
+    <string name="prefs_key_gap_scale">Tuş aralığı ölçeği</string>
+    <string name="prefs_hint_font_scale">Tuş ipucu yazı tipi boyutu</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4 satırlı)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">İşlevsel tuşlar (Khipro)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">Yön tuşları</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Eylem tuşlu emoji alt satırı</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Eylem tuşlu pano alt satırı</string>
+    <string name="about_community_links">Topluluk bağlantıları</string>
+    <string name="about_community_links_description">Temalar, düzen editörü, tartışmalar, …</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Sıfır genişlikli bağlantı önleyici eleman</string>
+    <string name="space_swipe_toggle_dpad_entry">Yön tuşlarını aç kapa</string>
+    <string name="space_swipe_touchpad_mode_entry">Dokunmatik yüzey modu</string>
+    <string name="touchpad_sensitivity">Dokunmatik yüzey hassasiyeti</string>
+    <string name="touchpad_edge_scroll">Dokunmatik yüzey kenar kaydırması</string>
+    <string name="touchpad_edge_scroll_description">Klavyenin kenarına doğru kaydırırken otomatik olarak kaydır</string>
+    <string name="toolbar_only_with_hw_keyboard">Fiziksel klavyeyle yalnızca araç çubuğunu göster</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Yine de sistem ayarlarında sanal klavyenin gösterilmesini etkinleştirmen gerekir</string>
+    <string name="folded">Katlanmış</string>
+    <string name="emoji_search_title">Emoji ara</string>
+    <string name="search_field_placeholder">Ara</string>
+    <string name="ask_later">Daha sonra sor</string>
+    <string name="spell_check_suggestions">Yazım denetleyicisi önerilerini göster</string>
+    <string name="spell_check_suggestions_summary">Kırmızı alt çizgili bir kelime seçildiğinde önerileri göster. Uygulamanın varsayılan yazım denetleyicisi olarak ayarlanmasını gerektirir.</string>
+    <string name="gesture_data_screen">Hareket verisi toplama</string>
+    <string name="gesture_data_description">&lt;b&gt;Hareket verisi toplama ekranına hoş geldin!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Bu ekran, kapalı kaynaklı Google kitaplığının yerini alabilecek tamamen açık kaynaklı bir hareketle yazma kitaplığı üretmeyi amaçlayan, &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet tarafından finanse edilen bir projenin&lt;/a&gt; parçasıdır.&lt;br/&gt; Sonucun, AOSP tabanlı klavyeler için basit bir alternatif olması ve FlorisBoard gibi diğer klavyelerle de kullanılabilmesi planlanmaktadır.&lt;br/&gt;&lt;br/&gt; Kitaplığın geliştirilmesi için farklı dillerde ve farklı kullanıcılardan ayrıntılı hareket verilerinin bulunması son derece yararlıdır.&lt;br/&gt; Hareketle yazma verisi toplayıp göndererek, kitaplık geliştirmede kullanılacak açık bir hareket verisi kümesine katkıda bulunabilirsin. Veri kümesi, veri toplama aşamasının %s tarihinde sona ermesinden bir süre sonra CC BY-SA 4.0 lisansı altında yayınlanacaktır. Veri topladıktan sonra, bu ekranın altındaki paylaş simgesini kullanarak gönderebilirsin.</string>
+    <string name="gesture_data_info">Bu nedir?</string>
+    <string name="gesture_data_description_modes">Katkıda bulunmanın \"güvenli\" yolu, sana belirli bir kelimenin gösterildiği ve bu kelimeyi hareketle yazarak girdiğin &lt;i&gt;etkin toplama&lt;/i&gt; modudur.&lt;br&gt; Ayrıca diğer uygulamalardaki normal hareketle yazımından örnekler sağlayabileceğin &lt;i&gt;arka planda toplama&lt;/i&gt; modunu da kullanabilirsin. Bu yaklaşımın hassasiyeti nedeniyle bu mod isteğe bağlıdır, yapılandırılabilir ve göndermek üzere olduğun veriler için bir inceleme ekranı vardır.</string>
+    <string name="gesture_data_description_privacy">Gizlilik\n\n Gönderdiğin veriler şunlardan oluşur: hedef kelime, klavye düzeni ve boyutları, hareket (zamanlar ve koordinatlar), mevcut kitaplığın önerileri, kullanılan sözlüklerin sağlama değeri (hash), uygulama sürümü, veri toplama modu, hareketle yazma kitaplığının \"varsayılan\" Google kitaplığı olup olmadığı ve her harekete eşlik eden bir kimlik.\n Gönderilen veriler, depolandıkları ProtonMail posta kutusundan en kısa sürede indirilecek ve silinecektir. Hareket verisi toplama aşaması sona erdikten sonra, tüm kullanıcılardan biriken veri kümesi Creative Commons BY-SA 4.0 lisansı altında yayınlanacaktır.\n\n Gizliliğini korumaya yönelik çabamızın bir parçası olarak, yazar olarak açıkça listelenmeyeceksin. Katkın \"The HeliBoard Gesture Data Project Contributors\" olarak anılacaktır. Bu ekranda oluşturduğun verilerin kimliğinle ilişkilendirilmesi mümkün olmamalıdır. Ancak hangi hareketlerin aynı kişi tarafından yapıldığını belirlemek mümkün olabilir. Bu, örneğin özel bir klavye düzeninden, klavye boyutlarından, dilden veya kişisel hareket stilinden anlaşılabilir.</string>
+    <string name="gesture_data_privacy">Gizlilik</string>
+    <string name="gesture_data_get_data">Hareket verisi dosyasını paylaş</string>
+    <string name="gesture_data_delete_data">Hareket verilerini temizle</string>
+    <string name="gesture_data_send_mail">Verileri e-postayla gönder</string>
+    <string name="gesture_data_copy_mail">E-posta adresini kopyala</string>
+    <string name="gesture_data_mail_use">E-posta adresinin veri gönderimleri için tasarlandığını unutma; hızlı veya düzenli yanıtlar alamayabilirsin.</string>
+    <string name="gesture_data_share_duplicate">Doğru şekilde alındığından emin değilsen, daha önce gönderilmiş verileri yeniden paylaşabilirsin. Verileri işlerken yinelenenleri tespit edip kaldırıyoruz.</string>
+    <string name="gesture_data_please_type">Lütfen hareketle yaz:</string>
+    <string name="gesture_data_please_switch_keyboard">Lütfen %s klavyesine geç</string>
+    <string name="gesture_data_next_save">\"%s\" alındı. Hareketi doğru yaptığından eminsen tıkla</string>
+    <string name="gesture_data_next">Kelimeyi atla</string>
+    <string name="gesture_data_active_count">Bu oturumda %1$s kelime, toplam %2$s kelime (%3$s tanesi zaten gönderildi veya silindi)</string>
+    <string name="gesture_data_review_screen_title">Hareket verilerini incele ve paylaş</string>
+    <string name="gesture_data_words_selected">%s kelime</string>
+    <string name="gesture_data_date_range">Tarih aralığı</string>
+    <string name="gesture_data_much_data">Gönderilmemiş çok fazla verin var. Lütfen önce gönder, ardından eski verileri kaldır.</string>
+    <string name="gesture_data_how_to_use">Nasıl kullanılır</string>
+    <string name="gesture_data_active_description">&lt;i&gt;Etkin toplamayı başlat&lt;/i&gt; seçeneğine dokun, istersen sözlüğü değiştir ve gösterilen kelimeyi hareketle yazmaya başla.&lt;br/&gt; Hareketin kelimeyle eşleşirse veri kaydedilir ve sonraki kelime gösterilir. Aksi halde yeniden deneyebilir, kelimeyi atlayabilir veya hareketi doğru yaptığını onaylayabilirsin.&lt;br/&gt; Yalnızca uygulamada yerleşik olan veya &lt;a href=%s&gt;sözlük deposunda&lt;/a&gt; bulunan sözlükler kullanılabilir; başka kelimeler kullanılmayacaktır.</string>
+    <string name="gesture_data_active">Etkin toplama</string>
+    <string name="gesture_data_active_start">Etkin toplamayı başlat</string>
+    <string name="gesture_data_active_stop">Etkin toplamayı durdur</string>
+    <string name="gesture_data_ends_at">Hareket verisi toplama aşaması %s tarihinde sona erecek. Lütfen verilerini bu tarihten önce gönder.</string>
+    <string name="gesture_data_ended">Hareket verisi toplama aşaması %s tarihinde sona erdi. Mevcut verilerini paylaşabilirsin ancak yeni bir şey ekleyemezsin.</string>
+    <string name="gesture_data_share_all">Tüm %s kelimeyi paylaş</string>
+    <string name="gesture_data_share_new">Daha önce gönderilmemiş %s kelimeyi paylaş</string>
+    <string name="gesture_data_delete_dialog">%1$s yeni ve %2$s zaten paylaşılmış kelime için verin var.</string>
+    <string name="gesture_data_share_limit">Boyut sınırlarını aşmamak için yalnızca ilk %s kelime dışa aktarılacak</string>
+    <string name="gesture_data_delete_dialog_all">Tüm %s kelimeyi sil</string>
+    <string name="gesture_data_delete_dialog_confirm">Emin misin? Bu, %s kelimeyi silecek. Paylaşmak istediğin verilerin gönderildiğinden emin ol!</string>
+    <string name="gesture_data_delete_dialog_submitted">Gönderilmiş %s kelimeyi sil</string>
+    <string name="gesture_data_many_not_shared_words">Gönderilmeyi bekleyen %s taneden fazla kelimen var</string>
+    <string name="gesture_data_email_body">ÖNEMLİ:\n\n Merhaba!\n Hatırlatma olarak, bu veriler CC BY-SA 4.0 lisansı altında herkese açık olarak paylaşılacak ve gizliliğini korumak için yazar olarak listelenmeyeceksin.\n\n Verilerinin haklarını bizimle paylaştığın için teşekkürler. Onları iyi bir amaç için kullanacağız!\n\n Bu bildirimin ifadesini değiştirmenin, verilerinle yapacaklarımızı değiştirmeyeceğini unutma. Bu, üzerinde değişiklik yapılacak bir sözleşme değil, yalnızca dostça bir hatırlatmadır!\n Verilerinle birlikte bize bir mesaj göndermek istersen, buradaki çizginin altına yazabilirsin.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Merhaba!\n Hareketle yazma kitaplığını yüklediğine göre, HeliBoard\'un tamamen açık bir hareketle yazma kitaplığı oluşturma projesi ilgini çekebilir. Hareket verisi katkısında bulunarak yardımcı olabilirsin. Daha fazla bilgi için hareket verisi toplama ekranını ziyaret et.</string>
+    <string name="gesture_data_reminder_message">Merhaba!\n Daha önce hareket verisi toplamayı kullanmıştın ancak uzun süredir veri eklemedin. Yeniden katkıda bulunmak ister misin?</string>
+    <string name="gesture_data_take_me_there">Beni oraya götür</string>
+    <string name="background_gesture_data_links">Arka planda toplama hakkında bilgi:</string>
+    <string name="gesture_data_links">Etkin toplama hakkında bilgi:</string>
+    <string name="gesture_data_background_gathering_switch">Arka planda veri toplamayı kullan</string>
+    <string name="gesture_data_background_gathering_allowed_apps">İzin verilen uygulamalar: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Varsayılan olarak kaydetme</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Veriler, araç çubuğu tuşu aracılığıyla elle kaydedilir</string>
+    <string name="gesture_data_background_gathering_info">Daha fazla bilgi</string>
+    <string name="gesture_data_background_gathering_info_message">Arka planda veri toplamayı açmak, HeliBoard\'un diğer uygulamalarda yazdığın hareketleri kaydetmesine olanak tanır. Bu, etkin toplamadan daha düşük kalitede de olsa hatırı sayılır miktarda veri üretebildiği için hareketle yazma projesi açısından çok yararlıdır. Arka planda veri toplama, etkin olarak toplanan verilerin yerine geçmez; veri kalitesi miktardan daha önemli olduğu için bir ek olarak düşünülmüştür.\n\n Arka planda toplamanın, anonim olarak yayınlansa bile paylaşmak için fazla özel bulabileceğin verileri toplama olasılığı yüksektir. Bu nedenle hareket verilerinin ne zaman toplandığını ve bunu nasıl etkileyebileceğini netleştirmek istiyoruz.\n\n Arka planda veri toplama hakkında daha fazla bilgi veren bir videoyu bu ekranın sağ alt kısmındaki bağlantılar bölümünde bulabilirsin.</string>
+    <string name="gesture_data_background_gathering_indicator">Veri toplama göstergesi</string>
+    <string name="gesture_data_background_gathering_indicator_message">Hareket verisinin kaydedilebileceği her an, klavyenin sol alt köşesinde bir gösterge simgesi görürsün. Daire dolu olduğunda, en az bir hareket toplanmış ve kaydedilmeyi bekliyor demektir. Veriler ya araç çubuğu tuşu kullanılarak (bkz. &lt;i&gt;%1$s&lt;/i&gt;) ya da otomatik olarak (&lt;i&gt;%2$s&lt;/i&gt; devre dışıyken) kaydedilir. Otomatik kaydetme genellikle metin alanları arasında geçiş yapılırken veya klavye kapatılırken gerçekleşir, ancak metin alanı başka bir nedenle değişirse de gerçekleşebilir. Veriler kaydedilirken gösterge kısa bir süre yeşile döner.</string>
+    <string name="gesture_data_background_gathering_control">Nelerin kaydedileceğini denetleme</string>
+    <string name="gesture_data_background_gathering_control_message">Ayarlardan bağımsız olarak, gizli mod kullanılırken arka planda veri toplama devre dışıdır. Hassas olarak işaretlenmiş giriş alanları (parolalar, e-posta veya giriş alanının klavyeden kelimeleri öğrenmemesini istediği durumlar) için de devre dışıdır. Yalnızca bir ana sözlükte (yerleşik veya &lt;a href=%5$s&gt;sözlük deposundan&lt;/a&gt;) bulunan kelimeler toplanacaktır. &lt;br&gt;&lt;br&gt; &lt;i&gt;%1$s&lt;/i&gt; ile arka planda veri toplamaya hangi uygulamalarda izin vereceğini seçebilirsin. Varsayılan ayar her uygulamayı devre dışı bırakır ve uygulama başına katılım gerektirir. Bunun yerine her uygulamayı etkinleştirip uygulama başına hariç tutmayı da seçebilirsin. Bu daha pratiktir ancak yeni yüklenen uygulamalardan veri toplanmasına otomatik olarak izin verir. Bu da beklemediğin verilerin toplanmasına neden olabilir. &lt;br&gt;&lt;br&gt; &lt;i&gt;%2$s&lt;/i&gt; ile belirli hassas kelimeleri hariç tutabilirsin. Hariç tutulan bir kelimeyi hareketle yazarken gösterge simgesi yine dolu simgeyi (\"kaydedilmeyi bekleyen veri\") gösterir, ancak veriler normalde kaydedilecekleri anda atılır. Kelime engellenmeden önce zaten kaydedilmiş olan engellenmiş kelimeler, veriler dışa aktarılırken atılacaktır.&lt;br&gt; Arka planda toplamanın yalnızca zaten bir ana sözlükte bulunan kelimeleri topladığını unutma; bu nedenle muhtemelen engellemen gereken tek kelimeler adın, sokağın, şehrin, bölgen vb. gibi seni kişisel olarak tanımlamak için kullanılabilecek yaygın kelimelerdir. &lt;br&gt;&lt;br&gt; &lt;i&gt;%3$s&lt;/i&gt; etkinleştirildiğinde veriler yalnızca &lt;i&gt;%4$s&lt;/i&gt; araç çubuğu tuşunu kullanarak elle kaydetmeyi seçersen kaydedilir (aşağıya bak). Veriler kaydedilmezse, bekleyen veriler giriş alanı değiştirildiğinde veya klavye kapatıldığında silinir.&lt;br&gt; Bu modda uygulama ve kelime hariç tutmaları geçerli olmaya devam eder. &lt;br&gt;&lt;br&gt; &lt;i&gt;%4$s&lt;/i&gt; araç çubuğu tuşu, veri toplamayı denetlemek için kullanılabilir. Basmanın etkisi mevcut duruma bağlıdır: Arka planda toplama devre dışıysa etkinleştirilir.&lt;br&gt; Uzun basmak, toplamayı beş dakikalığına devre dışı bırakır.&lt;br&gt; Normal bir tuş basışıyla arka planda veri toplamayı daha erken yeniden etkinleştirebilirsin.&lt;br&gt; &lt;i&gt;%3$s&lt;/i&gt; etkinse bekleyen veriler kaydedilir.&lt;br&gt; Aksi halde bekleyen veriler atılır.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">&lt;i&gt;%1$s&lt;/i&gt; ekranını kullanarak toplanan verileri kontrol edip filtreleyebilir, fazla hassas bulduğun verileri silebilir ve verileri paylaşabilirsin. Silme ve paylaşma düğmeleri, filtrelenmiş veriler üzerinde ya da kelimeleri seçmek için uzun basma kullandıysan seçim üzerinde çalışır. (&lt;i&gt;%1$s&lt;/i&gt; ekranının dışındaki \"normal\" paylaş simgesinin yalnızca etkin toplamadan gelen verileri paylaşacağını unutma.)&lt;br&gt; Paylaşılan verilerin sırası rastgele hale getirilir; bu nedenle tek tek kelimelerden fazlası çıkarılamaz.&lt;br&gt; Bir hareket için depolanan verilerin tamamını görmek istersen, verileri bir dosyaya paylaşabilir ve dosyayı &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt; içine yükleyebilirsin.</string>
+    <string name="gesture_data_background_apps_button">İzin verilen uygulamaları yönet</string>
+    <string name="gesture_data_background_apps">Arka planda veri toplamaya dahil edilecek uygulamaları seç</string>
+    <string name="gesture_data_background_apps_include_default">Uygulamaları varsayılan olarak dahil et</string>
+    <string name="gesture_data_background_excluded_words_button">Hariç tutulan kelimeleri yönet</string>
+    <string name="gesture_data_background_dictionary">Sözlük: %s</string>
+    <string name="gesture_data_background_position">Konum: %s</string>
+    <string name="gesture_data_background_exclude_words">Kelimeyi arka planda toplamadan hariç tut</string>
+    <string name="gesture_data_long_press_select_hint">Seçmek için uzun bas</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Arka planda veri toplama</string>
+    <string name="gesture_data_show_active">Etkin olarak toplanan verileri göster</string>
+    <string name="gesture_data_show_background">Arka plan verilerini göster</string>
+    <string name="gesture_data_include_shared">Zaten gönderilmiş verileri dahil et</string>
+    <string name="gesture_data_shared">gönderildi</string>
+    <string name="gesture_data_saving">Kaydediliyor… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Arka planda veri toplamaya hoş geldin!&lt;br&gt; Araç çubuğuna &lt;i&gt;%1$s&lt;/i&gt; tuşunu eklemek ister misin? Bu tuşu veri toplamayı denetlemek için kullanabilirsin; daha fazlasını &lt;i&gt;%2$s&lt;/i&gt; düğmesini kullanarak okuyabilirsin. &lt;br&gt;&lt;br&gt; Varsayılan olarak, arka planda toplama tüm uygulamalar için devre dışıdır. Bu, hangi uygulamalara izin verdiğini seçene kadar hiçbir şeyin toplanmayacağı anlamına gelir. Bunu %3$s değiştirebilirsin.</string>
+    <string name="gesture_data_add_key">Araç çubuğu tuşunu ekle</string>
+    <string name="gesture_data_no_known_dict">Arka planda toplama, yalnızca yerleşik olan veya &lt;a href=%s&gt;sözlük deposunda&lt;/a&gt; bulunan sözlüklerden gelen kelimeleri toplar. Şu anda etkin böyle bir sözlüğün yok.</string>
+    <string name="gesture_data_swipe_o_scope">Hareket verilerini görselleştirme aracı: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

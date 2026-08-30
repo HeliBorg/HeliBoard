@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"Spanisch (USA)"</string>
     <string name="subtype_hi_Latn">Hinglisch</string>
     <string name="subtype_sr_Latn">"Serbisch (Lateinisch)"</string>
-    <string name="subtype_generic_traditional">%s (Traditionell)</string>
-    <string name="subtype_generic_compact">%s (Kompakt)</string>
+    <string name="subtype_generic_traditional">%s (traditionell)</string>
+    <string name="subtype_generic_compact">%s (kompakt)</string>
     <string name="subtype_no_language">"Keine Sprache"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Hinzufügen"</string>
@@ -69,10 +69,10 @@
     <string name="setup_start_action">"Jetzt starten"</string>
     <string name="setup_steps_title">%s einrichten</string>
     <string name="setup_step1_title">%s aktivieren</string>
-    <string name="setup_step1_instruction">Bitte aktiviere %s\" unter der Systemeinstellung „Sprachen und Eingabe“.</string>
+    <string name="setup_step1_instruction">Bitte aktiviere „%s“ in den Einstellungen zu „Sprachen und Eingabe“. Dadurch wird das Ausführen auf deinem Gerät erlaubt.</string>
     <string name="setup_step1_action">"In den Einstellungen aktivieren"</string>
     <string name="setup_step2_title">Zu %s wechseln</string>
-    <string name="setup_step2_instruction">Wähle als nächstes %s\" als deine aktive Bildschirmtastatur.</string>
+    <string name="setup_step2_instruction">Wähle als nächstes „%s“ als deine aktive Bildschirmtastatur.</string>
     <string name="setup_step2_action">"Eingabemethode wechseln"</string>
     <string name="setup_step3_title">Hurra, die Einrichtung ist abgeschlossen!</string>
     <string name="setup_step3_instruction">Jetzt kannst du in all deinen Lieblingsapps mit %s schreiben.</string>
@@ -160,7 +160,7 @@
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Schwarz</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Schokolade</string>
-    <string name="remove_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch \"%s\" wirklich entfernt werden?</string>
+    <string name="remove_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%s“ wirklich entfernt werden?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Wolkig</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="day_or_night_day">Tag</string>
@@ -206,7 +206,7 @@
     <string name="hint_source">Hinweis-Quelle wählen</string>
     <string name="load_gesture_library_summary">Native Bibliothek bereitstellen, um Gesten-Tippen zu aktivieren</string>
     <string name="layout_symbols_shifted">Mehr Symbole</string>
-    <string name="url_detection_summary">Versuche URLs und Ähnliches als einzelnes Wort zu erkennen</string>
+    <string name="url_detection_summary">Versuche, URLs und Ähnliches als einzelnes Wort zu erkennen</string>
     <string name="button_select_language">Sprache auswählen</string>
     <string name="select_color_key">Tastenbeschriftung</string>
     <string name="load_gesture_library">Gesten-Tippen-Bibliothek laden</string>
@@ -220,7 +220,7 @@
     <string name="license">Open-Source-Lizenz</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ozean</string>
     <string name="backup_error">Sicherungsfehler: %s</string>
-    <string name="show_popup_hints_summary">Hinweise anzeigen, wenn langes Drücken einer Taste zusätzliche Funktionen auslöst</string>
+    <string name="show_popup_hints_summary">Hinweis anzeigen, wenn durch langes Drücken einer Funktionstaste ein Popup geöffnet wird</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sand</string>
     <string name="backup_restore_title">Sichern und Wiederherstellen</string>
     <string name="full_left" tools:keep="@string/full_left">Ganz links</string>
@@ -270,8 +270,8 @@
     <string name="more_autocorrect_summary">Autokorrektur, auch wenn dies vom Eingabefeld nicht explizit angefordert wird</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo-Weiß</string>
     <string name="language_switch_key_switch_both">Beides wechseln</string>
-    <string name="hidden_features_message">► Durch langes Drücken der angehefteten Tasten in der Symbolleiste erhält du zusätzliche Funktionen: &lt;br&gt; \n\t•Zwischenablage &amp;#65515; einfügen &lt;br&gt; \n\t• nach links/rechts bewegen &amp;#65515; Wort links/rechts &lt;br&gt; \n\t• aufwärts/abwärts bewegen &amp;#65515; Seite auf/ab &lt;br&gt; \n\t• Wort links/rechts &amp;#65515; Zeilenanfang/-ende &lt;br&gt; \n\t• Seite auf/ab &amp;#65515; Seite Anfang/Ende &lt;br&gt; \n\t• kopieren. &amp;#65515; ausschneiden &lt;br&gt; \n\t•Wort wählen &amp;#8596; alle auswählen &lt;br&gt; \n\t• rückgängig &amp;#8596; wiederherstellen. &lt;br&gt; &lt;br&gt; \n► Durch langes Drücken von Tasten in der Symbolleiste der Vorschlagsleiste werden diese an die Vorschlagsleiste angeheftet. &lt;br&gt; &lt;br&gt; \n► Drücke lange auf die Komma-Taste, um die Zwischenablage-Ansicht, die Emoji-Ansicht, den Einhandmodus, die Einstellungen oder die Sprache zu wechseln.: &lt;br&gt; \n\t• Die Emoji-Ansicht und die Sprachumschaltung werden ausgeblendet, wenn du die entsprechende Taste aktiviert hast.; &lt;br&gt; \n\t• Bei einigen Layouts ist es nicht die Komma-Taste, sondern die Taste an der gleichen Position (z.B. \'q\' beim Dvorak-Layout). &lt;br&gt; &lt;br&gt; \n► Wenn der Inkognito-Modus aktiviert ist, werden keine Wörter gelernt und keine Emojis zu den Notizen hinzugefügt. &lt;br&gt; &lt;br&gt; \n► Drücke auf das Symbol Inkognito, um die Symbolleiste aufzurufen. &lt;br&gt; &lt;br&gt; \n► Gleitende Tasteneingabe: Streiche von der Umschalttaste zu einer anderen Taste, um einen einzelnen Großbuchstaben einzugeben: &lt;br&gt; \n\t• Dies funktioniert auch für die Taste \'?123\', um ein einzelnes Symbol von der Symboltastatur einzugeben, und für verwandte Tasten. &lt;br&gt; &lt;br&gt; \n► Halte die Umschalt- oder Symboltaste gedrückt, drücke eine oder mehrere Tasten, und lasse dann die Umschalt- oder Symboltaste los, um zur vorherigen Tastatur zurückzukehren.. &lt;br&gt; &lt;br&gt; \n► Drücke lange auf einen Vorschlag in der Vorschlagsleiste, um weitere Vorschläge anzuzeigen, und eine Löschtaste, um diesen Vorschlag zu entfernen. &lt;br&gt; &lt;br&gt; \n► Wische von einem Vorschlag nach oben, um weitere Vorschläge zu öffnen, und lasse den Vorschlag los, um ihn auszuwählen. &lt;br&gt; &lt;br&gt; \n► Drücke lange auf einen Eintrag in der Zwischenablage, um ihn anzuheften (er bleibt in der Zwischenablage, bis du die Anheftung aufhebst). &lt;br&gt; &lt;br&gt; \n► Wische in der Zwischenablageansicht nach links, um einen Eintrag zu entfernen (außer wenn er angeheftet ist) &lt;br&gt; &lt;br&gt; \n► Markiere den Text und drücke die Umschalttaste, um zwischen Groß- und Kleinschreibung sowie Großschreibung zu wechseln. &lt;br&gt; &lt;br&gt; \n► Du kannst Wörterbücher hinzufügen, indem du sie in einem Datei-Explorer öffnest: &lt;br&gt; \n\t• Dies funktioniert nur mit &lt;i&gt;content-uris&lt;/i&gt; und nicht mit &lt;i&gt;file-uris&lt;/i&gt;, was bedeutet, dass es mit einigen Datei-Explorern möglicherweise nicht funktioniert. &lt;br&gt; &lt;br&gt; \n► Für Benutzer, die manuelle Backups mit Root-Zugriff durchführen: &lt;br&gt; \n\t• Ab Android 7 befindet sich die gemeinsam genutzte Einstellungsdatei nicht am Standardspeicherort, da die App %s verwendet. Dies ist notwendig, damit die Einstellungen gelesen werden können, bevor das Gerät entsperrt wird, z. B. beim Booten; &lt;br&gt; \n\t• Die Datei befindet sich in /data/user_de/0/package_id/shared_prefs/, wobei dies vom jeweiligen Gerät und der Android-Version abhängen kann. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug-Modus / Debug-APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Drücke lange auf einen Vorschlag, um das Quellwörterbuch anzuzeigen. &lt;br&gt; &lt;br&gt; \n► Wenn du die Debug-APK verwendest, kannst du die Debug-Einstellungen in den erweiterten Einstellungen finden, obwohl die Nützlichkeit begrenzt ist, außer für die Ausgabe von Wörterbüchern in das Protokoll. &lt;br&gt; \n\t• Für eine Release-APK musst du die Version in &lt;i&gt;About&lt;/i&gt; mehrmals antippen, dann findest du Debug-Einstellungen in &lt;i&gt;Erweiterte Einstellungen&lt;/i&gt;. &lt;br&gt; \n\t• Wenn du die Option &lt;i&gt;Informationen zu Vorschlägen anzeigen&lt;/i&gt; aktivierst, werden die Vorschläge mit kleinen Zahlen versehen, die die interne Bewertung und das Quellenwörterbuch anzeigen. &lt;br&gt; &lt;br&gt; \n► Im Falle eines Anwendungsabsturzes wirst du beim Öffnen der Einstellungen gefragt, ob du die Absturzprotokolle erhalten möchtest. &lt;br&gt; &lt;br&gt; \n► Bei mehrsprachiger Eingabe zeigt die Leertaste einen Vertrauenswert an, der zur Bestimmung der aktuell verwendeten Sprache verwendet wird. &lt;br&gt; &lt;br&gt; \n► Bei den Vorschlägen werden oben einige kleine Zahlen angezeigt, die den internen Punktestand und das Quellenwörterbuch anzeigen (kann deaktiviert werden).</string>
-    <string name="no_dictionary_message">"Ohne Wörterbuch erhältst du nur Vorschläge für Text, den du zuvor eingegeben hast.&lt;br&gt;\n                  Du kannst Wörterbücher %1$s herunterladen oder %3$s überprüfen, ob ein Wörterbuch für \"%2$s\" direkt heruntergeladen werden kann."</string>
+    <string name="hidden_features_message">► Durch langes Drücken der angehefteten Tasten in der Symbolleiste erhält du zusätzliche Funktionen: &lt;br&gt; \n\t•Zwischenablage &amp;#65515; einfügen &lt;br&gt; \n\t• nach links/rechts bewegen &amp;#65515; Wort links/rechts &lt;br&gt; \n\t• aufwärts/abwärts bewegen &amp;#65515; Seite auf/ab &lt;br&gt; \n\t• Wort links/rechts &amp;#65515; Zeilenanfang/-ende &lt;br&gt; \n\t• Seite auf/ab &amp;#65515; Seite Anfang/Ende &lt;br&gt; \n\t• kopieren. &amp;#65515; ausschneiden &lt;br&gt; \n\t• Wort wählen &amp;#8596; alle auswählen &lt;br&gt; \n\t• rückgängig &amp;#8596; wiederherstellen. &lt;br&gt; &lt;br&gt; \n► Durch langes Drücken von Tasten in der Symbolleiste der Vorschlagsleiste werden diese an die Vorschlagsleiste angeheftet. &lt;br&gt; &lt;br&gt; \n► Drücke lange auf die Komma-Taste, um die Zwischenablage-Ansicht, die Emoji-Ansicht, den Einhandmodus, die Einstellungen oder die Sprache zu wechseln.: &lt;br&gt; \n\t• Die Emoji-Ansicht und die Sprachumschaltung werden ausgeblendet, wenn du die entsprechende Taste aktiviert hast.; &lt;br&gt; \n\t• Bei einigen Layouts ist es nicht die Komma-Taste, sondern die Taste an der gleichen Position (z.B. \'q\' beim Dvorak-Layout). &lt;br&gt; &lt;br&gt; \n► Wenn der Inkognito-Modus aktiviert ist, werden keine Wörter gelernt und keine Emojis zu den Notizen hinzugefügt. &lt;br&gt; &lt;br&gt; \n► Drücke auf das Symbol Inkognito, um die Symbolleiste aufzurufen. &lt;br&gt; &lt;br&gt; \n► Gleitende Tasteneingabe: Streiche von der Umschalttaste zu einer anderen Taste, um einen einzelnen Großbuchstaben einzugeben: &lt;br&gt; \n\t• Dies funktioniert auch für die Taste \'?123\', um ein einzelnes Symbol von der Symboltastatur einzugeben, und für verwandte Tasten. &lt;br&gt; &lt;br&gt; \n► Halte die Umschalt- oder Symboltaste gedrückt, drücke eine oder mehrere Tasten, und lasse dann die Umschalt- oder Symboltaste los, um zur vorherigen Tastatur zurückzukehren.. &lt;br&gt; &lt;br&gt; \n► Drücke lange auf einen Vorschlag in der Vorschlagsleiste, um weitere Vorschläge anzuzeigen, und eine Löschtaste, um diesen Vorschlag zu entfernen. &lt;br&gt; &lt;br&gt; \n► Wische von einem Vorschlag nach oben, um weitere Vorschläge zu öffnen, und lasse den Vorschlag los, um ihn auszuwählen. &lt;br&gt; &lt;br&gt; \n► Drücke lange auf einen Eintrag in der Zwischenablage, um ihn anzuheften (er bleibt in der Zwischenablage, bis du die Anheftung aufhebst). &lt;br&gt; &lt;br&gt; \n► Wische in der Zwischenablageansicht nach links, um einen Eintrag zu entfernen (außer wenn er angeheftet ist) &lt;br&gt; &lt;br&gt; \n► Markiere den Text und drücke die Umschalttaste, um zwischen Groß- und Kleinschreibung sowie Großschreibung zu wechseln. &lt;br&gt; &lt;br&gt; \n► Du kannst Wörterbücher hinzufügen, indem du sie in einem Datei-Explorer öffnest: &lt;br&gt; \n\t• Dies funktioniert nur mit &lt;i&gt;content-uris&lt;/i&gt; und nicht mit &lt;i&gt;file-uris&lt;/i&gt;, was bedeutet, dass es mit einigen Datei-Explorern möglicherweise nicht funktioniert. &lt;br&gt; &lt;br&gt; \n► Für Benutzer, die manuelle Backups mit Root-Zugriff durchführen: &lt;br&gt; \n\t• Ab Android 7 befindet sich die gemeinsam genutzte Einstellungsdatei nicht am Standardspeicherort, da die App %s verwendet. Dies ist notwendig, damit die Einstellungen gelesen werden können, bevor das Gerät entsperrt wird, z. B. beim Booten; &lt;br&gt; \n\t• Die Datei befindet sich in /data/user_de/0/package_id/shared_prefs/, wobei dies vom jeweiligen Gerät und der Android-Version abhängen kann. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug-Modus / Debug-APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Drücke lange auf einen Vorschlag, um das Quellwörterbuch anzuzeigen. &lt;br&gt; &lt;br&gt; \n► Wenn du die Debug-APK verwendest, kannst du die Debug-Einstellungen in den erweiterten Einstellungen finden, obwohl die Nützlichkeit begrenzt ist, außer für die Ausgabe von Wörterbüchern in das Protokoll. &lt;br&gt; \n\t• Für eine Release-APK musst du die Version in &lt;i&gt;About&lt;/i&gt; mehrmals antippen, dann findest du Debug-Einstellungen in &lt;i&gt;Erweiterte Einstellungen&lt;/i&gt;. &lt;br&gt; \n\t• Wenn du die Option &lt;i&gt;Informationen zu Vorschlägen anzeigen&lt;/i&gt; aktivierst, werden die Vorschläge mit kleinen Zahlen versehen, die die interne Bewertung und das Quellenwörterbuch anzeigen. &lt;br&gt; &lt;br&gt; \n► Im Falle eines Anwendungsabsturzes wirst du beim Öffnen der Einstellungen gefragt, ob du die Absturzprotokolle erhalten möchtest. &lt;br&gt; &lt;br&gt; \n► Bei mehrsprachiger Eingabe zeigt die Leertaste einen Vertrauenswert an, der zur Bestimmung der aktuell verwendeten Sprache verwendet wird. &lt;br&gt; &lt;br&gt; \n► Bei den Vorschlägen werden oben einige kleine Zahlen angezeigt, die den internen Punktestand und das Quellenwörterbuch anzeigen (kann deaktiviert werden).</string>
+    <string name="no_dictionary_message">"Ohne Wörterbuch erhältst du nur Vorschläge für Text, den du zuvor eingegeben hast.&lt;br&gt;\n                  Du kannst Wörterbücher %1$s herunterladen oder %3$s überprüfen, ob ein Wörterbuch für „%2$s“ direkt heruntergeladen werden kann."</string>
     <string name="available_dictionary_experimental">%s (experimentell)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabisch)</string>
@@ -287,14 +287,14 @@
     <string name="show_horizontal_space_swipe">Horizontale Wischgeste der Leertaste</string>
     <string name="prefs_long_press_symbol_for_numpad">Symbole-Taste für Ziffernblock gedrückt halten</string>
     <string name="var_toolbar_direction">Variable Symbolleisten-Richtung</string>
-    <string name="var_toolbar_direction_summary">Richtung umkehren, wenn die Tastatur einer Rechts-nach-Links-Sprache ausgewählt ist</string>
+    <string name="var_toolbar_direction_summary">Richtung umkehren, wenn die Tastatur einer Rechts-nach-links-Sprache ausgewählt ist</string>
     <string name="subtype_generic_student">%s (Student)</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="center_suggestion_text_to_enter_summary">Bei Eingabe eines Leerzeichens oder eines Punktes wird der mittlere Vorschlag gewählt</string>
     <string name="close_history" tools:keep="@string/close_history">Zwischenablage-Verlauf schließen</string>
     <string name="center_suggestion_text_to_enter">Immer mittleren Vorschlag verwenden</string>
     <string name="clipboard_toolbar_keys">Tasten der Symbolleiste für die Zwischenablage auswählen</string>
-    <string name="subtype_generic_extended">%s (Erweitert)</string>
+    <string name="subtype_generic_extended">%s (erweitert)</string>
     <string name="pinned_toolbar_keys">Angeheftete Tasten der Symbolleiste auswählen</string>
     <string name="quick_pin_toolbar_keys_summary">Dadurch werden andere Langdruck-Aktionen für Tasten der Symbolleiste, die nicht angeheftet sind, deaktiviert</string>
     <string name="toast_msg_clipboard_copy">Inhalt kopiert</string>
@@ -341,31 +341,31 @@
     <string name="gesture_trail_fadeout_duration">Anzeigedauer der Gestenspur</string>
     <string name="prefs_space_bar_text">Benutzerdefinierter Text auf der Leertaste</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Zahlenzeile</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji untere Zeile</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Untere Emoji-Zeile</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Zwischenablage untere Zeile</string>
     <string name="icon_style">Symbolstil</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Eingabe</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulator</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Umschalttaste</string>
-    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Umschalttaste (umgeschalten)</string>
-    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Feststell</string>
-    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Leertaste (Nummern Layout)</string>
-    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Einhand Modus beenden</string>
-    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Tausche Einhand Modus seite</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Umschalttaste (umgeschaltet)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Feststellen</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Leertaste (Zahlenlayout)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Einhandmodus beenden</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Einhandmodus-Seite wechseln</string>
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Spracheingabe deaktiviert</string>
-    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Zeigen/verstecken Symbolleiste</string>
-    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Einhand Modus Größe anpassen</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Symbolleiste zeigen/verstecken</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Einhandmodus-Größe anpassen</string>
     <string name="customize_toolbar_key_codes">Anpassen der Symbolleiste Keycodes</string>
-    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Beeitenloser Verbinder</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Breitenloser Verbinder</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Bindehemmer</string>
-    <string name="key_code">Keycode</string>
-    <string name="long_press_code">Langes Drücken Code</string>
-    <string name="customize_icons">Symbole Anpassen</string>
+    <string name="key_code">Tastencode</string>
+    <string name="long_press_code">Langes-Drücken-Code</string>
+    <string name="customize_icons">Symbole anpassen</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Entfernen</string>
     <string name="label_bin" tools:keep="@string/label_bin">Papierkorb</string>
     <string name="customize_icons_reset_message">Wirklich alle benutzerdefinierten Symbole zurücksetzen?</string>
     <string name="vibrate_in_dnd_mode">Vibrieren im Bitte nicht stören Modus</string>
-    <string name="prefs_key_emoji_max_sdk">Emoji Version überschreiben</string>
+    <string name="prefs_key_emoji_max_sdk">Emoji-Version überschreiben</string>
     <string name="auto_correct_shortcuts">Abkürzungen automatisch korrigieren</string>
     <string name="auto_correct_shortcuts_summary">Wenn aktiviert, können Abkürzungen von der Autokorrektur erweitert werden</string>
     <string name="custom_font">Benutzerdefinierte Schriftart aus Datei festlegen</string>
@@ -375,15 +375,15 @@
     <string name="number_row_hints">Hinweise auf der Zahlenzeile zeigen</string>
     <string name="split" tools:keep="@string/split">Getrennte Tastatur</string>
     <string name="prefs_font_scale">Tastatur-Schriftgrad</string>
-    <string name="prefs_emoji_font_scale">Emoji-Ansicht Schriftgrad</string>
-    <string name="prefs_language_swipe_distance">Sprache wechseln Wischabstand</string>
+    <string name="prefs_emoji_font_scale">Emoji-Ansicht-Schriftgrad</string>
+    <string name="prefs_language_swipe_distance">Wischabstand zum Wechseln der Sprache</string>
     <string name="locales_with_dict">Sprachen mit Wörterbüchern</string>
     <string name="get_colors_message">Du kannst Farben im %s finden und teilen.</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="settings_screen_secondary_layouts">Sekundäre Layouts</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktionstasten (großer Bildschirm)</string>
     <string name="prefs_side_padding_scale">Seitenabstand</string>
-    <string name="subtype_generic_phonetic">%s (Phonetisch)</string>
+    <string name="subtype_generic_phonetic">%s (phonetisch)</string>
     <string name="layout_in_use">Warnung: Das Layout wird derzeit verwendet</string>
     <string name="get_layouts_message">Du kannst Layouts im %s finden und freigeben.</string>
     <string name="discussion_section_link">Diskussionsbereich</string>
@@ -392,17 +392,17 @@
     <string name="custom_subtype">Benutzerdefinierter Subtyp</string>
     <string name="subtype_baishakhi_bn_IN">%s (Baisakhi)</string>
     <string name="show_tld_popup_keys">Zeige TLD-Popup-Tasten</string>
-    <string name="show_tld_popup_keys_summary">Ersetze Punkt-Tastenpopups mit Top-Level-Domains wenn URLs und Mailadressen eingegeben werden</string>
+    <string name="show_tld_popup_keys_summary">Ersetze Punkt-Tastenpopups durch Top-Level-Domains, wenn URLs und Mailadressen eingegeben werden</string>
     <string name="prefs_always_show_suggestions_except_web_text">Nicht immer Vorschläge für Web-Editierfelder anzeigen</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Zahlenreihe (Basis)</string>
-    <string name="prefs_always_show_suggestions_except_web_text_summary">Web-Eingabefelder (meist in Browsern) sind eine häufige Ursache für Probleme mit der Einstellung \"Immer Vorschläge anzeigen\"</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Web-Eingabefelder (meist in Browsern) sind eine häufige Ursache für Probleme mit der Einstellung „Immer Vorschläge anzeigen“</string>
     <string name="after_numpad_and_space">Drücken der Eingabetaste oder der Leertaste nach anderen Tasten im Ziffernblock</string>
     <string name="settings_category_space">Leertaste</string>
     <string name="shift_removes_autospace_summary">Shift entfernt anstehende automatische Leerzeichen</string>
     <string name="autospace_after_gesture_typing">Leerzeichen nach Wörtern bei Gesten-Tippen</string>
-    <string name="shift_removes_autospace">Kein automatisches Leerzeichen beim drücken von Shift</string>
+    <string name="shift_removes_autospace">Kein automatisches Leerzeichen beim Drücken von Shift</string>
     <string name="autospace_before_gesture_typing">Leerzeichen vor Wörtern bei Gesten-Tippen</string>
-    <string name="timestamp_format_title">Format der Timestamp-Taste</string>
+    <string name="timestamp_format_title">Format der Zeitstempel-Taste</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
     <string name="backspace_reverts_autocorrect">Rücktaste macht Autokorrektur rückgängig</string>
@@ -413,29 +413,29 @@
     <string name="use_apps_dict_summary">Namen der installierten Apps für Vorschläge und Korrekturen verwenden</string>
     <string name="prefs_emoji_skin_tone">Standard-Emoji-Hautton</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
-    <string name="toolbar_mode_expandable">Symbolleiste Tasten und Vorschläge</string>
-    <string name="toolbar_mode_toolbar_keys">Symbolleiste nur Tasten</string>
-    <string name="popup_order_and_hint_source">Popup Tasten Reihenfolge und Vorschlag Quelle</string>
+    <string name="toolbar_mode_expandable">Symbolleisten-Tasten und Vorschläge</string>
+    <string name="toolbar_mode_toolbar_keys">Nur Symbolleisten-Tasten</string>
+    <string name="popup_order_and_hint_source">Popup-Tasten-Reihenfolge und Vorschlagsquelle</string>
     <string name="toolbar_mode_hidden">Versteckt</string>
-    <string name="toolbar_hiding_global">Auch Zwischenablage und Emoji Symbolleisten verstecken</string>
+    <string name="toolbar_hiding_global">Auch Zwischenablage- und Emoji-Symbolleisten verstecken</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="landscape">Querformat</string>
     <string name="toolbar_mode_suggestion_strip">Nur Vorschläge</string>
-    <string name="toolbar_mode">Symbolleiste Modus</string>
+    <string name="toolbar_mode">Symbolleisten-Modus</string>
     <string name="show_emoji_descriptions">Zeige Emoji-Beschreibung bei langem gedrückt halten</string>
     <string name="suggest_emojis">Emojis vorschlagen</string>
-    <string name="suggest_emojis_summary">Emoji Wörterbuch in normalen Vorschlägen verwenden</string>
+    <string name="suggest_emojis_summary">Emoji-Wörterbuch in normalen Vorschlägen verwenden</string>
     <string name="space_swipe_hide_keyboard_entry">Tastatur verstecken</string>
-    <string name="suggest_punctuation">Satzzeichen Vorschläge</string>
-    <string name="suggest_punctuation_summary">Zeige Satzzeichen wenn keine anderen Vorschläge verfügbar sind</string>
-    <string name="about_wiki_link_description">Das Wiki kann von jedem Github Nutzer verbessert werden!</string>
+    <string name="suggest_punctuation">Satzzeichen-Vorschläge</string>
+    <string name="suggest_punctuation_summary">Zeige Satzzeichen, wenn keine anderen Vorschläge verfügbar sind</string>
+    <string name="about_wiki_link_description">Das Wiki kann von jedem GitHub-Nutzer verbessert werden!</string>
     <string name="about_wiki_link">Zum Wiki gehen</string>
-    <string name="inline_emoji_search">Inline Emoji-Suche</string>
+    <string name="inline_emoji_search">Inline-Emoji-Suche</string>
     <string name="inline_emoji_search_summary">Emojis werden nur vorgeschlagen, wenn ein Wort direkt auf einen Doppelpunkt folgt</string>
     <string name="emoji_dictionary_required">Ein Emoji-Wörterbuch wird für diese Funktion benötigt. Wörterbücher im .dict-Format können %s heruntergeladen werden.</string>
     <string name="save_subtype_per_app">Sprache pro App merken</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emoji untere Zeile mit Aktions-Taste</string>
-    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Zwischenablage untere Zeile mit Aktions-Taste</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Untere Emoji-Zeile mit Aktionstaste</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Untere Zwischenablage-Zeile mit Aktiontaste</string>
     <string name="custom_emoji_font">Benutzerdefinierte Emoji-Schriftart aus Datei festlegen</string>
     <string name="number_row_in_symbols">Zahlenzeile in Symbol-Ansicht anzeigen</string>
     <string name="clipboard_history_pinned_first">Angeheftete Elemente zuerst anzeigen</string>
@@ -443,11 +443,107 @@
     <string name="subtype_khipro_bn">%s (Khipro)</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funktionale Tasten (Khipro)</string>
     <string name="toolbar_swipe_down_to_hide">Tastatur durch Wischen ausblenden</string>
-    <string name="toolbar_swipe_down_to_hide_summary">Auf Symbolleiste nach unten wischen um Tastatur zu schließen</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Auf Symbolleiste nach unten wischen, um Tastatur zu schließen</string>
     <string name="ask_later">Frag mich später</string>
     <string name="search_field_placeholder">Suche</string>
     <string name="folded">Eingeklappt</string>
     <string name="emoji_search_title">Suche nach Emojis</string>
     <string name="auto_correct_capitalized_suggestions">Vorgeschlagene Großschreibung automatisch korrigieren</string>
     <string name="auto_correct_capitalized_suggestions_description">Nachdem die Umschalttaste für die Großschreibung gedrückt wurde, wird die Autokorrektur aktiviert</string>
+    <string name="custom_punctuation_suggestions">Satzzeichen-Vorschläge festlegen</string>
+    <string name="clipboard_history_files">Bilder und andere Dateien zum Zwischenablage-Verlauf hinzufügen</string>
+    <string name="clipboard_history_max_file_size">Größenlimit der Zwischenablage</string>
+    <string name="item_description">Beschreibung: %s</string>
+    <string name="item_type">Typ: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="timestamp_description">Du kannst die Zeitstempel-Taste über ein benutzerdefiniertes Layout mit der Taste \'timestamp\' oder den Keycode -10043 hinzufügen</string>
+    <string name="floating" tools:keep="@string/floating">Schwebende Tastatur</string>
+    <string name="prefs_key_gap_scale">Tastenabstand</string>
+    <string name="prefs_bottom_row_scale">Größe der unteren Zeile</string>
+    <string name="prefs_hint_font_scale">Schriftgrad der Tasten-Hinweise</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4-zeilig)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">Steuerkreuz</string>
+    <string name="about_community_links">Community-Links</string>
+    <string name="about_community_links_description">Designs, Layout-Editor, Diskussionen, …</string>
+    <string name="space_swipe_toggle_dpad_entry">Steuerkreuz umschalten</string>
+    <string name="space_swipe_touchpad_mode_entry">Touchpad-Modus</string>
+    <string name="touchpad_sensitivity">Touchpad-Empfindlichkeit</string>
+    <string name="touchpad_edge_scroll">Scrollen am Touchpad-Rand</string>
+    <string name="touchpad_edge_scroll_description">Beim Gleiten an den Rand der Tastatur automatisch scrollen</string>
+    <string name="toolbar_only_with_hw_keyboard">Bei physischer Tastatur nur Symbolleiste anzeigen</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Die Anzeige der Bildschirmtastatur muss trotzdem in den Systemeinstellungen aktiviert werden</string>
+    <string name="spell_check_suggestions">Vorschläge der Rechtschreibprüfung anzeigen</string>
+    <string name="spell_check_suggestions_summary">Vorschläge anzeigen, wenn ein rot unterstrichenes Wort ausgewählt wird. Erfordert, dass die App als Standard-Rechtschreibprüfung festgelegt ist.</string>
+    <string name="gesture_data_screen">Gestendaten-Erfassung</string>
+    <string name="gesture_data_description">&lt;b&gt;Willkommen auf dem Bildschirm zur Gestendaten-Erfassung!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Dies ist Teil eines &lt;a href=https://nlnet.nl/project/GestureTyping&gt;von NLnet geförderten Projekts&lt;/a&gt;, das eine vollständig quelloffene Gesteneingabe-Bibliothek entwickeln will, die die Closed-Source-Bibliothek von Google ersetzen kann.&lt;br/&gt; Das Ergebnis soll ein einfacher Ersatz für AOSP-basierte Tastaturen sein, aber auch mit anderen Tastaturen wie z. B. FlorisBoard nutzbar sein.&lt;br/&gt;&lt;br/&gt; Für die Entwicklung der Bibliothek ist es enorm hilfreich, detaillierte Gestendaten in verschiedenen Sprachen und von verschiedenen Nutzern zur Verfügung zu haben.&lt;br/&gt; Indem du Gesteneingabe-Daten sammelst und einreichst, kannst du zu einem offenen Gestendatensatz beitragen, der für die Entwicklung der Bibliothek verwendet wird. Der Datensatz wird einige Zeit nach dem Abschluss der Erfassungsphase am %s unter der Lizenz CC BY-SA 4.0 veröffentlicht. Sobald du Daten gesammelt hast, kannst du sie über das Teilen-Symbol unten auf diesem Bildschirm einreichen.</string>
+    <string name="gesture_data_info">Was ist das?</string>
+    <string name="gesture_data_description_modes">Der „sichere“ Weg beizutragen ist der Modus &lt;i&gt;aktive Erfassung&lt;/i&gt;, bei dem dir ein bestimmtes Wort angezeigt wird, das du per Geste eingibst.&lt;br&gt; Du kannst auch den Modus &lt;i&gt;Hintergrund-Erfassung&lt;/i&gt; verwenden, bei dem du Beispiele aus deinen normalen Gesteneingaben in anderen Apps bereitstellen kannst. Wegen der Sensibilität dieses Ansatzes erfordet er aktive Einwilligung, ist konfigurierbar und bietet einen Überprüfungsbildschirm für die Daten, die du einreichen möchtest.</string>
+    <string name="gesture_data_description_privacy">Datenschutz\n\n Die von dir eingereichten Daten bestehen aus Zielwort, Tastaturlayout und -abmessungen, Geste (Zeiten und Koordinaten), Vorschlägen der aktuellen Bibliothek, Hash der verwendeten Wörterbücher, App-Version, Erfassungsmodus, der Angabe, ob die Gesteneingabe-Bibliothek die „Standard“-Google-Bibliothek ist, sowie einer ID zu jeder Geste.\n Eingereichte Daten werden schnellstmöglich aus dem ProtonMail-Postfach, in dem sie gespeichert werden, heruntergeladen und dort gelöscht. Nach dem Ende der Gestendaten-Erfassungsphase wird der gesammelte Datensatz aller Nutzer unter der Lizenz Creative Commons BY-SA 4.0 veröffentlicht.\n\n Zum Schutz deiner Privatsphäre wirst du nicht ausdrücklich als Autor genannt. Die Namensnennung erfolgt als „The HeliBoard Gesture Data Project Contributors“ (zu Deutsch: „Die Beitragenden des HeliBoard-Gestendaten-Projekts“). Es sollte nicht möglich sein, die Daten, die du auf diesem Bildschirm erzeugst, mit deiner Identität zu verknüpfen. Es könnte jedoch möglich sein festzustellen, welche Gesten von derselben Person stammen. Dies kann z. B. anhand eines benutzerdefinierten Tastaturlayouts, der Tastaturabmessungen, der Sprache oder des individuellen Gestenstils geschehen.</string>
+    <string name="gesture_data_privacy">Datenschutz</string>
+    <string name="gesture_data_get_data">Gestendaten-Datei teilen</string>
+    <string name="gesture_data_delete_data">Gestendaten löschen</string>
+    <string name="gesture_data_send_mail">Daten per E-Mail senden</string>
+    <string name="gesture_data_copy_mail">E-Mail-Adresse kopieren</string>
+    <string name="gesture_data_mail_use">Beachte, dass die E-Mail-Adresse für Dateneinreichungen gedacht ist; du erhältst möglicherweise keine schnellen oder regelmäßigen Antworten.</string>
+    <string name="gesture_data_share_duplicate">Du kannst bereits eingereichte Daten erneut teilen, falls du nicht sicher bist, ob sie korrekt empfangen wurden. Duplikate werden bei der Verarbeitung der Daten erkannt und entfernt.</string>
+    <string name="gesture_data_please_type">Bitte per Geste eingeben:</string>
+    <string name="gesture_data_please_switch_keyboard">Bitte wechsle zu %s</string>
+    <string name="gesture_data_next_save">„%s“ erhalten. Tippe hier, wenn du sicher bist, dass deine Geste korrekt war</string>
+    <string name="gesture_data_next">Wort überspringen</string>
+    <string name="gesture_data_active_count">%1$s Wörter in dieser Sitzung, %2$s Wörter insgesamt (%3$s bereits eingereicht oder gelöscht)</string>
+    <string name="gesture_data_review_screen_title">Gestendaten überprüfen &amp; teilen</string>
+    <string name="gesture_data_words_selected">%s Wörter</string>
+    <string name="gesture_data_date_range">Zeitraum</string>
+    <string name="gesture_data_much_data">Du hast viele nicht eingereichte Daten. Bitte reiche sie ein und entferne anschließend die alten Daten.</string>
+    <string name="gesture_data_how_to_use">Verwendung</string>
+    <string name="gesture_data_active_description">Tippe auf &lt;i&gt;Aktive Erfassung starten&lt;/i&gt;, wechsle optional das Wörterbuch und gib das angezeigte Wort per Geste ein.&lt;br/&gt; Wenn deine Geste zum Wort passt, werden die Daten gespeichert und das nächste Wort wird angezeigt. Andernfalls kannst du es erneut versuchen, das Wort überspringen oder bestätigen, dass deine Geste korrekt war.&lt;br/&gt; Du kannst nur Wörterbücher verwenden, die in die App integriert oder im &lt;a href=%s&gt;Wörterbuch-Repository&lt;/a&gt; verfügbar sind; andere Wörter werden nicht verwendet.</string>
+    <string name="gesture_data_active">Aktive Erfassung</string>
+    <string name="gesture_data_active_start">Aktive Erfassung starten</string>
+    <string name="gesture_data_active_stop">Aktive Erfassung beenden</string>
+    <string name="gesture_data_ends_at">Die Gestendaten-Erfassungsphase endet am %s. Bitte reiche deine Daten vor diesem Datum ein.</string>
+    <string name="gesture_data_ended">Die Gestendaten-Erfassungsphase ist am %s zu Ende gegangen. Du kannst deine vorhandenen Daten teilen, aber nichts Neues hinzufügen.</string>
+    <string name="gesture_data_share_all">Alle %s Wörter teilen</string>
+    <string name="gesture_data_share_new">%s noch nicht eingereichte Wörter teilen</string>
+    <string name="gesture_data_delete_dialog">Du hast Daten für %1$s neue und %2$s bereits geteilte Wörter.</string>
+    <string name="gesture_data_share_limit">Um Größenbeschränkungen nicht zu überschreiten, werden nur die ersten %s Wörter exportiert</string>
+    <string name="gesture_data_delete_dialog_all">Alle %s Wörter löschen</string>
+    <string name="gesture_data_delete_dialog_confirm">Bist du sicher? Dadurch werden %s Wörter gelöscht. Stelle sicher, dass deine geteilten Daten eingereicht wurden!</string>
+    <string name="gesture_data_delete_dialog_submitted">%s eingereichte Wörter löschen</string>
+    <string name="gesture_data_many_not_shared_words">Du hast mehr als %s Wörter, die auf die Einreichung warten</string>
+    <string name="gesture_data_email_body">WICHTIG:\n\n Hallo!\n Zur Erinnerung: Diese Daten werden öffentlich unter der Lizenz CC BY-SA 4.0 geteilt, und zum Schutz deiner Privatsphäre wirst du nicht als Autor genannt.\n\n Danke, dass du die Rechte an deinen Daten mit uns teilst. Wir werden sie gut nutzen!\n\n Bitte beachte, dass eine Änderung des Wortlauts dieses Hinweises nichts daran ändert, was wir mit deinen Daten tun. Dies ist kein Vertrag, der geändert werden kann, sondern nur eine freundliche Erinnerung!\n Wenn du uns zusammen mit deinen Daten eine Nachricht senden möchtest, schreibe sie unter die folgende Linie.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Hallo!\n Da du die Gesteneingabe-Bibliothek installiert hast, interessiert dich vielleicht HeliBoards Projekt zur Entwicklung einer vollständig offenen Gesteneingabe-Bibliothek. Du kannst helfen, indem du Gestendaten beisteuerst. Weitere Informationen findest du auf dem Bildschirm zur Gestendaten-Erfassung.</string>
+    <string name="gesture_data_reminder_message">Hallo!\n Du hast die Gestendaten-Erfassung früher genutzt, aber schon länger keine Daten mehr hinzugefügt. Möchtest du wieder beitragen?</string>
+    <string name="gesture_data_take_me_there">Bring mich dorthin</string>
+    <string name="background_gesture_data_links">Informationen zur Hintergrund-Erfassung:</string>
+    <string name="gesture_data_links">Informationen zur aktiven Erfassung:</string>
+    <string name="gesture_data_background_gathering_switch">Hintergrund-Datenerfassung verwenden</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Erlaubte Apps: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Standardmäßig verwerfen</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Daten werden manuell über die Symbolleisten-Taste gespeichert</string>
+    <string name="gesture_data_background_gathering_info">Weitere Informationen</string>
+    <string name="gesture_data_background_gathering_info_message">Das Einschalten der Hintergrund-Datenerfassung erlaubt HeliBoard, Gesten aufzuzeichnen, die du in anderen Apps eingibst. Das ist sehr nützlich für das Gesteneingabe-Projekt, da so eine beträchtliche Datenmenge entstehen kann, wenn auch mit geringerer Qualität als bei der aktiven Erfassung. Die Hintergrund-Datenerfassung ist kein Ersatz für aktiv erfasste Daten, sondern als Ergänzung gedacht, da Datenqualität wichtiger ist als -quantität.\n\n Die Hintergrund-Erfassung birgt ein hohes Potenzial, Daten zu sammeln, die du möglicherweise für zu privat hältst, um sie zu teilen, selbst wenn sie anonym veröffentlicht werden. Deshalb möchten wir klarstellen, wann Gestendaten erfasst werden und wie du das beeinflussen kannst.\n\n Ein Video mit weiteren Erklärungen zur Hintergrund-Datenerfassung findest du im Link-Bereich unten rechts auf diesem Bildschirm.</string>
+    <string name="gesture_data_background_gathering_indicator">Datenerfassungs-Anzeige</string>
+    <string name="gesture_data_background_gathering_indicator_message">Immer wenn Gestendaten aufgezeichnet werden können, siehst du ein Anzeigesymbol unten links auf der Tastatur. Wenn der Kreis gefüllt ist, wurde mindestens eine Geste erfasst und wartet auf das Speichern. Daten werden entweder über die Symbolleisten-Taste (siehe &lt;i&gt;%1$s&lt;/i&gt;) oder automatisch gespeichert (wenn &lt;i&gt;%2$s&lt;/i&gt; deaktiviert ist). Automatisches Speichern geschieht üblicherweise beim Wechseln des Textfelds oder beim Schließen der Tastatur, kann aber auch passieren, wenn sich das Textfeld aus einem anderen Grund ändert. Während Daten gespeichert werden, färbt sich die Anzeige kurz grün.</string>
+    <string name="gesture_data_background_gathering_control">So steuerst du, was gespeichert wird</string>
+    <string name="gesture_data_background_gathering_control_message">Unabhängig von den Einstellungen ist die Hintergrund-Datenerfassung deaktiviert, wenn der Inkognito-Modus verwendet wird. Sie ist auch für Eingabefelder deaktiviert, die als sensibel markiert sind (Passwörter, E-Mail oder wenn das Eingabefeld die Tastatur auffordert, die Wörter nicht zu lernen). Nur Wörter, die in einem Hauptwörterbuch enthalten sind (integriert oder aus dem &lt;a href=%5$s&gt;Wörterbuch-Repository&lt;/a&gt;), werden erfasst. &lt;br&gt;&lt;br&gt; Über &lt;i&gt;%1$s&lt;/i&gt; kannst du auswählen, in welchen Apps du die Hintergrund-Datenerfassung erlauben möchtest. Die Standardeinstellung deaktiviert jede App, mit Einwilligungsmöglichkeit pro App. Du kannst stattdessen auch jede App aktivieren und pro App widersprechen. Das ist bequemer, erlaubt aber automatisch die Datenerfassung in neu installierten Apps. Dadurch könnten Daten erfasst werden, die du nicht erwartet hast. &lt;br&gt;&lt;br&gt; Mit &lt;i&gt;%2$s&lt;/i&gt; kannst du bestimmte sensible Wörter ausschließen. Wenn du ein ausgeschlossenes Wort per Geste eingibst, zeigt die Anzeige weiterhin das gefüllte Symbol („Daten warten auf das Speichern“), aber die Daten werden verworfen, wenn sie normalerweise gespeichert würden. Blockierte Wörter, die bereits gespeichert wurden, bevor das Wort blockiert wurde, werden beim Exportieren der Daten verworfen.&lt;br&gt; Beachte, dass die Hintergrund-Erfassung nur Wörter sammelt, die bereits in einem Hauptwörterbuch stehen. Die einzigen Wörter, die du wahrscheinlich blockieren musst, sind daher gebräuchliche Wörter, mit denen du persönlich identifiziert werden könntest, etwa: dein Name, deine Straße, Stadt, Region usw. &lt;br&gt;&lt;br&gt; Wenn &lt;i&gt;%3$s&lt;/i&gt; aktiviert ist, werden Daten nur gespeichert, wenn du dies manuell über die Symbolleisten-Taste &lt;i&gt;%4$s&lt;/i&gt; tust (siehe unten). Werden die Daten nicht gespeichert, werden ausstehende Daten beim Wechseln des Eingabefelds oder beim Schließen der Tastatur gelöscht.&lt;br&gt; App- und Wort-Ausschlüsse gelten auch in diesem Modus. &lt;br&gt;&lt;br&gt; Mit der Symbolleisten-Taste &lt;i&gt;%4$s&lt;/i&gt; kannst du die Datenerfassung steuern. Die Wirkung eines Tastendrucks hängt vom aktuellen Zustand ab: Wenn die Hintergrund-Erfassung deaktiviert ist, wird sie aktiviert.&lt;br&gt; Langes Drücken deaktiviert die Erfassung für fünf Minuten.&lt;br&gt; Mit einem normalen Tastendruck kannst du die Hintergrund-Datenerfassung früher wieder aktivieren.&lt;br&gt; Wenn &lt;i&gt;%3$s&lt;/i&gt; aktiviert ist, werden ausstehende Daten gespeichert.&lt;br&gt; Andernfalls werden ausstehende Daten verworfen.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Auf dem Bildschirm &lt;i&gt;%1$s&lt;/i&gt; kannst du die erfassten Daten prüfen und filtern, zu sensible Daten löschen und Daten teilen. Die Löschen- und Teilen-Schaltflächen wirken auf die gefilterten Daten oder auf die Auswahl, wenn du Wörter per langem Drücken auswählst. (Beachte, dass das „normale“ Teilen-Symbol außerhalb des Bildschirms &lt;i&gt;%1$s&lt;/i&gt; nur Daten aus der aktiven Erfassung teilt.)&lt;br&gt; Die Reihenfolge der geteilten Daten wird zufällig gemischt, sodass sich nichts weiter als die einzelnen Wörter ableiten lässt.&lt;br&gt; Wenn du die vollständigen Daten sehen möchtest, die zu einer Geste gespeichert sind, kannst du sie in eine Datei teilen und diese Datei in &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt; laden.</string>
+    <string name="gesture_data_background_apps_button">Erlaubte Apps verwalten</string>
+    <string name="gesture_data_background_apps">Apps auswählen, die in die Hintergrund-Datenerfassung einbezogen werden</string>
+    <string name="gesture_data_background_apps_include_default">Apps standardmäßig einbeziehen</string>
+    <string name="gesture_data_background_excluded_words_button">Ausgeschlossene Wörter verwalten</string>
+    <string name="gesture_data_background_dictionary">Wörterbuch: %s</string>
+    <string name="gesture_data_background_position">Position: %s</string>
+    <string name="gesture_data_background_exclude_words">Wort von der Hintergrund-Erfassung ausschließen</string>
+    <string name="gesture_data_long_press_select_hint">Zum Auswählen lange drücken</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Hintergrund-Datenerfassung</string>
+    <string name="gesture_data_show_active">Aktiv erfasste Daten anzeigen</string>
+    <string name="gesture_data_show_background">Hintergrund-Daten anzeigen</string>
+    <string name="gesture_data_include_shared">Bereits eingereichte Daten einbeziehen</string>
+    <string name="gesture_data_shared">eingereicht</string>
+    <string name="gesture_data_saving">Speichern… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Willkommen bei der Hintergrund-Datenerfassung!&lt;br&gt; Möchtest du die Taste &lt;i&gt;%1$s&lt;/i&gt; zur Symbolleiste hinzufügen? Du kannst mit ihr die Datenerfassung steuern; mehr dazu erfährst du über die Schaltfläche &lt;i&gt;%2$s&lt;/i&gt;. &lt;br&gt;&lt;br&gt; Standardmäßig ist die Hintergrund-Erfassung für alle Apps deaktiviert. Das bedeutet, dass nichts erfasst wird, bis du auswählst, welche Apps du erlaubst. Das kannst du %3$s ändern.</string>
+    <string name="gesture_data_add_key">Symbolleisten-Taste hinzufügen</string>
+    <string name="gesture_data_no_known_dict">Die Hintergrund-Erfassung sammelt nur Wörter aus Wörterbüchern, die integriert oder im &lt;a href=%s&gt;Wörterbuch-Repository&lt;/a&gt; verfügbar sind. Derzeit hast du kein solches Wörterbuch aktiviert.</string>
+    <string name="gesture_data_swipe_o_scope">Werkzeug zur Visualisierung von Gestendaten: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

@@ -212,7 +212,7 @@
     <string name="up" tools:keep="@string/up">Goian</string>
     <string name="down" tools:keep="@string/down">Behean</string>
     <string name="show_popup_hints">Erakutsi aholku funtzionalak</string>
-    <string name="show_popup_hints_summary">Erakutsi aholkuak tekla bat luze sakatzeak funtzionalitate gehigarriak abiarazten baditu</string>
+    <string name="show_popup_hints_summary">Erakutsi argibidea tekla funtzional bat luze sakatuz gero popup bat irekitzen bada</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Argia</string>
     <string name="cut" tools:keep="@string/cut">Moztu</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Garbitu arbela</string>
@@ -306,7 +306,7 @@
     <string name="close_history" tools:keep="@string/close_history">Itxi arbelaren historia</string>
     <string name="clipboard_toolbar_keys">Hautatu arbeleko tresna-barrako teklak</string>
     <string name="more_colors">Erakutsi kolore gehiago</string>
-    <string name="all_colors_warning">Ezarpen honek barnean erabiltzen diren kolore guztiak agerian uzten ditu. Koloreen zerrenda edozein unetan alda daiteke. Kolore lehenetsia aleatorioa da, eta izenak ez dira itzuliko.</string>
+    <string name="all_colors_warning">Ezarpen honek barnean erabiltzen diren kolore guztiak agerian uzten ditu. Koloreen zerrenda edozein unetan alda daiteke. Kolore lehenetsia arruntetatik eratorriak dira, eta izenak ez dira itzuliko.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funtzio-teklak</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funtzio-teklak (ikur gehiago)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funtzio-teklak (ikurrak)</string>
@@ -415,7 +415,7 @@
     <string name="prefs_font_scale">Teklatuko karaktereen eskala</string>
     <string name="prefs_emoji_font_scale">Emojien eskala</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutroa</string>
-    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_dru">Darginera (Urakhi)</string>
     <string name="get_layouts_message">%s-n diseinuak aurki eta parteka ditzakezu.</string>
     <string name="discussion_section_link">eztabaiden atala</string>
     <string name="name_invalid">Izen baliogabea</string>
@@ -454,4 +454,107 @@
     <string name="toolbar_swipe_down_to_hide">Ezkutatu teklatua irristatuz</string>
     <string name="toolbar_swipe_down_to_hide_summary">Irristatu tresna barran behera teklatua ixteko</string>
     <string name="auto_correct_capitalized_suggestions">Zuzendu automatikoki larriz idatzitako iradokizunak</string>
+    <string name="auto_correct_capitalized_suggestions_description">Maius sakatuta iradokizunak maiuskulaz jarri ondoren, zuzenketa automatikoa abiaraziko da</string>
+    <string name="custom_punctuation_suggestions">Ezarri puntuazio iradokizunak</string>
+    <string name="clipboard_history_files">Gehitu irudiak eta beste fitxategi batzuk arbelaren historiara</string>
+    <string name="clipboard_history_max_file_size">Arbelaren tamaina-muga</string>
+    <string name="item_description">Deskribapena: %s</string>
+    <string name="item_type">Mota: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="timestamp_description">Denbora-zigiluaren tekla gehi dezakezu \'timestamp\' tekla duen diseinu pertsonalizatu baten bidez, edo -10043 tekla-kodearen bidez</string>
+    <string name="floating" tools:keep="@string/floating">Teklatu flotagarria</string>
+    <string name="prefs_key_gap_scale">Teklen arteko tartearen eskala</string>
+    <string name="prefs_hint_font_scale">Teklen aholkuen karaktereen eskala</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4 errenkada)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funtzio-teklak (Khipro)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="about_community_links">Komunitatearen estekak</string>
+    <string name="about_community_links_description">Gaiak, diseinuen editorea, eztabaidak, …</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Zero zabalerako ez-lotzailea</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Zakarrontzia</string>
+    <string name="space_swipe_toggle_dpad_entry">Aktibatu/desaktibatu D-pada</string>
+    <string name="space_swipe_touchpad_mode_entry">Ukipen-panel modua</string>
+    <string name="touchpad_sensitivity">Ukipen-panelaren sentikortasuna</string>
+    <string name="touchpad_edge_scroll">Ukipen-panelaren ertzeko korritzea</string>
+    <string name="touchpad_edge_scroll_description">Korritu automatikoki teklatuaren ertzera lerratzean</string>
+    <string name="toolbar_only_with_hw_keyboard">Erakutsi tresna-barra soilik teklatu fisikoarekin</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Hala ere, teklatu birtuala erakustea gaitu behar duzu sistemaren ezarpenetan</string>
+    <string name="folded">Tolestuta</string>
+    <string name="emoji_search_title">Bilatu emojiak</string>
+    <string name="search_field_placeholder">Bilatu</string>
+    <string name="ask_later">Galdetu geroago</string>
+    <string name="spell_check_suggestions">Erakutsi ortografia zuzentzailearen iradokizunak</string>
+    <string name="spell_check_suggestions_summary">Erakutsi iradokizunak azpimarra gorria duen hitz bat hautatzean. Aplikazioa ortografia zuzentzaile lehenetsi gisa ezarri behar da.</string>
+    <string name="gesture_data_screen">Keinu-datuen bilketa</string>
+    <string name="gesture_data_description">&lt;b&gt;Ongi etorri keinu-datuen bilketaren pantailara!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Hau &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-ek finantzatutako proiektu&lt;/a&gt; baten zatia da; helburua kode irekiko keinu-idazketaren liburutegi oso bat sortzea da, Googleren kode itxiko liburutegia ordezkatzeko gai izango dena.&lt;br/&gt; Emaitza AOSPn oinarritutako teklatuentzako ordezko sinplea izatea aurreikusten da, baina beste teklatu batzuekin ere erabilgarria, adibidez FlorisBoard-ekin.&lt;br/&gt;&lt;br/&gt; Liburutegia garatzeko, izugarri lagungarria da hizkuntza desberdinetako eta erabiltzaile desberdinen keinu-datu zehatzak eskuragarri izatea.&lt;br/&gt; Keinu-idazketaren datuak bilduz eta bidaliz, liburutegiaren garapenerako erabiliko den keinu-datuen multzo ireki bati lagun diezaiokezu. Datu-multzoa CC BY-SA 4.0 lizentziapean argitaratuko da, datu-bilketaren fasea amaitu eta denbora batera (amaiera-data: %s). Datuak bildu ondoren, pantaila honen behealdeko partekatze-ikonoa erabiliz bidal ditzakezu.</string>
+    <string name="gesture_data_info">Zer da hau?</string>
+    <string name="gesture_data_description_modes">Laguntzeko modu \"segurua\" &lt;i&gt;bilketa aktiboa&lt;/i&gt; modua da: hitz jakin bat erakusten zaizu, eta hitz hori keinu-idazketa erabiliz sartzen duzu.&lt;br&gt; &lt;i&gt;Bigarren planoko bilketa&lt;/i&gt; modua ere erabil dezakezu: beste aplikazio batzuetako zure ohiko keinu-idazketaren laginak eman ditzakezu. Hurbilketa honen sentikortasuna dela eta, aukerakoa da, konfiguragarria da, eta bidaltzear zauden datuak berrikusteko pantaila bat du.</string>
+    <string name="gesture_data_description_privacy">Pribatutasuna\n\n Bidaltzen dituzun datuak honakoak dira: helburuko hitza, teklatuaren diseinua eta neurriak, keinua (denborak eta koordenatuak), uneko liburutegiaren iradokizunak, erabilitako hiztegien hash-a, aplikazioaren bertsioa, datu-bilketaren modua, keinu-idazketaren liburutegia Googleren liburutegi \"lehenetsia\" den ala ez, eta keinu bakoitzari dagokion ID bat.\n Bidalitako datuak ahalik eta lasterren deskargatu eta ezabatuko dira gordetzen diren ProtonMail postontzitik. Keinu-datuen bilketaren fasea amaitu ondoren, erabiltzaile guztien datu-multzo metatua Creative Commons BY-SA 4.0 lizentziapean argitaratuko da.\n\n Zure pribatutasuna babesteko ahaleginaren barruan, ez zara egile gisa esplizituki zerrendatuko. Zure aitorpena \"The HeliBoard Gesture Data Project Contributors\" izango da. Pantaila honetan sortzen dituzun datuak zure identitatearekin lotzea ezinezkoa izan beharko litzateke. Hala ere, baliteke zehaztu ahal izatea zein keinu egin dituen pertsona berak, adibidez teklatu-diseinu pertsonalizatu batetik, teklatuaren neurrietatik, hizkuntzatik edo norberaren keinu-estilotik abiatuta.</string>
+    <string name="gesture_data_privacy">Pribatutasuna</string>
+    <string name="gesture_data_get_data">Partekatu keinu-datuen fitxategia</string>
+    <string name="gesture_data_delete_data">Garbitu keinu-datuak</string>
+    <string name="gesture_data_send_mail">Bidali datuak posta elektronikoz</string>
+    <string name="gesture_data_copy_mail">Kopiatu helbide elektronikoa</string>
+    <string name="gesture_data_mail_use">Kontuan izan helbide elektronikoa datuak bidaltzeko dela; baliteke erantzun azkarrik edo koherenterik ez jasotzea.</string>
+    <string name="gesture_data_share_duplicate">Dagoeneko bidalitako datuak berriro parteka ditzakezu, behar bezala jaso zirela ziur ez bazaude. Datuak prozesatzean, bikoiztuak antzeman eta kendu egiten ditugu.</string>
+    <string name="gesture_data_please_type">Idatzi keinu bidez:</string>
+    <string name="gesture_data_please_switch_keyboard">Mesedez, aldatu %s teklatura</string>
+    <string name="gesture_data_next_save">\"%s\" jaso da. Sakatu keinua zuzen egin duzula ziur bazaude</string>
+    <string name="gesture_data_next">Saltatu hitza</string>
+    <string name="gesture_data_active_count">%1$s hitz saio honetan, %2$s hitz guztira (%3$s dagoeneko bidalita edo ezabatuta)</string>
+    <string name="gesture_data_review_screen_title">Berrikusi eta partekatu keinu-datuak</string>
+    <string name="gesture_data_words_selected">%s hitz</string>
+    <string name="gesture_data_date_range">Data-tartea</string>
+    <string name="gesture_data_much_data">Bidali gabeko datu asko dituzu. Mesedez, bidali datuak eta gero kendu zaharrak.</string>
+    <string name="gesture_data_how_to_use">Nola erabili</string>
+    <string name="gesture_data_active_description">Sakatu &lt;i&gt;Hasi bilketa aktiboa&lt;/i&gt;, nahi izanez gero aldatu hiztegia, eta hasi erakutsitako hitza keinu bidez idazten.&lt;br/&gt; Zure keinua hitzarekin bat badator, datuak gorde eta hurrengo hitza erakutsiko da. Bestela, berriro saia zaitezke, hitza saltatu, edo keinua zuzen egin duzula berretsi.&lt;br/&gt; Aplikazioan integratutako hiztegiak edo &lt;a href=%s&gt;hiztegien biltegian&lt;/a&gt; eskuragarri daudenak soilik erabil ditzakezu; ez da beste hitzik erabiliko.</string>
+    <string name="gesture_data_active">Bilketa aktiboa</string>
+    <string name="gesture_data_active_start">Hasi bilketa aktiboa</string>
+    <string name="gesture_data_active_stop">Gelditu bilketa aktiboa</string>
+    <string name="gesture_data_ends_at">Keinu-datuen bilketaren fasea %s egunean amaituko da. Mesedez, bidali zure datuak data hori baino lehen.</string>
+    <string name="gesture_data_ended">Keinu-datuen bilketaren fasea %s egunean amaitu zen. Dauzkazun datuak parteka ditzakezu, baina ezin duzu ezer berririk gehitu.</string>
+    <string name="gesture_data_share_all">Partekatu hitz guztiak (%s)</string>
+    <string name="gesture_data_share_new">Partekatu aurrez bidali gabeko %s hitz</string>
+    <string name="gesture_data_delete_dialog">%1$s hitz berriren eta dagoeneko partekatutako %2$s hitzen datuak dituzu.</string>
+    <string name="gesture_data_share_limit">Tamaina-mugak ez gainditzeko, lehen %s hitzak soilik esportatuko dira</string>
+    <string name="gesture_data_delete_dialog_all">Ezabatu hitz guztiak (%s)</string>
+    <string name="gesture_data_delete_dialog_confirm">Ziur zaude? Honek %s hitz ezabatuko ditu. Ziurtatu partekatutako datuak bidalita daudela!</string>
+    <string name="gesture_data_delete_dialog_submitted">Ezabatu bidalitako %s hitzak</string>
+    <string name="gesture_data_many_not_shared_words">%s hitz baino gehiago dituzu bidaltzeko zain</string>
+    <string name="gesture_data_email_body">GARRANTZITSUA:\n\n Kaixo!\n Gogorarazpen gisa: datu hauek CC BY-SA 4.0 lizentziapean publikoki partekatuko dira, eta ez zara egile gisa zerrendatuko, zure pribatutasuna babesteko.\n\n Eskerrik asko zure datuen eskubideak gurekin partekatzeagatik. Erabilera ona emango diegu!\n\n Kontuan izan ohar honen idazkera aldatzeak ez duela aldatzen zure datuekin egingo duguna. Hau ez da aldatzeko kontratu bat, gogorarazpen adeitsu bat baino ez!\n Zure datuekin batera mezu bat bidali nahi badiguzu, idatzi hemen, marraren azpian.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Kaixo!\n Keinu-idazketaren liburutegia instalatu duzunez, agian interesatuko zaizu HeliBoard-en proiektua: guztiz irekia den keinu-idazketaren liburutegi bat sortzea. Keinu-datuak emanez lagun dezakezu. Informazio gehiagorako, bisitatu keinu-datuen bilketaren pantaila.</string>
+    <string name="gesture_data_reminder_message">Kaixo!\n Lehenago keinu-datuen bilketa erabili zenuen, baina aspaldian ez duzu daturik gehitu. Berriro lagundu nahi duzu?</string>
+    <string name="gesture_data_take_me_there">Eraman nazazu hara</string>
+    <string name="background_gesture_data_links">Bigarren planoko bilketari buruzko informazioa:</string>
+    <string name="gesture_data_links">Bilketa aktiboari buruzko informazioa:</string>
+    <string name="gesture_data_background_gathering_switch">Erabili bigarren planoko datu-bilketa</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Baimendutako aplikazioak: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Baztertu lehenespenez</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Datuak eskuz gordetzen dira tresna-barrako teklaren bidez</string>
+    <string name="gesture_data_background_gathering_info">Informazio gehiago</string>
+    <string name="gesture_data_background_gathering_info_message">Bigarren planoko datu-bilketa aktibatzeak beste aplikazio batzuetan idazten dituzun keinuak grabatzeko aukera ematen dio HeliBoard-i. Oso baliagarria da keinu-idazketaren proiekturako, datu kopuru handia sor baitezake, nahiz eta bilketa aktiboa baino kalitate txikiagokoa izan. Bigarren planoko datu-bilketa ez da modu aktiboan bildutako datuen ordezkoa; osagarri gisa pentsatuta dago, datuen kalitatea kantitatea baino garrantzitsuagoa baita.\n\n Bigarren planoko bilketak aukera handia du partekatzeko pribatuegitzat jo ditzakezun datuak biltzeko, baita anonimoki argitaratuta ere. Horregatik, argitu nahi dugu noiz biltzen diren keinu-datuak eta nola eragin dezakezun horretan.\n\n Bigarren planoko datu-bilketari buruz gehiago azaltzen duen bideo bat aurki dezakezu pantaila honen behe-eskuinaldeko esteken atalean.</string>
+    <string name="gesture_data_background_gathering_indicator">Datu-bilketaren adierazlea</string>
+    <string name="gesture_data_background_gathering_indicator_message">Keinu-datuak graba daitezkeen bakoitzean, adierazle-ikono bat ikusiko duzu teklatuaren behe-ezkerraldean. Zirkulua beteta dagoenean, gutxienez keinu bat bildu da eta gordetzeko zain dago. Datuak tresna-barrako teklaren bidez (ikus &lt;i&gt;%1$s&lt;/i&gt;) edo automatikoki (&lt;i&gt;%2$s&lt;/i&gt; desgaituta dagoenean) gordetzen dira. Gordetze automatikoa testu-eremuz aldatzean edo teklatua ixtean gertatu ohi da, baina testu-eremua beste arrazoiren batengatik aldatzen bada ere gerta daiteke. Datuak gordetzen ari direnean, adierazlea berde jarriko da denbora laburrez.</string>
+    <string name="gesture_data_background_gathering_control">Nola kontrolatu zer gordetzen den</string>
+    <string name="gesture_data_background_gathering_control_message">Ezarpenak gorabehera, bigarren planoko datu-bilketa desgaituta dago ezkutuko modua erabiltzean. Sentikor gisa markatutako sarrera-eremuetarako ere desgaituta dago (pasahitzak, posta elektronikoa, edo sarrera-eremuak teklatuari hitzak ez ikasteko eskatzen dionean). Hiztegi nagusi batean dauden hitzak soilik bilduko dira (integratuak edo &lt;a href=%5$s&gt;hiztegien biltegikoak&lt;/a&gt;). &lt;br&gt;&lt;br&gt; &lt;i&gt;%1$s&lt;/i&gt; erabiliz, bigarren planoko datu-bilketa zein aplikaziotan baimendu nahi duzun hauta dezakezu. Ezarpen lehenetsiak aplikazio guztiak desgaitzen ditu, eta aplikazioz aplikazio gaitu behar da. Horren ordez, aplikazio guztiak gaitzea aukera dezakezu, eta aplikazioz aplikazio desgaitu. Hori erosoagoa da, baina instalatu berri diren aplikazioetatik datuak biltzea automatikoki baimenduko du. Horrek espero ez zenituen datuak biltzea eragin lezake. &lt;br&gt;&lt;br&gt; &lt;i&gt;%2$s&lt;/i&gt; erabiliz, hitz sentikor zehatzak bazter ditzakezu. Baztertutako hitz bat keinu bidez idaztean, adierazle-ikonoak ikono betea erakutsiko du oraindik (\"datuak gordetzeko zain\"), baina datuak baztertu egingo dira normalean gordeko liratekeen unean. Blokeatutako hitzak, hitza blokeatu aurretik gordeta bazeuden ere, datuak esportatzean baztertu egingo dira.&lt;br&gt; Kontuan izan bigarren planoko bilketak hiztegi nagusi batean dauden hitzak soilik bilduko dituela; beraz, blokeatu beharko dituzun hitz bakarrak seguruenik zu pertsonalki identifikatzeko erabil litezkeen hitz arruntak izango dira, hala nola: zure izena, kalea, hiria, lurraldea, etab. &lt;br&gt;&lt;br&gt; &lt;i&gt;%3$s&lt;/i&gt; gaituta dagoenean, datuak eskuz gordetzea aukeratzen duzunean soilik gordeko dira, &lt;i&gt;%4$s&lt;/i&gt; tresna-barrako tekla erabiliz (ikus behean). Datuak gordetzen ez badira, zain dauden datuak ezabatu egingo dira sarrera-eremuz aldatzean edo teklatua ixtean.&lt;br&gt; Aplikazioen eta hitzen bazterketek modu honetan ere balio dute. &lt;br&gt;&lt;br&gt; &lt;i&gt;%4$s&lt;/i&gt; tresna-barrako tekla datu-bilketa kontrolatzeko erabil daiteke. Sakatzearen ondorioa uneko egoeraren araberakoa da: bigarren planoko bilketa desgaituta dagoenean, gaitu egingo da.&lt;br&gt; Luze sakatzeak bilketa bost minutuz desgaituko du.&lt;br&gt; Bigarren planoko datu-bilketa lehenago gaitu dezakezu berriro tekla normal sakatuta.&lt;br&gt; &lt;i&gt;%3$s&lt;/i&gt; gaituta dagoenean, zain dauden datuak gorde egingo dira.&lt;br&gt; Bestela, zain dauden datuak baztertu egingo dira.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">&lt;i&gt;%1$s&lt;/i&gt; pantaila erabiliz, bildutako datuak egiaztatu eta iragaz ditzakezu, sentikorregitzat jotzen dituzun datuak ezabatu, eta datuak partekatu. Ezabatzeko eta partekatzeko botoiek iragazitako datuetan eragingo dute, edo hautapenean, hitzak hautatzeko sakatze luzea erabiltzen baduzu. (Kontuan izan &lt;i&gt;%1$s&lt;/i&gt; pantailatik kanpoko partekatze-ikono \"normalak\" bilketa aktiboko datuak soilik partekatuko dituela.)&lt;br&gt; Partekatutako datuen ordena ausaz nahasten da; beraz, hitz solteak baino ezin dira ondorioztatu.&lt;br&gt; Keinu baterako gordetako datu guztiak ikusi nahi badituzu, fitxategi batera parteka ditzakezu, eta fitxategia &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;-n kargatu.</string>
+    <string name="gesture_data_background_apps_button">Kudeatu baimendutako aplikazioak</string>
+    <string name="gesture_data_background_apps">Hautatu bigarren planoko datu-bilketan sartu beharreko aplikazioak</string>
+    <string name="gesture_data_background_apps_include_default">Sartu aplikazioak lehenespenez</string>
+    <string name="gesture_data_background_excluded_words_button">Kudeatu baztertutako hitzak</string>
+    <string name="gesture_data_background_dictionary">Hiztegia: %s</string>
+    <string name="gesture_data_background_position">Posizioa: %s</string>
+    <string name="gesture_data_background_exclude_words">Baztertu hitza bigarren planoko bilketatik</string>
+    <string name="gesture_data_long_press_select_hint">Sakatu luze hautatzeko</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Bigarren planoko datu-bilketa</string>
+    <string name="gesture_data_show_active">Erakutsi modu aktiboan bildutako datuak</string>
+    <string name="gesture_data_show_background">Erakutsi bigarren planoko datuak</string>
+    <string name="gesture_data_include_shared">Sartu dagoeneko bidalitako datuak</string>
+    <string name="gesture_data_shared">bidalita</string>
+    <string name="gesture_data_saving">Gordetzen… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Ongi etorri bigarren planoko datu-bilketara!&lt;br&gt; &lt;i&gt;%1$s&lt;/i&gt; tekla tresna-barran gehitu nahi duzu? Datu-bilketa kontrolatzeko erabil dezakezu; irakurri gehiago &lt;i&gt;%2$s&lt;/i&gt; botoia erabiliz. &lt;br&gt;&lt;br&gt; Lehenespenez, bigarren planoko bilketa desgaituta dago aplikazio guztietarako. Horrek esan nahi du ez dela ezer bilduko zein aplikazio baimentzen dituzun aukeratu arte. %3$s alda dezakezu.</string>
+    <string name="gesture_data_add_key">Gehitu tresna-barrako tekla</string>
+    <string name="gesture_data_no_known_dict">Bigarren planoko bilketak integratutako hiztegietatik edo &lt;a href=%s&gt;hiztegien biltegian&lt;/a&gt; eskuragarri daudenetatik datozen hitzak soilik biltzen ditu. Une honetan ez duzu horrelako hiztegirik gaituta.</string>
+    <string name="gesture_data_swipe_o_scope">Keinu-datuak bistaratzeko tresna: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

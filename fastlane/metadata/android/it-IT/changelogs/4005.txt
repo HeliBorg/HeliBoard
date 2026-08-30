@@ -7,5 +7,6 @@
 * Opzione per disattivare popup correttore
 * Cursore per l'affidabilità autocorrezione
 * Cursore per spaziatura ridotta dei tasti
+* Spaziatura uniforme delle icone sulla barra degli strumenti
 * Fix di sicurezza su backup zip alterati
 * Altri fix e miglioramenti...

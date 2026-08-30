@@ -17,7 +17,7 @@
     <string name="language_switch_key_switch_input_method">"Váltás más beviteli módra"</string>
     <string name="show_language_switch_key">Nyelvkapcsoló-billentyű</string>
     <string name="abbreviation_unit_milliseconds">"%s ms"</string>
-    <string name="settings_system_default">Rendszer alapértelmezett</string>
+    <string name="settings_system_default">Rendszer alapértelmezése</string>
     <string name="use_contacts_dict_summary">Névjegyek használata javaslatokhoz és javításokhoz</string>
     <string name="use_personalized_dicts">"Testreszabott javaslatok"</string>
     <string name="use_double_space_period">Dupla szóköz ponttá válik</string>
@@ -63,7 +63,7 @@
     <string name="prefs_key_longpress_timeout_settings">Billentyűk nyomva tartásának késleltetése</string>
     <string name="prefs_enable_emoji_alt_physical_key">Emodzsi a fizikai billentyűhöz</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Fizikai Alt-billentyű megjeleníti a emodzsipalettát</string>
-    <string name="button_default">"Alapértelmezett"</string>
+    <string name="button_default">Alapértelmezés</string>
     <string name="setup_welcome_title">Üdvözöljük a(z) %s alkalmazásban</string>
     <string name="setup_welcome_additional_description">ujjmozdulat-gépeléssel</string>
     <string name="setup_start_action">"Első lépések"</string>
@@ -168,7 +168,7 @@
     <string name="prefs_bottom_padding_scale">Alsó margó mérete</string>
     <string name="full_left" tools:keep="@string/full_left">Teljesen balra</string>
     <string name="up" tools:keep="@string/up">Felfelé</string>
-    <string name="show_popup_hints_summary">Tippek megjelenítése, ha egy billentyű nyomva tartása további funkciókat indít el</string>
+    <string name="show_popup_hints_summary">Tippek megjelenítése, ha egy funkcióbillentyű hosszan tartó megnyomása felugró ablakot nyit meg</string>
     <string name="prefs_narrow_key_gaps">Keskeny billentyűhézagok</string>
     <string name="localized_number_row">Helyi számsor</string>
     <string name="localized_number_row_summary">A latin számok helyett a helyi számok előnyben részesítése</string>
@@ -365,7 +365,7 @@
     <string name="autospace_after_gesture_typing">Automatikus szóközbeszúrás a ujjmozdulat-gépelés után</string>
     <string name="shift_removes_autospace">Shift billentyű leütésekor nincs automatikus szóköz</string>
     <string name="shift_removes_autospace_summary">A Shift billentyű eltávolítja a függőben lévő automatikus szóközt</string>
-    <string name="show_popup_keys_main">Nagyon gyakori változatok hozzáadása (alapértelmezett)</string>
+    <string name="show_popup_keys_main">Nagyon gyakori változatok hozzáadása (alapértelmezés)</string>
     <string name="toolbar_hiding_global">Vágólap- és emodzsisáv elrejtése</string>
     <string name="split" tools:keep="@string/split">Osztott billentyűzet</string>
     <string name="word_left" tools:keep="@string/word_left">Balra lévő szó</string>
@@ -511,7 +511,7 @@
     <string name="background_gesture_data_links">Információk a háttérben történő adatgyűjtésről:</string>
     <string name="gesture_data_background_gathering_switch">Háttérben történő adatgyűjtés használata</string>
     <string name="gesture_data_background_gathering_allowed_apps">Engedélyezett alkalmazások: %s</string>
-    <string name="gesture_data_background_gathering_manual_save">Elvetés alapértelmezés szerint</string>
+    <string name="gesture_data_background_gathering_manual_save">Elutasítás alapértelmezés szerint</string>
     <string name="gesture_data_background_gathering_manual_save_summary">Az adatok mentése kézzel, az eszköztár gombjával történik</string>
     <string name="gesture_data_background_gathering_info">További információk</string>
     <string name="gesture_data_background_gathering_info_message">A háttérben történő adatgyűjtés bekapcsolása lehetővé teszi a Heliboard számára, hogy rögzítse a más alkalmazásokban beírt ujjmozdulatokat. Ez nagyon hasznos az ujjmozdulat-gépelési projekt számára, mivel jelentős mennyiségű adatot tud előállítani, bár az aktív gyűjtésnél alacsonyabb minőségben. A háttérben történő adatgyűjtés nem helyettesíti az aktívan gyűjtött adatokat, csupán kiegészítésként szolgál, mivel az adatok minősége fontosabb a mennyiségnél.\n\n A háttérben történő adatgyűjtés során nagy eséllyel gyűlhetnek olyan adatok is, amelyeket túlságosan privátnak tarthat a megosztáshoz, még anonim közzététel esetén is. Emiatt szeretnénk tisztázni, hogy mikor történik ujjmozdulat-adatgyűjtés, és hogyan befolyásolhatja azt.\n\n A képernyő jobb alsó sarkában található hivatkozások között talál egy videót, amely bővebben elmagyarázza a háttérben történő adatgyűjtést.</string>
@@ -544,4 +544,6 @@
     <string name="about_community_links">Közösségi hivatkozások</string>
     <string name="about_community_links_description">Témák, elrendezésszerkesztő, beszélgetések, …</string>
     <string name="subtype_tok">Toki Pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="space_swipe_toggle_dpad_entry">D-pad be/ki</string>
 </resources>

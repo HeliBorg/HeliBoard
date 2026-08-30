@@ -69,6 +69,7 @@
    <locale android:name="ne"/>
    <locale android:name="nl"/>
    <locale android:name="nl-BE"/>
+   <locale android:name="nn"/>
    <locale android:name="or"/>
    <locale android:name="ota"/>
    <locale android:name="pa"/>
@@ -79,6 +80,7 @@
    <locale android:name="pt-PT"/>
    <locale android:name="ro"/>
    <locale android:name="ru"/>
+   <locale android:name="sa"/>
    <locale android:name="sc-IT"/>
    <locale android:name="si"/>
    <locale android:name="sk"/>

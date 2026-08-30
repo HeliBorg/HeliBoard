@@ -447,4 +447,103 @@
     <string name="search_field_placeholder">Cerca</string>
     <string name="gesture_data_screen">Recopilació de dades gestuals</string>
     <string name="gesture_data_description">Benvinguts a la pantalla de recopilació de dades de gestos!&lt;br/&gt;&lt;br/&gt; Això forma part d\'un &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projecte finançat per NLnet&lt;/a&gt; que s\'esforça per produir una biblioteca de mecanografia gestual de codi obert completament capaç de substituir la biblioteca de codi tancat de Google.&lt;br/&gt; Es preveu que el resultat sigui un substitut senzill per als teclats basats en AOSP, però també utilitzable amb altres teclats, p. ex. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Per desenvolupar la biblioteca, és tremendament útil tenir disponibles dades gestuals detallades en diferents idiomes i per diferents usuaris.&lt;br/&gt; En recopilar i enviar dades de mecanografia gestual, podeu contribuir a un conjunt obert de dades gestuals que s\'utilitzaran per al desenvolupament de la biblioteca. El conjunt de dades es publicarà sota una llicència CC BY-SA 4.0 un temps després que la fase de recopilació de dades s\'hagi finalitzat el %s. Un cop hàgiu recopilat les dades, les podeu enviar mitjançant la icona de compartir a la part inferior d\'aquesta pantalla.</string>
+    <string name="toolbar_swipe_down_to_hide">Amaga el teclat amb un lliscament</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Llisqueu cap avall a la barra d\'eines per tancar el teclat</string>
+    <string name="auto_correct_capitalized_suggestions">Autocorrecció de suggeriments en majúscules</string>
+    <string name="auto_correct_capitalized_suggestions_description">Després de prémer majúscules per posar els suggeriments en majúscula, s\'activarà l\'autocorrecció</string>
+    <string name="custom_punctuation_suggestions">Estableix els suggeriments de puntuació</string>
+    <string name="clipboard_history_files">Afegeix imatges i altres fitxers a l\'historial del porta-retalls</string>
+    <string name="clipboard_history_max_file_size">Límit de mida del porta-retalls</string>
+    <string name="item_description">Descripció: %s</string>
+    <string name="item_type">Tipus: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="floating" tools:keep="@string/floating">Teclat flotant</string>
+    <string name="prefs_key_gap_scale">Escala dels espais entre tecles</string>
+    <string name="prefs_bottom_row_scale">Escala de la fila inferior</string>
+    <string name="prefs_hint_font_scale">Escala de lletra dels consells de tecla</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4 files)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="about_community_links">Enllaços de la comunitat</string>
+    <string name="about_community_links_description">Temes, editor de disposicions, discussions…</string>
+    <string name="space_swipe_toggle_dpad_entry">Commuta el D-pad</string>
+    <string name="space_swipe_touchpad_mode_entry">Mode de ratolí tàctil</string>
+    <string name="touchpad_sensitivity">Sensibilitat del ratolí tàctil</string>
+    <string name="touchpad_edge_scroll">Desplaçament a les vores del ratolí tàctil</string>
+    <string name="touchpad_edge_scroll_description">Desplaça automàticament en lliscar fins a la vora del teclat</string>
+    <string name="toolbar_only_with_hw_keyboard">Mostra només la barra d\'eines amb un teclat físic</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Encara cal activar la visualització del teclat virtual a la configuració del sistema</string>
+    <string name="folded">Plegat</string>
+    <string name="ask_later">Pregunta-m\'ho més tard</string>
+    <string name="spell_check_suggestions">Mostra els suggeriments del corrector ortogràfic</string>
+    <string name="spell_check_suggestions_summary">Mostra suggeriments en seleccionar una paraula subratllada en vermell. Cal establir l\'aplicació com a corrector ortogràfic predeterminat.</string>
+    <string name="gesture_data_info">Què és això?</string>
+    <string name="gesture_data_description_modes">La manera «segura» de contribuir-hi és el mode de &lt;i&gt;recopilació activa&lt;/i&gt;, en què se us mostra una paraula concreta i l\'escriviu mitjançant l\'escriptura gestual.&lt;br&gt; També podeu utilitzar el mode de &lt;i&gt;recopilació en segon pla&lt;/i&gt;, amb el qual podeu aportar mostres de la vostra escriptura gestual normal en altres aplicacions. A causa de la sensibilitat d\'aquest enfocament, s\'ha d\'activar expressament, és configurable i té una pantalla de revisió per a les dades que esteu a punt d\'enviar.</string>
+    <string name="gesture_data_description_privacy">Privadesa\n\n Les dades que envieu consisteixen en la paraula objectiu, la disposició i les dimensions del teclat, el gest (temps i coordenades), els suggeriments de la biblioteca actual, el resum criptogràfic (hash) dels diccionaris utilitzats, la versió de l\'aplicació, el mode de recopilació de dades, si la biblioteca d\'escriptura gestual és la biblioteca «predeterminada» de Google, i un identificador associat a cada gest.\n Les dades enviades es baixaran i s\'eliminaran de la bústia de ProtonMail on s\'emmagatzemen tan aviat com ens sigui possible. Un cop acabada la fase de recopilació de dades gestuals, el conjunt de dades acumulat de tots els usuaris es publicarà sota la llicència Creative Commons BY-SA 4.0.\n\n Per protegir la vostra privadesa, no hi constareu explícitament com a autor. L\'autoria s\'atribuirà a «The HeliBoard Gesture Data Project Contributors». No hauria de ser possible relacionar les dades que genereu en aquesta pantalla amb la vostra identitat. Tanmateix, podria ser possible determinar quins gestos han estat fets per la mateixa persona. Això es pot deduir, p. ex., d\'una disposició de teclat personalitzada, de les dimensions del teclat, de l\'idioma o de l\'estil individual de fer gestos.</string>
+    <string name="gesture_data_privacy">Privadesa</string>
+    <string name="gesture_data_get_data">Comparteix el fitxer de dades gestuals</string>
+    <string name="gesture_data_delete_data">Esborra les dades gestuals</string>
+    <string name="gesture_data_send_mail">Envia les dades per correu electrònic</string>
+    <string name="gesture_data_copy_mail">Copia l\'adreça electrònica</string>
+    <string name="gesture_data_mail_use">Tingueu en compte que l\'adreça electrònica està pensada per a l\'enviament de dades; pot ser que no rebeu respostes ràpides o constants.</string>
+    <string name="gesture_data_share_duplicate">Podeu tornar a compartir dades ja enviades si no esteu segurs que s\'han rebut correctament. Detectem i eliminem els duplicats en processar les dades.</string>
+    <string name="gesture_data_please_type">Escriviu amb gestos:</string>
+    <string name="gesture_data_please_switch_keyboard">Canvieu a %s</string>
+    <string name="gesture_data_next_save">S\'ha rebut «%s». Toqueu si esteu segurs que heu fet el gest correctament</string>
+    <string name="gesture_data_next">Omet la paraula</string>
+    <string name="gesture_data_active_count">%1$s paraules en aquesta sessió, %2$s paraules en total (%3$s ja enviades o suprimides)</string>
+    <string name="gesture_data_review_screen_title">Revisa i comparteix les dades gestuals</string>
+    <string name="gesture_data_words_selected">%s paraules</string>
+    <string name="gesture_data_date_range">Interval de dates</string>
+    <string name="gesture_data_much_data">Teniu moltes dades sense enviar. Envieu-les i després elimineu les dades antigues.</string>
+    <string name="gesture_data_how_to_use">Com s\'utilitza</string>
+    <string name="gesture_data_active_description">Toqueu &lt;i&gt;Inicia la recopilació activa&lt;/i&gt;, canvieu opcionalment el diccionari i comenceu a escriure amb gestos la paraula mostrada.&lt;br/&gt; Si el gest coincideix amb la paraula, les dades es desen i es mostra la paraula següent. En cas contrari, podeu tornar-ho a provar, ometre la paraula o confirmar que heu fet el gest correctament.&lt;br/&gt; Només podeu utilitzar diccionaris integrats a l\'aplicació o disponibles al &lt;a href=%s&gt;repositori de diccionaris&lt;/a&gt;; no s\'utilitzarà cap altra paraula.</string>
+    <string name="gesture_data_active">Recopilació activa</string>
+    <string name="gesture_data_active_start">Inicia la recopilació activa</string>
+    <string name="gesture_data_active_stop">Atura la recopilació activa</string>
+    <string name="gesture_data_ends_at">La fase de recopilació de dades gestuals acabarà el %s. Envieu les vostres dades abans d\'aquesta data.</string>
+    <string name="gesture_data_ended">La fase de recopilació de dades gestuals va acabar el %s. Podeu compartir les dades existents, però no afegir-ne de noves.</string>
+    <string name="gesture_data_share_all">Comparteix totes les %s paraules</string>
+    <string name="gesture_data_share_new">Comparteix %s paraules no enviades anteriorment</string>
+    <string name="gesture_data_delete_dialog">Teniu dades de %1$s paraules noves i %2$s paraules ja compartides.</string>
+    <string name="gesture_data_share_limit">Per evitar superar els límits de mida, només s\'exportaran les primeres %s paraules</string>
+    <string name="gesture_data_delete_dialog_all">Suprimeix totes les %s paraules</string>
+    <string name="gesture_data_delete_dialog_confirm">N\'esteu segurs? Se suprimiran %s paraules. Assegureu-vos que les dades compartides s\'han enviat!</string>
+    <string name="gesture_data_delete_dialog_submitted">Suprimeix %s paraules enviades</string>
+    <string name="gesture_data_many_not_shared_words">Teniu més de %s paraules pendents d\'enviar</string>
+    <string name="gesture_data_email_body">IMPORTANT:\n\n Hola!\n Us recordem que aquestes dades es compartiran públicament sota la llicència CC BY-SA 4.0 i que no hi constareu com a autor per protegir la vostra privadesa.\n\n Gràcies per compartir amb nosaltres els drets sobre les vostres dades. En farem bon ús!\n\n Tingueu en compte que canviar la redacció d\'aquest avís no canvia el que farem amb les vostres dades. Això no és un contracte que es pugui modificar; només és un recordatori amistós!\n Si ens voleu enviar un missatge juntament amb les vostres dades, escriviu-lo sota la línia d\'aquí sota.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Hola!\n Com que heu instal·lat la biblioteca d\'escriptura gestual, potser us interessarà el projecte de l\'HeliBoard per crear una biblioteca d\'escriptura gestual totalment oberta. Podeu ajudar-hi aportant dades gestuals. Per a més informació, visiteu la pantalla de recopilació de dades gestuals.</string>
+    <string name="gesture_data_reminder_message">Hola!\n Abans utilitzàveu la recopilació de dades gestuals, però fa força temps que no hi afegiu dades. Voleu tornar a contribuir-hi?</string>
+    <string name="gesture_data_take_me_there">Porta-m\'hi</string>
+    <string name="background_gesture_data_links">Informació sobre la recopilació en segon pla:</string>
+    <string name="gesture_data_links">Informació sobre la recopilació activa:</string>
+    <string name="gesture_data_background_gathering_switch">Utilitza la recopilació de dades en segon pla</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Aplicacions permeses: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Descarta per defecte</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Les dades es desen manualment mitjançant la tecla de la barra d\'eines</string>
+    <string name="gesture_data_background_gathering_info">Més informació</string>
+    <string name="gesture_data_background_gathering_info_message">Activar la recopilació de dades en segon pla permet que l\'HeliBoard enregistri els gestos que escriviu en altres aplicacions. Això és molt útil per al projecte d\'escriptura gestual, ja que pot produir una quantitat considerable de dades, tot i que de menys qualitat que la recopilació activa. La recopilació en segon pla no substitueix les dades recopilades activament; està pensada com a complement, ja que la qualitat de les dades és més important que la quantitat.\n\n La recopilació en segon pla té un alt potencial de recollir dades que podríeu considerar massa privades per compartir-les, fins i tot si es publiquen de manera anònima. Per aquest motiu volem aclarir quan es recopilen dades gestuals i com hi podeu influir.\n\n Trobareu un vídeo que explica més coses sobre la recopilació de dades en segon pla a la secció d\'enllaços, a la part inferior dreta d\'aquesta pantalla.</string>
+    <string name="gesture_data_background_gathering_indicator">Indicador de recopilació de dades</string>
+    <string name="gesture_data_background_gathering_indicator_message">Sempre que es puguin enregistrar dades gestuals, veureu una icona indicadora a la part inferior esquerra del teclat. Quan el cercle és ple, s\'ha recollit com a mínim un gest que està pendent de desar-se. Les dades es desen o bé mitjançant la tecla de la barra d\'eines (vegeu &lt;i&gt;%1$s&lt;/i&gt;) o bé automàticament (quan &lt;i&gt;%2$s&lt;/i&gt; està desactivat). El desament automàtic sol produir-se en canviar de camp de text o en tancar el teclat, però també pot passar si el camp de text canvia per algun altre motiu. Quan es desen les dades, l\'indicador es torna verd durant un moment.</string>
+    <string name="gesture_data_background_gathering_control">Com controlar què es desa</string>
+    <string name="gesture_data_background_gathering_control_message">Independentment de la configuració, la recopilació de dades en segon pla està desactivada quan s\'utilitza el mode d\'incògnit. També està desactivada per als camps d\'entrada marcats com a sensibles (contrasenyes, correu electrònic o sempre que el camp d\'entrada demani al teclat que no aprengui les paraules). Només es recolliran paraules que siguin en un diccionari principal (integrat o del &lt;a href=%5$s&gt;repositori de diccionaris&lt;/a&gt;). &lt;br&gt;&lt;br&gt; Amb &lt;i&gt;%1$s&lt;/i&gt; podeu seleccionar en quines aplicacions voleu permetre la recopilació de dades en segon pla. La configuració predeterminada desactiva totes les aplicacions, amb activació explícita per aplicació. També podeu optar per activar totes les aplicacions i excloure-les una per una. Això és més còmode, però permetrà automàticament la recollida de dades de les aplicacions instal·lades posteriorment, cosa que podria fer que es recollissin dades que no esperàveu. &lt;br&gt;&lt;br&gt; Amb &lt;i&gt;%2$s&lt;/i&gt; podeu excloure paraules sensibles concretes. Quan feu el gest d\'una paraula exclosa, la icona indicadora encara mostrarà la icona plena («dades pendents de desar»), però les dades es descartaran quan normalment es desarien. Les paraules blocades que ja s\'haguessin desat abans de blocar-les es descartaran en exportar les dades.&lt;br&gt; Tingueu en compte que la recopilació en segon pla només recull paraules que ja són en un diccionari principal, de manera que probablement només us caldrà blocar paraules comunes que es podrien utilitzar per identificar-vos personalment, com ara el vostre nom, carrer, ciutat, comarca, etc. &lt;br&gt;&lt;br&gt; Quan &lt;i&gt;%3$s&lt;/i&gt; està activat, les dades només es desen si ho feu manualment amb la tecla &lt;i&gt;%4$s&lt;/i&gt; de la barra d\'eines (vegeu més avall). Si no es desen, les dades pendents se suprimiran en canviar de camp d\'entrada o en tancar el teclat.&lt;br&gt; Les exclusions d\'aplicacions i de paraules també s\'apliquen en aquest mode. &lt;br&gt;&lt;br&gt; La tecla &lt;i&gt;%4$s&lt;/i&gt; de la barra d\'eines es pot utilitzar per controlar la recopilació de dades. L\'efecte de prémer-la depèn de l\'estat actual: quan la recopilació en segon pla està desactivada, s\'activarà.&lt;br&gt; Una pressió llarga desactivarà la recopilació durant cinc minuts.&lt;br&gt; Podeu tornar a activar abans la recopilació de dades en segon pla amb una pulsació normal.&lt;br&gt; Quan &lt;i&gt;%3$s&lt;/i&gt; està activat, les dades pendents es desaran.&lt;br&gt; En cas contrari, les dades pendents es descartaran.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Amb la pantalla &lt;i&gt;%1$s&lt;/i&gt; podeu comprovar i filtrar les dades recopilades, suprimir les dades que considereu massa sensibles i compartir dades. Els botons de suprimir i compartir actuen sobre les dades filtrades, o sobre la selecció si utilitzeu la pressió llarga per seleccionar paraules. (Tingueu en compte que la icona «normal» de compartir fora de la pantalla &lt;i&gt;%1$s&lt;/i&gt; només compartirà dades de la recopilació activa.)&lt;br&gt; L\'ordre de les dades compartides és aleatori, de manera que no se\'n pot deduir res més que les paraules individuals.&lt;br&gt; Si voleu veure totes les dades emmagatzemades d\'un gest, podeu compartir-les en un fitxer i carregar el fitxer al &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="gesture_data_background_apps_button">Gestiona les aplicacions permeses</string>
+    <string name="gesture_data_background_apps">Seleccioneu les aplicacions que voleu incloure a la recopilació de dades en segon pla</string>
+    <string name="gesture_data_background_apps_include_default">Inclou les aplicacions per defecte</string>
+    <string name="gesture_data_background_excluded_words_button">Gestiona les paraules excloses</string>
+    <string name="gesture_data_background_dictionary">Diccionari: %s</string>
+    <string name="gesture_data_background_position">Posició: %s</string>
+    <string name="gesture_data_background_exclude_words">Exclou la paraula de la recopilació en segon pla</string>
+    <string name="gesture_data_long_press_select_hint">Premeu llargament per seleccionar</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Recopilació de dades en segon pla</string>
+    <string name="gesture_data_show_active">Mostra les dades recopilades activament</string>
+    <string name="gesture_data_show_background">Mostra les dades en segon pla</string>
+    <string name="gesture_data_include_shared">Inclou les dades ja enviades</string>
+    <string name="gesture_data_shared">enviada</string>
+    <string name="gesture_data_saving">S\'està desant… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Us donem la benvinguda a la recopilació de dades en segon pla!&lt;br&gt; Voleu afegir la tecla &lt;i&gt;%1$s&lt;/i&gt; a la barra d\'eines? Podeu utilitzar-la per controlar la recopilació de dades; per saber-ne més, useu el botó &lt;i&gt;%2$s&lt;/i&gt;. &lt;br&gt;&lt;br&gt; Per defecte, la recopilació en segon pla està desactivada per a totes les aplicacions. Això vol dir que no es recollirà res fins que trieu quines aplicacions permeteu. Podeu canviar-ho %3$s.</string>
+    <string name="gesture_data_add_key">Afegeix la tecla a la barra d\'eines</string>
+    <string name="gesture_data_no_known_dict">La recopilació en segon pla només recull paraules provinents de diccionaris integrats o disponibles al &lt;a href=%s&gt;repositori de diccionaris&lt;/a&gt;. Actualment no teniu activat cap diccionari d\'aquest tipus.</string>
+    <string name="gesture_data_swipe_o_scope">Eina per visualitzar dades gestuals: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

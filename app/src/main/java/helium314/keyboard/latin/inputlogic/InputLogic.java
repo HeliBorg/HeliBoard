@@ -9,6 +9,7 @@ package helium314.keyboard.latin.inputlogic;
 import static helium314.keyboard.latin.common.SuggestionSpanUtilsKt.getTextWithSuggestionSpan;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -24,6 +25,7 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import helium314.keyboard.compat.AppWorkarounds;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
@@ -592,7 +594,8 @@ public final class InputLogic {
             // old CapsMode was 0 (off), 1, 3, 5, 7
             // meaning both were incompatible, and the check was just returning whether both were 0
             // todo: maybe adjust this?
-            boolean autoShiftHasBeenOverridden = keyboardSwitcher.getKeyboardCapsMode() == CapsMode.OFF && getCurrentAutoCapsState(settingsValues) != 0;
+            boolean autoShiftHasBeenOverridden =
+                (keyboardSwitcher.getKeyboardCapsMode() == CapsMode.OFF) != (getCurrentAutoCapsState(settingsValues) == 0);
             if (settingsValues.mAutospaceBeforeGestureTyping)
                 mSpaceState = SpaceState.PHANTOM; // influences autoCapsState
             if (!autoShiftHasBeenOverridden) {
@@ -2676,12 +2679,18 @@ public final class InputLogic {
     }
 
     private void paste(String packageName) {
-        sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
-        // looks like there are more apps that don't care about KeyEvent.KEYCODE_PASTE but work with CTRL+V
-        // so let's try using CRTL+V and hope there are no apps that require different things
-//        if (AppWorkarounds.INSTANCE.doesntCareAboutKeycodePaste(packageName) || Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
-//            sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
-//        else sendDownUpKeyEvent(KeyEvent.KEYCODE_PASTE);
+        // some apps ignore KeyEvent.KEYCODE_PASTE, other apps ignore CRTL+V
+        // we try to deal with this by committing the text if the clipboard content is simply text,
+        // and use KeyEvent.KEYCODE_PASTE otherwise except for apps that are known to ignore it
+        String primaryClip = mLatinIME.getClipboardHistoryManager().getPrimaryClipIfText();
+        if (primaryClip != null) {
+            mConnection.commitText(primaryClip, 1);
+            return;
+        }
+        Log.d(TAG, "pasting non-text content");
+        if (AppWorkarounds.INSTANCE.doesntCareAboutKeycodePaste(packageName) || Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+            sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
+        else sendDownUpKeyEvent(KeyEvent.KEYCODE_PASTE);
     }
 
     private void enterInlineEmojiSearchIfNeeded(int codePoint, SettingsValues settingsValues) {
