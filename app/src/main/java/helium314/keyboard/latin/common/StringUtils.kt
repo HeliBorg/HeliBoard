@@ -246,7 +246,14 @@ fun mightBeEmoji(text: CharSequence): Boolean {
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
 /** returns whether the text is a single emoji */
-fun isEmoji(text: CharSequence): Boolean = text.toString().isSingleGrapheme && mightBeEmoji(text) && text.matches(singleEmojiRegex)
+// the standalone regional indicator check comes first because the RGI-based singleEmojiRegex only
+// matches indicator pairs (country flags), so the second clause can't recognise the standalone
+// indicator letters that the flags category also offers
+fun isEmoji(text: CharSequence): Boolean = text.isSingleRegionalIndicator
+        || (text.toString().isSingleGrapheme && mightBeEmoji(text) && text.matches(singleEmojiRegex))
+
+private val CharSequence.isSingleRegionalIndicator: Boolean
+    get() = length == 2 && Character.codePointAt(this, 0) in 0x1F1E6..0x1F1FF
 
 // from https://github.com/chattymin/Pebble/blob/main/pebble/src/main/java/com/chattymin/pebble/LocalBreakIterator.kt, Apache-2.0 license
 // there is more potentially useful code like String.graphemeLength (should be graphemeCount though)
@@ -272,7 +279,8 @@ val String.isSingleGrapheme: Boolean get() {
         iterator.next()
         if (iterator.next() != BreakIterator.DONE) return false
         // we have a single grapheme, but " 🏼" is detected as single grapheme which we don't want
-        return if ('\uD83C' !in this) true // does not contain skin tone
+        return if (isSingleRegionalIndicator) true // standalone regional indicator (🇦–🇿): one code point
+        else if ('\uD83C' !in this) true // does not contain skin tone
         else singleEmojiRegex.matches(this) // single grapheme only if it's a single emoji
     }
     // got IllegalArgumentException: Invalid index on iterator.next()

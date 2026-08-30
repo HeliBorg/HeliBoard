@@ -133,6 +133,9 @@ class StringUtilsTest {
         assert(!"a🏼".isSingleGrapheme)
         assert(!"🏼🏼".isSingleGrapheme)
         assert("🏼".isSingleGrapheme)
+        assert("🇦".isSingleGrapheme) // 🇦 standalone regional indicator is a single grapheme
+        assert("🇩🇪".isSingleGrapheme) // 🇩🇪 flag (indicator pair) is still a single grapheme
+        assert(!"🇦🇧🇨".isSingleGrapheme) // 🇦🇧🇨 three indicators are not one grapheme
     }
 
     @Test fun detectEmojisAtEnd() {
