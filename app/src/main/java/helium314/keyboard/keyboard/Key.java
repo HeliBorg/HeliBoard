@@ -1065,9 +1065,10 @@ public class Key implements Comparable<Key> {
                 final float relativeWidth,
                 final int labelFlags,
                 final int backgroundType,
-                @Nullable final PopupSet<?> popupSet
+                @Nullable final PopupSet<?> popupSet,
+                final boolean backspaceWordDeleteEnabled
         ) {
-            this(keySpec, KeySpecParser.getCode(keySpec), params, relativeWidth, labelFlags, backgroundType, popupSet);
+            this(keySpec, KeySpecParser.getCode(keySpec), params, relativeWidth, labelFlags, backgroundType, popupSet, backspaceWordDeleteEnabled);
         }
 
         /**
@@ -1082,7 +1083,9 @@ public class Key implements Comparable<Key> {
                 final float width,
                 final int labelFlags,
                 final int backgroundType,
-                @Nullable final PopupSet<?> popupSet
+                @Nullable final PopupSet<?> popupSet,
+                // resolved by the caller, like other settings-dependent key params
+                final boolean backspaceWordDeleteEnabled
         ) {
             mKeyboardParams = params;
             mBackgroundType = backgroundType;
@@ -1185,6 +1188,7 @@ public class Key implements Comparable<Key> {
             if (mCode == Constants.CODE_SPACE
                     || mCode == KeyCode.LANGUAGE_SWITCH
                     || (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.getElement().isAlphabet())
+                    || (mCode == KeyCode.DELETE && mPopupKeys == null && backspaceWordDeleteEnabled)
             )
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
             if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS && mIconName == null)
@@ -1192,8 +1196,8 @@ public class Key implements Comparable<Key> {
             switch (mCode) {
             case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_RIGHT, KeyCode.ARROW_UP, KeyCode.ARROW_DOWN,
                     KeyCode.WORD_LEFT, KeyCode.WORD_RIGHT, KeyCode.PAGE_UP, KeyCode.PAGE_DOWN:
-                // repeating is disabled if a key is configured with pop-ups
-                if (mPopupKeys == null)
+                // repeating is disabled for keys with pop-ups, and for backspace when word-delete-on-long-press is enabled
+                if (mPopupKeys == null && !(mCode == KeyCode.DELETE && backspaceWordDeleteEnabled))
                     actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
                 // fallthrough
             case KeyCode.SHIFT, Constants.CODE_ENTER, KeyCode.SHIFT_ENTER, KeyCode.ALPHA, Constants.CODE_SPACE, KeyCode.NUMPAD,
