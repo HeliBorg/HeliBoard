@@ -1,20 +1,18 @@
 import com.android.build.api.variant.ApplicationVariant
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("plugin.serialization") version "2.3.20"
-    kotlin("plugin.compose") version "2.3.20"
+    kotlin("plugin.serialization") version "2.4.0"
+    kotlin("plugin.compose") version "2.4.0"
 }
 
 android {
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "helium314.keyboard"
         minSdk = 21
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 4101
         versionName = "4.1"
         ndk {
@@ -104,14 +102,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlin {
-        target {
-            compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_17)
-            }
-        }
-    }
-
     // see https://github.com/HeliBorg/HeliBoard/issues/477
     dependenciesInfo {
         includeInApk = false
@@ -136,20 +126,19 @@ dependencies {
 
     // compose
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
-    // newer than 2025.11.01 contains androidx.compose.material:material-android:1.10.0, which requires minSdk 23
-    // maybe it's possible to use tools:overrideLibrary="androidx.compose.material" as it's not used explicitly, but probably this is just going to crash
-    implementation(platform("androidx.compose:compose-bom:2025.11.01"))
+    implementation(platform("androidx.compose:compose-bom:2025.11.01")) // newer requires minSdk 23
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
     "debugNoMinifyImplementation"("androidx.compose.ui:ui-tooling")
     implementation("androidx.navigation:navigation-compose:2.9.8")
     implementation("sh.calvin.reorderable:reorderable:3.1.0") // for easier re-ordering
-    implementation("com.github.skydoves:colorpicker-compose:1.1.3") // for user-defined colors
+    implementation("com.github.skydoves:colorpicker-compose:1.1.3") // for user-defined colors, newer requires minSdk 23
 
     // test
     testImplementation(kotlin("test"))
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
     testImplementation("org.mockito:mockito-core:5.23.0")
     testImplementation("org.robolectric:robolectric:4.16.1")
     testImplementation("androidx.test:runner:1.7.0")
