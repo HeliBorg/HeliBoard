@@ -761,7 +761,9 @@ private fun <T> List<Pair<T, Double>>.searchFirstExceedingScore(scoreToExceed: D
     return null
 }
 
-const val END_DATE_EPOCH_MILLIS = 1796079600000L // Dec 1st 2026
+// background gathering will end and code will be removed
+// active gathering might remain in some special mode for debugging purpose
+const val END_DATE_EPOCH_MILLIS = 1798758000000L // Jan 1st 2027
 const val TWO_WEEKS_IN_MILLIS = 14L * 24 * 3600 * 1000
 
 @Preview
