@@ -1187,7 +1187,9 @@ public class Key implements Comparable<Key> {
                     || (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.getElement().isAlphabet())
             )
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
-            if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS && mIconName == null)
+            // Japanese flick's dakuten key should not have a hold functionality
+            final boolean isPrivateUseMarkerCode = mCode >= 0xE000 && mCode <= 0xF8FF;
+            if ((mCode <= Constants.CODE_SPACE || isPrivateUseMarkerCode) && mCode != KeyCode.MULTIPLE_CODE_POINTS && mIconName == null)
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;
             switch (mCode) {
             case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_RIGHT, KeyCode.ARROW_UP, KeyCode.ARROW_DOWN,
