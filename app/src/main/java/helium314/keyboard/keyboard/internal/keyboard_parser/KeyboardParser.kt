@@ -43,6 +43,10 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         else -> 0
     }
 
+    // japanese_flick.json is uniform 5w x 4l grid
+    private val isFullyCustomFlickLayout = params.mId.element.isAlphabet
+            && params.mId.subtype.mainLayoutName == "japanese_flick"
+
     fun parseLayout(): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
 
@@ -78,8 +82,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         if (heightRescale != 1f) {
             keysInRows.forEach { row -> row.forEach { it.mHeight *= heightRescale } }
         }
-        // rescale without changing keyboard height
-        if (params.mId.element.takesFunctionalKeys) {
+        // rescale without changing keyboard height; ignore 12-key
+        if (params.mId.element.takesFunctionalKeys && !isFullyCustomFlickLayout) {
             val bottomRowScale = Settings.getValues().mBottomRowScale
             val otherRowScale = (keysInRows.size - bottomRowScale) / (keysInRows.size - 1)
             keysInRows.forEachIndexed { i, row ->
@@ -101,18 +105,25 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         }
 
         val numberRow = getNumberRow()
-        addNumberRowOrPopupKeys(baseKeys, numberRow)
-        if (element.isAlphabet)
-            addSymbolPopupKeys(baseKeys)
-        if (element.isAlphaOrSymbol && params.mId.numberRowEnabled) {
-            val newLabelFlags = defaultLabelFlags or
-                    if (Settings.getValues().mShowNumberRowHints) 0 else Key.LABEL_FLAGS_DISABLE_HINT_LABEL
-            baseKeys.add(0, numberRow.mapTo(mutableListOf()) { it.copy(newLabelFlags = newLabelFlags) })
+        if (!isFullyCustomFlickLayout) {
+            addNumberRowOrPopupKeys(baseKeys, numberRow)
+            if (element.isAlphabet)
+                addSymbolPopupKeys(baseKeys)
+            if (element.isAlphaOrSymbol && params.mId.numberRowEnabled) {
+                val newLabelFlags = defaultLabelFlags or
+                        if (Settings.getValues().mShowNumberRowHints) 0 else Key.LABEL_FLAGS_DISABLE_HINT_LABEL
+                baseKeys.add(0, numberRow.mapTo(mutableListOf()) { it.copy(newLabelFlags = newLabelFlags) })
+            }
         }
         if (!params.mAllowRedundantPopupKeys)
             params.baseKeys = baseKeys.flatMap { row -> row.map { it.toKeyParams(params) } }
 
-        val allFunctionalKeys = LayoutParser.parseLayout(LayoutType.FUNCTIONAL, params, context)
+        // japanese_flick.json defines every key itself
+        val allFunctionalKeys = if (isFullyCustomFlickLayout == true) {
+            mutableListOf<MutableList<KeyData>>()
+        } else {
+            LayoutParser.parseLayout(LayoutType.FUNCTIONAL, params, context)
+        }
         adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys, baseKeys)
 
         if (allFunctionalKeys.none { it.singleOrNull()?.isKeyPlaceholder() == true })

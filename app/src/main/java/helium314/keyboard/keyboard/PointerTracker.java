@@ -736,10 +736,26 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             startRepeatKey(key);
             startLongPressTimer(key);
             setPressedKeyGraphics(key, eventTime);
+            if (FlickKeysPanel.isFlickKey(key)) {
+                // flick keys show their popup panel immediately rather than after a long press
+                showFlickKeysPanel(key);
+            }
             mStartX = x;
             mStartY = y;
             mStartTime = SystemClock.elapsedRealtime();
         }
+    }
+
+    private void showFlickKeysPanel(final Key key) {
+        setReleasedKeyGraphics(key, false);
+        final PopupKeysPanel popupKeysPanel = sDrawingProxy.showPopupKeysKeyboard(key, this);
+        if (popupKeysPanel == null) {
+            return;
+        }
+        final int translatedX = popupKeysPanel.translateX(mLastX);
+        final int translatedY = popupKeysPanel.translateY(mLastY);
+        popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, SystemClock.uptimeMillis());
+        mPopupKeysPanel = popupKeysPanel;
     }
 
     private void startKeySelectionByDraggingFinger(Key key) {
@@ -1083,6 +1099,17 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         if (isShowingPopupKeysPanel()) {
             if (!mIsTrackingForActionDisabled) {
+                if (currentKey != null && FlickKeysPanel.isFlickKey(currentKey) && !hasMovedBeyondFlickDeadZone(x, y)) {
+                    // flick keyboard flick action & hold action handling
+                    PopupKeysPanel panel = mPopupKeysPanel;
+                    mPopupKeysPanel = null;
+                    panel.dismissPopupKeysPanel();
+                    dismissPopupKeysPanel();
+                    detectAndSendKey(currentKey, mKeyX, mKeyY, eventTime);
+                    if (isInSlidingKeyInput)
+                        callListenerOnFinishSlidingInput();
+                    return;
+                }
                 // For KeyCode.TOGGLE_FLOATING_KEYBOARD, mPopupKeysPanel.onUpEvent will trigger a cancel MoveEvent, which will result
                 // in PointerTrackerQueue.releaseAllPointersOlderThan, which calls onUpEventInternal, thus dispatching the key twice.
                 // To prevent the duplicate input, we set mPopupKeysPanel null before calling onUpEvent, so isShowingPopupKeysPanel returns false
@@ -1285,9 +1312,18 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
+        if (FlickKeysPanel.isFlickKey(key)) {
+            return;
+        }
         int delay = getLongPressTimeout(code);
         if (delay <= 0) return;
         sTimerProxy.startLongPressTimerOf(this, delay);
+    }
+
+    private boolean hasMovedBeyondFlickDeadZone(final int x, final int y) {
+        final int dx = x - mStartX;
+        final int dy = y - mStartY;
+        return (dx * dx + dy * dy) >= mKeyDetector.getKeyHysteresisDistanceSquared(false);
     }
 
     private int getLongPressTimeout(int code) {

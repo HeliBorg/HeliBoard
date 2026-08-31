@@ -473,6 +473,8 @@
     <string name="subtype_generic_compact">%s (Compact)</string>
     <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_generic_phonetic">%s (Phonetic)</string>
+    <!-- Description for "LANGUAGE_NAME" (Flick) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_flick">%s (Flick)</string>
     <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype with explicit keyboard layout -->
