@@ -18,11 +18,11 @@
     { "label": "ま", "width": 0.2, "popup": { "relevant": [ { "label": "む" }, { "label": "み" }, { "label": "め" }, { "label": "も" } ] } },
     { "label": "や", "width": 0.2, "popup": { "relevant": [ { "label": "ゆ" }, { "label": "ゃ" }, { "label": "ょ" }, { "label": "よ" } ] } },
     { "label": "ら", "width": 0.2, "popup": { "relevant": [ { "label": "る" }, { "label": "り" }, { "label": "れ" }, { "label": "ろ" } ] } },
-    { "label": "space", "width": 0.2 }
+    { "code": 32, "label": "␣", "width": 0.2 }
   ],
   [
     { "label": "symbol_alpha", "width": 0.2 },
-    { "code": 57344, "label": "゛゜", "width": 0.2 },
+    { "code": 57344, "label": "゛゜", "width": 0.2, "labelFlags": 128 },
     { "label": "わ", "width": 0.2, "popup": { "relevant": [ { "label": "ん" }, { "label": "を" }, { "label": "ー" }, { "label": "～" } ] } },
     { "code": 12289, "label": "、？！。…", "width": 0.2, "popup": { "relevant": [ { "label": "？" }, { "label": "。" }, { "label": "！" }, { "label": "…" } ] } },
     { "label": "action", "width": 0.2 }
