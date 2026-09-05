@@ -109,7 +109,7 @@ import helium314.keyboard.latin.utils.SearchIcon
 import helium314.keyboard.latin.utils.prefs
 import kotlin.properties.Delegates
 
-private const val TAG = "emoji-search"
+const val TAG = "emoji-search"
 
 /**
  * This activity is displayed in a gap created for it above the keyboard and below the host app, and disables the host app.
@@ -269,19 +269,21 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     override fun onStop() {
-        val intent = Intent(this, LatinIME::class.java).setAction(EMOJI_SEARCH_DONE_ACTION)
+        Log.d(TAG, "search ending. Selected emoji: ${pressedKey?.let { getEmoji(it) }}. imeClosed: $imeClosed")
+        val intent = Intent(EMOJI_SEARCH_DONE_ACTION).setPackage(packageName)
             .putExtra(IME_CLOSED_KEY, imeClosed)
         pressedKey?.let {
-            intent.putExtra(EMOJI_KEY, if (it.code == KeyCode.MULTIPLE_CODE_POINTS)
-                it.getOutputText()
-            else
-                Character.toString(it.code))
-
+            intent.putExtra(EMOJI_KEY, getEmoji(it))
             KeyboardSwitcher.getInstance().emojiPalettesView.addRecentKey(it)
         }
-        startService(intent)
+        sendBroadcast(intent)
         super.onStop()
     }
+
+    private fun getEmoji(key: Key): String? = if (key.code == KeyCode.MULTIPLE_CODE_POINTS)
+        key.getOutputText()
+    else
+        Character.toString(key.code)
 
     private fun init() {
         Log.d(TAG, "init start")
