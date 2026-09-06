@@ -117,6 +117,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
+    public static final String PREF_BACKSPACE_WORD_DELETE = "backspace_word_delete";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "autospace_after_punctuation";
     public static final String PREF_AUTOSPACE_AFTER_SUGGESTION = "autospace_after_suggestion";
     public static final String PREF_AUTOSPACE_AFTER_GESTURE_TYPING = "autospace_after_gesture_typing";

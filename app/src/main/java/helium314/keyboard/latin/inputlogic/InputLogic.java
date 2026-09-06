@@ -1285,6 +1285,17 @@ public final class InputLogic {
                 : InputTransaction.SHIFT_UPDATE_NOW;
         inputTransaction.requireShiftUpdate(shiftUpdateKind);
 
+        // whole-word delete acts like desktop ctrl+backspace regardless of composing state,
+        // so handle it before the composing-word/revert branches below
+        if (!mConnection.hasSelection()
+                && inputTransaction.getSettingsValues().mBackspaceWordDeleteEnabled
+                && event.isKeyRepeat()
+                && !inputTransaction.getSettingsValues().mInputAttributes.isTypeNull()
+                && Constants.NOT_A_CURSOR_POSITION != mConnection.getExpectedSelectionEnd()) {
+            handleBackspaceWholeWord(inputTransaction, currentKeyboardScript);
+            return;
+        }
+
         if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can remove the character at the current cursor position.
@@ -1390,7 +1401,7 @@ public final class InputLogic {
                 mConnection.deleteTextBeforeCursor(numCharsDeleted);
                 StatsUtils.onBackspaceSelectedText(numCharsDeleted);
             } else {
-                // There is no selection, just delete one character.
+                // no selection; whole-word long-press backspace is handled earlier in handleBackspaceEvent
                 if (inputTransaction.getSettingsValues().mInputAttributes.isTypeNull()
                         || Constants.NOT_A_CURSOR_POSITION == mConnection.getExpectedSelectionEnd()) {
                     // There are three possible reasons to send a key event: either the field has
@@ -1460,12 +1471,46 @@ public final class InputLogic {
                 unlearnWordBeingDeleted(
                         inputTransaction.getSettingsValues(), currentKeyboardScript);
             }
-            if (mConnection.hasSlowInputConnection()) {
-                mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-            } else if (inputTransaction.getSettingsValues().needsToLookupSuggestions()
-                    && inputTransaction.getSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
-                restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues(), currentKeyboardScript);
-            }
+            refreshSuggestionsAfterBackspace(inputTransaction, currentKeyboardScript);
+        }
+    }
+
+    /**
+     * Handles long-press-to-delete-word (see the dispatch at the top of handleBackspaceEvent).
+     * Removes exactly the previous word from the editor's actual text (see
+     * RichInputConnection#getCharCountToDeletePreviousWord), independent of WordComposer state,
+     * matching desktop Ctrl+Backspace. Caller has already verified no selection and a known
+     * cursor position.
+     */
+    private void handleBackspaceWholeWord(final InputTransaction inputTransaction,
+            final String currentKeyboardScript) {
+        boolean hasUnlearnedWordBeingDeleted = false;
+        if (mWordComposer.isComposingWord()) {
+            // unlearn and clear composing state before touching raw text
+            unlearnWord(mWordComposer.getTypedWord(), inputTransaction.getSettingsValues(), DictionaryFacilitator.UnlearnEvent.BACKSPACE);
+            hasUnlearnedWordBeingDeleted = true;
+            resetEntireInputState(mConnection.getExpectedSelectionStart(),
+                    mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
+        }
+        final int charsToDelete = mConnection.getCharCountToDeletePreviousWord(
+                inputTransaction.getSettingsValues().mSpacingAndPunctuations);
+        mConnection.deleteTextBeforeCursor(charsToDelete);
+        StatsUtils.onBackspaceWordDelete(charsToDelete);
+        if (!hasUnlearnedWordBeingDeleted) {
+            unlearnWordBeingDeleted(inputTransaction.getSettingsValues(), currentKeyboardScript);
+        }
+        refreshSuggestionsAfterBackspace(inputTransaction, currentKeyboardScript);
+    }
+
+    // shared tail for plain and whole-word backspace: skip suggestions on a slow InputConnection,
+    // otherwise restart them for the word now touching the cursor
+    private void refreshSuggestionsAfterBackspace(final InputTransaction inputTransaction,
+            final String currentKeyboardScript) {
+        if (mConnection.hasSlowInputConnection()) {
+            mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
+        } else if (inputTransaction.getSettingsValues().needsToLookupSuggestions()
+                && inputTransaction.getSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
+            restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues(), currentKeyboardScript);
         }
     }
 
