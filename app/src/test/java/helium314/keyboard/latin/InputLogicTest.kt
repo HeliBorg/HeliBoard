@@ -255,6 +255,21 @@ class InputLogicTest {
         assertEquals("example.", text)
     }
 
+    // #2611: a word starting with a digit has its leading digit committed outside the composing
+    // region (digits don't start composition), so picking a suggestion that includes it used to
+    // duplicate the digit ("2u2j" + pick "2u2j@addres.com" -> "22u2j@addres.com").
+    @Test fun pickSuggestionForWordWithLeadingDigit() {
+        chainInput("2u2j")
+        pickSuggestion("2u2j@addres.com")
+        assertEquals("2u2j@addres.com", text)
+    }
+
+    @Test fun pickSuggestionForWordWithLeadingDigitPartiallyTyped() {
+        chainInput("2u")
+        pickSuggestion("2u2j@addres.com")
+        assertEquals("2u2j@addres.com", text)
+    }
+
     @Test fun noAutospaceForDetectedUrl() { // "light" version, should work without url detection
         latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("http://example.net")
