@@ -324,7 +324,7 @@ class EmojiSearchActivity : ComponentActivity() {
                     if (it.mHasShortcuts) it.mShortcutTargets[0]?.mWord else null
                 } else null
         })
-        KeyboardSwitcher.getInstance().setAlphabetKeyboard(ShiftMode.UNSHIFT)
+        KeyboardSwitcher.getInstance().resetKeyboardStateToAlphabet()
         Log.d(TAG, "init end")
     }
 

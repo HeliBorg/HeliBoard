@@ -39,11 +39,6 @@ class KeyboardState(private val switchActions: SwitchActions) {
         fun setDpadKeyboard()
         fun setSymbolsKeyboard()
         fun setSymbolsShiftedKeyboard()
-        fun toggleLayout(layout: Utility, autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?)
-        fun onLongPressAlphaSymbolForNumpad()
-
-        /** Request to call back [KeyboardState.onUpdateShiftState]. */
-        fun requestUpdatingShiftState(autoCapsFlags: Int, recapitalizeMode: RecapitalizeMode?)
 
         fun startDoubleTapShiftKeyTimer()
         fun popDoubleTapShiftKeyTimer(): Boolean
@@ -109,7 +104,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
         } else {
             // Reset keyboard to alphabet mode.
             loadLayout(Alphabet(ShiftMode.UNSHIFT, autoCapsFlags, recapitalizeMode))
-            switchActions.requestUpdatingShiftState(autoCapsFlags, recapitalizeMode)
+            onUpdateShiftState(autoCapsFlags, recapitalizeMode)
         }
         switchActions.setOneHandedModeEnabled(onHandedModeEnabled)
         switchActions.setFloatingKeyboardEnabled(Settings.getValues().mIsFloatingKeyboard)
@@ -150,11 +145,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
         }
         prevLayouts.wipe()
         if (mode == Mode.ALPHABET) {
-            // todo
-            //  Currently we want to always load the alphabet keyboard, because KeyboadSwitcher.setEmojiKeyboard (and others)
-            //  might be called from other places than KeyboardState, in which case we have the wrong mode and prevLayouts.
-            //  a proper fix would be to either check the state in all SwitchActions, or make sure they are only called from KeyboardState.
-            //return
+            return
         }
         loadLayout(Alphabet(shiftMode, autoCapsFlags, recapitalizeMode))
     }
@@ -164,7 +155,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
         setLayout(layout)
     }
 
-    private fun setLayout(layout: LayoutDirective) {
+    fun setLayout(layout: LayoutDirective) {
         prevLayouts.push(mode)
         loadLayout(layout)
     }
@@ -183,10 +174,11 @@ class KeyboardState(private val switchActions: SwitchActions) {
             Utility.DPAD -> switchActions.setDpadKeyboard()
         }
         mode = layout.mode()
+        if (layout is Alphabet) shiftMode = layout.shiftMode
         recapitalizeMode = null
         isInSpaceToAlpha = false
         if (layout is Alphabet && layout.shiftMode == ShiftMode.AUTOMATIC) {
-            switchActions.requestUpdatingShiftState(layout.autoCapsFlags, layout.recapitalizeMode)
+            onUpdateShiftState(layout.autoCapsFlags, layout.recapitalizeMode)
         }
     }
 
@@ -421,7 +413,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
                     ShiftMode.LOCKED -> {}
                 }
                 // Automatic shift state may have been changed depending on what characters were input.
-                switchActions.requestUpdatingShiftState(autoCapsFlags, recapitalizeMode)
+                onUpdateShiftState(autoCapsFlags, recapitalizeMode)
                 return
             }
             if (withSliding) {

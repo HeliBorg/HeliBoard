@@ -959,7 +959,7 @@ class ShadowKeyboardSwitcher {
     fun setKeyboard(keyboardId: Int, toggleState: KeyboardSwitcher.KeyboardSwitchState) = Unit
     @Implementation
     // only affects view
-    fun setOneHandedModeEnabled(enabled: Boolean) = Unit
+    fun setOneHandedModeEnabled(enabled: Boolean, force: Boolean) = Unit
     @Implementation
     fun getCurrentKeyboardScript() = currentScript
 }
