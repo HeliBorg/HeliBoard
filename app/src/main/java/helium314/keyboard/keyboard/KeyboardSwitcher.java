@@ -284,9 +284,9 @@ public final class KeyboardSwitcher {
         CLIPBOARD(KeyboardElement.CLIPBOARD),
         OTHER(null);
 
-        final KeyboardElement mKeyboardElement;
+        @Nullable final KeyboardElement mKeyboardElement;
 
-        KeyboardSwitchState(KeyboardElement keyboardElement) {
+        KeyboardSwitchState(@Nullable KeyboardElement keyboardElement) {
             mKeyboardElement = keyboardElement;
         }
     }
@@ -330,12 +330,10 @@ public final class KeyboardSwitcher {
 
                 mMainKeyboardFrame.setVisibility(View.VISIBLE);
                 mKeyboardView.setVisibility(View.VISIBLE);
-                // todo: this doesn't tell KeyboardState that this mode has been set.
-                //  example: if you press physical alt the more symbols keyboard will appear,
-                //  but if you then do 2 D-pad space swipes it'll return to alpha instead
-                //  because KeyboardState thinks the `mode` is alphabet when doing the
-                //  initial toggle.
-                setKeyboard(toggleState.mKeyboardElement, toggleState);
+                if (toggleState == KeyboardSwitchState.SYMBOLS_SHIFTED)
+                    // possible other states OTHER and HIDDEN have keyboardElement null, which we just ignore
+                    // might need to be adjusted when functionality is extended
+                    mState.setLayout(LayoutDirective.Utility.SYMBOLS_SHIFTED);
             }
         }
     }
@@ -636,7 +634,7 @@ public final class KeyboardSwitcher {
     }
 
     // private SwitchActions implementation so e.g. setEmojiKeyboard can only be called via KeyboardState (avoid inconsistencies!)
-    private class SwitchActions implements KeyboardState.SwitchActions{
+    private class SwitchActions implements KeyboardState.SwitchActions {
         @Override
         public void setAlphabetKeyboard(@NonNull ShiftMode shiftMode) {
             if (DEBUG_ACTION) {
