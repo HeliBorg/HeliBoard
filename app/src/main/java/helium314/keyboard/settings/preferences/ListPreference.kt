@@ -42,7 +42,12 @@ fun <T: Any> ListPreference(
             selectedItem = selected,
             title = { Text(setting.title) },
             getItemName = { it.first },
-            onDefault = onDefault
+            onDefault = {
+                onDefault?.let {
+                    onChanged(default)
+                    it()
+                }
+            }
         )
     }
 }
