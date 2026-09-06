@@ -183,6 +183,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
             Utility.DPAD -> switchActions.setDpadKeyboard()
         }
         mode = layout.mode()
+        if (layout is Alphabet) shiftMode = layout.shiftMode
         recapitalizeMode = null
         isInSpaceToAlpha = false
         if (layout is Alphabet && layout.shiftMode == ShiftMode.AUTOMATIC) {
