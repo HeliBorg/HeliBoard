@@ -220,6 +220,15 @@
         android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_avro_bn"
+        android:subtypeId="0xa2144c0f"
+        android:imeSubtypeLocale="bn_BD"
+        android:languageTag="bn-BD"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwerty|FUNCTIONAL:functional_keys_avro,CombiningRules=bn_avro,EmojiCapable"
+        android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
         android:subtypeId="0xd2e520d5"
         android:imeSubtypeLocale="ca"

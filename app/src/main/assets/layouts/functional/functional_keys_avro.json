@@ -1,0 +1,19 @@
+[
+  [
+    { "label": "shift", "width": 0.15 },
+    { "type": "placeholder" },
+    { "label": "delete", "width": 0.15 }
+  ],
+  [
+    { "label": "symbol_alpha", "width": 0.15 },
+    { "$": "keyboard_state_selector", "emojiKeyEnabled": { "$": "keyboard_state_selector", "alphabet": { "label": "emoji" }}},
+    { "$": "variation_selector",
+      "default":  { "label": "comma" },
+      "email":    { "label": "@", "groupId": 1, "type": "function" },
+      "uri":      { "label": "/", "groupId": 1, "type": "function" }
+    },
+    { "label": "space" },
+    { "label": "।" },
+    { "label": "action", "width": 0.15 }
+  ]
+]

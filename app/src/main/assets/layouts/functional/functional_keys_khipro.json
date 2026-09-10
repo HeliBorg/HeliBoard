@@ -1,10 +1,6 @@
 [
   [
-    { "$": "keyboard_state_selector",
-      "alphabet": { "label": "/", "width": 0.15 },
-      "symbols": { "label": "shift", "width": 0.15 },
-      "moreSymbols": { "label": "shift", "width": 0.15 }
-    },
+    { "label": "shift", "width": 0.15 },
     { "type": "placeholder" },
     { "label": "delete", "width": 0.15 }
   ],
