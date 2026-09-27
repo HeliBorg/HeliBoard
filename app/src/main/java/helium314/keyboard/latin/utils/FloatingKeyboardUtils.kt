@@ -30,11 +30,7 @@ object FloatingKeyboardUtils {
     fun setFloating(view: View?) {
         val lp = view?.layoutParams as? ViewGroup.MarginLayoutParams ?: return
         view.getWindowVisibleDisplayFrame(windowFrame)
-        // Android 15+ enforces edge-to-edge, so the IME window draws behind the navigation bar and the
-        // visible frame still spans behind it; the bottom drag/resize handles would otherwise end up
-        // under the nav bar. Subtract the window's nav bar inset to keep them reachable. Older versions
-        // keep the IME above the nav bar, so no adjustment is needed there (and applying it could
-        // subtract the nav bar height a second time and lift the keyboard off the bottom).
+        // On Android 15+ (edge-to-edge) getWindowVisibleDisplayFrame includes the area behind the navbar, so we remove it here
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             val navBarBottom = ViewCompat.getRootWindowInsets(view)
                 ?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
