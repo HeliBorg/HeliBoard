@@ -195,13 +195,17 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
             doubleAdjustedBackground = darken(adjustedBackground)
         }
         adjustedBackgroundStateList =
-            if (themeStyle == STYLE_HOLO) {
-                pressedStateList(accent, adjustedBackground)
-            } else if (isNight) {
-                if (hasKeyBorders) pressedStateList(doubleAdjustedAccent, keyBackground)
-                else pressedStateList(adjustedAccent, adjustedKeyBackground)
+            // the selected popup key should read like the functional (delete) key does next to a
+            // letter key - a subtle, familiar contrast - not like the action key or a loud accent
+            // (#2440). Day mode uses the plain functional colour; night mode mirrors it by
+            // brightening the key background the same way the functional key itself is derived.
+            // This holds for Holo as well: its accent-coloured selection was the odd one out.
+            if (isNight) {
+                val bg = if (hasKeyBorders) keyBackground else adjustedKeyBackground
+                pressedStateList(popupSelection(bg, doubleAdjustedKeyBackground), bg)
             } else {
-                pressedStateList(accent, Color.WHITE)
+                val bg = if (hasKeyBorders) Color.WHITE else keyBackground
+                pressedStateList(popupSelection(bg, functionalKey), bg)
             }
 
         val stripBackground = if (keyboardBackground == null && !hasKeyBorders) {
@@ -415,7 +419,12 @@ class DefaultColors (
             adjustedBackground = darken(background)
             doubleAdjustedBackground = darken(adjustedBackground)
         }
-        adjustedBackgroundStateList = pressedStateList(doubleAdjustedBackground, adjustedBackground)
+        // The selected popup key should read like the functional (delete) key does next to a letter
+        // key: clearly there, but not a loud accent (#2440). Deriving it from the popup background
+        // rather than reusing functionalKey keeps that contrast in every theme - in light Material
+        // the functional colour sits right next to the lightened popup background and vanished.
+        adjustedBackgroundStateList =
+            pressedStateList(popupSelection(adjustedBackground, functionalKey), adjustedBackground)
 
         val stripBackground: Int
         val pressedStripElementBackground: Int
@@ -563,7 +572,15 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
     override fun get(color: ColorType): Int = colorMap[color] ?: color.default()
 
     override fun setColor(drawable: Drawable, color: ColorType) {
-        val colorStateList = stateListMap.getOrPut(color) { pressedStateList(brightenOrDarken(get(color), true), get(color)) }
+        val colorStateList = stateListMap.getOrPut(color) {
+            if (color == POPUP_KEYS_BACKGROUND)
+                // the selected popup key reads like the functional (delete) key, the same rule the
+                // dynamic and default themes apply - a plain brighten/darken of the popup colour
+                // is barely visible (#2440), which is why user colour themes showed no highlight
+                pressedStateList(popupSelection(get(color), get(FUNCTIONAL_KEY_BACKGROUND)), get(color))
+            else
+                pressedStateList(brightenOrDarken(get(color), true), get(color))
+        }
         DrawableCompat.setTintMode(drawable, PorterDuff.Mode.MULTIPLY)
         DrawableCompat.setTintList(drawable, colorStateList)
     }
@@ -608,6 +625,26 @@ private fun pressedStateList(pressed: Int, normal: Int): ColorStateList {
     val states = arrayOf(intArrayOf(android.R.attr.state_pressed), intArrayOf(-android.R.attr.state_pressed))
     return ColorStateList(states, intArrayOf(pressed, normal))
 }
+
+/**
+ * Colour of a selected popup key on [popupBackground].
+ *
+ * The selection should stand out about as much as the functional (delete) key does next to a letter
+ * key — noticeable without being a loud accent (#2440). [functionalKey] is used when it is far
+ * enough from the popup background; otherwise the background itself is stepped further, which is
+ * what light themes need, since there the functional colour sits right next to it.
+ */
+private fun popupSelection(popupBackground: Int, functionalKey: Int): Int {
+    val minContrast = 1.25
+    if (ColorUtils.calculateContrast(functionalKey or ALPHA_OPAQUE, popupBackground or ALPHA_OPAQUE) >= minContrast)
+        return functionalKey
+    var candidate = brightenOrDarken(popupBackground, true)
+    if (ColorUtils.calculateContrast(candidate or ALPHA_OPAQUE, popupBackground or ALPHA_OPAQUE) < minContrast)
+        candidate = brightenOrDarken(candidate, true)
+    return candidate
+}
+
+private const val ALPHA_OPAQUE = 0xFF000000.toInt()
 
 private fun activatedStateList(activated: Int, normal: Int): ColorStateList {
     val states = arrayOf(intArrayOf(android.R.attr.state_activated), intArrayOf(-android.R.attr.state_activated))
