@@ -719,6 +719,106 @@ class InputLogicTest {
         assertEquals(5, cursor)
     }
 
+    // ------- long-press whole-word backspace (PREF_BACKSPACE_WORD_DELETE) ---------
+    // wholeWordBackspace() simulates the synthetic isKeyRepeat=true DELETE event long-press sends
+
+    @Test fun wholeWordBackspaceDeletesFirstWordWhileStillComposing() {
+        // first word in a fresh field, not yet followed by a separator: still "composing"
+        chainInput("hello")
+        assertEquals("hello", composingText)
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("", text)
+        assertEquals("", composingText)
+    }
+
+    @Test fun wholeWordBackspaceDeletesMiddleWordWhileComposing() {
+        setText("hello there ")
+        chainInput("friend")
+        assertEquals("friend", composingText)
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("hello there ", text)
+    }
+
+    @Test fun wholeWordBackspaceDeletesFinalWordAfterCommit() {
+        setText("hello there")
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("hello ", text)
+    }
+
+    // regression test: a token longer than the lookback window used to only partially delete
+    @Test fun wholeWordBackspaceDeletesTokenLongerThanLookbackWindow() {
+        setText("hello " + "a".repeat(60)) // 60-char unbroken token, no whitespace within it
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("hello ", text)
+    }
+
+    @Test fun wholeWordBackspaceOnEmptyFieldIsNoOp() {
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("", text)
+    }
+
+    @Test fun wholeWordBackspaceConsumesMultipleConsecutiveSpaces() {
+        setText("hello    ") // hello + four trailing spaces, cursor at end
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("", text)
+    }
+
+    @Test fun wholeWordBackspaceConsumesPunctuationRun() {
+        setText("hello...")
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("hello", text)
+    }
+
+    @Test fun wholeWordBackspaceStopsAtPunctuationBoundary() {
+        setText("hello, there")
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace() // removes "there"
+        assertEquals("hello, ", text)
+        wholeWordBackspace() // removes ", " (leading punctuation before "hello")
+        assertEquals("hello", text)
+    }
+
+    @Test fun wholeWordBackspaceTreatsNewlineAsBoundary() {
+        setText("hello\nthere")
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("hello\n", text)
+    }
+
+    @Test fun wholeWordBackspaceAfterCursorMovedIntoMiddleOfWord() {
+        setText("hello there")
+        setCursorPosition(3) // between "hel" and "lo"
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("lo there", text)
+    }
+
+    @Test fun wholeWordBackspaceWithSelectionDeletesSelectionOnly() {
+        setText("hello there")
+        setCursorPosition(0, 5) // select "hello"
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals(" there", text)
+    }
+
+    @Test fun wholeWordBackspaceDeletesExactlyOneWordPerActivation() {
+        setText("one two three")
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_WORD_DELETE, true) }
+        wholeWordBackspace()
+        assertEquals("one two ", text)
+        wholeWordBackspace()
+        assertEquals("one ", text)
+        wholeWordBackspace()
+        assertEquals("", text)
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
@@ -769,6 +869,13 @@ class InputLogicTest {
     private fun functionalKeyPress(keyCode: Int) {
         require(keyCode < 0) { "not a functional key code: $keyCode" }
         latinIME.onEvent(Event.createSoftwareKeypressEvent(Event.NOT_A_CODE_POINT, keyCode, 0, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false))
+        handleMessages()
+        checkConnectionConsistency()
+    }
+
+    // simulates the synthetic DELETE event long-press sends when word-delete is enabled
+    private fun wholeWordBackspace() {
+        latinIME.onEvent(Event.createSoftwareKeypressEvent(Event.NOT_A_CODE_POINT, KeyCode.DELETE, 0, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, true))
         handleMessages()
         checkConnectionConsistency()
     }

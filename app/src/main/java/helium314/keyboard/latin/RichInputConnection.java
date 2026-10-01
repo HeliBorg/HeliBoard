@@ -851,6 +851,37 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     /**
+     * Upper bound on how far {@link #getCharCountToDeletePreviousWord} grows its fetch window
+     * looking for a word boundary. A multi-megabyte field could exceed the IPC transaction size
+     * limit; 64k chars covers any real word while staying well under that limit.
+     */
+    private static final int WORD_DELETE_MAX_LOOKBACK_CHARS = 1 << 16;
+
+    /**
+     * Characters before the cursor making up "the previous word", for whole-word backspace
+     * (long-press). Reads the text directly instead of sending a synthetic Ctrl+Backspace,
+     * which many custom/web fields ignore. Grows the fetch window and retries if the word run
+     * reaches its edge (e.g. a long URL), up to {@link #WORD_DELETE_MAX_LOOKBACK_CHARS}.
+     * @return characters to remove, at least 1 if any text precedes the cursor, else 0.
+     */
+    public int getCharCountToDeletePreviousWord(final SpacingAndPunctuations spacingAndPunctuations) {
+        int windowSize = NUM_CHARS_TO_GET_BEFORE_CURSOR;
+        CharSequence before = getTextBeforeCursor(windowSize, 0);
+        if (TextUtils.isEmpty(before)) return 0;
+        int index = StringUtilsKt.indexBeforePreviousWord(before, spacingAndPunctuations);
+        // grow the window and retry only if the run reaches its edge
+        while (index == 0 && before.length() == windowSize && windowSize < WORD_DELETE_MAX_LOOKBACK_CHARS) {
+            windowSize = Math.min(windowSize * 4, WORD_DELETE_MAX_LOOKBACK_CHARS);
+            final CharSequence grown = getTextBeforeCursor(windowSize, 0);
+            if (TextUtils.isEmpty(grown)) break;
+            before = grown;
+            index = StringUtilsKt.indexBeforePreviousWord(before, spacingAndPunctuations);
+        }
+        final int consumed = before.length() - index;
+        return consumed > 0 ? consumed : 1;
+    }
+
+    /**
      * Returns the text surrounding the cursor.
      *
      * @param spacingAndPunctuations the rules for spacing and punctuation
