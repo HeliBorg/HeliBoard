@@ -18,6 +18,7 @@ import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.define.DecoderSpecificConstants.SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION
 import helium314.keyboard.latin.define.DecoderSpecificConstants.SHOULD_REMOVE_PREVIOUSLY_REJECTED_SUGGESTION
 import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.japanese.JapaneseKanaKanjiConverter
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.suggestions.SuggestionStripView
@@ -82,6 +83,10 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
         val capsMode = getCapsModeForTyping(wordComposer, keyboard)
         val suggestionsContainer = ArrayList(suggestionResults)
+        if (typedWordString.isNotEmpty() && mDictionaryFacilitator.mainLocale.language == "ja") {
+            // kana->kanji conversion candidates are generated separately and merged here so they show up in the normal strip
+            suggestionsContainer.addAll(0, JapaneseKanaKanjiConverter.getSuggestions(typedWordString))
+        }
         capitalizeAndAddTrailingSingleQuotes(suggestionsContainer, capsMode, trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale)
         val capitalizedTypedWord = capitalize(typedWordString, capsMode, mDictionaryFacilitator.mainLocale)
 
