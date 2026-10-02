@@ -1302,6 +1302,9 @@ public final class InputLogic {
         }
         if (mWordComposer.isComposingWord()) {
             if (mWordComposer.isBatchMode()) {
+                if (SpaceState.PHANTOM == inputTransaction.getSpaceState()) {
+                    return;
+                }
                 final String rejectedSuggestion = mWordComposer.getTypedWord();
                 if (GestureDataGatheringKt.useBackgroundGathering)
                     BackgroundGatheringCache.INSTANCE.onRejectedSuggestion(rejectedSuggestion);
@@ -1375,6 +1378,9 @@ public final class InputLogic {
                     // Likewise
                     return;
                 }
+            } else if (SpaceState.PHANTOM == inputTransaction.getSpaceState()) {
+                restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues(), currentKeyboardScript);
+                return;
             }
 
             boolean hasUnlearnedWordBeingDeleted = false;
