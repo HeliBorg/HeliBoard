@@ -122,11 +122,11 @@ object Defaults {
     const val PREF_KEY_LONGPRESS_TIMEOUT = 300
     const val PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = true
     // supporting hardware keyboard still has a bunch of issues
-    // crash https://github.com/Helium314/HeliBoard/issues/2047 (possibly fixed with b7cb95fc9da213c99d82e8833fb5f950f39d232e)
-    // different crash https://github.com/Helium314/HeliBoard/issues/2001
+    // crash https://github.com/HeliBorg/HeliBoard/issues/2047 (possibly fixed with b7cb95fc9da213c99d82e8833fb5f950f39d232e)
+    // different crash https://github.com/HeliBorg/HeliBoard/issues/2001
     //  LatinIME.isInputViewShown() returns true when there is no input view, thus crashing in onUpdateSelection
-    // physical layout ignored https://github.com/Helium314/HeliBoard/issues/1957, https://github.com/Helium314/HeliBoard/issues/1949
-    // physical layout ignored for uppercase letters only (?) https://github.com/Helium314/HeliBoard/issues/2030
+    // physical layout ignored https://github.com/HeliBorg/HeliBoard/issues/1957, https://github.com/HeliBorg/HeliBoard/issues/1949
+    // physical layout ignored for uppercase letters only (?) https://github.com/HeliBorg/HeliBoard/issues/2030
     const val PREF_ENABLE_HARDWARE_KEYBOARD = false
     const val PREF_GESTURE_PREVIEW_TRAIL = true
     const val PREF_GESTURE_FLOATING_PREVIEW_TEXT = true
