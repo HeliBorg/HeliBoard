@@ -1,0 +1,6 @@
+* võimalus muuta rakenduse keelt süsteemi seadistustes
+* lisandus täiendav allapoole viipamine klahvistiku peitmiseks
+* lisandus HCESAR klahvipaigutus
+* emojide soovituste kasutamisel tekib sõnamistiku puudumisel asjakohane teade
+* parandasime aktiivsete viipamisandmete kogumisel tekkinud vead
+* väiksemad parandused ja täiendused

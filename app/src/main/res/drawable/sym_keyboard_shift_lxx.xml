@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rotate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fromDegrees="90"
-    android:drawable="@drawable/ic_arrow_left">
-</rotate>
+<!--
+    icon available in Android Studio
+    modified for rotation
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24">
+    <group
+        android:translateX="24"
+        android:rotation="90">
+    <path android:fillColor="#FFF"
+        android:pathData="M15.41,16.59L10.83,12l4.58,-4.59L14,6l-6,6 6,6 1.41,-1.41z"/>
+    </group>
+</vector>

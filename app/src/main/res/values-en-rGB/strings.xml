@@ -162,4 +162,24 @@
     <string name="gnu_gpl">GNU General Public Licence v3.0</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blue Grey</string>
     <string name="language_switch_key_behavior">Language switch key behaviour</string>
+    <string name="vibrate_in_dnd_mode">Vibrate in do not disturb mode</string>
+    <string name="suggest_emojis">Suggest emojis</string>
+    <string name="suggest_emojis_summary">Use emoji dictionary in normal suggestions</string>
+    <string name="inline_emoji_search">Inline emoji search</string>
+    <string name="inline_emoji_search_summary">Suggest only emojis when a word is preceded by a colon</string>
+    <string name="emoji_dictionary_required">An emoji dictionary is required for this feature to work. Dictionaries in .dict format can be downloaded %s.</string>
+    <string name="show_emoji_descriptions">Show emoji description on long press</string>
+    <string name="toolbar_swipe_down_to_hide">Hide keyboard by swipe</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Swipe down on the toolbar to close the keyboard</string>
+    <string name="settings_category_space">Space</string>
+    <string name="split_spacer_scale">Split distance</string>
+    <string name="switch_language">Switch language</string>
+    <string name="language_switch_key_switch_both">Switch both</string>
+    <string name="use_apps_dict">Look up app names</string>
+    <string name="use_apps_dict_summary">Use names of installed apps for suggestions and corrections</string>
+    <string name="disable_personalized_dicts_message">Warning: Disabling this setting will clear learnt data</string>
+    <string name="add_to_personal_dictionary">Add words to personal dictionary</string>
+    <string name="add_to_personal_dictionary_summary">Use device personal dictionary to store learned words</string>
+    <string name="prefs_always_show_suggestions">Always show suggestions</string>
+    <string name="prefs_always_show_suggestions_summary">Ignore other apps’ request to disable suggestions (may cause issues)</string>
 </resources>

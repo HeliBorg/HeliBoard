@@ -14,7 +14,7 @@ Recursos:
     <li>consegue seguir a configuração de dia/noite do sistema do Android 10+ (e em algumas versões do Android 9)</li>
     <li>consegue seguir as cores dinâmicas do Android 12+</li>
   </ul>
-  <li>Customize os <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> do teclado (disponível somente quando a opção <i>Usar idiomas do sistema</i> é desativada)</li>
+  <li>Customize os <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">layouts</a> do teclado (disponível somente quando a opção <i>Usar idiomas do sistema</i> é desativada)</li>
   <li>Customize layouts especiais, como símbolos, números ou o layout de teclas funcionais</li>
   <li>Digitação multi-linguagem</li>
   <li>Digitação por Gestos (<i>somente com uma biblioteca proprietária</i> ☹️)</li>

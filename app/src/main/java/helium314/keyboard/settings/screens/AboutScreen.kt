@@ -37,13 +37,14 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.latin.utils.previewDark
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import androidx.core.content.edit
+import helium314.keyboard.latin.utils.IntentUtils
 import java.util.Locale
 
 @Composable
@@ -56,6 +57,7 @@ fun AboutScreen(
         SettingsWithoutKey.LICENSE,
         SettingsWithoutKey.HIDDEN_FEATURES,
         SettingsWithoutKey.GITHUB_WIKI,
+        SettingsWithoutKey.COMMUNITY_LINKS,
         SettingsWithoutKey.GITHUB,
         SettingsWithoutKey.SAVE_LOG,
     )
@@ -90,7 +92,7 @@ fun createAboutSettings(context: Context) = listOf(
                 prefs.edit { putBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, true) }
                 Toast.makeText(ctx, R.string.prefs_debug_settings_enabled, Toast.LENGTH_LONG).show()
             },
-            icon = R.drawable.ic_settings_about
+            icon = R.drawable.ic_settings_about_version
         )
     },
     Setting(context, SettingsWithoutKey.LICENSE, R.string.license, R.string.gnu_gpl) {
@@ -145,6 +147,20 @@ fun createAboutSettings(context: Context) = listOf(
             icon = R.drawable.ic_settings_about_wiki
         )
     },
+    Setting(context, SettingsWithoutKey.COMMUNITY_LINKS, R.string.about_community_links, R.string.about_community_links_description) {
+        val ctx = LocalContext.current
+        Preference(
+            name = it.title,
+            description = it.description,
+            onClick = {
+                val intent = Intent()
+                intent.data = Links.COMMUNITY_LINKS.toUri()
+                intent.action = Intent.ACTION_VIEW
+                ctx.startActivity(intent)
+            },
+            icon = R.drawable.ic_settings_about_community
+        )
+     },
     Setting(context, SettingsWithoutKey.GITHUB, R.string.about_github_link) {
         val ctx = LocalContext.current
         Preference(
@@ -180,14 +196,13 @@ fun createAboutSettings(context: Context) = listOf(
             description = setting.description,
             onClick = {
                 val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US).format(Calendar.getInstance().time)
-                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
+                val intent = IntentUtils.getResolvableTypeIntent(ctx, "text/plain")
+                    .setAction(Intent.ACTION_CREATE_DOCUMENT)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         ctx.getString(R.string.english_ime_name)
                             .replace(" ", "_") + "_log_$date.txt"
                     )
-                    .setType("text/plain")
                 launcher.launch(intent)
             },
             icon = R.drawable.ic_settings_about_log

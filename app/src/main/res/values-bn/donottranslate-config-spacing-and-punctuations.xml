@@ -16,5 +16,5 @@
     <!-- U+0964: "।" DEVANAGARI DANDA  -->
     <integer name="sentence_separator">2404</integer>
     <!-- Symbols that terminate sentences and require capitalization on the next char -->
-    <string name="symbols_sentence_terminators">.?!।॥</string>
+    <string name="symbols_sentence_terminators">.?!‽।॥</string>
 </resources>

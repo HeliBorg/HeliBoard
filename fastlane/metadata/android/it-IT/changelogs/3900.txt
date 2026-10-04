@@ -1,0 +1,6 @@
+* Consenti il cambio della lingua dell'app nelle impostazioni di sistema
+* Opzione per nascondere la tastiera con uno scorrimento verso il basso sulla barra degli strumenti
+* Aggiunto il layout HCESAR
+* Avviso in caso di mancanza del dizionario emoji quando si attivano i suggerimenti emoji
+* Risolti i problemi relativi alla raccolta dei dati delle gesture attive
+* Piccoli fix e miglioramenti generali

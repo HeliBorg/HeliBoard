@@ -22,8 +22,10 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:allowBackup="true"
             android:defaultToDeviceProtectedStorage="true"
             android:directBootAware="true"
+            android:enableOnBackInvokedCallback="true"
+            android:localeConfig="@xml/locales_config"
             tools:remove="android:appComponentFactory"
-            tools:targetApi="p">
+            tools:targetApi="33">
 
         <!-- Services -->
         <service android:name="LatinIME"
@@ -94,6 +96,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_INITIALIZE" />
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
@@ -104,6 +107,17 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
                 <action android:name="helium314.keyboard.dictionarypack.aosp.UNKNOWN_CLIENT" />
             </intent-filter>
         </receiver>
+
+        <!-- for pasting files from internal clipboard -->
+        <provider android:name="helium314.keyboard.latin.database.ClipboardContentProvider"
+            android:authorities="@string/clipboard_provider_authority"
+            android:enabled="true"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/clipboard_provider_path"/>
+        </provider>
 
         <!-- necessary for sending mail attachments, remove when data gathering phase is done (end of 2026 latest) -->
         <provider android:name="helium314.keyboard.settings.screens.gesturedata.GestureFileProvider"
@@ -120,7 +134,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
     <queries>
         <!-- To detect other IMEs -->
         <intent>
-            <!-- changed to * as it's supposed to help with finding other keyboard apps, see https://github.com/Helium314/HeliBoard/issues/1340 -->
+            <!-- changed to * as it's supposed to help with finding other keyboard apps, see https://github.com/HeliBorg/HeliBoard/issues/1340 -->
             <!--<action android:name="android.view.InputMethod" />-->
             <action android:name="*" />
         </intent>

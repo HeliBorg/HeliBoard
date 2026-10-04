@@ -1,0 +1,6 @@
+* usa o tom de emoji padrão nas sugestões e na busca de emojis embutidos
+* ativa o gesto de voltar preditivo
+* corrigir o problema em que parênteses pequenos não eram revertidos em scripts da direita para a esquerda (RTL)
+* adiciona configuração para alterar a altura da linha inferior)
+* melhora o tratamento interno da posição do cursor, principalmente para combinadores usados pelo coreano
+* adiciona links para a tela de coleta de dados de gestos

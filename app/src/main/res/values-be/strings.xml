@@ -340,7 +340,6 @@
     <string name="gesture_floating_preview_static_summary">Бачыць прапанаванае слова падчас набору жэстамі</string>
     <string name="split" tools:keep="@string/split">Раздзельная клавіятура</string>
     <string name="vibrate_in_dnd_mode">Вібрацыя ў рэжыме «Не турбаваць»</string>
-    <string name="enable_split_keyboard_landscape">Уключыць падзеленую клавіятуру (альбомная)</string>
     <string name="gesture_floating_preview_dynamic_summary">Перамяшчаць прадпрагляд падчас набору жэстамі</string>
     <string name="gesture_trail_fadeout_duration">Час жыцця следа жэста</string>
     <string name="auto_correct_shortcuts">Аўтакарэкцыя спалучэнняў клавіш</string>

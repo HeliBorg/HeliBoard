@@ -375,7 +375,6 @@
     <string name="get_layouts_message">Poți găsi și împărtăși aspecte în %s.</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Îmbinare fără spațiu</string>
     <string name="customize_toolbar_key_code_reset_message">Ștergi cu adevărat toate codurile cheie personalizate?</string>
-    <string name="enable_split_keyboard_landscape">Activează tastatura divizată (peisaj)</string>
     <string name="gesture_fast_typing_cooldown">Timp de restabilire a tastării rapide</string>
     <string name="auto_correct_shortcuts">Comenzi rapide corectare automată</string>
     <string name="auto_correct_shortcuts_summary">Dacă este activat, comenzile rapide pot fi extinse prin corecție automată</string>

@@ -119,7 +119,6 @@
     <string name="settings_category_suggestions">Cadangan</string>
     <string name="settings_category_experimental">Dalam ujikaji</string>
     <string name="settings_category_miscellaneous">Lain-lain</string>
-    <string name="enable_split_keyboard_landscape">Hidupkan papan kekunci terpisah (landskap)</string>
     <string name="split_spacer_scale">Jarak pisahan</string>
     <string name="switch_language">Tukar bahasa</string>
     <string name="language_switch_key_switch_both">Tukar kedua-duanya</string>

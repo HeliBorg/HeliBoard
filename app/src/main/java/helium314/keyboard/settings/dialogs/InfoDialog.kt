@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
-import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.latin.utils.previewDark
 
 @Composable
 fun InfoDialog(

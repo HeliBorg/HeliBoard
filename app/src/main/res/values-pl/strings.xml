@@ -84,7 +84,7 @@
     <string name="dictionary_available">Dostępny słownik</string>
     <string name="settings">"Ustawienia"</string>
     <string name="delete">"Usuń"</string>
-    <string name="version_text">Wersja %1$s</string>
+    <string name="version_text">Wersja %s</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Skrót:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Język:"</string>
     <string name="user_dict_settings_add_word_hint">"Wpisz słowo"</string>
@@ -131,7 +131,7 @@
     <string name="undo">"Cofnij"</string>
     <string name="redo">"Ponów"</string>
     <string name="use_personalized_dicts_summary">"Analizuj wiadomości i wpisywane dane, by otrzymywać lepsze podpowiedzi"</string>
-    <string name="label_go_key">"OK"</string>
+    <string name="label_go_key">Ok</string>
     <string name="label_next_key">"Dalej"</string>
     <string name="label_previous_key">"Wróć"</string>
     <string name="label_done_key">"Gotowe"</string>
@@ -187,42 +187,7 @@
     <string name="dictionary_load_error">Błąd podczas dodawania słownika</string>
     <string name="localized_number_row_summary">Preferuj liczby lokalne zamiast łacińskich</string>
     <string name="checksum_mismatch_message">Nieznany plik biblioteki. Czy na pewno pochodzi z zaufanego źródła i jest przeznaczony dla \\\'%s\\\'?</string>
-    <string name="hidden_features_message">► Długie naciśnięcie przypiętych klawiszy paska narzędzi zapewnia dodatkową funkcję: &lt;br&gt;
-\n\t• schowek &amp;#65515; wklej &lt;br&gt;
-\n\t• w lewo/w prawo &amp;#65515; przed słowo/za słowo &lt;br&gt;
-\n\t• w górę/w dół &amp;#65515; strona w górę/w dół &lt;br&gt;
-\n\t• przed słowo/za słowo &amp;#65515; na początek linii/na koniec linii &lt;br&gt;
-\n\t• strona w górę/w dół &amp;#65515; na początek strony/na koniec strony &lt;br&gt;
-\n\t• skopiuj &amp;#65515; wytnij &lt;br&gt;
-\n\t• wybierz słowo &amp;#8596; zaznacz wszystko &lt;br&gt;
-\n\t• cofnij &amp;#8596; ponów &lt;br&gt; &lt;br&gt;
-\n► Długie naciśnięcie przycisków na pasku narzędzi spowoduje przypięcie ich do paska sugestii. &lt;br&gt; &lt;br&gt;
-\n► Przytrzymaj klawisz przecinka, aby uzyskać dostęp do schowka, emotikonów, trybu jednej ręki, ustawień lub zmiany języka: &lt;br&gt;
-\n\t• Przyciski emotikonów i zmiany języka znikną, jeśli masz włączone odpowiednie klawisze; &lt;br&gt;
-\n\t• W niektórych układach nie jest to klawisz przecinka, tylko inny w tym samym miejscu (np. w układzie Dvorak jest to \'q\'). &lt;br&gt; &lt;br&gt;
-\n► Gdy tryb incognito jest włączony, słowa nie będą pamiętane, a emotikony nie zostaną dodane do ostatnio używanych. &lt;br&gt; &lt;br&gt;
-\n► Dotknij ikonkę incognito, aby uzyskać dostęp do paska narzędzi. &lt;br&gt; &lt;br&gt;
-\n► Pisanie za pomocą przesuwania po klawiszu: przesuń palcem od klawisza Shift do innego klawisza, aby wpisać pojedynczą wielką literę: &lt;br&gt;
-\n\t• Działa to również w przypadku klawisza \\\'?123\\\' do wpisywania pojedynczego symbolu z klawiatury symboli oraz podobnych klawiszy. &lt;br&gt; &lt;br&gt;
-\n► Przytrzymaj Shift lub klawisz symboli, naciśnij jeden lub więcej klawiszy, a następnie puść Shift lub klawisz symboli, aby powrócić do poprzedniej klawiatury. &lt;br&gt; &lt;br&gt;
-\n► Przytrzymaj sugestię na pasku sugestii, aby wyświetlić więcej sugestii oraz przycisk usuwania, aby ją usunąć. &lt;br&gt; &lt;br&gt;
-\n► Przesuń palcem w górę na sugestii, aby wyświetlić więcej sugestii i puść, aby wybrać sugestię. &lt;br&gt; &lt;br&gt;
-\n► Przytrzymaj wpis w schowku, aby go przypiąć (pozostanie w schowku do czasu odpięcia). &lt;br&gt; &lt;br&gt;
-\n► Przesuń w lewo w widoku schowka, aby usunąć wpis (jeśli nie jest przypięty) &lt;br&gt; &lt;br&gt;
-\n► Zaznacz tekst i naciśnij Shift, aby przełączać się między wielkimi i małymi literami. &lt;br&gt; &lt;br&gt;
-\n► Możesz dodać słowniki otwierając je w eksploratorze plików: &lt;br&gt;
-\n\t• Działa to tylko z &lt;i&gt;content-uris&lt;/i&gt; nie z &lt;i&gt;file-uris&lt;/i&gt;, co oznacza, że może nie działać z niektórymi eksploratorami plików. &lt;br&gt; &lt;br&gt;
-\n► Do użytkowników wykonujących ręczne kopie zapasowe z dostępem do roota: &lt;br&gt;
-\n\t• Od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania; &lt;br&gt;
-\n\t• Plik zwykle znajduje się w /data/user_de/0/package_id/shared_prefs/, ale może to zależeć od urządzenia i wersji Androida. &lt;br&gt; &lt;br&gt;
-\n&lt;i&gt;&lt;b&gt;Tryb debugowania / aplikacja debug&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-\n► Przytrzymaj sugestię, aby wyświetlić słownik źródłowy. &lt;br&gt; &lt;br&gt;
-\n► Korzystając z aplikacji debug, w ustawieniach zaawansowanych znajdziesz ustawienia debugowania, choć ich użyteczność jest ograniczona, z wyjątkiem dodawania słowników do dziennika zdarzeń. &lt;br&gt;
-\n\t• W przypadku aplikacji release należy kilkukrotnie dotknąć jej wersję w sekcji &lt;i&gt;O aplikacji&lt;/i&gt;, a następnie w &lt;i&gt;Ustawieniach zaawansowanych&lt;/i&gt; znaleźć ustawienia debugowania.&lt;br&gt;
-\n\t• Po włączeniu opcji &lt;i&gt;Pokaż informacje o sugestii&lt;/i&gt;, sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy. &lt;br&gt; &lt;br&gt;
-\n► W przypadku awarii aplikacji, po otwarciu ustawień zostaniesz zapytany, czy chcesz zapisać dzienniki awarii. &lt;br&gt; &lt;br&gt;
-\n► Podczas pisania wielojęzycznego spacja wyświetli wartość służącą do określenia aktualnie używanego języka. &lt;br&gt; &lt;br&gt;
-\n► Sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy (można to wyłączyć).</string>
+    <string name="hidden_features_message">► Długie naciśnięcie przypiętych klawiszy paska narzędzi zapewnia dodatkową funkcję: &lt;br&gt; \n\t• schowek &amp;#65515; wklej &lt;br&gt; \n\t• w lewo/w prawo &amp;#65515; przed słowo/za słowo &lt;br&gt; \n\t• w górę/w dół &amp;#65515; strona w górę/w dół &lt;br&gt; \n\t• przed słowo/za słowo &amp;#65515; na początek linii/na koniec linii &lt;br&gt; \n\t• strona w górę/w dół &amp;#65515; na początek strony/na koniec strony &lt;br&gt; \n\t• skopiuj &amp;#65515; wytnij &lt;br&gt; \n\t• wybierz słowo &amp;#8596; zaznacz wszystko &lt;br&gt; \n\t• cofnij &amp;#8596; ponów &lt;br&gt; &lt;br&gt; \n► Długie naciśnięcie przycisków na pasku narzędzi spowoduje przypięcie ich do paska sugestii. &lt;br&gt; &lt;br&gt; \n► Przytrzymaj klawisz przecinka, aby uzyskać dostęp do schowka, emotikonów, trybu jednej ręki, ustawień lub zmiany języka: &lt;br&gt; \n\t• Przyciski emotikonów i zmiany języka znikną, jeśli masz włączone odpowiednie klawisze; &lt;br&gt; \n\t• W niektórych układach nie jest to klawisz przecinka, tylko inny w tym samym miejscu (np. w układzie Dvorak jest to \'q\'). &lt;br&gt; &lt;br&gt; \n► Gdy tryb incognito jest włączony, słowa nie będą pamiętane, a emotikony nie zostaną dodane do ostatnio używanych. &lt;br&gt; &lt;br&gt; \n► Dotknij ikonkę incognito, aby uzyskać dostęp do paska narzędzi. &lt;br&gt; &lt;br&gt; \n► Pisanie za pomocą przesuwania po klawiszu: przesuń palcem od klawisza Shift do innego klawisza, aby wpisać pojedynczą wielką literę: &lt;br&gt; \n\t• Działa to również w przypadku klawisza \\\'?123\\\' do wpisywania pojedynczego symbolu z klawiatury symboli oraz podobnych klawiszy. &lt;br&gt; &lt;br&gt; \n► Przytrzymaj Shift lub klawisz symboli, naciśnij jeden lub więcej klawiszy, a następnie puść Shift lub klawisz symboli, aby powrócić do poprzedniej klawiatury. &lt;br&gt; &lt;br&gt; \n► Przytrzymaj sugestię na pasku sugestii, aby wyświetlić więcej sugestii oraz przycisk usuwania, aby ją usunąć. &lt;br&gt; &lt;br&gt; \n► Przesuń palcem w górę na sugestii, aby wyświetlić więcej sugestii i puść, aby wybrać sugestię. &lt;br&gt; &lt;br&gt; \n► Przytrzymaj wpis w schowku, aby go przypiąć (pozostanie w schowku do czasu odpięcia). &lt;br&gt; &lt;br&gt; \n► Przesuń w lewo w widoku schowka, aby usunąć wpis (jeśli nie jest przypięty) &lt;br&gt; &lt;br&gt; \n► Zaznacz tekst i naciśnij Shift, aby przełączać się między wielkimi i małymi literami. &lt;br&gt; &lt;br&gt; \n► Możesz dodać słowniki otwierając je w eksploratorze plików: &lt;br&gt; \n\t• Działa to tylko z &lt;i&gt;content-uris&lt;/i&gt; nie z &lt;i&gt;file-uris&lt;/i&gt;, co oznacza, że może nie działać z niektórymi eksploratorami plików. &lt;br&gt; &lt;br&gt; \n► Do użytkowników wykonujących ręczne kopie zapasowe z dostępem do roota: &lt;br&gt; \n\t• Od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania; &lt;br&gt; \n\t• Plik zwykle znajduje się w /data/user_de/0/package_id/shared_prefs/, ale może to zależeć od urządzenia i wersji Androida. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Tryb debugowania / aplikacja debug&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Przytrzymaj sugestię, aby wyświetlić słownik źródłowy. &lt;br&gt; &lt;br&gt; \n► Korzystając z aplikacji debug, w ustawieniach zaawansowanych znajdziesz ustawienia debugowania, choć ich użyteczność jest ograniczona, z wyjątkiem dodawania słowników do dziennika zdarzeń. &lt;br&gt; \n\t• W przypadku aplikacji release należy kilkukrotnie dotknąć jej wersję w sekcji &lt;i&gt;O aplikacji&lt;/i&gt;, a następnie w &lt;i&gt;Ustawieniach zaawansowanych&lt;/i&gt; znaleźć ustawienia debugowania.&lt;br&gt; \n\t• Po włączeniu opcji &lt;i&gt;Pokaż informacje o sugestii&lt;/i&gt;, sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy. &lt;br&gt; &lt;br&gt; \n► W przypadku awarii aplikacji, po otwarciu ustawień zostaniesz zapytany, czy chcesz zapisać dzienniki awarii. &lt;br&gt; &lt;br&gt; \n► Podczas pisania wielojęzycznego spacja wyświetli wartość służącą do określenia aktualnie używanego języka. &lt;br&gt; &lt;br&gt; \n► Sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy (można to wyłączyć).</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Niebiesko-szare</string>
     <string name="select_color_spacebar_text">Tekst spacji</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Jasne</string>
@@ -423,7 +388,6 @@
     <string name="prefs_side_padding_scale">Rozmiar bocznego odstępu</string>
     <string name="number_row_hints">Pokaż wskazówki na wierszu numerycznym</string>
     <string name="prefs_language_swipe_distance">Zmień język - odległość przesunięcia</string>
-    <string name="enable_split_keyboard_landscape">Włącz podzieloną klawiaturę (poziomo)</string>
     <string name="split" tools:keep="@string/split">Podziel klawiaturę</string>
     <string name="delete_confirmation">Na pewno usunąć %s?</string>
     <string name="settings_screen_secondary_layouts">Inne układy</string>
@@ -490,9 +454,9 @@
     <string name="emoji_search_title">Znajdź emotikon</string>
     <string name="search_field_placeholder">Szukaj</string>
     <string name="gesture_data_screen">Gromadzenie danych o gestach</string>
-    <string name="gesture_data_description">Witaj na ekranie gromadzenia danych o gestach!&lt;br/&gt;&lt;br/&gt; Jest to część &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projektu finansowanego przez NLnet&lt;/a&gt;, którego celem jest stworzenie w pełni otwartoźródłowej biblioteki pisania gestami, która mogłaby zastąpić zamkniętą bibliotekę Google.&lt;br/&gt; Planuje się, że rezultatem będzie prosty zamiennik dla klawiatur opartych na AOSP, ale możliwy do użycia również z innymi klawiaturami, np. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Przy rozwijaniu biblioteki niezwykle pomocne jest posiadanie szczegółowych danych o gestach w różnych językach i przez różnych użytkowników.&lt;br/&gt; Gromadząc i przesyłając dane o pisaniu gestami, możesz przyczynić się do tworzenia otwartego zbioru danych o gestach, które zostaną wykorzystane do rozwoju biblioteki. Zbiór danych zostanie opublikowany na licencji CC BY-SA 4.0 po zakończeniu fazy gromadzenia danych na %s. Po zebraniu danych możesz je przesłać, korzystając z ikony udostępniania na dole tego ekranu.</string>
+    <string name="gesture_data_description">&lt;b&gt;Witaj na ekranie gromadzenia danych o gestach!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Jest to część &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projektu finansowanego przez NLnet&lt;/a&gt;, którego celem jest stworzenie w pełni otwartoźródłowej biblioteki pisania gestami, która mogłaby zastąpić zamkniętą bibliotekę Google.&lt;br/&gt; Planuje się, że rezultatem będzie prosty zamiennik dla klawiatur opartych na AOSP, ale możliwy do użycia również z innymi klawiaturami, np. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Przy rozwijaniu biblioteki niezwykle pomocne jest posiadanie szczegółowych danych o gestach w różnych językach i przez różnych użytkowników.&lt;br/&gt; Gromadząc i przesyłając dane o pisaniu gestami, możesz przyczynić się do tworzenia otwartego zbioru danych o gestach, które zostaną wykorzystane do rozwoju biblioteki. Zbiór danych zostanie opublikowany na licencji CC BY-SA 4.0 po zakończeniu fazy gromadzenia danych %s. Po zebraniu danych możesz je przesłać, korzystając z ikony udostępniania na dole tego ekranu.</string>
     <string name="gesture_data_info">Co to jest?</string>
-    <string name="gesture_data_description_modes">Obecnie dostępny jest tylko tryb aktywnego gromadzenia, w którym wyświetlane jest konkretne słowo, które należy wpisać, używając gestów.\nPóźniej zostanie dodany pasywny tryb gromadzenia danych, w którym będziesz mógł udostępniać próbki swojego codziennego pisania gestami z innych aplikacji. Ze względu na wrażliwość tego podejścia, będzie to możliwe po wyrażeniu zgody, konfigurowalne i z ekranem podglądu danych, które zamierzasz przesłać.</string>
+    <string name="gesture_data_description_modes">„Bezpiecznym” sposobem na wniesienie wkładu jest tryb &lt;i&gt;aktywnego gromadzenia&lt;/i&gt; w którym wyświetlane jest konkretne słowo, które należy wpisać za pomocą gestów.&lt;br&gt; Możesz również skorzystać z trybu &lt;i&gt;zbierania w tle&lt;/i&gt; w którym możesz udostępnić przykłady swojego codziennego pisania gestami z innych aplikacji. Ze względu na wrażliwość tego podejścia, jest ono opcjonalne, konfigurowalne i z ekranem podglądu danych, które zamierzasz przesłać.</string>
     <string name="gesture_data_description_privacy">Prywatność\n\n Przesyłane dane składają się z konkretnego słowa, układu klawiatury i wymiarów, gestów (czas i współrzędne), sugestii z bieżącej biblioteki, skrótu użytych słowników, wersji aplikacji, trybu gromadzenia danych, informacji o tym, czy biblioteka pisania gestami jest domyślną biblioteką Google, a także identyfikatora przypisanego do każdego gestu.\n Przesłane dane zostaną pobrane i usunięte ze skrzynki pocztowej ProtonMail, gdzie są przechowywane, tak szybko jak to możliwe. Po zakończeniu fazy gromadzenia danych gestów, zebrany zestaw danych od wszystkich użytkowników zostanie opublikowany na licencji Creative Commons BY-SA 4.0.\n\n Aby chronić twoją prywatność, nie zostaniesz wymieniony jako autor. Twój wkład zostanie oznaczony jako \"Współtwórcy projektu HeliBoard Gesture Data\". Powiązanie z tobą danych generowanych na tym ekranie nie powinno być możliwe. Jednak możliwe może być ustalenie, które gesty wykonała ta sama osoba. Można to zrobić na przykład za pomocą niestandardowego układu klawiatury, wymiarów klawiatury, języka lub indywidualnego stylu gestów.</string>
     <string name="gesture_data_privacy">Prywatność</string>
     <string name="gesture_data_get_data">Udostępnij plik z danymi o gestach</string>
@@ -507,7 +471,7 @@
     <string name="gesture_data_words_selected">%s słów</string>
     <string name="gesture_data_much_data">Masz dużo nieprzesłanych danych. Prześlij, a następnie usuń stare dane.</string>
     <string name="gesture_data_how_to_use">Jak to zrobić</string>
-    <string name="gesture_data_active_description">Dotknij \"Rozpocznij aktywne gromadzenie\", opcjonalnie zmień słownik i zacznij gestem wpisywać wyświetlone słowo.&lt;br/&gt; Jeśli gest pasuje do słowa, dane zostaną zapisane, a kolejne słowo zostanie wyświetlone. W przeciwnym razie możesz spróbować ponownie, pominąć słowo lub potwierdzić, że gest został wykonany poprawnie.&lt;br/&gt; Możesz używać tylko słowników wbudowanych w aplikację lub dostępnych w &lt;a href= %s &gt; repozytorium słowników&lt;/a&gt;, żadne inne słowa nie zostaną użyte.</string>
+    <string name="gesture_data_active_description">Dotknij &lt;i&gt;Rozpocznij aktywne gromadzenie&lt;/i&gt;, opcjonalnie zmień słownik i zacznij gestem wpisywać wyświetlone słowo.&lt;br/&gt; Jeśli gest pasuje do słowa, dane zostaną zapisane, a kolejne słowo zostanie wyświetlone. W przeciwnym razie możesz spróbować ponownie, pominąć słowo lub potwierdzić, że gest został wykonany poprawnie.&lt;br/&gt; Możesz używać tylko słowników wbudowanych w aplikację lub dostępnych w &lt;a href= %s &gt; repozytorium słowników&lt;/a&gt;, żadne inne słowa nie zostaną użyte.</string>
     <string name="gesture_data_active_start">Rozpocznij aktywne gromadzenie</string>
     <string name="gesture_data_active_stop">Zatrzymaj aktywne gromadzenie</string>
     <string name="gesture_data_ends_at">Faza gromadzenia danych o gestach zakończy się %s. Prześlij swoje dane przed tą datą.</string>
@@ -522,4 +486,73 @@
     <string name="gesture_data_email_body">WAŻNE:\n\n Cześć!\n Przypominamy, że te dane będą udostępniane publicznie na podstawie licencji CC BY-SA 4.0, a ty nie zostaniesz wymieniony jako autor, aby chronić twoją prywatność.\n\n Dziękujemy za udostępnienie nam praw do swoich danych. Zrobimy z nich dobry użytek!\n\n Pamiętaj, że zmiana treści niniejszego powiadomienia nie zmienia sposobu, w jaki będziemy używać twoich danych. To nie jest umowa, którą można modyfikować, a jedynie przypomnienie!\n Jeśli chcesz wysłać nam wiadomość zawierającą swoje dane, wpisz ją pod tą linią.\n ---------------------------------------------</string>
     <string name="gesture_data_mail_use">Pamiętaj, że ten adres e-mail jest przeznaczony do przesyłania danych, więc odpowiedzi mogą nie być szybkie lub spójne.</string>
     <string name="gesture_data_delete_dialog_confirm">Jesteś pewien? Spowoduje to usunięcie %s słów. Upewnij się, że udostępnione dane zostały przesłane!</string>
+    <string name="gesture_data_promotion_message">Cześć!\n Skoro zainstalowałeś bibliotekę pisania gestami, możesz być zainteresowany projektem HeliBoard, którego celem jest stworzenie w pełni otwartej biblioteki do pisania gestami. Możesz pomóc, udostępniając dane o gestach. Aby uzyskać więcej informacji, odwiedź ekran gromadzenia danych o gestach.</string>
+    <string name="gesture_data_reminder_message">Cześć!\n Wcześniej korzystałeś z funkcji gromadzenia danych o gestach, ale od dłuższego czasu nie dodawałeś żadnych danych. Czy chcesz ponownie wziąć udział w projekcie?</string>
+    <string name="ask_later">Zapytaj mnie później</string>
+    <string name="gesture_data_take_me_there">Zabierz mnie tam</string>
+    <string name="timestamp_description">Możesz dodać klawisz znacznika czasu, używając niestandardowego układu z klawiszem \"znacznik czasu\" lub kodem klawisza -10043</string>
+    <string name="prefs_bottom_row_scale">Rozmiar dolnego rzędu</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Przesuń palcem w dół na pasku narzędzi, aby zamknąć klawiaturę</string>
+    <string name="gesture_data_please_switch_keyboard">Przełącz na %s</string>
+    <string name="gesture_data_share_limit">Aby uniknąć przekroczenia limitu rozmiaru, eksportowanych będzie tylko pierwszych %s słów</string>
+    <string name="gesture_data_links">Informacje o aktywnym gromadzeniu:</string>
+    <string name="toolbar_swipe_down_to_hide">Ukryj klawiaturę przesuwając</string>
+    <string name="folded">Złożony</string>
+    <string name="space_swipe_touchpad_mode_entry">Tryb touchpada</string>
+    <string name="touchpad_sensitivity">Czułość touchpada</string>
+    <string name="custom_punctuation_suggestions">Ustaw sugestie interpunkcji</string>
+    <string name="floating" tools:keep="@string/floating">Pływająca klawiatura</string>
+    <string name="prefs_key_gap_scale">Rozmiar odstępu między klawiszami</string>
+    <string name="touchpad_edge_scroll_description">Automatycznie przewijaj po przesunięciu do krawędzi klawiatury</string>
+    <string name="toolbar_only_with_hw_keyboard">Pokaż pasek narzędzi tylko z fizyczną klawiaturą</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Nadal musisz włączyć wyświetlanie wirtualnej klawiatury w ustawieniach systemu</string>
+    <string name="spell_check_suggestions">Pokaż sugestie sprawdzania pisowni</string>
+    <string name="spell_check_suggestions_summary">Pokaż sugestie po dotknięciu słowa z czerwonym podkreśleniem. Wymaga ustawienia aplikacji jako domyślnego modułu sprawdzania pisowni.</string>
+    <string name="touchpad_edge_scroll">Przewijanie po krawędzi touchpada</string>
+    <string name="clipboard_history_files">Dodawaj obrazy i inne pliki do historii schowka</string>
+    <string name="clipboard_history_max_file_size">Limit rozmiaru schowka</string>
+    <string name="item_description">Opis: %s</string>
+    <string name="item_type">Typ: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="subtype_generic_4row">%s (4-rzędowy)</string>
+    <string name="gesture_data_share_duplicate">Możesz ponownie udostępnić już przesłane dane, jeśli nie masz pewności, czy zostały odebrane prawidłowo. Wykrywamy i usuwamy duplikaty podczas przetwarzania danych.</string>
+    <string name="gesture_data_active">Aktywne gromadzenie</string>
+    <string name="background_gesture_data_links">Informacje o gromadzeniu danych w tle:</string>
+    <string name="gesture_data_background_gathering_switch">Włącz gromadzenie danych w tle</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Dozwolone aplikacje: %s</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Dane zapisywane są ręcznie za pomocą przycisku na pasku narzędzi</string>
+    <string name="gesture_data_background_gathering_info">Więcej informacji</string>
+    <string name="gesture_data_background_apps_button">Zarządzaj dozwolonymi aplikacjami</string>
+    <string name="gesture_data_background_excluded_words_button">Zarządzaj wykluczonymi słowami</string>
+    <string name="gesture_data_background_dictionary">Słownik: %s</string>
+    <string name="gesture_data_background_position">Pozycja: %s</string>
+    <string name="gesture_data_background_exclude_words">Wyklucz słowo z gromadzenia w tle</string>
+    <string name="gesture_data_long_press_select_hint">Przytrzymaj, aby wybrać</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Gromadzenie danych w tle</string>
+    <string name="gesture_data_show_active">Pokaż aktywnie zebrane dane</string>
+    <string name="gesture_data_show_background">Pokaż dane w tle</string>
+    <string name="gesture_data_include_shared">Uwzględnij już przesłane dane</string>
+    <string name="gesture_data_shared">przesłano</string>
+    <string name="gesture_data_saving">Zapisywanie… %s%%</string>
+    <string name="gesture_data_add_key">Dodaj klawisz paska narzędzi</string>
+    <string name="prefs_hint_font_scale">Rozmiar czcionki wskazówek</string>
+    <string name="about_community_links_description">Motywy, edytor układu, dyskusje, …</string>
+    <string name="gesture_data_background_gathering_info_message">Włączenie gromadzenia danych w tle umożliwia HeliBoard rejestrowanie gestów wykonywanych w innych aplikacjach. Jest to bardzo przydatne w projekcie pisania gestami, ponieważ może wygenerować dużą ilość danych, choć o niższej jakości niż aktywne gromadzenie. Gromadzenie danych w tle nie zastępuje aktywnie gromadzonych danych, a ma być ich uzupełnieniem, ponieważ jakość danych jest ważniejsza niż ich ilość.\n\n Gromadzenie danych w tle wiąże się z dużym ryzykiem zebrania danych, które mogą być uważane za zbyt prywatne, by je udostępniać, nawet jeśli są publikowane anonimowo. Z tego powodu chcemy wyjaśnić, kiedy gromadzone są dane gestów i jaki możesz mieć na to wpływ.\n\n W sekcji linków w prawym dolnym rogu tego ekranu znajdziesz film wyjaśniający dokładniej sposób gromadzenia danych w tle.</string>
+    <string name="gesture_data_background_gathering_indicator">Wskaźnik gromadzenia danych</string>
+    <string name="gesture_data_background_gathering_indicator_message">Za każdym razem, gdy rejestrowane są dane gestu, w lewym dolnym rogu klawiatury pojawi się ikona wskaźnika. Gdy okrąg jest wypełniony, co najmniej jeden gest został zebrany i czeka na zapisanie. Dane są zapisywane za pomocą klawisza na pasku narzędzi (zobacz &lt;i&gt;%1$s&lt;/i&gt;) lub automatycznie (kiedy &lt;i&gt;%2$s&lt;/i&gt; jest wyłączone). Automatyczne zapisywanie następuje zazwyczaj podczas przełączania pól tekstowych lub zamykania klawiatury, ale może się również zdarzyć, gdy pole tekstowe zmieni się z innego powodu. Podczas zapisywania danych wskaźnik na chwilę zmieni kolor na zielony.</string>
+    <string name="gesture_data_background_gathering_control">Jak kontrolować, co jest zapisywane</string>
+    <string name="gesture_data_background_apps">Wybierz aplikacje, które chcesz uwzględnić w zbieraniu danych w tle</string>
+    <string name="gesture_data_background_apps_include_default">Domyślnie uwzględnij aplikacje</string>
+    <string name="auto_correct_capitalized_suggestions">Autokorekta sugestii z wielkimi literami</string>
+    <string name="auto_correct_capitalized_suggestions_description">Po naciśnięciu shift zostanie zastosowana autokorekta</string>
+    <string name="about_community_links">Linki społecznościowe</string>
+    <string name="gesture_data_background_gathering_manual_save">Domyślnie odrzucaj</string>
+    <string name="gesture_data_first_enable_dialog">Witaj w gromadzeniu danych w tle!&lt;br&gt; Czy chcesz dodać klawisz &lt;i&gt;%1$s&lt;/i&gt; do paska narzędzi? Możesz go używać do kontrolowania gromadzenia danych. Dowiedz się więcej, klikając przycisk &lt;i&gt;%2$s&lt;/i&gt;.&lt;br&gt;&lt;br&gt; Domyślnie gromadzenie danych w tle jest wyłączone dla wszystkich aplikacji. Oznacza to, że nic nie będzie gromadzone, dopóki nie wybierzesz aplikacji, w których zezwalasz na gromadzenie. Możesz to zmienić %3$s.</string>
+    <string name="gesture_data_no_known_dict">Gromadzenie w tle zbiera wyłącznie słowa pochodzące z wbudowanych słowników lub dostępnych w &lt;a href=%s&gt;repozytorium słowników&lt;/a&gt;. Obecnie nie masz włączonego takiego słownika.</string>
+    <string name="gesture_data_swipe_o_scope">Narzędzie do wizualizacji danych o gestach: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="gesture_data_background_gathering_control_message">Niezależnie od ustawień, gromadzenie danych w tle jest wyłączone w trybie incognito. Jest ono również wyłączone dla pól wprowadzania oznaczonych jako wrażliwe (hasła, adres e-mail lub gdy pole wprowadzania żąda od klawiatury, aby nie uczyła się słów). Gromadzone będą tylko słowa znajdujące się w głównym słowniku (wbudowanym lub z &lt;a href=%5$s&gt;repozytorium słowników&lt;/a&gt;). &lt;br&gt;&lt;br&gt; W &lt;i&gt;%1$s&lt;/i&gt; możesz wybrać aplikacje, w których chcesz zezwolić na gromadzenie danych w tle. Domyślne ustawienie wyłącza wszystkie aplikacje, z opcją włączenia dla każdej aplikacji indywidualnie. Możesz zamiast tego włączyć wszystkie aplikacje i zrezygnować z tej opcji. Jest to wygodniejsze, ale automatycznie zezwala na gromadzenie danych z nowo zainstalowanych aplikacji. Może to spowodować nieoczekiwane gromadzenie danych. &lt;br&gt;&lt;br&gt; W &lt;i&gt;%2$s&lt;/i&gt; możesz wykluczyć konkretne wrażliwe słowa. Podczas wpisywania gestem wykluczonego słowa ikona wskaźnika nadal będzie wyświetlać wypełnioną ikonę („dane oczekujące na zapisanie”), ale zostaną one odrzucone, gdy normalnie zostałyby zapisane. Wszystkie zablokowane słowa, które zostały zapisane przed ich zablokowaniem, zostaną usunięte podczas eksportowania danych.&lt;br&gt; Pamiętaj, że gromadzenie w tle będzie zbierać tylko słowa, które już znajdują się w głównym słowniku, więc prawdopodobnie jedynymi słowami, które trzeba będzie zablokować, są powszechnie używane słowa, które mogłyby posłużyć do osobistej identyfikacji, takie jak: imię i nazwisko, ulica, miasto, terytorium itp. &lt;br&gt;&lt;br&gt; Gdy opcja &lt;i&gt;%3$s&lt;/i&gt; jest włączona dane są zapisywane tylko wtedy, gdy zdecydujesz się to zrobić ręcznie za pomocą klawisza &lt;i&gt;%4$s&lt;/i&gt; na pasku narzędzi (patrz poniżej). Jeśli dane nie zostaną zapisane, oczekujące dane zostaną usunięte po zmianie pola wprowadzania lub zamknięciu klawiatury.&lt;br&gt; Wykluczenia aplikacji i słów nadal obowiązują w tym trybie. &lt;br&gt;&lt;br&gt; Klawisz &lt;i&gt;%4$s&lt;/i&gt; na pasku narzędzi może być używany do kontrolowania gromadzenia danych. Skutek naciśnięcia zależy od bieżącego stanu: Gdy gromadzenie danych w tle jest wyłączone, zostanie ono włączone.&lt;br&gt; Długie naciśnięcie wyłączy gromadzenie na pięć minut.&lt;br&gt; Możesz wcześniej ponownie włączyć gromadzenie danych w tle, po prostu naciskając klawisz.&lt;br&gt; Gdy &lt;i&gt;%3$s&lt;/i&gt; jest włączone, oczekujące dane zostaną zapisane.&lt;br&gt; W przeciwnym razie oczekujące dane zostaną odrzucone.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Za pomocą ekranu &lt;i&gt;%1$s&lt;/i&gt; możesz sprawdzać i filtrować zebrane dane, usuwać dane, które uważasz za zbyt wrażliwe, oraz udostępniać dane. Przyciski usuwania i udostępniania będą działać na przefiltrowanych danych lub wybranych, jeśli użyjesz przytrzymania do zaznaczenia słów. (Pamiętaj, że „zwykła” ikona udostępniania poza ekranem &lt;i&gt;%1$s&lt;/i&gt; będzie udostępniać tylko dane z aktywnego gromadzenia.)&lt;br&gt; Kolejność udostępnionych danych jest losowa, więc nie można wywnioskować nic więcej poza pojedynczymi słowami.&lt;br&gt; Aby wyświetlić pełne dane zapisane dla gestu, możesz udostępnić je do pliku i otworzyć w &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="space_swipe_toggle_dpad_entry">Przełącz na D-pad</string>
 </resources>

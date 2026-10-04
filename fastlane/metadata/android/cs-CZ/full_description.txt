@@ -14,7 +14,7 @@ Funkce:
     <li>dokáže se přizpůsobit dennímu/nočnímu nastavení v Androidu 10+ (a na některých verzích Androidu 9)</li>
     <li>dokáže se přizpůsobit dynamickým barvám v Androidu 12+</li>
   </ul>
-  <li>Přizpůsobte si <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">rozložení</a> klávesnice (dostupné pouze při vypnuté volbě <i>používat systémové jazyky</i>)</li>
+  <li>Přizpůsobte si <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">rozložení</a> klávesnice (dostupné pouze při vypnuté volbě <i>používat systémové jazyky</i>)</li>
   <li>Přizpůsobte si speciální rozložení, jako jsou symboly, čísla nebo rozložení funkčních kláves</li>
   <li>Vícejazyčné psaní</li>
   <li>Psaní jedním tahem (<i>pouze s proprietární knihovnou</i> ☹️)</li>

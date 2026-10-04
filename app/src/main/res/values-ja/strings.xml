@@ -109,7 +109,6 @@
     <string name="settings_category_input">入力</string>
     <string name="abbreviation_unit_minutes">%s 分</string>
     <string name="backup_restore_title">退避とレストア</string>
-    <string name="enable_split_keyboard_landscape">スプリットキーボードをイネーブルする（横向き）</string>
     <string name="android_spell_checker_settings">ヘリボードスペルチェッカの設定</string>
     <string name="settings_category_suggestions">提案</string>
     <string name="settings_category_experimental">実験的</string>

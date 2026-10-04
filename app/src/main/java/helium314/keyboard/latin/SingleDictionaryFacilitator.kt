@@ -48,7 +48,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
         val suggestionResults = getSuggestionResults(
             ComposedData.createForWord(word),
             NgramContext.getEmptyPrevWordsContext(0),
-            KeyboardSwitcher.getInstance().keyboard, // looks like actual keyboard doesn't matter (composed data doesn't contain coordinates)
+            KeyboardSwitcher.getInstance().keyboard!!, // looks like actual keyboard doesn't matter (composed data doesn't contain coordinates)
             SettingsValuesForSuggestion(false, false),
             Suggest.SESSION_ID_TYPING, SuggestedWords.INPUT_STYLE_TYPING
         )
@@ -122,7 +122,8 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
 
     override fun adjustConfidences(word: String, wasAutoCapitalized: Boolean) {}
 
-    override fun unlearnFromUserHistory(word: String, ngramContext: NgramContext, timeStampInSeconds: Long, eventType: Int) {}
+    override fun unlearnFromUserHistory(word: String, ngramContext: NgramContext,
+        timeStampInSeconds: Long, event: DictionaryFacilitator.UnlearnEvent) {}
 
     override fun isValidSpellingWord(word: String): Boolean = dict.isValidWord(word)
 

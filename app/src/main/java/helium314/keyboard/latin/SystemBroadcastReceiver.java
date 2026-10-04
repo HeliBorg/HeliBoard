@@ -62,7 +62,7 @@ public final class SystemBroadcastReceiver extends BroadcastReceiver {
             toggleAppIcon(context);
         } else if (Intent.ACTION_LOCALE_CHANGED.equals(intentAction)) {
             Log.i(TAG, "System locale changed");
-            KeyboardLayoutSet.onSystemLocaleChanged();
+            KeyboardLayoutSet.Companion.onSystemLocaleChanged();
         }
 
         // The process that hosts this broadcast receiver is invoked and remains alive even after

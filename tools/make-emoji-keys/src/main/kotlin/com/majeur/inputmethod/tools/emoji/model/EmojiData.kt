@@ -21,6 +21,17 @@ class EmojiData {
 
     fun emojiGroupCount(group: EmojiGroup) = emojiGroups[group]?.size ?: 0
 
+    /** Unicode's emoji-test.txt only lists the composed country flags, but Android also supports
+     *  the standalone regional indicator letters (two of them in a row combine into a flag).
+     *  They were removed from the symbols group in #1680 with the promise to restore them if
+     *  requested (#2627), so append them to the end of the flags group as suggested there. */
+    fun appendRegionalIndicators() {
+        (CP_REGIONAL_INDICATOR_SYMBOL_LETTER_A..CP_REGIONAL_INDICATOR_SYMBOL_LETTER_Z).forEach { cp ->
+            val letter = 'a' + (cp - CP_REGIONAL_INDICATOR_SYMBOL_LETTER_A)
+            insertEmoji(EmojiGroup.FLAGS, intArrayOf(cp), 2.0f, "regional indicator symbol letter $letter")
+        }
+    }
+
     fun insertEmoji(group: EmojiGroup, codes: IntArray, unicodeVer: Float, name: String): EmojiSpec {
         return EmojiSpec(codes, unicodeVer, name).also { emoji ->
             val baseEmoji = findBaseEmoji(group, emoji)
@@ -103,5 +114,8 @@ class EmojiData {
         private const val CP_WHITE_HAIR = 0x1F9B3
         private const val CP_BARLD = 0x1F9B2
         private const val CP_VARIANT_SELECTOR = 0xFE0F
+
+        private const val CP_REGIONAL_INDICATOR_SYMBOL_LETTER_A = 0x1F1E6
+        private const val CP_REGIONAL_INDICATOR_SYMBOL_LETTER_Z = 0x1F1FF
     }
 }

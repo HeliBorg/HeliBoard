@@ -15,15 +15,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.keyboard.KeyboardActionListener
-import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.KeyboardTypeface
 import helium314.keyboard.keyboard.MainKeyboardView
 import helium314.keyboard.keyboard.PointerTracker
 import helium314.keyboard.keyboard.internal.KeyDrawParams
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.ClipboardHistoryManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
@@ -33,9 +33,9 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.createToolbarKey
-import helium314.keyboard.latin.utils.getCodeForToolbarKey
-import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
+import helium314.keyboard.latin.utils.onClickToolbarKey
+import helium314.keyboard.latin.utils.onLongClickToolbarKey
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 
@@ -69,10 +69,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val keyboardViewAttr = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         keyboardViewAttr.recycle()
-        if (Settings.getValues().mSecondaryStripVisible) {
-            getEnabledClipboardToolbarKeys(context.prefs())
-                .forEach { toolbarKeys.add(createToolbarKey(context, it)) }
-        }
+        getEnabledClipboardToolbarKeys(context.prefs())
+            .forEach { toolbarKeys.add(createToolbarKey(context, it)) }
         fitsSystemWindows = true
     }
 
@@ -132,7 +130,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyboardView.setKeyboardActionListener(listener)
         PointerTracker.switchTo(keyboardView)
         val kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(context, editorInfo)
-        val keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW)
+        val keyboard = kls.getKeyboard(KeyboardElement.CLIPBOARD_BOTTOM_ROW)
         keyboardView.setKeyboard(keyboard)
     }
 
@@ -158,12 +156,12 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.bottomRowKeyboardHeight, keyVisualAttr)
         val settings = Settings.getInstance()
-        settings.getCustomTypeface()?.let { params.mTypeface = it }
+        KeyboardTypeface.customTypeface()?.let { params.mTypeface = it }
         setupClipKey(params)
         setupBottomRowKeyboard(editorInfo, keyboardActionListener)
 
         placeholderView.apply {
-            typeface = params.mTypeface
+            KeyboardTypeface.applyToTextView(this)
             setTextColor(params.mTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat() * 2)
         }
@@ -171,6 +169,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
             adapter = clipboardAdapter
             val keyboardWidth = ResourceUtils.getKeyboardWidth(context, settings.current)
             layoutParams.width = keyboardWidth
+            // new ClipboardLayoutParams means ClipboardAdapter has wrong gaps, but that's ok (only relevant when resizing floating keyboard)
+            ClipboardLayoutParams(context).setListProperties(this)
 
             // set side padding
             val keyboardAttr = context.obtainStyledAttributes(
@@ -197,29 +197,17 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     override fun onClick(view: View) {
-        val tag = view.tag
-        if (tag is ToolbarKey) {
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_PRESS)
-            val code = getCodeForToolbarKey(tag)
-            if (code != KeyCode.UNSPECIFIED) {
-                keyboardActionListener.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                return
+        if (view.tag is ToolbarKey) {
+            onClickToolbarKey(view) {
+                keyboardActionListener.onCodeInput(it, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
             }
         }
     }
 
     override fun onLongClick(view: View): Boolean {
-        val tag = view.tag
-        if (tag is ToolbarKey) {
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_LONG_PRESS)
-            val longClickCode = getCodeForToolbarKeyLongClick(tag)
-            if (longClickCode != KeyCode.UNSPECIFIED) {
-                keyboardActionListener.onCodeInput(
-                    longClickCode,
-                    Constants.NOT_A_COORDINATE,
-                    Constants.NOT_A_COORDINATE,
-                    false
-                )
+        if (view.tag is ToolbarKey) {
+            onLongClickToolbarKey(view) { code, isRepeat ->
+                keyboardActionListener.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, isRepeat)
             }
             return true
         }
@@ -227,12 +215,13 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     override fun onKeyDown(clipId: Long) {
-        keyboardActionListener.onPressKey(KeyCode.NOT_SPECIFIED, 0, true, HapticEvent.KEY_PRESS)
+        keyboardActionListener.onPressKey(KeyCode.NOT_SPECIFIED, 0, 1, HapticEvent.KEY_PRESS)
     }
 
     override fun onKeyUp(clipId: Long) {
         val clipContent = clipboardHistoryManager.getHistoryEntryContent(clipId)
-        keyboardActionListener.onTextInput(clipContent?.text)
+        if (clipContent?.filename != null) keyboardActionListener.onContent(clipContent.getContentInfo(context))
+        else keyboardActionListener.onTextInput(clipContent?.text)
         keyboardActionListener.onReleaseKey(KeyCode.NOT_SPECIFIED, false)
         if (Settings.getValues().mAlphaAfterClipHistoryEntry)
             keyboardActionListener.onCodeInput(KeyCode.ALPHA, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
@@ -256,7 +245,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
         setToolbarButtonsActivatedStateOnPrefChange(KeyboardSwitcher.getInstance().clipboardStrip, key)
 
-        // The setting can only be changed from a settings screen, but adding it to this listener seems necessary: https://github.com/Helium314/HeliBoard/pull/1903#issuecomment-3478424606
+        // The setting can only be changed from a settings screen, but adding it to this listener seems necessary: https://github.com/HeliBorg/HeliBoard/pull/1903#issuecomment-3478424606
         if (::clipboardHistoryManager.isInitialized && key == Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST) {
             // Ensure settings are reloaded first
             Settings.getInstance().onSharedPreferenceChanged(prefs, key)

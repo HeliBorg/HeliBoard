@@ -1,0 +1,6 @@
+* alapértelmezett emodzsii-bőrszín használata a javaslatokban és a beépített emodzsi-keresésben
+* prediktív vissza ujjmozdulat engedélyezése
+* kis zárójelek visszaállításának javítása RTL-szkriptek esetén
+* beállítási lehetőség hozzáadása az alsó sor magasságának megváltoztatásához
+* kurzor pozíciójának belső kezelésének javítása, főként a koreai nyelvben használt kombinátorok esetében
+* hivatkozások hozzáadása az ujjmozdulat-gyűjtő képernyőhöz

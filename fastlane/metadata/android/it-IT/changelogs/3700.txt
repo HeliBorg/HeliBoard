@@ -1,0 +1,10 @@
+* Novità: ricerca emoji (richiede dizionario emoji)
+* Raccolta dati sulla digitazione gestuale
+* Novità: racchiudi il testo tra coppie di simboli
+* Font personalizzato per le emoji
+* Riga dei numeri opzionale per il layout simboli
+* Meno correzioni indesiderate durante la digitazione di indirizzi email
+* Corretto lo spostamento del cursore con digitazione RTL
+* Nessun 'taglio' della selezione dopo cambio maiuscole/minuscole
+* Combinatore khipro migliorato
+* Correzioni minori e miglioramenti

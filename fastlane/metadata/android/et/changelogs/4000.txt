@@ -1,0 +1,11 @@
+* lisandus viipeandmete kogumisne
+* lõikelaua ajaloost saab nüüd lisada faile+pilte
+* lisandus ujuv klahvistik
+* lisandusid Unicode 17.0 emojid
+* lisandusid eraldi skaleerimisseadistused kokkulapitavatele telefonidele
+* slaiderile lisandus puuteplaadi režiim
+* lisandus võimalus keelata õigekirjakontrolli soovituste hüpikaken
+* autokorrektuuri õigsuse muudatus
+* kitsaste klahvivahede muudatus
+* võimaliku turvavea parandus, kus taastatakse muudetud zip-failist
+* ning muid täiendusi ja parandusi...

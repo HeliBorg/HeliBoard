@@ -3,13 +3,13 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_dict">"연락처 이름 조회"</string>
     <string name="vibrate_on_keypress">"키를 누를 때 진동 발생"</string>
     <string name="sound_on_keypress">"키를 누를 때 소리 발생"</string>
     <string name="popup_on_keypress">"키를 누를 때 팝업"</string>
     <string name="settings_screen_preferences">"환경설정"</string>
-    <string name="settings_screen_gesture">"제스처 타이핑"</string>
+    <string name="settings_screen_gesture">제스처 입력</string>
     <string name="settings_screen_correction">"텍스트 수정"</string>
     <string name="settings_screen_advanced">"고급"</string>
     <string name="settings_screen_theme">"테마"</string>
@@ -18,21 +18,21 @@
     <string name="show_language_switch_key">"언어 전환 키"</string>
     <string name="abbreviation_unit_milliseconds">"%sms"</string>
     <string name="settings_system_default">"시스템 기본값"</string>
-    <string name="use_contacts_dict_summary">"추천 및 수정에 주소록의 이름 사용"</string>
-    <string name="use_personalized_dicts">"맞춤 추천 검색어"</string>
+    <string name="use_contacts_dict_summary">제안 및 교정에 주소록의 이름 사용</string>
+    <string name="use_personalized_dicts">제안 개인화</string>
     <string name="use_double_space_period">"더블스페이스 마침표"</string>
     <string name="use_double_space_period_summary">"스페이스바를 두 번 탭하여 마침표와 공백 한 개 삽입"</string>
     <string name="auto_cap">"자동 대문자화"</string>
     <string name="auto_cap_summary">"문장의 첫 단어를 대문자로 표시"</string>
     <string name="edit_personal_dictionary">"개인 사전"</string>
     <string name="main_dictionary">"기본 사전"</string>
-    <string name="prefs_show_suggestions">"수정 제안 표시"</string>
-    <string name="prefs_show_suggestions_summary">"글자를 입력하는 동안 추천 단어 표시"</string>
+    <string name="prefs_show_suggestions">교정 제안 표시</string>
+    <string name="prefs_show_suggestions_summary">글자를 입력하는 동안 단어 제안 표시</string>
     <string name="prefs_block_potentially_offensive_title">"불쾌감을 주는 단어 차단"</string>
     <string name="prefs_block_potentially_offensive_summary">"불쾌감을 줄 수 있는 단어는 추천하지 않음"</string>
-    <string name="autocorrect">"자동 수정"</string>
-    <string name="auto_correction_summary">"스페이스바와 문장부호 키를 사용하면 오타가 자동으로 교정됩니다."</string>
-    <string name="auto_correction_threshold_mode_off">"사용 안함"</string>
+    <string name="autocorrect">자동 교정</string>
+    <string name="auto_correction_summary">스페이스 바와 문장부호 키로 오타를 자동으로 교정</string>
+    <string name="auto_correction_threshold_mode_off">사용 안 함</string>
     <string name="auto_correction_threshold_mode_modest">"약"</string>
     <string name="auto_correction_threshold_mode_aggressive">"강력"</string>
     <string name="auto_correction_threshold_mode_very_aggressive">"매우 강력"</string>
@@ -52,14 +52,14 @@
     <string name="subtype_generic_traditional">%s (번체)</string>
     <string name="subtype_generic_compact">%s (소형)</string>
     <string name="subtype_no_language">"언어 없음"</string>
-    <string name="subtype_emoji">"이모티콘"</string>
+    <string name="subtype_emoji">이모지</string>
     <string name="add">"추가"</string>
     <string name="remove">"삭제"</string>
     <string name="save">"저장"</string>
     <string name="subtype_locale">"언어"</string>
     <string name="keyboard_layout_set">"레이아웃"</string>
     <string name="prefs_keypress_vibration_duration_settings">"키를 누를 때 진동 시간"</string>
-    <string name="prefs_keypress_sound_volume_settings">"키를 누를 때 소리 볼륨"</string>
+    <string name="prefs_keypress_sound_volume_settings">키를 누를 때 소리 음량</string>
     <string name="prefs_key_longpress_timeout_settings">"키 길게 누르기 지연"</string>
     <string name="prefs_enable_emoji_alt_physical_key">"물리적 키보드용 그림 이모티콘"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"물리적 Alt 키로 그림 이모티콘 팔레트 표시"</string>
@@ -83,25 +83,25 @@
     <string name="dictionary_available">"사전 사용 가능"</string>
     <string name="settings">"설정"</string>
     <string name="delete">"삭제"</string>
-    <string name="version_text">버전 %1$s</string>
-    <string name="user_dict_settings_add_shortcut_option_name">"단축키:"</string>
+    <string name="version_text">버전 %s</string>
+    <string name="user_dict_settings_add_shortcut_option_name">단축어:</string>
     <string name="user_dict_settings_add_locale_option_name">"언어:"</string>
     <string name="user_dict_settings_add_word_hint">"단어 입력"</string>
-    <string name="user_dict_settings_add_shortcut_hint">"선택적 단축키"</string>
+    <string name="user_dict_settings_add_shortcut_hint">선택적 단축어</string>
     <string name="user_dict_settings_edit_dialog_title">"단어 수정"</string>
     <string name="user_dict_settings_all_languages">"모든 언어"</string>
     <string name="user_dict_settings_more_languages">"더보기…"</string>
     <string name="autospace_after_punctuation">마침표 후 자동 띄어쓰기</string>
-    <string name="autospace_after_punctuation_summary">새로운 단어를 입력할 때 마침표가 앞에 있다면 자동으로 띄어쓰기 하기</string>
+    <string name="autospace_after_punctuation_summary">새로운 단어를 입력할 때 마침표가 앞에 있다면 자동으로 띄어쓰기</string>
     <string name="select_input_method">"입력 방법 선택"</string>
     <string name="spell_checker_service_name">HeliBoard 맞춤법 검사기</string>
     <string name="android_spell_checker_settings">HeliBoard 맞춤법 검사기 설정</string>
     <string name="ime_settings">HeliBoard 설정</string>
-    <string name="prefs_force_incognito_mode_summary">새로운 단어를 배우는 것이 불가능</string>
+    <string name="prefs_force_incognito_mode_summary">새로운 단어 학습 비활성화</string>
     <string name="auto_correction_confidence">자동 교정 정확도</string>
-    <string name="settings_category_suggestions">추천</string>
-    <string name="settings_category_experimental">실험적 기능</string>
-    <string name="abbreviation_unit_minutes">%s분.</string>
+    <string name="settings_category_suggestions">제안</string>
+    <string name="settings_category_experimental">실험</string>
+    <string name="abbreviation_unit_minutes">%s분</string>
     <string name="enable_clipboard_history">클립보드 기록 활성화</string>
     <string name="delete_swipe">스와이프 삭제</string>
     <string name="show_emoji_key">이모지 키</string>
@@ -111,7 +111,7 @@
     <string name="settings_category_clipboard_history">클립보드 기록</string>
     <string name="settings_no_limit">제한 없음</string>
     <string name="settings_category_miscellaneous">기타</string>
-    <string name="enable_clipboard_history_summary">비활성화시 클립보드 콘텐츠가 있는 경우 클립보드 키로 붙여넣습니다</string>
+    <string name="enable_clipboard_history_summary">비활성화 시 클립보드 키는 클립보드 콘텐츠를 붙여넣습니다</string>
     <string name="clipboard_history_retention_time">기록 보존 시간</string>
     <string name="incognito">강제 시크릿 모드</string>
     <string name="more_keys_strip_description">더 많은 키</string>
@@ -120,16 +120,16 @@
     <string name="show_hints_summary">길게 누르기 힌트 표시</string>
     <string name="prefs_long_press_keyboard_to_change_lang">스페이스로 입력 방법 변경</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">스페이스를 길게 눌러 입력 방법 메뉴 표시</string>
-    <string name="prefs_keyboard_height_scale">키보드 높이 정도</string>
+    <string name="prefs_keyboard_height_scale">키보드 높이</string>
     <string name="number_row">숫자 행</string>
     <string name="day_night_mode">자동 밤낮 모드</string>
     <string name="day_night_mode_summary">시스템 설정에 따른 모양</string>
-    <string name="delete_swipe_summary">한번에 많은 글자들을 선택하고 제거하기 위해서는 삭제 키를 스와이프하기</string>
-    <string name="key_borders">키의 경계</string>
+    <string name="delete_swipe_summary">삭제 키를 밀어서 한 번에 많은 글자를 선택하고 제거</string>
+    <string name="key_borders">키 경계</string>
     <string name="subtype_akkhor_bn_BD">%s (벵골어)</string>
-    <string name="undo">"실행취소"</string>
+    <string name="undo">실행 취소</string>
     <string name="redo">"다시 실행"</string>
-    <string name="use_personalized_dicts_summary">"사용자의 대화 내용과 입력한 데이터를 통해 단어 추천의 정확도를 개선합니다."</string>
+    <string name="use_personalized_dicts_summary">사용자의 대화 내용과 입력한 데이터를 통해 단어 추천의 정확도를 개선합니다</string>
     <string name="label_go_key">"이동"</string>
     <string name="label_next_key">"다음"</string>
     <string name="label_previous_key">"이전"</string>
@@ -138,4 +138,348 @@
     <string name="label_search_key">"검색"</string>
     <string name="label_pause_key">"중지"</string>
     <string name="label_wait_key">"대기"</string>
+    <string name="vibrate_in_dnd_mode">방해 금지 모드일 때 진동</string>
+    <string name="suggest_emojis">이모지 제안</string>
+    <string name="suggest_emojis_summary">일반 제안에 이모지 사전 사용</string>
+    <string name="inline_emoji_search_summary">단어 앞에 쌍점이 있을 때만 이모지 제안</string>
+    <string name="center_suggestion_text_to_enter_summary">스페이스바나 문장 부호를 눌렀을 때, 가운데에 제안된 단어 입력</string>
+    <string name="suggest_punctuation_summary">다른 제안이 없으면 문장 부호 표시</string>
+    <string name="suggest_clipboard_content_summary">최근 복사한 클립보드 콘텐츠를 제안으로 표시</string>
+    <string name="gesture_floating_preview_static_summary">제스처 도중 제안된 단어 표시</string>
+    <string name="gesture_floating_preview_dynamic_summary">제스처 도중 미리보기 이동</string>
+    <string name="inline_emoji_search">인라인 이모지 검색</string>
+    <string name="dictionary_link_text">여기</string>
+    <string name="emoji_dictionary_required">기능이 동작하려면 이모지 사전이 필요합니다. %s에서 .dict 형식으로 된 사전을 다운로드할 수 있습니다.</string>
+    <string name="show_emoji_descriptions">길게 눌러 이모지 설명 표시</string>
+    <string name="toolbar_swipe_down_to_hide">밀어서 키보드 숨기기</string>
+    <string name="toolbar_swipe_down_to_hide_summary">도구 모음을 아래로 밀어서 키보드 닫기</string>
+    <string name="settings_category_space">공백</string>
+    <string name="split_spacer_scale">분할 거리</string>
+    <string name="language_switch_key_switch_both">둘 다 전환</string>
+    <string name="switch_language">언어 전환</string>
+    <string name="language_switch_key_behavior">언어 전환 키 동작</string>
+    <string name="use_apps_dict">앱 이름 조회</string>
+    <string name="use_apps_dict_summary">제안 및 교정에 설치한 앱의 이름 사용</string>
+    <string name="disable_personalized_dicts_message">주의: 설정을 해제하면 학습 데이터가 지워집니다</string>
+    <string name="add_to_personal_dictionary">개인 사전에 단어 추가</string>
+    <string name="add_to_personal_dictionary_summary">기기의 개인 사전에 학습한 단어 저장</string>
+    <string name="prefs_always_show_suggestions">항상 제안 표시</string>
+    <string name="prefs_always_show_suggestions_summary">다른 앱의 제안 비활성화 요청 무시 (문제 발생 가능)</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">(보통 브라우저 내에 있는) 웹 입력란에서 \'항상 제안 표시\' 관련 문제가 흔하게 발생합니다</string>
+    <string name="prefs_always_show_suggestions_except_web_text">웹 입력란에서는 \'항상 제안 표시\' 비활성화</string>
+    <string name="more_autocorrect_summary">입력란에서 명시적으로 요청하지 않아도 자동 교정</string>
+    <string name="more_autocorrect">추가 자동 교정</string>
+    <string name="backspace_reverts_autocorrect">삭제 키로 자동 교정 되돌리기</string>
+    <string name="center_suggestion_text_to_enter">가운데 제안 항상 사용</string>
+    <string name="suggest_punctuation">문장 부호 제안</string>
+    <string name="custom_punctuation_suggestions">문장 부호 제안 설정</string>
+    <string name="suggest_clipboard_content">클립보드 콘텐츠 제안</string>
+    <string name="gesture_floating_preview_static">플로팅 미리보기</string>
+    <string name="clipboard_history_pinned_first">고정한 항목을 상단에 표시</string>
+    <string name="clipboard_history_max_file_size">클립보드 크기 제한</string>
+    <string name="item_description">설명: %s</string>
+    <string name="item_type">유형: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="backup_restore_title">백업 및 복원</string>
+    <string name="backup_restore_message">저장하거나 파일에서 불러오기. 주의: 복원 시 기존 데이터를 덮어씁니다</string>
+    <string name="backup_error">백업 오류: %s</string>
+    <string name="restore_error">백업을 복원하는 중 오류: %s</string>
+    <string name="button_backup">백업</string>
+    <string name="button_restore">복원</string>
+    <string name="backup_restored">백업 복원 완료</string>
+    <string name="timestamp_format_title">타임스탬프 키 형식</string>
+    <string name="secondary_locale">다국어 입력</string>
+    <string name="load_gesture_library">제스처 입력 라이브러리 불러오기</string>
+    <string name="load_gesture_library_summary">내장 라이브러리를 제공해 제스처 입력 활성화</string>
+    <string name="load_gesture_library_message">\'%s\' 라이브러리가 필요합니다. 미호환 라이브러리를 사용하면 제스처 입력 시 충돌할 수 있습니다. \n\n주의: 외부 코드를 불러오는 것은 보안 취약점이 될 수 있습니다. 신뢰할 수 있는 출처의 라이브러리만 사용하세요.</string>
+    <string name="checksum_mismatch_message">알 수 없는 라이브러리 파일입니다. 정말 신뢰할 수 있는 출처에서 받은 \'%s\' 라이브러리가 맞나요?</string>
+    <string name="load_gesture_library_button_load">라이브러리 불러오기</string>
+    <string name="load_gesture_library_button_delete">라이브러리 삭제</string>
+    <string name="autospace_after_suggestion">제안 수락 후 자동 띄어쓰기</string>
+    <string name="autospace_before_gesture_typing">제스처 입력 전 자동 띄어쓰기</string>
+    <string name="autospace_after_gesture_typing">제스처 입력 후 자동 띄어쓰기</string>
+    <string name="shift_removes_autospace">Shift를 누르는 동안 자동 띄어쓰기 해제</string>
+    <string name="shift_removes_autospace_summary">Shift 키를 누르는 동안 공백을 자동으로 삽입하지 않음</string>
+    <string name="show_popup_keys_title">팝업에서 더 많은 분음 부호 표시</string>
+    <string name="show_popup_keys_normal">키보드 언어에서 정의한 변형 문자 표시</string>
+    <string name="show_popup_keys_main">아주 흔한 변형 문자 추가 (기본값)</string>
+    <string name="show_popup_keys_more">흔한 변형 문자 추가</string>
+    <string name="show_popup_keys_all">가능한 모든 변형 문자 추가</string>
+    <string name="url_detection_title">URL 감지</string>
+    <string name="url_detection_summary">URL을 감지해 한 단어로 취급하도록 시도</string>
+    <string name="language_and_layouts_title">언어 및 레이아웃</string>
+    <string name="localized_number_row">숫자 행 현지화</string>
+    <string name="localized_number_row_summary">라틴 숫자보다 현지 숫자 선호</string>
+    <string name="number_row_hints">숫자 행에 힌트 표시</string>
+    <string name="save_subtype_per_app">앱별 언어 기억</string>
+    <string name="popup_order_and_hint_source">팝업 키 순서 및 힌트 출처</string>
+    <string name="hint_source">힌트 출처 선택</string>
+    <string name="popup_order">팝업 키 순서 선택</string>
+    <string name="show_tld_popup_keys">도메인 팝업 키 표시</string>
+    <string name="show_tld_popup_keys_summary">URL과 이메일 주소를 입력할 때 마침표 키의 팝업을 최상위 도메인으로 교체</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">숫자 행</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">언어 (우선)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">레이아웃</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">기호</string>
+    <string name="toolbar_mode">도구 모음 모드</string>
+    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">도구 모음 키 및 제안</string>
+    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">도구 모음 키만</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">제안만</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">숨김</string>
+    <string name="toolbar_hiding_global">클립보드와 이모지 도구 모음도 숨김</string>
+    <string name="toolbar_keys">도구 모음 키 선택</string>
+    <string name="clipboard" tools:keep="@string/clipboard">클립보드</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">클립보드 지우기</string>
+    <string name="voice" tools:keep="@string/voice">음성 입력</string>
+    <string name="select_word" tools:keep="@string/select_word">단어 선택</string>
+    <string name="one_handed" tools:keep="@string/one_handed">한 손 모드</string>
+    <string name="split" tools:keep="@string/split">분할 키보드</string>
+    <string name="page_start" tools:keep="@string/page_start">페이지 시작</string>
+    <string name="page_end" tools:keep="@string/page_end">페이지 끝</string>
+    <string name="left" tools:keep="@string/left">좌</string>
+    <string name="right" tools:keep="@string/right">우</string>
+    <string name="up" tools:keep="@string/up">상</string>
+    <string name="down" tools:keep="@string/down">하</string>
+    <string name="word_left" tools:keep="@string/word_left">단어 단위 좌</string>
+    <string name="word_right" tools:keep="@string/word_right">단어 단위 우</string>
+    <string name="page_up" tools:keep="@string/page_up">페이지 업</string>
+    <string name="page_down" tools:keep="@string/page_down">페이지 다운</string>
+    <string name="close_history" tools:keep="@string/close_history">클립보드 기록 닫기</string>
+    <string name="emoji" tools:keep="@string/emoji">이모지</string>
+    <string name="floating" tools:keep="@string/floating">플로팅 키보드</string>
+    <string name="clipboard_toolbar_keys">클립보드 도구 모음 키 선택</string>
+    <string name="pinned_toolbar_keys">고정할 도구 모음 키 선택</string>
+    <string name="quick_pin_toolbar_keys">길게 눌러 도구 모음 키 고정</string>
+    <string name="quick_pin_toolbar_keys_summary">설정을 켜면 고정하지 않은 도구 모음 키의 길게 누르기 동작이 비활성화됩니다</string>
+    <string name="show_popup_hints">기능 힌트 표시</string>
+    <string name="show_popup_hints_summary">기능 키를 길게 누르면 팝업이 열리는 경우 힌트 표시</string>
+    <string name="remove_redundant_popups">중복 팝업 제거</string>
+    <string name="remove_redundant_popups_summary">기본 레이아웃에 이미 있는 팝업 키 숨기기</string>
+    <string name="prefs_long_press_symbol_for_numpad">기호 키를 길게 눌러 숫자 패드 열기</string>
+    <string name="space_swipe_toggle_numpad_entry">숫자 패드 전환</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">숫자 패드</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">숫자 패드 (가로 화면)</string>
+    <string name="landscape">가로 화면</string>
+    <string name="summary_customize_background_image_landscape">설정하지 않으면, 세로 화면 이미지를 사용합니다</string>
+    <string name="customize_background_image">배경 사진 설정</string>
+    <string name="customize_background_image_landscape">배경 사진 설정 (가로 화면)</string>
+    <string name="select_color_background">키보드 배경</string>
+    <string name="select_color_key_background">키 배경</string>
+    <string name="select_color_functional_key_background">기능 키 배경</string>
+    <string name="select_color_spacebar_background">스페이스바 배경</string>
+    <string name="gesture_data_background_gathering_info">더 많은 정보</string>
+    <string name="prefs_narrow_key_gaps">키 간격 좁게</string>
+    <string name="prefs_key_gap_scale">키 간격 크기</string>
+    <string name="prefs_bottom_padding_scale">하단 공백 크기</string>
+    <string name="prefs_bottom_row_scale">하단 행 크기</string>
+    <string name="prefs_side_padding_scale">측면 행 크기</string>
+    <string name="prefs_font_scale">키보드 글꼴 크기</string>
+    <string name="prefs_hint_font_scale">키 힌트 글꼴 크기</string>
+    <string name="prefs_emoji_font_scale">이모지 표시 글꼴 크기</string>
+    <string name="prefs_emoji_key_fit">이모지 키 크기를 글꼴 크기로 설정</string>
+    <string name="prefs_emoji_skin_tone">기본 이모지 피부색</string>
+    <string name="prefs_emoji_skin_tone_neutral">중립</string>
+    <string name="prefs_space_bar_text">스페이스바 글자 사용자 지정</string>
+    <string name="custom_font">파일에서 글꼴 사용자 지정</string>
+    <string name="custom_emoji_font">파일에서 이모지 글꼴 사용자 지정</string>
+    <string name="subtype_generic_extended">%s (확장)</string>
+    <string name="subtype_generic_4row">%s (4행)</string>
+    <string name="button_title_add_custom_layout">사용자 지정 레이아웃 추가</string>
+    <string name="button_load_custom">파일 불러오기</string>
+    <string name="button_save_file">파일로 저장하기</string>
+    <string name="copy_to_clipboard">클립보드에 복사</string>
+    <string name="file_read_error">파일을 읽을 수 없음</string>
+    <string name="delete_layout">정말 %s 사용자 지정 레이아웃을 삭제합니까?</string>
+    <string name="layout_in_use">주의: 레이아웃이 현재 사용 중입니다</string>
+    <string name="layout_error">레이아웃 오류: %s</string>
+    <string name="settings_screen_secondary_layouts">보조 레이아웃</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">기능 키</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">기능 키 (대화면)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">기능 키 (기호)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">기능 키 (추가 기호)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">기호</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">추가 기호</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">전화</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">전화 기호</string>
+    <string name="layout_number" tools:keep="@string/layout_number">숫자</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">숫자 행</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">숫자 행 (기본)</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">하단 이모지 행</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">동작 키를 탑재한 하단 이모지 행</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">하단 클립보드 행</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">동작 키를 탑재한 하단 클립보드 행</string>
+    <string name="customize_currencies">화폐 사용자 지정</string>
+    <string name="customize_currencies_detail">주 화폐 기호와 최대 6개의 보조 화폐 기호 지정, 공백으로 구분</string>
+    <string name="switch_keyboard_after">메인 키보드로 전환…</string>
+    <string name="after_emoji">이모지 보기에서 이모지를 선택한 뒤</string>
+    <string name="after_clip">클립보드 기록에서 항목을 선택한 뒤</string>
+    <string name="after_symbol_and_space">기호 보기에서 다른 키를 누른 뒤 엔터 키나 스페이스 키를 눌렀을 때</string>
+    <string name="after_numpad_and_space">숫자 패드에서 다른 키를 누른 뒤 엔터 키나 스페이스 키를 눌렀을 때</string>
+    <string name="day_or_night_image">낮에 볼 사진입니까, 밤에 볼 사진입니까?</string>
+    <string name="day_or_night_day">낮</string>
+    <string name="day_or_night_night">밤</string>
+    <string name="setup_step3_action">키보드 설정하기</string>
+    <string name="add_new_dictionary_title">파일에서 사전 추가</string>
+    <string name="button_select_language">언어 선택</string>
+    <string name="dictionary_settings_category">사전</string>
+    <string name="internal_dictionary_summary">내장 기본 사전</string>
+    <string name="replace_dictionary_message">정말로 사용자가 추가한 \"%1$s\" 사전을 교체하시겠습니까?\n\n현재 사전:\n%2$s\n\n신규 사전:\n%3$s</string>
+    <string name="replace_dictionary">사전 교체</string>
+    <string name="remove_dictionary_message">정말로 사용자가 추가한 \"%s\" 사전을 제거하시겠습니까?</string>
+    <string name="no_dictionary_dont_show_again_button">다시 보지 않음</string>
+    <string name="no_dictionary_message">"사전이 없으면, 이전에 입력한 텍스트에서만 제안을 받게 됩니다.&lt;br&gt;\n        %1$s에서 사전을 다운로드하거나, %3$s에서 \"%2$s\" 사전을 직접 다운로드할 수 있는지 확인할 수 있습니다."</string>
+    <string name="add_dictionary">추가할 사전을 선택하세요. %s에서 .dict 형식으로 된 사전을 다운로드할 수 있습니다.</string>
+    <string name="available_dictionary_experimental">%s (실험적)</string>
+    <string name="dictionary_file_error">오류: 선택한 파일은 올바른 사전 파일이 아닙니다</string>
+    <string name="dictionary_file_wrong_script">오류: 이 키보드와 호환되지 않는 문자입니다</string>
+    <string name="dictionary_load_error">사전 파일 불러오기 오류</string>
+    <string name="user_dict_add_word_button">단어 추가</string>
+    <string name="theme_style">스타일</string>
+    <string name="icon_style">아이콘 스타일</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">둥글게</string>
+    <string name="theme_colors">색상</string>
+    <string name="theme_colors_night">색상 (밤)</string>
+    <string name="theme_navbar">내비게이션 바에 색상 적용</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">밝게</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">어둡게</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">더 어둡게</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">검정</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">동적 색상</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">청회색</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">갈색</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">초콜릿</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">구름</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">숲</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">남색</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">바다</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">분홍</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">모래</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">자주색</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">사용자 정의</string>
+    <string name="auto_user_color">자동으로 색상 선택</string>
+    <string name="main_colors">주요 색만 표시</string>
+    <string name="more_colors">더 많은 색 표시</string>
+    <string name="all_colors">모든 색 표시</string>
+    <string name="all_colors_warning">이 설정은 내부적으로 쓰이는 모든 색상을 표시합니다. 색상 목록은 언제든 바뀔 수 있습니다. 기본값은 일반 색상에서 파생되며, 각 색상의 이름은 번역되지 않을 예정입니다.</string>
+    <string name="select_color_key">키 글자</string>
+    <string name="select_color_key_hint">키 힌트 글자</string>
+    <string name="select_color_suggestion">제안 글자</string>
+    <string name="select_color_spacebar_text">스페이스바 글자</string>
+    <string name="select_color_accent">강조</string>
+    <string name="select_color_gesture">제스처 입력</string>
+    <string name="get_colors_message">%s에서 색상을 찾고 공유할 수 있습니다.</string>
+    <string name="get_layouts_message">%s에서 레이아웃을 찾고 공유할 수 있습니다.</string>
+    <string name="discussion_section_link">토의 섹션</string>
+    <string name="settings_screen_about">정보</string>
+    <string name="version">버전</string>
+    <string name="about_github_link">GitHub에서 보기</string>
+    <string name="about_wiki_link">위키로 이동</string>
+    <string name="about_wiki_link_description">GitHub 사용자 모두가 위키를 개선할 수 있습니다!</string>
+    <string name="about_community_links">커뮤니티 링크</string>
+    <string name="about_community_links_description">테마, 레이아웃 편집기, 토의, …</string>
+    <string name="save_log">로그 저장</string>
+    <string name="license">오픈소스 라이선스</string>
+    <string name="dialog_close">닫기</string>
+    <string name="text_tap_languages">언어를 눌러 설정 열기</string>
+    <string name="settings_screen_appearance">외관</string>
+    <string name="full_left" tools:keep="@string/full_left">줄 단위 좌</string>
+    <string name="full_right" tools:keep="@string/full_right">줄 단위 우</string>
+    <string name="number_row_in_symbols">기호 보기에서 숫자 행 표시</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="load">불러오기</string>
+    <string name="prefs_key_emoji_max_sdk">이모지 버전 덮어쓰기</string>
+    <string name="gnu_gpl">GNU 범용 공개 라이선스 v3.0</string>
+    <string name="settings_screen_toolbar">도구 모음</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (활성)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space (숫자 레이아웃)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">한 손 모드 종료</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">한 손 모드 크기 조정</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">한 손 모드 측면 전환</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">음성 입력 꺼짐</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">도구 모음 표시/숨김</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">폭 없는 접합자</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">폭 없는 비접합자</string>
+    <string name="label_bin" tools:keep="@string/label_bin">삭제</string>
+    <string name="show_horizontal_space_swipe">수평 스페이스바 스와이프 제스처</string>
+    <string name="show_vertical_space_swipe">수직 스페이스바 스와이프 제스처</string>
+    <string name="action_none">없음</string>
+    <string name="space_swipe_move_cursor_entry">커서 이동</string>
+    <string name="space_swipe_hide_keyboard_entry">키보드 숨김</string>
+    <string name="space_swipe_touchpad_mode_entry">터치패드 모드</string>
+    <string name="touchpad_sensitivity">터치패드 민감도</string>
+    <string name="touchpad_edge_scroll">터치패드 측면 스크롤</string>
+    <string name="prefs_language_swipe_distance">언어 전환 스와이프 거리</string>
+    <string name="customize_toolbar_key_codes">사용자 지정 도구 모음 키 코드</string>
+    <string name="customize_toolbar_key_code_reset_message">정말로 사용자 지정 키 코드를 모두 지우시겠습니까?</string>
+    <string name="key_code">키 코드</string>
+    <string name="long_press_code">길게 누르기 키 코드</string>
+    <string name="auto_show_toolbar">도구 모음 자동 표시</string>
+    <string name="auto_show_toolbar_summary">입력을 시작하거나 글자를 선택하면 도구 모음 표시</string>
+    <string name="auto_hide_toolbar">도구 모음 자동 숨김</string>
+    <string name="auto_hide_toolbar_summary">제안이 있는 경우 도구 모음 숨김</string>
+    <string name="toast_msg_clipboard_copy">콘텐츠 복사됨</string>
+    <string name="customize_icons">사용자 지정 아이콘</string>
+    <string name="customize_icons_reset_message">정말로 사용자 지정 아이콘을 초기화하시겠습니까?</string>
+    <string name="delete_confirmation">정말로 %s 항목을 삭제하시겠습니까?</string>
+    <string name="name_invalid">잘못된 이름</string>
+    <string name="folded">접힘</string>
+    <string name="emoji_search_title">이모지 검색</string>
+    <string name="search_field_placeholder">검색</string>
+    <string name="ask_later">나중에</string>
+    <string name="gesture_data_screen">제스처 데이터 수집</string>
+    <string name="gesture_data_privacy">개인정보</string>
+    <string name="gesture_data_get_data">제스처 데이터 파일 공유</string>
+    <string name="gesture_data_delete_data">제스처 데이터 지우기</string>
+    <string name="gesture_data_send_mail">이메일로 데이터 전송</string>
+    <string name="gesture_data_copy_mail">이메일 주소 복사</string>
+    <string name="auto_correct_shortcuts">단축어 자동 교정</string>
+    <string name="auto_correct_shortcuts_summary">켜면 자동 교정이 단축어를 단어로 대치</string>
+    <string name="auto_correct_capitalized_suggestions">대문자화 제안 자동 교정</string>
+    <string name="auto_correct_capitalized_suggestions_description">Shift 키를 눌러 제안을 대문자화한 뒤, 자동 교정 실행</string>
+    <string name="user_dict_settings_add_weight_value">가중치:</string>
+    <string name="clipboard_history_files">클립보드 기록에 사진이나 다른 파일 추가</string>
+    <string name="gesture_trail_fadeout_duration">제스처 흔적 수명</string>
+    <string name="subtype_mns">만시어</string>
+    <string name="subtype_xdq">카이타그어</string>
+    <string name="subtype_dag">다그바니어</string>
+    <string name="subtype_st">세소토어</string>
+    <string name="subtype_dru">다르과어 (우라히)</string>
+    <string name="subtype_mhr">마리어 (동부)</string>
+    <string name="subtype_tok">도기 보나</string>
+    <string name="subtype_probhat_bn_BD">%s (프로바트)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (바이샤키)</string>
+    <string name="subtype_khipro_bn">%s (키프로)</string>
+    <string name="subtype_generic_phonetic">%s (음성학)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (세벌식 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (세벌식 최종)</string>
+    <string name="message_add_custom_layout">호환되는 형식의 파일을 선택하세요. %s에서 이용할 수 있는 형식에 대한 정보를 확인할 수 있습니다.</string>
+    <string name="subtype_generic_student">%s (스튜던트)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">기능 키 (키프로)</string>
+    <string name="edit_layout">눌러서 레이아웃 원본 편집</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">기호 (아랍)</string>
+    <string name="user_dict_word_already_present">%s 사용자 사전에 이미 있는 단어입니다. 다른 단어를 입력하세요.</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo 하양</string>
+    <string name="var_toolbar_direction">가변 도구 모음 방향</string>
+    <string name="spell_check_suggestions">맞춤법 제안 표시</string>
+    <string name="spell_check_suggestions_summary">빨간 밑줄이 있는 단어를 선택할 때 제안을 표시합니다. 앱을 기본 맞춤법 검사기로 설정해야 합니다.</string>
+    <string name="gesture_data_swipe_o_scope">제스처 데이터 시각화 도구: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="gesture_fast_typing_cooldown">빠른 입력 쿨다운</string>
+    <string name="gesture_fast_typing_cooldown_instant">항상 즉시 시작</string>
+    <string name="locales_with_dict">사전이 있는 언어</string>
+    <string name="timestamp_description">사용자 지정 레이아웃에서 \'timestamp\' 문자열이나, 키 코드 -10043을 이용해 타임스탬프 키를 추가할 수 있습니다</string>
+    <string name="hidden_features_title">숨은 기능들 안내</string>
+    <string name="hidden_features_summary">미처 알아채지 못할 수 있는 기능 표시</string>
+    <string name="hidden_features_text">기기 암호화 저장소</string>
+    <string name="toolbar_only_with_hw_keyboard">물리 키보드 사용 시에만 도구 모음 표시</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">여전히 시스템 설정에서 가상 키보드를 활성화해야 합니다</string>
+    <string name="touchpad_edge_scroll_description">키보드 측면으로 스와이프해 자동으로 스크롤</string>
+    <string name="var_toolbar_direction_summary">우횡서(RTL) 키보드 서브타입 선택 시 방향 반전</string>
+    <string name="custom_subtype">사용자 지정 서브타입</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">방향 패드</string>
+    <string name="space_swipe_toggle_dpad_entry">방향 패드 전환</string>
 </resources>

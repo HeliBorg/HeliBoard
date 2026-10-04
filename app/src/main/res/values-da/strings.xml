@@ -192,7 +192,6 @@
     <string name="show_popup_keys_all">Tilføj alle tilgængelige varianter</string>
     <string name="one_handed" tools:keep="@string/one_handed">Enhåndstilstand</string>
     <string name="day_or_night_day">Dag</string>
-    <string name="enable_split_keyboard_landscape">Aktivér opdelt tastatur (liggende)</string>
     <string name="split_spacer_scale">Opdelt afstand</string>
     <string name="restore_error">Fejl ved gendannelse af sikkerhedskopien: %s</string>
     <string name="show_popup_keys_title">Vis flere bogstaver med diakritiske tegn i pop op</string>

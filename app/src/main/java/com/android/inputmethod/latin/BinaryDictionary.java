@@ -312,14 +312,16 @@ public final class BinaryDictionary extends Dictionary {
                 ++len;
             }
             if (len > 0) {
-                suggestions.add(new SuggestedWordInfo(
-                        new String(session.mOutputCodePoints, start, len),
-                        "" /* prevWordsContext */,
-                        (int)(session.mOutputScores[j] * weightForLocale),
-                        session.mOutputTypes[j],
-                        this /* sourceDict */,
-                        session.mSpaceIndices[j] /* indexOfTouchPointOfSecondWord */,
-                        session.mOutputAutoCommitFirstWordConfidence[0]));
+                SuggestedWordInfo info = new SuggestedWordInfo(
+                    new String(session.mOutputCodePoints, start, len),
+                    "" /* prevWordsContext */,
+                    (int)(session.mOutputScores[j] * weightForLocale),
+                    session.mOutputTypes[j],
+                    this /* sourceDict */,
+                    session.mSpaceIndices[j] /* indexOfTouchPointOfSecondWord */,
+                    session.mOutputAutoCommitFirstWordConfidence[0]);
+                info.mOriginalScore = session.mOutputScores[j]; // no locale weight!
+                suggestions.add(info);
             }
         }
         return suggestions;

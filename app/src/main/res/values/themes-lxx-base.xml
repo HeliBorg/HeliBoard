@@ -6,7 +6,6 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="KeyboardTheme.LXX_Base" parent="Keyboard">
-        <item name="inputViewStyle">@style/InputView.LXX</item>
         <item name="keyboardStyle">@style/Keyboard.LXX_Base</item>
         <item name="keyboardViewStyle">@style/KeyboardView.LXX_Base</item>
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.LXX_Base</item>
@@ -56,16 +55,16 @@
         >
         <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_lxx_base</item>
         <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_lxx</item>
-        <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_lxx</item>
-        <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_lxx</item>
-        <item name="iconEmojiCategory3Tab">@drawable/ic_emoji_animals_nature_lxx</item>
-        <item name="iconEmojiCategory4Tab">@drawable/ic_emoji_food_drink_lxx</item>
-        <item name="iconEmojiCategory5Tab">@drawable/ic_emoji_travel_places_lxx</item>
-        <item name="iconEmojiCategory6Tab">@drawable/ic_emoji_activities_lxx</item>
-        <item name="iconEmojiCategory7Tab">@drawable/ic_emoji_objects_lxx</item>
-        <item name="iconEmojiCategory8Tab">@drawable/ic_emoji_symbols_lxx</item>
-        <item name="iconEmojiCategory9Tab">@drawable/ic_emoji_flags_lxx</item>
-        <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_lxx</item>
+        <item name="iconEmojiSmileysTab">@drawable/ic_emoji_smileys_emotion_lxx</item>
+        <item name="iconEmojiPeopleTab">@drawable/ic_emoji_people_body_lxx</item>
+        <item name="iconEmojiNatureTab">@drawable/ic_emoji_animals_nature_lxx</item>
+        <item name="iconEmojiFoodTab">@drawable/ic_emoji_food_drink_lxx</item>
+        <item name="iconEmojiTravelPlacesTab">@drawable/ic_emoji_travel_places_lxx</item>
+        <item name="iconEmojiActivitiesTab">@drawable/ic_emoji_activities_lxx</item>
+        <item name="iconEmojiObjectsTab">@drawable/ic_emoji_objects_lxx</item>
+        <item name="iconEmojiSymbolsTab">@drawable/ic_emoji_symbols_lxx</item>
+        <item name="iconEmojiFlagsTab">@drawable/ic_emoji_flags_lxx</item>
+        <item name="iconEmojiEmoticonsTab">@drawable/ic_emoji_emoticons_lxx</item>
     </style>
     <style
         name="ClipboardHistoryView.LXX_Base"
@@ -82,7 +81,6 @@
         <item name="keyboardLeftPadding">0%p</item>
         <item name="keyboardRightPadding">0%p</item>
         <item name="horizontalGap">0%p</item>
-        <item name="horizontalGapNarrow">0%p</item>
         <item name="touchPositionCorrectionData">@null</item>
     </style>
     <style

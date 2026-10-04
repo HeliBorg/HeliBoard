@@ -24,6 +24,7 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
+import kotlin.Pair;
 import kotlin.collections.ArraysKt;
 
 import java.util.Arrays;
@@ -45,6 +46,7 @@ public class Key implements Comparable<Key> {
     private final String mLabel;
     /** Hint label to display on the key in conjunction with the label */
     private final String mHintLabel;
+    private final String mHintIconName;
     /** Flags of the label */
     private final int mLabelFlags;
     public static final int LABEL_FLAGS_ALIGN_HINT_LABEL_TO_BOTTOM = 0x02;
@@ -62,7 +64,6 @@ public class Key implements Comparable<Key> {
     public static final int LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO = 0xC0;
     public static final int LABEL_FLAGS_FOLLOW_KEY_HINT_LABEL_RATIO = 0x140;
     // End of key text ratio mask enum values
-    public static final int LABEL_FLAGS_HAS_POPUP_HINT = 0x200;
     public static final int LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT = 0x400;
     public static final int LABEL_FLAGS_HAS_HINT_LABEL = 0x800;
     // The bit to calculate the ratio of key label width against key width. If autoXScale bit is on
@@ -78,7 +79,6 @@ public class Key implements Comparable<Key> {
     public static final int LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR = 0x80000;
     public static final int LABEL_FLAGS_KEEP_BACKGROUND_ASPECT_RATIO = 0x100000;
     public static final int LABEL_FLAGS_DISABLE_HINT_LABEL = 0x40000000;
-    public static final int LABEL_FLAGS_DISABLE_ADDITIONAL_POPUP_KEYS = 0x80000000;
 
     /** Icon to display instead of a label. Icon takes precedence over a label */
     @Nullable private final String mIconName;
@@ -202,6 +202,7 @@ public class Key implements Comparable<Key> {
         mHorizontalGap = horizontalGap;
         mVerticalGap = verticalGap;
         mHintLabel = hintLabel;
+        mHintIconName = null;
         mLabelFlags = labelFlags;
         mBackgroundType = backgroundType;
         // TODO: Pass keyActionFlags as an argument.
@@ -237,6 +238,7 @@ public class Key implements Comparable<Key> {
         mCode = key.mCode;
         mLabel = key.mLabel;
         mHintLabel = labelHint;
+        mHintIconName = key.mHintIconName;
         mLabelFlags = key.mLabelFlags;
         mIconName = key.mIconName;
         mWidth = key.mWidth;
@@ -265,6 +267,7 @@ public class Key implements Comparable<Key> {
         mCode = outputText == null ? code : KeyCode.MULTIPLE_CODE_POINTS;
         mLabel = outputText == null ? StringUtils.newSingleCodePointString(code) : outputText;
         mHintLabel = labelHint;
+        mHintIconName = key.mHintIconName;
         mLabelFlags = key.mLabelFlags;
         mIconName = key.mIconName;
         mWidth = key.mWidth;
@@ -293,6 +296,7 @@ public class Key implements Comparable<Key> {
         mCode = keyParams.mCode;
         mLabel = keyParams.mLabel;
         mHintLabel = keyParams.mHintLabel;
+        mHintIconName = keyParams.mHintIconName;
         mLabelFlags = keyParams.mLabelFlags;
         mIconName = keyParams.mIconName;
         mPopupKeys = keyParams.mPopupKeys;
@@ -327,7 +331,9 @@ public class Key implements Comparable<Key> {
         // Final attributes.
         mCode = key.mCode;
         mLabel = key.mLabel;
-        mHintLabel = PopopUtilKt.findPopupHintLabel(popupKeys, key.mHintLabel);
+        Pair<String, String> labelAndIcon = PopupKeysUtilsKt.findPopupHintLabelOrIcon(popupKeys, key.mHintLabel, key.mHintIconName);
+        mHintLabel = labelAndIcon.component1();
+        mHintIconName = labelAndIcon.component2();
         mLabelFlags = key.mLabelFlags;
         mIconName = key.mIconName;
         mWidth = key.mWidth;
@@ -363,11 +369,10 @@ public class Key implements Comparable<Key> {
         return (filteredPopupKeys == popupKeys) ? key : new Key(key, filteredPopupKeys);
     }
 
-    private static boolean needsToUpcase(final int labelFlags, final int keyboardElementId) {
+    private static boolean needsToUpcase(int labelFlags, KeyboardElement keyboardElement) {
         if ((labelFlags & LABEL_FLAGS_PRESERVE_CASE) != 0) return false;
-        return switch (keyboardElementId) {
-            case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED,
-                    KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> true;
+        return switch (keyboardElement) {
+            case ALPHABET_MANUAL_SHIFTED, ALPHABET_AUTOMATIC_SHIFTED, ALPHABET_SHIFT_LOCKED -> true;
             default -> false;
         };
     }
@@ -381,6 +386,7 @@ public class Key implements Comparable<Key> {
                 key.mCode,
                 key.mLabel,
                 key.mHintLabel,
+                key.mHintIconName,
                 key.mIconName,
                 key.mBackgroundType,
                 Arrays.hashCode(key.mPopupKeys),
@@ -408,6 +414,7 @@ public class Key implements Comparable<Key> {
                 && o.mCode == mCode
                 && TextUtils.equals(o.mLabel, mLabel)
                 && TextUtils.equals(o.mHintLabel, mHintLabel)
+                && TextUtils.equals(o.mHintIconName, mHintIconName)
                 && TextUtils.equals(o.mIconName, mIconName)
                 && o.mBackgroundType == mBackgroundType
                 && Arrays.equals(o.mPopupKeys, mPopupKeys)
@@ -635,13 +642,14 @@ public class Key implements Comparable<Key> {
         return (mLabelFlags & LABEL_FLAGS_ALIGN_LABEL_OFF_CENTER) != 0;
     }
 
-    public final boolean hasPopupHint() {
-        return (mLabelFlags & LABEL_FLAGS_HAS_POPUP_HINT) != 0;
-    }
-
     public final boolean hasShiftedLetterHint() {
         return (mLabelFlags & LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT) != 0
                 && !TextUtils.isEmpty(mHintLabel);
+    }
+
+    public final boolean hasShiftedLetterHintIcon() {
+        return (mLabelFlags & LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT) != 0
+            && !TextUtils.isEmpty(mHintIconName);
     }
 
     public final boolean hasHintLabel() {
@@ -721,6 +729,17 @@ public class Key implements Comparable<Key> {
         final OptionalAttributes attrs = mOptionalAttributes;
         final String iconName = mEnabled ? getIconName() : ((attrs != null) ? attrs.mDisabledIconName : null);
         final Drawable icon = iconSet.getIconDrawable(iconName);
+        if (icon != null) {
+            icon.setAlpha(alpha);
+        }
+        return icon;
+    }
+
+    @Nullable
+    public Drawable getHintIcon(final KeyboardIconsSet iconSet, final int alpha) {
+        OptionalAttributes attrs = mOptionalAttributes;
+        String iconName = mEnabled ? mHintIconName : ((attrs != null) ? attrs.mDisabledIconName : null);
+        Drawable icon = iconSet.getIconDrawable(iconName);
         if (icon != null) {
             icon.setAlpha(alpha);
         }
@@ -975,6 +994,7 @@ public class Key implements Comparable<Key> {
         public final int mCode;
         @Nullable public final String mLabel;
         @Nullable public final String mHintLabel;
+        @Nullable public final String mHintIconName;
         public final int mLabelFlags;
         @Nullable public final String mIconName;
         @Nullable public final PopupKeySpec[] mPopupKeys;
@@ -1069,18 +1089,18 @@ public class Key implements Comparable<Key> {
             mLabelFlags = labelFlags;
             mWidth = width;
             mHeight = params.mDefaultRowHeight;
-            mIconName = KeySpecParser.getIconName(keySpec);
+            mIconName = KeySpecParser.getIconName(keySpec) ;
 
-            final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
-            final Locale localeForUpcasing = params.mId.getLocale();
+            boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.getElement());
+            Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = 0;
-            if (params.mId.isNumberLayout())
+            if (params.mId.getElement().isNumberLayout())
                 actionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
 
             // label
             String label = null;
             if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
-                mLabel = params.mId.mCustomActionLabel;
+                mLabel = params.mId.getCustomActionLabel();
             } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
                 // This is a workaround to have a key that has a supplementary code point in its label.
                 // Because we can put a string in resource neither as a XML entity of a supplementary
@@ -1098,10 +1118,19 @@ public class Key implements Comparable<Key> {
             mPopupKeysColumnAndFlags = getPopupKeysColumnAndFlagsAndSetNullInArray(params, popupKeys);
             final String[] finalPopupKeys = popupKeys == null ? null : PopupKeySpec.filterOutEmptyString(popupKeys);
             if (finalPopupKeys != null) {
-                actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
-                mPopupKeys = new PopupKeySpec[finalPopupKeys.length];
+                PopupKeySpec[] tempPopupKeys = new PopupKeySpec[finalPopupKeys.length];
+                boolean hasRepeatPopup = false;
                 for (int i = 0; i < finalPopupKeys.length; i++) {
-                    mPopupKeys[i] = new PopupKeySpec(finalPopupKeys[i], needsToUpcase, localeForUpcasing);
+                    tempPopupKeys[i] = new PopupKeySpec(finalPopupKeys[i], needsToUpcase, localeForUpcasing);
+                    if (tempPopupKeys[i].mCode == KeyCode.KEY_REPEAT)
+                        hasRepeatPopup = true;
+                }
+                if (hasRepeatPopup) {
+                    mPopupKeys = null;
+                    actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
+                } else {
+                    mPopupKeys = tempPopupKeys;
+                    actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
                 }
             } else {
                 mPopupKeys = null;
@@ -1110,12 +1139,14 @@ public class Key implements Comparable<Key> {
             // hint label
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
                 mHintLabel = null;
+                mHintIconName = null;
             } else {
                 // maybe also always null for comma and period keys
                 final String hintLabel = PopupKeysUtilsKt.getHintLabel(popupSet, params, keySpec);
                 mHintLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
                         : hintLabel;
+                mHintIconName = mHintLabel != null ? null : PopupKeysUtilsKt.getHintIcon(popupSet, params, keySpec);
             }
 
             String outputText = KeySpecParser.getOutputText(keySpec, code);
@@ -1153,7 +1184,7 @@ public class Key implements Comparable<Key> {
             // action flags don't need to be specified, they can be deduced from the key
             if (mCode == Constants.CODE_SPACE
                     || mCode == KeyCode.LANGUAGE_SWITCH
-                    || (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.isAlphabetKeyboard())
+                    || (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.getElement().isAlphabet())
             )
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
             if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS && mIconName == null)
@@ -1166,7 +1197,7 @@ public class Key implements Comparable<Key> {
                     actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
                 // fallthrough
             case KeyCode.SHIFT, Constants.CODE_ENTER, KeyCode.SHIFT_ENTER, KeyCode.ALPHA, Constants.CODE_SPACE, KeyCode.NUMPAD,
-                    KeyCode.SYMBOL, KeyCode.SYMBOL_ALPHA, KeyCode.LANGUAGE_SWITCH, KeyCode.EMOJI, KeyCode.CLIPBOARD,
+                    KeyCode.DPAD, KeyCode.SYMBOL, KeyCode.SYMBOL_ALPHA, KeyCode.LANGUAGE_SWITCH, KeyCode.EMOJI, KeyCode.CLIPBOARD,
                     KeyCode.MOVE_START_OF_LINE, KeyCode.MOVE_END_OF_LINE, KeyCode.MOVE_START_OF_PAGE, KeyCode.MOVE_END_OF_PAGE,
                     KeyCode.EMOJI_SEARCH:
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW; // no preview even if icon!
@@ -1231,6 +1262,7 @@ public class Key implements Comparable<Key> {
             mEnabled = (code != KeyCode.NOT_SPECIFIED);
             mIconName = null;
             mKeyVisualAttributes = null;
+            mHintIconName = null;
         }
 
         /** constructor for a spacer whose size MUST be determined using setDimensionsFromRelativeSize */
@@ -1250,6 +1282,7 @@ public class Key implements Comparable<Key> {
             mPopupKeysColumnAndFlags = 0;
             mLabelFlags = LABEL_FLAGS_FONT_NORMAL;
             mEnabled = true;
+            mHintIconName = null;
         }
 
         public KeyParams(final KeyParams keyParams) {
@@ -1264,6 +1297,7 @@ public class Key implements Comparable<Key> {
             mCode = keyParams.mCode;
             mLabel = keyParams.mLabel;
             mHintLabel = keyParams.mHintLabel;
+            mHintIconName = keyParams.mHintIconName;
             mLabelFlags = keyParams.mLabelFlags;
             mIconName = keyParams.mIconName;
             mAbsoluteWidth = keyParams.mAbsoluteWidth;

@@ -1,0 +1,14 @@
+<!--
+    SPDX-FileCopyrightText: Material Design Authors / Google LLC
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:fillColor="@color/foreground"
+      android:pathData="m5,21.333 l1.167,-4.667L1.5,16.667l0.583,-2.333l4.667,0l1.167,-4.667L3.25,9.667l0.583,-2.333l4.667,0l1.167,-4.667l2.333,0l-1.167,4.667l4.667,0l1.167,-4.667l2.333,0l-1.167,4.667l4.667,0l-0.583,2.333L17.25,9.667l-1.167,4.667l4.667,0l-0.583,2.333L15.5,16.667l-1.167,4.667l-2.333,0l1.167,-4.667L8.5,16.667l-1.167,4.667zM9.083,14.333l4.667,0l1.167,-4.667L10.25,9.667Z" />
+</vector>

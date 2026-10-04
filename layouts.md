@@ -4,7 +4,7 @@ There are two distinct formats:
 * the _simple_ format is a text file with one key label per line, and two consecutive line breaks indicating a switch to the next row, [example](app/src/main/assets/layouts/main/qwerty.txt)
 * the _json_ format taken from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout), but only "normal" keys are supported (i.e. no action keys and similar), [example](app/src/main/assets/layouts/main/azerty.json)
 
-You can add both directly in the app, see the related [Wiki page](https://github.com/Helium314/HeliBoard/wiki/2.-Layouts).
+You can add both directly in the app, see the related [Wiki page](https://github.com/HeliBorg/HeliBoard/wiki/2.-Layouts).
 
 ## General notes
 Adding too many keys or too long texts will make the keyboard look awkward or broken, and even crash the app under some specific conditions (popup keys are especially prone for this).
@@ -24,6 +24,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 ## Json format
 * Normal json layout with [lenient](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/is-lenient.html) parsing, and ignoring lines starting with `//`.
   * For anything else than small changes and copy/pasting text the in-app editor is unsuitable. A proper text editor (e.g. Kate or Notepad++) can significantly simplify work on json files.
+  * Roccobot's Layout Maker is a browser-based editor for json layout files. You can find it [here](https://roccobot.github.io/HeliBoard-RLM/), or in the [discussion section](https://github.com/HeliBorg/HeliBoard/discussions/2494).
 * Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
 * You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
   * Support is not 100% there yet, notably `kana_selector` and `char_width_selector` do not work.
@@ -38,8 +39,8 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
     * `case_selector`: keys for `lower` and `upper` (both mandatory), similar to `shift_state_selector`
     * `shift_state_selector`: keys for `unshifted`, `shifted`, `shiftedManual`, `shiftedAutomatic`, `capsLock`, `manualOrLocked`, `default` (all optional)
     * `variation_selector`: keys for input types `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all optional)
-    * `keyboard_state_selector`: keys for `emojiKeyEnabled`, `languageKeyEnabled`, `symbols`, `moreSymbols`, `alphabet`, `default` (all optional)
-      * the `<emoji/language>KeyEnabled` keys will be used if the corresponding setting is enabled, `symbols`, `moreSymbols`, `alphabet` will be used when the said keyboard view is active
+    * `keyboard_state_selector`: keys for `emojiKeyEnabled`, `languageKeyEnabled`, `symbols`, `moreSymbols`, `dpad`, `alphabet`, `default` (all optional)
+      * the `<emoji/language>KeyEnabled` keys will be used if the corresponding setting is enabled, `symbols`, `moreSymbols`, `dpad`, `alphabet` will be used when the said keyboard view is active
     * `layout_direction_selector`: keys for `ltr` and `rtl` (both mandatory)
 ### Properties
 * A (non-selector) key can have the following properties:
@@ -65,6 +66,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
   * Note that in popup keys, properties are ignored with the exception of `$`, `code`, `codePoints`, and `label`
   * When specifying a _selector_ key class in a popup key, it will be evaluated correctly (e.g. for changing popups dependent on shift state)
   * If popups are added to repeating keys (e.g. delete, arrow keys), repetition will be disabled.
+  * `KeyCode.KEY_REPEAT` is allowed in popups only. It will result in no popups being displayed, and a long press repeats the key input instead
 * `width`: width of the key in units of screen width, e.g. a key with `"width": 0.1` has a width of 10% of the screen, defaults to `0`
   * A special value is `-1`, which means the key expands to the available space not already used by other keys (e.g. the space bar)
   * `0` is interpreted as follows
@@ -88,6 +90,7 @@ Usually the label is what is displayed on the key. However, there are some speci
   * _symbol_: switch to symbol keyboard (or phone symbols keyboard in case of phone layout)
   * _symbol_alpha_: toggle alpha / symbol keyboard
   * _numpad_: toggle numpad layout
+  * _dpad_: toggle D-pad layout
   * _emoji_: switch to emoji view
   * _com_: display common TLDs (.com and similar, localized)
   * _language_switch_: language switch key
@@ -136,7 +139,7 @@ You can also specify special key codes like `a|!code/key_action_previous` or `ab
 
 ## Functional key layouts
 Customizing functional keys mostly works like other layouts, with some specific adjustments:
-* When using the default functional layout, emoji, language switch and numpad keys are actually always in the layout, but get removed depending on settings and the main layout (alphabet, symbols or more symbols). This removal is disabled when you customize any functional layout, so to not block you from adding e.g. a numpad key in alphabet layout.
+* When using the default functional layout, emoji, language switch, numpad, and D-pad keys are actually always in the layout, but get removed depending on settings and the main layout (alphabet, symbols or more symbols). This removal is disabled when you customize any functional layout, so to not block you from adding e.g. a numpad key in alphabet layout.
 * When you use a language that has a ZWNJ key, the key will automatically be added to the right of the (first) space bar in the bottom row
 * Adding popups to keys that switch layout does not work properly, as usually the layout is switched as soon as the key gets pressed.
 * use keys with `"type": "placeholder"` for

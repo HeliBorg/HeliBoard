@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.VectorDrawable
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -26,6 +28,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
@@ -35,6 +39,8 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
+import helium314.keyboard.latin.utils.ExpandButton
 import helium314.keyboard.latin.utils.dpToPx
 
 @Composable
@@ -77,6 +83,28 @@ fun IconOrImage(@DrawableRes resId: Int, name: String?, sizeDp: Int) {
     else {
         val px = sizeDp.dpToPx(LocalResources.current)
         Image(drawable!!.toBitmap(px, px).asImageBitmap(), name)
+    }
+}
+
+@Composable
+fun KeyboardIconsSet.GetIconOrEmpty(name: String?) {
+    val iconId = iconIds[name?.lowercase()]
+    Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
+        if (iconId != null)
+            Icon(painterResourceCompat(iconId), name, Modifier.fillMaxSize(0.8f))
+    }
+}
+
+/** [painterResource], but also works for non-vector/bitmaps (needs a size for bitmap creation) */
+@Composable
+fun painterResourceCompat(@DrawableRes resId: Int, sizeDp: Int = 40): Painter {
+    val ctx = LocalContext.current
+    val drawable = ContextCompat.getDrawable(ctx, resId)
+    return if (drawable is VectorDrawable || drawable is BitmapDrawable)
+        painterResource(resId)
+    else {
+        val px = sizeDp.dpToPx(LocalResources.current)
+        BitmapPainter(drawable!!.toBitmap(px, px).asImageBitmap())
     }
 }
 

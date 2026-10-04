@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin
 
 import android.annotation.SuppressLint
@@ -7,11 +8,13 @@ import helium314.keyboard.compat.isDeviceLocked
 import helium314.keyboard.compat.isUserLocked
 import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.emoji.RecentEmojis
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.common.encodeBase36
 import helium314.keyboard.latin.database.ClipboardDao
 import helium314.keyboard.latin.settings.Defaults
@@ -22,6 +25,7 @@ import helium314.keyboard.latin.settings.createPrefKeyForBooleanSettings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils.USER_DICTIONARY_SUFFIX
+import helium314.keyboard.latin.utils.JsonUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
@@ -48,12 +52,43 @@ import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set
 
-object AppUpgrade {
-    fun checkVersionUpgrade(context: Context) {
+fun checkVersionUpgrade(context: Context) {
+    val prefs = context.prefs()
+    val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
+    if (oldVersion != BuildConfig.VERSION_CODE)
+        AppUpgrade.onUpgrade(context)
+}
+
+fun transferOldPinnedClips(context: Context) {
+    @Serializable
+    data class OldClipboardHistoryEntry (
+        var timeStamp: Long,
+        val content: String,
+        var isPinned: Boolean = false
+    )
+    if (isUserLocked(context) || isDeviceLocked(context)) return
+    try {
+        val pinnedClipString = context.protectedPrefs().getString("pinned_clips", "")
+        if (pinnedClipString.isNullOrBlank())
+            return
+        val pinnedClips: List<OldClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
+        val dao = ClipboardDao.getInstance(context) ?: return
+        pinnedClips.forEach { dao.addClip(it.timeStamp, it.isPinned, it.content) }
+        context.protectedPrefs().edit { remove("pinned_clips") }
+    } catch (e: Throwable) {
+        Log.e("upgrade", "error transferring old pinned clips", e)
+    }
+}
+
+private object AppUpgrade {
+    fun onUpgrade(context: Context) {
         val prefs = context.prefs()
         val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
-        if (oldVersion == BuildConfig.VERSION_CODE)
+        if (oldVersion == 0) {
+            // fresh install -> no need to upgrade, as this does things like keeping old defaults which is on wanted on actual upgrade
+            prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
             return
+        }
         // clear extracted dictionaries, in case updated version contains newer ones
         DictionaryInfoUtils.getCacheDirectories(context).forEach {
             for (file in it.listFiles()!!) {
@@ -376,7 +411,7 @@ object AppUpgrade {
             }
         }
         if (oldVersion <= 2305) {
-            (prefs.all.keys.filter { it.startsWith(Settings.PREF_POPUP_KEYS_ORDER) || it.startsWith(Settings.PREF_POPUP_KEYS_LABELS_ORDER) } +
+            (prefs.all.keys.filter { it.startsWith(Settings.PREF_POPUP_KEYS_ORDER) || it.startsWith(Settings.PREF_POPUP_KEYS_HINT_ORDER) } +
                 listOf(Settings.PREF_TOOLBAR_KEYS, Settings.PREF_PINNED_TOOLBAR_KEYS, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS)).forEach {
                 if (!prefs.contains(it)) return@forEach
                 val newValue = prefs.getString(it, "")!!.replace(",", Separators.KV).replace(";", Separators.ENTRY)
@@ -449,7 +484,7 @@ object AppUpgrade {
         }
         if (oldVersion <= 2307) {
             prefs.all.keys.forEach {
-                if (!it.startsWith(Settings.PREF_POPUP_KEYS_ORDER) && !it.startsWith(Settings.PREF_POPUP_KEYS_LABELS_ORDER))
+                if (!it.startsWith(Settings.PREF_POPUP_KEYS_ORDER) && !it.startsWith(Settings.PREF_POPUP_KEYS_HINT_ORDER))
                     return@forEach
                 prefs.edit { putString(it, prefs.getString(it, "")!!.replace("popup_keys_", "")) }
             }
@@ -473,8 +508,8 @@ object AppUpgrade {
                     }
                     prefs.edit { remove(key) }
                 }
-                if (key.startsWith(Settings.PREF_POPUP_KEYS_LABELS_ORDER+"_")) {
-                    val locale = key.substringAfter(Settings.PREF_POPUP_KEYS_LABELS_ORDER+"_").constructLocale()
+                if (key.startsWith(Settings.PREF_POPUP_KEYS_HINT_ORDER+"_")) {
+                    val locale = key.substringAfter(Settings.PREF_POPUP_KEYS_HINT_ORDER+"_").constructLocale()
                     SubtypeSettings.getEnabledSubtypes().forEach {
                         if (it.locale() == locale && !SubtypeSettings.isAdditionalSubtype(it)) {
                             SubtypeUtilsAdditional.changeAdditionalSubtype(it.toSettingsSubtype(), it.toSettingsSubtype(), context)
@@ -515,7 +550,7 @@ object AppUpgrade {
                     "2" -> -1f
                     else -> 0.185f
                 }
-                prefs.edit { remove("auto_correction_confidence").putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, value) }
+                prefs.edit { remove("auto_correction_confidence").putFloat("auto_correct_threshold", value) }
             }
         }
         if (oldVersion <= 2310) {
@@ -598,31 +633,84 @@ object AppUpgrade {
                     !prefs.getBoolean(Settings.PREF_BIGRAM_PREDICTIONS, Defaults.PREF_BIGRAM_PREDICTIONS))
             }
         }
+        if (oldVersion <= 3901) {
+            prefs.edit {
+                val prefixes2 = listOf(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX,
+                    Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, Settings.PREF_BOTTOM_ROW_SCALE_PREFIX)
+                prefixes2.forEach { prefix ->
+                    for (i in 0..1) {
+                        val key = createPrefKeyForBooleanSettings(prefix, i, 1)
+                        if (prefs.contains(key)) {
+                            val newKey = createPrefKeyForBooleanSettings(prefix, i, 2)
+                            putFloat(newKey, prefs.getFloat(key, 0f))
+                            remove(key)
+                        }
+                    }
+                }
+                val prefixes3 = listOf(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, Settings.PREF_ONE_HANDED_SCALE_PREFIX)
+                prefixes3.forEach { prefix ->
+                    for (i in 0..3) {
+                        val key = createPrefKeyForBooleanSettings(prefix, i, 2)
+                        if (prefs.contains(key)) {
+                            val newKey = createPrefKeyForBooleanSettings(prefix, i, 3)
+                            putFloat(newKey, prefs.getFloat(key, 0f))
+                            remove(key)
+                        }
+                    }
+                }
+                for (i in 0..3) {
+                    val keyA = createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, i, 2)
+                    val keyB = createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, i, 2)
+                    if (prefs.contains(keyA)) {
+                        val newKey = createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, i, 3)
+                        putBoolean(newKey, prefs.getBoolean(keyA, false))
+                        remove(keyA)
+                    }
+                    if (prefs.contains(keyB)) {
+                        val newKey = createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, i, 3)
+                        putInt(newKey, prefs.getInt(keyB, 0))
+                        remove(keyB)
+                    }
+                }
+            }
+            prefs.edit {
+                if (prefs.contains(Settings.PREF_SPACE_HORIZONTAL_SWIPE))
+                    putString(Settings.PREF_SPACE_HORIZONTAL_SWIPE, prefs.getString(Settings.PREF_SPACE_HORIZONTAL_SWIPE, "")!!.uppercase())
+                if (prefs.contains(Settings.PREF_SPACE_VERTICAL_SWIPE))
+                    putString(Settings.PREF_SPACE_VERTICAL_SWIPE, prefs.getString(Settings.PREF_SPACE_VERTICAL_SWIPE, "")!!.uppercase())
+            }
+            if (prefs.contains("auto_correct_threshold")) {
+                val newValue = when (prefs.getFloat("auto_correct_threshold", 0f)) {
+                    in -2f..0f -> 1f
+                    in 0f..0.1f -> 0.65f
+                    else -> 0.24f
+                }
+                prefs.edit {
+                    remove("auto_correct_threshold")
+                    putFloat(Settings.PREF_AUTO_CORRECT_CONFIDENCE, newValue)
+                }
+            }
+            prefs.edit {
+                if (!prefs.getBoolean("narrow_key_gaps", false) && !Settings.getInstance().isTablet) {
+                    putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEY_GAP_SCALE_PREFIX, 0, 2), 1.75f)
+                    putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEY_GAP_SCALE_PREFIX, 1, 2), 1.1f)
+                    putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEY_GAP_SCALE_PREFIX, 2, 2), 1.75f)
+                    putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEY_GAP_SCALE_PREFIX, 3, 2), 1.1f)
+                }
+                remove("narrow_key_gaps")
+            }
+        }
+        if (oldVersion <= 4005) {
+            if (prefs.contains("emoji_recent_keys")) {
+                val old = JsonUtils.jsonStrToList(prefs.getString("emoji_recent_keys", ""))
+                    .mapNotNull { it as? String ?: (it as? Int)?.let { StringUtils.newSingleCodePointString(it) } }
+                RecentEmojis.set(old)
+                prefs.edit { remove("emoji_recent_keys")  }
+            }
+        }
         upgradeToolbarPrefs(prefs)
         LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
         prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
-    }
-
-    // not only on upgrade, because this might also be called when db is locked
-    fun transferOldPinnedClips(context: Context) {
-        @Serializable
-        data class OldClipboardHistoryEntry (
-            var timeStamp: Long,
-            val content: String,
-            var isPinned: Boolean = false
-        )
-        if (isUserLocked(context) || isDeviceLocked(context)) return
-        try {
-            val pinnedClipString = context.protectedPrefs().getString("pinned_clips", "")
-            if (pinnedClipString.isNullOrBlank())
-                return
-            val pinnedClips: List<OldClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
-            val dao = ClipboardDao.getInstance(context) ?: return
-            pinnedClips.forEach { dao.addClip(it.timeStamp, it.isPinned, it.content) }
-            context.protectedPrefs().edit { remove("pinned_clips") }
-        } catch (e: Throwable) {
-            Log.e("upgrade", "error transferring old pinned clips", e)
-        }
     }
 
     // old variant for old folder structure

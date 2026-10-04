@@ -8,9 +8,14 @@ package helium314.keyboard.keyboard;
 
 import android.view.KeyEvent;
 
+import androidx.annotation.Nullable;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
+
 import helium314.keyboard.event.HapticEvent;
+import helium314.keyboard.keyboard.internal.LayoutDirective;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.utils.RecapitalizeMode;
 
 public interface KeyboardActionListener {
     /**
@@ -20,10 +25,10 @@ public interface KeyboardActionListener {
      * @param primaryCode the unicode of the key being pressed. If the touch is not on a valid key,
      *            the value will be zero.
      * @param repeatCount how many times the key was repeated. Zero if it is the first press.
-     * @param isSinglePointer true if pressing has occurred while no other key is being pressed.
+     * @param pointerCount the number of pointers being tracked, including this one.
      * @param hapticEvent the type of haptic feedback to perform.
      */
-    void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer, HapticEvent hapticEvent);
+    void onPressKey(int primaryCode, int repeatCount, int pointerCount, HapticEvent hapticEvent);
 
     void onLongPressKey(int primaryCode);
 
@@ -67,6 +72,9 @@ public interface KeyboardActionListener {
      */
     void onTextInput(String text);
 
+    /** sends content (URI and description) */
+    void onContent(InputContentInfoCompat content);
+
     /**
      * Called when user started batch input.
      */
@@ -101,7 +109,7 @@ public interface KeyboardActionListener {
      * Send a non-"code input" custom request to the listener.
      * @return true if the request has been consumed, false otherwise.
      */
-    boolean onCustomRequest(int requestCode);
+    boolean onCustomRequest(CustomAction request);
 
     /**
      * Called when the user performs a horizontal or vertical swipe gesture
@@ -110,7 +118,8 @@ public interface KeyboardActionListener {
     boolean onHorizontalSpaceSwipe(int steps);
     boolean onVerticalSpaceSwipe(int steps);
     void onEndSpaceSwipe();
-    boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha);
+    void toggleLayout(LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode);
+    void onLongPressAlphaSymbolForNumpad();
 
     void onMoveDeletePointer(int steps);
     void onUpWithDeletePointerActive();
@@ -118,15 +127,12 @@ public interface KeyboardActionListener {
 
     KeyboardActionListener EMPTY_LISTENER = new Adapter();
 
-    int SWIPE_NO_ACTION = 0;
-    int SWIPE_MOVE_CURSOR = 1;
-    int SWIPE_SWITCH_LANGUAGE = 2;
-    int SWIPE_TOGGLE_NUMPAD = 3;
-    int SWIPE_HIDE_KEYBOARD = 4;
+    enum SwipeAction { NONE, MOVE_CURSOR, SWITCH_LANGUAGE, TOGGLE_NUMPAD, TOGGLE_DPAD, HIDE_KEYBOARD, TOUCHPAD_MODE }
+    enum CustomAction { SHOW_INPUT_METHOD_PICKER, TOUCHPAD_ON, TOUCHPAD_OFF, PERFORM_HAPTIC }
 
     class Adapter implements KeyboardActionListener {
         @Override
-        public void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer, HapticEvent hapticEvent) {}
+        public void onPressKey(int primaryCode, int repeatCount, int pointerCount, HapticEvent hapticEvent) {}
         @Override
         public void onLongPressKey(int primaryCode) {}
         @Override
@@ -140,6 +146,8 @@ public interface KeyboardActionListener {
         @Override
         public void onTextInput(String text) {}
         @Override
+        public void onContent(InputContentInfoCompat content) {}
+        @Override
         public void onStartBatchInput() {}
         @Override
         public void onUpdateBatchInput(InputPointers batchPointers) {}
@@ -152,7 +160,7 @@ public interface KeyboardActionListener {
         @Override
         public void onFinishSlidingInput() {}
         @Override
-        public boolean onCustomRequest(int requestCode) {
+        public boolean onCustomRequest(CustomAction request) {
             return false;
         }
         @Override
@@ -164,9 +172,9 @@ public interface KeyboardActionListener {
             return false;
         }
         @Override
-        public boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha) {
-            return false;
-        }
+        public void toggleLayout(LayoutDirective.Utility layout, int autoCapsFlags, @Nullable RecapitalizeMode recapitalizeMode) {}
+        @Override
+        public void onLongPressAlphaSymbolForNumpad() {}
         @Override
         public void onEndSpaceSwipe() {}
         @Override

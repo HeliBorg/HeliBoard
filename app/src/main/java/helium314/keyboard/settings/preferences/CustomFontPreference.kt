@@ -14,10 +14,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import helium314.keyboard.keyboard.KeyboardTypeface
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
-import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
@@ -38,7 +38,7 @@ fun CustomFontPreference(setting: Setting, fontFile: File, title: Int) {
             Typeface.createFromFile(tempFile)
             fontFile.delete()
             tempFile.renameTo(fontFile)
-            Settings.clearCachedTypeface()
+            KeyboardTypeface.clearCache()
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         } catch (_: Exception) {
             showErrorDialog = true
@@ -63,7 +63,7 @@ fun CustomFontPreference(setting: Setting, fontFile: File, title: Int) {
             onNeutral = {
                 showDialog = false
                 fontFile.delete()
-                Settings.clearCachedTypeface()
+                KeyboardTypeface.clearCache()
                 KeyboardSwitcher.getInstance().setThemeNeedsReload()
             },
             neutralButtonText = stringResource(R.string.delete),

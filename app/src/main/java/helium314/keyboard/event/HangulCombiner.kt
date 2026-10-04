@@ -4,6 +4,7 @@ package helium314.keyboard.event
 
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.common.isEmoji
 import java.lang.StringBuilder
 import java.util.ArrayList
 
@@ -15,7 +16,7 @@ class HangulCombiner : Combiner {
     private val syllable: HangulSyllable? get() = history.lastOrNull()
 
     override fun processEvent(previousEvents: ArrayList<Event>?, event: Event): Event {
-        if (event.keyCode == KeyCode.SHIFT) return event
+        if (event.keyCode == KeyCode.SHIFT || isEmoji(event.codePoint)) return event
         // previously we only used the combiner if codePoint > 0x1100 or codePoint == -1, but looks here it's not necessary
         val event = HangulEventDecoder.decodeSoftwareKeyEvent(event)
         if (Character.isWhitespace(event.codePoint)) {

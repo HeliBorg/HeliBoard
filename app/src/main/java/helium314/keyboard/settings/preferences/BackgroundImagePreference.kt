@@ -23,6 +23,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.IntentUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
@@ -47,7 +48,7 @@ fun BackgroundImagePref(setting: Setting, isLandscape: Boolean) {
     val dayNightPref = ctx.prefs().getBoolean(Settings.PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT)
     if (!dayNightPref)
         isNight = false
-    val scope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope { Dispatchers.IO }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
         val uri = result.data?.data ?: return@rememberLauncherForActivityResult
@@ -58,9 +59,8 @@ fun BackgroundImagePref(setting: Setting, isLandscape: Boolean) {
                 showErrorDialog = true
         }
     }
-    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-        .addCategory(Intent.CATEGORY_OPENABLE)
-        .setType("image/*")
+    val intent = IntentUtils.getResolvableTypeIntent(ctx, "image/*")
+        .setAction(Intent.ACTION_OPEN_DOCUMENT)
     Preference(
         name = setting.title,
         onClick = {

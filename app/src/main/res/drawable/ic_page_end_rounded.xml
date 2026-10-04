@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rotate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fromDegrees="90"
-    android:drawable="@drawable/ic_to_end_rounded">
+    android:fromDegrees="180"
+    android:drawable="@drawable/ic_page_up_rounded">
 </rotate>

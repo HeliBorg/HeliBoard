@@ -183,7 +183,7 @@
     <string name="localized_number_row">Aangepaste Cijferregel</string>
     <string name="localized_number_row_summary">Voorkeur voor regionale cijfers i.p.v. latijns</string>
     <string name="hint_source">Bron voor hints kiezen</string>
-    <string name="show_popup_hints_summary">Hints tonen als lang drukken op een toets extra functionaliteit activeert</string>
+    <string name="show_popup_hints_summary">Toon hint als het lang indrukken van een functionele toets een pop-up opent</string>
     <string name="popup_order">Volgorde pop-up toets kiezen</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Cijferregel</string>
     <string name="prefs_bottom_padding_scale">Bodemafstand schaal</string>
@@ -271,7 +271,7 @@
     <string name="main_colors">Alleen hoofdkleuren weergeven</string>
     <string name="more_colors">Meer kleuren tonen</string>
     <string name="all_colors">Alle kleuren tonen</string>
-    <string name="all_colors_warning">Deze instelling toont alle kleuren bloot die intern worden gebruikt. De lijst met kleuren kan op elk moment veranderen. Er is een willekeurige standaardkleur en de namen worden niet vertaald.</string>
+    <string name="all_colors_warning">Deze instelling toont alle kleuren bloot die intern worden gebruikt. De lijst met kleuren kan op elk moment veranderen. De standaard is afgeleid van de normale kleuren en de namen worden niet vertaald.</string>
     <string name="select_color_background">Toetsenbord-achtergrond</string>
     <string name="select_color_key">Toetstekst</string>
     <string name="select_color_key_background">Toets-achtergrond</string>
@@ -305,42 +305,7 @@
     <string name="theme_colors_night">Kleuren (nacht)</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceaan</string>
-    <string name="hidden_features_message">► Lang drukken van vastgezette werkbalktoetsen resulteert in extra functionaliteit: &lt;br&gt;
-\n\t• klembord &amp;#65515; plakken&lt;br&gt;
-\n\t• links/rechts verplaatsen &amp;#65515; woord links/rechts verplaatsen &lt;br&gt;
-\n\t• omhoog/omlaag verplaatsen &amp;#65515; pagina omhoog/omlaag &lt;br&gt;
-\n\t• woord links/rechts &amp;#65515; regel begin/einde &lt;br&gt;
-\n\t• pagina omhoog/omlaag &amp;#65515; pagina begin/einde &lt;br&gt;
-\n\t• kopiëren &amp;#65515; knippen &lt;br&gt;
-\n\t• woord selecteren &amp;#8596; alles selecteren&lt;br&gt;
-\n\t• ongedaan maken &amp;#8596; opnieuw &lt;br&gt; &lt;br&gt;
-\n► Lang drukken van toetsen in de suggestieregel zet deze daarin vast. &lt;br&gt; &lt;br&gt;
-\n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Bediening met één hand, Instellingen, of de taal te wisselen: &lt;br&gt;
-\n\t• Emoji-weergave en taal-schakelaar verdwijnen wanneer de corresponderende toets is geactiveerd; &lt;br&gt;
-\n\t• Voor sommige lay-outs is het niet de komma-toets, maar de toets op dezelfde positie (bijvoorbeeld \\\'q\\\' bij een Dvorak-lay-out). &lt;br&gt; &lt;br&gt;
-\n► Wanneer incognitomodus is ingeschakeld, worden er geen woorden geleerd en worden er geen emoji\'s aan de lijst recent toegevoegd.&lt;br&gt; &lt;br&gt;
-\n► Druk op het Incognito-pictogram om toegang te krijgen tot de werkbalk. &lt;br&gt; &lt;br&gt;
-\n► Vegende toetsinvoer: Veeg van shift naar een andere toets om een enkele hoofdletter te typen: &lt;br&gt;
-\n\t• Dit werkt ook voor de \\\'?123\\\'-toets om een enkel symbool te typen vanaf het toetsenbord van de symbolen en voor gerelateerde toetsen. &lt;br&gt; &lt;br&gt;
-\n► Houd de shift- of symbolentoets ingedrukt, druk op een of meer toetsen en laat vervolgens de shift- of symbolentoets los om terug te keren naar het vorige toetsenbord. &lt;br&gt; &lt;br&gt;
-\n► Druk lang op een suggestie in de suggestiestrip om meer suggesties te tonen en een verwijderknop om deze suggestie te verwijderen. &lt;br&gt; &lt;br&gt;
-\n► Veeg omhoog van een suggestie om meer suggesties te openen en geef de suggestie om het te selecteren vrij. &lt;br&gt; &lt;br&gt;
-\n► Druk lang op een item in de klembordgeschiedenis om het vast te pinnen (in het klembord bewaren totdat je het losmaakt). &lt;br&gt; &lt;br&gt;
-\n► Veeg links in de klembordweergave om een item te verwijderen (behalve wanneer het vastgemaakt is) &lt;br&gt; &lt;br&gt;
-\n► Selecteer tekst en druk op shift om te schakelen tussen hoofdletters, kleine letters en hoofdletters. &lt;br&gt; &lt;br&gt;
-\n► Je kunt woordenboeken toevoegen door ze te openen in een bestandsverkenner: &lt;br&gt;
-\n\t• Dit werkt alleen met &lt;i&gt;inhoud-uris&lt;/i&gt; en niet met &lt;i&gt;bestand-uris&lt;/i&gt;, wat betekent dat het mogelijk niet werkt met sommige bestandsverkenners. &lt;br&gt; &lt;br&gt;
-\n► Voor gebruikers die handmatige back-ups maken met roottoegang: &lt;br&gt;
-\n\t• Vanaf Android 7 bevindt het bestand met gedeelde voorkeuren zich niet op de standaardlocatie, omdat de app %s gebruikt. Dit is nodig zodat de instellingen kunnen worden gelezen voordat het apparaat wordt ontgrendeld, bv. bij het opstarten; &lt;br&gt;
-\n\t• Het bestand bevindt zich in /data/user_de/0/package_id/shared_prefs/ hoewel dit kan afhangen van het apparaat en de Android-versie. &lt;br&gt; &lt;br&gt;
-\n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-\n► Druk lang op een suggestie om het bronwoordenboek te tonen. &lt;br&gt; &lt;br&gt;
-\n► Bij gebruik van een Debug APK, kunt u foutopsporingsinstellingen vinden in de geavanceerde voorkeuren, hoewel het nut beperkt is, behalve voor het dumpen van woordenboeken in het logboek. &lt;br&gt;
-\n\t• Voor een release-APK moet je meermaals op de versie tikken in &lt;i&gt;Over&lt;/i&gt;, dan kunt u debug-instellingen vinden in&lt;i&gt;Geavanceerde voorkeuren&lt;/i&gt;. &lt;br&gt;
-\n\t• Bij het inschakelen van &lt;i&gt;Suggestie-informatie tonen&lt;/i&gt;, zullen suggesties enkele kleine cijfers bevatten met een interne score en een bronwoordenboek. &lt;br&gt; &lt;br&gt;
-\n► In het geval van een applicatiecrash, wordt u gevraagd of u de crashlogboeken wilt wanneer u de instellingen opent. &lt;br&gt; &lt;br&gt;
-\n► Bij het gebruik van meertalig typen zal de spatiebalk een betrouwbaarheidswaarde tonen die wordt gebruikt voor het bepalen van de momenteel gebruikte taal. &lt;br&gt; &lt;br&gt;
-\n► Suggesties hebben een aantal kleine cijfers bovenaan met een interne score en een bronwoordenboek (kan worden uitgeschakeld).</string>
+    <string name="hidden_features_message">► Lang drukken van vastgezette werkbalktoetsen resulteert in extra functionaliteit: &lt;br&gt; \n\t• klembord &amp;#65515; plakken&lt;br&gt; \n\t• links/rechts verplaatsen &amp;#65515; woord links/rechts verplaatsen &lt;br&gt; \n\t• omhoog/omlaag verplaatsen &amp;#65515; pagina omhoog/omlaag &lt;br&gt; \n\t• woord links/rechts &amp;#65515; regel begin/einde &lt;br&gt; \n\t• pagina omhoog/omlaag &amp;#65515; pagina begin/einde &lt;br&gt; \n\t• kopiëren &amp;#65515; knippen &lt;br&gt; \n\t• woord selecteren &amp;#8596; alles selecteren&lt;br&gt; \n\t• ongedaan maken &amp;#8596; opnieuw &lt;br&gt; &lt;br&gt; \n► Lang drukken van toetsen in de suggestieregel zet deze daarin vast. &lt;br&gt; &lt;br&gt; \n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Bediening met één hand, Instellingen, of de taal te wisselen: &lt;br&gt; \n\t• Emoji-weergave en taal-schakelaar verdwijnen wanneer de corresponderende toets is geactiveerd; &lt;br&gt; \n\t• Voor sommige lay-outs is het niet de komma-toets, maar de toets op dezelfde positie (bijvoorbeeld \\\'q\\\' bij een Dvorak-lay-out). &lt;br&gt; &lt;br&gt; \n► Wanneer incognitomodus is ingeschakeld, worden er geen woorden geleerd en worden er geen emoji\'s aan de lijst recent toegevoegd.&lt;br&gt; &lt;br&gt; \n► Druk op het Incognito-pictogram om toegang te krijgen tot de werkbalk. &lt;br&gt; &lt;br&gt; \n► Vegende toetsinvoer: Veeg van shift naar een andere toets om een enkele hoofdletter te typen: &lt;br&gt; \n\t• Dit werkt ook voor de \\\'?123\\\'-toets om een enkel symbool te typen vanaf het toetsenbord van de symbolen en voor gerelateerde toetsen. &lt;br&gt; &lt;br&gt; \n► Houd de shift- of symbolentoets ingedrukt, druk op een of meer toetsen en laat vervolgens de shift- of symbolentoets los om terug te keren naar het vorige toetsenbord. &lt;br&gt; &lt;br&gt; \n► Druk lang op een suggestie in de suggestiestrip om meer suggesties te tonen en een verwijderknop om deze suggestie te verwijderen. &lt;br&gt; &lt;br&gt; \n► Veeg omhoog van een suggestie om meer suggesties te openen en geef de suggestie om het te selecteren vrij. &lt;br&gt; &lt;br&gt; \n► Druk lang op een item in de klembordgeschiedenis om het vast te pinnen (in het klembord bewaren totdat je het losmaakt). &lt;br&gt; &lt;br&gt; \n► Veeg links in de klembordweergave om een item te verwijderen (behalve wanneer het vastgemaakt is) &lt;br&gt; &lt;br&gt; \n► Selecteer tekst en druk op shift om te schakelen tussen hoofdletters, kleine letters en hoofdletters. &lt;br&gt; &lt;br&gt; \n► Je kunt woordenboeken toevoegen door ze te openen in een bestandsverkenner: &lt;br&gt; \n\t• Dit werkt alleen met &lt;i&gt;inhoud-uris&lt;/i&gt; en niet met &lt;i&gt;bestand-uris&lt;/i&gt;, wat betekent dat het mogelijk niet werkt met sommige bestandsverkenners. &lt;br&gt; &lt;br&gt; \n► Voor gebruikers die handmatige back-ups maken met roottoegang: &lt;br&gt; \n\t• Vanaf Android 7 bevindt het bestand met gedeelde voorkeuren zich niet op de standaardlocatie, omdat de app %s gebruikt. Dit is nodig zodat de instellingen kunnen worden gelezen voordat het apparaat wordt ontgrendeld, bv. bij het opstarten; &lt;br&gt; \n\t• Het bestand bevindt zich in /data/user_de/0/package_id/shared_prefs/ hoewel dit kan afhangen van het apparaat en de Android-versie. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Druk lang op een suggestie om het bronwoordenboek te tonen. &lt;br&gt; &lt;br&gt; \n► Bij gebruik van een Debug APK, kunt u foutopsporingsinstellingen vinden in de geavanceerde voorkeuren, hoewel het nut beperkt is, behalve voor het dumpen van woordenboeken in het logboek. &lt;br&gt; \n\t• Voor een release-APK moet je meermaals op de versie tikken in &lt;i&gt;Over&lt;/i&gt;, dan kunt u debug-instellingen vinden in&lt;i&gt;Geavanceerde voorkeuren&lt;/i&gt;. &lt;br&gt; \n\t• Bij het inschakelen van &lt;i&gt;Suggestie-informatie tonen&lt;/i&gt;, zullen suggesties enkele kleine cijfers bevatten met een interne score en een bronwoordenboek. &lt;br&gt; &lt;br&gt; \n► In het geval van een applicatiecrash, wordt u gevraagd of u de crashlogboeken wilt wanneer u de instellingen opent. &lt;br&gt; &lt;br&gt; \n► Bij het gebruik van meertalig typen zal de spatiebalk een betrouwbaarheidswaarde tonen die wordt gebruikt voor het bepalen van de momenteel gebruikte taal. &lt;br&gt; &lt;br&gt; \n► Suggesties hebben een aantal kleine cijfers bovenaan met een interne score en een bronwoordenboek (kan worden uitgeschakeld).</string>
     <string name="prefs_always_show_suggestions_summary">Verzoeken van andere apps om suggesties uit te schakelen negeren (kan problemen veroorzaken)</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functietoetsen</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functietoetsen (symbolen)</string>
@@ -423,7 +388,6 @@
     <string name="prefs_side_padding_scale">Schaal van vulling zijkanten</string>
     <string name="number_row_hints">Hints weergeven bij cijferregel</string>
     <string name="prefs_language_swipe_distance">Veegafstand voor taal wisselen</string>
-    <string name="enable_split_keyboard_landscape">Gesplitst toetsenbord inschakelen (liggend)</string>
     <string name="split" tools:keep="@string/split">Gesplitst toetsenbord</string>
     <string name="delete_confirmation">%s echt verwijderen?</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Functionele toetsen (groot scherm)</string>
@@ -475,4 +439,120 @@
     <string name="suggest_punctuation_summary">Toon interpunctie wanneer er geen andere suggesties beschikbaar zijn</string>
     <string name="about_wiki_link">Ga naar Wiki</string>
     <string name="about_wiki_link_description">De Wiki kan door elke GitHub-gebruiker worden verbeterd!</string>
+    <string name="gesture_data_privacy">Privacy</string>
+    <string name="search_field_placeholder">Zoeken</string>
+    <string name="gesture_data_info">Waar gaat dit over?</string>
+    <string name="gesture_data_next">Woord over­slaan</string>
+    <string name="gesture_data_words_selected">%s woorden</string>
+    <string name="inline_emoji_search">Inline emoji zoeken</string>
+    <string name="inline_emoji_search_summary">Alleen emoji\'s voorstellen als een woord wordt voorafgegaan door een dubbele punt</string>
+    <string name="emoji_dictionary_required">Voor deze functie is een emoji-woordenboek vereist. Download woordenboeken in .dict formaat %s.</string>
+    <string name="clipboard_history_pinned_first">Vastgezette items bovenaan tonen</string>
+    <string name="timestamp_description">Je kunt de tijdstempeltoets toevoegen met behulp van een aangepaste lay-out met toets \'tijdstempel\', of toetscode -10043</string>
+    <string name="number_row_in_symbols">Getallenrij tonen in symbolenweergave</string>
+    <string name="save_subtype_per_app">Taal onthouden per app</string>
+    <string name="prefs_bottom_row_scale">Schaal onderste regel</string>
+    <string name="custom_emoji_font">Aangepast emoji-lettertype instellen vanuit bestand</string>
+    <string name="subtype_mhr">Mari (Eastern)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Functionele toetsen (Khipro)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emoji onderste rij met actietoets</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Klembord onderste rij met actietoets</string>
+    <string name="emoji_search_title">Emoji zoeken</string>
+    <string name="ask_later">Vraag het me later</string>
+    <string name="gesture_data_screen">Verzameling van gebaren</string>
+    <string name="gesture_data_description">&lt;b&gt;Welkom op het scherm voor het verzamelen van gebarengegevens!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Dit maakt deel uit van een &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-funded project&lt;/a&gt; dat streeft naar het produceren van een volledig open source bibliotheek voor gebatentypen die in staat is om de gesloten source Google-bibliotheek te vervangen.&lt;br/&gt; Het resultaat is gepland om een eenvoudige vervanging te zijn voor AOSP-gebaseerde toetsenborden, maar ook bruikbaar met andere toetsenborden, bijv. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Voor het ontwikkelen van de bibliotheek is het enorm nuttig om gedetailleerde gebarengegevens in verschillende talen en door verschillende gebruikers beschikbaar te hebben.&lt;br/&gt; Door gebaartypgegevens te verzamelen en in te dienen, kunt u bijdragen aan een open set gebarengegevens die zullen worden gebruikt voor bibliotheekontwikkeling. De dataset zal worden gepubliceerd onder een CC BY-SA 4.0-licentie enige tijd nadat de fase van gegevensverzameling op %s is voltooid. Zodra u gegevens hebt verzameld, kunt u deze indienen met behulp van het pictogram Delen onderaan dit scherm.</string>
+    <string name="gesture_data_description_modes">De \"veilige\" manier om en bijdrage te leveren is de modus &lt;i&gt;actieve verzameling&lt;/i&gt;, waarin u een specifiek woord te zien krijgt en dit woord invoert met behulp van gebaartypen.&lt;br&gt; U kunt ook de modus &lt;i&gt;achtergrondverzameling&lt;/i&gt; gebruiken, waarin u voorbeelden kunt geven van uw normale gebaartypen vanuit andere apps. Vanwege de gevoeligheid van deze aanpak is dit opt-in, configureerbaar en heeft het een beoordelingsscherm voor de gegevens die u gaat indienen.</string>
+    <string name="gesture_data_description_privacy">Privacy\n\n De gegevens die u indient, bestaan uit doelwoord, toetsenbordindeling en afmetingen, gebaren (tijden en coördinaten), suggesties van de huidige bibliotheek, hash van de gebruikte woordenboeken, app-versie, modus voor het verzamelen van gegevens, of de bibliotheek voor het typen van gebaren de standaard Google-bibliotheek is en een ID die bij elk gebaar hoort.\n Ingezonden gegevens worden gedownload en verwijderd uit de ProtonMail-mailbox waar ze zo snel mogelijk worden opgeslagen. Nadat de fase van het verzamelen van gebarengegevens is beëindigd, wordt de verzamelde dataset van alle gebruikers gepubliceerd onder de Creative Commons BY-SA 4.0-licentie.\n\n Als onderdeel van het proberen uw privacy te beschermen, wordt u niet expliciet vermeld als auteur. Uw krediet zal zijn als \"The HeliBoard Gesture Data Project Contributors.\" Het zou niet mogelijk moeten zijn om de gegevens die u in dit scherm genereert te verbinden met uw identiteit. Het kan echter mogelijk zijn om te bepalen welke gebaren door dezelfde persoon zijn gemaakt. Dit kan bijvoorbeeld vanuit een aangepaste toetsenbordindeling, toetsenbordafmetingen, taal of individuele gebarenstijl.</string>
+    <string name="gesture_data_get_data">Bestand met gebarengegevens delen</string>
+    <string name="gesture_data_delete_data">Gebarengegevens wissen</string>
+    <string name="gesture_data_send_mail">Gegevens per e-mail versturen</string>
+    <string name="gesture_data_copy_mail">E-mailadres kopiëren</string>
+    <string name="gesture_data_mail_use">Houd er rekening mee dat het e-mailadres bedoeld is voor het indienen van gegevens. Het kan zijn dat u geen snelle of consistente antwoorden krijgt.</string>
+    <string name="gesture_data_please_type">Schrijf met gebaren:</string>
+    <string name="gesture_data_next_save">Kreeg %s. Klik als je zeker weet dat je correct geveegd hebt</string>
+    <string name="gesture_data_active_count">%1$s woorden in deze sessie, %2$s woorden totaal (%3$s al ingediend of verwijderd)</string>
+    <string name="gesture_data_review_screen_title">Gebarengegevens controleren &amp; delen</string>
+    <string name="gesture_data_date_range">Gegevensbereik</string>
+    <string name="gesture_data_much_data">Je hebt veel niet-ingediende gegevens. Gelieve de oude gegevens in te dienen en vervolgens te verwijderen.</string>
+    <string name="gesture_data_how_to_use">Hoe werkt dit?</string>
+    <string name="gesture_data_active_description">Tik op &lt;I&gt;Start actief verzamelen&lt;/I&gt;, schakel optioneel het woordenboek in en begin met het typen van gebaren van het weergegeven woord.&lt;br/&gt; Als uw gebaar overeenkomt met het woord, worden de gegevens opgeslagen en wordt het volgende woord weergegeven. Anders kunt u het opnieuw proberen, het woord overslaan of bevestigen dat u correct heeft geveegd.&lt;br/&gt; U kunt alleen woordenboeken gebruiken die in de app zijn ingebouwd of beschikbaar zijn in de opslagplaats &lt;a href=%s&gt;woordenboeken&lt;/a&gt;, er worden geen andere woorden gebruikt.</string>
+    <string name="gesture_data_active_start">Start actief verzamelen</string>
+    <string name="gesture_data_active_stop">Stop actief verzamelen</string>
+    <string name="gesture_data_ends_at">De fase van het verzamelen van gebarengegevens eindigt %s. Gelieve uw gegevens vóór die datum in te dienen.</string>
+    <string name="gesture_data_ended">De periode van het verzamelen van gebarengegevens is op %s geëindigd. U kunt uw bestaande gegevens delen, maar niets nieuws toevoegen.</string>
+    <string name="gesture_data_share_all">Alle %s worden delen</string>
+    <string name="gesture_data_share_new">%s niet eerder ingediende woorden delen</string>
+    <string name="gesture_data_delete_dialog">U hebt gegevens voor %1$s nieuwe en %2$s reeds gedeelde woorden.</string>
+    <string name="gesture_data_delete_dialog_all">Alle %s woorden verwijderen</string>
+    <string name="gesture_data_delete_dialog_confirm">Weet u het zeker? Hiermee worden %s woorden verwijderd. Zorg ervoor dat uw gedeelde gegevens zijn ingediend!</string>
+    <string name="gesture_data_delete_dialog_submitted">%s ingediende woorden verwijderen</string>
+    <string name="gesture_data_many_not_shared_words">U heeft meer dan %s woorden die nog kunnen worden ingediend</string>
+    <string name="gesture_data_email_body">BELANGRIJK:\n\n Hallo!\n Ter herinnering: deze gegevens worden publiekelijk gedeeld onder de CC BY-SA 4.0-licentie en u wordt niet vermeld als auteur om uw privacy te beschermen.\n\n Bedankt voor het delen van de rechten op uw gegevens met ons. We zullen het goed gebruiken!\n\n Houd er rekening mee dat het wijzigen van de formulering van deze kennisgeving niets verandert aan wat we met uw gegevens zullen doen. Dit is geen contract dat moet worden gewijzigd, het is slechts een vriendelijke herinnering!\n Als u ons samen met uw gegevens een bericht wilt sturen, schrijf dit dan hier onder de regel.\n -----------------------------</string>
+    <string name="gesture_data_promotion_message">Hallo!\n Aangezien u de bibliotheek voor het typen met gebaren hebt geïnstalleerd, bent u mogelijk geïnteresseerd in het project van HeliBoard voor het maken van een volledig open bibliotheek voor het typen met gebaren. U kunt helpen door gebarengegevens in te leveren. Ga voor meer informatie naar het scherm voor het verzamelen van gebarengegevens.</string>
+    <string name="gesture_data_reminder_message">Hallo!\n U maakte eerder gebruik van de gebarengegevensverzameling, maar voegde al een tijdje geen gegevens toe. Wilt u weer bijdragen?</string>
+    <string name="gesture_data_take_me_there">Doe maar</string>
+    <string name="gesture_data_links">Informatie over actieve gegegevensverzameling:</string>
+    <string name="gesture_data_share_limit">Om overschrijding van limieten te voorkomen, worden alleen de eerste %s-woorden geëxporteerd</string>
+    <string name="toolbar_swipe_down_to_hide">Toetsenbord verbergen door te vegen</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Veeg omlaag op de werkbalk om het toetsenbord te sluiten</string>
+    <string name="gesture_data_please_switch_keyboard">Overschakelen naar %s</string>
+    <string name="folded">Ingeklapt</string>
+    <string name="custom_punctuation_suggestions">Suggesties voor interpunctie instellen</string>
+    <string name="space_swipe_touchpad_mode_entry">Touchpadmodus</string>
+    <string name="touchpad_sensitivity">Touchpad gevoeligheid</string>
+    <string name="touchpad_edge_scroll">Touchpadrand bladeren</string>
+    <string name="touchpad_edge_scroll_description">Automatisch bladeren bij het schuiven naar de rand van het toetsenbord</string>
+    <string name="spell_check_suggestions">Spellingcontrole suggesties tonen</string>
+    <string name="spell_check_suggestions_summary">Suggesties tonen bij het selecteren van een woord met rode onderstreping. Vereist het instellen van de app als standaard spellingcontrole.</string>
+    <string name="prefs_key_gap_scale">Toetsruimte</string>
+    <string name="toolbar_only_with_hw_keyboard">Alleen werkbalk tonen met fysiek toetsenbord</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">U moet nog steeds het tonen van een virtueel toetsenbord in de systeeminstellingen inschakelen</string>
+    <string name="floating" tools:keep="@string/floating">Zevend toetsenbord</string>
+    <string name="clipboard_history_files">Afbeeldingen en andere bestanden toevoegen aan de klembordgeschiedenis</string>
+    <string name="clipboard_history_max_file_size">Limiet klembordgrootte</string>
+    <string name="item_description">Beschrijving: %s</string>
+    <string name="item_type">Type: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="subtype_generic_4row">%s (4-regels)</string>
+    <string name="gesture_data_share_duplicate">U kunt reeds ingediende gegevens opnieuw delen, voor het geval u niet zeker weet of deze correct zijn ontvangen. We detecteren en verwijderen duplicaten bij het verwerken van de gegevens.</string>
+    <string name="gesture_data_active">De titel voor het verzamelen van actieve gebarengegevens zal waarschijnlijk worden verwijderd zodra de gegevensverzameling is voltooid (uiterlijk eind 2026)</string>
+    <string name="background_gesture_data_links">Informatie over achtergrondverzameling:</string>
+    <string name="gesture_data_background_gathering_switch">Gegevensverzameling in de achtergrond gebruiken</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Toegestane apps: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Standaard weggooien</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Gegevens worden handmatig opgeslagen via de werkbalktoets</string>
+    <string name="gesture_data_background_gathering_info">Meer informatie</string>
+    <string name="gesture_data_background_gathering_indicator">Indicator voor gegevensverzameling</string>
+    <string name="gesture_data_background_gathering_control">Controle over wat wordt opgeslagen</string>
+    <string name="gesture_data_background_apps_button">Toegestane apps beheren</string>
+    <string name="gesture_data_background_apps">Selecteer apps die u wilt opnemen bij het verzamelen van achtergrondgegevens</string>
+    <string name="gesture_data_background_apps_include_default">Apps standaard opnemen</string>
+    <string name="gesture_data_background_excluded_words_button">Uitgesloten woorden beheren</string>
+    <string name="gesture_data_background_dictionary">Woordenlijst: %s</string>
+    <string name="gesture_data_background_position">Positie: %s</string>
+    <string name="gesture_data_background_exclude_words">Woord uitsluiten van verzameling in de achtergrond</string>
+    <string name="gesture_data_long_press_select_hint">Lang indrukken om te selecteren</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Gegevensverzameling in de achtergrond</string>
+    <string name="gesture_data_show_active">Actief verzamelde gegevens weergeven</string>
+    <string name="gesture_data_show_background">Achtergrondgegevens weergeven</string>
+    <string name="gesture_data_include_shared">Reeds ingediende gegevens opnemen</string>
+    <string name="gesture_data_shared">ingediend</string>
+    <string name="gesture_data_saving">Opslaan… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Welkom bij de verzameling van achtergrondgegevens!&lt;br&gt; Wilt u de toets &lt;i&gt;%1$s&lt;/i&gt; toevoegen aan de werkbalk? U kunt deze gebruiken om het verzamelen van gegevens te controleren, lees er meer over met behulp van de knop &lt;i&gt;%2$s&lt;/i&gt;.&lt;br&gt;&lt;br&gt; Verzameling van gegevens in de achtergrond is standaard uitgeschakeld voor alle apps. Dit betekent dat er niets wordt verzameld totdat u hebt gekozen welke apps u toestaat. U kunt het wijzigen bij %3$s.</string>
+    <string name="gesture_data_add_key">Knop voor het toevoegen van achtergrond_verzameling in de werkbalk. Deze zal waarschijnlijk worden verwijderd zodra het verzamelen van gegevens is voltooid (uiterlijk eind 2026)</string>
+    <string name="gesture_data_no_known_dict">Achtergrondverzameling verzamelt alleen woorden afkomstig uit woordenlijsten die zijn ingebouwd of beschikbaar zijn in de &lt;a href=%s&gt;woordenlijstenopslagplaats&lt;/a&gt;. Momenteel is een dergelijke woordenlijst niet ingeschakeld.</string>
+    <string name="gesture_data_swipe_o_scope">Hulpmiddel voor het visualiseren van gebarengegevens: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="gesture_data_background_gathering_info_message">Door het verzamelen van achtergrondgegevens in te schakelen, kan Heliboard gebaren opnemen die u in andere apps typt. Dit is erg handig voor het gebaartyperingsproject, omdat het een aanzienlijke hoeveelheid gegevens kan opleveren, zij het van lagere kwaliteit dan actief verzamelen. Het verzamelen van achtergrondgegevens is geen vervanging voor actief verzamelde gegevens; het is bedoeld als aanvulling, aangezien gegevenskwaliteit belangrijker is dan kwantiteit.\n\n Gegevensverzameling in de achtergrond heeft een groot potentieel voor het verzamelen van gegevens die u mogelijk als te privé beschouwt om te delen, zelfs als ze anoniem worden gepubliceerd. Om deze reden willen we duidelijk maken wanneer gebarengegevens worden verzameld en hoe u dit kunt beïnvloeden.\n\n U kunt een video vinden waarin meer wordt uitgelegd over het verzamelen van achtergrondgegevens in de linksectie rechtsonder op dit scherm.</string>
+    <string name="gesture_data_background_gathering_indicator_message">Elke keer dat gebarengegevens worden opgenomen, ziet u linksonder op het toetsenbord een indicator. Wanneer de cirkel gevuld is, is er minstens één gebaar verzameld dat klaar staat om opgeslagen te worden. Gegevens worden opgeslagen met behulp van de toets op de werkbalk (zie &lt;i&gt;%1$s&lt;/i&gt;) of automatisch (wanneer &lt;i&gt;%2$s&lt;/i&gt; is uitgeschakeld). Automatisch opslaan gebeurt meestal bij het wisselen van tekstvelden of het sluiten van het toetsenbord, maar kan ook gebeuren als het tekstveld om een andere reden verandert. Wanneer gegevens worden opgeslagen, wordt de indicator korte tijd groen.</string>
+    <string name="gesture_data_background_gathering_control_message">Onafhankelijk van de instellingen wordt het verzamelen van achtergrondgegevens uitgeschakeld bij gebruik van de incognitomodus. Het is ook uitgeschakeld voor invoervelden die als gevoelig zijn gemarkeerd (wachtwoorden, e-mail of wanneer het invoerveld het toetsenbord vraagt de woorden niet te leren). Alleen woorden die zich in een hoofdwoordenlijst bevinden (ingebouwd of uit de &lt;a href=%5$s&gt;woordenlijstenopslagplaats&lt;/a&gt;) worden verzameld. &lt;br&gt;&lt;br&gt; Met behulp van &lt;i&gt;%1$s&lt;/i&gt; kunt u selecteren in welke apps u het verzamelen van achtergrondgegevens wilt toestaan. De standaardinstelling schakelt elke app uit, met opt-in per app U kunt ervoor kiezen om in plaats daarvan elke app in te schakelen, en opt-out per app Dit doen is handiger, maar zal automatisch het verzamelen van gegevens van nieuw geïnstalleerde apps mogelijk maken. Hierdoor kunnen gegevens worden verzameld die u niet had verwacht. &lt;br&gt;&lt;br&gt; Met &lt;i&gt;%2$s&lt;/i&gt; kunt u specifieke gevoelige woorden uitsluiten. Bij het gebaren van een uitgesloten woord toont het indicatorpictogram nog steeds het gevulde pictogram (\"gegevens die klaarstaan om te worden opgeslagen\"), maar de gegevens worden weggegooid wanneer deze normaal gesproken worden opgeslagen. Alle geblokkeerde woorden die al zijn opgeslagen voordat het woord werd geblokkeerd, worden weggegooid bij het exporteren van gegevens.&lt;br&gt; Merk op dat achtergrondverzameling alleen woorden verzamelt die al in een hoofdwoordenboek staan, dus de enige woorden die u waarschijnlijk moet blokkeren zijn veel voorkomende woorden die kunnen worden gebruikt om u persoonlijk te identificeren, zoals: uw naam, straat, stad, territorium, enz. &lt;br&gt;&lt;br&gt; Wanneer &lt;i&gt;%3$s&lt;/i&gt; is ingeschakeld, worden gegevens alleen opgeslagen als u ervoor kiest dit handmatig te doen met behulp van de &lt;i&gt;%4$s&lt;/i&gt; werkbalktoets (zie hieronder). Als er geen gegevens worden opgeslagen, worden openstaande gegevens verwijderd bij het wijzigen van het invoerveld of het sluiten van het toetsenbord.&lt;br&gt; App- en woorduitsluitingen zijn nog steeds van toepassing in deze modus. &lt;br&gt;&lt;br&gt; De &lt;i&gt;%4$s&lt;/i&gt; werkbalktoets kan worden gebruikt om het verzamelen van gegevens te controleren. Het effect van een pers hangt af van de huidige status: Wanneer achtergrondverzameling is uitgeschakeld, wordt deze ingeschakeld.&lt;br&gt; Een long-press schakelt het verzamelen gedurende vijf minuten uit.&lt;br&gt; U kunt het verzamelen van achtergrondgegevens eerder opnieuw inschakelen met een normale toets. &lt;br&gt; Wanneer &lt;i&gt;%3$s&lt;/i&gt; is ingeschakeld, worden openstaande gegevens opgeslagen.&lt;br&gt; Anders worden hangende gegevens weggegooid.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Met behulp van het &lt;i&gt;%1$s&lt;/i&gt;-scherm kunt u de verzamelde gegevens controleren en filteren, gegevens verwijderen die u als te gevoelig beschouwt en gegevens delen. De knoppen verwijderen en delen werken op de gefilterde gegevens, of op de selectie als u lang indrukken gebruikt om woorden te selecteren. (Merk op dat het \"normale\" deelpictogram buiten het scherm &lt;i&gt;%1$s&lt;/i&gt; alleen gegevens van actieve verzameling zal delen.)&lt;br&gt; De volgorde van gedeelde gegevens is gerandomiseerd, dus niets meer dan de afzonderlijke woorden kunnen worden afgeleid.&lt;br&gt; Als u de volledige gegevens wilt bekijken die zijn opgeslagen voor een gebaar, moet u u kunt het delen met een bestand en het bestand laden in &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="auto_correct_capitalized_suggestions">Gekapitaliseerde suggesties autom. corrigeren</string>
+    <string name="auto_correct_capitalized_suggestions_description">Shift drukken voor kapitalisatie van suggesties, activeert autom. correctie</string>
+    <string name="prefs_hint_font_scale">Lettertypeschaal voor toetsenhints</string>
+    <string name="about_community_links">Gemeenschapslinks</string>
+    <string name="about_community_links_description">Thema\'s, lay-outeditor, discussies, …</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="space_swipe_toggle_dpad_entry">D-pad omschakelen</string>
 </resources>

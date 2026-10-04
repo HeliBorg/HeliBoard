@@ -33,6 +33,7 @@ import helium314.keyboard.settings.screens.SubtypeScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
 import helium314.keyboard.settings.screens.ToolbarScreen
 import helium314.keyboard.settings.screens.gesturedata.GestureDataScreen
+import helium314.keyboard.settings.screens.gesturedata.ReviewScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -98,10 +99,9 @@ fun SettingsNavHost(
         composable(SettingsDestination.DataGathering) {
             GestureDataScreen(onClickBack = ::goBack)
         }
-/*      will be added as part of passive data gathering
         composable(SettingsDestination.DataReview) {
             ReviewScreen(onClickBack = ::goBack)
-        }*/
+        }
         composable(SettingsDestination.Advanced) {
             AdvancedSettingsScreen(onClickBack = ::goBack)
         }

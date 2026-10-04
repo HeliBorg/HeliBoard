@@ -123,7 +123,6 @@
     <string name="settings_category_suggestions">Pasiūlymai</string>
     <string name="settings_category_experimental">Eksperimentinis</string>
     <string name="settings_category_miscellaneous">Kita</string>
-    <string name="enable_split_keyboard_landscape">Įgalinti perskirtą klaviatūrą (horizontaliai)</string>
     <string name="split_spacer_scale">Perskyrimo atstumas</string>
     <string name="switch_language">Perjungti kalbą</string>
     <string name="language_switch_key_switch_both">Perjungti abu</string>

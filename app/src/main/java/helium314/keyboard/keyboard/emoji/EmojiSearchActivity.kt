@@ -36,6 +36,7 @@ import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -74,10 +75,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import helium314.keyboard.keyboard.Key
-import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.KeyboardTypeface
 import helium314.keyboard.keyboard.internal.KeyboardBuilder
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.EMOJI_HINT_LABEL
@@ -87,7 +89,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiDefaultVersi
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiKeyDimensions
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiNeutralVersion
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiPopupSpec
-import helium314.keyboard.latin.LatinIME
+import helium314.keyboard.keyboard.internal.keyboard_parser.loadEmojiDefaultVersionsAndPopupSpecs
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.RichInputMethodSubtype
@@ -97,15 +99,15 @@ import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.CloseIcon
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
+import helium314.keyboard.latin.utils.SearchIcon
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.CloseIcon
-import helium314.keyboard.settings.SearchIcon
 import kotlin.properties.Delegates
 
-private const val TAG = "emoji-search"
+const val TAG = "emoji-search"
 
 /**
  * This activity is displayed in a gap created for it above the keyboard and below the host app, and disables the host app.
@@ -169,6 +171,7 @@ class EmojiSearchActivity : ComponentActivity() {
                             heightPx = it.size.height
                             heightDp = with(localDensity) { it.size.height.toDp() }
                         }) {
+                        val fontFamily = remember { KeyboardTypeface.customFontFamily() }
                         Row(modifier = Modifier.fillMaxWidth().height(30.dp)) {
                             IconButton(onClick = { cancel() }) {
                                 Icon(painter = painterResource(R.drawable.ic_arrow_back),
@@ -176,6 +179,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                     tint = Color(colors.get(ColorType.EMOJI_KEY_TEXT)))
                             }
                             Text(text = stringResource(R.string.emoji_search_title), fontSize = 18.sp,
+                                fontFamily = fontFamily,
                                 color = Color(colors.get(ColorType.EMOJI_KEY_TEXT)),
                                 modifier = Modifier.fillMaxWidth().align(Alignment.CenterVertically))
                         }
@@ -185,18 +189,21 @@ class EmojiSearchActivity : ComponentActivity() {
                         val focusRequester = remember { FocusRequester() }
                         var text by remember { mutableStateOf(TextFieldValue(searchText, selection = TextRange(searchText.length))) }
                         val textFieldColors = TextFieldDefaults.colors().copy(
-                            unfocusedContainerColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)),
-                            unfocusedTextColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
-                            cursorColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
-                            unfocusedLeadingIconColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
-                            unfocusedTrailingIconColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
-                            unfocusedPlaceholderColor = lerp(Color(colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)),
-                                Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)), 0.5f))
-                        CompositionLocalProvider(LocalTextSelectionColors provides textFieldColors.textSelectionColors) {
+                            unfocusedContainerColor = Color(colors.get(ColorType.EMOJI_SEARCH_BACKGROUND)),
+                            unfocusedTextColor = Color(colors.get(ColorType.EMOJI_SEARCH_TEXT)),
+                            cursorColor = Color(colors.get(ColorType.EMOJI_SEARCH_TEXT)),
+                            unfocusedLeadingIconColor = Color(colors.get(ColorType.EMOJI_SEARCH_TEXT)),
+                            unfocusedTrailingIconColor = Color(colors.get(ColorType.EMOJI_SEARCH_TEXT)),
+                            unfocusedPlaceholderColor = lerp(Color(colors.get(ColorType.EMOJI_SEARCH_BACKGROUND)),
+                                Color(colors.get(ColorType.EMOJI_SEARCH_TEXT)), 0.5f))
+                        CompositionLocalProvider(
+                            LocalTextSelectionColors provides textFieldColors.textSelectionColors,
+                            LocalTextStyle provides LocalTextStyle.current.copy(fontFamily = fontFamily),
+                        ) {
                             BasicTextField(
                                 value = text,
                                 modifier = Modifier.fillMaxWidth().heightIn(20.dp, 30.dp).focusRequester(focusRequester),
-                                textStyle = TextStyle(textDirection = TextDirection.Content, color = textFieldColors.unfocusedTextColor),
+                                textStyle = TextStyle(fontFamily = fontFamily, textDirection = TextDirection.Content, color = textFieldColors.unfocusedTextColor),
                                 onValueChange = {
                                     text = it
                                     search(it.text)
@@ -223,7 +230,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                     contentPadding = PaddingValues(2.dp),
                                     visualTransformation = VisualTransformation.None,
                                     innerTextField = it,
-                                    placeholder = { Text(stringResource(R.string.search_field_placeholder)) },
+                                    placeholder = { Text(stringResource(R.string.search_field_placeholder), fontFamily = fontFamily) },
                                     leadingIcon = { SearchIcon() },
                                     trailingIcon = {
                                         IconButton(onClick = {
@@ -260,19 +267,22 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     override fun onStop() {
-        val intent = Intent(this, LatinIME::class.java).setAction(EMOJI_SEARCH_DONE_ACTION)
+        Log.d(TAG, "search ending. Selected emoji: ${pressedKey?.let { getEmoji(it) }}. imeClosed: $imeClosed")
+        val intent = Intent(EMOJI_SEARCH_DONE_ACTION).setPackage(packageName)
             .putExtra(IME_CLOSED_KEY, imeClosed)
         pressedKey?.let {
-            intent.putExtra(EMOJI_KEY, if (it.code == KeyCode.MULTIPLE_CODE_POINTS)
-                it.getOutputText()
-            else
-                Character.toString(it.code))
-
-            KeyboardSwitcher.getInstance().emojiPalettesView.addRecentKey(it)
+            val emoji = getEmoji(it) ?: return@let
+            intent.putExtra(EMOJI_KEY, emoji)
+            RecentEmojis.add(emoji)
         }
-        startService(intent)
+        sendBroadcast(intent)
         super.onStop()
     }
+
+    private fun getEmoji(key: Key): String? = if (key.code == KeyCode.MULTIPLE_CODE_POINTS)
+        key.getOutputText()
+    else
+        Character.toString(key.code)
 
     private fun init() {
         Log.d(TAG, "init start")
@@ -281,15 +291,11 @@ class EmojiSearchActivity : ComponentActivity() {
         Log.d(TAG, "screenHeight: $screenHeight")
         hintLocales = LocaleList(DictionaryInfoUtils.getLocalesWithEmojiDicts(this).map { Locale(it.toLanguageTag()) })
         val keyboardWidth = ResourceUtils.getKeyboardWidth(this, Settings.getValues())
-        val layoutSet = KeyboardLayoutSet.Builder(this, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
+        val layoutSet = KeyboardLayoutSet.Builder(this, null, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
             .setKeyboardGeometry(keyboardWidth, EmojiLayoutParams(resources).emojiKeyboardHeight).build()
-
-        // Initialize default versions and popup specs
-        layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_CATEGORY2)
-
-        val keyboard = DynamicGridKeyboard.ofRowCount(prefs(), layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
+        val keyboard = DynamicGridKeyboard.ofRowCount(prefs(), layoutSet.getKeyboard(KeyboardElement.EMOJI_RECENTS),
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 1 else 2,
-            KeyboardId.ELEMENT_EMOJI_CATEGORY16, keyboardWidth)
+            false, keyboardWidth)
         val builder = KeyboardBuilder(this, KeyboardParams())
         builder.load(keyboard.mId)
         keyboardParams = builder.mParams
@@ -303,6 +309,7 @@ class EmojiSearchActivity : ComponentActivity() {
         emojiPageKeyboardView.background = null
         colors.setBackground(emojiPageKeyboardView, ColorType.MAIN_BACKGROUND)
         emojiPageKeyboardView.setPadding(0, 10, 0, 10)
+        loadEmojiDefaultVersionsAndPopupSpecs(this)
 
         emojiPageKeyboardView.setEmojiViewCallback(object : EmojiViewCallback {
             override fun onPressKey(key: Key) {
@@ -317,8 +324,10 @@ class EmojiSearchActivity : ComponentActivity() {
                 dictionaryFacilitator?.getWordProperty(getEmojiNeutralVersion(emoji))?.let {
                     if (it.mHasShortcuts) it.mShortcutTargets[0]?.mWord else null
                 } else null
+
+            override fun onRemoveRecentsKey(key: Key?) {}
         })
-        KeyboardSwitcher.getInstance().setAlphabetKeyboard()
+        KeyboardSwitcher.getInstance().resetKeyboardStateToAlphabet()
         Log.d(TAG, "init end")
     }
 

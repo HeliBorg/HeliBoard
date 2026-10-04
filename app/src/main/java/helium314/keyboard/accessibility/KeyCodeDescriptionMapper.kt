@@ -13,6 +13,7 @@ import android.util.SparseIntArray
 import android.view.inputmethod.EditorInfo
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Keyboard
+import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
@@ -130,13 +131,13 @@ internal class KeyCodeDescriptionMapper private constructor() {
          * @return a character sequence describing the action performed by pressing the key
          */
         private fun getDescriptionForSwitchAlphaSymbol(context: Context, keyboard: Keyboard?): String? {
-            val resId = when (val elementId = keyboard?.mId?.mElementId) {
-                KeyboardId.ELEMENT_ALPHABET, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_to_symbol
-                KeyboardId.ELEMENT_SYMBOLS, KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_to_alpha
-                KeyboardId.ELEMENT_PHONE -> R.string.spoken_description_to_symbol
-                KeyboardId.ELEMENT_PHONE_SYMBOLS -> R.string.spoken_description_to_numeric
+            val resId = when (val element = keyboard?.mId?.element) {
+                KeyboardElement.ALPHABET, KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED, KeyboardElement.ALPHABET_MANUAL_SHIFTED, KeyboardElement.ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_to_symbol
+                KeyboardElement.SYMBOLS, KeyboardElement.SYMBOLS_SHIFTED -> R.string.spoken_description_to_alpha
+                KeyboardElement.PHONE -> R.string.spoken_description_to_symbol
+                KeyboardElement.PHONE_SYMBOLS -> R.string.spoken_description_to_numeric
                 else -> {
-                    Log.e(TAG, "Missing description for keyboard element ID:$elementId")
+                    Log.e(TAG, "Missing description for keyboard element:$element")
                     return null
                 }
             }
@@ -151,11 +152,11 @@ internal class KeyCodeDescriptionMapper private constructor() {
          * @return A context-sensitive description of the "Shift" key.
          */
         private fun getDescriptionForShiftKey(context: Context, keyboard: Keyboard?): String {
-            val resId: Int = when (keyboard?.mId?.mElementId) {
-                KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_caps_lock
-                KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> R.string.spoken_description_shift_shifted
-                KeyboardId.ELEMENT_SYMBOLS -> R.string.spoken_description_symbols_shift
-                KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_symbols_shift_shifted
+            val resId: Int = when (keyboard?.mId?.element) {
+                KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED, KeyboardElement.ALPHABET_MANUAL_SHIFTED -> R.string.spoken_description_shift_shifted
+                KeyboardElement.ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_caps_lock
+                KeyboardElement.SYMBOLS -> R.string.spoken_description_symbols_shift
+                KeyboardElement.SYMBOLS_SHIFTED -> R.string.spoken_description_symbols_shift_shifted
                 else -> R.string.spoken_description_shift
             }
             return context.getString(resId)
@@ -174,7 +175,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
             if (!TextUtils.isEmpty(key.label)) {
                 return key.label!!.trim { it <= ' ' }
             }
-            val resId = when (keyboard?.mId?.imeAction()) {
+            val resId = when (keyboard?.mId?.imeAction) {
                 EditorInfo.IME_ACTION_SEARCH -> R.string.label_search_key
                 EditorInfo.IME_ACTION_GO -> R.string.label_go_key
                 EditorInfo.IME_ACTION_SEND -> R.string.label_send_key

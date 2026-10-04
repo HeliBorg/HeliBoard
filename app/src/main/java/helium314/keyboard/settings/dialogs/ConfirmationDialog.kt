@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
-import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.latin.utils.previewDark
 
 // taken from StreetComplete
 /** Slight specialization of an alert dialog: AlertDialog with OK and Cancel button. Both buttons

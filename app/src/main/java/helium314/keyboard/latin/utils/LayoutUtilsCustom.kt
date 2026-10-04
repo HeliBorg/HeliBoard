@@ -2,20 +2,17 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
-import android.widget.Toast
 import helium314.keyboard.keyboard.Key
-import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.LayoutParser
-import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
-import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import helium314.keyboard.latin.common.decodeBase36
 import helium314.keyboard.latin.common.encodeBase36
-import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
@@ -32,9 +29,9 @@ object LayoutUtilsCustom {
         if (Settings.getValues() == null)
             Settings.getInstance().loadSettings(context)
         val params = KeyboardParams()
-        params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
-        params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
-        addLocaleKeyTextsToParams(context, params, POPUP_KEYS_NORMAL)
+        params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardElement.ALPHABET)
+        params.mPopupKeyOrder.add(POPUP_KEYS_LAYOUT)
+        LocaleKeyboardInfos.addLocaleKeyTextsToParams(context, params, LocaleKeyboardInfos.POPUP_KEYS_NORMAL)
         try {
             if (layoutContent.trimStart().startsWith("[") || layoutContent.trimStart().startsWith("//")) {
                 val keys = LayoutParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
@@ -155,10 +152,7 @@ object LayoutUtilsCustom {
     fun removeMissingLayouts(context: Context) {
         val prefs = context.prefs()
         fun remove(type: LayoutType, name: String) {
-            val message = "removing custom layout ${getDisplayName(name)} / $name without file"
-            if (DebugFlags.DEBUG_ENABLED)
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-            Log.w(TAG, message)
+            Log.w(TAG, "removing custom layout ${getDisplayName(name)} / $name without file")
             SubtypeSettings.onRenameLayout(type, name, null, context)
         }
         LayoutType.entries.forEach { type ->

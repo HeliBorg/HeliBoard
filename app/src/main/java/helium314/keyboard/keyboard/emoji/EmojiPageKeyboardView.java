@@ -42,6 +42,7 @@ import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.settings.Settings;
+import kotlin.Unit;
 
 import java.util.WeakHashMap;
 
@@ -65,6 +66,8 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         public String getDescription(String emoji) {
             return null;
         }
+        @Override
+        public void onRemoveRecentsKey(final Key key) {}
     };
 
     private EmojiViewCallback mEmojiViewCallback = EMPTY_EMOJI_VIEW_CALLBACK;
@@ -312,9 +315,16 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
             final int pointX = mConfigShowPopupKeysKeyboardAtTouchedPoint
                     ? CoordinateUtils.x(lastCoords)
                     : key.getX() + key.getWidth() / 2;
-            final int pointY = key.getY() - getKeyboard().mVerticalGap;
-            (popupKeysPanel != null? popupKeysPanel : descriptionPanel)
-                            .showPopupKeysPanel(this, this, pointX, pointY, mEmojiViewCallback);
+            DynamicGridKeyboard keyboard = (DynamicGridKeyboard)getKeyboard();
+            int pointY = key.getY() - keyboard.mVerticalGap;
+            (popupKeysPanel != null ? popupKeysPanel : descriptionPanel)
+                .showPopupKeysPanel(this, this, pointX, pointY,
+                    (popupKey) -> {
+                        if (keyboard.isRecents()) mEmojiViewCallback.onRemoveRecentsKey(key);
+                        else mEmojiViewCallback.onReleaseKey(popupKey);
+                        return Unit.INSTANCE;
+                    }
+                );
         }
 
         if (popupKeysPanel != null) {

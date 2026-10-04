@@ -37,13 +37,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
+import helium314.keyboard.keyboard.KeyboardTypeface;
 import helium314.keyboard.latin.PunctuationSuggestions;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
-import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.ResourceUtils;
@@ -469,7 +469,6 @@ final class SuggestionStripLayoutHelper {
         }
         int count = 0;
         int indexInSuggestedWords;
-        final Typeface emojiTypeface = Settings.getInstance().getCustomEmojiTypeface();
         for (indexInSuggestedWords = 0; indexInSuggestedWords < suggestedWords.size()
                 && count < maxSuggestionInStrip; indexInSuggestedWords++) {
             final int positionInStrip =
@@ -483,10 +482,7 @@ final class SuggestionStripLayoutHelper {
             wordView.setTag(indexInSuggestedWords);
             wordView.setText(getStyledSuggestedWord(suggestedWords, indexInSuggestedWords));
             wordView.setTextColor(getSuggestionTextColor(suggestedWords, indexInSuggestedWords));
-
-            if (emojiTypeface != null && StringUtilsKt.isEmoji(wordView.getText()))
-                wordView.setTypeface(emojiTypeface);
-            else wordView.setTypeface(Typeface.DEFAULT); // todo: maybe use user-provided typeface here?
+            KeyboardTypeface.applyToTextView(wordView);
             if (SuggestionStripView.DEBUG_SUGGESTIONS) {
                 mDebugInfoViews.get(positionInStrip).setText(suggestedWords.getDebugString(indexInSuggestedWords));
             }
@@ -514,6 +510,7 @@ final class SuggestionStripLayoutHelper {
             wordView.setTextScaleX(1.0f);
             wordView.setCompoundDrawables(null, null, null, null);
             wordView.setTextColor(mColorAutoCorrect);
+            KeyboardTypeface.applyToTextView(wordView);
             stripView.addView(wordView);
             setLayoutWeight(wordView, 1.0f, mSuggestionsStripHeight);
         }

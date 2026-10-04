@@ -21,13 +21,14 @@ import androidx.annotation.NonNull;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.accessibility.PopupKeysKeyboardAccessibilityDelegate;
-import helium314.keyboard.keyboard.emoji.EmojiViewCallback;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 /**
  * A view that renders a virtual {@link PopupKeysKeyboard}. It handles rendering of keys and
@@ -40,7 +41,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
     protected final KeyDetector mKeyDetector;
     private Controller mController = EMPTY_CONTROLLER;
     protected KeyboardActionListener mListener;
-    protected EmojiViewCallback mEmojiViewCallback;
+    protected Function1<Key, Unit> mOnReleaseKey;
     private int mOriginX;
     private int mOriginY;
     private Key mCurrentKey;
@@ -120,10 +121,10 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
      * {@inheritDoc}
      */
     @Override
-    public void showPopupKeysPanel(final View parentView, final Controller controller,
-            final int pointX, final int pointY, final KeyboardActionListener listener) {
+    public void showPopupKeysPanel(View parentView, Controller controller,
+            int pointX, int pointY, KeyboardActionListener listener) {
         mListener = listener;
-        mEmojiViewCallback = null;
+        mOnReleaseKey = null;
         showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
@@ -131,10 +132,10 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
      * {@inheritDoc}
      */
     @Override
-    public void showPopupKeysPanel(final View parentView, final Controller controller,
-            final int pointX, final int pointY, final EmojiViewCallback emojiViewCallback) {
+    public void showPopupKeysPanel(View parentView, Controller controller,
+            int pointX, int pointY, Function1<Key, Unit> onReleaseKey) {
         mListener = null;
-        mEmojiViewCallback = emojiViewCallback;
+        mOnReleaseKey = onReleaseKey;
         showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
@@ -242,8 +243,8 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
                             false /* isKeyRepeat */);
                 }
             }
-        } else if (mEmojiViewCallback != null) {
-            mEmojiViewCallback.onReleaseKey(key);
+        } else if (mOnReleaseKey != null) {
+            mOnReleaseKey.invoke(key);
         }
     }
 

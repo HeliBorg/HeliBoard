@@ -189,7 +189,7 @@ public abstract class Dictionary {
      * real dictionary.
      */
     public static class PhonyDictionary extends Dictionary {
-        PhonyDictionary(final String type) {
+        public PhonyDictionary(final String type) {
             super(type, null);
         }
 

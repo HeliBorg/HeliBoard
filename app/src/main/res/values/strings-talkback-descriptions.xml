@@ -76,10 +76,18 @@
     <string name="spoken_description_mode_symbol_shift">More symbols mode</string>
     <!-- Spoken feedback after changing to the alphanumeric keyboard. -->
     <string name="spoken_description_mode_alpha">Letters mode</string>
+    <!-- Spoken feedback after changing to the D-pad keyboard. -->
+    <string name="spoken_description_mode_dpad">D-pad mode</string>
+    <!-- Spoken feedback after changing to the numpad keyboard. -->
+    <string name="spoken_description_mode_numpad">Numpad mode</string>
+    <!-- Spoken feedback after changing to the numbers keyboard. -->
+    <string name="spoken_description_mode_number">Numbers mode</string>
     <!-- Spoken feedback after changing to the phone dialer keyboard. -->
     <string name="spoken_description_mode_phone">Phone mode</string>
     <!-- Spoken feedback after changing to the shifted phone dialer (symbols) keyboard. -->
     <string name="spoken_description_mode_phone_shift">Phone symbols mode</string>
+    <!-- Spoken feedback after changing to the clipboard keyboard. -->
+    <string name="spoken_description_mode_clipboard">Clipboard mode</string>
 
     <!-- Spoken feedback when the keyboard is hidden. -->
     <string name="announce_keyboard_hidden">Keyboard hidden</string>

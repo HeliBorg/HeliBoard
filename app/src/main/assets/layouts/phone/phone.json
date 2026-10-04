@@ -20,7 +20,7 @@
   [
     { "label": "＊＃|!code/key_switch_alpha_symbol", "type": "numeric", "labelFlags": 524432 },
     { "label": "0 +|0", "type": "numeric", "popup": { "relevant": [ { "label": "!noPanelAutoPopupKey!" }, { "label": "+" } ] } },
-    { "label": ".", "type": "numeric", "labelFlags": 64, "groupId": 1 },
+    { "label": ".", "type": "numeric", "labelFlags": 1073741888, "groupId": 1 },
     { "label": "action" }
   ]
 ]

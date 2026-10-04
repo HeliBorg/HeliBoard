@@ -20,7 +20,7 @@
   [
     { "label": "123|!code/key_switch_alpha_symbol", "type": "numeric", "labelFlags": 524432 },
     { "label": "+", "type": "numeric" },
-    { "label": ".", "type": "numeric", "groupId": 1 },
+    { "label": ".", "type": "numeric", "groupId": 1, "labelFlags": 1073741824 },
     { "label": "action" }
   ]
 ]

@@ -1,0 +1,6 @@
+* Mogelijkheid om de app-taal (instellingen) te wijzigen in de systeem­instellingen
+* Optioneel het toetsenbord verbergen door de werk­balk naar beneden te vegen
+* HCESAR-lay-out toegevoegd
+* Melding over ontbrekend emoji-woordenboek bij het inschakelen van emoji-suggesties
+* Problemen met het verzamelen van actieve gebaren­gegevens opgelost
+* Kleine bugfixes en verbeteringen

@@ -14,7 +14,7 @@ Característiques:
     <li>pot seguir la configuració dia/nit del sistema a Android 10+ (i en algunes versions d'Android 9)</li>
     <li>pot seguir colors dinàmics per a Android 12+</li>
   </ul>
-  <li>Personalitzeu els <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">dissenys del teclat</a> (només disponible quan es desactiva <i>utilitzar els idiomes del sistema</i>)</li>
+  <li>Personalitzeu els <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">dissenys del teclat</a> (només disponible quan es desactiva <i>utilitzar els idiomes del sistema</i>)</li>
   <li>Personalitzeu dissenys especials, com ara símbols, números o tecles funcionals</li>
   <li>Escriptura multilingüe</li>
   <li>Escriptura lliscant (<i>només amb la biblioteca de font tancada</i> ☹️)</li>

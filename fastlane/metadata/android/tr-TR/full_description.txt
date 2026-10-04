@@ -14,7 +14,7 @@ HeliBoard, gizliliğe önem veren, AOSP / OpenBoard tabanlı açık kaynaklı bi
     <li>Android 10+ (ve bazı Android 9 sürümlerinde) sistemin gün/gece ayarını takip edebilir</li>
     <li>Android 12+ için dinamik renkleri takip edebilir</li>
   </ul>
-  <li>Klavyenin <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">düzenlerini</a> özelleştir (yalnızca <i>sistem dillerini kullan</i> özelliği devre dışı bırakıldığında kullanılabilir)</li>
+  <li>Klavyenin <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">düzenlerini</a> özelleştir (yalnızca <i>sistem dillerini kullan</i> özelliği devre dışı bırakıldığında kullanılabilir)</li>
   <li>Semboller, sayı veya işlev tuşu düzenleri gibi özel düzenleri özelleştir</li>
   <li>Çok dilli yazım</li>
   <li>Kaydırarak yazma (<i>yalnızca kapalı kaynaklı kütüphane ile</i> ☹️)</li>

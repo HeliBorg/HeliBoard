@@ -28,20 +28,12 @@ import java.util.Collections;
 public final class WordComposer {
     private static final int MAX_WORD_LENGTH = DecoderSpecificConstants.DICTIONARY_MAX_WORD_LENGTH;
 
-    public static final int CAPS_MODE_OFF = 0;
-    // 1 is shift bit, 2 is caps bit, 4 is auto bit but this is just a convention as these bits
-    // aren't used anywhere in the code
-    public static final int CAPS_MODE_MANUAL_SHIFTED = 0x1;
-    public static final int CAPS_MODE_MANUAL_SHIFT_LOCKED = 0x3;
-    public static final int CAPS_MODE_AUTO_SHIFTED = 0x5;
-    public static final int CAPS_MODE_AUTO_SHIFT_LOCKED = 0x7;
-
     private CombinerChain mCombinerChain;
     private String mCombiningSpec; // Memory so that we don't uselessly recreate the combiner chain
 
     // The list of events that served to compose this string.
     private final ArrayList<Event> mEvents;
-    private final InputPointers mInputPointers = new InputPointers(MAX_WORD_LENGTH);
+    private final InputPointers mInputPointers;
     private SuggestedWordInfo mAutoCorrection;
     private boolean mIsResumed;
     private boolean mIsBatchMode;
@@ -57,7 +49,7 @@ public final class WordComposer {
     private CharSequence mTypedWordCache;
     private int mCapsCount;
     private int mDigitsCount;
-    private int mCapitalizedMode;
+    private CapsMode mCapitalizedMode;
     // This is the number of code points entered so far. This is not limited to MAX_WORD_LENGTH.
     // In general, this contains the size of mPrimaryKeyCodes, except when this is greater than
     // MAX_WORD_LENGTH in which case mPrimaryKeyCodes only contain the first MAX_WORD_LENGTH
@@ -73,12 +65,35 @@ public final class WordComposer {
     public WordComposer() {
         mCombinerChain = new CombinerChain("", "");
         mEvents = new ArrayList<>();
+        mInputPointers = new InputPointers(MAX_WORD_LENGTH);
         mAutoCorrection = null;
         mIsResumed = false;
         mIsBatchMode = false;
         mCursorPositionWithinWord = 0;
         mRejectedBatchModeSuggestion = null;
         refreshTypedWordCache();
+    }
+
+    /** creates a copy of the internal state (currently reuses mInputPointers though, so don't use this for other purpose than getting suggestions) */
+    public WordComposer copy() {
+        return new WordComposer(this);
+    }
+
+    @SuppressWarnings("CopyConstructorMissesField")
+    private WordComposer(WordComposer other) {
+        mEvents = null;
+        mInputPointers = other.mInputPointers; // ideally we would have an actual copy, but for current use it should be ok
+        mAutoCorrection = other.mAutoCorrection;
+        mIsResumed = other.mIsResumed;
+        mIsBatchMode = other.mIsBatchMode;
+        mRejectedBatchModeSuggestion = other.mRejectedBatchModeSuggestion;
+        mTypedWordCache = other.mTypedWordCache;
+        mCapsCount = other.mCapsCount;
+        mDigitsCount = other.mDigitsCount;
+        mCapitalizedMode = other.mCapitalizedMode;
+        mCodePointSize = other.mCodePointSize;
+        mCursorPositionWithinWord = other.mCursorPositionWithinWord;
+        mIsOnlyFirstCharCapitalized = other.mIsOnlyFirstCharCapitalized;
     }
 
     public ComposedData getComposedDataSnapshot() {
@@ -109,14 +124,19 @@ public final class WordComposer {
         mIsOnlyFirstCharCapitalized = false;
         mIsResumed = false;
         mIsBatchMode = false;
-        mCursorPositionWithinWord = 0;
         mRejectedBatchModeSuggestion = null;
         refreshTypedWordCache();
+        mCursorPositionWithinWord = 0;
     }
 
     private void refreshTypedWordCache() {
+        int oldSize = mCodePointSize;
         mTypedWordCache = mCombinerChain.getComposingWordWithCombiningFeedback();
         mCodePointSize = Character.codePointCount(mTypedWordCache, 0, mTypedWordCache.length());
+        mCursorPositionWithinWord += mCodePointSize - oldSize;
+        // should not be necessary after setting mCursorPositionWithinWord at the end of reset, but still better not crash
+        if (mCursorPositionWithinWord < 0) mCursorPositionWithinWord = 0;
+        else if (mCursorPositionWithinWord > mCodePointSize) mCursorPositionWithinWord = mCodePointSize;
     }
 
     /**
@@ -317,8 +337,7 @@ public final class WordComposer {
      * @return capitalization preference
      */
     public boolean isOrWillBeOnlyFirstCharCapitalized() {
-        return isComposingWord() ? mIsOnlyFirstCharCapitalized
-                : (CAPS_MODE_OFF != mCapitalizedMode);
+        return isComposingWord() ? mIsOnlyFirstCharCapitalized : (mCapitalizedMode != CapsMode.OFF);
     }
 
     /**
@@ -327,15 +346,13 @@ public final class WordComposer {
      */
     public boolean isAllUpperCase() {
         if (size() <= 1) {
-            return mCapitalizedMode == CAPS_MODE_AUTO_SHIFT_LOCKED
-                    || mCapitalizedMode == CAPS_MODE_MANUAL_SHIFT_LOCKED;
+            return mCapitalizedMode == CapsMode.AUTO_LOCKED || mCapitalizedMode == CapsMode.MANUAL_LOCKED;
         }
         return mCapsCount == size();
     }
 
     public boolean wasShiftedNoLock() {
-        return mCapitalizedMode == CAPS_MODE_AUTO_SHIFTED
-                || mCapitalizedMode == CAPS_MODE_MANUAL_SHIFTED;
+        return mCapitalizedMode == CapsMode.AUTO || mCapitalizedMode == CapsMode.MANUAL;
     }
 
     public char lastChar() {
@@ -368,7 +385,7 @@ public final class WordComposer {
      * capitalized suggestions.
      * @param mode the mode at the time of start
      */
-    public void setCapitalizedModeAtStartComposingTime(final int mode) {
+    public void setCapitalizedModeAtStartComposingTime(CapsMode mode) {
         mCapitalizedMode = mode;
     }
 
@@ -380,7 +397,7 @@ public final class WordComposer {
      * the previous mode has priority over this.
      * @param mode the mode just before fetching suggestions
      */
-    public void adviseCapitalizedModeBeforeFetchingSuggestions(final int mode) {
+    public void adviseCapitalizedModeBeforeFetchingSuggestions(CapsMode mode) {
         if (!isComposingWord()) {
             mCapitalizedMode = mode;
         }
@@ -391,8 +408,7 @@ public final class WordComposer {
      * @return whether the word was automatically capitalized
      */
     public boolean wasAutoCapitalized() {
-        return mCapitalizedMode == CAPS_MODE_AUTO_SHIFT_LOCKED
-                || mCapitalizedMode == CAPS_MODE_AUTO_SHIFTED;
+        return mCapitalizedMode == CapsMode.AUTO_LOCKED || mCapitalizedMode == CapsMode.AUTO;
     }
 
     /**
@@ -438,7 +454,7 @@ public final class WordComposer {
         mEvents.clear();
         mCodePointSize = 0;
         mIsOnlyFirstCharCapitalized = false;
-        mCapitalizedMode = CAPS_MODE_OFF;
+        mCapitalizedMode = CapsMode.OFF;
         refreshTypedWordCache();
         mAutoCorrection = null;
         mCursorPositionWithinWord = 0;
@@ -499,6 +515,6 @@ public final class WordComposer {
     private WordComposer(boolean isEmpty) {
         mCodePointSize = isEmpty ? 0 : 1;
         mEvents = null;
+        mInputPointers = null;
     }
-
 }

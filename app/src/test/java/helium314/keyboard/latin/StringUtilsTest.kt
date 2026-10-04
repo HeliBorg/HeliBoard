@@ -10,8 +10,12 @@ import helium314.keyboard.latin.common.endsWithWordCodepoint
 import helium314.keyboard.latin.common.getFullEmojiAtEnd
 import helium314.keyboard.latin.common.getTouchedWordRange
 import helium314.keyboard.latin.common.isEmoji
+import helium314.keyboard.latin.common.isSingleGrapheme
+import helium314.keyboard.latin.common.moveStepsToCharCount
 import helium314.keyboard.latin.common.nonWordCodePointAndNoSpaceBeforeCursor
 import helium314.keyboard.latin.common.splitOnWhitespace
+import helium314.keyboard.latin.common.stripTrailingSeparatorsAndConnectors
+import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.TextRange
@@ -117,6 +121,23 @@ class StringUtilsTest {
         checkTextRange("@@@", "", spUrl, script, 0, 3)
     }
 
+    @Test fun singleGrapheme() {
+        assert(!"".isSingleGrapheme)
+        assert(",".isSingleGrapheme)
+        assert(!"!!".isSingleGrapheme)
+        assert("э́".isSingleGrapheme)
+        assert(!"\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08".isSingleGrapheme)
+        assert("\uD83C\uDFF3️\u200D\uD83C\uDF08".isSingleGrapheme)
+        assert("\uD83C\uDFF4\u200D☠️".isSingleGrapheme)
+        assert(!" 🏼".isSingleGrapheme)
+        assert(!"a🏼".isSingleGrapheme)
+        assert(!"🏼🏼".isSingleGrapheme)
+        assert("🏼".isSingleGrapheme)
+        assert("🇦".isSingleGrapheme) // 🇦 standalone regional indicator is a single grapheme
+        assert("🇩🇪".isSingleGrapheme) // 🇩🇪 flag (indicator pair) is still a single grapheme
+        assert(!"🇦🇧🇨".isSingleGrapheme) // 🇦🇧🇨 three indicators are not one grapheme
+    }
+
     @Test fun detectEmojisAtEnd() {
         assertEquals("", getFullEmojiAtEnd("\uD83C\uDF83 "))
         assertEquals("", getFullEmojiAtEnd("a"))
@@ -134,16 +155,15 @@ class StringUtilsTest {
         assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd(" \uD83C\uDFFC"))
         assertEquals("1\uFE0F⃣", getFullEmojiAtEnd("1\uFE0F⃣")) // 1️⃣
         assertEquals("©\uFE0F", getFullEmojiAtEnd("©\uFE0F")) // ©️
-    }
-
-    @Test fun detectEmojisAtEndFail() {
-        if (BuildConfig.BUILD_TYPE == "runTests") return
-        // fails, but unlikely enough that we leave it unfixed
-        assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd("\uD83C\uDF84\uD83C\uDFFC")) // 🎄🏼
-        // below also fail, because current ZWJ handling is not suitable for some unusual cases
         assertEquals("", getFullEmojiAtEnd("\u200D"))
         assertEquals("", getFullEmojiAtEnd("a\u200D"))
         assertEquals("\uD83D\uDE22", getFullEmojiAtEnd(" \u200D\uD83D\uDE22"))
+    }
+
+    @Test fun detectEmojisAtEndFails() {
+        if (BuildConfig.BUILD_TYPE == "runTests") return
+        // fails, but unlikely enough that we leave it unfixed (issue is that 🏼 is not a standalone emoji, but combining with 🎄 doesn't merge)
+        assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd("\uD83C\uDF84\uD83C\uDFFC")) // 🎄🏼
     }
 
     @Test fun isEmojiDetectsSingleEmojis() {
@@ -157,6 +177,27 @@ class StringUtilsTest {
         assert(!isEmoji("🖐🏾🏼"))
     }
 
+    @Test fun moveStepsToCharCount() {
+        assertEquals(3, moveStepsToCharCount("abcd", 3))
+        assertEquals(-3, moveStepsToCharCount("abcd", -3))
+        assertEquals(4, moveStepsToCharCount("abcd", 10))
+        assertEquals(-4, moveStepsToCharCount("abcd", -10))
+        assertEquals(8, moveStepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", 3))
+        assertEquals(-3, moveStepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", -3))
+        assertEquals(4, moveStepsToCharCount("aэ́cd", 3))
+        assertEquals(-2, moveStepsToCharCount("abcэ́", -1))
+        assertEquals(19, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 1))
+        assertEquals(21, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 2))
+        assertEquals(22, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 3))
+        assertEquals(23, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 4))
+        assertEquals(-2, moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -1))
+        assertEquals(-3, moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -2))
+        assertEquals(-23, moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -4))
+        assertEquals(3, moveStepsToCharCount("abcd", 3))
+        assertEquals(5, moveStepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", 1))
+        assertEquals(-6, moveStepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", -1))
+    }
+
     @Test fun isEmojiDetectsAllAvailableEmojis() {
         val ctx = ApplicationProvider.getApplicationContext<App>()
         val allEmojis = ctx.assets.list("emoji")!!.flatMap {
@@ -166,7 +207,6 @@ class StringUtilsTest {
 
         val brokenDetectionAtStart = listOf("〰️", "〽️", "©️", "®️", "#️⃣", "*️⃣", "0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "㊗️", "㊙️")
         allEmojis.forEach {
-            if (it == "🀄" || it == "🃏") return@forEach // todo: should be fixed, ideally in the regex
             assert(isEmoji(it))
             assert(StringUtils.mightBeEmoji(it.codePointBefore(it.length)))
             if (it !in brokenDetectionAtStart)
@@ -174,10 +214,19 @@ class StringUtilsTest {
         }
     }
 
-    // todo: add tests for emoji detection?
-    //  could help towards fully fixing https://github.com/Helium314/HeliBoard/issues/22
-    //  though this might be tricky, as some emojis will show as one on new Android versions, and
-    //  as two on older versions (also may differ by app)
+    @Test fun `strip trailing separators and connectors`() {
+        val ctx = ApplicationProvider.getApplicationContext<App>()
+        val svfs = SpacingAndPunctuations(ctx.resources, false)
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word)", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word\"", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word:", svfs))
+        assertEquals("wor:d", stripTrailingSeparatorsAndConnectors("wor:d:", svfs))
+        assertEquals("", stripTrailingSeparatorsAndConnectors(":", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word-", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word'", svfs))
+        assertEquals("word", stripTrailingSeparatorsAndConnectors("word'-'", svfs))
+    }
 
     private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, script: String, wordStart: Int, wordEnd: Int) {
         val got = getTouchedWordRange(before, after, script, sp)

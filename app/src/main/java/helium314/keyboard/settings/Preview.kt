@@ -15,5 +15,3 @@ fun initPreview(context: Context) {
     SettingsActivity.settingsContainer = SettingsContainer(context)
     KeyboardIconsSet.instance.loadIcons(context)
 }
-
-const val previewDark = true

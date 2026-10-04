@@ -381,7 +381,6 @@
     <string name="custom_font">Establecer tipo de letra persoal desde ficheiro</string>
     <string name="customize_background_image_landscape">Establecer imaxe de fondo (paisaxe)</string>
     <string name="summary_customize_background_image_landscape">Se non se establece usarase a imaxe como retrato</string>
-    <string name="enable_split_keyboard_landscape">Activar teclado separado (paisaxe)</string>
     <string name="split" tools:keep="@string/split">Telcado separado</string>
     <string name="prefs_font_scale">Escala do tamaño da letra</string>
     <string name="prefs_emoji_font_scale">Escala da visualización de emoji</string>
@@ -451,4 +450,109 @@
     <string name="custom_emoji_font">Escoller emojis persoais desde ficheiro</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emojis coa tecla de acción</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior do portapapeis coa tecla de acción</string>
+    <string name="timestamp_description">Podes engadir a telca de marca de tempo usando unha disposición persoal coa tecla \'marca de tempo\', ou código de tecla -10043</string>
+    <string name="prefs_bottom_row_scale">Escala da fila inferior</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas de función (Khipro)</string>
+    <string name="emoji_search_title">Buscar emoji</string>
+    <string name="search_field_placeholder">Buscar</string>
+    <string name="ask_later">Preguntar máis tarde</string>
+    <string name="gesture_data_screen">Obtendo datos dos xestos</string>
+    <string name="gesture_data_description">Esta é a pantalla de obtención dos datos para os xestos de escritura!&lt;br/&gt;&lt;br/&gt; É parte dun &lt;a href=https://nlnet.nl/project/GestureTyping&gt;proxecto financiado por NLnet&lt;/a&gt; que intenta producir unha biblioteca de escritura por xestos totalmente de código aberto e capaz de substituír a biblioteca de código oculto de Google.&lt;b/&gt; O resultado proxectado pretende ser unha substitución simple para teclados baseados en AOSP, pero tamén utilizable por outros teclados, ex. FloriBoard.&lt;br/&gt;&lt;br/&gt; Para desenvolver a biblioteca, é tremendamente útil ter datos de xestos en diferentes idiomas e diferentes persoas usuarias.&lt;br/&gt; Ao obter e enviar datos de xestos ao escribir contribúes ao conxunto de datos aberto que se usarán para o desenvolvemento. O conxunto de datos vaise publicar con licenza CC BY-SA 4.0 cando finalice a etapa de obtención de datos en %s. Unha vez recollidos os datos, podes envialos usando a icona compartir ao pé desta pantalla.</string>
+    <string name="gesture_data_info">Que é isto?</string>
+    <string name="gesture_data_description_modes">Actualmente só hai un modo de obtención activo, onde se mostra unha palabra concreta e escribes esta palabra usando a escritura con xestos.\nMáis tarde engadiremos o modo de obtención pasiva, onde podes engadir mostras desde a túa escritura corrente con cestos en outras apps. Debido a sensibilidade desta opción, terás que activar o acceso, será configurable e terá unha pantalla de revisión dos datos que vas a enviar.</string>
+    <string name="gesture_data_description_privacy">Privacidade\n\nOs datos enviados consisten nunha palabra clave, disposición do teclado e tamaño, xesto (marca temporal e coordenadas), suxestións da biblioteca actual, suma de comprobación do dicionario usado, versión da app, mode obtención dos datos, se o xesto está na biblioteca predeterminada de Google, así como un ID para cada xesto.\nOs datos enviados vanse descargar e eliminar dunha caixa de correo de ProtonMail onde se almacenan para facilitarnos o traballo. Após rematar a fase de obtención de datos, os datos acumulados durante todo o proceso van ser publicados baixo a licenza Creative Commons BY-SA 4.0.\n\nComo parte do intento de protexer a túa privacidade non se publicará explícitamente a túa autoría. O crédito outorgado vai ser \"Colaboradoras do Proxecto Heliboard de Datos de Xestos\". Non será posible ligar os datos que creaches nesta pantalla coa túa identidade. Emporiso, podería ser posible determinar que xestos foron creados pola mesma persoa. Isto pódese facer por exemplo tendo en conta se é un teclado cunha disposición de teclas persoal, tamaño do teclado, idioma ou estilo propio de xestos.</string>
+    <string name="gesture_data_privacy">Privacidade</string>
+    <string name="gesture_data_get_data">Compartir ficheiro de datos cos xestos</string>
+    <string name="gesture_data_delete_data">Limpar datos dos xestos</string>
+    <string name="gesture_data_send_mail">Enviar datos por correo</string>
+    <string name="gesture_data_copy_mail">Copiar enderezo de correo</string>
+    <string name="gesture_data_mail_use">Ten en conta que o enderezo de correo serve para o envío dos datos, pode que non teñas unha resposta pronta ou consistente.</string>
+    <string name="gesture_data_please_type">Por favor escribe cun xesto:</string>
+    <string name="gesture_data_next_save">Obtivemos %s. Preme se cres que o fixeches correctamente</string>
+    <string name="gesture_data_next">Omitir palabra</string>
+    <string name="gesture_data_active_count">%1$s palabras nesta sesión, %2$s palabras en total (%3$s xa enviadas ou eliminadas)</string>
+    <string name="gesture_data_review_screen_title">Revisar e compartir os datos dos xestos</string>
+    <string name="gesture_data_words_selected">%s palabras</string>
+    <string name="gesture_data_date_range">Rango de datas</string>
+    <string name="gesture_data_much_data">Tes moitos datos sen enviar. Por favor envíaos e despois elimina os datos antigos.</string>
+    <string name="gesture_data_how_to_use">Como se utiliza</string>
+    <string name="gesture_data_active_description">Toca en «Comezar a obtención activa», optativamente podes cambiar o dicionario, e comezar a escribir a palabra suxerida.&lt;br/&gt; Se o xesto concorda coa palabra, gárdanse os datos e móstrase a seguinte palabra. Se non, podes volver a intentalo ou omitir a palabra, ou confirmar que o xesto é correcto.&lt;br/&gt; Só podes usar dicionarios que están incluídos na app ou dispoñibles no &lt;a href=%s&gt;repositorio de dicionarios&lt;/a&gt;, non se poden usar outras palabras.</string>
+    <string name="gesture_data_active_start">Comezar a obtención activa</string>
+    <string name="gesture_data_active_stop">Deter a obtención activa</string>
+    <string name="gesture_data_ends_at">A fase de obtención de datos remata o %s. Por favor envía os teus datos antes desta data.</string>
+    <string name="gesture_data_ended">A fase de obtención de datos rematou o %s. Podes compartir os teus datos existentes, pero non engadir ningún novo.</string>
+    <string name="gesture_data_share_all">Comparte as %s palabras</string>
+    <string name="gesture_data_share_new">Comparte as %s palabras que aínda non enviaches</string>
+    <string name="gesture_data_delete_dialog">Tes datos de %1$s palabras novas e %2$s xa compartidas.</string>
+    <string name="gesture_data_delete_dialog_all">Eliminar todas as %s palabras</string>
+    <string name="gesture_data_delete_dialog_confirm">Tes certeza? Isto vai eliminar %s palabras. Comproba que enviaches os datos!</string>
+    <string name="gesture_data_delete_dialog_submitted">Eliminar %s palabras enviadas</string>
+    <string name="gesture_data_many_not_shared_words">Tes máis de %s palabras agardando a ser enviadas</string>
+    <string name="gesture_data_email_body">IMPORTANTE:\n\nOla!\nLembra que estes datos vanse publicar baixo licenza CC BY-SA 4.0, e por privacidade non mostraremos a túa autoría.\n\nGrazas por compartir con nós a propiedade dos teus datos. Faremos bo uso deles!\n\nTen en conta que cambiar a redacción deste aviso non cambia o que imos facer cos teus datos. Isto non é un contrato que se modifique, é só un recordatorio amigable!\nSe queres enviarnos unha mensaxe xunto cos teus datos, escribe aquí abaixo unhas liñas.\n-------------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Ola!\nComo instalaches a biblioteca de escritura con xestos, pode que che interese colaborar co proxecto de HeliBoard para crear unha biblioteca de código aberto para escritura con xestos. Podes colaborar enviando datos de escritura. Para máis información visita a pantalla de obtención de datos de xestos.</string>
+    <string name="gesture_data_reminder_message">Ola!\nCon anterioridade usaches a obtención de datos de xestos, pero non engadiches ningún dato desde hai tempo. Queres volver a colaborar?</string>
+    <string name="gesture_data_take_me_there">Imos aló</string>
+    <string name="gesture_data_links">Información sobre a obtención de datos de xestos en:</string>
+    <string name="toolbar_swipe_down_to_hide">Ocultar teclado cun desprazamento</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Despraza cara abaixo na barra de ferramentas para fechar o teclado</string>
+    <string name="custom_punctuation_suggestions">Establecer suxestións para a puntuación</string>
+    <string name="space_swipe_touchpad_mode_entry">Modo área táctil</string>
+    <string name="touchpad_sensitivity">Sensibilidade da área táctil</string>
+    <string name="folded">Pregado</string>
+    <string name="gesture_data_please_switch_keyboard">Por favor cambia a %s</string>
+    <string name="gesture_data_share_limit">Para evitar exceder o tamaño máximo, só se van exportar as primeiras %s palabras</string>
+    <string name="floating" tools:keep="@string/floating">Teclado flotante</string>
+    <string name="prefs_key_gap_scale">Escala do espazo entre teclas</string>
+    <string name="touchpad_edge_scroll">Desprazamento no bordo da zona táctil</string>
+    <string name="touchpad_edge_scroll_description">Desprazar o contido cando se pasa o dedo polo bordo do teclado</string>
+    <string name="toolbar_only_with_hw_keyboard">Mostrar a barra de ferramentas só con teclado físico</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Aínda así deberás activar mostrar o teclado virtual nos axustes do sistema</string>
+    <string name="spell_check_suggestions">Mostrar suxestións de ortografía</string>
+    <string name="spell_check_suggestions_summary">Mostrar suxestións o seleccionar unha palabra subliñada en vermello. Require establecer a app como revisora de ortografía predeterminada.</string>
+    <string name="auto_correct_capitalized_suggestions">Auto-corrixir suxestións en maiúscula</string>
+    <string name="auto_correct_capitalized_suggestions_description">Despois de premer maiúsculas para pór as suxestións en maiúscula, activarase a auto-corrección</string>
+    <string name="clipboard_history_files">Engadir imaxes e outros ficheiros ao historial do portapapeis</string>
+    <string name="clipboard_history_max_file_size">Límite de tamaño do portapapeis</string>
+    <string name="item_description">Descrición: %s</string>
+    <string name="item_type">Tipo: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="prefs_hint_font_scale">Escala da letra das suxestións das teclas</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4 filas)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="about_community_links">Ligazóns da comunidade</string>
+    <string name="about_community_links_description">Temas, editor de disposicións, conversas, …</string>
+    <string name="space_swipe_toggle_dpad_entry">Ver D-pad</string>
+    <string name="gesture_data_share_duplicate">Podes compartir de novo datos xa enviados, por se non tes certeza de que se recibisen correctamente. Detectamos e eliminamos os duplicados ao procesar os datos.</string>
+    <string name="gesture_data_active">Obtención activa</string>
+    <string name="background_gesture_data_links">Información sobre a obtención en segundo plano:</string>
+    <string name="gesture_data_background_gathering_switch">Usar a obtención de datos en segundo plano</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Apps permitidas: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Descartar por defecto</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Os datos gárdanse manualmente coa tecla da barra de ferramentas</string>
+    <string name="gesture_data_background_gathering_info">Máis información</string>
+    <string name="gesture_data_background_gathering_info_message">Ao activar a obtención de datos en segundo plano permites que Heliboard rexistre os xestos que escribes noutras apps. Isto é moi útil para o proxecto de escritura por xestos, xa que pode producir unha cantidade considerable de datos, aínda que de menor calidade que a obtención activa. A obtención de datos en segundo plano non substitúe os datos obtidos activamente; pensouse como un complemento, xa que a calidade dos datos é máis importante que a cantidade.\n\nA obtención en segundo plano ten un alto potencial de recoller datos que poderías considerar demasiado privados para compartir, mesmo publicados de forma anónima. Por iso queremos aclarar cando se están a obter datos de xestos e como podes influír niso.\n\nPodes atopar un vídeo que explica máis sobre a obtención de datos en segundo plano na sección de ligazóns na parte inferior dereita desta pantalla.</string>
+    <string name="gesture_data_background_gathering_indicator">Indicador de obtención de datos</string>
+    <string name="gesture_data_background_gathering_indicator_message">Sempre que se poidan rexistrar datos de xestos, verás unha icona indicadora na parte inferior esquerda do teclado. Cando o círculo está cheo, recolleuse polo menos un xesto que agarda a ser gardado. Os datos gárdanse coa tecla da barra de ferramentas (mira &lt;i&gt;%1$s&lt;/i&gt;) ou automaticamente (cando &lt;i&gt;%2$s&lt;/i&gt; está desactivado). O gardado automático adoita ocorrer ao cambiar de campo de texto ou pechar o teclado, pero tamén pode ocorrer se o campo de texto cambia por outro motivo. Mentres se gardan os datos, o indicador ponse verde durante un momento.</string>
+    <string name="gesture_data_background_gathering_control">Como controlar o que se garda</string>
+    <string name="gesture_data_background_gathering_control_message">Independentemente dos axustes, a obtención de datos en segundo plano está desactivada cando usas o modo incógnito. Tamén está desactivada nos campos de entrada marcados como sensibles (contrasinais, correo electrónico, ou cando o campo de entrada lle pide ao teclado que non aprenda as palabras). Só se recollerán palabras que estean nun dicionario principal (incluído na app ou do &lt;a href=%5$s&gt;repositorio de dicionarios&lt;/a&gt;). &lt;br&gt;&lt;br&gt; Con &lt;i&gt;%1$s&lt;/i&gt; podes escoller en que apps queres permitir a obtención de datos en segundo plano. O axuste por defecto desactiva todas as apps, coa activación app por app. Tamén podes escoller activar todas as apps e excluílas unha a unha. Isto é máis cómodo, pero permitirá automaticamente a recollida de datos de apps recén instaladas, o que podería facer que se recollan datos que non agardabas. &lt;br&gt;&lt;br&gt; Con &lt;i&gt;%2$s&lt;/i&gt; podes excluír palabras sensibles concretas. Ao escribir cun xesto unha palabra excluída, a icona indicadora seguirá mostrando o círculo cheo (\"datos agardando a ser gardados\"), pero os datos descartaranse cando normalmente se gardarían. As palabras bloqueadas que xa se gardasen antes de seren bloqueadas descartaranse ao exportar os datos.&lt;br&gt; Ten en conta que a obtención en segundo plano só recolle palabras que xa están nun dicionario principal, polo que probablemente as únicas palabras que precises bloquear sexan palabras comúns que poidan servir para identificarte, como o teu nome, rúa, cidade, territorio, etc. &lt;br&gt;&lt;br&gt; Cando &lt;i&gt;%3$s&lt;/i&gt; está activado, os datos só se gardan se o fas manualmente coa tecla &lt;i&gt;%4$s&lt;/i&gt; da barra de ferramentas (mira abaixo). Se non se gardan, os datos pendentes eliminaranse ao cambiar de campo de entrada ou pechar o teclado.&lt;br&gt; As exclusións de apps e palabras tamén se aplican neste modo. &lt;br&gt;&lt;br&gt; A tecla &lt;i&gt;%4$s&lt;/i&gt; da barra de ferramentas pode usarse para controlar a obtención de datos. O efecto dunha pulsación depende do estado actual: cando a obtención en segundo plano está desactivada, activarase.&lt;br&gt; Unha pulsación longa desactivará a obtención durante cinco minutos.&lt;br&gt; Podes reactivar antes a obtención de datos en segundo plano cunha pulsación normal.&lt;br&gt; Cando &lt;i&gt;%3$s&lt;/i&gt; está activado, gardaranse os datos pendentes.&lt;br&gt; Noutro caso, os datos pendentes descartaranse.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Na pantalla &lt;i&gt;%1$s&lt;/i&gt; podes revisar e filtrar os datos obtidos, eliminar os que consideres demasiado sensibles e compartir datos. Os botóns de eliminar e compartir actúan sobre os datos filtrados, ou sobre a selección se usas a pulsación longa para seleccionar palabras. (Ten en conta que a icona \"normal\" de compartir fóra da pantalla &lt;i&gt;%1$s&lt;/i&gt; só comparte datos da obtención activa.)&lt;br&gt; A orde dos datos compartidos é aleatoria, polo que non se pode deducir nada máis alá das palabras individuais.&lt;br&gt; Se queres ver todos os datos que se gardan dun xesto, podes compartilos nun ficheiro e cargar o ficheiro en &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="gesture_data_background_apps_button">Xestionar apps permitidas</string>
+    <string name="gesture_data_background_apps">Escolle as apps a incluír na obtención de datos en segundo plano</string>
+    <string name="gesture_data_background_apps_include_default">Incluír apps por defecto</string>
+    <string name="gesture_data_background_excluded_words_button">Xestionar palabras excluídas</string>
+    <string name="gesture_data_background_dictionary">Dicionario: %s</string>
+    <string name="gesture_data_background_position">Posición: %s</string>
+    <string name="gesture_data_background_exclude_words">Excluír palabra da obtención en segundo plano</string>
+    <string name="gesture_data_long_press_select_hint">Mantén premido para seleccionar</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Obtención de datos en segundo plano</string>
+    <string name="gesture_data_show_active">Mostrar datos da obtención activa</string>
+    <string name="gesture_data_show_background">Mostrar datos da obtención en segundo plano</string>
+    <string name="gesture_data_include_shared">Incluír datos xa enviados</string>
+    <string name="gesture_data_shared">enviada</string>
+    <string name="gesture_data_saving">Gardando… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Benvida á obtención de datos en segundo plano!&lt;br&gt; Queres engadir a tecla &lt;i&gt;%1$s&lt;/i&gt; á barra de ferramentas? Podes usala para controlar a obtención de datos; le máis sobre isto co botón &lt;i&gt;%2$s&lt;/i&gt;. &lt;br&gt;&lt;br&gt; Por defecto, a obtención en segundo plano está desactivada para todas as apps. Isto significa que non se recollerá nada ata que escollas que apps permites. Podes cambialo %3$s.</string>
+    <string name="gesture_data_add_key">Engadir tecla á barra de ferramentas</string>
+    <string name="gesture_data_no_known_dict">A obtención en segundo plano só recolle palabras procedentes de dicionarios incluídos na app ou dispoñibles no &lt;a href=%s&gt;repositorio de dicionarios&lt;/a&gt;. Actualmente non tes activado ningún dicionario dese tipo.</string>
+    <string name="gesture_data_swipe_o_scope">Ferramenta para visualizar os datos de xestos: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 </resources>

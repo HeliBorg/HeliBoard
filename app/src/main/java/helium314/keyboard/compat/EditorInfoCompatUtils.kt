@@ -37,11 +37,11 @@ object EditorInfoCompatUtils {
                 minLength = 8
             }
         }
-        Log.d(tag, "editorInfo: inputType: ${editorInfo.inputType.toHexString(format)}, imeOptions: ${editorInfo.imeOptions.toHexString(format)}")
         val allCaps = (editorInfo.inputType and InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS) != 0
         val sentenceCaps = (editorInfo.inputType and InputType.TYPE_TEXT_FLAG_CAP_SENTENCES) != 0
         val wordCaps = (editorInfo.inputType and InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0
-        Log.d(tag, ("All caps: $allCaps, sentence caps: $sentenceCaps, word caps: $wordCaps"))
+        Log.d(tag, "editorInfo: inputType: ${editorInfo.inputType.toHexString(format)}, imeOptions: ${editorInfo.imeOptions.toHexString(format)}, "
+            + "all caps: $allCaps, sentence caps: $sentenceCaps, word caps: $wordCaps")
     }
 
     @JvmStatic

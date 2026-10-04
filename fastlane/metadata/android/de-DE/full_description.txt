@@ -14,7 +14,7 @@ Features:
      <li>kann der Tag-/Nachteinstellung des Systems auf Android 10+ (und auf einigen Versionen von Android 9) folgen</li>
      <li>kann dynamischen Farben für Android 12+ folgen</li>
    </ul>
-   <li>Tastatur-<a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">Layouts</a> anpassen (nur verfügbar, wenn <i>Systemsprachen verwenden</i deaktiviert ist >)
+   <li>Tastatur-<a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">Layouts</a> anpassen (nur verfügbar, wenn <i>Systemsprachen verwenden</i deaktiviert ist >)
    </li>Anpassen spezieller Layouts, wie Symbole, Zahlen oder Funktionstastenlayout</li>
    <li>Mehrsprachiges Tippen</li>
    <li>Gleitendes Tippen (<i>nur mit quellgeschlossener Bibliothek</i> ☹️)</li>

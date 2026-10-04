@@ -5,5 +5,5 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Symbols that terminate sentences and require capitalization on the next char -->
-    <string name="symbols_sentence_terminators">.;!?</string>
+    <string name="symbols_sentence_terminators">.;!?‽</string>
 </resources>

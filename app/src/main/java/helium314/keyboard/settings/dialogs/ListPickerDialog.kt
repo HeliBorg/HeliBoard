@@ -25,8 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.latin.utils.previewDark
 
 // taken from StreetComplete
 @Composable
@@ -40,6 +41,7 @@ fun <T: Any> ListPickerDialog(
     getItemName: (@Composable (T) -> String) = { it.toString() },
     confirmImmediately: Boolean = true,
     showRadioButtons: Boolean = true,
+    onDefault: (() -> Unit)? = null,
 ) {
     var selected by remember { mutableStateOf(selectedItem) }
     val state = rememberLazyListState()
@@ -53,6 +55,8 @@ fun <T: Any> ListPickerDialog(
         onConfirmed = { selected?.let { onItemSelected(it) } },
         confirmButtonText = if (confirmImmediately) null else stringResource(android.R.string.ok),
         checkOk = { selected != null },
+        onNeutral = { onDefault?.invoke(); onDismissRequest(); },
+        neutralButtonText = onDefault?.let { stringResource(R.string.button_default) },
         modifier = modifier,
         title = title,
         content = {

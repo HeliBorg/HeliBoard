@@ -17,8 +17,6 @@
     <fraction name="config_keyboard_bottom_padding_holo">3.312%p</fraction>
     <fraction name="config_key_vertical_gap_holo">3.312%p</fraction>
     <fraction name="config_key_horizontal_gap_holo">1.066%p</fraction>
-    <fraction name="config_key_vertical_gap_holo_narrow">3.312%p</fraction>
-    <fraction name="config_key_horizontal_gap_holo_narrow">1.066%p</fraction>
     <!-- config_popup_keys_keyboard_key_height x -0.5 -->
     <dimen name="config_popup_keys_keyboard_vertical_correction_holo">-31.5dp</dimen>
 

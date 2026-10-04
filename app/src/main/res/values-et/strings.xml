@@ -180,17 +180,15 @@
     <string name="full_left" tools:keep="@string/full_left">Täis vasak</string>
     <string name="full_right" tools:keep="@string/full_right">Täis parem</string>
     <string name="left" tools:keep="@string/left">Vasakule</string>
-    <string name="load_gesture_library_summary">Kasuta oma teeki, mis kirjeldab trükkimisel kasutatavaid viipamisi</string>
+    <string name="load_gesture_library_summary">Kasuta oma teeki, mis kirjeldab sisestamisel kasutatavaid viipamisi</string>
     <string name="delete_swipe_summary">Alustades viipamist kustutamise nupust luba suurema kustutatava teksti valimine</string>
     <string name="popup_order">Vali hüpikakna klahvide järjekord</string>
     <string name="show_hints_summary">Näita klahvide pika vajutuse vihjeid</string>
     <string name="delete_swipe">Kustutamine viipamisega</string>
     <string name="checksum_mismatch_message">Tundmatu teegifail. Kas sa oled kindel, et said ta usaldusväärsest allikast ja ta on mõeldud „%s“ jaoks?</string>
-    <string name="load_gesture_library_message">Viipamiste teek on sul vajalik „%s“ jaoks.Mitteühilduvad teegid võivad trükkimisel viipamisega kokku joosta.
-\n
-\nHoiatus: välise koodi laadimine võib olla seotud turvariskiga. Kasuta vaid selliseid teek, mille allikat sa usaldad.</string>
+    <string name="load_gesture_library_message">Viipamiste teek on sul vajalik „%s“ jaoks. Mitteühilduvad teegid võivad viipamisega sisestusel kokku joosta. \n \nHoiatus: välise koodi laadimine võib olla seotud turvariskiga. Kasuta vaid sellist teeki, mille allikat sa usaldad.</string>
     <string name="close_history" tools:keep="@string/close_history">Sulge lõikelaua ajalugu</string>
-    <string name="load_gesture_library">Laadi trükkimisel kasutatavate viipamiste teek</string>
+    <string name="load_gesture_library">Laadi sisestusel kasutatav viipamiste teek</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="page_start" tools:keep="@string/page_start">Lehe algus</string>
     <string name="page_end" tools:keep="@string/page_end">Lehe lõpp</string>
@@ -230,7 +228,7 @@
     <string name="prefs_bottom_padding_scale">Alumiste veeriste mõõtkava</string>
     <string name="prefs_long_press_symbol_for_numpad">Sümbolklahvi pika vajutusega avaneb numbriline klahvistik</string>
     <string name="show_popup_hints">Näita funktsionaalseid vihjeid</string>
-    <string name="show_popup_hints_summary">Näita vihjeid, kui klahvi pika vajutusega on võimalik kasutada täiendavad funktsionaalsust</string>
+    <string name="show_popup_hints_summary">Näita vihjet, kui funktsiooniklahvi pika vajutusega avaneb hüpikaken</string>
     <string name="remove_redundant_popups">Eemalda mittevajalikud hüpikvalikud</string>
     <string name="remove_redundant_popups_summary">Ära käivita hüpikvalikuid, mis on juba olemas klaviatuuri tavapaigutuses</string>
     <string name="internal_dictionary_summary">Sisemine põhisõnastik</string>
@@ -329,42 +327,7 @@
     <string name="after_emoji">Valides emojide vaatest emoji</string>
     <string name="after_symbol_and_space">Vajutades sümbolites vaates sisestusklahvi või tühikuklahvi peale muid klahve</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dünaamilised värvid</string>
-    <string name="hidden_features_message">► Long-pressing pinned toolbar keys results in additional functionality: &lt;br&gt;
-\n\t• clipboard &amp;#65515; paste &lt;br&gt;
-\n\t• move left/right &amp;#65515; word left/right &lt;br&gt;
-\n\t• move up/down &amp;#65515; page up/down &lt;br&gt;
-\n\t• word left/right &amp;#65515; line start/end &lt;br&gt;
-\n\t• page up/down &amp;#65515; page start/end &lt;br&gt;
-\n\t• copy &amp;#65515; cut &lt;br&gt;
-\n\t• select word &amp;#8596; select all &lt;br&gt;
-\n\t• undo &amp;#8596; redo &lt;br&gt; &lt;br&gt;
-\n► Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt;
-\n► Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;
-\n\t• Emoji View and Language Switch will disappear if you have the corresponding key enabled; &lt;br&gt;
-\n\t• For some layouts it\\\'s not the Comma-key, but the key at the same position (e.g. it\\\'s \\\'q\\\' for Dvorak layout). &lt;br&gt; &lt;br&gt;
-\n► When incognito mode is enabled, no words will be learned, and no emojis will be added to recents. &lt;br&gt; &lt;br&gt;
-\n► Press the Incognito icon to access the toolbar. &lt;br&gt; &lt;br&gt;
-\n► Sliding key input: Swipe from shift to another key to type a single uppercase key: &lt;br&gt;
-\n\t• This also works for the \\\'?123\\\' key to type a single symbol from the symbols keyboard, and for related keys. &lt;br&gt; &lt;br&gt;
-\n► Hold shift or symbol key, press one or more keys, and then release shift or symbol key to return to the previous keyboard. &lt;br&gt; &lt;br&gt;
-\n► Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. &lt;br&gt; &lt;br&gt;
-\n► Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. &lt;br&gt; &lt;br&gt;
-\n► Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin). &lt;br&gt; &lt;br&gt;
-\n► Swipe left in clipboard view to remove an entry (except when it\\\'s pinned) &lt;br&gt; &lt;br&gt;
-\n► Select text and press shift to switch between uppercase, lowercase and capitalize words. &lt;br&gt; &lt;br&gt;
-\n► You can add dictionaries by opening them in a file explorer: &lt;br&gt;
-\n\t• This only works with &lt;i&gt;content-uris&lt;/i&gt; and not with &lt;i&gt;file-uris&lt;/i&gt;, meaning that it may not work with some file explorers. &lt;br&gt; &lt;br&gt;
-\n► For users doing manual backups with root access: &lt;br&gt;
-\n\t• Starting at Android 7, the shared preferences file is not in the default location, because the app is using %s. This is necessary so the settings can be read before the device is unlocked, e.g. at boot; &lt;br&gt;
-\n\t• The file is located in /data/user_de/0/package_id/shared_prefs/ though this may depend on the device and Android version. &lt;br&gt; &lt;br&gt;
-\n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-\n► Long-press a suggestion to show the source dictionary. &lt;br&gt; &lt;br&gt;
-\n► When using debug APK, you can find Debug Settings within the Advanced Preferences,though the usefulness is limited except for dumping dictionaries into the log. &lt;br&gt;
-\n\t• For a release APK, you need to tap the version in &lt;i&gt;About&lt;/i&gt; several times, then you can find debug settings in &lt;i&gt;Advanced Preferences&lt;/i&gt;. &lt;br&gt;
-\n\t• When enabling &lt;i&gt;Show suggestion infos&lt;/i&gt;, suggestions will have some tiny numbers on top showing some internal score and source dictionary. &lt;br&gt; &lt;br&gt;
-\n► In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. &lt;br&gt; &lt;br&gt;
-\n► When using multilingual typing, space bar will show an confidence value used for determining the currently used language. &lt;br&gt; &lt;br&gt;
-\n► Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled).</string>
+    <string name="hidden_features_message">► Tööriistaribale kinnitatud klahvide pikalt vajutamine võimaldab kasutada lisafunktsionaalsust: &lt;br&gt;\n• lõikelaud ￫ kleebi &lt;br&gt;\n• liiguta vasakule/paremale ￫ sõna vasakule/paremale &lt;br&gt;\n• liiguta üles/alla ￫ lehekülg üles/alla &lt;br&gt;\n• sõna vasakule/paremale ￫ rea algus/lõpp &lt;br&gt;\n• lehekülg üles/alla ￫ lehekülje algus/lõpp &lt;br&gt;\n• kopeeri ￫ lõika &lt;br&gt;\n• vali sõna ↔ vali kõik &lt;br&gt;\n• võta tagasi ↔ tee uuesti &lt;br&gt; &lt;br&gt;\n► Soovitusriba tööriistaribal olevate klahvide pikalt vajutamine kinnitab need soovitusribale. &lt;br&gt; &lt;br&gt;\n► Vajuta pikalt komaklahvi, et avada lõikelaua vaade, emojivaade, ühe käe režiim, seadistused või keele vahetamine: &lt;br&gt;\n• emojivaade ja keele vahetamine kaovad, kui vastav klahv on lubatud; &lt;br&gt;\n• mõne paigutuse puhul ei ole see komaklahv, vaid samas asukohas olev klahv (nt Dvoraki paigutuses on see „q”). &lt;br&gt; &lt;br&gt;\n► Kui inkognito režiim on lubatud, ei õpita uusi sõnu ega lisata emojisid hiljutiste hulka. &lt;br&gt; &lt;br&gt;\n► Vajuta inkognito ikooni, et avada tööriistariba. &lt;br&gt; &lt;br&gt;\n► Viipamisegasisestus: viipa Shift-klahvilt teisele klahvile, et sisestada üks suurtäht: &lt;br&gt;\n• see toimib ka klahviga „?123”, et sisestada üks sümbol sümbolite klaviatuurilt, ning seotud klahvidega. &lt;br&gt; &lt;br&gt;\n► Hoia Shift- või sümboliklahvi all, vajuta ühte või mitut klahvi ning vabasta siis Shift- või sümboliklahv, et naasta eelmisele klahvistikule. &lt;br&gt; &lt;br&gt;\n► Vajuta soovitusribal soovitust pikalt, et näha rohkem soovitusi ja kustutamisnuppu selle soovituse eemaldamiseks. &lt;br&gt; &lt;br&gt;\n► Viipa soovituselt üles, et avada rohkem soovitusi, ning vabasta soovituse peal selle valimiseks. &lt;br&gt; &lt;br&gt;\n► Vajuta lõikelaua ajaloo kirjet pikalt, et see kinnitada (hoida seda lõikelaual kuni kinnituse eemaldamiseni). &lt;br&gt; &lt;br&gt;\n► Viipa lõikelaua vaates vasakule, et kirje eemaldada (välja arvatud juhul, kui see on kinnitatud). &lt;br&gt; &lt;br&gt;\n► Vali tekst ja vajuta Shift-klahvi, et vahetada suurtähtede, väiketähtede ja sõnade algustähtede suureks tegemise vahel. &lt;br&gt; &lt;br&gt;\n► Sõnastikke saad lisada, avades need failihalduris: &lt;br&gt;\n• see toimib ainult &lt;i&gt;content-uri&lt;/i&gt;-dega, mitte &lt;i&gt;file-uri&lt;/i&gt;-dega, mis tähendab, et mõne failihalduriga ei pruugi see töötada. &lt;br&gt; &lt;br&gt;\n► Kasutajatele, kes teevad käsitsi varukoopiaid root-juurdepääsuga: &lt;br&gt;\n• alates Android 7-st ei asu jagatud eelistuste fail vaikimisi asukohas, kuna rakenduses on kasutusel %s. See on vajalik, et seadistusi saaks lugeda enne seadme avamist, näiteks käivitamisel; &lt;br&gt;\n• fail asub kaustas /data/user_de/0/package_id/shared_prefs/, kuid see võib sõltuda seadmest ja Androidi versioonist. &lt;br&gt; &lt;br&gt;\n&lt;i&gt;&lt;b&gt;Silumisrežiim / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n► Vajuta soovitust pikalt, et näha lähte-sõnastikku. &lt;br&gt; &lt;br&gt;\n► Silimisrežiimis APK kasutamisel leiad silumisseadistused täpsemate eelistuste alt, kuigi nende kasulikkus on piiratud, välja arvatud sõnastike logisse väljastamine. &lt;br&gt;\n• põhiversiooni APK puhul tuleb mitu korda vajutada menüüs &lt;i&gt;Teave&lt;/i&gt; olevale versiooninumbrile, seejärel leiad silumisseadistused menüüst &lt;i&gt;Täiendavad eelistused&lt;/i&gt;. &lt;br&gt;\n• kui lubad valiku &lt;i&gt;Näita soovituste infot&lt;/i&gt;, kuvatakse soovituste kohal väikesed numbrid, mis näitavad sisemist skoori ja lähte-sõnastikku. &lt;br&gt; &lt;br&gt;\n► Rakenduse kokkujooksmise korral küsitakse seadistuste avamisel, kas soovid krahhiloge. &lt;br&gt; &lt;br&gt;\n► Mitmekeelse sisestuse kasutamisel näitab tühikuklahv usaldusväärtuse väärtust, mida kasutatakse hetkel aktiivse keele määramiseks. &lt;br&gt; &lt;br&gt;\n► Soovituste kohal kuvatakse väikesed numbrid, mis näitavad sisemist skoori ja lähte-sõnastikku (saad selle ka keelata).</string>
     <string name="subtype_xdq">Kaitagi</string>
     <string name="dialog_close">Sulge</string>
     <string name="all_colors_warning">See seadistus näitab kõiki rakenduse sisemises töövoos kasutatavaid värve. Värvide loend võib suvalisel ajal muutuda. Vaikimisi värv tuletatakse tavavärvidest ja värvide nimed ei ole tõlgitud.</string>
@@ -417,7 +380,6 @@
     <string name="number_row_hints">Näita numbrireas vihjeid</string>
     <string name="prefs_language_swipe_distance">Vaheta keele viipamiskaugust</string>
     <string name="split" tools:keep="@string/split">Poolitatud klahvistik</string>
-    <string name="enable_split_keyboard_landscape">Kasuta kaheks jaotatud klahvistikku (rõhtvaates)</string>
     <string name="delete_confirmation">Kas kindlasti kustutame „%s“?</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktsiooniklahvid (suurel ekraanil)</string>
     <string name="name_invalid">Vigane nimi</string>
@@ -480,4 +442,108 @@
     <string name="number_row_in_symbols">Näita sümbolite vaates numbririda</string>
     <string name="custom_emoji_font">Lisa failist endavalitud emojid</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funktsiooniklahvid (khipro)</string>
+    <string name="toolbar_swipe_down_to_hide">Peida klahvistik viipamisega</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Klahvistiku peitmiseks viipa tööriistaribal ülalt alla</string>
+    <string name="timestamp_description">Kasutades kohandatud paigutust võid lisada ajatempli klahvi, mille väärtus on võti „timestamp“ või võtmekood -10043</string>
+    <string name="prefs_bottom_row_scale">Alumise rea mõõtkava</string>
+    <string name="emoji_search_title">Otsi emojit</string>
+    <string name="search_field_placeholder">Otsi</string>
+    <string name="ask_later">Küsi minult hiljem</string>
+    <string name="folded">Kokkulapatud</string>
+    <string name="gesture_data_screen">Viipamisandmete kogumine</string>
+    <string name="gesture_data_privacy">Privaatsus</string>
+    <string name="gesture_data_get_data">Jaga viipamisandmete faili</string>
+    <string name="gesture_data_delete_data">Eemalda viipamise andmed</string>
+    <string name="gesture_data_send_mail">Saada andmed e-postiga</string>
+    <string name="gesture_data_copy_mail">Kopeeri e-posti aadress</string>
+    <string name="custom_punctuation_suggestions">Seadista kirjavahemärkide tarvituse reeglid</string>
+    <string name="space_swipe_touchpad_mode_entry">Puuteplaadi režiim</string>
+    <string name="touchpad_sensitivity">Puuteplaadi tundlikkus</string>
+    <string name="gesture_data_description">&lt;b&gt;Tere tulemast viipamisandmete kogumise vaatesse!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; See on osa &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLneti rahastatud projektist&lt;/a&gt;, mille eesmärk on luua täielikult avatud lähtekoodiga viipamisandmete teek, mis suudaks asendada suletud lähtekoodiga Google’i teegi. &lt;br/&gt; Meie eesmärgiks on võimalikult lihtne asendus AOSP-põhistele klahvistikele, kuid seda saaks kasutada ka teiste klahvistikega, nt FlorisBoardiga.&lt;br/&gt;&lt;br/&gt; Teegi arendamiseks on äärmiselt suureks abiks, kui on olemas üksikasjalikud viipamiste andmed erinevates keeltes ja erinevate kasutajate poolt.&lt;br/&gt; Viipekirjutamisandmete kogumise ja esitamisega saad aidata kaasa avatud viipamisandmete kogu loomisele, mida kasutatakse teekide arendamiseks. Andmekogum avaldatakse CC BY-SA 4.0 litsentsi alusel mõni aeg pärast andmete kogumise faasi lõppu %s. Kui oled andmed mõnda aega kogunud, saad need meile saata, kasutades selle ekraani allosas asuvat jagamisikooni.</string>
+    <string name="gesture_data_info">Mis see on?</string>
+    <string name="gesture_data_description_modes">„Ohutu“ viis osalemiseks on &lt;i&gt;aktiivne kogumisviis&lt;/i&gt;, kus näed konkreetset sõna ja sisestad selle viipekirjutamisega.&lt;br&gt; Võid kasutada ka &lt;i&gt;passiivset kogumisviisi&lt;/i&gt;, kus saad lisada näiteid oma tavapärasest viipekirjutamisest muudes rakendustes. Kuna tegemist on delikaatsete andmetega, siis see eeldab teadlikku liitumist, on seadistatav ning enne andmete edastamist on sul võimalik see kõik üle vaadata.</string>
+    <string name="gesture_data_description_privacy">Privaatsus\n\nEsitatavad andmed hõlmavad sihtsõna, klahvistiku paigutust ja mõõtmeid, viibet ennast (ajad ja koordinaadid), praeguse teegi soovitusi, kasutatud sõnastike räsiväärtusi, rakenduse versiooni, andmete kogumise režiimi, teavet selle kohta, kas viipekirjutuse teek on vaikimisi Google’i teek ning iga viipe juurde kuuluvat tunnust.\n Esitatud andmed laaditakse alla ja kustutatakse ProtonMaili postkastist, kus need on salvestatud, niipea kui see on võimalik. Pärast viipeandmete kogumise faasi lõppu avaldatakse kõigi kasutajate kogutud andmekogum Creative Commons BY-SA 4.0 litsentsi alusel.\n\n Sinu privaatsuse kaitsmise eesmärgil ei nimetata sind autorina eraldi. Sinu panust märgitakse loendis „HeliBoardi viipeandmete projekti kaasautorid” (The HeliBoard Gesture Data Project Contributors). Selles aknas genereeritud andmeid ei tohiks olla võimalik sinu isikuga seostada. Siiski võib olla võimalik kindlaks teha, millised viiped on tehtud sama isiku poolt. Seda saab teha näiteks kohandatud klahvistiku paigutuse, klahvistiku mõõtmete, keele või individuaalse viibete stiili alusel.</string>
+    <string name="gesture_data_mail_use">Palun arvesta, et e-posti aadress on mõeldud andmete edastuseks ja sealt ei pruugi tulla kiireid ja järjekindlaid vastuseid.</string>
+    <string name="gesture_data_please_type">Palun sisesta viibates:</string>
+    <string name="gesture_data_please_switch_keyboard">Palun kasuta rakendust %s</string>
+    <string name="gesture_data_next_save">„%s“ on tehtud. Kui oled kindel, et oled viibanud korrektselt, siis klõpsa</string>
+    <string name="gesture_data_next">Jäta sõna vahele</string>
+    <string name="gesture_data_active_count">Selles sessioonis on %1$s sõna, kokku %2$s sõna (neist %3$s on juba edastatud või kustutatud)</string>
+    <string name="gesture_data_review_screen_title">Vaata üle ja jaga viipamise andmeid</string>
+    <string name="gesture_data_words_selected">%s sõna</string>
+    <string name="gesture_data_date_range">Kuupäevade vahemik</string>
+    <string name="gesture_data_much_data">Sul on kogunenud palju andmeid, mida sa pole veel edastanud. Palun edasta see kõik ja eemalda vanad andmed.</string>
+    <string name="floating" tools:keep="@string/floating">Hõljuv klahvistik</string>
+    <string name="prefs_key_gap_scale">Klahvide vahe mõõtkava</string>
+    <string name="touchpad_edge_scroll">Kerimine üle klahvistiku äärte</string>
+    <string name="touchpad_edge_scroll_description">Klahvistiku ääreni jõudes keri automaatselt edasi</string>
+    <string name="toolbar_only_with_hw_keyboard">Näita tööriistariba vaid välise klahvistiku ühendamisel</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Lisaks pead süsteemi seadistustes lubama virtuaalse klahvistiku kuvamise</string>
+    <string name="spell_check_suggestions">Näita õigekirjakontrolli soovitusi</string>
+    <string name="spell_check_suggestions_summary">Punase alajoonega märgitud sõna valimisel näita soovitusi. Eeldab, et rakendus on määratud vaikimisi õigekirjakontrollirakenduseks.</string>
+    <string name="gesture_data_how_to_use">Kuidas kasutamine toimib</string>
+    <string name="gesture_data_active_start">Alusta aktiivset kogumist</string>
+    <string name="gesture_data_active_stop">Lõpeta aktiivne kogumine</string>
+    <string name="gesture_data_active_description">Klõpsa valikut „&lt;i&gt;Alusta aktiivset kogumist&lt;/i&gt;“, soovi korral vaheta korral sõnastikku ja alusta kuvatud sõna kirjutamist viibates.&lt;br/&gt; Kui su viibe vastab sõnale, salvestatakse andmed ja kuvatakse järgmine sõna. Vastasel juhul saad uuesti proovida, sõna vahele jätta või kinnitada, et viibe oli õige.&lt;br/&gt; Saad kasutada ainult rakendusse sisseehitatud või &lt;a href=%s&gt;sõnastikute hoidlas&lt;/a&gt; leiduvaid sõnastikke, muid sõnu ei kasutata.</string>
+    <string name="gesture_data_ends_at">Viipeandmete kogumise faas lõppeb %s. Palun saada oma kogutud andmed enne seda kuupäeva.</string>
+    <string name="gesture_data_ended">Viipeandmete kogumise faas lõppes %s. Võid saata oma kogutud andmed, kuid midagi uut lisada ei saa.</string>
+    <string name="gesture_data_share_all">Jaga kõik %s sõna</string>
+    <string name="gesture_data_share_new">Jaga %s senijagamata sõna</string>
+    <string name="gesture_data_delete_dialog">Sul on andmed %1$s uue ja %2$s juba jagatud sõna kohta.</string>
+    <string name="gesture_data_share_limit">Mahupiirangute ületamise vältimiseks eksporditakse vaid %s esimest sõna</string>
+    <string name="gesture_data_delete_dialog_all">Kustuta kõik %s sõna</string>
+    <string name="gesture_data_delete_dialog_confirm">Kas oled kindel? Järgnevaga kustutad %s sõna. Palun kontrolli, et oleksid kogutud andmed edastanud!</string>
+    <string name="gesture_data_delete_dialog_submitted">Kustuta %s edastatud sõna</string>
+    <string name="gesture_data_many_not_shared_words">Sul on enam, kui %s sõna edastamise ootel</string>
+    <string name="gesture_data_links">Teave viipeandmete aktiivse kogumise kohta:</string>
+    <string name="gesture_data_take_me_there">Vii mind sinna</string>
+    <string name="gesture_data_reminder_message">Hei!\nSa oled varem kogunud viipeandmeid, kuid pole mõnda aega mida saatnud. Tahaksid sa uuesti kaastööd teha?</string>
+    <string name="gesture_data_email_body">TÄHELEPANU:\n\n Tere!\n Tuletame meelde, et need andmed avaldatakse avalikult CC BY-SA 4.0 litsentsi alusel ning sinu privaatsuse kaitsmiseks ei nimetata sind autorina.\n\n Täname, et jagad meiega oma andmete kasutamisõigusi. Me kasutame neid üllal eesmärgil!\n\n Palun pane tähele, et käesoleva teate sõnastuse muutmine ei muuda seda, kuidas me sinu andmeid kasutame. See ei ole leping, mida saab muuta, vaid lihtsalt sõbralik meeldetuletus!\n Kui soovid meile koos oma andmetega sõnumi saata, kirjuta see siia alla.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Tere!\nKuna oled paigaldanud viipamisega kirjutamise teegi, võiks sind huvitada HeliBoardi projekt, mille eesmärk on luua täielikult avatud viipamisega kirjutamise teek. Saad aidata kaasa, jagades viipamise andmeid. Lisateabe saamiseks külasta viipamisandmete kogumise lehekülge.</string>
+    <string name="clipboard_history_files">Lisa pilte ja muid faile lõikelaua ajalukku</string>
+    <string name="clipboard_history_max_file_size">Lõikelaua mahupiirang</string>
+    <string name="item_description">Kirjeldus: %s</string>
+    <string name="item_type">Tüüp: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="subtype_generic_4row">%s (4-realine)</string>
+    <string name="gesture_data_active">Aktiivne kogumine</string>
+    <string name="background_gesture_data_links">Teave viipeandmete taustal kogumise kohta:</string>
+    <string name="gesture_data_background_gathering_switch">Kasuta andmete kogumist taustal</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Lubatud rakendused: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Vaikimisi loobu</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Andmed salvestatakse käsitsi tööriistariba nupust</string>
+    <string name="gesture_data_background_gathering_info">Lisateave</string>
+    <string name="gesture_data_background_dictionary">Sõnastik: %s</string>
+    <string name="gesture_data_background_position">Asukoht: %s</string>
+    <string name="gesture_data_background_exclude_words">Välista sõna kogumisest taustal</string>
+    <string name="gesture_data_long_press_select_hint">Valimiseks vajuta pikalt</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Andmete kogumine taustal</string>
+    <string name="gesture_data_show_active">Näita aktiivselt kogutud andmeid</string>
+    <string name="gesture_data_show_background">Näita taustal kogutud andmeid</string>
+    <string name="gesture_data_shared">edastatud</string>
+    <string name="gesture_data_include_shared">Kaasa juba edastatud andmed</string>
+    <string name="gesture_data_saving">Salvestan… %s%%</string>
+    <string name="gesture_data_share_duplicate">Kui sa pole kindel, et andmed on korrektselt kätte saadud, siis võid edastatud andmeid uuesti jagada. Andmete töötlemisel me tuvastame topeltandmed ja eemaldame need.</string>
+    <string name="gesture_data_background_gathering_indicator">Andmete kogumise indikaator</string>
+    <string name="gesture_data_background_gathering_control">Kuidas saad hallata, mida salvestatakse</string>
+    <string name="gesture_data_background_apps_button">Halda lubatud rakendusi</string>
+    <string name="gesture_data_background_apps">Vali rakendused, kus taustal kogumine on lubatud</string>
+    <string name="gesture_data_background_apps_include_default">Vaikimisi kaasa rakendused</string>
+    <string name="gesture_data_background_excluded_words_button">Halda välistatud sõnu</string>
+    <string name="gesture_data_first_enable_dialog">Tere tulemast viipeandmete kogumist taustal!&lt;br&gt; Kas tahad lisada &lt;i&gt;%1$s&lt;/i&gt; klahvi tööriistaribale? Selle abil saad juhtida andmekogumist, loe lisaks &lt;i&gt;%2$s&lt;/i&gt; nupu kohta.&lt;br&gt;&lt;br&gt; Vaikimisi on andmete kogumine taustal kõikide rakenduste puhul keelatud. See tähendab, et mitte midagi ei koguta enne, kui oled valinud rakendused, kus kogumine on lubatud. Sa võid seda muuta siin: %3$s.</string>
+    <string name="gesture_data_swipe_o_scope">Tarvik viipeandmete visualiseerimiseks: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="gesture_data_no_known_dict">Andmete kogumine taustal kehtib vaid sõnade kohta, mis leiduvad rakendusega kaasnevates sõnastikes või on saadaval &lt;a href=%s&gt;sõnastike hoidlas&lt;/a&gt;. Hetkel pole sul ühtegi sellist sõnastikku kasutusel.</string>
+    <string name="gesture_data_add_key">Lisa klahv tööriistaribale</string>
+    <string name="gesture_data_background_gathering_info_message">Taustal toimuva andmete kogumise sisselülitamine võimaldab Heliboardil salvestada viipeid, mida sa teistes rakendustes teed. See on viipekirjutamise projekti jaoks väga kasulik, kuna võimaldab koguda märkimisväärse hulga andmeid, kuigi nende kvaliteet on madalam kui aktiivse kogumise puhul. Taustal toimuv andmete kogumine ei asenda aktiivselt kogutud andmeid, vaid on mõeldud täienduseks, kuna andmete kvaliteet on olulisem kui kvantiteet.\n\n Taustal kogumisel on suur oht, et kogutakse andmeid, mida võid pidada liiga isiklikuks, et neid jagada, isegi kui need avaldatakse anonüümselt. Seetõttu soovime selgitada, millal viipeandmeid kogutakse ja kuidas saad seda mõjutada.\n\nVideo, mis selgitab taustal andmete kogumist lähemalt, leiad selle ekraani paremas alumises nurgas olevast linkide plokist.</string>
+    <string name="gesture_data_background_gathering_indicator_message">Kui viipeandmeid salvestatakse, kuvatakse klahvistiku vasakus alumises nurgas vastav ikoon. Kui ring on täidetud, on salvestatud vähemalt üks viibe ja see ootab salvestamist. Andmed salvestatakse kas tööriistariba nupu abil (vt &lt;i&gt;%1$s&lt;/i&gt;) või automaatselt (kui &lt;i&gt;%2$s&lt;/i&gt; on keelatud). Automaatne salvestamine toimub tavaliselt tekstiväljade vahetamisel või klahvistiku sulgemisel, kuid võib toimuda ka siis, kui tekstiväli muutub mõnel muul põhjusel. Andmete salvestamise ajal muutub indikaator lühikeseks ajaks roheliseks.</string>
+    <string name="gesture_data_background_gathering_review_message">Kasitades &lt;i&gt;%1$s&lt;/i&gt;-vaadet saad kogutud andmeid vaadata ja filtreerida, kustutada andmeid, mida pead jagamiseks liiga delikaatseks. Kustutamis- ja jagamisnupud toimivad filtreeritud andmete puhul või valiku puhul, kui kasutad sõnade valimiseks pikka vajutust. (Pand tähele, et „tavaline“ jagamisikoon väljaspool &lt;i&gt;%1$s&lt;/i&gt; vaadet jagab ainult aktiivse kogumise andmeid.)&lt;br&gt; Jagatud andmete järjekord on juhuslik, seega ei ole võimalik järeldada midagi enamat kui üksikuid sõnu. &lt;br&gt; Kui soovid vaadata viipe kohta salvestatud täielikke andmeid, saad need jagada failina ja laadida faili &lt;a href=%2$s&gt;Swipe-O-Scope\'i&lt;a&gt; teenusesse.</string>
+    <string name="gesture_data_background_gathering_control_message">Sõltumata seadistustest on taustal andmete kogumine privaatses režiimis keelatud. See on keelatud ka delikaatseks märgitud sisestusväljade puhul (salasõnad, e-post või juhul, kui sisestusväli nõuab, et klahvistik sõnu ei õpiks). Kogutakse ainult neid sõnu, mis on peamises sõnastikus (sisseehitatud või pärit &lt;a href=%5$s&gt;sõnastike hoidlast&lt;/a&gt;). &lt;br&gt;&lt;br&gt; Kasutades &lt;i&gt;%1$s&lt;/i&gt; saad valida, millistes rakendustes soovid lubada andmete kogumist taustal. Vaikeseadistused keelavad kõik rakendused, kusjuures iga rakenduse puhul tuleb andmete kogumine eraldi lubada. Võid toimida ka teistpidi - valid, et lubad kõik rakendused ja keelad need, kus sa seda ei soovi. See on mugavam, kuid lubab automaatselt andmete kogumist ka äsja paigaldatud rakendustest. See võib põhjustada ootamatut andmekogumist. &lt;br&gt;&lt;br&gt; &lt;i&gt;%2$s&lt;/i&gt; abil saad välistada teatud delikaatsed sõnad. Kui viipad välistatud sõnaga, näitab indikaatori ikoon endiselt täidetud ikooni („andmed ootavad salvestamist“), kuid andmed tegelikult salvestamise asemel kustutatakse. Kõik blokeeritud sõnad, mis on juba enne sõna blokeerimist salvestatud, kustutatakse andmete eksportimisel ära. &lt;br&gt; Pane tähele, et taustal kogutakse ainult sõnu, mis on juba põhisõnastikus, seega on ainsad sõnad, mida sa tõenäoliselt blokeerima pead, tavalised sõnad, mida võidakse kasutada sinu isiku tuvastamiseks, nagu: sinu nimi, tänav, linn, piirkond jne. &lt;br&gt;&lt;br&gt; Kui &lt;i&gt;%3$s&lt;/i&gt; on sisse lülitatud, salvestatakse andmed ainult siis, kui teed seda käsitsi tööriistariba nupu &lt;i&gt;%4$s&lt;/i&gt; abil (vt allpool). Kui andmeid ei salvestata, kustutatakse ootele jäänud andmed sisestusvälja vahetamisel või klaviatuuri sulgemisel. &lt;br&gt; Selles režiimis kehtivad endiselt rakenduste ja sõnade välistused. &lt;br&gt;&lt;br&gt; Tööriistariba nuppu &lt;i&gt;%4$s&lt;/i&gt; saad kasutada andmete kogumise juhtimiseks. Nupu vajutamise mõju sõltub hetkeolukorrast: kui taustal kogumine on keelatud, lülitatakse see sisse.&lt;br&gt; Pikk vajutus lülitab kogumise viieks minutiks välja.&lt;br&gt; Saad taustal andmete kogumise varem uuesti sisse lülitada tavalise nupuvajutusega.&lt;br&gt; Kui &lt;i&gt;%3$s&lt;/i&gt; on sisse lülitatud, salvestatakse ootel olevad andmed.&lt;br&gt; Muidu kustutatakse ootel olevad andmed ära.&lt;br&gt;</string>
+    <string name="auto_correct_capitalized_suggestions">Paranda suurtähtedes soovitused automaatselt</string>
+    <string name="auto_correct_capitalized_suggestions_description">Suurtähtedeks tegemiseks Shift-klahvi vajutaamise järel käivitub automaatne parandus</string>
+    <string name="prefs_hint_font_scale">Soovituste kirjatüüpide mõõtkava</string>
+    <string name="about_community_links">Kogukonna lingid</string>
+    <string name="about_community_links_description">Kujundused, klahvipaigutused, arutelud, …</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">Suunaklahvistik</string>
+    <string name="space_swipe_toggle_dpad_entry">Lülita suunaklahvistik sisse/välja</string>
 </resources>

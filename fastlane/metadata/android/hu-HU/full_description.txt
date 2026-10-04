@@ -6,18 +6,18 @@ Funkciók:
   <li>Szótárak hozzáadása a javaslatokhoz és a helyesírás-ellenőrzéshez</li>
   <ul>
     <li>készítsen sajátot, vagy szerezze be őket <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">innen</a>, vagy a <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">kísérleti</a> szekcióból (a minőség változó lehet)</li>
-    <li>további szótárak használhatók emodzsikhoz vagy tudományos szimbólumokhoz javaslatok biztosítására (hasonlóan az „emodzsi kereséshez”)</li>
+    <li>további szótárak használhatók emodzsikhoz vagy tudományos szimbólumokhoz javaslatok biztosítására (hasonlóan az „Emodzsikeresés” funkcióhoz)</li>
     <li>vegye figyelembe, hogy a koreai elrendezéseknél a javaslatok csak <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">ezzel a szótárral</a> működnek, a szótár-adattárban lévő eszközök nem képesek működő szótárakat létrehozni</li>
   </ul>
-  <li>Billentyűzet témák testreszabása (stílus, színek és háttérkép)</li>
+  <li>Billentyűzet témáinak testreszabása (stílus, színek és háttérkép)</li>
   <ul>
     <li>követheti a rendszer nappali/éjszakai beállítását Android 10+ (és néhány Android 9 verzió) esetén</li>
     <li>követheti a dinamikus színeket Android 12+ esetén</li>
   </ul>
-  <li>Billentyűzet <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">elrendezések</a> testreszabása (csak a <i>rendszernyelvek használata</i> letiltásakor érhető el)</li>
+  <li>Billentyűzet <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">elrendezések</a> testreszabása (csak a <i>rendszernyelvek használata</i> letiltásakor érhető el)</li>
   <li>Speciális elrendezések testreszabása, mint például szimbólumok, számok vagy funkcióbillentyűk elrendezése</li>
   <li>Többnyelvű gépelés</li>
-  <li>Csúszó gépelés (<i>csak zárt forráskódú könyvtárral</i> ☹️)</li>
+  <li>Ujjmozdulatokkal való gépelés (<i>csak zárt forráskódú könyvtárral</i> ☹️)</li>
   <ul>
     <li>a könyvtár nem része az alkalmazásnak, mivel nincs kompatibilis nyílt forráskódú könyvtár</li>
     <li>GApps csomagokból („<i>swypelibs</i>”) nyerhető ki, vagy letölthető <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">innen</a> (kattintson a fájlra, majd a „raw” vagy a kis letöltés gombra)</li>

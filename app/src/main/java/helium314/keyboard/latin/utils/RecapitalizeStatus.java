@@ -63,7 +63,7 @@ public class RecapitalizeStatus {
     }
 
     public boolean isSetAt(final int cursorStart, final int cursorEnd) {
-        return cursorStart == mTextPlacement.selectionStart && cursorEnd == mTextPlacement.selectionEnd();
+        return cursorStart == mTextPlacement.startPosition && cursorEnd == mTextPlacement.endPosition();
     }
 
     /**

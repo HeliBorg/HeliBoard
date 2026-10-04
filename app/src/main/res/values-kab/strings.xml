@@ -11,13 +11,13 @@
     <string name="user_dict_settings_edit_dialog_title">Beddel awal-a</string>
     <string name="save">Sekles</string>
     <string name="add">Rnu</string>
-    <string name="user_dict_settings_more_languages">Tutlayin-nniḍen …</string>
+    <string name="user_dict_settings_more_languages">Ugar n tutlayin…</string>
     <string name="remove">Kkes</string>
     <string name="subtype_locale">Tutlayt</string>
     <string name="keyboard_layout_set">Anasiw</string>
     <string name="setup_start_action">Bdu</string>
     <string name="settings">Iɣewwaren</string>
-    <string name="setup_finish_action">IH</string>
+    <string name="setup_finish_action">Yemmed</string>
     <string name="delete">Kkes</string>
     <string name="user_dict_settings_add_word_hint">Aru yiwen n wawal</string>
     <string name="label_search_key">Nadi</string>
@@ -29,14 +29,14 @@
     <string name="dialog_close">Mdel</string>
     <string name="label_pause_key" tools:keep="@string/label_pause_key">Seṛǧu</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Aceɛlal</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Aberkan</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Berrik</string>
     <string name="settings_screen_about">Ɣef</string>
     <string name="settings_screen_advanced">Iɣewwaren leqqayen</string>
     <string name="settings_screen_theme">Asentel</string>
     <string name="settings_category_input">Anekcum</string>
     <string name="settings_category_suggestions">Isumar</string>
     <string name="switch_language">Abeddel n tutlayt</string>
-    <string name="show_emoji_key">Tiqfilt n imujiyen</string>
+    <string name="show_emoji_key">Taqeffalt n yimujiyen</string>
     <string name="settings_system_default">Amezwer n unagraw</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Asettef</string>
     <string name="undo" tools:keep="@string/undo">Sefsex</string>
@@ -69,7 +69,7 @@
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Izamulen</string>
     <string name="file_read_error">Ur yezmir ara ad iɣer afaylu</string>
     <string name="button_save_file">Sekles ɣer ufaylu</string>
-    <string name="copy_to_clipboard">Nɣel ɣer tfelwit n afus</string>
+    <string name="copy_to_clipboard">Nɣel ɣer tecfawit</string>
     <string name="button_backup">Sekles</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Izamulen</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Tutlayt (tuzwirt)</string>
@@ -112,4 +112,63 @@
     <string name="user_dict_settings_add_weight_value">Taẓayt:</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Tiliɣri</string>
     <string name="settings_category_additional_keys">Tiqeffalin nniḍen</string>
+    <string name="auto_correction_threshold_mode_off">Sens</string>
+    <string name="gesture_data_privacy">Tabaḍnit</string>
+    <string name="search_field_placeholder">Nadi</string>
+    <string name="version_text">Lqem wis %s</string>
+    <string name="user_dict_settings_add_shortcut_hint">Anegzum axetṛan</string>
+    <string name="select_color_background">Agilal n unasiw</string>
+    <string name="select_color_key_background">Agilal n tqeffalin</string>
+    <string name="license">Turagt n uɣbalu yeldin</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Ugar n izamulen</string>
+    <string name="icon_style">Aɣanib n tignit</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
+    <string name="toolbar_mode">Askar n tfeggagt n yifecka</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="customize_icons">Sagen tignitin</string>
+    <string name="key_code">Angal n tqeffalt</string>
+    <string name="space_swipe_hide_keyboard_entry">Ffer anasiw</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="gesture_data_info">D acu-t wa?</string>
+    <string name="gesture_data_next">Zgel awal-a</string>
+    <string name="gesture_data_words_selected">%s n wawalen</string>
+    <string name="split" tools:keep="@string/split">Anasiw yebḍan</string>
+    <string name="setup_welcome_title">Ansuf ar %s</string>
+    <string name="setup_step2_title">Beddel ar %s</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <string name="auto_user_color">Afran awurman n yini</string>
+    <string name="about_github_link">Wali-t deg Github</string>
+    <string name="about_wiki_link">Adduf ɣer Wiki</string>
+    <string name="ask_later">Steqsi-iyi-d ticki</string>
+    <string name="gesture_data_take_me_there">Awi-iyi ɣer din</string>
+    <string name="add_new_dictionary_title">Rnu amawal seg ufaylu</string>
+    <string name="replace_dictionary">Semselsi amawal</string>
+    <string name="internal_dictionary_summary">Amawal amatu adigan</string>
+    <string name="dictionary_load_error">Tuccḍa deg uɛebbi n ufaylu n umawal</string>
+    <string name="add_to_personal_dictionary">Rnu awalen ɣer umawal udmawan</string>
+    <string name="language_switch_key_behavior">Tiddin n tqeffalt n ubeddel n tutlayt</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Tettwaffer</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Tacfawit</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Sfeḍ tacfawit</string>
+    <string name="clipboard_toolbar_keys">Fren tiqeffalin n tfeggagt n tifecka n tecfawit</string>
+    <string name="subtype_generic_student">%s (Anelmad)</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Izamulen (Taɛrabt)</string>
+    <string name="setup_step1_title">Sermed %s</string>
+    <string name="setup_steps_title">Swel %s</string>
+    <string name="setup_step1_action">Sermed deg iɣewwaren</string>
+    <string name="setup_step3_action">Swel anasiw</string>
+    <string name="gnu_gpl">Turagt Tazayazt Tamatut GNU v3.0</string>
+    <string name="text_tap_languages">Sit ɣef tutlayt i wakken ad teldiḍ iɣawwaren</string>
+    <string name="save_log">Sekles aɣmis</string>
+    <string name="label_previous_key">Uzwir</string>
+    <string name="hidden_features_title">Aglam n tmahilin yeffren</string>
+    <string name="customize_toolbar_key_codes">Sagen angalen n tqeffalin n tfeggagt n yifecka</string>
+    <string name="emoji_search_title">Anadi n yimujiten</string>
+    <string name="gesture_data_copy_mail">Nɣel tansa n yimayl</string>
+    <string name="gesture_data_please_switch_keyboard">Ttxil beddel ɣer %s</string>
+    <string name="gesture_data_send_mail">Azen isefka s yimayl</string>
+    <string name="gesture_data_share_all">Bdu %s n wawalen</string>
+    <string name="gesture_data_delete_dialog_all">Kkes %s n wawalen</string>
 </resources>

@@ -9,8 +9,6 @@ package helium314.keyboard.latin.settings;
 import android.content.res.Resources;
 
 import helium314.keyboard.compat.ConfigurationCompatKt;
-import helium314.keyboard.keyboard.internal.PopupKeySpec;
-import helium314.keyboard.latin.PunctuationSuggestions;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
@@ -28,7 +26,6 @@ public final class SpacingAndPunctuations {
     private final int[] mSortedSometimesWordConnectors; // maybe rename... they are some sort of glue for words containing separators
     public final int[] mSortedWordSeparators;
     public final List<int[]> mPairSymbols;
-    public final PunctuationSuggestions mSuggestPuncList;
     private final int mSentenceSeparator;
     private final int mAbbreviationMarker;
     private final int[] mSortedSentenceTerminators;
@@ -60,9 +57,6 @@ public final class SpacingAndPunctuations {
         // English variants. German rules (not "German typography") also have small gotchas.
         mUsesAmericanTypography = Locale.ENGLISH.getLanguage().equals(locale.getLanguage());
         mUsesGermanRules = Locale.GERMAN.getLanguage().equals(locale.getLanguage());
-        final String[] suggestPuncsSpec = PopupKeySpec.splitKeySpecs(
-                res.getString(R.string.suggested_punctuations));
-        mSuggestPuncList = PunctuationSuggestions.newPunctuationSuggestions(suggestPuncsSpec);
     }
 
     public boolean isWordSeparator(final int code) {
@@ -130,8 +124,6 @@ public final class SpacingAndPunctuations {
                 "" + Arrays.toString(mSortedWordConnectors) +
                 "\n   mSortedWordSeparators = " +
                 "" + Arrays.toString(mSortedWordSeparators) +
-                "\n   mSuggestPuncList = " +
-                "" + mSuggestPuncList +
                 "\n   mSentenceSeparator = " +
                 "" + mSentenceSeparator +
                 "\n   mSentenceSeparatorAndSpace = " +

@@ -4,8 +4,8 @@ contact_links:
     url: https://codeberg.org/Helium314/aosp-dictionaries
     about: Requests for dictionaries (used for suggestions / autocompletion) will be handled in the linked dictionary repository. You can check whether a dictionary for the language you want already exists there.
   - name: Discussion
-    url: https://github.com/Helium314/HeliBoard/discussions
+    url: https://github.com/HeliBorg/HeliBoard/discussions
     about: For discussions and feedback about this app, asking questions or talking about ideas which are not yet actionable (i.e. not suitable for an issue).
   - name: Question
-    url: https://github.com/Helium314/HeliBoard/discussions/new?category=q-a
+    url: https://github.com/HeliBorg/HeliBoard/discussions/new?category=q-a
     about: For questions please use the discussions section. You may also want to search your question in the FAQ (see readme).

@@ -1,0 +1,10 @@
+* Búsqueda de emojis (requiere un diccionario de emojis)
+* Gestos (con Gesture Typing)
+* Texto seleccionado entre paréntesis, etc., en lugar de sustituirlo
+* Configurar fuente de emojis independiente
+* Serie numérica opcional en el diseño de símbolos
+* Reducido las autocorrecciones erróneas en correos electrónicos
+* Corregido el movimiento del cursor con la barra espaciadora en texto
+* Selección de mayúsculas y minúsculas
+* Mejorado el combinador Khipro
+* Pequeñas correcciones y mejoras

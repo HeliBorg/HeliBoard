@@ -3,10 +3,10 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_dict">"Hľadať mená kontaktov"</string>
-    <string name="vibrate_on_keypress">"Pri stlačení klávesu vibrovať"</string>
-    <string name="sound_on_keypress">"Zvuk pri stlačení klávesu"</string>
+    <string name="vibrate_on_keypress">Vibrovanie pri stlačení klávesy</string>
+    <string name="sound_on_keypress">Zvuk pri stlačení klávesy</string>
     <string name="popup_on_keypress">"Detail znaku pri stlačení"</string>
     <string name="settings_screen_preferences">"Predvoľby"</string>
     <string name="settings_screen_gesture">"Písanie gestami"</string>
@@ -21,7 +21,7 @@
     <string name="use_contacts_dict_summary">"Používať mená z kontaktov na návrhy a opravy"</string>
     <string name="use_personalized_dicts">"Prispôsobené návrhy"</string>
     <string name="use_double_space_period">"Bodka dvojitým medzerníkom"</string>
-    <string name="use_double_space_period_summary">"Dvojitým klepnutím na medzerník vložíte bodku a medzeru."</string>
+    <string name="use_double_space_period_summary">Dvojitým klepnutím na medzerník vložíte bodku a medzeru</string>
     <string name="auto_cap">"Veľké písmená automaticky"</string>
     <string name="auto_cap_summary">"Písanie prvého slova v každej vete veľkým písmenom"</string>
     <string name="edit_personal_dictionary">"Osobný slovník"</string>
@@ -62,29 +62,29 @@
     <string name="prefs_keypress_sound_volume_settings">"Hlasitosť stlačenia klávesu"</string>
     <string name="prefs_key_longpress_timeout_settings">"Oneskorenie dlhého stlačenia"</string>
     <string name="prefs_enable_emoji_alt_physical_key">"Emodži pre fyzickú klávesnicu"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">"Paletu emodži zobrazíte stlačením fyzického klávesa Alt."</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Paletu emodži zobrazíte stlačením fyzického klávesa Alt</string>
     <string name="button_default">"Predvolené"</string>
     <string name="setup_welcome_title">"Vitajte v aplikácii %s"</string>
     <string name="setup_welcome_additional_description">"s funkciou Písanie gestami"</string>
     <string name="setup_start_action">"Začať"</string>
     <string name="setup_steps_title">"Nastavenie aplikácie %s"</string>
     <string name="setup_step1_title">"Povoľte aplikáciu %s"</string>
-    <string name="setup_step1_instruction">V nastaveniach Jazyky a vstup začiarknite políčko%s. Týmto aplikácii povolíte spustenie v zariadení.\"</string>
+    <string name="setup_step1_instruction">Skontrolujte prosím položku „%s“ v nastaveniach jazykov a klávesnice. Týmto krokom povolíte jej spustenie na vašom zariadení.</string>
     <string name="setup_step1_action">"Povoliť v Nastaveniach"</string>
-    <string name="setup_step2_title">"Prepnite na aplikáciu %s."</string>
-    <string name="setup_step2_instruction">Potom vyberte aplikáciu%s ako aktívnu metódu textového vstupu.\"</string>
+    <string name="setup_step2_title">Prepnite na aplikáciu %s</string>
+    <string name="setup_step2_instruction">Následne vyberte „%s“ ako aktívny spôsob zadávania textu.</string>
     <string name="setup_step2_action">"Prepnúť metódu vstupu"</string>
     <string name="setup_step3_title">"Blahoželáme, všetko je nastavené!"</string>
     <string name="setup_step3_instruction">"Pomocou aplikácie %s teraz môžete zadávať text vo všetkých obľúbených aplikáciách."</string>
-    <string name="setup_finish_action">"Hotovo"</string>
+    <string name="setup_finish_action">Dokončené</string>
     <string name="show_setup_wizard_icon">"Zobraziť ikonu aplikácie"</string>
     <string name="show_setup_wizard_icon_summary">"Zobrazenie ikony aplikácie v spúšťači"</string>
     <string name="dictionary_category_title">"Doplnkové slovníky"</string>
     <string name="dictionary_available">"K dispozícii je slovník"</string>
     <string name="settings">"Nastavenia"</string>
     <string name="delete">"Odstrániť"</string>
-    <string name="version_text">"Verzia %1$s"</string>
-    <string name="user_dict_settings_add_shortcut_option_name">"Klávesová skratka"</string>
+    <string name="version_text">Verzia %s</string>
+    <string name="user_dict_settings_add_shortcut_option_name">Klávesová skratka:</string>
     <string name="user_dict_settings_add_locale_option_name">"Jazyk:"</string>
     <string name="user_dict_settings_add_word_hint">"Zadajte slovo"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Voliteľná skratka"</string>
@@ -98,12 +98,12 @@
     <string name="enable_clipboard_history">Povoliť históriu schránky</string>
     <string name="prefs_force_incognito_mode_summary">Vypnúť učenie nových slov</string>
     <string name="more_keys_strip_description">Viac kláves</string>
-    <string name="spell_checker_service_name">HeliBoard Kontrola Pravopisu</string>
-    <string name="android_spell_checker_settings">Nastavenia kontroly pravopisu HeliBoard</string>
+    <string name="spell_checker_service_name">Kontrola pravopisu v HeliBoard</string>
+    <string name="android_spell_checker_settings">Nastavenia kontroly pravopisu v HeliBoard</string>
     <string name="show_emoji_key">Emoji klávesa</string>
     <string name="incognito">Vynútiť režim inkognito</string>
     <string name="settings_category_input">Vstup</string>
-    <string name="ime_settings">HeliBoard Nastavenia</string>
+    <string name="ime_settings">Nastavenia HeliBoardu</string>
     <string name="settings_category_additional_keys">Dodatočné klávesy</string>
     <string name="settings_category_correction">Korekcie</string>
     <string name="settings_category_suggestions">Návrhy</string>
@@ -116,9 +116,434 @@
     <string name="label_go_key">"Ísť"</string>
     <string name="label_next_key">"Ďalej"</string>
     <string name="label_previous_key">"Pred."</string>
-    <string name="label_done_key">"OK"</string>
+    <string name="label_done_key">Hotovo</string>
     <string name="label_send_key">"Posl."</string>
     <string name="label_search_key">"Hľadať"</string>
     <string name="label_pause_key">"Pauza"</string>
     <string name="label_wait_key">"Čakať"</string>
+    <string name="vibrate_in_dnd_mode">Vibrovanie v režime „Nerušiť“</string>
+    <string name="suggest_emojis">Navrhnite emodži</string>
+    <string name="suggest_emojis_summary">Používať slovník emodži v bežných návrhoch</string>
+    <string name="inline_emoji_search">Vyhľadávanie emodži priamo v texte</string>
+    <string name="inline_emoji_search_summary">Navrhovať emodži len vtedy, keď pred slovom stojí dvojbodka</string>
+    <string name="emoji_dictionary_required">Aby táto funkcia fungovala, je potrebný slovník emodži. Slovníky vo formáte .dict si môžete stiahnuť na %s.</string>
+    <string name="show_emoji_descriptions">Zobraziť popis emodži pri dlhom stlačení</string>
+    <string name="toolbar_swipe_down_to_hide">Skryť klávesnicu potiahnutím</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Potiahnite nadol po paneli nástrojov, aby ste zatvorili klávesnicu</string>
+    <string name="settings_category_space">Medzerník</string>
+    <string name="split_spacer_scale">Rozdelená vzdialenosť</string>
+    <string name="switch_language">Zmeniť jazyk</string>
+    <string name="language_switch_key_switch_both">Prepnúť obidve</string>
+    <string name="language_switch_key_behavior">Správanie klávesy na prepínanie jazyka</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
+    <string name="use_apps_dict">Vyhľadajte názvy aplikácií</string>
+    <string name="use_apps_dict_summary">Na návrhy a opravy používajte názvy nainštalovaných aplikácií</string>
+    <string name="disable_personalized_dicts_message">Upozornenie: Vypnutím tohto nastavenia sa vymažú uložené údaje</string>
+    <string name="add_to_personal_dictionary">Pridať slová do osobného slovníka</string>
+    <string name="add_to_personal_dictionary_summary">Na ukladanie naučených slov použite osobný slovník zariadenia</string>
+    <string name="prefs_always_show_suggestions">Vždy zobrazovať návrhy</string>
+    <string name="prefs_always_show_suggestions_summary">Ignorovať požiadavky iných aplikácií na vypnutie návrhov (môže spôsobiť problémy)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Nezobrazovať vždy návrhy pre polia na úpravu webového obsahu</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Pole na úpravu webových stránok (ktoré sa najčastejšie vyskytujú v prehliadačoch) sú veľmi častou príčinou problémov s nastavením „vždy zobrazovať návrhy“</string>
+    <string name="more_autocorrect">Viac automatických opráv</string>
+    <string name="more_autocorrect_summary">Automatická oprava aj v prípade, že to pole na zadávanie údajov výslovne nevyžaduje</string>
+    <string name="auto_correction_confidence">Miera spoľahlivosti automatickej opravy</string>
+    <string name="auto_correct_shortcuts">Klávesové skratky pre automatickú opravu</string>
+    <string name="auto_correct_shortcuts_summary">Ak je táto funkcia zapnutá, skratky sa môžu rozvinúť vďaka automatickej oprave</string>
+    <string name="auto_correct_capitalized_suggestions">Návrhy na automatickú opravu veľkých písmen</string>
+    <string name="auto_correct_capitalized_suggestions_description">Po stlačení klávesy Shift na prepisovanie návrhov na veľké písmená sa spustí automatická oprava</string>
+    <string name="backspace_reverts_autocorrect">Klávesa Backspace zruší automatickú opravu</string>
+    <string name="center_suggestion_text_to_enter">Vždy použiť stredný návrh</string>
+    <string name="center_suggestion_text_to_enter_summary">Po stlačení medzerníka alebo interpunkčného znaku sa zadá stredný návrh</string>
+    <string name="suggest_punctuation">Návrhy na interpunkciu</string>
+    <string name="suggest_punctuation_summary">Zobraziť interpunkčné znamienka, ak nie sú k dispozícii žiadne iné návrhy</string>
+    <string name="custom_punctuation_suggestions">Nastaviť návrhy interpunkcie</string>
+    <string name="suggest_clipboard_content">Navrhnúť obsah schránky</string>
+    <string name="suggest_clipboard_content_summary">Zobraziť obsah schránky, ktorý bol nedávno skopírovaný, ako návrh</string>
+    <string name="gesture_floating_preview_static">Plávajúci náhľad</string>
+    <string name="gesture_floating_preview_static_summary">Pozrite si navrhované slovo a zároveň gestikulujte</string>
+    <string name="gesture_floating_preview_dynamic_summary">Posúvanie náhľadu pomocou gesta</string>
+    <string name="gesture_fast_typing_cooldown">Spomalenie rýchleho písania</string>
+    <string name="gesture_fast_typing_cooldown_instant">Vždy začať hneď</string>
+    <string name="gesture_trail_fadeout_duration">Doba, za ktorý stopa po geste zmizne</string>
+    <string name="clipboard_history_pinned_first">Zobraziť pripnuté položky hore</string>
+    <string name="clipboard_history_files">Pridať obrázky a iné súbory do histórie schránky</string>
+    <string name="clipboard_history_max_file_size">Obmedzenie veľkosti schránky</string>
+    <string name="item_description">Popis: %s</string>
+    <string name="item_type">Typ: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="delete_swipe">Potiahnutím odstrániť</string>
+    <string name="delete_swipe_summary">Potiahnite od klávesy Delete, aby ste vybrali a odstránili väčšie časti textu naraz</string>
+    <string name="backup_restore_title">Zálohovanie a obnovenie</string>
+    <string name="backup_restore_message">Uložiť alebo načítať zo súboru. Upozornenie: obnovenie prepíše existujúce údaje</string>
+    <string name="backup_error">Chyba zálohovania: %s</string>
+    <string name="restore_error">Chyba pri obnovovaní zálohy: %s</string>
+    <string name="button_backup">Zálohovanie</string>
+    <string name="button_restore">Obnovenie</string>
+    <string name="backup_restored">Záloha bola obnovená</string>
+    <string name="timestamp_format_title">Formát kľúča časovej pečiatky</string>
+    <string name="timestamp_description">Časovú pečiatku môžete pridať pomocou vlastného rozloženia s kľúčom „timestamp“ alebo pomocou kódu kľúča -10043</string>
+    <string name="secondary_locale">Viacjazyčné písanie</string>
+    <string name="locales_with_dict">Jazyky so slovníkmi</string>
+    <string name="load_gesture_library">Načítať knižnicu pre písanie pomocou gest</string>
+    <string name="load_gesture_library_summary">Poskytnúť natívnu knižnicu na umožnenie písania pomocou gest</string>
+    <string name="load_gesture_library_message">Budete potrebovať knižnicu pre „%s“. Nezlučiteľné knižnice môžu spôsobiť zlyhanie aplikácie pri používaní písania gestami.\n \nUpozornenie: Načítanie externého kódu môže predstavovať bezpečnostné riziko. Používajte iba knižnice z dôveryhodných zdrojov.</string>
+    <string name="checksum_mismatch_message">Neznámy súbor knižnice. Ste si istí, že pochádza z dôveryhodného zdroja a je určený pre „%s“?</string>
+    <string name="load_gesture_library_button_load">Načítať knižnicu</string>
+    <string name="load_gesture_library_button_delete">Odstrániť knižnicu</string>
+    <string name="autospace_after_punctuation">Automatické vloženie medzery po interpunkčných znamienkach</string>
+    <string name="autospace_after_punctuation_summary">Pri písaní nového slova automaticky vkladať medzeru za interpunkčné znamienko</string>
+    <string name="autospace_after_suggestion">Automatické vloženie medzery po výbere návrhu</string>
+    <string name="autospace_before_gesture_typing">Automatické vloženie medzery pred začatím písania slova gestom</string>
+    <string name="autospace_after_gesture_typing">Automatické vloženie medzery po zadaní slova gestom</string>
+    <string name="shift_removes_autospace">Pri stlačení klávesy Shift sa medzera nevkladá automaticky</string>
+    <string name="shift_removes_autospace_summary">Klávesa Shift zruší čakanie na automatické vkladanie medzier</string>
+    <string name="show_popup_keys_title">Zobraziť viac písmen s diakritikou v rozbaľovacom okne</string>
+    <string name="show_popup_keys_normal">Zobraziť varianty definované v jazykoch klávesnice</string>
+    <string name="show_popup_keys_main">Pridať veľmi bežné varianty (predvolené nastavenie)</string>
+    <string name="show_popup_keys_more">Pridať bežné varianty</string>
+    <string name="show_popup_keys_all">Pridať všetky dostupné varianty</string>
+    <string name="url_detection_title">Detekcia URL</string>
+    <string name="url_detection_summary">Skúsiť rozpoznávať URL adresy a podobné výrazy ako jedno slovo</string>
+    <string name="language_and_layouts_title">Jazyky a rozloženia</string>
+    <string name="number_row">Číselný riadok</string>
+    <string name="number_row_summary">Vždy zobraziť riadok s číslami</string>
+    <string name="number_row_in_symbols">Zobraziť riadok s číslami v zobrazení symbolov</string>
+    <string name="localized_number_row">Lokalizovať riadok s číslami</string>
+    <string name="localized_number_row_summary">Uprednostňujte lokalizované číslice pred latinskými</string>
+    <string name="number_row_hints">Zobraziť nápovedu v riadku s číslami</string>
+    <string name="save_subtype_per_app">Zapamätať si jazyk pre každú aplikáciu</string>
+    <string name="show_hints">Zobraziť tipy k klávesám</string>
+    <string name="show_hints_summary">Zobraziť tipy pri dlhom stlačení</string>
+    <string name="popup_order_and_hint_source">Zdroj poradia klávesov a tipov pre vyskakovacie okná</string>
+    <string name="hint_source">Vyberte zdroj nápovedy</string>
+    <string name="popup_order">Vyberte poradie klávesov v kontextovom menu</string>
+    <string name="show_tld_popup_keys">Zobraziť klávesy pre vyskakovacie okienko TLD</string>
+    <string name="show_tld_popup_keys_summary">Pri zadávaní URL adries a e-mailových adries nahradiť vyskakovacie okienka s bodkami doménami najvyššej úrovne</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Číselný riadok</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Jazyk (priorita)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Rozloženie</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboly</string>
+    <string name="toolbar_mode">Režim panela nástrojov</string>
+    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Klávesové skratky a návrhy na paneli nástrojov</string>
+    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Iba klávesy na paneli nástrojov</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Iba návrhy</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Skryté</string>
+    <string name="toolbar_hiding_global">Skryť aj panely schránky a emodži</string>
+    <string name="toolbar_keys">Vyberte klávesy na paneli nástrojov</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Schránka</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Vymazať schránku</string>
+    <string name="voice" tools:keep="@string/voice">Hlasové zadávanie</string>
+    <string name="select_word" tools:keep="@string/select_word">Vyber slovo</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Režim ovládania jednou rukou</string>
+    <string name="split" tools:keep="@string/split">Rozdelená klávesnica</string>
+    <string name="full_left" tools:keep="@string/full_left">Úplne vľavo</string>
+    <string name="full_right" tools:keep="@string/full_right">Úplne vpravo</string>
+    <string name="page_start" tools:keep="@string/page_start">Začiatok stránky</string>
+    <string name="page_end" tools:keep="@string/page_end">Koniec stránky</string>
+    <string name="left" tools:keep="@string/left">Vľavo</string>
+    <string name="right" tools:keep="@string/right">Vpravo</string>
+    <string name="up" tools:keep="@string/up">Hore</string>
+    <string name="down" tools:keep="@string/down">Dole</string>
+    <string name="word_left" tools:keep="@string/word_left">Slovo doľava</string>
+    <string name="word_right" tools:keep="@string/word_right">Slovo doprava</string>
+    <string name="page_up" tools:keep="@string/page_up">Strana nahor</string>
+    <string name="page_down" tools:keep="@string/page_down">Strana nadol</string>
+    <string name="close_history" tools:keep="@string/close_history">Zatvoriť históriu schránky</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="floating" tools:keep="@string/floating">Plávajúca klávesnica</string>
+    <string name="clipboard_toolbar_keys">Vybrať klávesy na paneli nástrojov schránky</string>
+    <string name="pinned_toolbar_keys">Vyberte tlačidlá na pripnutom paneli nástrojov</string>
+    <string name="quick_pin_toolbar_keys">Pri dlhom stlačení priradiť klávesu na panel nástrojov</string>
+    <string name="quick_pin_toolbar_keys_summary">Týmto sa deaktivujú ostatné akcie pri dlhom stlačení klávesov na paneli nástrojov, ktoré nie sú pripnuté</string>
+    <string name="show_popup_hints">Zobraziť funkčné tipy</string>
+    <string name="show_popup_hints_summary">Zobraziť nápovedu, ak dlhým stlačením funkčnej klávesy otvoríte kontextové menu</string>
+    <string name="remove_redundant_popups">Odstráňte nepotrebné vyskakovacie okná</string>
+    <string name="remove_redundant_popups_summary">Potlačiť klávesy s vyskakujúcimi okienkami, ktoré sa už nachádzajú v základnej rozložení klávesnice</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Zmena spôsobu zadávania pomocou klávesy medzerník</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Dlhé stlačenie medzerníka vyvolá ponuku na výber spôsobu zadávania textu</string>
+    <string name="prefs_long_press_symbol_for_numpad">Dlhé stlačenie klávesy so symbolmi pre numerickú klávesnicu</string>
+    <string name="prefs_narrow_key_gaps">Úzke medzery medzi klávesmi</string>
+    <string name="prefs_key_gap_scale">Veľkosť medzery medzi klávesmi</string>
+    <string name="prefs_keyboard_height_scale">Mierka výšky klávesnice</string>
+    <string name="prefs_bottom_padding_scale">Škála spodného vyplnenia</string>
+    <string name="prefs_bottom_row_scale">Škála dolného riadku</string>
+    <string name="prefs_side_padding_scale">Škála bočného vyplnenia</string>
+    <string name="prefs_font_scale">Škála písma na klávesnici</string>
+    <string name="prefs_hint_font_scale">Škála písma pre klávesu nápovedy</string>
+    <string name="prefs_emoji_font_scale">Škála písma v zobrazení emodži</string>
+    <string name="prefs_emoji_key_fit">Prispôsobiť veľkosť klávesov s emodži veľkosti písma</string>
+    <string name="prefs_emoji_skin_tone">Predvolený odtieň pleti emodži</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutrálna</string>
+    <string name="prefs_space_bar_text">Vlastný text na medzerníku</string>
+    <string name="custom_font">Nastaviť vlastné písmo zo súboru</string>
+    <string name="custom_emoji_font">Nastaviť vlastné písmo emodži zo súboru</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_mhr">Mari (východná)</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_generic_extended">%s (rozšírené)</string>
+    <string name="subtype_generic_4row">%s (4-radový)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="subtype_generic_phonetic">%s (Phonetic)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <string name="subtype_generic_student">%s (Student)</string>
+    <string name="load">Načítať</string>
+    <string name="button_title_add_custom_layout">Pridať vlastné rozloženie</string>
+    <string name="message_add_custom_layout">Vyberte súbor v kompatibilnom formáte. Informácie o formátoch nájdete na %s.</string>
+    <string name="button_load_custom">Načítať súbor</string>
+    <string name="button_save_file">Uložiť do súboru</string>
+    <string name="copy_to_clipboard">Kopírovať do schránky</string>
+    <string name="file_read_error">Súbor sa nedá prečítať</string>
+    <string name="delete_layout">Naozaj chcete odstrániť vlastné rozloženie %s?</string>
+    <string name="layout_in_use">Upozornenie: toto rozloženie sa momentálne používa</string>
+    <string name="layout_error">Chyba rozloženia: %s</string>
+    <string name="edit_layout">Kliknutím upravíte pôvodné rozloženie</string>
+    <string name="settings_screen_secondary_layouts">Doplnkové rozloženia</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funkčné klávesy</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funkčné klávesy (veľká obrazovka)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funkčné klávesy (Khipro)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funkčné klávesy (symboly)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funkčné klávesy (ďalšie symboly)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboly</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboly (arabčina)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Ďalšie symboly</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefón</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Symboly telefónu</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Čísla</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Numerická klávesnica</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numerická klávesnica (na šírku)</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Číselný riadok</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Číselný riadok (základný)</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Spodný riadok emodži</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Spodný riadok emodži s akčnou klávesou</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Spodný riadok schránky</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Spodný riadok schránky s akčným tlačidlom</string>
+    <string name="customize_background_image">Nastaviť obrázok na pozadí</string>
+    <string name="customize_background_image_landscape">Nastaviť obrázok na pozadí (na šírku)</string>
+    <string name="summary_customize_background_image_landscape">Ak nie je nastavené, použije sa obrázok na výšku</string>
+    <string name="customize_currencies">Prispôsobenie mien</string>
+    <string name="customize_currencies_detail">Zadajte symbol hlavnej meny a až 6 symbolov vedľajších mien, oddelených medzerou</string>
+    <string name="switch_keyboard_after">Prepnúť na hlavnú klávesnicu po…</string>
+    <string name="after_emoji">Výber emodži v zobrazení emodži</string>
+    <string name="after_clip">Výber položky z histórie schránky</string>
+    <string name="after_symbol_and_space">Stlačenie klávesy Enter alebo medzerníka po stlačení iných klávesov v zobrazení symbolov</string>
+    <string name="after_numpad_and_space">Stlačenie klávesy Enter alebo medzerníka po stlačení iných klávesov na numerickej klávesnici</string>
+    <string name="day_or_night_image">Nastaviť obrázok pre denný alebo nočný režim?</string>
+    <string name="day_or_night_day">Deň</string>
+    <string name="day_or_night_night">Noc</string>
+    <string name="prefs_key_emoji_max_sdk">Prepísať verziu emodži</string>
+    <string name="setup_step3_action">Nastavenie klávesnice</string>
+    <string name="dictionary_settings_category">Slovníky</string>
+    <string name="internal_dictionary_summary">Interný hlavný slovník</string>
+    <string name="add_new_dictionary_title">Pridať slovník zo súboru</string>
+    <string name="button_select_language">Vyberte jazyk</string>
+    <string name="replace_dictionary_message">Naozaj chcete nahradiť slovník pridaný používateľom „%1$s“?\n\nAktuálny slovník:\n%2$s\n\nNový slovník:\n%3$s</string>
+    <string name="replace_dictionary">Nahradiť slovník</string>
+    <string name="remove_dictionary_message">Naozaj chcete odstrániť slovník „%s“, ktorý pridal používateľ?</string>
+    <string name="no_dictionary_message">"Bez slovníka sa vám budú zobrazovať len návrhy na text, ktorý ste zadali predtým.&lt;br&gt;\n        Môžete si stiahnuť slovníky %1$s alebo skontrolovať, či je možné slovník pre „%2$s“ stiahnuť priamo %3$s."</string>
+    <string name="no_dictionary_dont_show_again_button">Už nezobrazovať</string>
+    <string name="add_dictionary">Vyberte slovník, ktorý chcete pridať. Slovníky vo formáte .dict si môžete stiahnuť na %s.</string>
+    <string name="dictionary_link_text">tu</string>
+    <string name="available_dictionary_experimental">%s (experimentálne)</string>
+    <string name="dictionary_file_error">Chyba: Vybraný súbor nie je platným súborom slovníka</string>
+    <string name="dictionary_file_wrong_script">Chyba: skript nie je kompatibilný s touto klávesnicou</string>
+    <string name="dictionary_load_error">Chyba pri načítaní súboru slovníka</string>
+    <string name="user_dict_settings_add_weight_value">Váha:</string>
+    <string name="user_dict_word_already_present">Toto slovo sa už nachádza v užívateľskom slovníku %s. Zadajte prosím iné slovo.</string>
+    <string name="user_dict_add_word_button">Pridať slovo</string>
+    <string name="theme_style">Štýl</string>
+    <string name="icon_style">Štýl ikony</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Zaoblené</string>
+    <string name="theme_colors">Farby</string>
+    <string name="theme_colors_night">Farby (v noci)</string>
+    <string name="key_borders">Okraje kláves</string>
+    <string name="day_night_mode">Automatický režim deň/noc</string>
+    <string name="day_night_mode_summary">Vzhľad sa prispôsobí systémovým nastaveniam</string>
+    <string name="theme_navbar">Farebný navigačný panel</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Svetlý</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo biela</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tmavý</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tmavšia</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Čierna</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamické farby</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Modrosivá</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Hnedá</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Čokoládová</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Oblačná</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Lesná</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceánová</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Ružová</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Piesková</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fialová</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Definované používateľom</string>
+    <string name="auto_user_color">Automaticky vybrať farbu</string>
+    <string name="main_colors">Zobraziť len hlavné farby</string>
+    <string name="more_colors">Zobraziť ďalšie farby</string>
+    <string name="all_colors">Zobraziť všetky farby</string>
+    <string name="all_colors_warning">Toto nastavenie zobrazuje všetky farby, ktoré sa používajú interne. Zoznam farieb sa môže kedykoľvek zmeniť. Predvolené nastavenie je odvodené od bežných farieb a názvy nebudú preložené.</string>
+    <string name="select_color_background">Pozadie klávesnice</string>
+    <string name="select_color_key">Text klávesy</string>
+    <string name="select_color_key_hint">Text tipov pre klávesy</string>
+    <string name="select_color_suggestion">Text v lište s návrhmi</string>
+    <string name="select_color_key_background">Pozadie klávesy</string>
+    <string name="select_color_functional_key_background">Pozadie funkčných klávesov</string>
+    <string name="select_color_spacebar_background">Pozadie medzerníka</string>
+    <string name="select_color_spacebar_text">Text na medzerníku</string>
+    <string name="select_color_accent">Prízvuk</string>
+    <string name="select_color_gesture">Zadávanie gestami</string>
+    <string name="get_colors_message">V %s môžete vyhľadávať a zdieľať farby.</string>
+    <string name="get_layouts_message">V %s môžete vyhľadávať a zdieľať rozloženia.</string>
+    <string name="discussion_section_link">diskusná časť</string>
+    <string name="settings_screen_about">O aplikácii</string>
+    <string name="version">Verzia</string>
+    <string name="about_github_link">Zobraziť na GitHub</string>
+    <string name="about_wiki_link">Prejsť na Wiki</string>
+    <string name="about_wiki_link_description">Wiki môže vylepšiť každý používateľ GitHubu!</string>
+    <string name="about_community_links">Odkazy na komunitné stránky</string>
+    <string name="about_community_links_description">Témy, editor rozloženia, diskusie, …</string>
+    <string name="save_log">Uložiť protokol</string>
+    <string name="license">Licencia s otvoreným zdrojovým kódom</string>
+    <string name="gnu_gpl">Všeobecná verejná licencia GNU verzia 3.0</string>
+    <string name="dialog_close">Zatvoriť</string>
+    <string name="text_tap_languages">Kliknite na jazyk, aby ste otvorili nastavenia</string>
+    <string name="settings_screen_appearance">Vzhľad</string>
+    <string name="settings_screen_toolbar">Panel nástrojov</string>
+    <string name="hidden_features_title">Popis skrytých funkcií</string>
+    <string name="hidden_features_summary">Zobraziť funkcie, ktoré by mohli zostať nepovšimnuté</string>
+    <string name="hidden_features_text">chránené úložisko zariadenia</string>
+    <string name="hidden_features_message">► Dlhé stlačenie pripnutých tlačidiel na paneli nástrojov aktivuje ďalšie funkcie: &lt;br&gt; \n • schránka &amp;#65515; vložiť &lt;br&gt; \n • posun doľava/doprava &amp;#65515; slovo doľava/doprava &lt;br&gt; \n • posun hore/dole &amp;#65515; stránka hore/dole &lt;br&gt;\n • slovo doľava/doprava &amp;#65515; začiatok/koniec riadku &lt;br&gt; \n • stránka hore/dole &amp;#65515; začiatok/koniec stránky &lt;br&gt; \n • kopírovať &amp;#65515; vyrezávať &lt;br&gt; \n • vybrať slovo &amp;#8596; vybrať všetko &lt;br&gt; \n • vrátiť späť &amp;#8596; zopakovať &lt;br&gt; &lt;br&gt; \n► Dlhé stlačenie klávesov na paneli s návrhmi ich pripne k tomuto panelu. &lt;br&gt; &lt;br&gt; \n► Dlhé stlačenie klávesu s čiarkou otvorí zobrazenie schránky, zobrazenie emodži, režim ovládania jednou rukou, nastavenia alebo prepnutie jazyka: &lt;br&gt; \n • Zobrazenie emodži a prepnutie jazyka zmiznú, ak máte príslušnú klávesu aktivovanú; &lt;br&gt; \n • Pri niektorých rozloženiach to nie je klávesa s čiarkou, ale klávesa na tej istej pozícii (napr. pri rozložení Dvorak je to „q“). &lt;br&gt; &lt;br&gt; \n► Ak je zapnutý režim inkognito, nebudú sa učiť žiadne slová a do zoznamu nedávnych sa nebudú pridávať žiadne emodži. &lt;br&gt; &lt;br&gt; \n► Stlačením ikony inkognito otvoríte panel nástrojov. &lt;br&gt; &lt;br&gt; \n► Zadávanie posúvaním klávesov: Potiahnite prstom od klávesu Shift k inému klávesu, aby ste napísali jedno veľké písmeno: &lt;br&gt; \n • To funguje aj pre kláves „?123“ na zadanie jedného symbolu z klávesnice symbolov a pre súvisiace klávesy. &lt;br&gt; &lt;br&gt; \n► Podržte kláves Shift alebo kláves symbolov, stlačte jeden alebo viac klávesov a potom uvoľnite kláves Shift alebo kláves symbolov, aby ste sa vrátili na predchádzajúcu klávesnicu. &lt;br&gt; &lt;br&gt; \n► Dlhým stlačením návrhu v lište návrhov zobrazíte ďalšie návrhy a stlačením tlačidla Odstrániť tento návrh odstránite. &lt;br&gt; &lt;br&gt; \n► Potiahnite prstom nahor od návrhu, aby sa otvorili ďalšie návrhy, a uvoľnite prst na návrhu, aby ste ho vybrali. &lt;br&gt; &lt;br&gt; \n► Dlho stlačte položku v histórii schránky, aby ste ju pripínali (zostane v schránke, kým ju neodpínate). &lt;br&gt; &lt;br&gt; \n► Potiahnite prstom doľava v zobrazení schránky, aby ste odstránili položku (okrem prípadov, keď je pripnutá). &lt;br&gt; &lt;br&gt; \n► Vyberte text a stlačte kláves Shift, aby ste prepínali medzi veľkými písmenami, malými písmenami a písaním slov s veľkým počiatočným písmenom. &lt;br&gt; &lt;br&gt; \n► Slovníky môžete pridať tak, že ich otvoríte v prehliadači súborov: &lt;br&gt; \n • Funguje to len s &lt;i&gt;content-uris&lt;/i&gt; a nie s &lt;i&gt;file-uris&lt;/i&gt;, čo znamená, že to nemusí fungovať s niektorými prehliadačmi súborov. &lt;br&gt; &lt;br&gt; \n► Pre používateľov, ktorí vykonávajú ručné zálohovanie s prístupom root: &lt;br&gt; \n • Od verzie Android 7 sa súbor zdieľaných nastavení nenachádza vo výchozom umiestnení, pretože aplikácia používa %s. Je to potrebné, aby bolo možné načítať nastavenia ešte pred odomknutím zariadenia, napr. pri spustení systému; &lt;br&gt;\n • Súbor sa nachádza v adresári /data/user_de/0/package_id/shared_prefs/, hoci to môže závisieť od zariadenia a verzie systému Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Režim debugovania / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Dlhým stlačením návrhu zobrazíte zdrojový slovník. &lt;br&gt; &lt;br&gt; \n► Pri používaní debugovacej APK nájdete nastavenia ladenia v časti Pokročilé nastavenia, hoci ich užitočnosť je obmedzená okrem vypísania slovníkov do protokolu. &lt;br&gt; • V prípade finálnej verzie APK musíte niekoľkokrát ťuknúť na verziu v &lt;i&gt;O aplikácii&lt;/i&gt;, potom nájdete nastavenia debugovania v &lt;i&gt;Pokročilé nastavenia&lt;/i&gt;. &lt;br&gt; \n• Ak povolíte &lt;i&gt;Zobraziť informácie o návrhoch&lt;/i&gt;, nad návrhmi sa zobrazia malé čísla, ktoré udávajú interné skóre a zdrojový slovník. &lt;br&gt; &lt;br&gt; \n► V prípade zlyhania aplikácie sa vám pri otvorení nastavení zobrazí výzva, či chcete záznamy o zlyhaní. &lt;br&gt; &lt;br&gt; \n► Pri používaní viacjazyčného zadávania textu sa na medzerníku zobrazí hodnota spoľahlivosti, ktorá slúži na určenie aktuálne používaného jazyka. &lt;br&gt; &lt;br&gt; \n► Nad návrhmi sa budú zobrazovať malé čísla, ktoré udávajú interné skóre a zdrojový slovník (možno vypnúť).</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (stlačený)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Medzerník (rozloženie čísiel)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Ukončiť režim ovládania jednou rukou</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Zmena veľkosti v režime ovládania jednou rukou</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Zmeniť stranu režimu ovládania jednou rukou</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Hlasové zadávanie je vypnuté</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Zobraziť / skryť panel nástrojov</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Spojka nulovej šírky</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Nespojenie nulovej šírky</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Kôš</string>
+    <string name="show_horizontal_space_swipe">Gesto potiahnutia horizontálne po medzerníku</string>
+    <string name="show_vertical_space_swipe">Gesto potiahnutia vertikálne po medzerníku</string>
+    <string name="action_none">Žiadne</string>
+    <string name="space_swipe_move_cursor_entry">Presunúť kurzor</string>
+    <string name="space_swipe_toggle_numpad_entry">Zapnúť/vypnúť numerickú klávesnicu</string>
+    <string name="space_swipe_hide_keyboard_entry">Skryť klávesnicu</string>
+    <string name="space_swipe_touchpad_mode_entry">Režim touchpadu</string>
+    <string name="touchpad_sensitivity">Citlivosť touchpadu</string>
+    <string name="touchpad_edge_scroll">Posúvanie po okraji touchpadu</string>
+    <string name="touchpad_edge_scroll_description">Pri posunutí prsta k okraju klávesnice sa obrazovka automaticky posúva</string>
+    <string name="var_toolbar_direction">Nastaviteľný smer panela nástrojov</string>
+    <string name="var_toolbar_direction_summary">Zmeniť smer, ak je zvolený podtyp klávesnice s rozložením zprava doľava</string>
+    <string name="toolbar_only_with_hw_keyboard">Zobraziť len panel nástrojov s fyzickou klávesnicou</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">V systémových nastaveniach ešte musíte povoliť zobrazenie virtuálnej klávesnice</string>
+    <string name="prefs_language_swipe_distance">Zmeniť vzdialenosť potiahnutia pri zmene jazyka</string>
+    <string name="customize_toolbar_key_codes">Prispôsobenie kódov klávesov na paneli nástrojov</string>
+    <string name="customize_toolbar_key_code_reset_message">Naozaj chcete vymazať všetky vlastné kódy klávesov?</string>
+    <string name="key_code">Kód klávesy</string>
+    <string name="long_press_code">Kód pre dlhé stlačenie</string>
+    <string name="auto_show_toolbar">Automaticky zobraziť panel nástrojov</string>
+    <string name="auto_show_toolbar_summary">Zobraziť panel nástrojov, ak sa začne zadávať text alebo ak je text označený</string>
+    <string name="auto_hide_toolbar">Automatické skrytie panela nástrojov</string>
+    <string name="auto_hide_toolbar_summary">Skryť panel nástrojov, keď sa zobrazia návrhy</string>
+    <string name="toast_msg_clipboard_copy">Obsah bol skopírovaný</string>
+    <string name="customize_icons">Prispôsobenie ikon</string>
+    <string name="customize_icons_reset_message">Naozaj chcete obnoviť všetky prispôsobené ikony?</string>
+    <string name="delete_confirmation">Naozaj chcete odstrániť %s?</string>
+    <string name="name_invalid">Neplatný názov</string>
+    <string name="custom_subtype">Vlastný podtyp</string>
+    <string name="landscape">Na šírku</string>
+    <string name="folded">Zložené</string>
+    <string name="emoji_search_title">Vyhľadávanie emodži</string>
+    <string name="search_field_placeholder">Vyhľadávanie</string>
+    <string name="ask_later">Opýtaj sa ma neskôr</string>
+    <string name="spell_check_suggestions">Zobraziť návrhy kontroly pravopisu</string>
+    <string name="spell_check_suggestions_summary">Pri výbere slova s červeným podčiarknutím sa zobrazia návrhy. Je potrebné nastaviť aplikáciu ako predvolenú kontrolu pravopisu.</string>
+    <string name="gesture_data_screen">Zber údajov o gestách</string>
+    <string name="gesture_data_description">&lt;b&gt;Vitajte na obrazovke na zber údajov o gestách!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Ide o súčasť &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projektu financovaného organizáciou NLnet&lt;/a&gt;, ktorého cieľom je vytvoriť úplne otvorenú knižnicu pre písanie pomocou gest, schopnú nahradiť uzavretú knižnicu spoločnosti Google. &lt;br/&gt; Výsledkom by mala byť jednoduchá náhrada za klávesnice založené na AOSP, ktorá však bude použiteľná aj s inými klávesnicami, napr. s FlorisBoard.&lt;br/&gt;&lt;br/&gt; Pre vývoj knižnice je nesmierne užitočné mať k dispozícii podrobné údaje o gestách v rôznych jazykoch a od rôznych používateľov.&lt;br/&gt; Zberom a odoslaním údajov o písaní pomocou gest môžete prispieť k otvorenému súboru údajov o gestách, ktorý sa použije na vývoj knižnice. Súbor údajov bude uverejnený pod licenciou CC BY-SA 4.0 krátko po ukončení fázy zberu údajov na %s. Akonáhle údaje nazbierate, môžete ich odoslať pomocou ikony zdieľania v dolnej časti tejto obrazovky.</string>
+    <string name="gesture_data_info">Čo je to?</string>
+    <string name="gesture_data_description_modes">„Bezpečným“ spôsobom, ako prispieť, je režim &lt;i&gt;aktívneho zbierania&lt;/i&gt;, v ktorom sa vám zobrazí konkrétne slovo a vy ho zadáte pomocou gestového písania.&lt;br&gt; Môžete tiež použiť režim &lt;i&gt;zbierania na pozadí&lt;/i&gt;, v ktorom môžete poskytnúť ukážky zo svojho bežného gestového písania z iných aplikácií. Vzhľadom na citlivosť tohto prístupu je táto funkcia voliteľná, konfigurovateľná a obsahuje obrazovku na kontrolu údajov, ktoré sa chystáte odoslať.</string>
+    <string name="gesture_data_description_privacy">Ochrana osobných údajov\n\n Údaje, ktoré odosielate, pozostávajú z cieľového slova, rozloženia klávesnice a jej rozmerov, gest (časov a súradníc), návrhov z aktuálnej knižnice, hash kódov použitých slovníkov, verzie aplikácie, režimu zberu údajov, informácie o tom, či je knižnica pre písanie gestami predvolenou knižnicou od Google, a identifikátora priradeného ku každému gestu.\n Odoslané údaje budú stiahnuté a čo najskôr vymazané z poštovej schránky ProtonMail, kde sú uložené. Po ukončení fázy zberu údajov o gestách bude súbor údajov zhromaždených od všetkých používateľov zverejnený pod licenciou Creative Commons BY-SA 4.0.\n\n V rámci snahy o ochranu vášho súkromia nebudete výslovne uvedení ako autori. Vaše meno bude uvedené ako „Prispievatelia projektu HeliBoard Gesture Data Project“. Nemalo by byť možné prepojiť údaje, ktoré generujete na tejto obrazovke s vašou identitou. Mohlo by však byť možné určiť, ktoré gestá vykonala tá istá osoba. To je možné napríklad na základe vlastného rozloženia klávesnice, rozmerov klávesnice, jazyka alebo individuálneho štýlu gestikulácie.</string>
+    <string name="gesture_data_privacy">Ochrana osobných údajov</string>
+    <string name="gesture_data_get_data">Zdieľať súbor s údajmi o gestách</string>
+    <string name="gesture_data_delete_data">Vymazať údaje o gestách</string>
+    <string name="gesture_data_send_mail">Odoslať údaje e-mailom</string>
+    <string name="gesture_data_copy_mail">Skopíruj e-mailovú adresu</string>
+    <string name="gesture_data_mail_use">Upozorňujeme, že táto e-mailová adresa slúži na zasielanie údajov; odpovede nemusia byť rýchle ani pravidelné.</string>
+    <string name="gesture_data_share_duplicate">Ak si nie ste istí, či boli údaje správne prijaté, môžete už odoslané údaje zdieľať znovu. Pri spracovaní údajov zisťujeme a odstraňujeme duplicitné záznamy.</string>
+    <string name="gesture_data_please_type">Uveďte prosím typ gesta:</string>
+    <string name="gesture_data_please_switch_keyboard">Prejdite prosím na %s</string>
+    <string name="gesture_data_next_save">Získal si %s. Klikni, ak si si istý, že si gesto vykonal správne</string>
+    <string name="gesture_data_next">Preskočiť slovo</string>
+    <string name="gesture_data_active_count">%1$s slov v tejto relácii, %2$s slov celkom (%3$s už odoslaných alebo vymazaných)</string>
+    <string name="gesture_data_review_screen_title">Prezrite si a zdieľajte údaje o gestách</string>
+    <string name="gesture_data_words_selected">%s slov</string>
+    <string name="gesture_data_date_range">Časové obdobie</string>
+    <string name="gesture_data_much_data">Máte veľa neodoslaných údajov. Prosím, odošlite ich a potom odstráňte staré údaje.</string>
+    <string name="gesture_data_how_to_use">Ako používať</string>
+    <string name="gesture_data_active_description">Kliknite na &lt;i&gt;Začať aktívne zbieranie&lt;/i&gt;, prípadne prepnite slovník a začnite písať zobrazené slovo pomocou gest.&lt;br/&gt; Ak sa vaše gesto zhoduje so slovom, údaje sa uložia a zobrazí sa ďalšie slovo. V opačnom prípade môžete skúsiť znova, preskočiť slovo alebo potvrdiť, že ste gesto vykonali správne.&lt;br/&gt; Môžete používať iba slovníky, ktoré sú zabudované v aplikácii alebo dostupné v &lt;a href=%s&gt;repozitári slovníkov&lt;/a&gt;, žiadne iné slová sa nepoužijú.</string>
+    <string name="gesture_data_active">Aktívne zbieranie</string>
+    <string name="gesture_data_active_start">Začať aktívne zbieranie</string>
+    <string name="gesture_data_active_stop">Zastaviť aktívne zbieranie</string>
+    <string name="gesture_data_ends_at">Fáza zberu údajov o gestách sa skončí dňa %s. Prosím, odošlite svoje údaje ešte pred týmto dátumom.</string>
+    <string name="gesture_data_ended">Fáza zberu údajov o gestách sa skončila v %s. Môžete zdieľať svoje existujúce údaje, ale nemôžete pridávať žiadne nové.</string>
+    <string name="gesture_data_share_all">Zdieľať všetky slová %s</string>
+    <string name="gesture_data_share_new">Zdieľať %s – doteraz nezadané slová</string>
+    <string name="gesture_data_delete_dialog">Máte údaje o %1$s nových a %2$s už zdieľaných slovách.</string>
+    <string name="gesture_data_share_limit">Aby sa predišlo prekročeniu obmedzení veľkosti, budú exportované len prvé %s slov</string>
+    <string name="gesture_data_delete_dialog_all">Odstrániť všetky slová obsahujúce %s</string>
+    <string name="gesture_data_delete_dialog_confirm">Ste si istí? Týmto sa vymažú %s slov. Uistite sa, že ste odoslali zdieľané údaje!</string>
+    <string name="gesture_data_delete_dialog_submitted">Odstrániť %s zadaných slov</string>
+    <string name="gesture_data_many_not_shared_words">Máte viac ako %s slov, ktoré čakajú na odoslanie</string>
+    <string name="gesture_data_email_body">DÔLEŽITÉ:\n\n Ahoj!\nPripomíname, že tieto údaje budú verejne zdieľané pod licenciou CC BY-SA 4.0 a vy nebudete uvedení ako autori, aby sme chránili vaše súkromie.\n\n Ďakujeme, že ste s nami zdieľali práva k vašim údajom. Využijeme ich na dobrú vec!\n\n Upozorňujeme, že zmena znenia tohto oznámenia nemení to, čo budeme s vašimi údajmi robiť. Nejedná sa o zmluvu, ktorú je možné meniť, je to len priateľská pripomienka!\n Ak nám chcete spolu s údajmi poslať správu, napíšte ju pod túto čiaru.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Ahoj!\n Keďže si nainštaloval knižnicu pre písanie pomocou gest, možno ťa zaujíma projekt HeliBoard zameraný na vytvorenie úplne otvorenej knižnice pre písanie pomocou gest. Môžeš pomôcť tým, že prispieš údajmi o gestách. Viac informácií nájdeš na obrazovke zberu údajov o gestách.</string>
+    <string name="gesture_data_reminder_message">Ahoj!\n Predtým si zbieral údaje o gestách, ale už dosť dlho si žiadne údaje nepridal. Chceš opäť prispievať?</string>
+    <string name="gesture_data_take_me_there">Vezmi ma tam</string>
+    <string name="background_gesture_data_links">Informácie o zhromažďovaní údajov na pozadí:</string>
+    <string name="gesture_data_links">Informácie o aktívnom zbere:</string>
+    <string name="gesture_data_background_gathering_switch">Využiť zber údajov na pozadí</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Povolené aplikácie: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">V predvolenom nastavení odmietnuť</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Údaje sa ukladajú ručne pomocou tlačidla na paneli nástrojov</string>
+    <string name="gesture_data_background_gathering_info">Ďalšie informácie</string>
+    <string name="gesture_data_background_gathering_info_message">Zapnutím zberu údajov na pozadí umožníte aplikácii Heliboard zaznamenávať gestá, ktoré zadávate v iných aplikáciách. To je veľmi užitočné pre projekt písania pomocou gest, keďže takýmto spôsobom je možné získať značné množstvo údajov, hoci v nižšej kvalite ako pri aktívnom zbere. Zber údajov na pozadí nenahrádza aktívne zhromažďované údaje, ale má slúžiť ako doplnok, keďže kvalita údajov je dôležitejšia ako ich množstvo.\n\n Zber údajov na pozadí so sebou prináša vysoké riziko zhromažďovania údajov, ktoré môžete považovať za príliš súkromné na zdieľanie, a to aj v prípade, že sú zverejnené anonymne. Z tohto dôvodu chceme objasniť, kedy sa údaje o gestách zbierajú a ako to môžete ovplyvniť.\n\n V sekcii odkazov v pravom dolnom rohu tejto obrazovky nájdete video, v ktorom sa dozviete viac o zbere údajov na pozadí.</string>
+    <string name="gesture_data_background_gathering_indicator">Ukazovateľ zberu údajov</string>
+    <string name="gesture_data_background_gathering_indicator_message">Vždy, keď sa zaznamenávajú údaje o gestách, v ľavom dolnom rohu klávesnice sa zobrazí indikačná ikona. Keď je kruh vyplnený, znamená to, že bolo zaznamenané aspoň jedno gesto a čaká na uloženie. Údaje sa ukladajú buď pomocou tlačidla na paneli nástrojov (pozri &lt;i&gt;%1$s&lt;/i&gt;), alebo automaticky (ak je &lt;i&gt;%2$s&lt;/i&gt; vypnutá). Automatické ukladanie sa zvyčajne vykonáva pri prechode medzi textovými poľami alebo pri zatvorení klávesnice, môže sa však uskutočniť aj v prípade, ak sa textové pole zmení z iného dôvodu. Počas ukladania údajov sa indikátor na krátku chvíľu zmení na zelený.</string>
+    <string name="gesture_data_background_gathering_control">Ako ovládať, čo sa ukladá</string>
+    <string name="gesture_data_background_gathering_control_message">Nezávisle od nastavení je zber údajov na pozadí deaktivovaný pri používaní režimu inkognito. Je tiež deaktivovaný pre vstupné polia označené ako citlivé (heslá, e-mail alebo vždy, keď vstupné pole požiada klávesnicu, aby sa slová neukladali do pamäti). Zberajú sa iba slová, ktoré sa nachádzajú v hlavnom slovníku (vstavanom alebo z &lt;a href=%5$s&gt;repozitára slovníkov&lt;/a&gt;). &lt;br&gt;&lt;br&gt; Pomocou &lt;i&gt;%1$s&lt;/i&gt; môžete vybrať, v ktorých aplikáciách chcete povoliť zber údajov na pozadí. Predvolené nastavenie zakazuje zber v každej aplikácii, pričom povolenie je potrebné nastaviť pre každú aplikáciu zvlášť. Môžete sa namiesto toho rozhodnúť povoliť zber v každej aplikácii a zakázať ho pre jednotlivé aplikácie. Takýto postup je pohodlnejší, ale automaticky povolí zber údajov z novo nainštalovaných aplikácií. To by mohlo spôsobiť zber údajov, s ktorými ste nepočítali. &lt;br&gt;&lt;br&gt; Pomocou &lt;i&gt;%2$s&lt;/i&gt; môžete vylúčiť konkrétne citlivé slová. Pri gestikulácii s vylúčeným slovom sa na indikátore stále zobrazí vyplnená ikona („údaje čakajúce na uloženie“), ale údaje budú pri exportovaní údajov odstránené. &lt;br&gt; Upozorňujeme, že zber na pozadí bude zbierať len slová, ktoré sa už nachádzajú v hlavnom slovníku, takže jediné slová, ktoré budete pravdepodobne musieť zablokovať, sú bežné slová, ktoré by mohli slúžiť na vašu osobnú identifikáciu, ako napríklad: vaše meno, ulica, mesto, región atď. &lt;br&gt;&lt;br&gt; Keď je &lt;i&gt;%3$s&lt;/i&gt; povolené, údaje sa uložia len vtedy, ak sa tak rozhodnete ručne pomocou klávesy na &lt;i&gt;%4$s&lt;/i&gt;na paneli nástrojov (pozri nižšie). Ak sa údaje neuložia, nevybavené údaje sa vymažú pri zmene vstupného poľa alebo pri zatvorení klávesnice.&lt;br&gt; V tomto režime stále platia vylúčenia aplikácií a slov. &lt;br&gt;&lt;br&gt; Tlačidlo &lt;i&gt;%4$s&lt;/i&gt;na paneli nástrojov môžete použiť na ovládanie zhromažďovania údajov. Účinok stlačenia závisí od aktuálneho stavu: Ak je zber údajov na pozadí vypnutý, stlačením sa zapne.&lt;br&gt; Dlhé stlačenie vypne zber údajov na päť minút.&lt;br&gt; Zber údajov na pozadí môžete opäť zapnúť skôr bežným stlačením tlačidla.&lt;br&gt; Ak je &lt;i&gt;%3$s&lt;/i&gt; zapnuté, čakajúce údaje sa uložia.&lt;br&gt; V opačnom prípade sa čakajúce údaje vymažú.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Na obrazovke &lt;i&gt;%1$s&lt;/i&gt; môžete skontrolovať a filtrovať zhromaždené údaje, vymazať údaje, ktoré považujete za príliš citlivé, a zdieľať údaje. Tlačidlá na vymazanie a zdieľanie budú pôsobiť na filtrované údaje alebo na výber, ak na výber slov použijete dlhé stlačenie. (Upozorňujeme, že „bežná“ ikona zdieľania mimo obrazovky &lt;i&gt;%1$s&lt;/i&gt; zdieľa iba údaje z aktívneho zberu.)&lt;br&gt; Poradie zdieľaných údajov je náhodné, takže z nich nie je možné odvodiť nič viac ako jednotlivé slová.&lt;br&gt; Ak si chcete prezrieť úplné údaje uložené pre dané gesto, môžete ich zdieľať do súboru a tento súbor načítať v &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="gesture_data_background_apps_button">Správa povolených aplikácií</string>
+    <string name="gesture_data_background_apps">Vyberte aplikácie, ktoré sa majú zahrnúť do zberu údajov na pozadí</string>
+    <string name="gesture_data_background_apps_include_default">Zahrnúť aplikácie ako predvolené</string>
+    <string name="gesture_data_background_excluded_words_button">Správa vylúčených slov</string>
+    <string name="gesture_data_background_dictionary">Slovník: %s</string>
+    <string name="gesture_data_background_position">Pozícia: %s</string>
+    <string name="gesture_data_background_exclude_words">Vylúčiť slovo zo zberu údajov v pozadí</string>
+    <string name="gesture_data_long_press_select_hint">Dlhé stlačenie na výber</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Zber údajov na pozadí</string>
+    <string name="gesture_data_show_active">Zobraziť aktívne zhromaždené údaje</string>
+    <string name="gesture_data_show_background">Zobraziť údaje na pozadí</string>
+    <string name="gesture_data_include_shared">Zahrnúť už odoslané údaje</string>
+    <string name="gesture_data_shared">odoslané</string>
+    <string name="gesture_data_saving">Ukladá sa… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Vitajte v zbere údajov na pozadí!&lt;br&gt; Chcete pridať tlačidlo &lt;i&gt;%1$s&lt;/i&gt; na paneli nástrojov? Môžete ho použiť na riadenie zberu údajov; viac informácií nájdete po kliknutí na tlačidlo &lt;i&gt;%2$s&lt;/i&gt;. &lt;br&gt;&lt;br&gt; Zber údajov na pozadí je štandardne vypnutý pre všetky aplikácie. To znamená, že sa nebudú zbierať žiadne údaje, kým nevyberiete aplikácie, ktorým to povolíte. Môžete to zmeniť v %3$s.</string>
+    <string name="gesture_data_add_key">Pridať klávesovú skratku na panel nástrojov</string>
+    <string name="gesture_data_no_known_dict">Funkcia „Zber informácií na pozadí“ zbiera iba slová pochádzajúce zo slovníkov, ktoré sú integrované alebo dostupné v &lt;a href=%s&gt;repozitári slovníkov&lt;/a&gt;. Momentálne nemáte žiadny takýto slovník povolený.</string>
+    <string name="gesture_data_swipe_o_scope">Nástroj na vizualizáciu údajov o gestách: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="space_swipe_toggle_dpad_entry">Prepnúť D-pad</string>
 </resources>

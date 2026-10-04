@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.graphics.drawable.Drawable
 
 class AppsManager(val context: Context) : BroadcastReceiver() {
     private val mPackageManager: PackageManager = context.packageManager
@@ -49,10 +50,10 @@ class AppsManager(val context: Context) : BroadcastReceiver() {
         fun onAppsChanged()
     }
 
-    fun getPackagesAndNames(): Collection<Pair<String, String>> {
+    fun getPackagesWithNameAndIcon(): List<Triple<String, String, Drawable?>> {
         val filter = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
         return mPackageManager.queryIntentActivities(filter, 0).distinctBy { it.activityInfo.packageName }.map {
-            it.activityInfo.packageName to it.activityInfo.loadLabel(mPackageManager).toString()
+            Triple(it.activityInfo.packageName, it.activityInfo.loadLabel(mPackageManager).toString(), it.activityInfo.loadIcon(mPackageManager))
         }
     }
 }

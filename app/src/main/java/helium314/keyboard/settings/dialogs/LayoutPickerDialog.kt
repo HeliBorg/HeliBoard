@@ -45,15 +45,15 @@ import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.DeleteButton
-import helium314.keyboard.settings.EditButton
+import helium314.keyboard.latin.utils.DeleteButton
+import helium314.keyboard.latin.utils.EditButton
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.contentTextDirectionStyle
 import helium314.keyboard.settings.layoutFilePicker
 import helium314.keyboard.settings.layoutIntent
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 
 @Composable
 fun LayoutPickerDialog(

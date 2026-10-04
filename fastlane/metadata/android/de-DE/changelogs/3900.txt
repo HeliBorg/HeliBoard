@@ -1,0 +1,6 @@
+* Die Sprache der App (Einstellungen) kann nun in den Systemeinstellungen geändert werden
+* Durch Wischen nach unten auf der Symbolleiste, kann die Tastatur ausgeblendet werden
+* HCESAR-Layout hinzugefügt
+* Hinweis auf fehlendes Emoji-Wörterbuch bei Aktivierung der Emoji-Vorschläge
+* Probleme bei der Erfassung aktiver Gestendaten behoben
+* Kleinere Fehlerbehebungen und Verbesserungen

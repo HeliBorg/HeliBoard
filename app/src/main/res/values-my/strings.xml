@@ -118,7 +118,6 @@
     <string name="settings_category_suggestions">အကြုံပြုချက်များ</string>
     <string name="settings_category_experimental">စမ်းသပ်ဆဲစနစ်များ</string>
     <string name="settings_category_miscellaneous">အခြားထွေထွေချိန်ညှိချက်များ</string>
-    <string name="enable_split_keyboard_landscape">အလျားလိုက် လက်ကွက်ကို နှစ်ခြမ်းခွဲပါ</string>
     <string name="split_spacer_scale">ကီးဘုတ်နှစ်ခြမ်းကြား အကွာအ‌‌‌ဝေး</string>
     <string name="switch_language">ဘာသာစကားပြောင်းလဲရန်</string>
     <string name="language_switch_key_switch_both">နှစ်မျိုးစလုံးပြောင်းလဲရန်</string>

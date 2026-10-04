@@ -14,7 +14,7 @@ Caractéristiques :
     <li>peut utiliser les paramètres jour/nuit du système sur Android 10+ (et sur certaines versions d'Android 9)</li>
     <li>peut utiliser les couleurs dynamiques pour Android 12+</li>
   </ul>
-  <li>Personnaliser les <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">dispositions</a> du clavier (disponible uniquement lorsque l'option <i>"utiliser les langues du système"</i> est désactivée)</li>
+  <li>Personnaliser les <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">dispositions</a> du clavier (disponible uniquement lorsque l'option <i>"utiliser les langues du système"</i> est désactivée)</li>
   <li>Saisie multilingue</li>
   <li>Saisie par glissement (<i>uniquement avec une bibliothèque à code source privé</i> ☹️)</li>
   <ul>

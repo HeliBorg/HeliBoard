@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.emoji.SupportedEmojis
-import helium314.keyboard.latin.AppUpgrade
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.database.Database
@@ -48,6 +47,9 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 import androidx.core.content.edit
+import helium314.keyboard.latin.checkVersionUpgrade
+import helium314.keyboard.latin.transferOldPinnedClips
+import helium314.keyboard.latin.utils.IntentUtils
 
 @Composable
 fun BackupRestorePreference(setting: Setting) {
@@ -66,21 +68,19 @@ fun BackupRestorePreference(setting: Setting) {
             neutralButtonText = stringResource(R.string.button_restore),
             onNeutral = {
                 showDialog = false
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType("application/zip")
+                val intent = IntentUtils.getResolvableTypeIntent(ctx, "application/zip")
+                    .setAction(Intent.ACTION_OPEN_DOCUMENT)
                 restoreLauncher.launch(intent)
             },
             onConfirmed = {
                 val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)
-                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
+                val intent = IntentUtils.getResolvableTypeIntent(ctx, "application/zip")
+                    .setAction(Intent.ACTION_CREATE_DOCUMENT)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         ctx.getString(R.string.english_ime_name)
                             .replace(" ", "_") + "_backup_$currentDate.zip"
                     )
-                    .setType("application/zip")
                 backupLauncher.launch(intent)
             }
         )
@@ -168,51 +168,98 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
     val ctx = LocalContext.current
     return filePicker { uri ->
         val wait = CountDownLatch(1)
-        val restoredDb = ctx.getDatabasePath(Database.NAME + "_restored")
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
+            val restoredDb = ctx.getDatabasePath(Database.NAME + "_restored")
+            val oldPrefs = ctx.prefs().all.toMap()
+            val oldProtectedPrefs = ctx.protectedPrefs().all.toMap()
+            val filesDir = ctx.filesDir!!
+            val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(ctx)
+            val filesDir2 = File(filesDir.absolutePath + "2")
+            val deviceProtectedFilesDir2 = File(deviceProtectedFilesDir.absolutePath + "2")
+            filesDir.renameTo(filesDir2)
+            deviceProtectedFilesDir2.renameTo(deviceProtectedFilesDir2)
             try {
+                var anyMatch = false
                 ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use { inputStream ->
                     ZipInputStream(inputStream).use { zip ->
                         var entry: ZipEntry? = zip.nextEntry
-                        val filesDir = ctx.filesDir ?: return@execute
-                        val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(ctx)
-                        filesDir.deleteRecursively()
-                        deviceProtectedFilesDir.deleteRecursively()
                         LayoutUtilsCustom.onLayoutFileChanged()
                         Settings.getInstance().stopListener()
                         while (entry != null) {
                             if (entry.name.startsWith("unprotected${File.separator}")) {
                                 val adjustedName = entry.name.substringAfter("unprotected${File.separator}")
                                 if (backupFilePatterns.any { adjustedName.matches(it) }) {
-                                    val file = File(deviceProtectedFilesDir, adjustedName)
-                                    FileUtils.copyStreamToNewFile(zip, file)
+                                    if (!restoreEntryToDir(zip, deviceProtectedFilesDir, adjustedName)) {
+                                        Log.w("AdvancedScreen", "skipping unsafe backup entry $adjustedName")
+                                    }
                                 }
+                                anyMatch = true
                             } else if (backupFilePatterns.any { entry.name.matches(it) }) {
-                                val file = File(filesDir, entry.name)
-                                FileUtils.copyStreamToNewFile(zip, file)
+                                if (!restoreEntryToDir(zip, filesDir, entry.name)) {
+                                    Log.w("AdvancedScreen", "skipping unsafe backup entry ${entry.name}")
+                                }
+                                anyMatch = true
                             } else if (entry.name == Database.NAME) {
+                                anyMatch = true
                                 FileUtils.copyStreamToNewFile(zip, restoredDb)
                             } else if (entry.name == PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
                                 val prefs = ctx.prefs()
                                 prefs.edit { clear() }
+                                anyMatch = true
                                 readJsonLinesToSettings(prefLines, prefs)
                             } else if (entry.name == PROTECTED_PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
                                 val protectedPrefs = ctx.protectedPrefs()
                                 protectedPrefs.edit { clear() }
                                 readJsonLinesToSettings(prefLines, protectedPrefs)
+                                anyMatch = true
                             }
                             zip.closeEntry()
                             entry = zip.nextEntry
                         }
                     }
                 }
+                if (!anyMatch)
+                    throw Exception("nothing to restore in the given file")
 
                 Database.copyFromDb(restoredDb, ctx)
-                Looper.prepare()
+                filesDir2.deleteRecursively()
+                deviceProtectedFilesDir2.deleteRecursively()
+                if (Looper.myLooper() == null)
+                    Looper.prepare()
                 Toast.makeText(ctx, ctx.getString(R.string.backup_restored), Toast.LENGTH_LONG).show()
             } catch (t: Throwable) {
+                filesDir.deleteRecursively()
+                filesDir2.renameTo(filesDir)
+                deviceProtectedFilesDir.deleteRecursively()
+                deviceProtectedFilesDir2.renameTo(deviceProtectedFilesDir)
+                ctx.prefs().edit {
+                    clear()
+                    oldPrefs.forEach { (key, value) ->
+                        when (value) {
+                            is String -> putString(key, value)
+                            is Int -> putInt(key, value)
+                            is Long -> putLong(key, value)
+                            is Float -> putFloat(key, value)
+                            is Boolean -> putBoolean(key, value)
+                            is Set<*> -> putStringSet(key, value.filterIsInstance<String>().toSet())
+                        }
+                    }
+                }
+                ctx.protectedPrefs().edit {
+                    clear()
+                    oldProtectedPrefs.forEach { (key, value) ->
+                        when (value) {
+                            is String -> putString(key, value)
+                            is Int -> putInt(key, value)
+                            is Long -> putLong(key, value)
+                            is Float -> putFloat(key, value)
+                            is Boolean -> putBoolean(key, value)
+                            is Set<*> -> putStringSet(key, value.filterIsInstance<String>().toSet())
+                        }
+                    }
+                }
                 onError("r" + t.message)
                 Log.w("AdvancedScreen", "error during restore", t)
             } finally {
@@ -220,8 +267,8 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
             }
         }
         wait.await()
-        AppUpgrade.checkVersionUpgrade(ctx)
-        AppUpgrade.transferOldPinnedClips(ctx)
+        checkVersionUpgrade(ctx)
+        transferOldPinnedClips(ctx)
         Settings.getInstance().startListener()
         SubtypeSettings.reloadEnabledSubtypes(ctx)
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
@@ -278,6 +325,17 @@ private fun readJsonLinesToSettings(list: List<String>, prefs: SharedPreferences
     }
 }
 
+private fun restoreEntryToDir(zip: ZipInputStream, baseDir: File, entryName: String): Boolean {
+    val file = File(baseDir, entryName)
+    val canonicalBase = baseDir.canonicalFile
+    val canonicalTarget = file.canonicalFile
+    if (canonicalTarget.path != canonicalBase.path
+        && !canonicalTarget.path.startsWith(canonicalBase.path + File.separator)
+    ) return false
+    FileUtils.copyStreamToNewFile(zip, file)
+    return true
+}
+
 private const val PREFS_FILE_NAME = "preferences.json"
 private const val PROTECTED_PREFS_FILE_NAME = "protected_preferences.json"
 
@@ -289,4 +347,5 @@ private val backupFilePatterns by lazy { listOf(
     "custom_background_image.*".toRegex(),
     "custom_font".toRegex(),
     "custom_emoji_font".toRegex(),
+    "clipboard/.*".toRegex(),
 ) }

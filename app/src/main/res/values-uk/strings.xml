@@ -174,7 +174,7 @@
     <string name="label_go_key">"Іти"</string>
     <string name="label_next_key">"Далі"</string>
     <string name="label_previous_key">"Назад"</string>
-    <string name="label_done_key">"ОК"</string>
+    <string name="label_done_key">ОK</string>
     <string name="label_send_key">"Слати"</string>
     <string name="label_search_key">"Пошук"</string>
     <string name="label_pause_key">"Пауза"</string>
@@ -331,7 +331,7 @@
     <string name="remove_redundant_popups_summary">Видалити спливні клавіші, які є в базовій розкладці</string>
     <string name="subtype_mns">Мансійська</string>
     <string name="subtype_generic_extended">%s (Розширена)</string>
-    <string name="all_colors_warning">Ця установка показує всі кольори, які використовуються всередині програми. Список кольорів може змінюватись. Стандартний колір є випадковим, і імена не будуть переведені.</string>
+    <string name="all_colors_warning">Це налаштування показує всі кольори, які використовуються всередині програми. Список кольорів може змінюватись. Типове значення походить від звичайних кольорів, і імена не будуть переведені.</string>
     <string name="more_colors">Показати більше кольорів</string>
     <string name="remove_redundant_popups">Видалити зайві спливні вікна</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функціональні клавіші</string>
@@ -370,7 +370,6 @@
     <string name="vibrate_in_dnd_mode">Вібрація в режимі «Не турбувати»</string>
     <string name="subtype_dru">Даргинська (Урахі)</string>
     <string name="split" tools:keep="@string/split">Розділена клавіатура</string>
-    <string name="enable_split_keyboard_landscape">Увімкнути розділену клавіатуру (альбомну)</string>
     <string name="subtype_generic_phonetic">%s (Фонетика)</string>
     <string name="auto_correct_shortcuts">Автовиправлення комбінації клавіш</string>
     <string name="auto_correct_shortcuts_summary">Якщо увімкнено, комбінації клавіш можуть бути розгорнуті за допомогою автокорекції</string>
@@ -430,8 +429,124 @@
     <string name="about_wiki_link">Переглянути Вікі</string>
     <string name="about_wiki_link_description">Вікі може бути покращена будь-яким користувачем GitHub!</string>
     <string name="space_swipe_hide_keyboard_entry">Приховати клавіатуру</string>
+    <string name="space_swipe_touchpad_mode_entry">Режим сенсорної панелі</string>
+    <string name="touchpad_sensitivity">Чутливість сенсорної панелі</string>
+    <string name="touchpad_edge_scroll">Прокрутка біля країв</string>
+    <string name="touchpad_edge_scroll_description">Автоматична прокрутка при проведенні до країв клавіатури</string>
     <string name="delete_confirmation">Ви насправді хочете видалити %s ?</string>
     <string name="name_invalid">Недійсне ім\'я</string>
     <string name="custom_subtype">Власний макет</string>
     <string name="landscape">Горизонтальна</string>
+    <string name="ask_later">Спитати пізніше</string>
+    <string name="clipboard_history_pinned_first">Показувати прикріплені об\'єкти вгорі</string>
+    <string name="inline_emoji_search">Вбудований пошук емодзі</string>
+    <string name="inline_emoji_search_summary">Запропонуйте лише емодзі, коли слову передує двокрапка</string>
+    <string name="emoji_dictionary_required">Для роботи цієї функції потрібен словник емодзі. Словники у форматі .dict можна завантажити %s.</string>
+    <string name="toolbar_swipe_down_to_hide">Сховати клавіатуру свайпом</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Проведіть вниз від панелі інструментів щоб закрити клавіатуру</string>
+    <string name="timestamp_description">Ви можете додати ключ мітки часу за допомогою користувацького макета з ключем \'timestamp\', або кодом ключа -10043</string>
+    <string name="number_row_in_symbols">Відображати ряд цифр в перегляді символів</string>
+    <string name="save_subtype_per_app">Запам\'ятовувати мову для додатка</string>
+    <string name="prefs_bottom_row_scale">Масштаб нижнього рядка</string>
+    <string name="custom_emoji_font">Встановити користувацький шрифт емодзі з файлу</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Нижній ряд емодзі з кнопкою дії</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Нижній ряд буфера обміну з кнопкою дії</string>
+    <string name="emoji_search_title">Пошук емодзі</string>
+    <string name="search_field_placeholder">Пошук</string>
+    <string name="gesture_data_screen">Збір даних жестів</string>
+    <string name="gesture_data_description">&lt;b&gt;Ласкаво просимо на екран збору даних жестів!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Це частина &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-funded project&lt;/a&gt;, що прагне створити бібліотеку для введення жестів з повністю відкритим вихідним кодом, здатну замінити бібліотеку Google із закритим кодом.&lt;br/&gt; Результатом планується проста заміна клавіатур на основі AOSP, але також придатна для використання з іншими клавіатурами, напр. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Для розробки бібліотеки надзвичайно корисно мати детальні дані жестів різними мовами та різними користувачами.&lt;br/&gt; Збираючи та надсилаючи дані введення жестів, ви можете зробити внесок у відкритий набір даних жестів, які використовуватимуться для розвитку бібліотеки. Набір даних буде опубліковано за ліцензією CC BY-SA 4.0 через деякий час після завершення етапу збору даних на %s. Зібравши дані, ви можете надіслати їх за допомогою піктограми спільного доступу внизу цього екрана.</string>
+    <string name="gesture_data_info">Що це?</string>
+    <string name="gesture_data_description_modes">\"Безпечним\" способом зробити внесок є режим &lt;i&gt;активного збору&lt;/i&gt;, де вам показують певне слово, і ви вводите це слово за допомогою набору жестів &lt;br&gt; Ви також можете використовувати режим збору &lt;i&gt;фону&lt;/i&gt;, де ви можете надати зразки зі свого звичайного набору жестів з інших програм. Завдяки чутливості цього підходу, це опціонально, конфігурується та має екран перегляду даних, які ви збираєтеся надіслати.</string>
+    <string name="gesture_data_description_privacy">Конфіденційність\n\n Дані, які ви надсилаєте, складаються з цільового слова, розкладки та розмірів клавіатури, жестів (часу та координат), пропозицій поточної бібліотеки, хешу використаних словників, версії програми, режиму збору даних, чи є бібліотека введення жестів бібліотекою Google за замовчуванням, а також ідентифікатор для кожного жесту.\n Надіслані дані будуть завантажені та видалені з поштової скриньки ProtonMail, де вони зберігаються якнайшвидше. Після завершення етапу збору даних жестів накопичений набір даних від усіх користувачів буде опубліковано за ліцензією Creative Commons BY-SA 4.0.\n\n У рамках спроби захистити вашу конфіденційність ви не будете прямо вказані як автор. Ваша заслуга буде як \"Вкладники проекту жестових даних HeliBoard\" Не повинно бути можливості підключити дані, які ви генеруєте на цьому екрані, до вашої особи. Однак можна було б визначити, які жести робила одна й та сама особа. Це можна зробити, наприклад, за допомогою спеціальної розкладки клавіатури, розмірів клавіатури, мови або індивідуального стилю жестикуляції.</string>
+    <string name="gesture_data_privacy">Конфіденційність</string>
+    <string name="gesture_data_get_data">Поділитися файлом даних жестів</string>
+    <string name="gesture_data_delete_data">Очистити дані жестів</string>
+    <string name="gesture_data_send_mail">Надіслати дані електронною поштою</string>
+    <string name="gesture_data_copy_mail">Копіювати електронну адресу</string>
+    <string name="gesture_data_mail_use">Зауважте, що адреса електронної пошти призначена для подання даних, ви можете не отримувати швидких або послідовних відповідей.</string>
+    <string name="gesture_data_please_type">Будь ласка, введіть жестами:</string>
+    <string name="gesture_data_please_switch_keyboard">Будь ласка, перемкніться на %s</string>
+    <string name="gesture_data_next_save">Отримано %s. Натисніть, якщо ви впевнені, що правильно зробили жест</string>
+    <string name="gesture_data_next">Пропустити слово</string>
+    <string name="gesture_data_active_count">%1$s слів у цьому сеансі, %2$s слів загалом (%3$s вже надіслано або видалено)</string>
+    <string name="gesture_data_review_screen_title">Перегляд і обмін даними жестів</string>
+    <string name="gesture_data_words_selected">%s слів</string>
+    <string name="gesture_data_date_range">Діапазон дат</string>
+    <string name="gesture_data_much_data">У вас є багато неподаних даних. Будь ласка, надішліть, а потім видаліть старі дані.</string>
+    <string name="gesture_data_how_to_use">Як використовувати</string>
+    <string name="gesture_data_active_description">Торкніться пункту &lt;i&gt;Почати активний збір&lt;/i&gt;, за бажанням перемкніть словник і почніть введення жестами відображеного слова.&lt;br/&gt; Якщо ваш жест збігається зі словом, дані зберігаються і відображається наступне слово. В іншому випадку ви можете повторити спробу, пропустити слово або підтвердити правильність жестів.&lt;br/&gt; Ви можете використовувати лише словники, які вбудовані в програму або доступні в &lt;a href=%s&gt;репозиторії словників&lt;/a&gt;, інші слова не використовуватимуться.</string>
+    <string name="gesture_data_active_start">Почати активний збір</string>
+    <string name="gesture_data_active_stop">Зупинити активний збір</string>
+    <string name="gesture_data_ends_at">Фаза збору даних жестів завершиться на %s. Будь ласка, надішліть свої дані до цієї дати.</string>
+    <string name="gesture_data_ended">Фаза збору даних жестів закінчилася на %s. Ви можете ділитися наявними даними, але не додавати нічого нового.</string>
+    <string name="gesture_data_share_all">Надіслати всі %s слів</string>
+    <string name="gesture_data_share_new">Поділитися %s не надісланими раніше словами</string>
+    <string name="gesture_data_delete_dialog">У вас є дані для %1$s нових і %2$s вже спільних слів.</string>
+    <string name="gesture_data_share_limit">Щоб уникнути перевищення лімітів розміру, буде експортовано лише перші %s слів</string>
+    <string name="gesture_data_delete_dialog_all">Видалити всі %s слів</string>
+    <string name="gesture_data_delete_dialog_confirm">Ви впевнені? Це призведе до видалення %s слів. Переконайтеся, що ваші спільні дані надіслані!</string>
+    <string name="gesture_data_delete_dialog_submitted">Видалити %s надісланих слів</string>
+    <string name="gesture_data_many_not_shared_words">У вас є більше %s слів, які очікують на надсилання</string>
+    <string name="gesture_data_email_body">ВАЖЛИВО:\n\n Привіт!\n Нагадаємо, ці дані будуть публічно поширюватися за ліцензією CC BY-SA 4.0, і ви не будете вказані як автор для захисту вашої конфіденційності.\n\n Дякуємо, що поділилися з нами правами на ваші дані. Ми їх з користю використаємо!\n\n Зверніть увагу, що зміна формулювання цього повідомлення не змінює того, що ми будемо робити з вашими даними. Це не контракт, який потрібно змінювати, це просто дружнє нагадування!\n Якщо ви хочете надіслати нам повідомлення разом зі своїми даними, напишіть його під рядком тут.\n ---------------------------------</string>
+    <string name="gesture_data_promotion_message">Привіт!\n Оскільки ви встановили бібліотеку введення жестів, можливо, вас зацікавить проект HeliBoard для створення повністю відкритої бібліотеки введення жестів. Ви можете допомогти, надаючи дані жестів. Для отримання додаткової інформації відвідайте екран збору даних жестів.</string>
+    <string name="gesture_data_reminder_message">Привіт!\n Раніше ви використовували збір даних жестів, але не додавали дані протягом тривалого часу. Хочете знову зробити свій внесок?</string>
+    <string name="gesture_data_take_me_there">Перейти</string>
+    <string name="gesture_data_links">Інформація про активний збір даних на:</string>
+    <string name="custom_punctuation_suggestions">Встановити пропозиції пунктуації</string>
+    <string name="subtype_mhr">Марі (Східна)</string>
+    <string name="subtype_khipro_bn">%s (Хіпро)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Функціональні клавіши (Хіпро)</string>
+    <string name="folded">Складений</string>
+    <string name="spell_check_suggestions_summary">Показати пропозиції при виборі слова з червоним підкресленням. Потрібно встановити програму як засіб перевірки орфографії за замовчуванням.</string>
+    <string name="spell_check_suggestions">Показати пропозиції перевірки правопису</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Ще потрібно включити показ віртуальної клавіатури в налаштуваннях системи</string>
+    <string name="prefs_key_gap_scale">Відстань між клавішами</string>
+    <string name="toolbar_only_with_hw_keyboard">Показати лише панель інструментів із фізичною клавіатурою</string>
+    <string name="floating" tools:keep="@string/floating">Плаваюча клавіатура</string>
+    <string name="clipboard_history_files">Додати зображення та інші файли до історії буфера обміну</string>
+    <string name="clipboard_history_max_file_size">Ліміт буфера обміну</string>
+    <string name="item_description">Опис: %s</string>
+    <string name="item_type">Тип: %s</string>
+    <string name="abbreviation_unit_mb">%s МБ</string>
+    <string name="subtype_generic_4row">%s (4-ряд)</string>
+    <string name="gesture_data_share_duplicate">Ви можете знову поділитися вже надісланими даними, якщо ви не впевнені, що вони були отримані правильно. Виявляємо і видаляємо дублікати при обробці даних.</string>
+    <string name="gesture_data_active">Активне збирання</string>
+    <string name="background_gesture_data_links">Інформація про фоновий збір:</string>
+    <string name="gesture_data_background_gathering_switch">Використовувати фоновий збір даних</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Дозволені додатки: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Типово відхилити</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Дані зберігаються вручну за допомогою клавіши панелі інструментів</string>
+    <string name="gesture_data_background_gathering_info">Більше інформації</string>
+    <string name="gesture_data_background_gathering_info_message">Увімкнення збору фонових даних дозволяє Heliboard записувати жести, які ви вводите в інших програмах. Це дуже корисно для проекту набору жестів, оскільки він може створювати значну кількість даних, хоча й нижчої якості, ніж активний збір. Збір фонових даних не є заміною активно зібраних даних, він має бути доповненням, оскільки якість даних важливіша за кількість.\n\nФоновий збір має високий потенціал збору даних, які ви можете вважати занадто приватними, щоб поділитися ними, навіть якщо вони опубліковані анонімно. З цієї причини ми хочемо пояснити, коли збираються дані жестів і як ви можете на них впливати.\n\nВи можете знайти відео, яке пояснює більше про збір фонових даних, у розділі посилань у нижньому правому куті цього екрана.</string>
+    <string name="gesture_data_background_gathering_indicator">Індикатор збору даних</string>
+    <string name="gesture_data_background_gathering_indicator_message">У будь-який час, коли дані жестів можуть бути записані, ви побачите значок індикатора в нижній лівій частині клавіатури. Коли коло заповнено, принаймні один жест зібрано та чекає на збереження. Дані зберігаються або за допомогою клавіші панелі інструментів (див &lt;i&gt;%1$s&lt;/i&gt;), або автоматично (коли &lt;i&gt;%2$s&lt;/i&gt; вимкнено). Автоматичне збереження зазвичай відбувається під час перемикання текстових полів або закриття клавіатури, але також може статися, якщо текстове поле змінюється з якоїсь іншої причини. При збереженні даних індикатор на короткий час стане зеленим.</string>
+    <string name="gesture_data_background_gathering_control">Як контролювати, що збережено</string>
+    <string name="gesture_data_background_gathering_control_message">Незалежно від налаштувань, збір фонових даних вимкнено під час використання режиму анонімного перегляду Також вимкнено для полів введення, позначених як конфіденційні (паролі, електронна пошта або щоразу, коли поле введення вимагає від клавіатури не вивчати слова)Тільки слова, які є в основному словнику (вбудований або з репозиторію &lt;a href=%5$s&gt;словників&lt;/a&gt;) буде зібрано&lt;br&gt;&lt;br&gt; За допомогою &lt;i&gt;%1$s&lt;/i&gt; ви можете вибрати, які програми ви хочете дозволити збір фонових даних у Налаштуванні за замовчуванням вимкнено кожну програму, з вибором для кожної програми, і відмова від програми, тому зручніше але автоматично дозволить збирати дані з нещодавно встановлених програ Це може призвести до збору даних, яких ви не очікували&lt;br&gt;&lt;br&gt; За допомогою &lt;i&gt;%2$s&lt;/i&gt; ви можете виключити певні конфіденційні слов Під час жестикуляції виключеного слова піктограма індикатора все одно відображатиме заповнену піктограму (\"дані, які очікують на збереження\"), але дані будуть відкинуті, коли зазвичай вони будуть збережен Будь-які заблоковані слова, які вже були збережені до того, як слово було заблоковано, будуть відкинуті під час експорту даних&lt;br&gt; Зауважте, що збір фону збиратиме лише слова, які вже є в основному словнику, отже, єдині слова, які вам, ймовірно, потрібно буде заблокувати, це загальні слова, які можна використовувати для особистої ідентифікації вас, наприклад: ваше ім’я, вулиця, місто, територія тощо&lt;br&gt;&lt;br&gt; Коли ввімкнено &lt;i&gt;%3$s&lt;/i&gt;, дані зберігаються, лише якщо ви вирішите зробити це вручну за допомогою &lt;i&gt;%4$s&lt;/i&gt; клавіша панелі інструментів (ди нижче)Якщо дані не збережено, очікувані дані будуть видалені під час зміни поля введення або закриття клавіатури&lt;br&gt; Додаток і виключення слів все ще застосовуються в цьому режимі&lt;br&gt;&lt;br&gt; &lt;i&gt;%4$s&lt;/i&gt; клавішу панелі інструментів можна використовувати для керування збором дани Ефект натискання залежить від поточного стану: коли збір тла вимкнено, його буде ввімкнено&lt;br&gt; Довге натискання вимкне збір на п\'ять хвилин&lt;br&gt; Ви можете повторно ввімкнути збір фонових даних раніше за допомогою звичайного натискання клавіші&lt;br&gt; Коли &lt;i&gt;%3$s&lt;/i&gt; увімкнено, очікувані дані буде збережено&lt;br&gt; В іншому випадку, очікувані дані буде відкинуто&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">За допомогою екрана &lt;i&gt;%1$s&lt;/i&gt; ви можете перевірити та відфільтрувати зібрані дані, видалити дані, які ви вважаєте занадто чутливими, і поділитися даними. Кнопки видалення та спільного доступу працюватимуть на відфільтрованих даних або на виділенні, якщо ви використовуєте довге натискання для вибору слів. (Зауважте, що піктограма \"звичайний\" спільний доступ за межами екрана &lt;i&gt;%1$s&lt;/i&gt; буде ділитися лише даними з активного збиранн &lt;br&gt; Порядок спільних даних рандомізовано, тому не можна вивести нічого, крім окремих слів br&gt; Якщо ви хочете переглянути повні дані, які зберігаються для жесту, ви можете поділитися ним із файлом і завантажити файл у &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="gesture_data_background_apps_button">Керування дозволеними додатками</string>
+    <string name="gesture_data_background_apps">Виберіть додаткі, включені до фонового збору даних</string>
+    <string name="gesture_data_background_apps_include_default">Типові включені додатки</string>
+    <string name="gesture_data_background_excluded_words_button">Керування виключеними словами</string>
+    <string name="gesture_data_background_dictionary">Словник: %s</string>
+    <string name="gesture_data_background_position">Позиція: %s</string>
+    <string name="gesture_data_background_exclude_words">Виключене слово для фонового збору</string>
+    <string name="gesture_data_long_press_select_hint">Довге натискання для вибору</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Фоновий збір даних</string>
+    <string name="gesture_data_show_active">Показати активно зібрані дані</string>
+    <string name="gesture_data_show_background">Показати фонові дані</string>
+    <string name="gesture_data_include_shared">Включити вже подані дані</string>
+    <string name="gesture_data_shared">подано</string>
+    <string name="gesture_data_saving">Збереження… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Ласкаво просимо до збору фонових даних!&lt;br&gt; Бажаєте додати ключ &lt;i&gt;%1$s&lt;/i&gt; на панель інструментів? Ви можете використовувати його для керування збором даних, читати більше про нього за допомогою кнопки &lt;i&gt;%2$s&lt;/i &lt;br&gt;&lt;br&gt; За замовчуванням фоновий збір вимкнено для всіх програм. Це означає, що нічого не буде зібрано, доки ви не виберете, яким програмам ви дозволите це. Ви можете змінити його %3$s.</string>
+    <string name="gesture_data_add_key">Додати клавішу панелі інструментів</string>
+    <string name="gesture_data_no_known_dict">Збір тла збирає лише слова, що надходять зі словників, які вбудовані або доступні у сховищі &lt;a href=%s&gt;словників&lt;/a&gt;. Наразі у вас не ввімкнено такий словник.</string>
+    <string name="gesture_data_swipe_o_scope">Інструмент для візуалізації даних жестів: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="prefs_hint_font_scale">Масштаб шрифту підказки</string>
+    <string name="auto_correct_capitalized_suggestions_description">Після натискання клавіші shift для пропозицій спрацює автоматичне виправлення</string>
+    <string name="auto_correct_capitalized_suggestions">Автоматичне виправлення пропозицій з великої літери</string>
+    <string name="about_community_links">Посилання спільноти</string>
+    <string name="about_community_links_description">Теми, макети, обговорення, …</string>
+    <string name="subtype_tok">Токі Пона</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
+    <string name="space_swipe_toggle_dpad_entry">Перемикати D-pad</string>
 </resources>

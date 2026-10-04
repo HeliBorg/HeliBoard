@@ -25,22 +25,31 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.BackButton
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
+import helium314.keyboard.latin.utils.GestureDataGatheringSettings
+import helium314.keyboard.latin.utils.IntentUtils
+import helium314.keyboard.latin.utils.JniUtils
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.NewDictionaryDialog
+import helium314.keyboard.settings.screens.gesturedata.END_DATE_EPOCH_MILLIS
+import helium314.keyboard.settings.screens.gesturedata.TWO_WEEKS_IN_MILLIS
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.BufferedOutputStream
 import java.io.File
@@ -73,6 +82,8 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         crashReportFiles.value = findCrashReports(!BuildConfig.DEBUG && !DebugFlags.DEBUG_ENABLED)
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        if (!UncachedInputMethodManagerUtils.isThisImeCurrent(this, imm))
+            KeyboardIconsSet.instance.loadIcons(this) // otherwise we may crash when displaying toolbar keys
 
         settingsContainer = SettingsContainer(this)
 
@@ -103,6 +114,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                                 settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
                                 settingsContainer[Settings.PREF_USE_APPS]!!.Preference()
                                 settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
+                                settingsContainer[Settings.PREF_SPELLCHECK_SUGGEST]!!.Preference()
                             }
                         }
                     else {
@@ -110,6 +122,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                         if (showWelcomeWizard) {
                             WelcomeWizard(close = { showWelcomeWizard = false }, finish = this::finish)
                         } else if (crashReports.isNotEmpty()) {
+                            val ctx = LocalContext.current
                             ConfirmationDialog(
                                 cancelButtonText = "ignore",
                                 onDismissRequest = { crashReportFiles.value = emptyList() },
@@ -117,14 +130,15 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                                 onNeutral = { crashReports.forEach { it.delete() }; crashReportFiles.value = emptyList() },
                                 confirmButtonText = "get",
                                 onConfirmed = {
-                                    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                                    intent.addCategory(Intent.CATEGORY_OPENABLE)
-                                    intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
-                                    intent.type = "application/zip"
+                                    val intent = IntentUtils.getResolvableTypeIntent(ctx, "application/zip")
+                                        .setAction(Intent.ACTION_CREATE_DOCUMENT)
+                                        .putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
                                     crashFilePicker.launch(intent)
                                 },
                                 content = { Text("Crash report files found") },
                             )
+                        } else if (JniUtils.sHaveGestureLib && System.currentTimeMillis() < END_DATE_EPOCH_MILLIS + TWO_WEEKS_IN_MILLIS) {
+                            GestureDataGatheringSettings.GestureDataPromotionReminderDialog()
                         }
                     }
                     if (dictUri != null) {

@@ -27,9 +27,10 @@ object SubtypeSettings {
     /** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
      *  subtypes for system locales will be returned, or en-US if none found. */
     fun getEnabledSubtypes(fallback: Boolean = false): List<InputMethodSubtype> {
-        if (fallback && enabledSubtypes.isEmpty())
-            return getDefaultEnabledSubtypes()
-        return enabledSubtypes
+        val enabled = if (fallback && enabledSubtypes.isEmpty()) getDefaultEnabledSubtypes()
+            else enabledSubtypes
+        return if (Settings.getValues()?.mIsLocked != true) enabled // on app start SettingsValues are null
+        else enabled + SettingsSubtype.fallbackSubtype.toAdditionalSubtype()
     }
 
     fun isEnabled(subtype: InputMethodSubtype?): Boolean = subtype in enabledSubtypes || subtype in getDefaultEnabledSubtypes()
@@ -95,7 +96,7 @@ object SubtypeSettings {
 
     fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
         val selectedSubtype = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype()
-        if (selectedSubtype.isAdditionalSubtype(prefs))
+        if (selectedSubtype.isAdditionalSubtype(prefs) || selectedSubtype == SettingsSubtype.fallbackSubtype)
             return selectedSubtype.toAdditionalSubtype()
         // no additional subtype, must be a resource subtype
 

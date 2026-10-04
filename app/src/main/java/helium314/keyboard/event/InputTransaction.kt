@@ -5,6 +5,7 @@
  */
 package helium314.keyboard.event
 
+import helium314.keyboard.latin.CapsMode
 import helium314.keyboard.latin.settings.SettingsValues
 
 /** An object encapsulating a single transaction for input. */
@@ -14,7 +15,7 @@ class InputTransaction(
     val event: Event,
     val timestamp: Long,
     val spaceState: Int,
-    val shiftState: Int
+    val shiftState: CapsMode
 ) {
     /** Gets what type of shift update this transaction requires. */
     // Outputs

@@ -8,127 +8,6 @@
 <!-- The attributes in this XML file provide configuration information -->
 <!-- for the Input Method Manager. -->
 
-<!-- Supported subtypes
-    keyboard_locale: script_name/keyboard_layout_set
-    af: Afrikaans/qwerty
-    ak: Akan/akan # This is a preliminary keyboard layout.
-    ar: Arabic/arabic
-    ar: Arabic/arabic_pc
-    az_AZ: Azerbaijani (Azerbaijan)/qwerty
-    be_BY: Belarusian (Belarus)/belarusian
-    bem: Bemba/bemba # This is a preliminary keyboard layout.
-    bg: Bulgarian/bulgarian
-    bg: Bulgarian/bulgarian_bds
-    bg: Bulgarian/bulgarian_bekl
-    bn_BD: Bengali (Bangladesh)/bengali_unijoy
-    bn_BD: Bengali (Bangladesh) (Akkhor)/bengali_akkhor
-    bn_IN: Bengali (India)/bengali_inscript
-    bn_IN: Bengali (India)/Baishakhi
-    ca: Catalan/qwerty+
-    ckb: Central Kurdish/central_kurdish
-    cs: Czech/qwertz
-    cv: Chuvash/chuvash
-    da: Danish/qwerty+
-    dag: Dagbani/dagbani # This is a preliminary keyboard layout.
-    dru: Dargwa (Urakhi)/dargwa_urakhi
-    de: German/qwertz
-    de_DE: German (Germany)/qwertz+
-    de_CH: German (Switzerland)/qwertz+
-    ee: Ewe/ewe # This is a preliminary keyboard layout.
-    el: Greek/greek
-    en_AU: English (Australia)/qwerty
-    en_IN: English (India)/qwerty
-    en_US: English (United States)/qwerty
-    en_GB: English (Great Britain)/qwerty
-    eo: Esperanto/esperanto
-    es: Spanish/qwerty+
-    es_US: Spanish (United States)/qwerty+
-    es_419: Spanish (Latin America)/qwerty+
-    et_EE: Estonian (Estonia)/qwerty+
-    eu_ES: Basque (Spain)/qwerty+
-    fa: Persian/farsi
-    fi: Finnish/qwerty+
-    fr: French/azerty
-    fr_CA: French (Canada)/qwerty
-    fr_CH: French (Switzerland)/qwertz+
-    gaa: Ga/ga # This is a preliminary keyboard layout.
-    gl_ES: Galician (Spain)/qwerty+
-    gu: Gujarati/gujarati
-    ha: Hausa/hausa # This is a preliminary keyboard layout.
-    hi: Hindi/hindi
-    hi: Hindi/hindi_compact
-    hi: Hindi/hindi_phonetic
-    hi_ZZ: Hinglish/qwerty  # This is a preliminary keyboard layout.
-    hr: Croatian/qwertz
-    hu: Hungarian/qwertz
-    hu: Hungarian/hungarian_qwertz
-    hu_HU: Hungarian/qwerty
-    hy_AM: Armenian (Armenia) Phonetic/armenian_phonetic
-    ig: Igbo/igbo # This is a preliminary keyboard layout.
-    in: Indonesian/qwerty    # "id" is the official language code of Indonesian.
-    is: Icelandic/qwerty
-    it: Italian/qwerty
-    it_CH: Italian (Switzerland)/qwertz+
-    iw: Hebrew/hebrew        # "he" is the official language code of Hebrew.
-    iw: Hebrew/hebrew_1452_2 # "he" is the official language code of Hebrew.
-    ka_GE: Georgian (Georgia)/georgian
-    kab: Kabyle (Algeria)/azerty # This is a preliminary keyboard layout.
-    ki: Kikuyu/kikuyu # This is a preliminary keyboard layout.
-    kk: Kazakh/russian
-    km_KH: Khmer (Cambodia)/khmer
-    kn_IN: Kannada (India)/kannada
-    kn_IN: Kannada Extended (India)/kannada
-    ky: Kyrgyz/russian
-    la: Latin
-    lg: Luganda/luganda # This is a preliminary keyboard layout.
-    ln: Lingala/lingala # This is a preliminary keyboard layout.
-    lo_LA: Lao (Laos)/lao
-    lt: Lithuanian/qwerty
-    lv: Latvian/qwerty
-    mhr: Mari (Eastern)
-    mk: Macedonian/macedonian
-    ml_IN: Malayalam (India)/malayalam
-    mn_MN: Mongolian (Mongolia)/mongolian
-    mr_IN: Marathi (India)/marathi
-    ms_MY: Malay (Malaysia)/qwerty
-    mwl: Mirandese/qwerty
-    nb: Norwegian Bokmål/qwerty+
-    ne_NP: Nepali (Nepal) Romanized/nepali_romanized
-    ne_NP: Nepali (Nepal) Traditional/nepali_traditional
-    nl: Dutch/qwerty
-    nl_BE: Dutch (Belgium)/azerty
-    pl: Polish/qwerty
-    pms: Piedmontese/qwerty
-    pt_BR: Portuguese (Brazil)/qwerty
-    pt_PT: Portuguese (Portugal)/qwerty
-    ro: Romanian/qwerty
-    ru: Russian/russian
-    ru: Russian (Extended)/russian_extended
-    ru: Russian (Student)/russian_student
-    si_LK: Sinhala (Sri Lanka)/sinhala # This is a preliminary keyboard layout.
-    sk: Slovak/qwerty
-    sl: Slovenian/qwerty
-    sr: Serbian/serbian
-    sr_ZZ: Serbian (Latin)/qwertz+ # This is a preliminary keyboard layout.
-    st: Sesotho/sesotho # This is a preliminary keyboard layout.
-    sv: Swedish/qwerty+
-    sw: Swahili/qwerty
-    ta_IN: Tamil (India)/tamil
-    ta_LK: Tamil (Sri Lanka)/tamil # Disabled in conjunction with si_LK.
-    ta_SG: Tamil (Singapore)/tamil
-    te_IN: Telugu (India)/telugu
-    th: Thai/thai
-    tl: Tagalog/qwerty+
-    tr: Turkish/turkish
-    ur_PK: Urdu Pakistan
-    uk: Ukrainian/ukrainian
-    uk: Ukrainian (Extended)/ukrainian_extended
-    uz_UZ: Uzbek (Uzbekistan)/uzbek # This is a preliminary keyboard layout.
-    vi: Vietnamese/qwerty
-    yo: Yoruba/yoruba
-    zu: Zulu/qwerty # This is a preliminary keyboard layout.
-    zz: QWERTY/qwerty
-    -->
 <!-- TODO: use <lang>_keyboard icon instead of a common keyboard icon. -->
 <!-- "AsciiCapable" is kept in extra values, as per recommendation in Android documentation -->
 <!-- Note: SupportTouchPositionCorrection extra value is obsolete and maintained for backward
@@ -143,6 +22,15 @@
         android:supportsInlineSuggestions="true"
         tools:targetApi="r">
     <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_en_US"
+        android:subtypeId="0xc9194f98"
+        android:imeSubtypeLocale="en_US"
+        android:languageTag="en-US"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+        android:isAsciiCapable="true"
+        />
+    <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
         android:subtypeId="0xc9194f97"
         android:imeSubtypeLocale="en_AU"
@@ -152,14 +40,14 @@
         android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
-        android:label="@string/subtype_en_US"
-        android:subtypeId="0xc9194f98"
-        android:imeSubtypeLocale="en_US"
-        android:languageTag="en-US"
+        android:label="@string/subtype_generic"
+        android:subtypeId="0xc9194f96"
+        android:imeSubtypeLocale="en_CA"
+        android:languageTag="en-CA"
         android:imeSubtypeMode="keyboard"
         android:imeSubtypeExtraValue="TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="true"
-    />
+        />
     <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_en_GB"
         android:subtypeId="0xb045e755"
@@ -169,6 +57,15 @@
         android:imeSubtypeExtraValue="TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="true"
     />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_generic"
+        android:subtypeId="0x8d58fc2d"
+        android:imeSubtypeLocale="en_IN"
+        android:languageTag="en-IN"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="AsciiCapable,EmojiCapable"
+        android:isAsciiCapable="true"
+        />
     <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
         android:subtypeId="0x6f972360"
@@ -411,15 +308,6 @@
         android:imeSubtypeMode="keyboard"
         android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:greek,EmojiCapable"
         android:isAsciiCapable="false"
-    />
-    <subtype android:icon="@drawable/ic_ime_switcher"
-        android:label="@string/subtype_generic"
-        android:subtypeId="0x8d58fc2d"
-        android:imeSubtypeLocale="en_IN"
-        android:languageTag="en-IN"
-        android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="AsciiCapable,EmojiCapable"
-        android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
@@ -832,6 +720,15 @@
         android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_generic_4row"
+        android:subtypeId="0xc5b9e7a4"
+        android:imeSubtypeLocale="xdq"
+        android:languageTag="xdq"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:kaitag_4row,EmojiCapable"
+        android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
         android:subtypeId="0x6c624c55"
         android:imeSubtypeLocale="lb"
@@ -1207,6 +1104,15 @@
         android:imeSubtypeMode="keyboard"
         android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:thai,NoShiftProximityCorrection,EmojiCapable"
         android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_generic"
+        android:subtypeId="0x67e4505d"
+        android:imeSubtypeLocale="tok"
+        android:languageTag="tok"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+        android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"

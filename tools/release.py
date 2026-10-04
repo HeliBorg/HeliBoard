@@ -16,12 +16,13 @@ def check_git():
         if cont != "y":
             sys.exit()
 
-
 # download and update translations
 def update_translations():
-    url = "https://translate.codeberg.org/download/heliboard/?format=zip"
     zip_file_name = "translations.zip"
-    urlretrieve(url, zip_file_name)
+    # currently need to download manually because auto-download is blocked by codeberg ai scraper defense
+    if not os.path.isfile(zip_file_name):
+        url = "https://translate.codeberg.org/download/heliboard/?format=zip"
+        urlretrieve(url, zip_file_name)
     # extract all in heliboard/heliboard/app/src/main/res and heliboard/heliboard/fastlane/metadata
     with zipfile.ZipFile(zip_file_name, "r") as f:
         for file in f.filelist:
@@ -30,6 +31,9 @@ def update_translations():
                 continue
             file.filename = file.filename.replace("heliboard/heliboard/", "")
             f.extract(file)
+    result = subprocess.run(["git", "status", "--short"], capture_output=True)
+    if b"?? app/src/main/res/values" in result.stdout:
+        print("new translation(s) found, add it to locales_config.xml")
     os.remove(zip_file_name)
 
 
@@ -37,7 +41,7 @@ def update_translations():
 def check_default_values_diff():
     result = subprocess.run(["git", "diff", "--name-only", "app/src/main/res/values"], capture_output=True)
     if result.returncode != 0 or len(result.stdout) != 0:
-        raise ValueError("default strings changed after translation import, something is wrong")
+        print("default strings changed after translation import, something is wrong")
 
 
 def read_dicts_readme() -> list[str]:
@@ -142,11 +146,32 @@ def update_dict_hashes():
             f.write(line + "\n")
 
 
-# update khipro mapping json, see discussion at the bottom of https://github.com/Helium314/HeliBoard/pull/2134
+# update khipro mapping json, see discussion at the bottom of https://github.com/HeliBorg/HeliBoard/pull/2134
 def update_khipro_mappings():
-    source = "https://raw.githubusercontent.com/KhiproTeam/Khipro-Mappings/refs/heads/main/output/touchscreen.json"
-    target = "app/src/main/assets/khipro-mappings.json"
+    source = "https://raw.githubusercontent.com/KhiproTeam/khipro-MIM-touchscreen/main/bn-khipro.mim"
+    target = "app/src/main/assets/bn-khipro.mim"
     urlretrieve(source, target)
+
+
+# update localesWithLocalizedNumberRow
+def update_localized_number_row():
+    locales = []
+    folder = "app/src/main/assets/locale_key_texts/"
+    for file in os.listdir(folder):
+        with open(folder + file, "r") as f:
+            if "[number_row]" in f.read():
+                locales.append(file.split(".")[0].split("-")[0])
+    locales = list(dict.fromkeys(locales)) # for bn-BD and bn-IN
+    prefs = "app/src/main/java/helium314/keyboard/settings/screens/PreferencesScreen.kt"
+    with open(prefs, "r") as f:
+        lines = f.readlines()
+    for i, line in enumerate(lines):
+        if not line.startswith("private val localesWithLocalizedNumberRow"):
+            continue
+        localetext = "\", \"".join(locales)
+        lines[i] = "private val localesWithLocalizedNumberRow = listOf(\"" + localetext + "\")\n"
+    with open(prefs, "w") as f:
+        f.writelines(lines)
 
 
 def main():
@@ -159,6 +184,7 @@ def main():
     update_khipro_mappings()
     check_changelog()
     update_dict_hashes()
+    update_localized_number_row()
 
 
 if __name__ == "__main__":

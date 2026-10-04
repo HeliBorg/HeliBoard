@@ -54,13 +54,14 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.CloseIcon
+import helium314.keyboard.latin.utils.CloseIcon
+import helium314.keyboard.latin.utils.IntentUtils
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.contentTextDirectionStyle
 import helium314.keyboard.settings.dialogs.ColorPickerDialog
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
@@ -153,10 +154,9 @@ fun ColorsScreen(
             stringResource(R.string.more_colors) to { KeyboardTheme.writeUserMoreColors(prefs, newThemeName.text, 1) },
             stringResource(R.string.all_colors) to { KeyboardTheme.writeUserMoreColors(prefs, newThemeName.text, 2) },
             stringResource(R.string.button_save_file) to {
-                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
+                val intent = IntentUtils.getResolvableTypeIntent(ctx, "application/json")
+                    .setAction(Intent.ACTION_CREATE_DOCUMENT)
                     .putExtra(Intent.EXTRA_TITLE,"${newThemeName.text}.json")
-                    .setType("application/json")
                 saveLauncher.launch(intent)
             },
             stringResource(R.string.copy_to_clipboard) to {

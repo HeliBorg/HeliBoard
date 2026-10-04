@@ -345,7 +345,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             Log.w(TAG, "Cannot find root view");
             return;
         }
-        final ViewGroup windowContentView = rootView.findViewById(android.R.id.content);
+        ViewGroup windowContentView = rootView.findViewById(android.R.id.content);
+        if (mDrawingPreviewPlacerView.getParent() instanceof ViewGroup vg)
+            vg.removeView(mDrawingPreviewPlacerView); // when moving keyboard from input method content view to floating container
         // Note: It'd be very weird if we get null by android.R.id.content.
         if (windowContentView == null) {
             Log.w(TAG, "Cannot find android.R.id.content view to add DrawingPreviewPlacerView");
@@ -572,8 +574,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mTimerHandler.cancelDoubleTapShiftKeyTimer();
     }
 
-    public boolean isInDoubleTapShiftKeyTimeout() {
-        return mTimerHandler.isInDoubleTapShiftKeyTimeout();
+    public boolean popDoubleTapShiftKeyTimer() {
+        return mTimerHandler.popDoubleTapShiftKeyTimer();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -713,7 +715,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
                 drawLanguageOnSpacebar(key, canvas, paint);
             }
             // Whether space key needs to show the "..." popup hint for special purposes
-            if (key.isLongPressEnabled() && mHasMultipleEnabledIMEsOrSubtypes) {
+            if (key.isLongPressEnabled() && mHasMultipleEnabledIMEsOrSubtypes && Settings.getValues().mSpaceForLangChange) {
                 drawKeyPopupHint(key, canvas, paint, params);
             }
         } else if (code == KeyCode.LANGUAGE_SWITCH) {
@@ -809,7 +811,6 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final int width = key.getWidth();
         final int height = key.getHeight();
         paint.setTextAlign(Align.CENTER);
-        paint.setTypeface(mTypeface == null ? Typeface.DEFAULT : mTypeface);
         paint.setTextSize(mLanguageOnSpacebarTextSize);
         final String customText = Settings.getValues().mSpaceBarText;
         final String spaceText;
@@ -817,10 +818,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             spaceText = customText;
         } else if (DebugFlags.DEBUG_ENABLED) {
             final String l = KeyboardSwitcher.getInstance().getLocaleAndConfidenceInfo();
-            spaceText = l != null ? l : layoutLanguageOnSpacebar(paint, keyboard.mId.mSubtype, width);
+            spaceText = l != null ? l : layoutLanguageOnSpacebar(paint, keyboard.mId.getSubtype(), width);
         }
         else
-            spaceText = layoutLanguageOnSpacebar(paint, keyboard.mId.mSubtype, width);
+            spaceText = layoutLanguageOnSpacebar(paint, keyboard.mId.getSubtype(), width);
+        paint.setTypeface(KeyboardTypeface.resolve(spaceText, Typeface.DEFAULT));
         // Draw language text with shadow
         final float descent = paint.descent();
         final float textHeight = -paint.ascent() + descent;

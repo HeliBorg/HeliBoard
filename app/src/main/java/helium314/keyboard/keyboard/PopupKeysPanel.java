@@ -9,6 +9,8 @@ package helium314.keyboard.keyboard;
 import android.view.View;
 import android.view.ViewGroup;
 import helium314.keyboard.keyboard.emoji.EmojiViewCallback;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public interface PopupKeysPanel {
     interface Controller {
@@ -72,12 +74,11 @@ public interface PopupKeysPanel {
      * @param controller the controller that can dismiss this {@link PopupKeysPanel}
      * @param pointX x coordinate of this {@link PopupKeysPanel}
      * @param pointY y coordinate of this {@link PopupKeysPanel}
-     * @param emojiViewCallback to receive keyboard actions from this {@link PopupKeysPanel}.
+     * @param onReleaseKey to receive keyboard actions from this {@link PopupKeysPanel}.
      */
     // TODO: Currently the PopupKeysPanel is inside a container view that is added to the parent.
     // Consider the simpler approach of placing the PopupKeysPanel itself into the parent view.
-    void showPopupKeysPanel(View parentView, Controller controller, int pointX,
-                           int pointY, EmojiViewCallback emojiViewCallback);
+    void showPopupKeysPanel(View parentView, Controller controller, int pointX, int pointY, Function1<Key, Unit> onReleaseKey);
 
     /**
      * Dismisses the popup keys panel and calls the controller's onDismissPopupKeysPanel to remove

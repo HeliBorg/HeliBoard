@@ -28,10 +28,10 @@ import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.SwitchPreferenceWithEmojiDictWarning
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 
 @Composable
 fun PreferencesScreen(
@@ -46,7 +46,7 @@ fun PreferencesScreen(
         R.string.settings_category_input,
         Settings.PREF_SHOW_HINTS,
         if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS))
-            Settings.PREF_POPUP_KEYS_LABELS_ORDER else null,
+            Settings.PREF_POPUP_KEYS_HINT_ORDER else null,
         Settings.PREF_POPUP_KEYS_ORDER,
         Settings.PREF_SHOW_POPUP_HINTS,
         Settings.PREF_SHOW_TLD_POPUP_KEYS,
@@ -74,11 +74,15 @@ fun PreferencesScreen(
         Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY,
         Settings.PREF_LANGUAGE_SWITCH_KEY,
         Settings.PREF_SHOW_EMOJI_KEY,
+        Settings.PREF_SHOW_DPAD_KEY,
         Settings.PREF_REMOVE_REDUNDANT_POPUPS,
         R.string.settings_category_clipboard_history,
         Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
         if (clipboardHistoryEnabled) Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME else null,
-        if (clipboardHistoryEnabled) Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST else null
+        if (clipboardHistoryEnabled) Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST else null,
+        if (clipboardHistoryEnabled) Settings.PREF_CLIPBOARD_USE_FILES else null,
+        if (clipboardHistoryEnabled && prefs.getBoolean(Settings.PREF_CLIPBOARD_USE_FILES, Defaults.PREF_CLIPBOARD_USE_FILES))
+            Settings.PREF_CLIPBOARD_FILES_SIZE_LIMIT else null,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -94,8 +98,8 @@ fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_SHOW_HINTS, R.string.show_hints, R.string.show_hints_summary) {
         SwitchPreference(it, Defaults.PREF_SHOW_HINTS) { KeyboardSwitcher.getInstance().reloadKeyboard() }
     },
-    Setting(context, Settings.PREF_POPUP_KEYS_LABELS_ORDER, R.string.hint_source) {
-        ReorderSwitchPreference(it, Defaults.PREF_POPUP_KEYS_LABELS_ORDER)
+    Setting(context, Settings.PREF_POPUP_KEYS_HINT_ORDER, R.string.hint_source) {
+        ReorderSwitchPreference(it, Defaults.PREF_POPUP_KEYS_HINT_ORDER)
     },
     Setting(context, Settings.PREF_POPUP_KEYS_ORDER, R.string.popup_order) {
         ReorderSwitchPreference(it, Defaults.PREF_POPUP_KEYS_ORDER)
@@ -156,6 +160,9 @@ fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_SHOW_EMOJI_KEY, R.string.show_emoji_key) {
         SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_KEY) { KeyboardSwitcher.getInstance().reloadKeyboard() }
     },
+    Setting(context, Settings.PREF_SHOW_DPAD_KEY, R.string.show_dpad_key) {
+        SwitchPreference(it, Defaults.PREF_SHOW_DPAD_KEY) { KeyboardSwitcher.getInstance().reloadKeyboard() }
+    },
     Setting(context, Settings.PREF_REMOVE_REDUNDANT_POPUPS,
         R.string.remove_redundant_popups, R.string.remove_redundant_popups_summary)
     {
@@ -182,6 +189,25 @@ fun createPreferencesSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST, R.string.clipboard_history_pinned_first) {
         SwitchPreference(it, Defaults.PREF_CLIPBOARD_HISTORY_PINNED_FIRST)
+    },
+    Setting(context, Settings.PREF_CLIPBOARD_USE_FILES, R.string.clipboard_history_files) {
+        val ctx = LocalContext.current
+        SwitchPreference(it, Defaults.PREF_CLIPBOARD_USE_FILES) {
+            ClipboardDao.getInstance(ctx)?.cleanupFiles(ctx.prefs())
+        }
+    },
+    Setting(context, Settings.PREF_CLIPBOARD_FILES_SIZE_LIMIT, R.string.clipboard_history_max_file_size) { setting ->
+        val ctx = LocalContext.current
+        SliderPreference(
+            name = setting.title,
+            key = setting.key,
+            default = Defaults.PREF_CLIPBOARD_FILES_SIZE_LIMIT,
+            description = {
+                if (it > 1000) stringResource(R.string.settings_no_limit)
+                else stringResource(R.string.abbreviation_unit_mb, it.toString())
+            },
+            range = 1f..1001f,
+        ) { ClipboardDao.getInstance(ctx)?.cleanupFiles(ctx.prefs()) }
     },
     Setting(context, Settings.PREF_VIBRATION_DURATION_SETTINGS, R.string.prefs_keypress_vibration_duration_settings) { setting ->
         SliderPreference(
@@ -212,8 +238,7 @@ fun createPreferencesSettings(context: Context) = listOf(
     },
 )
 
-// todo (later): not good to have it hardcoded, but reading a bunch of files may be noticeably slow
-private val localesWithLocalizedNumberRow = listOf("ar", "bn", "fa", "gu", "hi", "kn", "mr", "ne", "ur")
+private val localesWithLocalizedNumberRow = listOf("bn", "ckb", "gu", "hi", "kn", "mr", "ne", "th", "ur", "ar", "fa")
 
 @Preview
 @Composable

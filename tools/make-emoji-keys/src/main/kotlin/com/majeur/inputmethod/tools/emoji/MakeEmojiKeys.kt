@@ -49,6 +49,7 @@ class MakeEmojiKeys {
             val parser = EmojiUCDTestFileParser()
             parser.parse(JarUtils.getLatestEmojiTestResource(jar))
             val emojis = parser.getParsedData()
+            emojis.appendRegionalIndicators()
 
             val parser2 = AndroidEmojiSupportFileParser()
             parser2.parse(JarUtils.getEmojiSupportResource(jar))

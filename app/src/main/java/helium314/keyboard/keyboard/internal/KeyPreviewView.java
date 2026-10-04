@@ -8,7 +8,6 @@ package helium314.keyboard.keyboard.internal;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -18,6 +17,7 @@ import android.view.Gravity;
 import android.widget.TextView;
 
 import helium314.keyboard.keyboard.Key;
+import helium314.keyboard.keyboard.KeyboardTypeface;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.settings.Settings;
@@ -33,7 +33,6 @@ public class KeyPreviewView extends TextView {
 
     private final Rect mBackgroundPadding = new Rect();
     private static final HashSet<String> sNoScaleXTextSet = new HashSet<>();
-    private final Typeface mTypeface;
 
     public KeyPreviewView(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
@@ -42,7 +41,6 @@ public class KeyPreviewView extends TextView {
     public KeyPreviewView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setGravity(Gravity.CENTER);
-        mTypeface = Settings.getInstance().getCustomTypeface();
     }
 
     public void setPreviewVisual(final Key key, final KeyboardIconsSet iconsSet, final KeyDrawParams drawParams) {
@@ -57,7 +55,7 @@ public class KeyPreviewView extends TextView {
         setTextColor(drawParams.mPreviewTextColor);
         setTextSize(TypedValue.COMPLEX_UNIT_PX, key.selectPreviewTextSize(drawParams)
                 * Settings.getValues().mFontSizeMultiplier);
-        setTypeface(mTypeface == null ? key.selectPreviewTypeface(drawParams) : mTypeface);
+        KeyboardTypeface.applyToTextView(this, key.getPreviewLabel(), key.selectPreviewTypeface(drawParams));
         // TODO Should take care of temporaryShiftLabel here.
         setTextAndScaleX(key.getPreviewLabel());
     }

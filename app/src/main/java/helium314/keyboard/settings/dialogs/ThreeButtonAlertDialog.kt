@@ -5,10 +5,11 @@
  */
 package helium314.keyboard.settings.dialogs
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
@@ -28,8 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.latin.utils.previewDark
 
 @Composable
 fun ThreeButtonAlertDialog(
@@ -91,7 +92,7 @@ fun ThreeButtonAlertDialog(
                             }
                         }
                     }
-                    Row {
+                    FlowRow(horizontalArrangement = Arrangement.End) {
                         if (neutralButtonText != null)
                             TextButton(
                                 onClick = onNeutral

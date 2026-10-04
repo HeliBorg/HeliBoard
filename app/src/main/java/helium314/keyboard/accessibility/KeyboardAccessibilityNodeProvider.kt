@@ -269,8 +269,7 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView>(
      * @return The context-specific description of the key.
      */
     private fun getKeyDescription(key: Key): String? {
-        val editorInfo = mKeyboard?.mId?.mEditorInfo
-        val shouldObscure = mAccessibilityUtils.shouldObscureInput(editorInfo)
+        val shouldObscure = mKeyboard?.mId?.inputType?.let { mAccessibilityUtils.shouldObscureInput(it) } ?: false
         val currentSettings = Settings.getValues()
         val keyCodeDescription = mKeyCodeDescriptionMapper.getDescriptionForKey(
                 mKeyboardView.context, mKeyboard, key, shouldObscure)

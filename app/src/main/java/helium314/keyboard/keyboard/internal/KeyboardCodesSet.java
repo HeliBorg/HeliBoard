@@ -20,12 +20,12 @@ public final class KeyboardCodesSet {
         // This utility class is not publicly instantiable.
     }
 
-    public static int getCode(final String name) {
+    public static int getCode(String name) {
         Integer id = sNameToIdMap.get(name);
         if (id == null) {
             try {
-                return KeyCode.INSTANCE.checkAndConvertCode(Integer.parseInt(name));
-            } catch (final Exception e) {
+                return KeyCode.INSTANCE.checkAndConvertCode(Integer.parseInt(name), true); // need to take care about longPress check in some other place
+            } catch (Exception e) {
                 throw new RuntimeException("Unknown key code: " + name);
             }
         }
@@ -56,7 +56,7 @@ public final class KeyboardCodesSet {
         "key_start_onehanded", // keep name to avoid breaking custom layouts
         "key_stop_onehanded", // keep name to avoid breaking custom layouts
         "key_switch_onehanded",
-        "key_emoji_search"
+        "key_emoji_search",
     };
 
     private static final int[] DEFAULT = {
@@ -83,7 +83,7 @@ public final class KeyboardCodesSet {
         KeyCode.TOGGLE_ONE_HANDED_MODE,
         KeyCode.TOGGLE_ONE_HANDED_MODE,
         KeyCode.SWITCH_ONE_HANDED_MODE,
-        KeyCode.EMOJI_SEARCH
+        KeyCode.EMOJI_SEARCH,
     };
 
     static {

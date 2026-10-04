@@ -1,0 +1,6 @@
+* allow switching app (settings) language in system settings
+* optionally swipe down on toolbar to hide keyboard
+* add HCESAR layout
+* inform about missing emoji dictionary when enabling emoji suggestions
+* fix issues with active gesture data gathering
+* minor fixes and improvements

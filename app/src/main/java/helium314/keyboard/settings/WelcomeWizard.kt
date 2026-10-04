@@ -48,7 +48,10 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.JniUtils
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
+import helium314.keyboard.latin.utils.previewDark
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -65,7 +68,7 @@ fun WelcomeWizard(
         else -> 3
     }
     var step by rememberSaveable { mutableIntStateOf(determineStep()) }
-    val scope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope { Dispatchers.IO }
     LaunchedEffect(step) {
         if (step == 2)
             scope.launch {

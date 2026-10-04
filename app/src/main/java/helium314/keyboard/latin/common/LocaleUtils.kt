@@ -190,6 +190,7 @@ object LocaleUtils {
             "hi-Latn" -> R.string.subtype_hi_Latn
             "sr-Latn" -> R.string.subtype_sr_Latn
             "mns" -> R.string.subtype_mns
+            "tok" -> R.string.subtype_tok
             "xdq" -> R.string.subtype_xdq
             "dru" -> R.string.subtype_dru
             "st" -> R.string.subtype_st
@@ -204,7 +205,7 @@ object LocaleUtils {
 
         val localeDisplayName = getDisplayName(displayLocale ?: resources.configuration.locale())
         return if (localeDisplayName == languageTag) {
-            getDisplayName(Locale.US) // try fallback to English name, relevant e.g. fpr pms, see https://github.com/Helium314/HeliBoard/pull/748
+            getDisplayName(Locale.US) // try fallback to English name, relevant e.g. fpr pms, see https://github.com/HeliBorg/HeliBoard/pull/748
         } else {
             localeDisplayName
         }

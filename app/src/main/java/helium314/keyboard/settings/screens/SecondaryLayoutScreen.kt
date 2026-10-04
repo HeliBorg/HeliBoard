@@ -24,11 +24,11 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.dialogs.LayoutPickerDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.Preference
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 
 @Composable
 fun SecondaryLayoutScreen(

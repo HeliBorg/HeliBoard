@@ -31,15 +31,17 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.settings.CloseIcon
+import helium314.keyboard.latin.utils.CloseIcon
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.contentTextDirectionStyle
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
 
 @Composable
@@ -53,7 +55,7 @@ fun LayoutEditDialog(
     isNameValid: ((String) -> Boolean)?
 ) {
     val ctx = LocalContext.current
-    val scope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope { Dispatchers.IO }
     val startIsCustom = LayoutUtilsCustom.isCustomLayout(initialLayoutName)
     var displayNameValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(
@@ -109,7 +111,9 @@ fun LayoutEditDialog(
                         .lastOrNull { it.tag == "LayoutUtilsCustom" }?.message
                         ?.split("\n")?.take(2)?.joinToString("\n")
                     delay(3000)
-                    Toast.makeText(ctx, ctx.getString(R.string.layout_error, message), Toast.LENGTH_LONG).show()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(ctx, ctx.getString(R.string.layout_error, message), Toast.LENGTH_LONG).show()
+                    }
                 }
             }
             valid && nameValid // don't allow saving with invalid name, but inform user about issues with layout content

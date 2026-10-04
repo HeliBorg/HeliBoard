@@ -4,11 +4,12 @@ about: Create a report to help us improve
 labels: bug
 ---
 
-Please see the appropriate readme section for issue reporting guidelines: https://github.com/Helium314/HeliBoard?tab=readme-ov-file#reporting-issues
+Please see the appropriate readme section for issue reporting guidelines: https://github.com/HeliBorg/HeliBoard?tab=readme-ov-file#reporting-issues
 tl;dr:
 * search for duplicates, also in closed issues
 * a single issue per topic
 * reduce screenshot size
+* write it yourself
 
 <!--
 issue template below, please remove above text before submitting (and the template too if you think it's a good idea)
@@ -18,7 +19,7 @@ Please choose a meaningful title for your issue, and consider that if you want h
 **Describe the bug**
 
 **To Reproduce**
-If possible, provide all the necessary steps to reproduce your problem, including the involved apps or settings if relevant.
+If possible, provide all the necessary steps to reproduce your problem, including the involved apps and text field or settings if relevant.
 In case you cannot reproduce the bug, say so and provide information about when the bug may occur for you. Settings and the app you're writing in are usually important, please don't omit them.
 
 **Expected behavior**

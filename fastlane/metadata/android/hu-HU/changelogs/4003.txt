@@ -1,0 +1,9 @@
+* háttérben történő ujjmozdulat-adatgyűjtés hozzáadása
+* fájl / kép funkció hozzáadása a vágólap előzményeihez
+* lebegő billentyűzet hozzáadása
+* Unicode 17.0 emojik hozzáadása
+* külön méretezési beállítások hozzáadása összehajtható telefonokhoz
+* érintőpad-mód hozzáadása a szóközön történő csúsztatáshoz
+* lehetőség a helyesírás-ellenőrző javaslatfelugró letiltására
+* automatikus javítás megbízhatósági szintjének csúszkára állítása
+* És még több hibajavítás - további részletek a bejelentésben…

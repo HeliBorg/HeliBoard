@@ -1,0 +1,11 @@
+* sběr gest na pozadí
+* soubory/obrázky v historii schránky
+* plovoucí klávesnice
+* emoji Unicode 17.0
+* samostatné nastavení měřítka pro skládací telefony
+* režim touchpadu při posunu na mezerníku
+* možnost vypnutí návrhů kontroly pravopisu
+* nastavení automatických oprav jako posuvník
+* nastavení užších mezer mezi klávesami jako posuvník
+* oprava bezpečnostní chyby při obnově z upraveného souboru zip
+* další opravy a vylepšení…

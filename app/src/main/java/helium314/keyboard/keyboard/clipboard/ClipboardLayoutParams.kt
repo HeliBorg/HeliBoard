@@ -24,17 +24,10 @@ class ClipboardLayoutParams(ctx: Context) {
         val defaultKeyboardHeight = ResourceUtils.getSecondaryKeyboardHeight(res, sv)
         val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(ctx, sv)
 
-        if (sv.mNarrowKeyGaps) {
-            keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,
-                defaultKeyboardHeight, defaultKeyboardHeight).toInt()
-            keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo_narrow,
-                defaultKeyboardWidth, defaultKeyboardWidth).toInt()
-        } else {
-            keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo,
-                defaultKeyboardHeight, defaultKeyboardHeight).toInt()
-            keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo,
-                defaultKeyboardWidth, defaultKeyboardWidth).toInt()
-        }
+        keyVerticalGap = (res.getFraction(R.fraction.config_key_vertical_gap_holo,
+            defaultKeyboardHeight, defaultKeyboardHeight) * sv.mKeyGapScale).toInt()
+        keyHorizontalGap = (res.getFraction(R.fraction.config_key_horizontal_gap_holo,
+            defaultKeyboardWidth, defaultKeyboardWidth) * sv.mKeyGapScale).toInt()
         val bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight) * sv.mBottomPaddingScale).toInt()
         val topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,

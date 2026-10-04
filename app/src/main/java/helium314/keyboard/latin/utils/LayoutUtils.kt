@@ -1,8 +1,8 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.SimplePopups
-import helium314.keyboard.keyboard.internal.keyboard_parser.getOrCreate
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
@@ -44,7 +44,7 @@ object LayoutUtils {
         // the stuff below will not work if we add "+" layouts in json format
         // ideally we should serialize keyData to json to solve this
         val rows = getSimpleRowStrings(content)
-        val localeKeyboardInfos = getOrCreate(context, locale)
+        val localeKeyboardInfos = LocaleKeyboardInfos.getOrCreate(context, locale)
         return rows.mapIndexed { i, row ->
             val extraKeys = localeKeyboardInfos.getExtraKeys(i + 1) ?: return@mapIndexed row
             val rowList = row.split("\n").filterNot { it.isEmpty() }.toMutableList()

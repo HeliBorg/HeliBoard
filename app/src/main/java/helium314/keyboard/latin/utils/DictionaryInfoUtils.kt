@@ -65,7 +65,7 @@ object DictionaryInfoUtils {
 
     // we cache the extracted dictionaries in filesDir, because actual cache might be cleared at
     // any time, and we can't permanently check whether the dictionary still exists
-    fun getWordListCacheDirectory(context: Context): String = context.filesDir.toString() + File.separator + "dicts"
+    fun getWordListCacheDirectory(context: Context): String = context.filesDir?.toString() + File.separator + "dicts"
 
     /** Reverse escaping done by replaceFileNameDangerousCharacters. */
     fun getWordListIdFromFileName(fname: String): String {

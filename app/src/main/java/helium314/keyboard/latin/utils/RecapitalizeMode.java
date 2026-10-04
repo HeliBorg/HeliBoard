@@ -32,7 +32,7 @@ public enum RecapitalizeMode {
 
     private static RecapitalizeMode[] sCarousel = values();
 
-    public static RecapitalizeMode of(final String string, final int[] sortedSeparators) {
+    public static RecapitalizeMode of(String string, int[] sortedSeparators) {
         if (StringUtils.isIdenticalAfterUpcase(string)) {
             return ALL_UPPER;
         } else if (StringUtils.isIdenticalAfterDowncase(string)) {

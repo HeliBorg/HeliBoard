@@ -41,8 +41,10 @@ import helium314.keyboard.compat.ImeCompat;
 import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
+import helium314.keyboard.keyboard.KeyboardMode;
 import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
 import helium314.keyboard.keyboard.emoji.EmojiSearchActivity;
+import helium314.keyboard.keyboard.emoji.EmojiSearchActivityKt;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
@@ -64,18 +66,23 @@ import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.inputlogic.InputLogic;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
+import helium314.keyboard.latin.settings.SettingsSubtype;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.FloatingKeyboardUtils;
+import helium314.keyboard.latin.utils.FoldableUtils;
 import helium314.keyboard.latin.utils.GestureDataGatheringKt;
+import helium314.keyboard.latin.utils.GestureDataGatheringSettings;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
 import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.BackgroundGatheringCache;
 import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.StatsUtilsManager;
@@ -154,6 +161,15 @@ public class LatinIME extends InputMethodService implements
 
     private final BroadcastReceiver mDictionaryDumpBroadcastReceiver =
             new DictionaryDumpBroadcastReceiver(this);
+
+    FoldableUtils.FoldableObserver foldableObserver;
+
+    private final BroadcastReceiver mEmojiSearchReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onEmojiSearchDone(intent);
+        }
+    };
 
     final static class RestartAfterDeviceUnlockReceiver extends BroadcastReceiver {
         @Override
@@ -234,7 +250,7 @@ public class LatinIME extends InputMethodService implements
                             latinIme.mSettings.getCurrent(), msg.arg1 /* inputStyle */);
                     break;
                 case MSG_UPDATE_SHIFT_STATE:
-                    latinIme.mKeyboardSwitcher.requestUpdatingShiftState(latinIme.getCurrentAutoCapsState(),
+                    latinIme.mKeyboardSwitcher.updateShiftState(latinIme.getCurrentAutoCapsState(),
                             latinIme.getCurrentRecapitalizeState());
                     break;
                 case MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS:
@@ -462,7 +478,7 @@ public class LatinIME extends InputMethodService implements
 
         public void onStartInputView(final EditorInfo editorInfo, final boolean restarting) {
             if (hasMessages(MSG_PENDING_IMS_CALLBACK)
-                    && KeyboardId.equivalentEditorInfoForKeyboard(editorInfo, mAppliedEditorInfo)) {
+                    && KeyboardId.Companion.equivalentEditorInfoForKeyboard(editorInfo, mAppliedEditorInfo)) {
                 // Typically this is the second onStartInputView after orientation changed.
                 resetPendingImsCallback();
             } else {
@@ -544,6 +560,8 @@ public class LatinIME extends InputMethodService implements
         loadSettings();
         mClipboardHistoryManager.onCreate();
         mHandler.onCreate();
+        if (FoldableUtils.INSTANCE.isFoldable())
+            foldableObserver = new FoldableUtils.FoldableObserver(this);
 
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
@@ -559,7 +577,7 @@ public class LatinIME extends InputMethodService implements
 
         final IntentFilter newDictFilter = new IntentFilter();
         newDictFilter.addAction(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION);
-        // RECEIVER_EXPORTED is necessary because apparently Android 15 (and others?) don't recognize if the sender and receiver are the same app, see https://github.com/Helium314/HeliBoard/pull/1756
+        // RECEIVER_EXPORTED is necessary because apparently Android 15 (and others?) don't recognize if the sender and receiver are the same app, see https://github.com/HeliBorg/HeliBoard/pull/1756
         ContextCompat.registerReceiver(this, mDictionaryPackInstallReceiver, newDictFilter, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter dictDumpFilter = new IntentFilter();
@@ -570,6 +588,10 @@ public class LatinIME extends InputMethodService implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             restartAfterUnlockFilter.addAction(Intent.ACTION_USER_UNLOCKED);
         registerReceiver(mRestartAfterDeviceUnlockReceiver, restartAfterUnlockFilter);
+
+        final IntentFilter emojiSearchFilter = new IntentFilter();
+        emojiSearchFilter.addAction(EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION);
+        ContextCompat.registerReceiver(this, mEmojiSearchReceiver, emojiSearchFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
     }
@@ -686,10 +708,13 @@ public class LatinIME extends InputMethodService implements
         mClipboardHistoryManager.onDestroy();
         mDictionaryFacilitator.closeDictionaries();
         mSettings.onDestroy();
+        if (foldableObserver != null)
+            foldableObserver.unregister(this);
         unregisterReceiver(mRingerModeChangeReceiver);
         unregisterReceiver(mDictionaryPackInstallReceiver);
         unregisterReceiver(mDictionaryDumpBroadcastReceiver);
         unregisterReceiver(mRestartAfterDeviceUnlockReceiver);
+        unregisterReceiver(mEmojiSearchReceiver);
         mStatsUtilsManager.onDestroy(this /* context */);
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
@@ -697,9 +722,8 @@ public class LatinIME extends InputMethodService implements
     }
 
     private boolean isImeSuppressedByHardwareKeyboard() {
-        final KeyboardSwitcher switcher = KeyboardSwitcher.getInstance();
-        return !onEvaluateInputViewShown() && switcher.isImeSuppressedByHardwareKeyboard(
-                mSettings.getCurrent(), switcher.getKeyboardSwitchState());
+        return !onEvaluateInputViewShown() && mKeyboardSwitcher.isImeSuppressedByHardwareKeyboard(
+                mSettings.getCurrent(), mKeyboardSwitcher.getKeyboardSwitchState());
     }
 
     @Override
@@ -784,15 +808,17 @@ public class LatinIME extends InputMethodService implements
         mHandler.onFinishInputView(finishingInput);
         mStatsUtilsManager.onFinishInputView();
         mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
+        BackgroundGatheringCache.saveOrClear(this);
     }
 
     @Override
     public void onFinishInput() {
         mHandler.onFinishInput();
+        BackgroundGatheringCache.saveOrClear(this);
     }
 
     @Override
-    public void onCurrentInputMethodSubtypeChanged(final InputMethodSubtype subtype) {
+    public void onCurrentInputMethodSubtypeChanged(InputMethodSubtype subtype) {
         // Note that the calling sequence of onCreate() and onCurrentInputMethodSubtypeChanged()
         // is not guaranteed. It may even be called at the same time on a different thread.
         if (subtype.hashCode() == 0x7000000f) {
@@ -806,6 +832,8 @@ public class LatinIME extends InputMethodService implements
             return;
         }
 
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "switching to subtype " + SettingsSubtype.Companion.toSettingsSubtype(subtype));
         mSubtypeState.onSubtypeChanged(oldSubtype, subtype);
         StatsUtils.onSubtypeChanged(oldSubtype, subtype);
         mRichImm.onSubtypeChanged(subtype);
@@ -823,14 +851,16 @@ public class LatinIME extends InputMethodService implements
         onCurrentInputMethodSubtypeChanged(subtype);
     }
 
-    private void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
+    private void onStartInputInternal(EditorInfo editorInfo, boolean restarting) {
         super.onStartInput(editorInfo, restarting);
 
-        final RichInputMethodSubtype subtypeForApp = editorInfo == null
+        RichInputMethodSubtype subtypeForApp = editorInfo == null
             ? null :
             mSettings.getSubtypeForApp(editorInfo.packageName);
-        final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
-        final InputMethodSubtype subtypeForLocales = mSubtypeState.getSubtypeForLocales(mRichImm, hintLocales, subtypeForApp);
+        List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
+        InputMethodSubtype subtypeForLocales = mSubtypeState.getSubtypeForLocales(mRichImm, hintLocales, subtypeForApp);
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "onStartInputInternal: hint locales " + hintLocales + ", found matching subtype: " + (subtypeForLocales != null));
         if (subtypeForLocales != null) {
             // found a better subtype using hint locales and saved-per-app subtype, that we should switch to.
             mHandler.postSwitchLanguage(subtypeForLocales);
@@ -840,14 +870,7 @@ public class LatinIME extends InputMethodService implements
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
 
-        // only for active gesture data gathering, remove when data gathering phase is done (end of 2026 latest)
-        if (GestureDataGatheringKt.isInActiveGatheringMode(editorInfo)) {
-            mDictionaryFacilitator = GestureDataGatheringKt.getGestureDataActiveFacilitator();
-        } else {
-            mDictionaryFacilitator = mOriginalDictionaryFacilitator;
-        }
-        GestureDataGatheringKt.showEndNotificationIfNecessary(this); // will do nothing for a long time
-        mInputLogic.setFacilitator(mDictionaryFacilitator);
+        setGestureDataGatheringMode(editorInfo, restarting);
 
         mDictionaryFacilitator.onStartInput();
         // Switch to the null consumer to handle cases leading to early exit below, for which we
@@ -855,11 +878,23 @@ public class LatinIME extends InputMethodService implements
         mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
         mRichImm.refreshSubtypeCaches();
         final KeyboardSwitcher switcher = mKeyboardSwitcher;
-        switcher.updateKeyboardTheme(mDisplayContext);
-        final MainKeyboardView mainKeyboardView = switcher.getMainKeyboardView();
+
         // If we are starting input in a different text field from before, we'll have to reload
         // settings, so currentSettingsValues can't be final.
         SettingsValues currentSettingsValues = mSettings.getCurrent();
+        boolean inputTypeChanged = !currentSettingsValues.isSameInputType(editorInfo);
+        boolean isDifferentTextField = !restarting || inputTypeChanged;
+
+        // we want to reload the settings before calling updateKeyboardTheme, because updateKeyboardTheme reads SettingsValues.mToolbarMode
+        if (isDifferentTextField || !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
+            loadSettings();
+            if (hasSuggestionStripView())
+                mSuggestionStripView.updateVoiceKey();
+        }
+
+        switcher.updateKeyboardTheme(mDisplayContext);
+        MainKeyboardView mainKeyboardView = switcher.getMainKeyboardView();
+        currentSettingsValues = mSettings.getCurrent(); // settingsValues may have been reloaded
 
         if (editorInfo == null) {
             Log.e(TAG, "Null EditorInfo in onStartInputView()");
@@ -890,9 +925,6 @@ public class LatinIME extends InputMethodService implements
             accessUtils.onStartInputViewInternal(mainKeyboardView, editorInfo, restarting);
         }
 
-        final boolean inputTypeChanged = !currentSettingsValues.isSameInputType(editorInfo);
-        final boolean isDifferentTextField = !restarting || inputTypeChanged;
-
         StatsUtils.onStartInputView(editorInfo.inputType,
                 Settings.getValues().mDisplayOrientation,
                 !isDifferentTextField);
@@ -901,13 +933,6 @@ public class LatinIME extends InputMethodService implements
         // Note: This call should be done by InputMethodService?
         updateFullscreenMode();
 
-        // we need to reload the setting before using them, e.g. in startInput or in postResumeSuggestions
-        if (isDifferentTextField || !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
-            loadSettings();
-            currentSettingsValues = mSettings.getCurrent();
-            if (hasSuggestionStripView())
-                mSuggestionStripView.updateVoiceKey();
-        }
         // ALERT: settings have not been reloaded and there is a chance they may be stale.
         // In the practice, if it is, we should have gotten onConfigurationChanged so it should
         // be fine, but this is horribly confusing and must be fixed AS SOON AS POSSIBLE.
@@ -965,12 +990,12 @@ public class LatinIME extends InputMethodService implements
         } else if (restarting) {
             // TODO: Come up with a more comprehensive way to reset the keyboard layout when
             // a keyboard layout set doesn't get reloaded in this method.
-            switcher.resetKeyboardStateToAlphabet(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+            switcher.resetKeyboardStateToAlphabet();
             // In apps like Talk, we come here when the text is sent and the field gets emptied and
             // we need to re-evaluate the shift state, but not the whole layout which would be
             // disruptive.
             // Space state must be updated before calling updateShiftState
-            switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+            switcher.updateShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
         // Set neutral suggestions and show the toolbar if the "Auto show toolbar" setting is enabled.
         if (!mHandler.hasPendingResumeSuggestions()) {
@@ -996,6 +1021,8 @@ public class LatinIME extends InputMethodService implements
     public void onWindowShown() {
         super.onWindowShown();
         if (isInputViewShown()) {
+            if (mInputView != null && Settings.getValues().mIsFloatingKeyboard)
+                FloatingKeyboardUtils.setFloating(mInputView);
             setNavigationBarColor();
             workaroundForHuaweiStatusBarIssue();
         }
@@ -1064,10 +1091,10 @@ public class LatinIME extends InputMethodService implements
             // we don't want to update a manually set shift state if selection changed towards one side
             // because this may end the manual shift, which is unwanted in case of shift + arrow keys for changing selection
             // todo: this is not fully implemented yet, and maybe should be behind a setting
-            if (mKeyboardSwitcher.getKeyboard() != null && mKeyboardSwitcher.getKeyboard().mId.isAlphabetShiftedManually()
+            if (mKeyboardSwitcher.getKeyboard() != null && mKeyboardSwitcher.getKeyboard().mId.getElement().isAlphabetShiftedManually()
                 && ((oldSelEnd == newSelEnd && oldSelStart != newSelStart) || (oldSelEnd != newSelEnd && oldSelStart == newSelStart)))
                 return;
-            mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+            mKeyboardSwitcher.updateShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
     }
 
@@ -1128,6 +1155,11 @@ public class LatinIME extends InputMethodService implements
     }
 
     @Override
+    public void onSwipeDownOnToolbar() {
+        requestHideSelf(0);
+    }
+
+    @Override
     public void onDisplayCompletions(final CompletionInfo[] applicationSpecifiedCompletions) {
         if (DebugFlags.DEBUG_ENABLED) {
             Log.i(TAG, "Received completions:");
@@ -1137,7 +1169,7 @@ public class LatinIME extends InputMethodService implements
                 }
             }
         }
-        if (!mSettings.getCurrent().isApplicationSpecifiedCompletionsOn()) {
+        if (!mSettings.getCurrent().mInputAttributes.mApplicationSpecifiedCompletionOn) {
             return;
         }
         // If we have an update request in flight, we need to cancel it so it does not override
@@ -1185,6 +1217,8 @@ public class LatinIME extends InputMethodService implements
         }
         final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
         int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
+        if (Settings.getValues().mIsFloatingKeyboard)
+            visibleTopY = getResources().getDisplayMetrics().heightPixels;
 
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
@@ -1192,12 +1226,17 @@ public class LatinIME extends InputMethodService implements
 
         // Need to set expanded touchable region only if a keyboard view is being shown.
         if (visibleKeyboardView.isShown()) {
-            final int touchLeft = 0;
-            final int touchTop = mKeyboardSwitcher.isShowingPopupKeysPanel() ? 0 : visibleTopY;
-            final int touchRight = visibleKeyboardView.getWidth();
-            final int touchBottom = inputHeight
-                    // Extend touchable region below the keyboard.
-                    + EXTENDED_TOUCHABLE_REGION_HEIGHT;
+            int touchLeft = 0;
+            int touchTop = mKeyboardSwitcher.isShowingPopupKeysPanel() ? 0 : visibleTopY;
+            int touchRight = visibleKeyboardView.getWidth();
+            int touchBottom = inputHeight + EXTENDED_TOUCHABLE_REGION_HEIGHT; // Extend touchable region below the keyboard.
+            if (mSettings.getCurrent().mIsFloatingKeyboard) {
+                var xy = FloatingKeyboardUtils.readPosition(this, Integer.MAX_VALUE, Integer.MAX_VALUE);
+                touchLeft = xy.component1();
+                touchTop = xy.component2();
+                touchRight = touchLeft + mSettings.getCurrent().mFloatingWidth;
+                touchBottom = touchTop + inputHeight;
+            }
             outInsets.touchableInsets = InputMethodService.Insets.TOUCHABLE_INSETS_REGION;
             outInsets.touchableRegion.set(touchLeft, touchTop, touchRight, touchBottom);
         }
@@ -1243,8 +1282,8 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public boolean onEvaluateFullscreenMode() {
-        if (isImeSuppressedByHardwareKeyboard()) {
-            // If there is a hardware keyboard, disable full screen mode.
+        if (isImeSuppressedByHardwareKeyboard() || mSettings.getCurrent().mIsFloatingKeyboard) {
+            // If there is a hardware keyboard or we're floating, disable full screen mode.
             return false;
         }
         // Reread resource value here, because this method is called by the framework as needed.
@@ -1394,18 +1433,18 @@ public class LatinIME extends InputMethodService implements
         }
         final InputTransaction completeInputTransaction =
                 mInputLogic.onCodeInput(mSettings.getCurrent(), event,
-                        mKeyboardSwitcher.getKeyboardShiftMode(),
+                        mKeyboardSwitcher.getKeyboardCapsMode(),
                         mKeyboardSwitcher.getCurrentKeyboardScript(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
     }
 
-    public void onTextInput(final String rawText) {
+    public void onTextInput(@Nullable String rawText) {
+        if (rawText == null) return;
         // TODO: have the keyboard pass the correct key code when we need it.
-        final Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS, null);
-        final InputTransaction completeInputTransaction =
-                mInputLogic.onTextInput(mSettings.getCurrent(), event,
-                        mKeyboardSwitcher.getKeyboardShiftMode(), mHandler);
+        Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS, null);
+        InputTransaction completeInputTransaction = mInputLogic.onTextInput(mSettings.getCurrent(),
+            event, mKeyboardSwitcher.getKeyboardCapsMode(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
         mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
@@ -1468,14 +1507,14 @@ public class LatinIME extends InputMethodService implements
         }
 
         final boolean isEmptyApplicationSpecifiedCompletions =
-                currentSettingsValues.isApplicationSpecifiedCompletionsOn()
+                currentSettingsValues.mInputAttributes.mApplicationSpecifiedCompletionOn
                         && suggestedWords.isEmpty();
         final boolean noSuggestionsFromDictionaries = suggestedWords.isEmpty()
                 || suggestedWords.isPunctuationSuggestions()
                 || isEmptyApplicationSpecifiedCompletions;
 
-        if (currentSettingsValues.isSuggestionsEnabledPerUserSettings()
-                || currentSettingsValues.isApplicationSpecifiedCompletionsOn()
+        if (currentSettingsValues.mSuggestionsEnabled
+                || currentSettingsValues.mInputAttributes.mApplicationSpecifiedCompletionOn
                 // We should clear the contextual strip if there is no suggestion from dictionaries.
                 || noSuggestionsFromDictionaries) {
             mSuggestionStripView.setSuggestions(suggestedWords,
@@ -1516,7 +1555,7 @@ public class LatinIME extends InputMethodService implements
     public void pickSuggestionManually(final SuggestedWordInfo suggestionInfo) {
         final InputTransaction completeInputTransaction = mInputLogic.onPickSuggestionManually(
                 mSettings.getCurrent(), suggestionInfo,
-                mKeyboardSwitcher.getKeyboardShiftMode(),
+                mKeyboardSwitcher.getKeyboardCapsMode(),
                 mKeyboardSwitcher.getCurrentKeyboardScript(),
                 mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
@@ -1527,8 +1566,9 @@ public class LatinIME extends InputMethodService implements
      *  returns whether a clipboard suggestion has been set.
      */
     public boolean tryShowClipboardSuggestion() {
-        final View clipboardView = mClipboardHistoryManager.getClipboardSuggestionView(getCurrentInputEditorInfo(), mSuggestionStripView);
-        if (clipboardView != null && hasSuggestionStripView()) {
+        if (!hasSuggestionStripView()) return false;
+        View clipboardView = mClipboardHistoryManager.getClipboardSuggestionView(getCurrentInputEditorInfo(), mSuggestionStripView);
+        if (clipboardView != null) {
             mSuggestionStripView.setExternalSuggestionView(clipboardView, false);
             return true;
         }
@@ -1550,7 +1590,7 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         final SuggestedWords neutralSuggestions = currentSettings.mSuggestPunctuation
-                ? currentSettings.mSpacingAndPunctuations.mSuggestPuncList
+                ? currentSettings.mPunctuationSuggestions
                 : SuggestedWords.getEmptyInstance();
         setSuggestedWords(neutralSuggestions);
         if (hasSuggestionStripView() && currentSettings.mAutoShowToolbar) {
@@ -1598,7 +1638,7 @@ public class LatinIME extends InputMethodService implements
         switch (inputTransaction.getRequiredShiftUpdate()) {
             case InputTransaction.SHIFT_UPDATE_LATER -> mHandler.postUpdateShiftState();
             case InputTransaction.SHIFT_UPDATE_NOW -> mKeyboardSwitcher
-                    .requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+                    .updateShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
             default -> {
             } // SHIFT_NO_UPDATE
         }
@@ -1646,10 +1686,8 @@ public class LatinIME extends InputMethodService implements
         }
         final AudioAndHapticFeedbackManager feedbackManager =
                 AudioAndHapticFeedbackManager.getInstance();
-        if (repeatCount == 0) {
-            // TODO: Reconsider how to perform haptic feedback when repeating key.
-            feedbackManager.performHapticFeedback(keyboardView, hapticEvent);
-        }
+
+        feedbackManager.performHapticFeedback(keyboardView, hapticEvent);
         feedbackManager.performAudioFeedback(code, hapticEvent);
     }
 
@@ -1712,28 +1750,32 @@ public class LatinIME extends InputMethodService implements
     }
 
     public void launchEmojiSearch() {
-        Log.d("emoji-search", "before activity launch");
+        Log.d(EmojiSearchActivityKt.TAG, "before activity launch");
         startActivity(new Intent().setClass(this, EmojiSearchActivity.class)
                           .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK));
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    private void onEmojiSearchDone(Intent intent) {
+        Log.d(EmojiSearchActivityKt.TAG, "after activity closing. isEmojiSearch: " + isEmojiSearch() + ". Intent: " + intent +
+                (intent != null ? ". imeClosed: " + isImeClosed(intent) + ". selected emoji: " + getSelectedEmoji(intent) : ""));
         if (intent != null && EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION.equals(intent.getAction()) && ! isEmojiSearch()) {
-            if (intent.getBooleanExtra(EmojiSearchActivity.IME_CLOSED_KEY, false)) {
+            if (isImeClosed(intent)) {
                 requestHideSelf(0);
             } else {
-                mHandler.postDelayed(() -> KeyboardSwitcher.getInstance().setEmojiKeyboard(), 100);
+                mHandler.postDelayed(mKeyboardSwitcher::setEmojiKeyboard, 100);
                 if (intent.hasExtra(EmojiSearchActivity.EMOJI_KEY)) {
                      onTextInput(intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY));
                 }
             }
-
-            stopSelf(startId); // Allow the service to be destroyed when unbound
-            return START_NOT_STICKY;
         }
+    }
 
-        return super.onStartCommand(intent, flags, startId);
+    private static boolean isImeClosed(Intent intent) {
+        return intent.getBooleanExtra(EmojiSearchActivity.IME_CLOSED_KEY, false);
+    }
+
+    private static String getSelectedEmoji(Intent intent) {
+        return intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY);
     }
 
     public boolean isEmojiSearch() {
@@ -1762,14 +1804,14 @@ public class LatinIME extends InputMethodService implements
     protected void dump(final FileDescriptor fd, final PrintWriter fout, final String[] args) {
         super.dump(fd, fout, args);
 
-        final Printer p = new PrintWriterPrinter(fout);
+        Printer p = new PrintWriterPrinter(fout);
         p.println("LatinIME state :");
         p.println("  VersionCode = " + BuildConfig.VERSION_CODE);
         p.println("  VersionName = " + BuildConfig.VERSION_NAME);
-        final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
-        final int keyboardMode = keyboard != null ? keyboard.mId.mMode : -1;
+        Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
+        KeyboardMode keyboardMode = keyboard != null ? keyboard.mId.getMode() : null;
         p.println("  Keyboard mode = " + keyboardMode);
-        final SettingsValues settingsValues = mSettings.getCurrent();
+        SettingsValues settingsValues = mSettings.getCurrent();
         p.println(settingsValues.dump());
         p.println(mDictionaryFacilitator.dump(this));
     }
@@ -1833,10 +1875,30 @@ public class LatinIME extends InputMethodService implements
         super.onTrimMemory(level);
         switch (level) {
             case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE -> {
-                KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
+                KeyboardLayoutSet.Companion.onSystemLocaleChanged(); // clears caches, nothing else
                 mKeyboardSwitcher.trimMemory();
             }
             // deallocateMemory always called on hiding, and should not be called when showing
         }
+    }
+
+    public void setGestureDataGatheringMode(EditorInfo editorInfo, boolean restarting) {
+        // only for gesture data gathering, remove when data gathering phase is done (end of 2026 latest)
+        if (GestureDataGatheringSettings.INSTANCE.isInActiveGatheringMode(editorInfo)) {
+            mDictionaryFacilitator = GestureDataGatheringKt.getGestureDataActiveFacilitator();
+            GestureDataGatheringKt.useBackgroundGathering = false;
+            mKeyboardSwitcher.setBackgroundGatheringIndicator(false, false, false);
+        } else {
+            mDictionaryFacilitator = mOriginalDictionaryFacilitator;
+
+            // no active mode, check for background mode
+            boolean useBackground = GestureDataGatheringKt.setUseBackgroundGathering(this, editorInfo);
+            mKeyboardSwitcher.setBackgroundGatheringIndicator(useBackground, false, false);
+            // restarting means we're still in the same field, so don't clear anything in discard-by-default mode
+            if (!restarting || !GestureDataGatheringSettings.INSTANCE.isDiscardByDefault(this))
+                BackgroundGatheringCache.saveOrClear(this);
+        }
+        GestureDataGatheringSettings.INSTANCE.showEndNotificationIfNecessary(this); // will do nothing for a long time
+        mInputLogic.setFacilitator(mDictionaryFacilitator);
     }
 }

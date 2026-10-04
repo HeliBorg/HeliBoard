@@ -181,6 +181,9 @@ object ScriptUtils {
             "hi", "mr", "ne" -> SCRIPT_DEVANAGARI
             "kn" -> SCRIPT_KANNADA
             "gu" -> SCRIPT_GUJARATI
+            // "no language" is a latin keyboard.
+            // setting to different script breaks editing existing keyboards, and hides the shift key on new custom layouts
+            //"zz" -> SCRIPT_UNKNOWN
             else -> SCRIPT_LATIN // use as fallback
         }
     }

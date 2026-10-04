@@ -1,0 +1,10 @@
+* add emoji search (needs emoji dictionary)
+* add optional gesture data gathering functionality (requires gesture typing library)
+* wrap selected text in braces and similar instead of replacing text
+* allow setting a separate emoji font
+* make showing number row in symbols layout optional
+* reduce bad autocorrections for mail addresses
+* fix space bar cursor movement for RTL + non-RTL text
+* don't trim selection when recapitalizing
+* improve khipro combiner
+* minor fixes and improvements

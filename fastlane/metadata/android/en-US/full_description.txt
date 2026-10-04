@@ -14,7 +14,7 @@ Features:
     <li>can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)</li>
     <li>can follow dynamic colors for Android 12+</li>
   </ul>
-  <li>Customize keyboard <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
+  <li>Customize keyboard <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
   <li>Customize special layouts, like symbols, number,  or functional key layout</li>
   <li>Multilingual typing</li>
   <li>Glide typing (<i>only with closed source library</i> ☹️)</li>

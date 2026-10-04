@@ -252,7 +252,7 @@
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Vymazat schránku</string>
     <string name="voice" tools:keep="@string/voice">Hlasové zadávání</string>
     <string name="full_right" tools:keep="@string/full_right">Úplně vpravo</string>
-    <string name="show_popup_hints_summary">Zobrazit tipy, pokud dlouhé stisknutí klávesy aktivuje další funkce</string>
+    <string name="show_popup_hints_summary">Zobrazit tipy, pokud dlouhé stisknutí klávesy otevře vyskakovací okénko</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
@@ -300,7 +300,6 @@
     <string name="language_switch_key_behavior">Chování klávesy pro přepínání jazyků</string>
     <string name="vibrate_in_dnd_mode">Vibrace v režimu nerušit</string>
     <string name="settings_category_space">Mezerník</string>
-    <string name="enable_split_keyboard_landscape">Povolit rozdělenou klávesnici (na šířku)</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Webová pole pro úpravu (nacházejí se převážně v prohlížečích) jsou velmi častou příčinou problémů s nastavením zobrazování návrhů</string>
     <string name="prefs_always_show_suggestions_except_web_text">Nezobrazovat návrhy pro webová pole pro úpravu</string>
     <string name="page_start" tools:keep="@string/page_start">Začátek stránky</string>
@@ -314,7 +313,7 @@
     <string name="gesture_floating_preview_dynamic_summary">Přesunout náhled během gesta</string>
     <string name="gesture_fast_typing_cooldown_instant">Vždy okamžitě začít</string>
     <string name="show_tld_popup_keys_summary">Nahradit vyskakovací okno tečky doménami nejvyšší úrovně při zadávání adres URL a e-mailových adres</string>
-    <string name="autospace_after_suggestion">Automatická mezera pov výběru návrhu</string>
+    <string name="autospace_after_suggestion">Automatická mezera po výběru návrhu</string>
     <string name="autospace_after_gesture_typing">Automatická mezera po napsání slova gestem</string>
     <string name="shift_removes_autospace">Zakázat automatickou mezeru po stisku Shiftu</string>
     <string name="shift_removes_autospace_summary">Shift odstraní čekající automatickou mezeru</string>
@@ -475,4 +474,78 @@
     <string name="gesture_data_delete_dialog_confirm">Opravdu? Tato akce smaže %s slov. Ujistěte se, že je vaše sdílené datum odesláno!</string>
     <string name="gesture_data_delete_dialog_submitted">Smazat %s odeslaných slov</string>
     <string name="gesture_data_many_not_shared_words">Máte více než %s slov čekajících na odeslání</string>
+    <string name="gesture_data_description">&lt;b&gt;Vítejte na obrazovce sbírání dat o gestech!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Toto je část &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projektu financovaného NLnet&lt;/a&gt; snažící se o vytvoření plně otevřené knihovny psaní pomocí gest schopné nahradit uzavřenou knihovnu společnosti Google.&lt;br/&gt;Výsledkem bude jednoduchá náhrada pro klávesnice založené na AOSP, ale použitelná také s jinými klávesnicemi, např. FlorisBoard&lt;br/&gt;&lt;br/&gt; Při vyvíjení knihovny je nesmírně nápomocné mít dostupná podrobná data o gestech v různých jazycích a od různých uživatelů.&lt;br/&gt; Sbíráním a odesláním dat o psaní gesty můžete přispět do otevřené sady dat o gestech, která bude použita pro vývoj knihovny. Sada dat bude zveřejněna pod licencí CC BY-SA 4.0 chvíli po dokončení fáze sběru dat %s. Jakmile nasbíráte data, můžete je odeslat pomocí ikony sdílení ve spodní části této obrazovky.</string>
+    <string name="gesture_data_description_modes">„Bezpečný“ způsob, jak přispívat, je metoda &lt;i&gt;aktivního sbírání&lt;/i&gt;, kdy vám je zobrazeno určité slovo a vy jej napíšete pomocí gest.&lt;br&gt;Můžete také použít &lt;i&gt;sbírání na pozadí&lt;/i&gt;, kdy můžete poskytovat vzorky z vašeho normálního psaní gesty v jiných aplikacích. Z důvodu citlivosti tohoto přístupu je tato funkce opt-in, nastavitelná a obsahuje obrazovku kontroly dat, která se chystáte odeslat.</string>
+    <string name="gesture_data_description_privacy">Ochrana osobních údajů\n\n Údaje, které zadáváte, zahrnují cílové slovo, rozložení klávesnice a rozměry, gesta (časy a souřadnice), návrhy aktuální knihovny, hash použitých slovníků, verzi aplikace, režim shromažďování údajů, zda je knihovna pro psaní gesty výchozí knihovnou Google, a ID pro každé gesto.\n Odeslaná data budou stažena a smazána z e-mailové schránky Proton Mail, kde jsou uložena, jakmile to bude možné. Po skončení fáze sběru dat o gestech bude souhrnný datový soubor od všech uživatelů zveřejněn pod licencí Creative Commons BY-SA 4.0.\n\n V rámci snahy o ochranu vašeho soukromí nebudete výslovně uvedeni jako autoři. Vaše zásluhy budou uvedeny jako „Přispěvatelé projektu HeliBoard Gesture Data Project“. Nemělo by být možné spojit data, která na této obrazovce generujete, s vaší identitou. Může však být možné určit, která gesta byla provedena stejnou osobou. To lze provést například na základě vlastního rozložení klávesnice, rozměrů klávesnice, jazyka nebo individuálního stylu gestikulace.</string>
+    <string name="gesture_data_active_description">Klepněte na &lt;i&gt;Spustit aktivní sbírání&lt;/i&gt;, volitelně přepněte slovník a začněte psát zobrazené slovo pomocí gest.&lt;br/&gt; Pokud vaše gesto odpovídá slovu, budou data uložena a bude zobrazeno další slovo. V opačném případě můžete pokus opakovat, přeskočit slovo nebo potvrdit, že jste jej zadali správně&lt;br/&gt; Můžete používat pouze vestavěné slovníky nebo slovníky dostupné v &lt;a href=%s&gt;repozitáři slovníků&lt;/a&gt;, žádná jiná slova nebudou použita.</string>
+    <string name="gesture_data_email_body">DŮLEŽITÉ:\n\n Dobrý den!\n Připomínáme, že tyto údaje budou veřejně sdíleny pod licencí CC BY-SA 4.0 a vy nebudete uvedeni jako autor, aby bylo chráněno vaše soukromí.\n\n Děkujeme, že s námi sdílíte práva k vašim údajům. Využijeme je k dobrému účelu!\n\n Upozorňujeme, že změna znění tohoto oznámení nemění to, co s vašimi údaji uděláme. Nejedná se o smlouvu, kterou lze měnit, pouze o přátelské upozornění!\n Pokud nám chcete spolu s daty poslat zprávu, napište ji pod tuto čáru.\n ---------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Dobrý den!\n Jelikož jste nainstalovali knihovnu pro psaní gesty, možná vás bude zajímat projekt vývojářů HeliBoard zaměřený na vytvoření plně otevřené knihovny pro psaní gesty. Můžete pomoci tím, že přispějete daty o gestech. Více informací najdete na obrazovce pro shromažďování dat o gestech.</string>
+    <string name="gesture_data_reminder_message">Dobrý den!\n Dříve jste používali shromažďování gest, ale už delší dobu jsi nepřidali žádná data. Chcete znovu přispívat?</string>
+    <string name="ask_later">Zeptat se později</string>
+    <string name="gesture_data_take_me_there">Vezměte mě tam</string>
+    <string name="timestamp_description">Klávesu času můžete přidat pomocí vlastního rozložení s klávesou „čas“ nebo kódem klávesy -10043</string>
+    <string name="prefs_bottom_row_scale">Velikost spodní řady</string>
+    <string name="gesture_data_links">Informace o aktivním sbírání:</string>
+    <string name="toolbar_swipe_down_to_hide">Skrýt klávesnici posunutím</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Zavřít klávesnici posunutím prstu dolů na panelu nástrojů</string>
+    <string name="gesture_data_please_switch_keyboard">Přepněte prosím na %s</string>
+    <string name="gesture_data_share_limit">Pro zabránění překročení limitů velikosti bude exportováno pouze prvních %s slov</string>
+    <string name="folded">Složený</string>
+    <string name="custom_punctuation_suggestions">Nastavit návrhy interpunkce</string>
+    <string name="space_swipe_touchpad_mode_entry">Režim touchpadu</string>
+    <string name="touchpad_sensitivity">Citlivost touchpadu</string>
+    <string name="touchpad_edge_scroll">Posouvání po kraji dotykové plochy</string>
+    <string name="touchpad_edge_scroll_description">Automaticky posouvat při přesunu na kraj klávesnice</string>
+    <string name="spell_check_suggestions">Zobrazit návrhy kontroly pravopisu</string>
+    <string name="spell_check_suggestions_summary">Při výběru slova s červeným podtržením zobrazit návrhy. Je nutné nastavit aplikaci jako výchozí pro kontrolu pravopisu.</string>
+    <string name="prefs_key_gap_scale">Velikost mezery mezi klávesami</string>
+    <string name="toolbar_only_with_hw_keyboard">S fyzickou klávesnicí zobrazit pouze panel nástrojů</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Stále budete muset povolit zobrazení virtuální klávesnice v systémových nastaveních</string>
+    <string name="floating" tools:keep="@string/floating">Plovoucí klávesnice</string>
+    <string name="clipboard_history_files">Přidat obrázky a další soubory do historie schránky</string>
+    <string name="clipboard_history_max_file_size">Limit velikosti schránky</string>
+    <string name="item_description">Popis: %s</string>
+    <string name="item_type">Typ: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="subtype_generic_4row">%s (4 řádky)</string>
+    <string name="gesture_data_share_duplicate">Již odeslaná data můžete znovu sdílet, pokud si nejste jisti, zda byla správně obdržena. Během zpracování dat detekujeme a mažeme duplicity.</string>
+    <string name="gesture_data_active">Aktivní sbírání</string>
+    <string name="background_gesture_data_links">Informace o sbírání na pozadí:</string>
+    <string name="gesture_data_background_gathering_switch">Použít sbírání dat na pozadí</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Povolené aplikace: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Zahodit ve výchozím nastavení</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Data jsou uložena ručně pomocí klávesy na panelu nástrojů</string>
+    <string name="gesture_data_background_gathering_info">Další informace</string>
+    <string name="gesture_data_background_gathering_info_message">Zapnutím sběru dat na pozadí umožníte aplikaci Heliboard zaznamenávat gesta, která zadáváte v jiných aplikacích. To je velmi užitečné pro projekt psaní pomocí gest, protože tak lze získat značné množství dat, i když v nižší kvalitě než při aktivním sběru. Sběr dat na pozadí nenahrazuje aktivně shromážděná data, ale má je doplňovat, protože kvalita dat je důležitější než jejich množství.\n\n Sběr na pozadí s sebou nese vysoké riziko shromáždění dat, která můžete považovat za příliš soukromá na to, abyste je sdíleli, a to i v případě, že jsou zveřejněna anonymně. Z tohoto důvodu chceme objasnit, kdy se data o gestech shromažďují a jak to můžete ovlivnit.\n\n Video s podrobnějšími informacemi o sběru dat na pozadí najdete v sekci odkazů v pravém dolním rohu této obrazovky.</string>
+    <string name="gesture_data_background_gathering_indicator">Indikátor sběru dat</string>
+    <string name="gesture_data_background_gathering_indicator_message">Kdykoli se zaznamenávají údaje o gestech, zobrazí se v levém dolním rohu klávesnice ikona indikátoru. Je-li kruh vyplněn, znamená to, že bylo zaznamenáno alespoň jedno gesto a čeká na uložení. Data se ukládají buď pomocí tlačítka na panelu nástrojů (viz &lt;i&gt;%1$s&lt;/i&gt;), nebo automaticky (pokud je &lt;i&gt;%2$s&lt;/i&gt; deaktivováno). K automatickému ukládání obvykle dochází při přepínání textových polí nebo při zavření klávesnice, ale může k němu dojít i v případě, že se textové pole změní z nějakého jiného důvodu. Při ukládání dat se indikátor na krátkou dobu zbarví zeleně.</string>
+    <string name="gesture_data_background_gathering_control">Jak ovládat, co je ukládáno</string>
+    <string name="gesture_data_background_apps_button">Spravovat povolené aplikace</string>
+    <string name="gesture_data_background_apps">Vyberte aplikace, které chcete zahrnout do sběru dat na pozadí</string>
+    <string name="gesture_data_background_apps_include_default">Ve výchozím nastavení zahrnout aplikace</string>
+    <string name="gesture_data_background_excluded_words_button">Spravovat vyloučená slova</string>
+    <string name="gesture_data_background_dictionary">Slovník: %s</string>
+    <string name="gesture_data_background_position">Pozice: %s</string>
+    <string name="gesture_data_background_exclude_words">Vyloučit slovo ze sběru na pozadí</string>
+    <string name="gesture_data_long_press_select_hint">Podržte pro vybrání</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Sběr dat na pozadí</string>
+    <string name="gesture_data_show_active">Zobrazit aktivně sbíraná data</string>
+    <string name="gesture_data_show_background">Zobrazit data z pozadí</string>
+    <string name="gesture_data_include_shared">Zahrnout již odeslaná data</string>
+    <string name="gesture_data_shared">odesláno</string>
+    <string name="gesture_data_saving">Ukládání… %s%%</string>
+    <string name="gesture_data_first_enable_dialog">Vítejte ve sběru dat na pozadí!&lt;br&gt; Přejete si do panelu nástrojů přidat klávesu &lt;i&gt;%1$s&lt;/i&gt;? Můžete ji používat k ovládání sběru dat. Více informací o ní zjistíte klepnutím na tlačítko &lt;i&gt;%2$s&lt;/i&gt;. &lt;br&gt;&lt;br&gt; Ve výchozím nastavení je sběr na pozadí zakázán pro všechny aplikace. To znamená, že nebude sbíráno nic, dokud si nevyberete povolené aplikace. Nastavení můžete změnit %3$s.</string>
+    <string name="gesture_data_add_key">Přidat klávesu do panelu</string>
+    <string name="gesture_data_no_known_dict">Sběr dat na pozadí sbírá pouze data pocházející ze slovníků, které jsou buď vestavěné, nebo dostupné v &lt;a href=%s&gt;repozitáři slovníků&lt;/a&gt;. V současné době nemáte povolen žádný takový slovník.</string>
+    <string name="gesture_data_swipe_o_scope">Nástroj pro vizualizaci dat o gestech: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="gesture_data_background_gathering_control_message">Nezávisle na nastavení je shromažďování dat na pozadí při používání anonymního režimu zakázáno. Je také zakázáno u vstupních polí označených jako citlivá (hesla, e-maily nebo kdykoli vstupní pole požaduje, aby se klávesnice neučila slova). Shromažďována budou pouze slova, která jsou v hlavním slovníku (vestavěném nebo z &lt;a href=%5$s&gt;repozitáře slovníků&lt;/a&gt;). &lt;br&gt;&lt;br&gt; Pomocí volby &lt;i&gt;%1$s&lt;/i&gt; můžete vybrat, ve kterých aplikacích chcete povolit shromažďování dat na pozadí. Výchozí nastavení zakazuje všechny aplikace s možností povolení pro jednotlivé aplikace. Můžete se rozhodnout místo toho povolit všechny aplikace a zakázat je jednotlivě. Tento postup je pohodlnější, ale automaticky povolí shromažďování dat z nově nainstalovaných aplikací. To by mohlo způsobit shromažďování dat, která jste neočekávali. &lt;br&gt;&lt;br&gt; Pomocí volby &lt;i&gt;%2$s&lt;/i&gt; můžete vyloučit konkrétní citlivá slova. Při zadávání vyloučeného slova gestem indikátor stále zobrazí vyplněnou ikonu („data čekají na uložení“), ale data budou zahozena v okamžiku, kdy by se normálně uložila. Veškerá zablokovaná slova, která již byla uložena před jejich zablokováním, budou při exportu dat zahozena.&lt;br&gt; Upozorňujeme, že shromažďování na pozadí bude shromažďovat pouze slova, která již jsou v hlavním slovníku, takže jediná slova, která pravděpodobně budete muset zablokovat, jsou běžná slova, která by mohla sloužit k vaší osobní identifikaci, jako jsou: vaše jméno, ulice, město, oblast atd. &lt;br&gt;&lt;br&gt; Když je povolena volba &lt;i&gt;%3$s&lt;/i&gt;, data se uloží pouze v případě, že se tak rozhodnete ručně pomocí tlačítka na panelu nástrojů &lt;i&gt;%4$s&lt;/i&gt; (viz níže). Pokud data nejsou uložena, čekající data budou smazána při změně vstupního pole nebo zavření klávesnice.&lt;br&gt; I v tomto režimu nadále platí výjimky pro aplikace a slova. &lt;br&gt;&lt;br&gt; Tlačítko na panelu nástrojů &lt;i&gt;%4$s&lt;/i&gt; lze použít k ovládání shromažďování dat. Účinek stisknutí závisí na aktuálním stavu: Když je shromažďování na pozadí zakázáno, bude povoleno.&lt;br&gt; Dlouhé stisknutí zakáže shromažďování na pět minut.&lt;br&gt; Shromažďování dat na pozadí můžete dříve znovu povolit běžným stisknutím tlačítka.&lt;br&gt; Když je povolena volba &lt;i&gt;%3$s&lt;/i&gt;, čekající data se uloží.&lt;br&gt; V opačném případě budou čekající data zahozena.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">Na obrazovce &lt;i&gt;%1$s&lt;/i&gt; můžete kontrolovat a filtrovat shromážděná data, smazat data, která považujete za příliš citlivá, a data sdílet. Tlačítka pro smazání a sdílení se použijí na filtrovaná data nebo na výběr, pokud k označení slov použijete dlouhé stisknutí. (Vezměte na vědomí, že „běžná“ ikona sdílení mimo obrazovku &lt;i&gt;%1$s&lt;/i&gt; bude sdílet pouze data z aktivního shromažďování.)&lt;br&gt; Pořadí sdílených dat je náhodné, takže nelze odvodit nic víc než jen jednotlivá slova.&lt;br&gt; Pokud si chcete prohlédnout kompletní data, která jsou pro dané gesto uložena, můžete je sdílet do souboru a ten načíst v aplikaci &lt;a href=%2$s&gt;Swipe-O-Scope&lt;/a&gt;.</string>
+    <string name="auto_correct_capitalized_suggestions">Automaticky opravit návrhy s velkými písmeny</string>
+    <string name="auto_correct_capitalized_suggestions_description">Po stisknutí klávesy Shift pro použití velkých písmen bude spuštěna automatická oprava</string>
+    <string name="prefs_hint_font_scale">Velikost písma nápovědy klávesy</string>
+    <string name="about_community_links">Komunitní odkazy</string>
+    <string name="about_community_links_description">Motivy, úprava rozložení, diskuze, …</string>
+    <string name="subtype_tok">Toki pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">Směrové klávesy</string>
+    <string name="space_swipe_toggle_dpad_entry">Přepnout směrové klávesy</string>
 </resources>

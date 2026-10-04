@@ -1,0 +1,10 @@
+* lisandus emojide otsing (eeldab emojide sõnastikku)
+* lisandus viipeandmete kogumine (eeldab viipesisestuse teeki)
+* valitud teksti märgitakse sulgudesse, mitte ei asendata
+* eraldi emojifondi seadistamine
+* numbririda sümbolite klahvistikus nüüd valikuline
+* e-posti aadresside halva automaatkorrektuuri vähendamine
+* parem tühikuklahvi kursori liikumine
+* suur/väiketähtede vahetuse jääb valik kärpimata
+* parem klahvide kombineerimine khipro klahvistikus
+* pisiparandused ja täiendused

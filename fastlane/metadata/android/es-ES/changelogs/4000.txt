@@ -1,0 +1,11 @@
+* Recopilación de datos de gestos en segundo plano
+* Archivos e imágenes pueden ir al historial del portapapeles
+* Teclado flotante
+* Emojis Unicode 17.0
+* Ajustes para teléfonos plegables
+* Touchpad en la diapositiva
+* Desactivar la ventana emergente de sugerencias del corrector ortográfico
+* Autocorrección a un deslizador
+* Espaciado entre teclas a un control deslizante
+* Corregir un posible error de seguridad al restaurar una copia de seguridad desde un zip
+* Más correcciones y mejoras...

@@ -33,11 +33,11 @@ import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.readCustomKeyCodes
 import helium314.keyboard.latin.utils.writeCustomKeyCodes
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.previewDark
-import helium314.keyboard.settings.screens.GetIcon
+import helium314.keyboard.latin.utils.previewDark
 import androidx.core.content.edit
+import helium314.keyboard.settings.GetIconOrEmpty
 
 @Composable
 fun ToolbarKeysCustomizer(
@@ -65,7 +65,7 @@ fun ToolbarKeysCustomizer(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.clickable { showKeyCustomizer = it }.fillParentMaxWidth()
                     ) {
-                        KeyboardIconsSet.instance.GetIcon(it.name)
+                        KeyboardIconsSet.instance.GetIconOrEmpty(it.name)
                         Text(it.name.lowercase().getStringResourceOrName("", ctx))
                     }
                 }
@@ -102,10 +102,10 @@ private fun ToolbarKeyCustomizer(
         onDismissRequest = onDismissRequest,
         onConfirmed = {
             val codes = readCustomKeyCodes(prefs)
-            codes[key] = checkCode(code) to checkCode(longPressCode)
+            codes[key] = checkCode(code) to checkCode(longPressCode, true)
             writeCustomKeyCodes(prefs, codes)
         },
-        checkOk = { checkCode(code) != null && checkCode(longPressCode) != null },
+        checkOk = { checkCode(code) != null && checkCode(longPressCode, true) != null },
         neutralButtonText = if (readCustomKeyCodes(prefs).containsKey(key))
                 stringResource(R.string.button_default)
             else null,
@@ -141,8 +141,8 @@ private fun ToolbarKeyCustomizer(
     )
 }
 
-private fun checkCode(code: TextFieldValue) = runCatching {
-    code.text.toIntOrNull()?.takeIf { it.checkAndConvertCode() <= Char.MAX_VALUE.code }
+private fun checkCode(code: TextFieldValue, longPress: Boolean = false) = runCatching {
+    code.text.toIntOrNull()?.takeIf { it.checkAndConvertCode(longPress) <= Char.MAX_VALUE.code }
 }.getOrNull()
 
 @Preview

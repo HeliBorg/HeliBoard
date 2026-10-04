@@ -21,13 +21,13 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
     private static final String TAG = EmojiPalettesAdapter.class.getSimpleName();
     private static final boolean DEBUG_PAGER = false;
 
-    private final int mCategoryId;
+    private final EmojiCategory.Category mCategory;
     private final EmojiViewCallback mEmojiViewCallback;
     private final EmojiCategory mEmojiCategory;
 
-    public EmojiPalettesAdapter(final EmojiCategory emojiCategory, int categoryId, final EmojiViewCallback emojiViewCallback) {
+    public EmojiPalettesAdapter(EmojiCategory emojiCategory, EmojiCategory.Category category, EmojiViewCallback emojiViewCallback) {
         mEmojiCategory = emojiCategory;
-        mCategoryId = categoryId;
+        mCategory = category;
         mEmojiViewCallback = emojiViewCallback;
     }
 
@@ -47,7 +47,7 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
             Log.d(TAG, "instantiate item: " + position);
         }
 
-        final Keyboard keyboard = mEmojiCategory.getKeyboardFromAdapterPosition(mCategoryId, position);
+        final Keyboard keyboard = mEmojiCategory.getKeyboardFromAdapterPosition(mCategory, position);
         holder.getKeyboardView().setKeyboard(keyboard);
     }
 
@@ -59,7 +59,7 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
 
     @Override
     public int getItemCount() {
-        return mEmojiCategory.getCategoryPageCount(mCategoryId);
+        return mEmojiCategory.getCategoryPageCount(mCategory);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

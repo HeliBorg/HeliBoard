@@ -1,116 +1,222 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin.utils
 
-import android.content.ContentValues
 import android.content.Context
 import android.text.InputType
 import android.view.inputmethod.EditorInfo
-import androidx.core.content.edit
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
+import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_SHORTCUT
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.StringUtils
-import helium314.keyboard.latin.database.Database
+import helium314.keyboard.latin.common.getTouchedWordRange
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.settings.screens.gesturedata.END_DATE_EPOCH_MILLIS
-import helium314.keyboard.settings.screens.gesturedata.TWO_WEEKS_IN_MILLIS
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import java.text.DateFormat
-import java.util.Date
-import kotlin.random.Random
 
 // functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
 // will be removed once the project is finished
 
-fun isInActiveGatheringMode(editorInfo: EditorInfo) =
-    dictTestImeOption == editorInfo.privateImeOptions && gestureDataActiveFacilitator != null
+object BackgroundGatheringCache {
+    private val cachedWords = mutableListOf<WordData>()
+    private const val TAG = "BackgroundGathering"
+    private const val DEBUG = false // hardcoded debug flag because data should not be logged even in normal debug mode
+    private val scope = CoroutineScope(Dispatchers.IO)
 
-fun setWordIgnoreList(context: Context, list: Collection<String>) {
-    val json = Json.encodeToString(list)
-    context.prefs().edit { putString(PREF_WORD_EXCLUSIONS, json) }
+    private fun updateIcon(save: Boolean = false) {
+        scope.launch(Dispatchers.Main) { // on main thread because it's touching views
+            KeyboardSwitcher.getInstance().setBackgroundGatheringIndicator(useBackgroundGathering, cachedWords.isNotEmpty(), save)
+        }
+    }
+
+    fun addWord(word: WordData) {
+        if (KeyboardSwitcher.getInstance().keyboard?.mId?.internalAction?.code == KeyCode.INLINE_EMOJI_SEARCH_DONE) {
+            if (DEBUG) Log.i(TAG, "inline emoji search, not adding anything")
+            return
+        }
+        if (DEBUG) Log.i(TAG, "adding ${word.topSuggestion}")
+        cachedWords.add(word)
+        updateIcon()
+    }
+
+    // used when pressing backspace or entering inline emoji search, because in this case the word is added before the internalAction is set
+    fun removeLast(word: String) {
+        if (cachedWords.lastOrNull()?.topSuggestion?.word?.equals(word, true) != true) return
+        if (DEBUG) Log.i(TAG, "removing $word")
+        cachedWords.removeAt(cachedWords.lastIndex)
+        updateIcon()
+    }
+
+    fun onPickSuggestionAfterGesturing(suggestion: SuggestedWords.SuggestedWordInfo, originalWord: String) {
+        // replace the latest entry in cache, but do a sanity check
+        if (DEBUG) Log.i(TAG, "picked ${suggestion.word} instead of $originalWord after gesturing")
+        val lastEntry = cachedWords.lastOrNull()
+        if (lastEntry?.topSuggestion?.word?.equals(originalWord, true) != true) {
+            if (DEBUG) Log.w(TAG, "...but our last word is ${lastEntry?.topSuggestion}, not $originalWord")
+            return
+        }
+        lastEntry.targetWord = lastEntry.suggestions.firstOrNull { it.mWord == suggestion.mWord }?.mWord ?:
+            // consider that suggestion might be capitalized, but prefer exact match
+            lastEntry.suggestions.firstOrNull { it.mWord.equals(suggestion.mWord, true) }?.mWord
+        if (DEBUG) Log.i(TAG, "setting target word to ${lastEntry.targetWord}")
+    }
+
+    fun onPickSuggestion(suggestion: SuggestedWords.SuggestedWordInfo, originalWord: String) {
+        // this happens after tap-typing (new word or corrected gesture word), or when moving the cursor and then selecting a different suggestion
+        // don't update anything if we have the word more than once
+        val word = cachedWords.singleOrNull { it.topSuggestion?.word?.equals(originalWord, true) == true } ?: return
+        word.targetWord = word.suggestions.firstOrNull { it.mWord.equals(suggestion.mWord, true) }?.mWord
+        if (DEBUG) Log.i(TAG, "picked ${word.targetWord} instead of $originalWord")
+    }
+
+    fun onRejectedSuggestion(suggestion: String) {
+        if (DEBUG) Log.i(TAG, "rejected $suggestion")
+        if (cachedWords.lastOrNull()?.topSuggestion?.word?.equals(suggestion, true) != true) {
+            if (DEBUG) Log.w(TAG, "...but last word is ${cachedWords.lastOrNull()?.topSuggestion?.word}")
+            return
+        }
+        cachedWords.removeAt(cachedWords.lastIndex)
+        updateIcon()
+    }
+
+    fun onUndo(lastComposedWord: CharSequence) {
+        if (DEBUG) Log.i(TAG, "undo after committing $lastComposedWord")
+        if (cachedWords.lastOrNull()?.topSuggestion == lastComposedWord || cachedWords.lastOrNull()?.targetWord == lastComposedWord) {
+            if (DEBUG) Log.i(TAG, "removing $lastComposedWord")
+            cachedWords.removeAt(cachedWords.lastIndex)
+        }
+        updateIcon()
+    }
+
+    fun onEditWord(word: String) {
+        // this is pretty aggressive, because repeated backspace might remove different words
+        // but better remove a few % of the words instead of having potentially bad data
+        if (DEBUG) Log.i(TAG, "edit something in $word")
+        cachedWords.removeAll { it.topSuggestion?.word?.equals(word, true) == true || it.targetWord?.equals(word, true) == true }
+        updateIcon()
+    }
+
+    fun onEditSelection(selection: CharSequence?, before: CharSequence?, after: CharSequence?) {
+        // null should only occur in very rare cases when there are problems communicating with the text field
+        if (selection == null || before == null || after == null) return
+
+        if (DEBUG) Log.i(TAG, "replace selection \"$selection\", before: \"$before\", after: \"$after\"")
+        val script = RichInputMethodManager.getInstance().currentSubtypeLocale.script
+        val spacingAndPunctuations = Settings.getValues().mSpacingAndPunctuations
+        val wordAtStart = getTouchedWordRange(before, "$selection$after", script, spacingAndPunctuations)
+        val wordAtEnd = getTouchedWordRange("$before$selection", after, script, spacingAndPunctuations)
+        if (DEBUG) Log.i(TAG, "at start \"${wordAtStart.mWord}\", at end \"${wordAtEnd.mWord}\"")
+        val trimmed = selection.trim()
+        if (
+            (wordAtEnd.mWord == wordAtStart.mWord && selection in wordAtStart.mWord)
+            || (trimmed != selection && (wordAtStart == trimmed || wordAtEnd == trimmed)) // treat word + space like word
+        ) {
+            if (DEBUG) Log.i(TAG, "word or part of word selected, removing word")
+            cachedWords.removeAll { it.topSuggestion == wordAtStart.mWord || it.targetWord == wordAtStart.mWord }
+        } else {
+            // more than one word selected, we do nothing because deleting much is unlikely to happen because of bad gesture typing
+        }
+        updateIcon()
+    }
+
+    @JvmStatic
+    fun saveOrClear(context: Context) {
+        if (useBackgroundGathering && !GestureDataGatheringSettings.isDiscardByDefault(context))
+            save(context)
+        else clear()
+    }
+
+    fun save(context: Context) {
+        // save all words and clear cache
+        val words = cachedWords.toList()
+        if (DEBUG) Log.i(TAG, "save cached data")
+        cachedWords.clear()
+        updateIcon(words.isNotEmpty())
+        scope.launch { words.forEach { it.save(context) } }
+    }
+
+    fun clear() {
+        // just clear it without saving
+        if (DEBUG) Log.i(TAG, "clear cache")
+        cachedWords.clear()
+        updateIcon()
+    }
+
+    val isEmpty get() = cachedWords.isEmpty()
 }
 
-fun getWordIgnoreList(context: Context): Set<String> {
-    val json = context.prefs().getString(PREF_WORD_EXCLUSIONS, "[]") ?: "[]"
-    if (json.isEmpty()) return sortedSetOf()
-    return Json.decodeFromString<List<String>>(json).toSortedSet(compareBy(String.CASE_INSENSITIVE_ORDER) { it })
+@JvmField
+var useBackgroundGathering = false
+
+fun setUseBackgroundGathering(context: Context, editorInfo: EditorInfo): Boolean {
+    useBackgroundGathering = isBackgroundGatheringUsed(context, editorInfo)
+    if (!useBackgroundGathering)
+        BackgroundGatheringCache.clear()
+    return useBackgroundGathering
 }
 
-fun setAppIgnoreList(context: Context, list: Collection<String>) {
-    context.prefs().edit { putString(PREF_APP_EXCLUSIONS, list.joinToString(",")) }
+private fun isBackgroundGatheringUsed(context: Context, editorInfo: EditorInfo): Boolean {
+    if (!JniUtils.sHaveGestureLib) return false
+    if (!GestureDataGatheringSettings.isBackgroundGatheringEnabled(context.prefs())) return false
+    if (Settings.getValues().mIncognitoModeEnabled) return false
+    val inputAttributes = InputAttributes(editorInfo, false, "")
+    if (inputAttributes.mInputType and InputType.TYPE_CLASS_TEXT == 0)
+        return false // undefined (e.g. terminal apps) type should work, but will likely not allow to track corrections
+    val isEmailField = InputTypeUtils.isEmailVariation(inputAttributes.mInputType and InputType.TYPE_MASK_VARIATION)
+    if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning || isEmailField) return false
+    if (GestureDataGatheringSettings.isForbiddenForDataGathering(editorInfo.packageName, context)) return false
+    if (editorInfo.privateImeOptions == "noBackground") return false // meant for review screen
+    // we might not have a known dictionary, they are informed about this when enabling background gathering
+    return true
 }
-
-fun getAppIgnoreList(context: Context): List<String> {
-    val string = context.prefs().getString(PREF_APP_EXCLUSIONS, "") ?: ""
-    return string.split(",").filterNot { it.isEmpty() }
-}
-
-fun addExportedActiveDeletionCount(context: Context, count: Int) {
-    val oldCount = getExportedActiveDeletionCount(context)
-    context.prefs().edit { putInt(PREF_DELETED_ACTIVE, oldCount + count) }
-}
-
-fun getExportedActiveDeletionCount(context: Context) = context.prefs().getInt(PREF_DELETED_ACTIVE, 0)
-
-/** shows a toast notification if we're close to the end of the data gathering phase (at most once per 24 hours, only if there is non-exported data) */
-fun showEndNotificationIfNecessary(context: Context) {
-    val now = System.currentTimeMillis()
-    if (now < END_DATE_EPOCH_MILLIS - TWO_WEEKS_IN_MILLIS) return
-    val lastShown = context.prefs().getLong(PREF_END_NOTIFICATION_LAST_SHOWN, 0)
-    if (lastShown > now - 24L * 60 * 60 * 1000) return // show at most once per 24 hours
-    context.prefs().edit { putLong(PREF_END_NOTIFICATION_LAST_SHOWN, now) } // set even if we have nothing to tell
-    val notExported = GestureDataDao.getInstance(context)?.count(exported = false) ?: 0
-    if (notExported == 0) return // nothing to export
-
-    // show a toast
-    val endDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(END_DATE_EPOCH_MILLIS))
-    KeyboardSwitcher.getInstance().showToast(context.getString(R.string.gesture_data_ends_at, endDate), false)
-}
-
-private const val PREF_WORD_EXCLUSIONS = "gesture_data_word_exclusions"
-private const val PREF_APP_EXCLUSIONS = "gesture_data_app_exclusions"
-private const val PREF_DELETED_ACTIVE = "gesture_data_deleted_active_words"
-private const val PREF_PASSIVE_NOTIFY_COUNT = "gesture_data_passive_notify_count"
-private const val PREF_END_NOTIFICATION_LAST_SHOWN = "gesture_data_end_notification_shown"
 
 const val dictTestImeOption = "useTestDictionaryFacilitator,${BuildConfig.APPLICATION_ID}.${Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW}"
 
 var gestureDataActiveFacilitator: SingleDictionaryFacilitator? = null
 
+private val scope = CoroutineScope(Dispatchers.IO)
+
 // class for storing relevant information
 class WordData(
-    val targetWord: String,
+    var targetWord: String?, // might be adjusted when using background gathering
     val suggestions: SuggestionResults,
     val composedData: ComposedData,
-    val ngramContext: NgramContext,
+    val ngramContext: NgramContext, // actually we don't use it
     val keyboard: Keyboard,
     val inputStyle: Int,
     val activeMode: Boolean,
+    // first suggestion in background gathering, used to track later changes
+    // may not be in SuggestionResults due to processing
+    val topSuggestion: SuggestedWords.SuggestedWordInfo? = null
 ) {
     // keyboard is not immutable, so better store potentially relevant information immediately
     private val keys = keyboard.sortedKeys
     private val height = keyboard.mOccupiedHeight
     private val width = keyboard.mOccupiedWidth
 
-    // if contacts dict is used we keep this information
-    private val dictionariesInSuggestions = suggestions.map { it.mSourceDict }.toSet()
-    private val packageName = keyboard.mId.mEditorInfo.packageName
+    private val packageName = keyboard.mId.editorInfo.packageName
+    private val pointerData = PointerData.fromPointers(composedData.mInputPointers)
 
     private val timestamp = System.currentTimeMillis()
 
     fun save(context: Context) {
+        GestureDataGatheringSettings.onTrySaveData(context.prefs())
         if (!isSavingOk(context))
             return
         val dao = GestureDataDao.getInstance(context) ?: return
@@ -128,76 +234,129 @@ class WordData(
                 )
             }
         )
-        val filteredSuggestions = mutableListOf<SuggestedWords.SuggestedWordInfo>()
-        for (word in suggestions) { // suggestions are sorted with highest score first
-            if (word.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS
-                || suggestions.any { it.mWord == word.mWord && it.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS })
-                continue // never store contacts (might be in user history too)
-            // for the personal dictionary we rely on the ignore list
-            if (word.mScore < 0 && filteredSuggestions.size > 5)
-                continue // no need to add bad matches
-            if (filteredSuggestions.any { it.mWord == word.mWord })
-                continue // only one occurrence per word
-            if (filteredSuggestions.size > 12)
-                continue // should be enough
-            filteredSuggestions.add(word)
+        if (!activeMode && targetWord != null && suggestions.none { it.mWord == targetWord }) {
+            // change target word to the first case insensitive match if there is no case sensitive match (actually this should not be necessary?)
+            val match = suggestions.firstOrNull { it.mWord.equals(targetWord, true) }
+            if (match != null) targetWord = match.mWord
         }
+
+        val topWord = targetWord ?: topSuggestion?.word
+        val filteredSuggestions = filterSuggestions(GestureDataGatheringSettings.getWordExclusions(context))
+        // we want to store which dictionaries are used, and a dict index (in used dict list) for each suggestion
+        var dictCount = 0
+        val dictionariesInUsedSuggestions = LinkedHashMap<Dictionary, Int>().apply { // linked because we need the order (well, not any more...)
+            filteredSuggestions.forEach { if (!containsKey(it.mSourceDict)) put(it.mSourceDict, dictCount++) }
+            // we always want all main known dictionaries
+            suggestions.forEach { if (!containsKey(it.mSourceDict) && it.isFromKnownMainDict(context)) put(it.mSourceDict, dictCount++) }
+        }
+
         val data = GestureData(
             context.getString(R.string.english_ime_name) + " " + BuildConfig.VERSION_NAME,
             if (!context.protectedPrefs().contains(Settings.PREF_LIBRARY_CHECKSUM)) null
                 else context.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "") == JniUtils.expectedDefaultChecksum(),
             targetWord,
-            dictionariesInSuggestions.map {
-                val hash = (it as? BinaryDictionary)?.hash ?: (it as? ReadOnlyBinaryDictionary)?.hash
-                DictInfo(hash, it.mDictType, it.mLocale?.toLanguageTag())
+            dictionariesInUsedSuggestions.map { (dict, _) ->
+                val hash = (dict as? BinaryDictionary)?.hash ?: (dict as? ReadOnlyBinaryDictionary)?.hash
+                DictInfo(hash, dict.mDictType, dict.mLocale?.toLanguageTag())
             },
-            filteredSuggestions.map { Suggestion(it.mWord, it.mScore) },
-            PointerData.fromPointers(composedData.mInputPointers),
+            // index not needed any more
+            filteredSuggestions.map { Suggestion(it.mWord, it.mOriginalScore /*, dictionariesInUsedSuggestions[it.mSourceDict]*/) },
+            pointerData,
             keyboardInfo,
             activeMode,
             null
         )
-        dao.add(data, timestamp)
-        informAboutTooManyPassiveModeWords(context, dao)
+        scope.launch { dao.add(data, topWord, timestamp) }
+        if (!activeMode)
+            scope.launch(Dispatchers.Main) { GestureDataGatheringSettings.informAboutTooManyBackgroundModeWords(context, dao) }
     }
 
-    // show a toast every 5k words, to avoid having to upload multiple files at a time because they are over their email attachment size limit
-    // but don't check on every word, because getting count from DB is not free
-    private fun informAboutTooManyPassiveModeWords(context: Context, dao: GestureDataDao) {
-        if (!activeMode || Random.nextInt() % 20 != 0) return
-        val count = dao.count(exported = false, activeMode = false)
-        val nextNotifyCount = context.prefs().getInt(PREF_PASSIVE_NOTIFY_COUNT, 5000)
-        if (count <= nextNotifyCount) return
-        val approxCount = (count / 1000) * 1000
-        // show a toast
-        KeyboardSwitcher.getInstance().showToast(context.getString(R.string.gesture_data_many_not_shared_words, approxCount.toString()), true)
-        context.prefs().edit { putInt(PREF_PASSIVE_NOTIFY_COUNT, approxCount + 5000) }
+    fun filterSuggestions(blockedWords: Collection<String>): List<SuggestedWords.SuggestedWordInfo> {
+        val filteredSuggestions = mutableListOf<SuggestedWords.SuggestedWordInfo>()
+        for (word in suggestions.sortedByDescending { it.mOriginalScore }) {
+            if (activeMode && word.mWord == targetWord) {
+                // always add the targetWord if we have it
+                filteredSuggestions.add(word)
+                continue
+            }
+            if (filteredSuggestions.any { it.mWord == word.mWord })
+                continue // only first occurrence word
+            if (filteredSuggestions.size > 18) // user sees 18 suggestions at most
+                continue
+            if (word.mOriginalScore < 0 && filteredSuggestions.size > 5)
+                continue // no need to add bad matches
+            if (activeMode) {
+                filteredSuggestions.add(word)
+                continue
+            }
+            if (word.mWord in blockedWords)
+                continue // we should never come here, but better check twice
+            filteredSuggestions.add(word)
+            if (word.mWord == (targetWord ?: topSuggestion?.word))
+                break // no use for suggestions after that
+        }
+        // redact words that don't match the top suggestion / target word
+        if (!activeMode) {
+            for (i in filteredSuggestions.indices) {
+                if (filteredSuggestions[i].mWord != (targetWord ?: topSuggestion?.word))
+                    filteredSuggestions[i] = filteredSuggestions[i].redact()
+            }
+        }
+        return filteredSuggestions
     }
 
     // find when we should NOT save
-    private fun isSavingOk(context: Context): Boolean {
+    fun isSavingOk(context: Context): Boolean {
         if (inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH)
             return false
-        if (activeMode && dictionariesInSuggestions.size == 1)
-            return true // active mode should be fine, the size check is just an addition in case there is a bug that sets the wrong mode or dictionary facilitator
+        if (activeMode)
+            // active mode should be fine, the check is just an addition in case there is a bug that sets the wrong mode or dictionary facilitator
+            return suggestions.all { it.mSourceDict == suggestions.first().mSourceDict }
         if (Settings.getValues().mIncognitoModeEnabled)
             return false // don't save in incognito mode
-        if (packageName in getAppIgnoreList(context))
-            return false // package ignored
-        val inputAttributes = InputAttributes(keyboard.mId.mEditorInfo, false, "")
+        if (!GestureDataGatheringSettings.isBackgroundGatheringEnabled(context.prefs()))
+            return false
+        if ((targetWord ?: topSuggestion?.word)?.contains(' ') == true) // no support for SPACE_AWARE_GESTURE
+            return false
+        if (GestureDataGatheringSettings.isForbiddenForDataGathering(packageName, context))
+            return false // package ignored (we should never come here for blocked apps, but better be safe)
+        val inputAttributes = InputAttributes(keyboard.mId.editorInfo, false, "")
         val isEmailField = InputTypeUtils.isEmailVariation(inputAttributes.mInputType and InputType.TYPE_MASK_VARIATION)
         if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning || isEmailField)
-            return false // probably some more inputAttributes to consider
-        val ignoreWords = getWordIgnoreList(context)
-        // how to deal with the ignore list?
-        // check targetWord and first 5 suggestions?
-        // or check only what is in the actually saved suggestions?
-        if (targetWord in ignoreWords || suggestions.take(5).any { it.word in ignoreWords })
-            return false
-        if (suggestions.first().mSourceDict.mDictType == Dictionary.TYPE_CONTACTS)
+            return false // background gathering should not even be enabled, but better have this backup
+
+        val matchingSuggestions = suggestions.filter { it.mWord.equals(targetWord ?: topSuggestion?.word, true) }
+        if (matchingSuggestions.all { (it.mKindAndFlags and 0xFF) == KIND_SHORTCUT })
+            return false // we want at least one non-shortcut
+
+        // word and dict-based filtering
+        if (matchingSuggestions.none { it.isFromKnownMainDict(context) })
+            return false // we have no use if not in main dictionary, also potentially sensitive
+        if (matchingSuggestions.any { it.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS })
+            return false // if there is a suggestion from contacts -> never use it
+        val ignoreWords = GestureDataGatheringSettings.getWordExclusions(context)
+        // don't store if target word / first suggestion is blocked, the other suggestions will get redacted anyway
+        if ((targetWord ?: topSuggestion?.mWord) in ignoreWords)
             return false
         return true
     }
+
+    private fun SuggestedWords.SuggestedWordInfo.redact() =
+        SuggestedWords.SuggestedWordInfo("", "", Int.MIN_VALUE, 0, mSourceDict, 0, 0)
+
+    private fun SuggestedWords.SuggestedWordInfo.isFromKnownMainDict(context: Context): Boolean {
+        val hash = (mSourceDict as? BinaryDictionary)?.hash ?: (mSourceDict as? ReadOnlyBinaryDictionary)?.hash ?: return false
+        return hash in getKnownDictHashes(context)
+    }
+}
+
+private var knownHashes: Set<String>? = null
+fun getKnownDictHashes(context: Context): Set<String> {
+    if (knownHashes == null)
+        knownHashes = context.assets.open("known_dict_hashes.txt")
+            .use { it.reader().readLines() }.filterNot { it.isBlank() || it.startsWith("#") }
+            .toHashSet()
+    return knownHashes!!
 }
 
 data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: Long, val exported: Boolean, val activeMode: Boolean)
@@ -206,14 +365,23 @@ data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: 
 data class GestureData(
     val application: String,
     val knownLibrary: Boolean?,
-    val targetWord: String?, // this will be tricky for active gathering if user corrects the word
+    val targetWord: String?,
     val dictionaries: List<DictInfo>,
     val suggestions: List<Suggestion>,
     val gesture: List<PointerData>,
     val keyboardInfo: KeyboardInfo,
     val activeMode: Boolean,
     val uuid: String?
-)
+) {
+    companion object {
+        fun GestureData.toJsonWithChecksum(): String {
+            val jsonString = Json.encodeToString(this.copy(uuid = null))
+            // if uuid in the resulting string is replaced with null, we should be able to reproduce it
+            val dataWithId = copy(uuid = ChecksumCalculator.checksum(jsonString.byteInputStream()))
+            return Json.encodeToString(dataWithId)
+        }
+    }
+}
 
 // hash is only available for dictionaries from .dict files
 // language can be null (but should not be)
@@ -248,190 +416,3 @@ data class KeyInfo(val left: Int, val width: Int, val top: Int, val height: Int,
 
 @Serializable
 data class KeyboardInfo(val width: Int, val height: Int, val keys: List<KeyInfo>)
-
-class GestureDataDao(val db: Database) {
-    fun add(data: GestureData, timestamp: Long) {
-        require(data.uuid == null)
-        val jsonString = Json.encodeToString(data)
-        // if uuid in the resulting string is replaced with null, we should be able to reproduce it
-        val dataWithId = data.copy(uuid = ChecksumCalculator.checksum(jsonString.byteInputStream()))
-        val cv = ContentValues(3)
-        cv.put(COLUMN_TIMESTAMP, timestamp)
-        cv.put(COLUMN_WORD, data.targetWord)
-        if (data.activeMode)
-            cv.put(COLUMN_SOURCE_ACTIVE, 1)
-        cv.put(COLUMN_DATA, Json.encodeToString(dataWithId))
-        db.writableDatabase.insert(TABLE, null, cv)
-    }
-
-    fun filterInfos(
-        word: String? = null,
-        begin: Long? = null,
-        end: Long? = null,
-        exported: Boolean? = null,
-        activeMode: Boolean? = null,
-        limit: Int? = null
-    ): List<GestureDataInfo> {
-        val result = mutableListOf<GestureDataInfo>()
-        val query = mutableListOf<String>()
-        if (word != null) query.add("LOWER($COLUMN_WORD) like ?||'%'")
-        if (begin != null) query.add("$COLUMN_TIMESTAMP >= $begin")
-        if (end != null) query.add("$COLUMN_TIMESTAMP <= $end")
-        if (exported != null) query.add("$COLUMN_EXPORTED = ${if (exported) 1 else 0}")
-        if (activeMode != null) query.add("$COLUMN_SOURCE_ACTIVE = ${if (activeMode) 1 else 0}")
-        db.readableDatabase.query(
-            TABLE,
-            arrayOf(COLUMN_ID, COLUMN_WORD, COLUMN_TIMESTAMP, COLUMN_EXPORTED, COLUMN_SOURCE_ACTIVE),
-            query.joinToString(" AND "),
-            word?.let { arrayOf(it.lowercase()) },
-            null,
-            null,
-            null,
-            limit?.toString()
-        ).use {
-            while (it.moveToNext()) {
-                result.add(GestureDataInfo(
-                    it.getLong(0),
-                    it.getString(1),
-                    it.getLong(2),
-                    it.getInt(3) != 0,
-                    it.getInt(4) != 0
-                ))
-            }
-        }
-        return result
-    }
-
-    fun getJsonData(ids: List<Long>): List<String> {
-        val result = mutableListOf<String>()
-        db.readableDatabase.query(
-            TABLE,
-            arrayOf(COLUMN_DATA),
-            "$COLUMN_ID IN (${ids.joinToString(",")})",
-            null,
-            null,
-            null,
-            null
-        ).use {
-            while (it.moveToNext()) {
-                result.add(it.getString(0))
-            }
-        }
-        return result
-    }
-
-    fun getAllJsonData(): List<String> {
-        val result = mutableListOf<String>()
-        db.readableDatabase.query(
-            TABLE,
-            arrayOf(COLUMN_DATA),
-            null,
-            null,
-            null,
-            null,
-            null
-        ).use {
-            while (it.moveToNext()) {
-                result.add(it.getString(0))
-            }
-        }
-        return result
-    }
-
-    fun markAsExported(ids: List<Long>, context: Context) {
-        if (ids.isEmpty()) return
-        val cv = ContentValues(1)
-        cv.put(COLUMN_EXPORTED, 1)
-        db.writableDatabase.update(TABLE, cv, "$COLUMN_ID IN (${ids.joinToString(",")})", null)
-        if (count(exported = false, activeMode = false) < context.prefs().getInt(PREF_PASSIVE_NOTIFY_COUNT, 0))
-            context.prefs().edit { remove(PREF_PASSIVE_NOTIFY_COUNT) } // reset if we exported passive data
-    }
-
-    fun delete(ids: List<Long>, onlyExported: Boolean, context: Context): Int {
-        if (ids.isEmpty()) return 0
-        val where = "$COLUMN_ID IN (${ids.joinToString(",")})"
-        val whereExported = " AND $COLUMN_EXPORTED <> 0"
-        val count: Int
-        if (onlyExported) {
-            count = db.writableDatabase.delete(TABLE, where + whereExported, null)
-            addExportedActiveDeletionCount(context, count) // actually we could also have a counter in the db
-        } else {
-            val exportedCount = db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE WHERE $where$whereExported", null).use {
-                it.moveToFirst()
-                it.getInt(0)
-            }
-            count = db.writableDatabase.delete(TABLE, where, null)
-            addExportedActiveDeletionCount(context, exportedCount)
-        }
-        return count
-    }
-
-    fun deleteAll() {
-        db.writableDatabase.delete(TABLE, null, null)
-    }
-
-    fun deletePassiveWords(words: Collection<String>) {
-        val wordsString = words.joinToString("','") { it.lowercase() }
-        db.writableDatabase.delete(
-            TABLE,
-            "$COLUMN_SOURCE_ACTIVE <> 0 AND LOWER($COLUMN_WORD) in (?)",
-            arrayOf(wordsString)
-        )
-    }
-
-    fun count(exported: Boolean? = null, activeMode: Boolean? = null): Int {
-        val where = mutableListOf<String>()
-        if (exported != null)
-            where.add("$COLUMN_EXPORTED ${if (exported) "<>" else "="} 0")
-        if (activeMode != null)
-            where.add("$COLUMN_SOURCE_ACTIVE ${if (activeMode) "<>" else "="} 0")
-        val whereString = if (where.isEmpty()) "" else "WHERE ${where.joinToString(" AND ")}"
-        return db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE $whereString", null).use {
-            it.moveToFirst()
-            it.getInt(0)
-        }
-    }
-
-    fun isEmpty(): Boolean {
-        db.readableDatabase.rawQuery("SELECT EXISTS (SELECT 1 FROM $TABLE)", null).use {
-            it.moveToFirst()
-            return it.getInt(0) == 0
-        }
-    }
-
-    companion object {
-        private const val TAG = "GestureDataDao"
-
-        private const val TABLE = "GESTURE_DATA"
-        private const val COLUMN_ID = "ID"
-        private const val COLUMN_TIMESTAMP = "TIMESTAMP"
-        private const val COLUMN_WORD = "WORD"
-        private const val COLUMN_EXPORTED = "EXPORTED"
-        private const val COLUMN_SOURCE_ACTIVE = "SOURCE_ACTIVE"
-        private const val COLUMN_DATA = "DATA" // data is text, blob with zip is slower to store, and probably not worth the saved space
-
-        const val CREATE_TABLE = """
-            CREATE TABLE IF NOT EXISTS $TABLE (
-                $COLUMN_ID INTEGER PRIMARY KEY,
-                $COLUMN_TIMESTAMP INTEGER NOT NULL,
-                $COLUMN_WORD TEXT NOT NULL,
-                $COLUMN_EXPORTED TINYINT NOT NULL DEFAULT 0,
-                $COLUMN_SOURCE_ACTIVE TINYINT NOT NULL DEFAULT 0,
-                $COLUMN_DATA TEXT
-            )
-        """
-
-        private var instance: GestureDataDao? = null
-
-        /** Returns the instance or creates a new one. Returns null if instance can't be created (e.g. no access to db due to device being locked) */
-        fun getInstance(context: Context): GestureDataDao? {
-            if (instance == null)
-                try {
-                    instance = GestureDataDao(Database.getInstance(context))
-                } catch (e: Throwable) {
-                    Log.e(TAG, "can't create ClipboardDao", e)
-                }
-            return instance
-        }
-    }
-}

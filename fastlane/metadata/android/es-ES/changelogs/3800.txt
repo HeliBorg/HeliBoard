@@ -1,0 +1,6 @@
+* Se usa el tono de emoji predeterminado en las sugerencias y en la búsqueda de emojis integrada
+* Se habilita el gesto predictivo de retroceso
+* Se corrige que los paréntesis pequeños no se revertían en escrituras RTL
+* Se añade un ajuste para cambiar la altura de la fila inferior
+* Se mejora la gestión interna de la posición del cursor, especialmente relevante para combinadores como los usados en coreano
+* Se añaden enlaces a la pantalla de recopilación de datos de gestos

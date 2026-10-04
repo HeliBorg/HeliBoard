@@ -64,8 +64,7 @@ class AccessibilityUtils private constructor() {
      *
      * @return `true` if the device should obscure password characters.
      */
-    fun shouldObscureInput(editorInfo: EditorInfo?): Boolean {
-        if (editorInfo == null) return false
+    fun shouldObscureInput(inputType: Int): Boolean {
         // The user can optionally force speaking passwords.
         if (Settings.Secure.ACCESSIBILITY_SPEAK_PASSWORD != null) {
             val speakPassword = Settings.Secure.getInt(mContext.contentResolver,
@@ -85,9 +84,8 @@ class AccessibilityUtils private constructor() {
                 }
             }
         }
-        return if (listeningThroughHeadphones) {
-            false
-        } else InputTypeUtils.isPasswordInputType(editorInfo.inputType)
+        return if (listeningThroughHeadphones) false
+        else InputTypeUtils.isPasswordInputType(inputType)
         // Don't speak if the IME is connected to a password field.
     }
 
@@ -173,8 +171,8 @@ class AccessibilityUtils private constructor() {
      * @param editorInfo The input connection's editor info attribute.
      * @param restarting Whether the connection is being restarted.
      */
-    fun onStartInputViewInternal(view: View, editorInfo: EditorInfo?, restarting: Boolean) {
-        if (shouldObscureInput(editorInfo)) {
+    fun onStartInputViewInternal(view: View, editorInfo: EditorInfo, restarting: Boolean) {
+        if (shouldObscureInput(editorInfo.inputType)) {
             val text = mContext.getText(R.string.spoken_use_headphones)
             announceForAccessibility(view, text)
         }

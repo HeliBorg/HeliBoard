@@ -115,7 +115,6 @@
     <string name="settings_category_suggestions">Suggestions</string>
     <string name="vibrate_in_dnd_mode">Vibrate in do not disturb mode</string>
     <string name="settings_category_correction">Corrections</string>
-    <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape)</string>
     <string name="disable_personalized_dicts_message">Warning: Disabling this setting will clear learned data</string>
     <string name="settings_category_clipboard_history">Clipboard history</string>
     <string name="settings_category_space">Space</string>

@@ -3,7 +3,7 @@ package helium314.keyboard.settings.screens
 
 import android.Manifest
 import android.content.Context
-import android.content.Intent
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Surface
@@ -18,7 +18,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.permissions.PermissionsUtil
@@ -29,21 +28,23 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.NextScreenIcon
+import helium314.keyboard.latin.utils.NextScreenIcon
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.SettingsWithoutKey
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.preferences.SwitchPreferenceWithEmojiDictWarning
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import androidx.core.content.edit
+import helium314.keyboard.keyboard.internal.PopupKeySpec
+import helium314.keyboard.settings.preferences.SliderPreference
+import helium314.keyboard.settings.preferences.TextInputPreference
 
 @Composable
 fun TextCorrectionScreen(
@@ -54,7 +55,7 @@ fun TextCorrectionScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val autocorrectEnabled = prefs.getBoolean(Settings.PREF_AUTO_CORRECTION, Defaults.PREF_AUTO_CORRECTION)
-    val suggestionsVisible = Settings.readToolbarMode(prefs) in setOf(ToolbarMode.SUGGESTION_STRIP, ToolbarMode.EXPANDABLE)
+    val suggestionsVisible = Settings.readToolbarMode(prefs).let { it == ToolbarMode.SUGGESTION_STRIP || it == ToolbarMode.EXPANDABLE }
     val suggestionsEnabled = suggestionsVisible && prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, Defaults.PREF_SHOW_SUGGESTIONS)
     val gestureEnabled = JniUtils.sHaveGestureLib && prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT)
     val items = listOf(
@@ -64,7 +65,8 @@ fun TextCorrectionScreen(
         Settings.PREF_AUTO_CORRECTION,
         if (autocorrectEnabled) Settings.PREF_MORE_AUTO_CORRECTION else null,
         if (autocorrectEnabled) Settings.PREF_AUTOCORRECT_SHORTCUTS else null,
-        if (autocorrectEnabled) Settings.PREF_AUTO_CORRECT_THRESHOLD else null,
+        if (autocorrectEnabled) Settings.PREF_AUTOCORRECT_CAPITALIZED_SUGGESTION else null,
+        if (autocorrectEnabled) Settings.PREF_AUTO_CORRECT_CONFIDENCE else null,
         if (autocorrectEnabled) Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT else null,
         Settings.PREF_AUTO_CAP,
         R.string.settings_category_space,
@@ -85,11 +87,15 @@ fun TextCorrectionScreen(
         Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         Settings.PREF_BIGRAM_PREDICTIONS,
         Settings.PREF_SUGGEST_PUNCTUATION,
+        if (prefs.getBoolean(Settings.PREF_SUGGEST_PUNCTUATION, Defaults.PREF_SUGGEST_PUNCTUATION))
+            Settings.PREF_PUNCTUATION_SUGGESTIONS else null,
         Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
         Settings.PREF_USE_CONTACTS,
         Settings.PREF_USE_APPS,
         if (prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, Defaults.PREF_KEY_USE_PERSONALIZED_DICTS))
-            Settings.PREF_ADD_TO_PERSONAL_DICTIONARY else null
+            Settings.PREF_ADD_TO_PERSONAL_DICTIONARY else null,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            Settings.PREF_SPELLCHECK_SUGGEST else null,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -125,14 +131,26 @@ fun createCorrectionSettings(context: Context) = listOf(
     ) {
         SwitchPreference(it, Defaults.PREF_AUTOCORRECT_SHORTCUTS)
     },
-    Setting(context, Settings.PREF_AUTO_CORRECT_THRESHOLD, R.string.auto_correction_confidence) {
-        val items = listOf(
-            stringResource(R.string.auto_correction_threshold_mode_modest) to 0.185f,
-            stringResource(R.string.auto_correction_threshold_mode_aggressive) to 0.067f,
-            stringResource(R.string.auto_correction_threshold_mode_very_aggressive) to -1f,
+    Setting(context, Settings.PREF_AUTOCORRECT_CAPITALIZED_SUGGESTION,
+        R.string.auto_correct_capitalized_suggestions, R.string.auto_correct_capitalized_suggestions_description
+    ) {
+        SwitchPreference(it, Defaults.PREF_AUTOCORRECT_CAPITALIZED_SUGGESTION)
+    },
+    Setting(context, Settings.PREF_AUTO_CORRECT_CONFIDENCE, R.string.auto_correction_confidence) { setting ->
+        SliderPreference(
+            name = setting.title,
+            key = setting.key,
+            default = Defaults.PREF_AUTO_CORRECT_CONFIDENCE,
+            range = 0f..1f,
+            description = {
+                val text = when (it) {
+                    in 0f..0.40f -> stringResource(R.string.auto_correction_threshold_mode_modest)
+                    in 0f..0.80f -> stringResource(R.string.auto_correction_threshold_mode_aggressive)
+                    else -> stringResource(R.string.auto_correction_threshold_mode_very_aggressive)
+                }
+                "${(it * 1000).toInt().toFloat() / 1000} ($text)"
+            }
         )
-        // todo: consider making it a slider, and maybe somehow adjust range so we can show %
-        ListPreference(it, items, Defaults.PREF_AUTO_CORRECT_THRESHOLD)
     },
     Setting(context, Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT, R.string.backspace_reverts_autocorrect) {
         SwitchPreference(it, Defaults.PREF_BACKSPACE_REVERTS_AUTOCORRECT)
@@ -210,6 +228,11 @@ fun createCorrectionSettings(context: Context) = listOf(
     ) {
         SwitchPreference(it, Defaults.PREF_SUGGEST_PUNCTUATION) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
+    Setting(context, Settings.PREF_PUNCTUATION_SUGGESTIONS, R.string.custom_punctuation_suggestions) { setting ->
+        val defaultSpecs = PopupKeySpec.splitKeySpecs(stringResource(R.string.suggested_punctuations))
+            ?.joinToString(" ") { if (it.length > 1 && it.startsWith('\\')) it.substring(1) else it }
+        TextInputPreference(setting, defaultSpecs ?: "")
+    },
     Setting(context, Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER,
         R.string.center_suggestion_text_to_enter, R.string.center_suggestion_text_to_enter_summary
     ) {
@@ -247,9 +270,7 @@ fun createCorrectionSettings(context: Context) = listOf(
     Setting(
         context, Settings.PREF_SUGGEST_EMOJIS, R.string.suggest_emojis, R.string.suggest_emojis_summary
     ) {
-        SwitchPreference(it, Defaults.PREF_SUGGEST_EMOJIS) {
-            context.sendBroadcast(Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION))
-        }
+        SwitchPreferenceWithEmojiDictWarning(it, Defaults.PREF_SUGGEST_EMOJIS)
     },
     Setting(
         context, Settings.PREF_INLINE_EMOJI_SEARCH, R.string.inline_emoji_search, R.string.inline_emoji_search_summary) {
@@ -259,6 +280,11 @@ fun createCorrectionSettings(context: Context) = listOf(
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary
     ) {
         SwitchPreference(it, Defaults.PREF_ADD_TO_PERSONAL_DICTIONARY)
+    },
+    Setting(context, Settings.PREF_SPELLCHECK_SUGGEST,
+        R.string.spell_check_suggestions, R.string.spell_check_suggestions_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_SPELLCHECK_SUGGEST)
     },
 )
 

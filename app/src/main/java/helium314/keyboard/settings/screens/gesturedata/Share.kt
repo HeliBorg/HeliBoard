@@ -12,30 +12,36 @@ import android.os.ParcelFileDescriptor
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.GestureDataDao
+import helium314.keyboard.latin.utils.IntentUtils
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.filePicker
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.FileInputStream
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -47,28 +53,51 @@ import java.util.zip.ZipOutputStream
 // will be removed once the project is finished
 
 @Composable
-fun ShareGestureData(ids: List<Long>) {
+fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Unit) {
     val ctx = LocalContext.current
-    val dao = GestureDataDao.getInstance(ctx)!!
-    val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
+    val dao = GestureDataDao.getInstance(ctx)
+    val hasData = dao?.isEmpty() != true // no need to update if we have it in a dialog
+    val ids = remember { ids }
     val getDataPicker = getData(ids)
     var exportStarted by remember { mutableStateOf(false) }
     var exportDone by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope { Dispatchers.IO }
+    var exportedPercent by remember { mutableIntStateOf(0) }
     LaunchedEffect(exportStarted) {
         if (exportStarted) {
             // wait until exported data is marked, then offer to delete
             gestureIdsBeingExported = ids
             scope.launch {
                 while (gestureIdsBeingExported != null) {
+                    exportedPercent = (100 * progress) / (gestureIdsBeingExported?.size ?: 100)
                     delay(50)
                 }
                 exportDone = true
+                exportStarted = false
+                onShared()
             }
         }
     }
 
-    if (!exportDone) {
+    if (exportDone) {
+        // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
+        var confirmDelete by remember { mutableStateOf(false) }
+        ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_submitted, ids.size), enabled = hasData) {
+            confirmDelete = true
+        }
+        if (confirmDelete) {
+            ConfirmationDialog(
+                onDismissRequest = { confirmDelete = false },
+                onConfirmed = { dao?.delete(ids, true, ctx); onDeleted() },
+                content = {
+                    Text(stringResource(R.string.delete_confirmation, ids.size))
+                }
+            )
+        }
+    } else if (exportStarted) {
+        Text(stringResource(R.string.gesture_data_saving, exportedPercent))
+    } else {
+        Text(stringResource(R.string.gesture_data_share_duplicate))
         // share file, but only to mail apps
         ButtonWithText(
             stringResource(R.string.gesture_data_send_mail),
@@ -81,41 +110,27 @@ fun ShareGestureData(ids: List<Long>) {
                 ctx.startActivity(createSendIntentChooser(ctx))
             }
         }
-
         // get file
         ButtonWithText(stringResource(R.string.gesture_data_get_data), enabled = hasData) {
-            getDataPicker.launch(getDataIntent)
+            getDataPicker.launch(getDataIntent(ctx))
             exportStarted = true
         }
-
         // copy mail address to clipboard, in case user doesn't use the mail intent
         val clip = LocalClipboard.current
         ButtonWithText(stringResource(R.string.gesture_data_copy_mail)) {
             scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", deobfuscateEmail(ctx)))) }
         }
         Text(stringResource(R.string.gesture_data_mail_use))
-    } else {
-        // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
-        var confirmDelete by remember { mutableStateOf(false) }
-        ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_submitted, ids.size), enabled = hasData) {
-            confirmDelete = true
-        }
-        if (confirmDelete) {
-            ConfirmationDialog(
-                onDismissRequest = { confirmDelete = false },
-                onConfirmed = { dao.delete(ids, true, ctx) },
-                content = {
-                    Text(stringResource(R.string.delete_confirmation, ids.size))
-                }
-            )
+        if (ids.size >= 10000) {
+            Spacer(Modifier.height(6.dp))
+            Text(stringResource(R.string.gesture_data_share_limit, 10000))
         }
     }
 }
 
-private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-    .addCategory(Intent.CATEGORY_OPENABLE)
+private fun getDataIntent(ctx: Context) = IntentUtils.getResolvableTypeIntent(ctx, "application/zip")
+    .setAction(Intent.ACTION_CREATE_DOCUMENT)
     .putExtra(Intent.EXTRA_TITLE, "gesture_data_${SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Calendar.getInstance().time)}.zip")
-    .setType("application/zip")
 
 private fun deobfuscateEmail(context: Context): String {
     return context.getString(R.string.gesture_data_mail)
@@ -169,62 +184,53 @@ private fun getZipFileUri(context: Context) : Uri =
 @Composable
 private fun getData(ids: List<Long>): ManagedActivityResultLauncher<Intent, ActivityResult> {
     val ctx = LocalContext.current
-    // check if file exists and not size 0, otherwise don't even offer the button
+    val scope = rememberCoroutineScope { Dispatchers.IO }
     return filePicker { uri ->
-        val file = getGestureDataFile(ctx)
         val dao = GestureDataDao.getInstance(ctx) ?: return@filePicker
-        val data = dao.getJsonData(ids)
-        file.writeText(makeJsonArrayFromEntries(data))
-        ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use {
-            os -> writeOutputToZipStream(file, os)
+        scope.launch {
+            ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
+                writeOutputToZipStream(dao.getJsonData(ids, ctx), getGestureDataFileName(ctx), os)
+            }
+            dao.markAsExported(ids, ctx)
+            gestureIdsBeingExported = null
+            progress = 0
         }
-        dao.markAsExported(ids, ctx)
-        gestureIdsBeingExported = null
     }
 }
 
-private fun createZipFile(ctx: Context, ids: List<Long>) : File {
+private fun createZipFile(ctx: Context, ids: List<Long>): File {
     zippedDataPath = ""
-    val jsonFile = getGestureDataFile(ctx)
-    val dao = GestureDataDao.getInstance(ctx)!!
-    val data = dao.getJsonData(ids)
-    jsonFile.writeText(makeJsonArrayFromEntries(data))
     val zipFile = getGestureZipFile(ctx)
     zipFile.delete()
-    zipFile.outputStream().use {
-        os -> writeOutputToZipStream(jsonFile, os)
+    val dao = GestureDataDao.getInstance(ctx) ?: return zipFile
+    zipFile.outputStream().use { os ->
+        writeOutputToZipStream(dao.getJsonData(ids, ctx), getGestureDataFileName(ctx), os)
     }
     zippedDataPath = zipFile.absolutePath
     return zipFile
 }
 
-private fun writeOutputToZipStream(jsonFile: File, os: OutputStream) {
+private fun writeOutputToZipStream(jsonEntries: Sequence<String>, fileName: String, os: OutputStream) {
     val zipStream = ZipOutputStream(os)
     zipStream.setLevel(9)
-    val fileStream = FileInputStream(jsonFile).buffered()
-    zipStream.putNextEntry(ZipEntry(jsonFile.name))
-    fileStream.copyTo(zipStream, 1024)
-    fileStream.close()
-    zipStream.closeEntry()
-    zipStream.close()
-}
-
-private fun makeJsonArrayFromEntries(entries: List<String>): String
-    = buildString {
-    val allButLast = entries.subList(0, entries.lastIndex)
-
-    append("[\n")
-    allButLast.forEach {
-        append(it)
-        append(",\n")
+    zipStream.putNextEntry(ZipEntry(fileName))
+    val writer = zipStream.bufferedWriter()
+    writer.append("[\n")
+    var started = false
+    jsonEntries.forEach {
+        if (started)
+            writer.append(",\n")
+        writer.append(it)
+        started = true
+        ++progress
     }
-    append(entries.last())
-    append("\n]")
+    writer.append("\n]")
+    writer.close()
 }
 
 private fun getGestureZipFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_zip))
 
-private fun getGestureDataFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_json))
+private fun getGestureDataFileName(context: Context): String = context.getString(R.string.gesture_data_json)
 
 private fun fileGetDelegate(context: Context, filename: String): File {
     // ensure folder exists
@@ -266,6 +272,8 @@ class GestureFileProvider : FileProvider() {
 }
 
 private var gestureIdsBeingExported: List<Long>? = null
+
+private var progress: Int = 0
 
 private var zippedDataPath = "" // set after writing the file
 

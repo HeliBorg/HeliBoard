@@ -26,6 +26,7 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import androidx.core.content.edit
+import helium314.keyboard.latin.utils.IntentUtils
 
 @SuppressLint("ApplySharedPref")
 @Composable
@@ -79,9 +80,8 @@ fun LoadGestureLibPreference(setting: Setting) {
             onDismissRequest = { showDialog = false },
             onConfirmed = {
                 showDialog = false
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType("application/octet-stream")
+                val intent = IntentUtils.getResolvableTypeIntent(ctx, "application/octet-stream")
+                    .setAction(Intent.ACTION_OPEN_DOCUMENT)
                 launcher.launch(intent)
             },
             confirmButtonText = stringResource(R.string.load_gesture_library_button_load),

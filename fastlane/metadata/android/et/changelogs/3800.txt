@@ -1,0 +1,6 @@
+* kasutame emojide vaikimisi tooni soovituste ja lõimitud otsingu puhul
+* nüüd on kasutusel ennustatav tagasiviibe
+* veaparandus, kus väikesed sulud polnud paremalt-vasakule kirjatüüpide puhul õiget pidi
+* lisandus seadistus alumise rea kõrguse muutmiseks
+* paranes kursori asukoha tuvastamine ja kasutamine, seda eelkõige korea keele kontekstis
+* lisandusid lingid viipamisandmete kogumisvaatele

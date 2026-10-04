@@ -67,14 +67,14 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     // todo: this is awful, find a better solution / workaround
     //  or remove completely? not sure if it's actually an improvement
     //  should be fixed in the library, but that's not feasible with current user-provides-library approach
-    //  added in 12cbd43bda7d0f0cd73925e9cf836de751c32ed0 / https://github.com/Helium314/HeliBoard/issues/135
+    //  added in 12cbd43bda7d0f0cd73925e9cf836de751c32ed0 / https://github.com/HeliBorg/HeliBoard/issues/135
     private var tryChangingWords = false
     private var changeFrom = ""
     private var changeTo = ""
 
     // todo: write cache never set, and never read (only written)
     //  tried to use read cache for a while, but small performance improvements are not worth the work,
-    //  see https://github.com/Helium314/HeliBoard/issues/307
+    //  see https://github.com/HeliBorg/HeliBoard/issues/307
     private var mValidSpellingWordReadCache: LruCache<String, Boolean>? = null
     private var mValidSpellingWordWriteCache: LruCache<String, Boolean>? = null
 
@@ -306,7 +306,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         // Add word to user dictionary if it is in no other dictionary except user history dictionary (i.e. typed again).
         val sv = Settings.getValues()
         if (sv.mAddToPersonalDictionary // require the opt-in
-            && sv.mAutoCorrectEnabled == sv.mAutoCorrectionEnabledPerUserSettings // don't add if user wants autocorrect but input field does not, see https://github.com/Helium314/HeliBoard/issues/427#issuecomment-1905438000
+            && sv.mAutoCorrectEnabled == sv.mAutoCorrectionEnabledPerUserSettings // don't add if user wants autocorrect but input field does not, see https://github.com/HeliBorg/HeliBoard/issues/427#issuecomment-1905438000
             && dictionaryGroups[0].hasDict(Dictionary.TYPE_USER_HISTORY) // require personalized suggestions
             && !wasAutoCapitalized // we can't be 100% sure about what the user intended to type, so better don't add it
             && words.size == 1 // only single words
@@ -438,15 +438,20 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
 
         // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
         val decapitalizedSuggestion = if (wasAutoCapitalized) word.decapitalize(currentLocale) else word
+        val validWord = dictionaryGroups.map { isValidWord(word, DictionaryFacilitator.ALL_DICTIONARY_TYPES, it) }
         dictionaryGroups.forEach {
             if (isValidWord(word, DictionaryFacilitator.ALL_DICTIONARY_TYPES, it)) {
                 it.increaseConfidence()
                 return@forEach
             }
             // also increase confidence if suggestion was auto-capitalized and the lowercase variant it valid
-            if (wasAutoCapitalized && isValidWord(decapitalizedSuggestion, DictionaryFacilitator.ALL_DICTIONARY_TYPES, it))
+            if (wasAutoCapitalized && isValidWord(decapitalizedSuggestion, DictionaryFacilitator.ALL_DICTIONARY_TYPES, it)) {
                 it.increaseConfidence()
-            else it.decreaseConfidence()
+            } else {
+                it.decreaseConfidence()
+                if (validWord.any { it })
+                    it.decreaseConfidence() // if the word is valid in another language decrease confidence even more
+            }
         }
     }
 
@@ -464,9 +469,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         return preferred
     }
 
-    override fun unlearnFromUserHistory(word: String, ngramContext: NgramContext, timeStampInSeconds: Long, eventType: Int) {
-        // TODO: Decide whether or not to remove the word on EVENT_BACKSPACE.
-        if (eventType != Constants.EVENT_BACKSPACE) {
+    override fun unlearnFromUserHistory(word: String, ngramContext: NgramContext,
+                    timeStampInSeconds: Long, event: DictionaryFacilitator.UnlearnEvent) {
+        // TODO: Decide whether or not to remove the word on BACKSPACE.
+        if (event != DictionaryFacilitator.UnlearnEvent.BACKSPACE) {
             currentlyPreferredDictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY)?.removeUnigramEntryDynamically(word)
         }
 
@@ -751,7 +757,8 @@ private class DictionaryGroup(
     }
 
     // If confidence is above max, drop to max confidence. This does not change weights and
-    // allows conveniently typing single words from the other language without affecting suggestions
+    // allows conveniently typing single words not in the dictionary without affecting suggestions
+    // however, when the word is valid in a different active language, this is called twice to allow for better switching
     fun decreaseConfidence() {
         if (confidence > MAX_CONFIDENCE) confidence = MAX_CONFIDENCE
         else if (confidence > 0) {

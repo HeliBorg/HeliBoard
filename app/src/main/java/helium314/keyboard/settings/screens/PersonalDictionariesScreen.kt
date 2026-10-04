@@ -24,12 +24,12 @@ import helium314.keyboard.latin.utils.SubtypeSettings.getEnabledSubtypes
 import helium314.keyboard.latin.utils.SubtypeSettings.getSystemLocales
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.settings.NextScreenIcon
+import helium314.keyboard.latin.utils.NextScreenIcon
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsDestination
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import java.util.Locale
 import java.util.TreeSet
 
@@ -37,7 +37,6 @@ import java.util.TreeSet
 fun PersonalDictionariesScreen(
     onClickBack: () -> Unit,
 ) {
-    // todo: consider adding "add word" button like old settings (requires additional navigation parameter, should not be hard)
     val ctx = LocalContext.current
     val locales: MutableList<Locale?> = getSortedDictionaryLocales().toMutableList()
     locales.add(0, null)

@@ -4,12 +4,13 @@ about: Suggest an idea for this project
 labels: enhancement
 ---
 
-Please see the appropriate readme section for issue reporting guidelines: https://github.com/Helium314/HeliBoard?tab=readme-ov-file#reporting-issues
+Please see the appropriate readme section for issue reporting guidelines: https://github.com/HeliBorg/HeliBoard?tab=readme-ov-file#reporting-issues
 tl;dr:
 * search for duplicates, also in closed issues
 * check FAQ / hidden features
 * a single issue per topic
 * ONLY add screenshots when necessary, and reduce their size
+* write it yourself
 
 <!--
 issue template below, please remove above text before submitting (and the template too if you think it's a good idea)

@@ -7,8 +7,6 @@
 
 <resources>
     <declare-styleable name="KeyboardTheme">
-        <!-- InputView style -->
-        <attr name="inputViewStyle" format="reference" />
         <!-- Keyboard style -->
         <attr name="keyboardStyle" format="reference" />
         <!-- KeyboardView style -->
@@ -158,16 +156,16 @@
     <declare-styleable name="EmojiPalettesView">
         <attr name="categoryPageIndicatorBackground" format="color" />
         <attr name="iconEmojiRecentsTab" format="reference" />
-        <attr name="iconEmojiCategory1Tab" format="reference" />
-        <attr name="iconEmojiCategory2Tab" format="reference" />
-        <attr name="iconEmojiCategory3Tab" format="reference" />
-        <attr name="iconEmojiCategory4Tab" format="reference" />
-        <attr name="iconEmojiCategory5Tab" format="reference" />
-        <attr name="iconEmojiCategory6Tab" format="reference" />
-        <attr name="iconEmojiCategory7Tab" format="reference" />
-        <attr name="iconEmojiCategory8Tab" format="reference" />
-        <attr name="iconEmojiCategory9Tab" format="reference" />
-        <attr name="iconEmojiCategory10Tab" format="reference" />
+        <attr name="iconEmojiSmileysTab" format="reference" />
+        <attr name="iconEmojiPeopleTab" format="reference" />
+        <attr name="iconEmojiNatureTab" format="reference" />
+        <attr name="iconEmojiFoodTab" format="reference" />
+        <attr name="iconEmojiTravelPlacesTab" format="reference" />
+        <attr name="iconEmojiActivitiesTab" format="reference" />
+        <attr name="iconEmojiObjectsTab" format="reference" />
+        <attr name="iconEmojiSymbolsTab" format="reference" />
+        <attr name="iconEmojiFlagsTab" format="reference" />
+        <attr name="iconEmojiEmoticonsTab" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ClipboardHistoryView">
@@ -211,12 +209,8 @@
         <attr name="rowHeight" format="dimension|fraction" />
         <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
         <attr name="horizontalGap" format="fraction" />
-        <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
-        <attr name="horizontalGapNarrow" format="fraction" />
         <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
         <attr name="verticalGap" format="fraction" />
-        <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
-        <attr name="verticalGapNarrow" format="fraction" />
         <!-- Popup keys keyboard layout template -->
         <attr name="popupKeysTemplate" format="reference" />
     </declare-styleable>
@@ -257,7 +251,6 @@
             <flag name="followKeyLetterRatio" value="0x80" /><!-- 128 -->
             <flag name="followKeyLabelRatio" value="0xC0" /><!-- 192 -->
             <flag name="followKeyHintLabelRatio" value="0x140" /><!-- 320 -->
-            <flag name="hasPopupHint" value="0x200" /><!-- 512 -->
             <flag name="hasShiftedLetterHint" value="0x400" /><!-- 1024 -->
             <flag name="hasHintLabel" value="0x800" /><!-- 2048 -->
             <flag name="autoXScale" value="0x4000" /><!-- 16384 -->
@@ -278,8 +271,6 @@
             <flag name="keepBackgroundAspectRatio" value="0x100000" /><!-- 1048576 -->
             <!-- If true, disable keyHintLabel. -->
             <flag name="disableKeyHintLabel" value="0x40000000" /><!-- 1073741824 -->
-            <!-- If true, disable additionalPopupKeys. todo: is this still working? -->
-            <flag name="disableAdditionalPopupKeys" value="0x80000000" /><!-- 2147483648 -->
         </attr>
         <!-- The icon for disabled key -->
         <attr name="keyIconDisabled" format="string" />
@@ -350,38 +341,6 @@
 
     <declare-styleable name="Keyboard_Case">
         <attr name="keyboardLayoutSet" format="string" />
-        <!-- This should be aligned with
-             {@link helium314.keyboard.keyboard.KeyboardId#ELEMENT_ALPHABET} etc. -->
-        <attr name="keyboardLayoutSetElement" format="enum|string">
-            <enum name="alphabet" value="0" />
-            <enum name="alphabetManualShifted" value="1" />
-            <enum name="alphabetAutomaticShifted" value="2" />
-            <enum name="alphabetShiftLocked" value="3" />
-            <enum name="alphabetShiftLockShifted" value="4" />
-            <enum name="symbols" value="5" />
-            <enum name="symbolsShifted" value="6"  />
-            <enum name="phone" value="7"  />
-            <enum name="phoneSymbols" value="8"  />
-            <enum name="number" value="9"  />
-            <enum name="emojiRecents" value="10" />
-            <enum name="emojiCategory1" value="11" />
-            <enum name="emojiCategory2" value="12" />
-            <enum name="emojiCategory3" value="13" />
-            <enum name="emojiCategory4" value="14" />
-            <enum name="emojiCategory5" value="15" />
-            <enum name="emojiCategory6" value="16" />
-            <enum name="emojiCategory7" value="17" />
-            <enum name="emojiCategory8" value="18" />
-            <enum name="emojiCategory9" value="19" />
-            <enum name="emojiCategory10" value="20" />
-            <enum name="emojiCategory11" value="21" />
-            <enum name="emojiCategory12" value="22" />
-            <enum name="emojiCategory13" value="23" />
-            <enum name="emojiCategory14" value="24" />
-            <enum name="emojiCategory15" value="25" />
-            <enum name="emojiCategory16" value="26" />
-            <enum name="numpad" value="28"  />
-        </attr>
         <!-- This should be aligned with Keyboard.themeId and
              {@link helium314.keyboard.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
         <attr name="keyboardTheme" format="enum|string">
@@ -390,16 +349,6 @@
             <enum name="LXXBaseBorder" value="2" />
             <enum name="RoundedBase" value="3" />
             <enum name="RoundedBaseBorder" value="4" />
-        </attr>
-        <!-- This should be aligned with
-             {@link helium314.keyboard.keyboard.KeyboardId#MODE_TEXT} etc. -->
-        <attr name="mode" format="enum|string">
-            <enum name="text" value="0" />
-            <enum name="url" value="1" />
-            <enum name="email" value="2" />
-            <enum name="im" value="3" />
-            <enum name="phone" value="4" />
-            <enum name="number" value="5" />
         </attr>
         <attr name="navigateNext" format="boolean" />
         <attr name="navigatePrevious" format="boolean" />

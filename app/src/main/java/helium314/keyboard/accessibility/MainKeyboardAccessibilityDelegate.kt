@@ -25,7 +25,7 @@ class MainKeyboardAccessibilityDelegate(
     keyDetector: KeyDetector
 ) : KeyboardAccessibilityDelegate<MainKeyboardView>(mainKeyboardView, keyDetector), LongPressTimerCallback {
     /** The most recently set keyboard mode.  */
-    private var mLastKeyboardMode = KEYBOARD_IS_HIDDEN
+    private var mLastKeyboardMode: KeyboardMode? = null
     // The rectangle region to ignore hover events.
     private val mBoundsToIgnoreHoverEvent = Rect()
     private val mAccessibilityLongPressTimer = AccessibilityLongPressTimer(this /* callback */, mainKeyboardView.context)
@@ -47,24 +47,24 @@ class MainKeyboardAccessibilityDelegate(
             val lastKeyboard = super.keyboard
             super.keyboard = keyboard
             val lastKeyboardMode = mLastKeyboardMode
-            mLastKeyboardMode = keyboard.mId.mMode
+            mLastKeyboardMode = keyboard.mId.mode
             // Since this method is called even when accessibility is off, make sure
             // to check the state before announcing anything.
             if (!AccessibilityUtils.instance.isAccessibilityEnabled) {
                 return
             }
             // Announce the language name only when the language is changed.
-            if (lastKeyboard == null || keyboard.mId.mSubtype != lastKeyboard.mId.mSubtype) {
+            if (lastKeyboard == null || keyboard.mId.subtype != lastKeyboard.mId.subtype) {
                 announceKeyboardLanguage(keyboard)
                 return
             }
             // Announce the mode only when the mode is changed.
-            if (keyboard.mId.mMode != lastKeyboardMode) {
+            if (keyboard.mId.mode != lastKeyboardMode) {
                 announceKeyboardMode(keyboard)
                 return
             }
             // Announce the keyboard type only when the type is changed.
-            if (keyboard.mId.mElementId != lastKeyboard.mId.mElementId) {
+            if (keyboard.mId.element != lastKeyboard.mId.element) {
                 announceKeyboardType(keyboard, lastKeyboard)
                 return
             }
@@ -74,10 +74,10 @@ class MainKeyboardAccessibilityDelegate(
      * Called when the keyboard is hidden and accessibility is enabled.
      */
     fun onHideWindow() {
-        if (mLastKeyboardMode != KEYBOARD_IS_HIDDEN) {
+        if (mLastKeyboardMode != null) {
             announceKeyboardHidden()
         }
-        mLastKeyboardMode = KEYBOARD_IS_HIDDEN
+        mLastKeyboardMode = null
     }
 
     /**
@@ -86,7 +86,7 @@ class MainKeyboardAccessibilityDelegate(
      * @param keyboard The new keyboard.
      */
     private fun announceKeyboardLanguage(keyboard: Keyboard) {
-        sendWindowStateChanged(keyboard.mId.mSubtype.rawSubtype.displayName())
+        sendWindowStateChanged(keyboard.mId.subtype.rawSubtype.displayName())
     }
 
     /**
@@ -97,8 +97,8 @@ class MainKeyboardAccessibilityDelegate(
      */
     private fun announceKeyboardMode(keyboard: Keyboard) {
         val context = mKeyboardView.context
-        val modeTextResId = KEYBOARD_MODE_RES_IDS[keyboard.mId.mMode]
-        if (modeTextResId == 0) {
+        val modeTextResId = KEYBOARD_MODE_RES_IDS[keyboard.mId.mode]
+        if (modeTextResId == 0 || modeTextResId == null) {
             return
         }
         val modeText = context.getString(modeTextResId)
@@ -113,38 +113,30 @@ class MainKeyboardAccessibilityDelegate(
      * @param lastKeyboard The last keyboard.
      */
     private fun announceKeyboardType(keyboard: Keyboard, lastKeyboard: Keyboard) {
-        val lastElementId = lastKeyboard.mId.mElementId
-        val resId = when (keyboard.mId.mElementId) {
-            KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET -> {
-                if (lastElementId == KeyboardId.ELEMENT_ALPHABET
-                        || lastElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED) {
+        val lastElementId = lastKeyboard.mId.element
+        val resId = when (keyboard.mId.element) {
+            KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED, KeyboardElement.ALPHABET -> {
+                if (lastElementId == KeyboardElement.ALPHABET
+                        || lastElementId == KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED) {
                     // Transition between alphabet mode and automatic shifted mode should be silently
                     // ignored because it can be determined by each key's talk back announce.
                     return
                 }
                 R.string.spoken_description_mode_alpha
             }
-            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> {
-                if (lastElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED) {
+            KeyboardElement.ALPHABET_MANUAL_SHIFTED -> {
+                if (lastElementId == KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED) {
                     // Resetting automatic shifted mode by pressing the shift key causes the transition
                     // from automatic shifted to manual shifted that should be silently ignored.
                     return
                 }
                 R.string.spoken_description_shiftmode_on
             }
-            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> {
-                if (lastElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED) {
-                    // Resetting caps locked mode by pressing the shift key causes the transition
-                    // from shift locked to shift lock shifted that should be silently ignored.
-                    return
-                }
-                R.string.spoken_description_shiftmode_locked
-            }
-            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_shiftmode_locked
-            KeyboardId.ELEMENT_SYMBOLS -> R.string.spoken_description_mode_symbol
-            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_mode_symbol_shift
-            KeyboardId.ELEMENT_PHONE -> R.string.spoken_description_mode_phone
-            KeyboardId.ELEMENT_PHONE_SYMBOLS -> R.string.spoken_description_mode_phone_shift
+            KeyboardElement.ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_shiftmode_locked
+            KeyboardElement.SYMBOLS -> R.string.spoken_description_mode_symbol
+            KeyboardElement.SYMBOLS_SHIFTED -> R.string.spoken_description_mode_symbol_shift
+            KeyboardElement.PHONE -> R.string.spoken_description_mode_phone
+            KeyboardElement.PHONE_SYMBOLS -> R.string.spoken_description_mode_phone_shift
             else -> return
         }
         sendWindowStateChanged(resId)
@@ -244,17 +236,16 @@ class MainKeyboardAccessibilityDelegate(
     companion object {
         private val TAG = MainKeyboardAccessibilityDelegate::class.java.simpleName
         /** Map of keyboard modes to resource IDs.  */
-        private val KEYBOARD_MODE_RES_IDS = SparseIntArray().apply {
-            put(KeyboardId.MODE_DATE, R.string.keyboard_mode_date)
-            put(KeyboardId.MODE_DATETIME, R.string.keyboard_mode_date_time)
-            put(KeyboardId.MODE_EMAIL, R.string.keyboard_mode_email)
-            put(KeyboardId.MODE_IM, R.string.keyboard_mode_im)
-            put(KeyboardId.MODE_NUMBER, R.string.keyboard_mode_number)
-            put(KeyboardId.MODE_PHONE, R.string.keyboard_mode_phone)
-            put(KeyboardId.MODE_TEXT, R.string.keyboard_mode_text)
-            put(KeyboardId.MODE_TIME, R.string.keyboard_mode_time)
-            put(KeyboardId.MODE_URL, R.string.keyboard_mode_url)
-        }
-        private const val KEYBOARD_IS_HIDDEN = -1
+        private val KEYBOARD_MODE_RES_IDS = hashMapOf(
+            KeyboardMode.DATE to R.string.keyboard_mode_date,
+            KeyboardMode.DATETIME to R.string.keyboard_mode_date_time,
+            KeyboardMode.EMAIL to R.string.keyboard_mode_email,
+            KeyboardMode.IM to R.string.keyboard_mode_im,
+            KeyboardMode.NUMBER to R.string.keyboard_mode_number,
+            KeyboardMode.PHONE to R.string.keyboard_mode_phone,
+            KeyboardMode.TEXT to R.string.keyboard_mode_text,
+            KeyboardMode.TIME to R.string.keyboard_mode_time,
+            KeyboardMode.URL to R.string.keyboard_mode_url,
+        )
     }
 }

@@ -1,0 +1,6 @@
+* Permitir cambiar el idioma de la aplicación (ajustes) desde la configuración del sistema
+* Opción para deslizar hacia abajo en la barra de herramientas y ocultar el teclado
+* Añadido el diseño HCESAR
+* Avisar cuando falte el diccionario de emojis al activar las sugerencias de emojis
+* Corrección de problemas con la recopilación activa de datos de gestos
+* Pequeñas correcciones y mejoras
