@@ -34,7 +34,9 @@ import helium314.keyboard.latin.utils.isBrightColor
 import helium314.keyboard.latin.utils.isDarkColor
 import java.util.EnumMap
 import androidx.core.graphics.drawable.toDrawable
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.prefs
 
 interface Colors {
     // these theme parameters should no be in here, but are still used
@@ -42,8 +44,8 @@ interface Colors {
     val themeStyle: String
     /** used in parser to decide background of ZWNJ key */
     val hasKeyBorders: Boolean
-    val accentShiftedIcon: Boolean
-        get() = Settings.getValues().mAccentShiftedIcon
+    val accentShiftedIcon: Boolean get() =
+        Settings.getCurrentContext().prefs().getBoolean(Settings.PREF_ACCENT_SHIFTED_ICON, Defaults.PREF_ACCENT_SHIFTED_ICON)
 
     /** use to check whether colors have changed, for colors (in)directly derived from context,
      *  e.g. night mode or potentially changing system colors */
