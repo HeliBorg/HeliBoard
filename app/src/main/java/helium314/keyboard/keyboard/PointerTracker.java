@@ -773,6 +773,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         };
     }
 
+    // true for the delete key without popup keys, while long-press word-delete is enabled
+    private boolean isWordDeleteKey(final Key key) {
+        return key.getCode() == KeyCode.DELETE && key.getPopupKeys() == null
+                && Settings.getValues().mBackspaceWordDeleteEnabled;
+    }
+
     private void onGestureMoveEvent(final int x, final int y, final long eventTime,
             final boolean isMajorEvent, final Key key) {
         if (!mIsDetectingGesture || sInKeySwipe) {
@@ -1162,6 +1168,14 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         final int code = key.getCode();
         sListener.onLongPressKey(code);
+        if (isWordDeleteKey(key)) {
+            cancelKeyTracking();
+            // isKeyRepeat=true routes to the whole-word-delete branch; the key isn't repeatable so this fires once
+            callListenerOnCodeInput(key, code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
+                    SystemClock.uptimeMillis(), true);
+            sListener.onReleaseKey(code, false);
+            return;
+        }
         if (key.hasNoPanelAutoPopupKey()) {
             cancelKeyTracking();
             final int popupKeyCode = key.getPopupKeys()[0].mCode;
@@ -1328,6 +1342,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (!key.isRepeatable()) return;
         // Don't start key repeat when we are in the dragging finger mode.
         if (mIsInDraggingFinger) return;
+        if (isWordDeleteKey(key)) {
+            // long-press already handles word-delete; starting the repeat timer too would race it
+            return;
+        }
         final int startRepeatCount = 1;
         startKeyRepeatTimer(startRepeatCount);
     }

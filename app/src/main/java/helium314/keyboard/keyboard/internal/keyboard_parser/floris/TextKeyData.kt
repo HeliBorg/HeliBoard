@@ -368,6 +368,7 @@ sealed interface KeyData : AbstractKeyData {
         }
         if (background == Key.BACKGROUND_TYPE_FUNCTIONAL)
             newLabelFlags = newLabelFlags or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
+        val backspaceWordDeleteEnabled = Settings.getValues().mBackspaceWordDeleteEnabled
 
         return if (newCode == KeyCode.UNSPECIFIED || newCode == KeyCode.MULTIPLE_CODE_POINTS) {
             // code will be determined from label if possible (i.e. label is single code point)
@@ -382,6 +383,7 @@ sealed interface KeyData : AbstractKeyData {
                     newLabelFlags,
                     background,
                     newPopupKeys,
+                    backspaceWordDeleteEnabled,
                 )
             } else {
                 Key.KeyParams(
@@ -391,6 +393,7 @@ sealed interface KeyData : AbstractKeyData {
                     newLabelFlags,
                     background,
                     newPopupKeys,
+                    backspaceWordDeleteEnabled,
                 )
             }
         } else {
@@ -403,6 +406,7 @@ sealed interface KeyData : AbstractKeyData {
                 newLabelFlags,
                 background,
                 newPopupKeys,
+                backspaceWordDeleteEnabled,
             )
         }
     }

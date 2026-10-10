@@ -86,6 +86,37 @@ fun endsWithWordCodepoint(text: String, spacingAndPunctuations: SpacingAndPunctu
     return codePoint != Constants.NOT_A_CODE && spacingAndPunctuations.isWordCodePoint(codePoint)
 }
 
+/**
+ * Index in [text] where "the previous word" starts, as in desktop Ctrl+Backspace: past
+ * trailing whitespace, then the word run touching it, or the punctuation run if no word
+ * touches the end. Word codepoints are [SpacingAndPunctuations.isWordCodePoint] plus digits,
+ * same as InputLogic#isValidInlineEmojiSearchPreviousChar.
+ */
+fun indexBeforePreviousWord(text: CharSequence, spacingAndPunctuations: SpacingAndPunctuations): Int {
+    var index = text.length
+    var consumingWhitespace = true
+    var consumingPunctuation = false
+    var decided = false
+    loopOverCodePointsBackwards(text) { cp, cpLength ->
+        if (consumingWhitespace) {
+            if (Character.isWhitespace(cp)) {
+                index -= cpLength
+                return@loopOverCodePointsBackwards false
+            }
+            consumingWhitespace = false
+        }
+        val isWordChar = spacingAndPunctuations.isWordCodePoint(cp) || Character.isDigit(cp)
+        if (!decided) {
+            consumingPunctuation = !isWordChar
+            decided = true
+        }
+        if (isWordChar == consumingPunctuation || Character.isWhitespace(cp)) return@loopOverCodePointsBackwards true
+        index -= cpLength
+        false
+    }
+    return index
+}
+
 // todo: simplify... maybe compare with original code?
 // todo: this breaks at e.g. э́, but should not
 fun getTouchedWordRange(before: CharSequence, after: CharSequence, script: String, spacingAndPunctuations: SpacingAndPunctuations): TextRange {
