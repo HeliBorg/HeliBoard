@@ -5,6 +5,7 @@ import android.app.Application
 import android.os.Build
 import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.latin.define.DebugFlags
+import helium314.keyboard.latin.japanese.JapaneseKanaKanjiConverter
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.FoldableUtils
@@ -24,6 +25,7 @@ class App : Application() {
         FoldableUtils.init(this)
         Settings.init(this)
         SubtypeSettings.init(this)
+        JapaneseKanaKanjiConverter.init(this)
 
         val scope = CoroutineScope(Dispatchers.Default)
         scope.launch { // do some uncritical work in background for faster startup

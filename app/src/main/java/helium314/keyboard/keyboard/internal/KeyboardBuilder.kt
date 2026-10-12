@@ -101,7 +101,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     open fun build(): Keyboard {
-        if (mParams.mId.isSplitLayout
+        // [addSplit()] is ignored for japanese_flick to keep it rendering normally
+        val isFullyCustomFlickLayout = mParams.mId.element.isAlphabet
+                && mParams.mId.subtype.mainLayoutName == "japanese_flick"
+        if (mParams.mId.isSplitLayout && !isFullyCustomFlickLayout
                 && mParams.mId.element in KeyboardElement.ALPHABET..KeyboardElement.SYMBOLS_SHIFTED) {
             addSplit()
         }
