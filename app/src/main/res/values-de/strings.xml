@@ -422,6 +422,11 @@
     <string name="landscape">Querformat</string>
     <string name="toolbar_mode_suggestion_strip">Nur Vorschläge</string>
     <string name="toolbar_mode">Symbolleisten-Modus</string>
+    <string name="toolbar_contents">Symbolleiste anzeigen für</string>
+    <string name="toolbar_content_toolbar_keys">Symbolleisten-Tasten</string>
+    <string name="toolbar_content_suggestions">Vorschläge</string>
+    <string name="toolbar_content_clipboard">Zwischenablage</string>
+    <string name="toolbar_content_emoji_categories">Emoji-Kategorien</string>
     <string name="show_emoji_descriptions">Emoji-Beschreibung bei langem Drücken anzeigen</string>
     <string name="suggest_emojis">Emojis vorschlagen</string>
     <string name="suggest_emojis_summary">Emoji-Wörterbuch in normalen Vorschlägen verwenden</string>

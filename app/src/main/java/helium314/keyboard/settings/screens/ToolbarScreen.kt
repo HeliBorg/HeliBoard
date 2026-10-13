@@ -3,6 +3,7 @@ package helium314.keyboard.settings.screens
 
 import android.content.Context
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,17 +19,19 @@ import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.filterBackgroundGatheringToolbarKeys
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.ToolbarContent
 import helium314.keyboard.latin.utils.ToolbarMode
+import helium314.keyboard.latin.utils.readToolbarContents
+import helium314.keyboard.latin.utils.writeToolbarContents
 import helium314.keyboard.latin.utils.getActivity
-import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.settings.dialogs.MultiListPickerDialog
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.ReorderSwitchPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
@@ -43,11 +46,9 @@ fun ToolbarScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val toolbarMode = Settings.readToolbarMode(prefs)
-    val clipboardToolbarVisible = toolbarMode != ToolbarMode.HIDDEN
-        || !prefs.getBoolean(Settings.PREF_TOOLBAR_HIDING_GLOBAL, Defaults.PREF_TOOLBAR_HIDING_GLOBAL)
+    val clipboardToolbarVisible = ToolbarContent.CLIPBOARD in readToolbarContents(prefs)
     val items = listOf(
-        Settings.PREF_TOOLBAR_MODE,
-        if (toolbarMode == ToolbarMode.HIDDEN) Settings.PREF_TOOLBAR_HIDING_GLOBAL else null,
+        Settings.PREF_TOOLBAR_CONTENTS,
         if (toolbarMode != ToolbarMode.HIDDEN) Settings.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE else null,
         when (toolbarMode) {
              ToolbarMode.EXPANDABLE, ToolbarMode.TOOLBAR_KEYS -> Settings.PREF_TOOLBAR_KEYS
@@ -58,7 +59,8 @@ fun ToolbarScreen(
             else -> null
         },
         if (clipboardToolbarVisible) Settings.PREF_CLIPBOARD_TOOLBAR_KEYS else null,
-        if (clipboardToolbarVisible) Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES else null,
+        // custom keys can be in every toolbar
+        if (toolbarMode != ToolbarMode.HIDDEN || clipboardToolbarVisible) Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES else null,
         if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_QUICK_PIN_TOOLBAR_KEYS else null,
         if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_AUTO_SHOW_TOOLBAR else null,
         if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_AUTO_HIDE_TOOLBAR else null,
@@ -72,23 +74,36 @@ fun ToolbarScreen(
     )
 }
 
+private fun toolbarContentName(content: ToolbarContent, context: Context) = context.getString(when (content) {
+    ToolbarContent.TOOLBAR_KEYS -> R.string.toolbar_content_toolbar_keys
+    ToolbarContent.SUGGESTIONS -> R.string.toolbar_content_suggestions
+    ToolbarContent.CLIPBOARD -> R.string.toolbar_content_clipboard
+    ToolbarContent.EMOJI_CATEGORIES -> R.string.toolbar_content_emoji_categories
+})
+
 fun createToolbarSettings(context: Context) = listOf(
-    Setting(context, Settings.PREF_TOOLBAR_MODE, R.string.toolbar_mode) { setting ->
+    Setting(context, Settings.PREF_TOOLBAR_CONTENTS, R.string.toolbar_contents) { setting ->
         val ctx = LocalContext.current
-        val items =
-            ToolbarMode.entries.map { it.name.lowercase().getStringResourceOrName("toolbar_mode_", ctx) to it.name }
-        ListPreference(
-            setting,
-            items,
-            Defaults.PREF_TOOLBAR_MODE
-        ) {
-            KeyboardSwitcher.getInstance().setThemeNeedsReload()
-        }
-    },
-    Setting(context, Settings.PREF_TOOLBAR_HIDING_GLOBAL, R.string.toolbar_hiding_global) {
-        SwitchPreference(it, Defaults.PREF_TOOLBAR_HIDING_GLOBAL) {
-            KeyboardSwitcher.getInstance().setThemeNeedsReload()
-        }
+        var showDialog by rememberSaveable { mutableStateOf(false) }
+        val selected = readToolbarContents(ctx.prefs())
+        Preference(
+            name = setting.title,
+            description = if (selected.isEmpty()) stringResource(R.string.toolbar_mode_hidden)
+                else selected.joinToString(", ") { toolbarContentName(it, ctx) },
+            onClick = { showDialog = true },
+        )
+        if (showDialog)
+            MultiListPickerDialog(
+                onDismissRequest = { showDialog = false },
+                items = ToolbarContent.entries,
+                onConfirmed = {
+                    writeToolbarContents(ctx.prefs(), it)
+                    KeyboardSwitcher.getInstance().setThemeNeedsReload()
+                },
+                title = { Text(setting.title) },
+                initialSelection = ToolbarContent.entries.filter { it in selected },
+                getItemName = { toolbarContentName(it, ctx) },
+            )
     },
     Setting(context, Settings.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE, R.string.toolbar_swipe_down_to_hide, R.string.toolbar_swipe_down_to_hide_summary) {
         SwitchPreference(it, Defaults.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE)

@@ -258,7 +258,7 @@ public final class EmojiPalettesView extends LinearLayout
         if (initialized) return;
         mEmojiCategory.initialize();
         mTabStrip = (LinearLayout) KeyboardSwitcher.getInstance().getEmojiTabStrip();
-        if (Settings.getValues().isSecondaryStripVisible()) {
+        if (Settings.getValues().mShowEmojiStrip) {
             for (EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
                 addTab(mTabStrip, properties.getCategory());
             }
@@ -449,7 +449,7 @@ public final class EmojiPalettesView extends LinearLayout
                                 mEmojiCategory.getCurrentCategory()), ! initial && ! isAnimationsDisabled());
             }
 
-            if (Settings.getValues().isSecondaryStripVisible()) {
+            if (Settings.getValues().mShowEmojiStrip) {
                 View old = mTabStrip.findViewWithTag(oldCategory);
                 View current = mTabStrip.findViewWithTag(category);
 

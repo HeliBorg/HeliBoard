@@ -335,6 +335,16 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Language (priority)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
+    <!-- Title of the setting that chooses what the strip above the keyboard is shown for -->
+    <string name="toolbar_contents">Show toolbar for</string>
+    <!-- Option of the toolbar contents setting: toolbar keys above the main keyboard -->
+    <string name="toolbar_content_toolbar_keys">Toolbar keys</string>
+    <!-- Option of the toolbar contents setting: suggestions above the main keyboard -->
+    <string name="toolbar_content_suggestions">Suggestions</string>
+    <!-- Option of the toolbar contents setting: toolbar keys above the clipboard history -->
+    <string name="toolbar_content_clipboard">Clipboard</string>
+    <!-- Option of the toolbar contents setting: category tabs above the emoji keyboard -->
+    <string name="toolbar_content_emoji_categories">Emoji categories</string>
     <!-- Title of the setting to set the toolbar mode -->
     <string name="toolbar_mode">Toolbar mode</string>
     <!-- Option to set the toolbar mode to show an expandable toolbar -->
