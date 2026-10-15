@@ -338,7 +338,7 @@
     <!-- Title of the setting that chooses what the strip above the keyboard is shown for -->
     <string name="toolbar_contents">Show toolbar for</string>
     <!-- Option of the toolbar contents setting: toolbar keys above the main keyboard -->
-    <string name="toolbar_content_toolbar_keys">Toolbar keys</string>
+    <string name="toolbar_content_keyboard">Keyboard</string>
     <!-- Option of the toolbar contents setting: suggestions above the main keyboard -->
     <string name="toolbar_content_suggestions">Suggestions</string>
     <!-- Option of the toolbar contents setting: toolbar keys above the clipboard history -->

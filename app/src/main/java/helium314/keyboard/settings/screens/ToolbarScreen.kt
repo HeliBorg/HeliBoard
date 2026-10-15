@@ -75,7 +75,7 @@ fun ToolbarScreen(
 }
 
 private fun toolbarContentName(content: ToolbarContent, context: Context) = context.getString(when (content) {
-    ToolbarContent.TOOLBAR_KEYS -> R.string.toolbar_content_toolbar_keys
+    ToolbarContent.TOOLBAR_KEYS -> R.string.toolbar_content_keyboard
     ToolbarContent.SUGGESTIONS -> R.string.toolbar_content_suggestions
     ToolbarContent.CLIPBOARD -> R.string.toolbar_content_clipboard
     ToolbarContent.EMOJI_CATEGORIES -> R.string.toolbar_content_emoji_categories
