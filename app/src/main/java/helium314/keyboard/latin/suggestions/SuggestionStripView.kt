@@ -12,6 +12,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -55,6 +56,7 @@ import helium314.keyboard.latin.utils.getPinnedToolbarKeys
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.removePinnedKey
+import helium314.keyboard.latin.utils.refreshToolbarButtonActivatedStates
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.abs
@@ -62,11 +64,6 @@ import kotlin.math.min
 import androidx.core.view.isGone
 import helium314.keyboard.latin.utils.onClickToolbarKey
 import helium314.keyboard.latin.utils.onLongClickToolbarKey
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @SuppressLint("InflateParams")
 class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int) :
@@ -119,7 +116,6 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private val pinnedKeys: ViewGroup = findViewById(R.id.pinned_keys)
     private val suggestionsStrip: ViewGroup = findViewById(R.id.suggestions_strip)
     private val toolbarExpandKey = findViewById<ImageButton>(R.id.suggestions_strip_toolbar_key)
-    private val incognitoIcon = KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.INCOGNITO.name, context)
     private val toolbarArrowIcon = KeyboardIconsSet.instance.getNewDrawable(KeyboardIconsSet.NAME_TOOLBAR_KEY, context)
     private val defaultToolbarBackground: Drawable = toolbarExpandKey.background
     private val enabledToolKeyBackground = GradientDrawable()
@@ -291,8 +287,12 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         setToolbarButtonsActivatedStateOnPrefChange(pinnedKeys, key)
         setToolbarButtonsActivatedStateOnPrefChange(toolbar, key)
-        if (key == Settings.PREF_ALWAYS_INCOGNITO_MODE)
-            GlobalScope.launch { delay(10); withContext(Dispatchers.Main) { updateKeys() } }
+    }
+
+    /** refresh the toolbar toggle highlights, e.g. after the keyboard mode (numpad/dpad) changed */
+    fun updateToolbarButtonStates() {
+        refreshToolbarButtonActivatedStates(toolbar)
+        refreshToolbarButtonActivatedStates(pinnedKeys)
     }
 
     override fun onVisibilityChanged(view: View, visibility: Int) {
@@ -352,7 +352,10 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     override fun onLongClick(view: View): Boolean {
         if (view.tag is ToolbarKey) {
             onLongClickToolbarKey(view)
-            return true
+            // when long-press isn't used for pinning keys, don't consume it so the system tooltip
+            // (set via tooltipText, API 26+) can explain what the key does; on older APIs there is no
+            // tooltip to consume the press, so keep consuming it to avoid a stray click on release
+            return Build.VERSION.SDK_INT < Build.VERSION_CODES.O || Settings.getValues().mQuickPinToolbarKeys
         }
         AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(this, HapticEvent.KEY_LONG_PRESS)
         return if (view is TextView && wordViews.contains(view)) {
@@ -511,17 +514,18 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         val settingsValues = Settings.getValues()
 
         val toolbarIsExpandable = settingsValues.mToolbarMode == ToolbarMode.EXPANDABLE
-        if (settingsValues.mIncognitoModeEnabled) {
-            toolbarExpandKey.setImageDrawable(incognitoIcon)
-            toolbarExpandKey.isVisible = true
-        } else {
-            toolbarExpandKey.setImageDrawable(toolbarArrowIcon)
-            toolbarExpandKey.isVisible = toolbarIsExpandable
-        }
+        updateExpandKeyImage()
+        // the expand key is only needed when it can toggle the toolbar
+        toolbarExpandKey.isVisible = toolbarIsExpandable
 
         toolbarExpandKey.setOnClickListener(if (!toolbarIsExpandable) null else this)
         pinnedKeys.visibility = suggestionsStrip.visibility
         isExternalSuggestionVisible = false
+    }
+
+    private fun updateExpandKeyImage() {
+        toolbarExpandKey.setImageDrawable(toolbarArrowIcon)
+        Settings.getValues().mColors.setColor(toolbarExpandKey, ColorType.TOOL_BAR_EXPAND_KEY)
     }
 
     private fun addKeyToPinnedKeys(pinnedKey: ToolbarKey) {
@@ -533,6 +537,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         copy.scaleX = original.scaleX
         copy.scaleY = original.scaleY
         copy.contentDescription = original.contentDescription
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            copy.tooltipText = original.tooltipText // keep the long-press tooltip; also lets it consume the press
         copy.setImageDrawable(original.drawable)
         copy.layoutParams = original.layoutParams
         copy.isActivated = original.isActivated
