@@ -146,7 +146,7 @@ class StringUtilsTest {
         assertEquals("©\uFE0F", getFullEmojiAtStart("©\uFE0F")) // ©️
         assertEquals("", getFullEmojiAtStart("\u200D"))
         assertEquals("", getFullEmojiAtStart("\u200Da"))
-//        assertEquals("🇦🇧", getFullEmojiAtStart("🇦🇧🇨")) // fails because 🇦🇧 is not an emoji according to the regex, maybe do special check?
+        assertEquals("🇦🇧", getFullEmojiAtStart("🇦🇧🇨"))
         assertEquals("🇨", getFullEmojiAtStart("🇨\uD83C\uDF83"))
         assertEquals("🇦", getFullEmojiAtStart("🇦 "))
         assertEquals("🇦🇩", getFullEmojiAtStart("🇦🇩🇨🇩"))
@@ -159,13 +159,6 @@ class StringUtilsTest {
         assertEquals("😢", getFullEmojiAtStart("😢\u200D "))
     }
 
-    @Test fun isEmojiFails() {
-        if (BuildConfig.BUILD_TYPE == "runTests") return
-        // fails because 🇦🇧 is not an emoji according to the regex, but we probably still want it to count as emoji
-        assertTrue(isEmoji("🇦🇧"))
-        assertTrue(singleEmojiRegex.matches("🇦🇧"))
-    }
-
     @Test fun isEmojiDetectsSingleEmojis() {
         assertTrue(isEmoji("🎄"))
         assertTrue(!isEmoji("🎄🎄"))
@@ -175,6 +168,7 @@ class StringUtilsTest {
         assertTrue(isEmoji("🖐️"))
         assertTrue(isEmoji("🖐🏾"))
         assertTrue(!isEmoji("🖐🏾🏼"))
+        assertTrue(isEmoji("🇦🇧")) // needs special treatment because 🇦🇧 is not an emoji according to the regex (it's not valid, but it's displayed)
     }
 
     @Test fun isEmojiDetectsAllAvailableEmojis() {

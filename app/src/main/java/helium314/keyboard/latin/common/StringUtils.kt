@@ -171,11 +171,14 @@ fun mightBeEmoji(text: CharSequence): Boolean {
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
 /** returns whether the text is a single emoji or a single regional indicator */
-fun isEmoji(text: CharSequence): Boolean = text.isSingleRegionalIndicator // not recognized by singleEmojiRegex
+fun isEmoji(text: CharSequence): Boolean = text.isSingleOrDoubleRegionalIndicator // not recognized by singleEmojiRegex
         || (text.toString().isSingleGrapheme && mightBeEmoji(text) && text.matches(singleEmojiRegex))
 
-private inline val CharSequence.isSingleRegionalIndicator: Boolean
-    get() = length == 2 && Character.codePointAt(this, 0).isRegionalIndicator
+private inline val CharSequence.isSingleOrDoubleRegionalIndicator get() =
+    (length == 2 && Character.codePointAt(this, 0).isRegionalIndicator)
+        || (length == 4 && Character.codePointAt(this, 0).isRegionalIndicator
+                && Character.codePointAt(this, 2).isRegionalIndicator
+           )
 
 inline val Int.isRegionalIndicator get() = this in 0x1F1E6..0x1F1FF
 //inline val Int.isSkinTone get() = this in 0x1F3FB..0x1F3FF
