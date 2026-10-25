@@ -295,10 +295,15 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         } else {
             rejected = null
         }
+        // unchanged first suggestion, but considering adjusted order
+        // we try to suppress emojis, because they will be moved to a later position if possible
+        val pseudoTypedWord = suggestionsContainer.firstOrNull { !it.isEmoji } ?: suggestionsContainer.firstOrNull()
+
+        // order is important, because capitalize may result in duplicate suggestions (e.g. frank and Frank),
+        // which we want to remove before making the first 2 suggestions non-emoji
+        capitalizeAndAddTrailingSingleQuotes(suggestionsContainer, capsMode, 0, locale)
         SuggestedWordInfo.removeDupsAndTypedWord(null, suggestionsContainer)
         makeFirstTwoSuggestionsNonEmoji(suggestionsContainer)
-        val pseudoTypedWord = suggestionsContainer.firstOrNull() // unchanged first suggestion, but considering adjusted order
-        capitalizeAndAddTrailingSingleQuotes(suggestionsContainer, capsMode, 0, locale)
 
         // For some reason some suggestions with MIN_VALUE are making their way here.
         // TODO: Find a more robust way to detect distracters.
