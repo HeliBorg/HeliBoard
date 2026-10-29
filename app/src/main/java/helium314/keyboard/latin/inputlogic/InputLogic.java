@@ -364,8 +364,12 @@ public final class InputLogic {
                     start -= Character.charCount(cp);
                 }
                 final String wordBeforeCursor = before.subSequence(start, before.length()).toString();
-                if (wordBeforeCursor.length() > typedWord.length() && suggestion.startsWith(wordBeforeCursor)) {
-                    mConnection.setComposingRegion(cursor - wordBeforeCursor.length(), cursor);
+                final int length = wordBeforeCursor.length();
+                // Ignore case: the picked word may differ in case from the typed one (e.g. "2U2j@addres.com"
+                // after typing "2u2j"), and it replaces the whole region anyway.
+                if (length > typedWord.length() && cursor >= length
+                        && suggestion.regionMatches(true, 0, wordBeforeCursor, 0, length)) {
+                    mConnection.setComposingRegion(cursor - length, cursor);
                 }
             }
         }

@@ -259,6 +259,12 @@ class InputLogicTest {
         assertEquals("2u2j@addres.com", text)
     }
 
+    @Test fun pickSuggestionForWordWithLeadingDigitDifferentCase() {
+        chainInput("2u2j")
+        pickSuggestion("2U2J@ADDRES.COM")
+        assertEquals("2U2J@ADDRES.COM", text)
+    }
+
     @Test fun noAutospaceForDetectedUrl() { // "light" version, should work without url detection
         latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("http://example.net")
