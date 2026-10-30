@@ -324,9 +324,8 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         var ngramContextForCurrentWord = ngramContext
         for (i in words.indices) {
             val currentWord = words[i]
-            val isBeginningOfSentence = ngramContextForCurrentWord.isBeginningOfSentenceContext
             val wasCurrentWordAutoCapitalized = (i == 0) && wasAutoCapitalized
-            val dictGroup = findDictGroupForAddingWord(currentWord, wasCurrentWordAutoCapitalized || isBeginningOfSentence)
+            val dictGroup = findDictGroupForAddingWord(currentWord, wasCurrentWordAutoCapitalized, ngramContextForCurrentWord.isBeginningOfSentenceContext)
                 ?: continue
             // add to history for preferred dictionary group, to avoid mixing languages in history
             addWordToUserHistory(
@@ -341,10 +340,11 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             adjustConfidences(suggestion, wasAutoCapitalized)
     }
 
-    private fun findDictGroupForAddingWord(word: String, wasAutoCapitalizedOrIsBeginningOfSentence: Boolean): DictionaryGroup? {
+    private fun findDictGroupForAddingWord(word: String, wasAutoCapitalized: Boolean, isBeginningOfSentence: Boolean): DictionaryGroup? {
         if (dictionaryGroups.size == 1) return dictionaryGroups[0]
         val requiredConfidence = currentlyPreferredDictionaryGroup.confidence - 1
-        val maybe = dictionaryGroups.filter { it.confidence >= requiredConfidence }
+        val maybe = if (isBeginningOfSentence) dictionaryGroups // we expect user is more likely to switch language here, so we consider all groups
+            else dictionaryGroups.filter { it.confidence >= requiredConfidence } // avoid potentially unwanted switches in the middle of a sentence
         if (maybe.isEmpty()) return null
 
         // if we're considering only a single locale, use that
@@ -353,7 +353,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
 
         // we could try finding the most suitable dict group if the word was capitalized too,
         // but that's a lot of effort and danger of adding words incorrectly for little gain (todo: maybe later)
-        return if (wasAutoCapitalizedOrIsBeginningOfSentence && Character.isUpperCase(word.codePointAt(0))) null
+        return if ((wasAutoCapitalized || isBeginningOfSentence) && Character.isUpperCase(word.codePointAt(0))) null
         else maybe.filter { isValidWord(word, DictionaryFacilitator.ALL_DICTIONARY_TYPES, it) }
             .maxByOrNull { it.confidence }
     }
