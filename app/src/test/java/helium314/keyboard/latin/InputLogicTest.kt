@@ -864,7 +864,7 @@ class InputLogicTest {
     private fun getAutocorrectedWithSpaceAfter(suggestion: String, typedWord: String?) {
         val info = SuggestedWordInfo(suggestion, "", 0, 0, null, 0, 0)
         val typedInfo = SuggestedWordInfo(typedWord, "", 0, 0, null, 0, 0)
-        val sw = SuggestedWords(ArrayList(listOf(typedInfo, info)), null, typedInfo, false, true, false, 0, 0)
+        val sw = SuggestedWords(ArrayList(listOf(typedInfo, info)), null, typedInfo, false, true, false, InputStyle.NONE, 0)
         latinIME.mInputLogic.setSuggestedWords(sw) // this prepares for autocorrect
         input(' ')
         checkConnectionConsistency()
@@ -872,7 +872,7 @@ class InputLogicTest {
 
     private fun glideTypingInput(word: String) {
         val info = SuggestedWordInfo(word, "", 0, 0, null, 0, 0)
-        val sw = SuggestedWords(ArrayList(listOf(info)), null, info, true, false, false, 0, 0)
+        val sw = SuggestedWords(ArrayList(listOf(info)), null, info, true, false, false, InputStyle.NONE, 0)
         latinIME.mInputLogic.onUpdateTailBatchInputCompleted(settingsValues, sw, KeyboardSwitcher.getInstance())
     }
 

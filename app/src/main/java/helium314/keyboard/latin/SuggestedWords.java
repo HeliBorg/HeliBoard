@@ -27,15 +27,6 @@ public class SuggestedWords {
     public static final int INDEX_OF_AUTO_CORRECTION = 1;
     public static final int NOT_A_SEQUENCE_NUMBER = -1;
 
-    public static final int INPUT_STYLE_NONE = 0;
-    public static final int INPUT_STYLE_TYPING = 1;
-    public static final int INPUT_STYLE_UPDATE_BATCH = 2;
-    public static final int INPUT_STYLE_TAIL_BATCH = 3;
-    public static final int INPUT_STYLE_APPLICATION_SPECIFIED = 4;
-    public static final int INPUT_STYLE_RECORRECTION = 5;
-    public static final int INPUT_STYLE_PREDICTION = 6;
-    public static final int INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION = 7;
-
     // The maximum number of suggestions available.
     public static final int MAX_SUGGESTIONS = 18;
 
@@ -43,12 +34,12 @@ public class SuggestedWords {
     @NonNull
     private static final SuggestedWords EMPTY = new SuggestedWords(
             EMPTY_WORD_INFO_LIST, null, null, false,
-            false, false, INPUT_STYLE_NONE, NOT_A_SEQUENCE_NUMBER);
+            false, false, InputStyle.NONE, NOT_A_SEQUENCE_NUMBER);
 
     @NonNull
     private static final SuggestedWords EMPTY_BATCH = new SuggestedWords(
             EMPTY_WORD_INFO_LIST, null, null, false,
-            false, false, INPUT_STYLE_UPDATE_BATCH, NOT_A_SEQUENCE_NUMBER);
+            false, false, InputStyle.UPDATE_BATCH, NOT_A_SEQUENCE_NUMBER);
 
     @Nullable
     public final SuggestedWordInfo mTypedWordInfo;
@@ -58,23 +49,17 @@ public class SuggestedWords {
     // whether this exactly matches the user entry or not.
     public final boolean mWillAutoCorrect;
     public final boolean mIsObsoleteSuggestions;
-    // How the input for these suggested words was done by the user. Must be one of the
-    // INPUT_STYLE_* constants above.
-    public final int mInputStyle;
+    // How the input for these suggested words was done by the user
+    public final InputStyle mInputStyle;
     public final int mSequenceNumber; // Sequence number for auto-commit.
     @NonNull
     protected final ArrayList<SuggestedWordInfo> mSuggestedWordInfoList;
     @Nullable
     public final ArrayList<SuggestedWordInfo> mRawSuggestions;
 
-    public SuggestedWords(@NonNull final ArrayList<SuggestedWordInfo> suggestedWordInfoList,
-            @Nullable final ArrayList<SuggestedWordInfo> rawSuggestions,
-            @Nullable final SuggestedWordInfo typedWordInfo,
-            final boolean typedWordValid,
-            final boolean willAutoCorrect,
-            final boolean isObsoleteSuggestions,
-            final int inputStyle,
-            final int sequenceNumber) {
+    public SuggestedWords(@NonNull ArrayList<SuggestedWordInfo> suggestedWordInfoList,
+            @Nullable ArrayList<SuggestedWordInfo> rawSuggestions, @Nullable SuggestedWordInfo typedWordInfo,
+            boolean typedWordValid, boolean willAutoCorrect, boolean isObsoleteSuggestions, InputStyle inputStyle, int sequenceNumber) {
         mSuggestedWordInfoList = suggestedWordInfoList;
         mRawSuggestions = rawSuggestions;
         mTypedWordValid = typedWordValid;
@@ -433,9 +418,8 @@ public class SuggestedWords {
         }
     }
 
-    private static boolean isPrediction(final int inputStyle) {
-        return INPUT_STYLE_PREDICTION == inputStyle
-                || INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION == inputStyle;
+    private static boolean isPrediction(InputStyle inputStyle) {
+        return InputStyle.PREDICTION == inputStyle || InputStyle.BEGINNING_OF_SENTENCE_PREDICTION == inputStyle;
     }
 
     public boolean isPrediction() {

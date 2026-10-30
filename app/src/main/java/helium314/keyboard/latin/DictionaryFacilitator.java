@@ -133,10 +133,10 @@ public interface DictionaryFacilitator {
     /** completely removes the word from user history (currently not if event is a backspace event) */
     void unlearnFromUserHistory(String word, @NonNull NgramContext ngramContext, long timeStampInSeconds, UnlearnEvent event);
 
-    @NonNull SuggestionResults getSuggestionResults(final ComposedData composedData,
-            final NgramContext ngramContext, @NonNull final Keyboard keyboard,
-            final SettingsValuesForSuggestion settingsValuesForSuggestion, final int sessionId,
-            final int inputStyle);
+    @NonNull SuggestionResults getSuggestionResults(ComposedData composedData,
+            NgramContext ngramContext, @NonNull Keyboard keyboard,
+            SettingsValuesForSuggestion settingsValuesForSuggestion, int sessionId,
+            InputStyle inputStyle);
 
     boolean isValidSpellingWord(final String word);
 

@@ -4,6 +4,7 @@ import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.latin.InputStyle
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.SuggestedWords
@@ -50,7 +51,7 @@ class SaveGestureDataTest {
             SuggestionResults(18, NgramContext.EMPTY_PREV_WORDS_INFO, false).apply {
                 suggestions.forEach { add(it) }
             },
-            cd, NgramContext.EMPTY_PREV_WORDS_INFO, kb, 0, false,
+            cd, NgramContext.EMPTY_PREV_WORDS_INFO, kb, InputStyle.NONE, false,
             suggestions.firstOrNull()
         )
 

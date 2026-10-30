@@ -75,6 +75,7 @@ import androidx.compose.ui.unit.dp
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
+import helium314.keyboard.latin.InputStyle
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
@@ -225,9 +226,9 @@ fun GestureDataScreen(
                     composedData: ComposedData,
                     ngramContext: NgramContext,
                     keyboard: Keyboard,
-                    inputStyle: Int
+                    inputStyle: InputStyle
                 ) {
-                    if (!composedData.mIsBatchMode || inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) return
+                    if (!composedData.mIsBatchMode || inputStyle != InputStyle.TAIL_BATCH) return
                     val target = wordFromDict ?: return
                     val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
                     if (suggestions.any { it.mWord == target && it.mScore >= 0 } // just not negative should be fine

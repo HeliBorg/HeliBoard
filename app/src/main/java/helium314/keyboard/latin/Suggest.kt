@@ -59,7 +59,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
     fun getSuggestedWords(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
                           settingsValuesForSuggestion: SettingsValuesForSuggestion, isCorrectionEnabled: Boolean,
-                          inputStyle: Int, sequenceNumber: Int): SuggestedWords =
+                          inputStyle: InputStyle, sequenceNumber: Int): SuggestedWords =
         if (wordComposer.isBatchMode) {
             getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
                 inputStyle, isCorrectionEnabled, sequenceNumber)
@@ -71,7 +71,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
     // Retrieves suggestions for non-batch input (typing, recorrection, predictions...)
     // and calls the callback function with the suggestions.
     private fun getSuggestedWordsForNonBatchInput(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
-                      settingsValuesForSuggestion: SettingsValuesForSuggestion, inputStyleIfNotPrediction: Int,
+                      settingsValuesForSuggestion: SettingsValuesForSuggestion, inputStyleIfNotPrediction: InputStyle,
                       isCorrectionEnabled: Boolean, sequenceNumber: Int): SuggestedWords {
         val typedWordString = wordComposer.typedWord
         val resultsArePredictions = !wordComposer.isComposingWord
@@ -120,8 +120,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             else suggestionsContainer
 
         val inputStyle = if (resultsArePredictions) {
-            if (suggestionResults.mNgramContext.isBeginningOfSentenceContext) SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION
-            else SuggestedWords.INPUT_STYLE_PREDICTION
+            if (suggestionResults.mNgramContext.isBeginningOfSentenceContext) InputStyle.BEGINNING_OF_SENTENCE_PREDICTION
+            else InputStyle.PREDICTION
         } else {
             inputStyleIfNotPrediction
         }
@@ -271,7 +271,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         wordComposer: WordComposer,
         ngramContext: NgramContext, keyboard: Keyboard,
         settingsValuesForSuggestion: SettingsValuesForSuggestion,
-        inputStyle: Int, isCorrectionEnabled: Boolean, sequenceNumber: Int
+        inputStyle: InputStyle, isCorrectionEnabled: Boolean, sequenceNumber: Int
     ): SuggestedWords {
         val suggestionResults = mDictionaryFacilitator.getSuggestionResults(
             wordComposer.composedDataSnapshot, ngramContext, keyboard,
@@ -339,7 +339,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             suggestionsContainer
         }
 
-        if (useBackgroundGathering && inputStyle == SuggestedWords.INPUT_STYLE_TAIL_BATCH) {
+        if (useBackgroundGathering && inputStyle == InputStyle.TAIL_BATCH) {
             val wordData = WordData(null, suggestionResults, wordComposer.composedDataSnapshot,
                 ngramContext, keyboard, inputStyle, false, pseudoTypedWordInfo)
             BackgroundGatheringCache.addWord(wordData)
@@ -357,7 +357,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
     }
 
     /** get suggestions based on the current ngram context, with an empty typed word (that's what next word suggestions do)  */
-    private fun getNextWordSuggestions(ngramContext: NgramContext, keyboard: Keyboard, inputStyle: Int,
+    private fun getNextWordSuggestions(ngramContext: NgramContext, keyboard: Keyboard, inputStyle: InputStyle,
                                        settingsValuesForSuggestion: SettingsValuesForSuggestion): SuggestionResults {
         val cachedResults = nextWordSuggestionsCache[ngramContext]
         if (cachedResults != null) return cachedResults

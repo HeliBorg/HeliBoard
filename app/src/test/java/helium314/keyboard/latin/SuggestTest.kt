@@ -618,7 +618,7 @@ class SuggestTest {
         suggest.clearNextWordSuggestionsCache()
         return suggest.getSuggestedWords(
             wc, NgramContext.EMPTY_PREV_WORDS_INFO, Keyboard(params), Settings.getValues().mSettingsValuesForSuggestion,
-            Settings.getValues().mAutoCorrectEnabled, 0, 0
+            Settings.getValues().mAutoCorrectEnabled, InputStyle.NONE, 0
         )
     }
 
@@ -701,7 +701,7 @@ class ShadowFacilitator {
     // what is relevant for facilitator?
     // only detecting whether we want next word suggestions (typed word empty and not batch mode)
     fun getSuggestionResults(composedData: ComposedData, ngramContext: NgramContext, keyboard: Keyboard,
-                             settingsValuesForSuggestion: SettingsValuesForSuggestion, sessionId: Int, inputStyle: Int
+                             settingsValuesForSuggestion: SettingsValuesForSuggestion, sessionId: Int, inputStyle: InputStyle
     ): SuggestionResults = when {
         composedData.mIsBatchMode -> glideTypingSuggestions
         composedData.mTypedWord.isEmpty() -> nextWordSuggestions

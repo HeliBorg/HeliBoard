@@ -23,6 +23,7 @@ import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.DictionaryFacilitatorLruCache;
 import helium314.keyboard.latin.InputAttributes;
+import helium314.keyboard.latin.InputStyle;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodSubtype;
@@ -160,7 +161,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
             DictionaryFacilitator dictionaryFacilitatorForLocale = mDictionaryFacilitatorCache.get(locale);
             return dictionaryFacilitatorForLocale.getSuggestionResults(composedData, ngramContext,
                     keyboard, mSettingsValuesForSuggestion,
-                    sessionId, SuggestedWords.INPUT_STYLE_TYPING);
+                    sessionId, InputStyle.TYPING);
         } finally {
             if (sessionId != null) {
                 mSessionIdPool.add(sessionId);

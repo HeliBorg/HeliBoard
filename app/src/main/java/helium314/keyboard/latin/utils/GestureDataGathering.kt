@@ -10,6 +10,7 @@ import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
+import helium314.keyboard.latin.InputStyle
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
@@ -197,7 +198,7 @@ class WordData(
     val composedData: ComposedData,
     val ngramContext: NgramContext, // actually we don't use it
     val keyboard: Keyboard,
-    val inputStyle: Int,
+    val inputStyle: InputStyle,
     val activeMode: Boolean,
     // first suggestion in background gathering, used to track later changes
     // may not be in SuggestionResults due to processing
@@ -305,7 +306,7 @@ class WordData(
 
     // find when we should NOT save
     fun isSavingOk(context: Context): Boolean {
-        if (inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH)
+        if (inputStyle != InputStyle.TAIL_BATCH)
             return false
         if (activeMode)
             // active mode should be fine, the check is just an addition in case there is a bug that sets the wrong mode or dictionary facilitator
