@@ -2,7 +2,6 @@
 package helium314.keyboard.latin
 
 import android.content.Context
-import android.util.LruCache
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.emoji.SupportedEmojis
@@ -74,10 +73,6 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
     fun getWordProperty(word: String): WordProperty? = dict.getWordProperty(word, false)
 
     // ------------ dummy functionality ----------------
-
-    override fun setValidSpellingWordReadCache(cache: LruCache<String, Boolean>) {}
-
-    override fun setValidSpellingWordWriteCache(cache: LruCache<String, Boolean>) {}
 
     override fun isForLocale(locale: Locale?): Boolean = locale == dict.mLocale
 
