@@ -491,6 +491,12 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         if (dictionaryGroups.size == 1 || word.contains(Constants.WORD_SEPARATOR))
             return
 
+        // if the exact word is in contacts or apps, do nothing because it's in all dict groups
+        // increasing all confidences may result in more prominent suggestions for currently unwanted locales
+        // (ideally: same if the word is in the no-language personal dict, but we don't have that information ready)
+        if (isValidWord(word, arrayOf(Dictionary.TYPE_APPS, Dictionary.TYPE_CONTACTS), dictionaryGroups[0]))
+            return
+
         // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
         val decapitalizedSuggestion = if (wasAutoCapitalized) word.decapitalize(currentLocale) else word
         val validWord = dictionaryGroups.map { isValidWord(word, DictionaryFacilitator.ALL_DICTIONARY_TYPES, it) }
