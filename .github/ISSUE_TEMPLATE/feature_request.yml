@@ -1,0 +1,60 @@
+name: Feature Request
+description: Suggest an idea for this project
+title: "[Feature request] "
+labels: ["feature-request"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: Please see the appropriate readme section for [issue reporting guidelines](https://github.com/HeliBorg/HeliBoard?tab=readme-ov-file#reporting-issues)
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following before submitting your feature request
+      options:
+        - label: I have searched for existing issues (open and closed) and confirmed this feature hasn't been requested before
+          required: true
+        - label: I understand that requests regarding layout customization most likely will be resolved by editing [JSON file](https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md#json-format)
+          required: true
+        - label: I believe this feature request will benefit more than 10% of users, not just myself
+          required: true
+        - label: I have reduced any attached image size to make it easier to read
+          required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: Please provide a description of what you would like to have. The clearer it is described, the better it can be implemented the way you want it.
+      placeholder: Describe your feature request here...
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Provide a clear and concise description of your use case and what you thus think is missing, and why.
+      placeholder:
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternative-solution
+    attributes:
+      label: Alternative solution
+      description: Describe alternatives you've considered (if any)
+      placeholder:
+    validations:
+      required: false
+      
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Please provide the explicit version (not just "latest"), or if you build the app yourself specify the latest commit.
+      placeholder: e.g. 4.1.3
+    validations:
+      required: true
