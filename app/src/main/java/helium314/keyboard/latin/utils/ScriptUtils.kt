@@ -190,6 +190,14 @@ object ScriptUtils {
         else -> SCRIPT_LATIN // use as fallback
     }
 
+    /**
+     * Returns true if the locale uses a script that requires explicit word segmentation.
+     * Currently returns true for Thai only.
+     */
+    @JvmStatic
+    fun needsWordSegmentation(locale: Locale): Boolean =
+        locale.language == "th"
+
     @JvmStatic
     fun isScriptRtl(script: String): Boolean {
         return when (script) {
