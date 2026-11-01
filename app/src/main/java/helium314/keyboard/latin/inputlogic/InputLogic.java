@@ -2676,9 +2676,8 @@ public final class InputLogic {
                 suggestedWordInfos.add(Suggest.useDefaultEmojiSkinTone(suggestion));
             }
         }
-        callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, typedWordInfo,
-                                     false /* typedWordValid */, false /* autoCorrectEnabled */,
-                                     false /* isObsoleteSuggestions */, InputStyle.TYPING, sequenceNumber));
+        callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.getRawSuggestions(), typedWordInfo,
+                                     false, false, false, InputStyle.TYPING, sequenceNumber));
     }
 
     private void deleteTextReplacedByEmoji() {

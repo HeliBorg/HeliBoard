@@ -109,8 +109,10 @@ data class SuggestedWordInfo(
             if (!typedWord.isNullOrEmpty()) {
                 firstOccurrenceOfWord = removeSuggestedWordInfoFromList(typedWord, candidates, -1)
             }
-            for (i in candidates.indices) {
+            var i = 0
+            while (i < candidates.size) {
                 removeSuggestedWordInfoFromList(candidates[i].word, candidates, i)
+                ++i
             }
             return firstOccurrenceOfWord
         }

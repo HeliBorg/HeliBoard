@@ -13,7 +13,7 @@ import helium314.keyboard.latin.makedict.WordProperty
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.suggestions.Suggest
 import helium314.keyboard.latin.suggestions.SuggestedWords
-import helium314.keyboard.latin.utils.SuggestionResults
+import helium314.keyboard.latin.suggestions.SuggestionResults
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
@@ -56,12 +56,11 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
         settingsValuesForSuggestion: SettingsValuesForSuggestion, sessionId: Int, inputStyle: InputStyle
     ): SuggestionResults {
         val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, ngramContext, false)
-        suggestionResults.addAll(
-            dict.getSuggestions(composedData, ngramContext, keyboard.proximityInfo.nativeProximityInfo,
-                settingsValuesForSuggestion, sessionId, 1f,
-                floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
-            )?.filter { !SupportedEmojis.isUnsupported(it.word) }
-        )
+        dict.getSuggestions(composedData, ngramContext, keyboard.proximityInfo.nativeProximityInfo,
+            settingsValuesForSuggestion, sessionId, 1f,
+            floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
+        )?.filter { !SupportedEmojis.isUnsupported(it.word) }
+            ?.let { suggestionResults.addAll(it) }
         suggestionLogger?.onNewSuggestions(suggestionResults, composedData, ngramContext, keyboard, inputStyle)
 
         return suggestionResults

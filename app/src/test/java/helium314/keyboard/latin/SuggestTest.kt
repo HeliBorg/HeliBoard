@@ -22,7 +22,7 @@ import helium314.keyboard.latin.suggestions.SuggestedWordInfo
 import helium314.keyboard.latin.suggestions.SuggestedWordInfo.Companion.KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION
 import helium314.keyboard.latin.suggestions.SuggestedWordInfo.Companion.KIND_SHORTCUT
 import helium314.keyboard.latin.suggestions.SuggestedWordInfo.Companion.KIND_WHITELIST
-import helium314.keyboard.latin.utils.SuggestionResults
+import helium314.keyboard.latin.suggestions.SuggestionResults
 import helium314.keyboard.latin.utils.prefs
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric

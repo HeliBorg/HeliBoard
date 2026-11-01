@@ -11,7 +11,7 @@ import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.suggestions.SuggestedWordInfo
-import helium314.keyboard.latin.utils.SuggestionResults
+import helium314.keyboard.latin.suggestions.SuggestionResults
 import helium314.keyboard.latin.utils.WordData
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric

@@ -18,6 +18,7 @@ import helium314.keyboard.latin.define.DebugFlags;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 public class SuggestedWords {
     public static final int INDEX_OF_TYPED_WORD = 0;
@@ -50,12 +51,12 @@ public class SuggestedWords {
     public final InputStyle mInputStyle;
     public final int mSequenceNumber; // Sequence number for auto-commit.
     @NonNull
-    protected final ArrayList<SuggestedWordInfo> mSuggestedWordInfoList;
+    protected final List<SuggestedWordInfo> mSuggestedWordInfoList;
     @Nullable
-    public final ArrayList<SuggestedWordInfo> mRawSuggestions;
+    public final List<SuggestedWordInfo> mRawSuggestions;
 
-    public SuggestedWords(@NonNull ArrayList<SuggestedWordInfo> suggestedWordInfoList,
-            @Nullable ArrayList<SuggestedWordInfo> rawSuggestions, @Nullable SuggestedWordInfo typedWordInfo,
+    public SuggestedWords(@NonNull List<SuggestedWordInfo> suggestedWordInfoList,
+            @Nullable List<SuggestedWordInfo> rawSuggestions, @Nullable SuggestedWordInfo typedWordInfo,
             boolean typedWordValid, boolean willAutoCorrect, boolean isObsoleteSuggestions, InputStyle inputStyle, int sequenceNumber) {
         mSuggestedWordInfoList = suggestedWordInfoList;
         mRawSuggestions = rawSuggestions;
