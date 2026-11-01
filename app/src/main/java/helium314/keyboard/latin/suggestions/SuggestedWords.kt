@@ -121,7 +121,11 @@ open class SuggestedWords(
 
         @JvmStatic
         fun getFromApplicationSpecifiedCompletions(infos: Array<CompletionInfo?>) =
-            infos.mapNotNull { if (it?.text == null) null else SuggestedWordInfo(it) }
+            SuggestedWords(
+                infos.mapNotNull { if (it?.text == null) null else SuggestedWordInfo(it) },
+                null, null, false, false, false,
+                InputStyle.APPLICATION_SPECIFIED, NOT_A_SEQUENCE_NUMBER
+            )
 
         // Should get rid of the first one (what the user typed previously) from suggestions
         // and replace it with what the user currently typed.
