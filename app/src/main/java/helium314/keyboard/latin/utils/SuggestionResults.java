@@ -64,12 +64,12 @@ public final class SuggestionResults extends TreeSet<SuggestedWordInfo> {
         // This comparator ranks the word info with the higher frequency first. That's because
         // that's the order we want our elements in.
         @Override
-        public int compare(final SuggestedWordInfo o1, final SuggestedWordInfo o2) {
-            if (o1.mScore > o2.mScore) return -1;
-            if (o1.mScore < o2.mScore) return 1;
-            if (o1.mCodePointCount < o2.mCodePointCount) return -1;
-            if (o1.mCodePointCount > o2.mCodePointCount) return 1;
-            return o1.mWord.compareTo(o2.mWord);
+        public int compare(SuggestedWordInfo o1, SuggestedWordInfo o2) {
+            if (o1.getScore() > o2.getScore()) return -1;
+            if (o1.getScore() < o2.getScore()) return 1;
+            if (o1.getCodePointCount() < o2.getCodePointCount()) return -1;
+            if (o1.getCodePointCount() > o2.getCodePointCount()) return 1;
+            return o1.getWord().compareTo(o2.getWord());
         }
     }
 

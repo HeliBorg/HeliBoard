@@ -386,7 +386,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         var showIcon = true
         if (wordView.tag is Int) {
             val index = wordView.tag as Int
-            val type = suggestedWords.getInfo(index).mSourceDict
+            val type = suggestedWords.getInfo(index).sourceDict
             if (type == Dictionary.DICTIONARY_USER_TYPED || type == Dictionary.DICTIONARY_HARDCODED)
                 showIcon = false
         }
@@ -449,9 +449,9 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         if (isShowingMoreSuggestionPanel) {
             moreSuggestionsView.dismissPopupKeysPanel()
         }
-        var text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale
-        if (index == 1 && suggestedWords.typedWordInfo.mSourceDict.mDictType != Dictionary.TYPE_USER_TYPED) {
-            val dict = suggestedWords.typedWordInfo.mSourceDict
+        var text = info.sourceDict.mDictType + ":" + info.sourceDict.mLocale
+        if (index == 1 && suggestedWords.typedWordInfo.sourceDict.mDictType != Dictionary.TYPE_USER_TYPED) {
+            val dict = suggestedWords.typedWordInfo.sourceDict
             text += "\n${suggestedWords.typedWordInfo.word}: ${dict.mDictType}:${dict.mLocale}"
         }
         KeyboardSwitcher.getInstance().showToast(text, true)

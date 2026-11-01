@@ -561,13 +561,13 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     // consider the user might use custom main dictionary containing shortcuts
                     //  assume this is unlikely to happen, and take care about common shortcuts that are not actual words (emoji, symbols)
                     && word.length > 2 // should exclude most symbol shortcuts
-                    && info.mSourceDict.mDictType == dictType // dictType is always main, but info.mSourceDict.mDictType contains the actual dict (main dict is a dictionary group)
+                    && info.sourceDict.mDictType == dictType // dictType is always main, but info.mSourceDict.mDictType contains the actual dict (main dict is a dictionary group)
                     && !mightBeEmoji(word) // simplified check for performance reasons
                     && !dictionary.isInDictionary(word)
                 )
                     continue
 
-                if (word.length == 1 && info.mSourceDict.mDictType == Dictionary.TYPE_EMOJI && !StringUtils.mightBeEmoji(word[0].code))
+                if (word.length == 1 && info.sourceDict.mDictType == Dictionary.TYPE_EMOJI && !StringUtils.mightBeEmoji(word[0].code))
                     continue
 
                 suggestions.add(info)

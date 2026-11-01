@@ -101,11 +101,11 @@ public final class PunctuationSuggestions extends SuggestedWords {
     }
 
     private static SuggestedWordInfo newHardCodedWordInfo(final String keySpec) {
-        return new SuggestedWordInfo(keySpec, "" /* prevWordsContext */,
+        return new SuggestedWordInfo(keySpec, "",
                 SuggestedWordInfo.MAX_SCORE,
                 SuggestedWordInfo.KIND_HARDCODED,
                 Dictionary.DICTIONARY_HARDCODED,
-                SuggestedWordInfo.NOT_AN_INDEX /* indexOfTouchPointOfSecondWord */,
-                SuggestedWordInfo.NOT_A_CONFIDENCE /* autoCommitFirstWordConfidence */);
+                SuggestedWordInfo.NOT_AN_INDEX,
+                SuggestedWordInfo.NOT_A_CONFIDENCE, null);
     }
 }

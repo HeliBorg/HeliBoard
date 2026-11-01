@@ -33,12 +33,12 @@ class SaveGestureDataTest {
         wd.targetWord = "ok"
         val filtered = wd.filterSuggestions(emptyList())
         assert(filtered.size == 2)
-        assert(filtered[0].mWord == "")
+        assert(filtered[0].word == "")
     }
 
     @Test fun blockedWordIsFiltered() {
         val wd = wordData(suggestion("hello", 15, "main"), suggestion("ok", 1, "main"))
-        assert(wd.filterSuggestions(listOf("hello")).none { it.mWord.equals("hello", true) })
+        assert(wd.filterSuggestions(listOf("hello")).none { it.word.equals("hello", true) })
         assert(!wd.isSavingOk(latinIME)) // always fails because dict hash doesn't match
     }
 

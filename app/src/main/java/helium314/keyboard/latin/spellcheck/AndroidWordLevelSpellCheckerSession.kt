@@ -325,11 +325,11 @@ abstract class AndroidWordLevelSpellCheckerSession(private val mService: Android
             val suggestionsSet = LinkedHashSet<String?>()
             for (suggestedWordInfo in suggestionResults) {
                 val suggestion: String? = if (StringUtils.CAPITALIZE_ALL == capitalizeType) {
-                    suggestedWordInfo.mWord.uppercase(locale)
+                    suggestedWordInfo.word.uppercase(locale)
                 } else if (StringUtils.CAPITALIZE_FIRST == capitalizeType) {
-                    StringUtils.capitalizeFirstCodePoint(suggestedWordInfo.mWord, locale)
+                    StringUtils.capitalizeFirstCodePoint(suggestedWordInfo.word, locale)
                 } else {
-                    suggestedWordInfo.mWord
+                    suggestedWordInfo.word
                 }
                 suggestionsSet.add(suggestion)
             }
@@ -339,7 +339,7 @@ abstract class AndroidWordLevelSpellCheckerSession(private val mService: Android
             val gatheredSuggestionsList = suggestions.subList(0, min(suggestions.size, suggestionsLimit))
             val gatheredSuggestions = gatheredSuggestionsList.toTypedArray<String?>()
 
-            val bestScore = suggestionResults.first().mScore
+            val bestScore = suggestionResults.first().score
             val bestSuggestion = suggestions[0]
             val normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(originalText, bestSuggestion, bestScore)
             val hasRecommendedSuggestions = normalizedScore > recommendedThreshold

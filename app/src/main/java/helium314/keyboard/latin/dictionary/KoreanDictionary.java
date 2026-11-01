@@ -54,8 +54,9 @@ public class KoreanDictionary extends Dictionary {
                 weightForLocale, inOutWeightOfLangModelVsSpatialModel);
         ArrayList<SuggestedWordInfo> result = new ArrayList<>();
         for (SuggestedWordInfo info : suggestions) {
-            result.add(new SuggestedWordInfo(processOutput(info.mWord), info.mPrevWordsContext,
-                    info.mScore, info.mKindAndFlags, info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence));
+            result.add(new SuggestedWordInfo(processOutput(info.getWord()), info.getPrevWordsContext(),
+                info.getScore(), info.getKindAndFlags(), info.getSourceDict(), info.getIndexOfTouchPointOfSecondWord(),
+                info.getAutoCommitFirstWordConfidence(), null));
         }
         return result;
     }

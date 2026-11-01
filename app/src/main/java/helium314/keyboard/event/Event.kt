@@ -231,7 +231,7 @@ class Event private constructor(
         fun createSuggestionPickedEvent(suggestedWordInfo: SuggestedWordInfo) =
             Event(
                 eventType = EventType.SUGGESTION_PICKED,
-                text = suggestedWordInfo.mWord,
+                text = suggestedWordInfo.word,
                 x = Constants.SUGGESTION_STRIP_COORDINATE,
                 y = Constants.SUGGESTION_STRIP_COORDINATE,
                 suggestedWordInfo = suggestedWordInfo
@@ -258,8 +258,8 @@ class Event private constructor(
         fun createPunctuationSuggestionPickedEvent(suggestedWordInfo: SuggestedWordInfo) =
             Event(
                 eventType = EventType.SUGGESTION_PICKED,
-                text = suggestedWordInfo.mWord,
-                codePoint = suggestedWordInfo.mWord[0].code,
+                text = suggestedWordInfo.word,
+                codePoint = suggestedWordInfo.word[0].code,
                 x = Constants.SUGGESTION_STRIP_COORDINATE,
                 y = Constants.SUGGESTION_STRIP_COORDINATE,
                 suggestedWordInfo = suggestedWordInfo

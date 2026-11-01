@@ -100,7 +100,7 @@ class AccessibilityUtils private constructor() {
         if (suggestedWords.mWillAutoCorrect) {
             mAutoCorrectionWord = suggestedWords.getWord(SuggestedWords.INDEX_OF_AUTO_CORRECTION)
             val typedWordInfo = suggestedWords.mTypedWordInfo
-            mTypedWord = typedWordInfo?.mWord
+            mTypedWord = typedWordInfo?.word
         } else {
             mAutoCorrectionWord = null
             mTypedWord = null

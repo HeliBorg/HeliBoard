@@ -28,11 +28,11 @@ public final class AutoCorrectionUtils {
             if (!suggestion.isAppropriateForAutoCorrection()) {
                 return false;
             }
-            final int autoCorrectionSuggestionScore = suggestion.mScore;
+            final int autoCorrectionSuggestionScore = suggestion.getScore();
             // TODO: when the normalized score of the first suggestion is nearly equals to
             //       the normalized score of the second suggestion, behave less aggressive.
             final float normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(
-                    consideredWord, suggestion.mWord, autoCorrectionSuggestionScore);
+                    consideredWord, suggestion.getWord(), autoCorrectionSuggestionScore);
             if (DebugFlags.DEBUG_ENABLED) {
                 Log.d(TAG, "Normalized " + consideredWord + "," + suggestion + ","
                         + autoCorrectionSuggestionScore + ", " + normalizedScore

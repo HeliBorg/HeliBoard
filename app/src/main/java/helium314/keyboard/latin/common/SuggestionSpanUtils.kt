@@ -38,8 +38,8 @@ fun getTextWithSuggestionSpan(context: Context, pickedWord: String, suggestedWor
         if (info.isKindOf(SuggestedWordInfo.KIND_PREDICTION)) {
             continue
         }
-        if (pickedWord != info.mWord) {
-            suggestionsList.add(info.mWord)
+        if (pickedWord != info.word) {
+            suggestionsList.add(info.word)
         }
     }
     val suggestionSpan = SuggestionSpan(context, locale, suggestionsList.toTypedArray(), 0, null)

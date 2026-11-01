@@ -101,7 +101,7 @@ public class SuggestedWords {
      * @return The suggested word.
      */
     public String getWord(final int index) {
-        return mSuggestedWordInfoList.get(index).mWord;
+        return mSuggestedWordInfoList.get(index).getWord();
     }
 
     /**
@@ -113,7 +113,7 @@ public class SuggestedWords {
      * @return The text to be displayed.
      */
     public String getLabel(final int index) {
-        return mSuggestedWordInfoList.get(index).mWord;
+        return mSuggestedWordInfoList.get(index).getWord();
     }
 
     /**
@@ -197,11 +197,11 @@ public class SuggestedWords {
         final ArrayList<SuggestedWordInfo> suggestionsList = new ArrayList<>();
         final HashSet<String> alreadySeen = new HashSet<>();
         suggestionsList.add(typedWordInfo);
-        alreadySeen.add(typedWordInfo.mWord);
+        alreadySeen.add(typedWordInfo.getWord());
         final int previousSize = previousSuggestions.size();
         for (int index = 1; index < previousSize; index++) {
             final SuggestedWordInfo prevWordInfo = previousSuggestions.getInfo(index);
-            final String prevWord = prevWordInfo.mWord;
+            final String prevWord = prevWordInfo.getWord();
             // Filter out duplicate suggestions.
             if (!alreadySeen.contains(prevWord)) {
                 suggestionsList.add(prevWordInfo);
