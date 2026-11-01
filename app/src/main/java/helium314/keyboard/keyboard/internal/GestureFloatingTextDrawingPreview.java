@@ -19,11 +19,11 @@ import androidx.annotation.NonNull;
 import helium314.keyboard.keyboard.KeyboardTypeface;
 import helium314.keyboard.keyboard.PointerTracker;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.settings.Settings;
+import helium314.keyboard.latin.suggestions.SuggestedWords;
 
 /**
  * The class for single gesture preview text. The class for multiple gesture preview text will be

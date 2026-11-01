@@ -44,10 +44,6 @@ import helium314.keyboard.latin.LatinIME;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.RichInputConnection;
 import helium314.keyboard.latin.SingleDictionaryFacilitator;
-import helium314.keyboard.latin.Suggest;
-import helium314.keyboard.latin.Suggest.OnGetSuggestedWordsCallback;
-import helium314.keyboard.latin.SuggestedWords;
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.WordComposer;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
@@ -59,6 +55,10 @@ import helium314.keyboard.latin.dictionary.DictionaryInfoUtils;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
+import helium314.keyboard.latin.suggestions.Suggest;
+import helium314.keyboard.latin.suggestions.Suggest.OnGetSuggestedWordsCallback;
+import helium314.keyboard.latin.suggestions.SuggestedWords;
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.utils.AsyncResultHolder;
 import helium314.keyboard.latin.utils.GestureDataGatheringKt;
@@ -2125,19 +2125,19 @@ public final class InputLogic {
     }
 
     /**
-     * Make a {@link helium314.keyboard.latin.SuggestedWords} object containing a typed word
+     * Make a {@link helium314.keyboard.latin.suggestions.SuggestedWords} object containing a typed word
      * and obsolete suggestions.
-     * See {@link helium314.keyboard.latin.SuggestedWords#getTypedWordAndPreviousSuggestions(
-     *      SuggestedWordInfo, helium314.keyboard.latin.SuggestedWords)}.
+     * See {@link helium314.keyboard.latin.suggestions.SuggestedWords#getTypedWordAndPreviousSuggestions(
+     *      SuggestedWordInfo, helium314.keyboard.latin.suggestions.SuggestedWords)}.
      * @param typedWordInfo The typed word as a SuggestedWordInfo.
      * @param previousSuggestedWords The previously suggested words.
      * @return Obsolete suggestions with the newly typed word.
      */
-    static SuggestedWords retrieveOlderSuggestions(final SuggestedWordInfo typedWordInfo,
-            final SuggestedWords previousSuggestedWords) {
-        final SuggestedWords oldSuggestedWords = previousSuggestedWords.isPunctuationSuggestions()
+    static SuggestedWords retrieveOlderSuggestions(SuggestedWordInfo typedWordInfo,
+            SuggestedWords previousSuggestedWords) {
+        SuggestedWords oldSuggestedWords = previousSuggestedWords.isPunctuationSuggestions()
                 ? SuggestedWords.getEmptyInstance() : previousSuggestedWords;
-        final ArrayList<SuggestedWords.SuggestedWordInfo> typedWordAndPreviousSuggestions =
+        ArrayList<SuggestedWordInfo> typedWordAndPreviousSuggestions =
                 SuggestedWords.getTypedWordAndPreviousSuggestions(typedWordInfo, oldSuggestedWords);
         return new SuggestedWords(typedWordAndPreviousSuggestions, null /* rawSuggestions */,
                 typedWordInfo, false /* typedWordValid */, false /* hasAutoCorrectionCandidate */,

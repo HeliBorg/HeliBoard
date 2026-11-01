@@ -10,9 +10,9 @@ import android.view.inputmethod.EditorInfo;
 
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.latin.DictionaryFacilitator;
-import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.InputPointers;
 import helium314.keyboard.latin.inputlogic.PrivateCommandPerformer;
+import helium314.keyboard.latin.suggestions.SuggestedWords;
 
 import java.util.Locale;
 

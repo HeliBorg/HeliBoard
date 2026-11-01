@@ -8,8 +8,8 @@ package helium314.keyboard.latin.utils;
 
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.define.DebugFlags;
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo;
 
 public final class AutoCorrectionUtils {
     private static final String TAG = AutoCorrectionUtils.class.getSimpleName();

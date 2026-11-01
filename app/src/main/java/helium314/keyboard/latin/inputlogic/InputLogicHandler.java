@@ -12,8 +12,8 @@ import android.os.Message;
 
 import helium314.keyboard.latin.InputStyle;
 import helium314.keyboard.latin.LatinIME;
-import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.suggestions.SuggestedWords;
 
 /**
  * A helper to manage deferred tasks for the input logic.

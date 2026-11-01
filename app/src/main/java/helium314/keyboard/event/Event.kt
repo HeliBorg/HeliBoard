@@ -6,9 +6,9 @@
 
 package helium314.keyboard.event
 
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo
 
 /**
  * Class representing a generic input event as handled by Latin IME.

@@ -11,6 +11,9 @@ import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.DictionaryStats
 import helium314.keyboard.latin.makedict.WordProperty
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
+import helium314.keyboard.latin.suggestions.Suggest
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo
+import helium314.keyboard.latin.suggestions.SuggestedWords
 import helium314.keyboard.latin.utils.SuggestionResults
 import java.util.Locale
 import java.util.concurrent.TimeUnit
@@ -33,7 +36,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
                 val info = results.maxBy { it.mScore }
                 val score = (results.sumOf { it.mScore.toLong() - Int.MIN_VALUE } / words.size + Int.MIN_VALUE).toInt()
                 suggestionResults.add(
-                    SuggestedWords.SuggestedWordInfo(
+                    SuggestedWordInfo(
                         info.word, info.mPrevWordsContext, score, info.mKindAndFlags,
                         info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence
                     )

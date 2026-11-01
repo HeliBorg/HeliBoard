@@ -4,10 +4,10 @@ package helium314.keyboard.latin.dictionary;
 
 import helium314.keyboard.event.HangulCombiner;
 import helium314.keyboard.latin.NgramContext;
-import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.makedict.WordProperty;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -44,17 +44,17 @@ public class KoreanDictionary extends Dictionary {
     }
 
     @Override
-    public ArrayList<SuggestedWords.SuggestedWordInfo> getSuggestions(ComposedData composedData,
+    public ArrayList<SuggestedWordInfo> getSuggestions(ComposedData composedData,
                   NgramContext ngramContext, long proximityInfoHandle, SettingsValuesForSuggestion settingsValuesForSuggestion,
                   int sessionId, float weightForLocale, float[] inOutWeightOfLangModelVsSpatialModel) {
         composedData = new ComposedData(composedData.mInputPointers,
                 composedData.mIsBatchMode, processInput(composedData.mTypedWord));
-        ArrayList<SuggestedWords.SuggestedWordInfo> suggestions = mDictionary.getSuggestions(composedData,
+        ArrayList<SuggestedWordInfo> suggestions = mDictionary.getSuggestions(composedData,
                 ngramContext, proximityInfoHandle, settingsValuesForSuggestion, sessionId,
                 weightForLocale, inOutWeightOfLangModelVsSpatialModel);
-        ArrayList<SuggestedWords.SuggestedWordInfo> result = new ArrayList<>();
-        for (SuggestedWords.SuggestedWordInfo info : suggestions) {
-            result.add(new SuggestedWords.SuggestedWordInfo(processOutput(info.mWord), info.mPrevWordsContext,
+        ArrayList<SuggestedWordInfo> result = new ArrayList<>();
+        for (SuggestedWordInfo info : suggestions) {
+            result.add(new SuggestedWordInfo(processOutput(info.mWord), info.mPrevWordsContext,
                     info.mScore, info.mKindAndFlags, info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence));
         }
         return result;
@@ -103,7 +103,7 @@ public class KoreanDictionary extends Dictionary {
     }
 
     @Override
-    public boolean shouldAutoCommit(SuggestedWords.SuggestedWordInfo candidate) {
+    public boolean shouldAutoCommit(SuggestedWordInfo candidate) {
         return mDictionary.shouldAutoCommit(candidate);
     }
 

@@ -20,7 +20,6 @@ import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
 public final class MoreSuggestions extends Keyboard {

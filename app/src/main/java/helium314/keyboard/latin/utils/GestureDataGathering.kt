@@ -14,8 +14,6 @@ import helium314.keyboard.latin.InputStyle
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
-import helium314.keyboard.latin.SuggestedWords
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_SHORTCUT
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
@@ -24,6 +22,9 @@ import helium314.keyboard.latin.common.getTouchedWordRange
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo
+import helium314.keyboard.latin.suggestions.SuggestedWords
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo.KIND_SHORTCUT
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,7 +64,7 @@ object BackgroundGatheringCache {
         updateIcon()
     }
 
-    fun onPickSuggestionAfterGesturing(suggestion: SuggestedWords.SuggestedWordInfo, originalWord: String) {
+    fun onPickSuggestionAfterGesturing(suggestion: SuggestedWordInfo, originalWord: String) {
         // replace the latest entry in cache, but do a sanity check
         if (DEBUG) Log.i(TAG, "picked ${suggestion.word} instead of $originalWord after gesturing")
         val lastEntry = cachedWords.lastOrNull()
@@ -77,7 +78,7 @@ object BackgroundGatheringCache {
         if (DEBUG) Log.i(TAG, "setting target word to ${lastEntry.targetWord}")
     }
 
-    fun onPickSuggestion(suggestion: SuggestedWords.SuggestedWordInfo, originalWord: String) {
+    fun onPickSuggestion(suggestion: SuggestedWordInfo, originalWord: String) {
         // this happens after tap-typing (new word or corrected gesture word), or when moving the cursor and then selecting a different suggestion
         // don't update anything if we have the word more than once
         val word = cachedWords.singleOrNull { it.topSuggestion?.word?.equals(originalWord, true) == true } ?: return
@@ -202,7 +203,7 @@ class WordData(
     val activeMode: Boolean,
     // first suggestion in background gathering, used to track later changes
     // may not be in SuggestionResults due to processing
-    val topSuggestion: SuggestedWords.SuggestedWordInfo? = null
+    val topSuggestion: SuggestedWordInfo? = null
 ) {
     // keyboard is not immutable, so better store potentially relevant information immediately
     private val keys = keyboard.sortedKeys
@@ -270,8 +271,8 @@ class WordData(
             scope.launch(Dispatchers.Main) { GestureDataGatheringSettings.informAboutTooManyBackgroundModeWords(context, dao) }
     }
 
-    fun filterSuggestions(blockedWords: Collection<String>): List<SuggestedWords.SuggestedWordInfo> {
-        val filteredSuggestions = mutableListOf<SuggestedWords.SuggestedWordInfo>()
+    fun filterSuggestions(blockedWords: Collection<String>): List<SuggestedWordInfo> {
+        val filteredSuggestions = mutableListOf<SuggestedWordInfo>()
         for (word in suggestions.sortedByDescending { it.mOriginalScore }) {
             if (activeMode && word.mWord == targetWord) {
                 // always add the targetWord if we have it
@@ -340,10 +341,10 @@ class WordData(
         return true
     }
 
-    private fun SuggestedWords.SuggestedWordInfo.redact() =
-        SuggestedWords.SuggestedWordInfo("", "", Int.MIN_VALUE, 0, mSourceDict, 0, 0)
+    private fun SuggestedWordInfo.redact() =
+        SuggestedWordInfo("", "", Int.MIN_VALUE, 0, mSourceDict, 0, 0)
 
-    private fun SuggestedWords.SuggestedWordInfo.isFromKnownMainDict(context: Context): Boolean {
+    private fun SuggestedWordInfo.isFromKnownMainDict(context: Context): Boolean {
         val hash = (mSourceDict as? BinaryDictionary)?.hash ?: (mSourceDict as? ReadOnlyBinaryDictionary)?.hash ?: return false
         return hash in getKnownDictHashes(context)
     }

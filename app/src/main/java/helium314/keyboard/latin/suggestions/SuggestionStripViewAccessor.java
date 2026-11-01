@@ -6,8 +6,6 @@
 
 package helium314.keyboard.latin.suggestions;
 
-import helium314.keyboard.latin.SuggestedWords;
-
 /**
  * An object that gives basic control of a suggestion strip and some info on it.
  */

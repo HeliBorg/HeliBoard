@@ -10,7 +10,8 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.SuggestionSpan
-import helium314.keyboard.latin.SuggestedWords
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo
+import helium314.keyboard.latin.suggestions.SuggestedWords
 import java.util.*
 
 fun getTextWithAutoCorrectionIndicatorUnderline(context: Context?, text: String, locale: Locale?): CharSequence {
@@ -34,7 +35,7 @@ fun getTextWithSuggestionSpan(context: Context, pickedWord: String, suggestedWor
             break
         }
         val info = suggestedWords.getInfo(i)
-        if (info.isKindOf(SuggestedWords.SuggestedWordInfo.KIND_PREDICTION)) {
+        if (info.isKindOf(SuggestedWordInfo.KIND_PREDICTION)) {
             continue
         }
         if (pickedWord != info.mWord) {

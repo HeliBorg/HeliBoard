@@ -7,10 +7,10 @@ import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.latin.InputStyle
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.NgramContext
-import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo
 import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.WordData
 import org.junit.runner.RunWith
@@ -43,9 +43,9 @@ class SaveGestureDataTest {
     }
 
     private fun suggestion(word: String, score: Int = 0, dict: String = "") =
-        SuggestedWords.SuggestedWordInfo(word, "", score, 0, Dictionary.PhonyDictionary(dict), 0, 0)
+        SuggestedWordInfo(word, "", score, 0, Dictionary.PhonyDictionary(dict), 0, 0)
 
-    private fun wordData(vararg suggestions: SuggestedWords.SuggestedWordInfo) =
+    private fun wordData(vararg suggestions: SuggestedWordInfo) =
         WordData(
             null,
             SuggestionResults(18, NgramContext.EMPTY_PREV_WORDS_INFO, false).apply {

@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package helium314.keyboard.latin;
+package helium314.keyboard.latin.suggestions;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import helium314.keyboard.keyboard.internal.KeySpecParser;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
+import helium314.keyboard.latin.InputStyle;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.dictionary.Dictionary;
 
@@ -77,7 +78,7 @@ public final class PunctuationSuggestions extends SuggestedWords {
     /**
      * {@inheritDoc}
      * Note that {@link #getWord(int)} returns a suggested punctuation. We should create a
-     * {@link SuggestedWords.SuggestedWordInfo} object that represents a hard coded word.
+     * {@link SuggestedWordInfo} object that represents a hard coded word.
      */
     @Override
     public SuggestedWordInfo getInfo(final int index) {

@@ -8,8 +8,8 @@ package helium314.keyboard.latin.utils;
 
 import androidx.annotation.Nullable;
 import helium314.keyboard.latin.NgramContext;
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.define.ProductionFlags;
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;

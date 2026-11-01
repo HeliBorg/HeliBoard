@@ -21,7 +21,7 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.EditorInfo
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.SuggestedWords
+import helium314.keyboard.latin.suggestions.SuggestedWords
 import helium314.keyboard.latin.utils.InputTypeUtils
 
 class AccessibilityUtils private constructor() {

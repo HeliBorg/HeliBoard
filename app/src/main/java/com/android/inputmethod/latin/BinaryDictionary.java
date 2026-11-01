@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 
 import helium314.keyboard.latin.dictionary.Dictionary;
 import helium314.keyboard.latin.NgramContext;
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.FileUtils;
@@ -26,6 +25,7 @@ import helium314.keyboard.latin.makedict.FormatSpec.DictionaryOptions;
 import helium314.keyboard.latin.makedict.UnsupportedFormatException;
 import helium314.keyboard.latin.makedict.WordProperty;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo;
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 import helium314.keyboard.latin.utils.JniUtils;
 import com.android.inputmethod.latin.utils.WordInputEventForPersonalization;
