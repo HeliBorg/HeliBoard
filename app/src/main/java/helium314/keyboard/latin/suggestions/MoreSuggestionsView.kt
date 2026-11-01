@@ -105,7 +105,7 @@ class MoreSuggestionsView @JvmOverloads constructor(
         }
         val suggestedWords = keyboard.mSuggestedWords
         val index = key.mSuggestedWordIndex
-        if (index < 0 || index >= suggestedWords.size()) {
+        if (index < 0 || index >= suggestedWords.size) {
             Log.e(TAG, "Selected suggestion has an illegal index: $index")
             return
         }

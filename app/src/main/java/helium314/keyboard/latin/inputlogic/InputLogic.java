@@ -55,6 +55,7 @@ import helium314.keyboard.latin.dictionary.DictionaryInfoUtils;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
+import helium314.keyboard.latin.suggestions.PunctuationSuggestions;
 import helium314.keyboard.latin.suggestions.Suggest;
 import helium314.keyboard.latin.suggestions.Suggest.OnGetSuggestedWordsCallback;
 import helium314.keyboard.latin.suggestions.SuggestedWords;
@@ -75,6 +76,7 @@ import helium314.keyboard.latin.utils.TextRange;
 import helium314.keyboard.latin.utils.TimestampKt;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
@@ -288,7 +290,7 @@ public final class InputLogic {
         SuggestedWords suggestedWords = mSuggestedWords;
         String suggestion = suggestionInfo.getWord();
         // If this is a punctuation picked from the suggestion strip, pass it to onCodeInput
-        if (suggestion.length() == 1 && suggestedWords.isPunctuationSuggestions()) {
+        if (suggestion.length() == 1 && suggestedWords instanceof PunctuationSuggestions) {
             // We still want to log a suggestion click.
             StatsUtils.onPickSuggestionManually(mSuggestedWords, suggestionInfo, mDictionaryFacilitator);
             // Word separators are suggested before the user inputs something.
@@ -624,17 +626,17 @@ public final class InputLogic {
     public void setSuggestedWords(final SuggestedWords suggestedWords) {
         if (!suggestedWords.isEmpty()) {
             final SuggestedWordInfo suggestedWordInfo;
-            if (suggestedWords.mWillAutoCorrect) {
+            if (suggestedWords.getWillAutoCorrect()) {
                 suggestedWordInfo = suggestedWords.getInfo(SuggestedWords.INDEX_OF_AUTO_CORRECTION);
             } else {
                 // We can't use suggestedWords.getWord(SuggestedWords.INDEX_OF_TYPED_WORD)
                 // because it may differ from mWordComposer.mTypedWord.
-                suggestedWordInfo = suggestedWords.mTypedWordInfo;
+                suggestedWordInfo = suggestedWords.getTypedWordInfo();
             }
             mWordComposer.setAutoCorrection(suggestedWordInfo);
         }
         mSuggestedWords = suggestedWords;
-        final boolean newAutoCorrectionIndicator = suggestedWords.mWillAutoCorrect;
+        final boolean newAutoCorrectionIndicator = suggestedWords.getWillAutoCorrect();
 
         // Put a blue underline to a word in TextView which will be auto-corrected.
         if (mIsAutoCorrectionIndicatorOn != newAutoCorrectionIndicator && mWordComposer.isComposingWord()) {
@@ -1183,7 +1185,7 @@ public final class InputLogic {
             mSpaceState = SpaceState.SWAP_PUNCTUATION;
             mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
         } else if (Constants.CODE_SPACE == codePoint) {
-            if (!mSuggestedWords.isPunctuationSuggestions()) {
+            if (!(mSuggestedWords instanceof PunctuationSuggestions)) {
                 mSpaceState = SpaceState.WEAK;
             }
 
@@ -1746,7 +1748,7 @@ public final class InputLogic {
                 Constants.GET_SUGGESTED_WORDS_TIMEOUT);
         if (suggestedWords != null) {
             // Prefer clipboard suggestions (if available and setting is enabled) over beginning of sentence predictions.
-            if (!(suggestedWords.mInputStyle == InputStyle.BEGINNING_OF_SENTENCE_PREDICTION
+            if (!(suggestedWords.getInputStyle() == InputStyle.BEGINNING_OF_SENTENCE_PREDICTION
                     && mLatinIME.tryShowClipboardSuggestion())) {
                 mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
             }
@@ -2134,14 +2136,12 @@ public final class InputLogic {
      */
     static SuggestedWords retrieveOlderSuggestions(SuggestedWordInfo typedWordInfo,
             SuggestedWords previousSuggestedWords) {
-        SuggestedWords oldSuggestedWords = previousSuggestedWords.isPunctuationSuggestions()
+        SuggestedWords oldSuggestedWords = previousSuggestedWords instanceof PunctuationSuggestions
                 ? SuggestedWords.getEmptyInstance() : previousSuggestedWords;
-        ArrayList<SuggestedWordInfo> typedWordAndPreviousSuggestions =
+        List<SuggestedWordInfo> typedWordAndPreviousSuggestions =
                 SuggestedWords.getTypedWordAndPreviousSuggestions(typedWordInfo, oldSuggestedWords);
-        return new SuggestedWords(typedWordAndPreviousSuggestions, null /* rawSuggestions */,
-                typedWordInfo, false /* typedWordValid */, false /* hasAutoCorrectionCandidate */,
-                true /* isObsoleteSuggestions */, oldSuggestedWords.mInputStyle,
-                SuggestedWords.NOT_A_SEQUENCE_NUMBER);
+        return new SuggestedWords(typedWordAndPreviousSuggestions, null, typedWordInfo, false,
+            false, true, oldSuggestedWords.getInputStyle(), SuggestedWords.NOT_A_SEQUENCE_NUMBER);
     }
 
     /**

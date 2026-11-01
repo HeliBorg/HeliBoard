@@ -10,6 +10,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.SuggestionSpan
+import helium314.keyboard.latin.suggestions.PunctuationSuggestions
 import helium314.keyboard.latin.suggestions.SuggestedWordInfo
 import helium314.keyboard.latin.suggestions.SuggestedWords
 import java.util.*
@@ -24,13 +25,13 @@ fun getTextWithAutoCorrectionIndicatorUnderline(context: Context?, text: String,
 }
 
 fun getTextWithSuggestionSpan(context: Context, pickedWord: String, suggestedWords: SuggestedWords, locale: Locale): CharSequence {
-    if (pickedWord.isEmpty() || suggestedWords.isEmpty
-        || suggestedWords.isPrediction || suggestedWords.isPunctuationSuggestions
+    if (pickedWord.isEmpty() || suggestedWords.isEmpty()
+        || suggestedWords.isPrediction || suggestedWords is PunctuationSuggestions
     ) {
         return pickedWord
     }
     val suggestionsList = mutableListOf<String>()
-    for (i in 0 until suggestedWords.size()) {
+    for (i in suggestedWords.indices) {
         if (suggestionsList.size >= SuggestionSpan.SUGGESTIONS_MAX_SIZE) {
             break
         }

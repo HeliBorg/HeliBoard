@@ -161,9 +161,8 @@ public final class MoreSuggestions extends Keyboard {
         }
     }
 
-    static boolean isIndexSubjectToAutoCorrection(final SuggestedWords suggestedWords,
-            final int index) {
-        return suggestedWords.mWillAutoCorrect && index == SuggestedWords.INDEX_OF_AUTO_CORRECTION;
+    static boolean isIndexSubjectToAutoCorrection(SuggestedWords suggestedWords, int index) {
+        return suggestedWords.getWillAutoCorrect() && index == SuggestedWords.INDEX_OF_AUTO_CORRECTION;
     }
 
     public static final class Builder extends KeyboardBuilder<MoreSuggestionsParam> {

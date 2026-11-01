@@ -178,7 +178,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     private lateinit var listener: Listener
-    private var suggestedWords = SuggestedWords.getEmptyInstance()
+    private var suggestedWords = SuggestedWords.emptyInstance
     private var startIndexOfMoreSuggestions = 0
     private var isExternalSuggestionVisible = false // Required to disable the more suggestions if other suggestions are visible
     private val layoutHelper = SuggestionStripLayoutHelper(context, attrs, defStyle, wordViews, dividerViews, debugInfoViews)
@@ -339,7 +339,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
         // tag for word views is set in SuggestionStripLayoutHelper (setupWordViewsTextAndColor, layoutPunctuationSuggestions)
         if (tag is Int) {
-            if (tag >= suggestedWords.size()) {
+            if (tag >= suggestedWords.size) {
                 return
             }
             val wordInfo = suggestedWords.getInfo(tag)
@@ -426,7 +426,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     private fun showMoreSuggestions(): Boolean {
-        if (suggestedWords.size() <= startIndexOfMoreSuggestions) {
+        if (suggestedWords.size <= startIndexOfMoreSuggestions) {
             return false
         }
         if (!moreSuggestionsView.show(
@@ -442,7 +442,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private fun showSourceDict(wordView: TextView) {
         val word = wordView.text.toString()
         val index = wordView.tag as? Int ?: return
-        if (index >= suggestedWords.size()) return
+        val suggestedWords = suggestedWords
+        if (index >= suggestedWords.size) return
         val info = suggestedWords.getInfo(index)
         if (info.word != word) return
 
@@ -450,7 +451,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             moreSuggestionsView.dismissPopupKeysPanel()
         }
         var text = info.sourceDict.mDictType + ":" + info.sourceDict.mLocale
-        if (index == 1 && suggestedWords.typedWordInfo.sourceDict.mDictType != Dictionary.TYPE_USER_TYPED) {
+        if (index == 1 && suggestedWords.typedWordInfo != null && suggestedWords.typedWordInfo.sourceDict.mDictType != Dictionary.TYPE_USER_TYPED) {
             val dict = suggestedWords.typedWordInfo.sourceDict
             text += "\n${suggestedWords.typedWordInfo.word}: ${dict.mDictType}:${dict.mLocale}"
         }
@@ -462,22 +463,17 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         listener.removeSuggestion(word)
         moreSuggestionsView.dismissPopupKeysPanel()
         // show suggestions, but without the removed word
-        val suggestedWordInfos = ArrayList<SuggestedWordInfo>()
-        for (i in 0..<suggestedWords.size()) {
-            val info = suggestedWords.getInfo(i)
-            if (info.word != word) suggestedWordInfos.add(info)
-        }
-        suggestedWords.mRawSuggestions?.removeFirst { it.word == word }
-
         val newSuggestedWords = SuggestedWords(
-            suggestedWordInfos, suggestedWords.mRawSuggestions, suggestedWords.typedWordInfo, suggestedWords.mTypedWordValid,
-            suggestedWords.mWillAutoCorrect, suggestedWords.mIsObsoleteSuggestions, suggestedWords.mInputStyle, suggestedWords.mSequenceNumber
+            suggestedWords.filter { it.word != word },
+            suggestedWords.rawSuggestions?.filter { it.word != word },
+            suggestedWords.typedWordInfo, suggestedWords.typedWordValid, suggestedWords.willAutoCorrect,
+            suggestedWords.isObsoleteSuggestions, suggestedWords.inputStyle, suggestedWords.sequenceNumber
         )
         setSuggestions(newSuggestedWords, direction != 1)
         suggestionsStrip.isVisible = true
 
         // Show the toolbar if no suggestions are left and the "Auto show toolbar" setting is enabled
-        if (this.suggestedWords.isEmpty && Settings.getValues().mAutoShowToolbar) {
+        if (this.suggestedWords.isEmpty() && Settings.getValues().mAutoShowToolbar) {
             setToolbarVisibility(true)
         }
     }
