@@ -14,18 +14,32 @@ interface WordBreakIterator : CompatBreakIterator {
      *  If [offset] is a boundary, it tries to determine on which side we have a word.
      *  What actually counts as word differs by implementation or underlying break iterator instance.
      */
-    // we could check for digits as well, but maybe later
     fun getTouchedWordBounds(offset: Int): Pair<Int, Int> {
         val preceding = preceding(offset).coerceAtLeast(0)
         var following = following(offset)
         if (following == -1) following = text.length
-        if (!isBoundary(offset))
+        if (!isBoundary(offset) || preceding == following)
             return preceding to following
-        // first try to see if we're at the end, then at the start
-        if (preceding == offset || Character.isLetter(text.codePointBefore(offset)))
-            return preceding to offset
-        if (following == text.length || Character.isLetter(text.codePointAt(offset)))
-            return offset to following
+
+        val originalText = text
+        // start and end is always a boundary, so if we're at start or end, check whether we're still at a boundary when adding a letter
+        // if between the word and the new letter there is a boundary, we were not touching a word
+        if (offset == 0) {
+            text = "a${text.substring(preceding, following)}"
+            val isBoundary = isBoundary(1)
+            text = originalText
+            return if (isBoundary) preceding to offset
+            else offset to following
+        }
+        if (offset == text.length) {
+            text = "${text.substring(preceding, following)}a"
+            val isBoundary = isBoundary(text.length - 1)
+            text = originalText
+            return if (isBoundary) offset to following
+            else preceding to offset
+        }
+
+        // not touching a word
         return offset to offset
     }
 

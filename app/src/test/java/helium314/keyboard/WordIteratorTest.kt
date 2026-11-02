@@ -12,6 +12,8 @@ import org.robolectric.RobolectricTestRunner
 import java.util.Locale
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 @RunWith(RobolectricTestRunner::class)
 class WordIteratorTest {
@@ -121,6 +123,21 @@ class WordIteratorTest {
         assertEquals(15 to 19, wbi.getTouchedWordBounds(15))
         assertEquals(15 to 19, wbi.getTouchedWordBounds(17))
         assertEquals(15 to 19, wbi.getTouchedWordBounds(19))
+    }
+
+    @Test fun wordBoundaryDifferences() { // between WordBreakIterators
+        val sp = WordBreakIterator.getForSpacingAndPunctuations(SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT))
+        val it = CompatBreakIterator.getWordInstance(Locale.ROOT)
+        val text = "ab1"
+        it.text = text
+        sp.text = text
+        assertTrue(sp.isBoundary(2))
+        assertFalse(it.isBoundary(2))
+        assertEquals(0 to 2, sp.getTouchedWordBounds(0))
+        assertEquals(0 to 3, it.getTouchedWordBounds(0))
+        assertEquals(3 to 3, sp.getTouchedWordBounds(3))
+        assertEquals(0 to 3, it.getTouchedWordBounds(3))
+
     }
 
     // todo: default and SpacingAndPunctuations iterators behave differently, what do we want?
