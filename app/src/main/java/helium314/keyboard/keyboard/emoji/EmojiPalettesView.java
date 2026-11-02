@@ -41,15 +41,12 @@ import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
-import helium314.keyboard.latin.dictionary.Dictionary;
-import helium314.keyboard.latin.dictionary.DictionaryFactory;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
-import helium314.keyboard.latin.dictionary.DictionaryInfoUtils;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.ResourceUtils;
@@ -484,9 +481,7 @@ public final class EmojiPalettesView extends LinearLayout
             var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
             if (sDictionaryFacilitator == null || ! sDictionaryFacilitator.isForLocale(locale)) {
                 closeDictionaryFacilitator();
-                var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, Dictionary.TYPE_EMOJI, getContext());
-                var dictionary = dictFile != null? DictionaryFactory.getDictionary(dictFile, locale) : null;
-                sDictionaryFacilitator = dictionary != null? new SingleDictionaryFacilitator(dictionary) : null;
+                sDictionaryFacilitator = EmojiSearchActivity.createEmojiDictFacilitatorForCurrentSettings(getContext());
             }
         } else {
             closeDictionaryFacilitator();

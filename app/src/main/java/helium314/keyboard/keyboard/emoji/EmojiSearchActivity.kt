@@ -97,6 +97,7 @@ import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.dictionary.DictionaryCollection
 import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.dictionary.DictionaryInfoUtils
 import helium314.keyboard.latin.settings.Settings
@@ -406,9 +407,14 @@ class EmojiSearchActivity : ComponentActivity() {
             val locale = RichInputMethodManager.getInstance().currentSubtype.locale
             if (dictionaryFacilitator?.isForLocale(locale) != true) {
                 dictionaryFacilitator?.closeDictionaries()
-                dictionaryFacilitator = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, Dictionary.TYPE_EMOJI, context)
-                    ?.let { DictionaryFactory.getDictionary(it, locale) }?.let { SingleDictionaryFacilitator(it) }
+                dictionaryFacilitator = createEmojiDictFacilitatorForCurrentSettings(context)
             }
+        }
+
+        @JvmStatic
+        fun createEmojiDictFacilitatorForCurrentSettings(context: Context): SingleDictionaryFacilitator? {
+            val dict = DictionaryFactory.createEmojiDictionaryCollection(context, RichInputMethodManager.getInstance().currentSubtype.locale, Settings.getValues().mSecondaryLocales)
+            return if (dict == null) null else SingleDictionaryFacilitator(dict)
         }
     }
 }

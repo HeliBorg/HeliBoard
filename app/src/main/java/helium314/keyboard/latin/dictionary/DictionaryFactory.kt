@@ -6,7 +6,9 @@
 package helium314.keyboard.latin.dictionary
 
 import android.content.Context
+import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.LocaleUtils
+import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import java.io.File
 import java.util.LinkedList
@@ -26,6 +28,16 @@ object DictionaryFactory {
     fun createMainDictionaryCollection(context: Context, locale: Locale, useEmojiDict: Boolean): DictionaryCollection {
         val dicts = getMainDictsForLocale(context, locale, useEmojiDict)
         return DictionaryCollection(Dictionary.TYPE_MAIN, locale, dicts, FloatArray(dicts.size) { 1f })
+    }
+
+    fun createEmojiDictionaryCollection(context: Context, locale: Locale, otherLocales: Collection<Locale>): DictionaryCollection? {
+        val locales = listOf(locale) + otherLocales
+        val dicts = locales.mapNotNull { locale ->
+            DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, Dictionary.TYPE_EMOJI, context)
+                ?.let { getDictionary(it, locale) }
+        }
+        return if (dicts.isEmpty()) null
+        else DictionaryCollection(Dictionary.TYPE_EMOJI, locale, dicts, FloatArray(dicts.size) { 1f })
     }
 
     fun getMainDictsForLocale(context: Context, locale: Locale, useEmojiDict: Boolean): List<Dictionary> {
