@@ -68,6 +68,9 @@ public final class SpannableStringUtils {
      * This code is almost entirely taken from {@link TextUtils#concat(CharSequence...)}, except
      * it calls copyNonParagraphSuggestionSpansFrom instead of {@link TextUtils#copySpansFrom}.
      */
+    // We don't use TextUtils#concat because it copies all spans without respect to their
+    // nature. If the text includes a PARAGRAPH span and it has been split, then
+    // TextUtils#concat will crash when it tries to concat both sides of it.
     public static CharSequence concatWithNonParagraphSuggestionSpansOnly(CharSequence... text) {
         if (text.length == 0) {
             return "";

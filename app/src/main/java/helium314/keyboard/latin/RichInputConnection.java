@@ -46,7 +46,7 @@ import helium314.keyboard.latin.utils.CapsModeUtils;
 import helium314.keyboard.latin.utils.DebugLogUtils;
 import helium314.keyboard.latin.utils.NgramContextUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
-import helium314.keyboard.latin.utils.TextRange;
+import helium314.keyboard.latin.utils.TextAtCursor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -765,9 +765,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             mIC.setSelection(mExpectedSelEnd, mExpectedSelEnd);
             return;
         }
-        TextRange range = getWordRangeAtCursor(spacingAndPunctuations);
-        if (range == null) return;
-        mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
+        TextAtCursor text = getTextAtCursor();
+        if (text == null) return;
+        TextAtCursor.WordAtCursor wordAtCursor = text.getWordAtCursor(spacingAndPunctuations);
+        mIC.setSelection(mExpectedSelStart - wordAtCursor.getNumberOfCharsBeforeCursor(), mExpectedSelStart + wordAtCursor.getNumberOfCharsAfterCursor());
     }
 
     public void copyText(final boolean getSelection) {
@@ -849,12 +850,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     /**
-     * Returns the text surrounding the cursor.
-     *
-     * @param spacingAndPunctuations the rules for spacing and punctuation
-     * @return a range containing the text surrounding the cursor (does NOT include the current selection, if any)
+     * Returns the text surrounding the cursor, without the current selection (if any).
      */
-    @Nullable public TextRange getWordRangeAtCursor(SpacingAndPunctuations spacingAndPunctuations) {
+    @Nullable public TextAtCursor getTextAtCursor() {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return null;
@@ -872,7 +870,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (before == null || after == null) {
             return null;
         }
-        return StringUtilsKt.getTouchedWordRange(before, after, spacingAndPunctuations);
+        return new TextAtCursor(before, after);
     }
 
     public boolean isCursorTouchingWord(final SpacingAndPunctuations spacingAndPunctuations,

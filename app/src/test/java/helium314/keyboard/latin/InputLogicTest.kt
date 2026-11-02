@@ -794,7 +794,7 @@ class InputLogicTest {
         checkConnectionConsistency()
     }
 
-    private fun getWordAtCursor() = connection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations)?.mWord
+    private fun getWordAtCursor() = connection.textAtCursor?.getWordAtCursor(settingsValues.mSpacingAndPunctuations)?.word
 
     private fun setCursorPosition(start: Int, end: Int = start, weirdTextField: Boolean = false) {
         val ei = EditorInfo()

@@ -4,10 +4,9 @@ import androidx.test.core.app.ApplicationProvider
 import helium314.keyboard.compat.CompatBreakIterator
 import helium314.keyboard.latin.App
 import helium314.keyboard.latin.common.WordBreakIterator
-import helium314.keyboard.latin.common.getTouchedWordRange
 import helium314.keyboard.latin.common.stepsToCharCount
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
-import helium314.keyboard.latin.utils.TextRange
+import helium314.keyboard.latin.utils.TextAtCursor
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.util.Locale
@@ -197,8 +196,9 @@ class WordIteratorTest {
         assertEquals(wantedWordEnd, end)
         // todo: better use the check above (does the same thing)
         //  but actually the whole check needs to be more more understandable and the tests expanded and the URL stuff fixed
-        val got = getTouchedWordRange(before, after, sp)
-        val wanted = TextRange(before + after, wantedWordStart, wantedWordEnd, before.length, false)
-        assertEquals(wanted, got)
+        val text = TextAtCursor(before, after)
+        val got = text.getWordAtCursor(sp)
+        assertEquals(wantedWordStart, got.start)
+        assertEquals(wantedWordEnd, got.end)
     }
 }

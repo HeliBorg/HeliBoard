@@ -71,8 +71,8 @@ import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
+import helium314.keyboard.latin.utils.TextAtCursor;
 import helium314.keyboard.latin.utils.TextPlacement;
-import helium314.keyboard.latin.utils.TextRange;
 import helium314.keyboard.latin.utils.TimestampKt;
 
 import java.util.ArrayList;
@@ -1020,10 +1020,10 @@ public final class InputLogic {
                 // and not if there is no letter before the separator
                 && mConnection.hasLetterBeforeLastSpaceBeforeCursor()
         ) {
-            final CharSequence text = mConnection.textBeforeCursorUntilLastWhitespaceOrDoubleSlash();
-            final TextRange range = new TextRange(text, 0, text.length(), text.length(), false);
+            // todo: this needs to be improved
+            CharSequence text = mConnection.textBeforeCursorUntilLastWhitespaceOrDoubleSlash();
             isComposingWord = true;
-            restartSuggestions(range);
+            restartSuggestions(new TextAtCursor(text, "").getAsWord());
         }
         // TODO: remove isWordConnector() and use isUsuallyFollowedBySpace() instead.
         // See onStartBatchInput() to see how to do it.
@@ -1434,9 +1434,9 @@ public final class InputLogic {
         if (!mConnection.hasSelection()
                 && settingsValues.needsToLookupSuggestions()
                 && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpacesOrWordIterator) {
-            TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations);
-            if (range != null) {
-                return range.mWord.toString();
+            TextAtCursor text = mConnection.getTextAtCursor();
+            if (text != null) {
+                return text.getWordAtCursor(settingsValues.mSpacingAndPunctuations).getWord().toString();
             }
         }
         return "";
@@ -1802,11 +1802,12 @@ public final class InputLogic {
             mConnection.finishComposingText();
             return;
         }
-        TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations);
-        if (null == range) return; // Happens if we don't have an input connection at all
+        TextAtCursor text = mConnection.getTextAtCursor();
+        if (null == text) return; // Happens if we don't have an input connection at all
         // If for some strange reason (editor bug or so) we measure the text before the cursor as
         // longer than what the entire text is supposed to be, the safe thing to do is bail out.
-        if (range.length() <= 0) {
+        TextAtCursor.WordAtCursor word = text.getWordAtCursor(settingsValues.mSpacingAndPunctuations);
+        if (word.getWord().length() <= 0) {
             // Race condition, or touching a word in a non-supported script.
             mLatinIME.setNeutralSuggestionStrip();
             mConnection.finishComposingText();
@@ -1816,25 +1817,25 @@ public final class InputLogic {
         // edits to a linkified text through batch commands would ruin the URL spans, and unless
         // we take very complicated steps to preserve the whole link, we can't do things right so
         // we just do not resume because it's safer.
-        if (range.mHasUrlSpans) return;
-        restartSuggestions(range);
+        if (word.getHasUrlSpans()) return;
+        restartSuggestions(word);
     }
 
-    private void restartSuggestions(final TextRange range) {
-        final int numberOfCharsInWordBeforeCursor = range.getNumberOfCharsInWordBeforeCursor();
-        final int expectedCursorPosition = mConnection.getExpectedSelectionStart();
+    private void restartSuggestions(TextAtCursor.WordAtCursor word) {
+        int numberOfCharsInWordBeforeCursor = word.getNumberOfCharsBeforeCursor();
+        int expectedCursorPosition = mConnection.getExpectedSelectionStart();
         if (numberOfCharsInWordBeforeCursor > expectedCursorPosition) return;
-        final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
-        final String typedWordString = range.mWord.toString();
-        final SuggestedWordInfo typedWordInfo = new SuggestedWordInfo(typedWordString,
+        ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
+        String typedWordString = word.getWord().toString();
+        SuggestedWordInfo typedWordInfo = new SuggestedWordInfo(typedWordString,
                 "", SuggestedWords.MAX_SUGGESTIONS + 1,
                 SuggestedWordInfo.KIND_TYPED, Dictionary.DICTIONARY_USER_TYPED,
                 SuggestedWordInfo.NOT_AN_INDEX,
                 SuggestedWordInfo.NOT_A_CONFIDENCE, null);
         suggestions.add(typedWordInfo);
         int i = 0;
-        for (final SuggestionSpan span : range.getSuggestionSpansAtWord()) {
-            for (final String s : span.getSuggestions()) {
+        for (SuggestionSpan span : word.getSuggestionSpansAtWord()) {
+            for (String s : span.getSuggestions()) { // the spans should be non-null
                 ++i;
                 if (!TextUtils.equals(s, typedWordString)) {
                     suggestions.add(new SuggestedWordInfo(s,
@@ -1845,11 +1846,11 @@ public final class InputLogic {
                 }
             }
         }
-        final int[] codePoints = StringUtils.toCodePointArray(typedWordString);
+        int[] codePoints = StringUtils.toCodePointArray(typedWordString);
         mWordComposer.setComposingWord(codePoints, mLatinIME.getCoordinatesForCurrentKeyboard(codePoints));
         mWordComposer.setCursorPositionWithinWord(typedWordString.codePointCount(0, numberOfCharsInWordBeforeCursor));
         mConnection.setComposingRegion(expectedCursorPosition - numberOfCharsInWordBeforeCursor,
-                expectedCursorPosition + range.getNumberOfCharsInWordAfterCursor());
+                expectedCursorPosition + word.getNumberOfCharsAfterCursor());
         if (suggestions.size() <= 1) {
             // If there weren't any suggestion spans on this word, suggestions#size() will be 1
             // if shouldIncludeResumedWordInSuggestions is true, 0 otherwise. In this case, we

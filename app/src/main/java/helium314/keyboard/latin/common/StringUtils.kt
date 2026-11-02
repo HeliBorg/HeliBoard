@@ -7,8 +7,6 @@ import helium314.keyboard.latin.common.StringUtils.mightBeEmoji
 import helium314.keyboard.latin.common.StringUtils.newSingleCodePointString
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import helium314.keyboard.latin.utils.SpacedTokens
-import helium314.keyboard.latin.utils.SpannableStringUtils
-import helium314.keyboard.latin.utils.TextRange
 import java.math.BigInteger
 import java.util.Locale
 import kotlin.text.codePointAt
@@ -75,24 +73,6 @@ fun endsWithWordCodepoint(text: String, spacingAndPunctuations: SpacingAndPunctu
         isNotWordConnector
     }
     return codePoint != Constants.NOT_A_CODE && spacingAndPunctuations.isWordCodePoint(codePoint)
-}
-
-fun getTouchedWordRange(before: CharSequence, after: CharSequence, spacingAndPunctuations: SpacingAndPunctuations): TextRange {
-    val iterator = WordBreakIterator.getForSpacingAndPunctuations(spacingAndPunctuations)
-    iterator.text = before.toString() + after
-    val (startIndexInBefore, endIndex) = iterator.getTouchedWordBounds(before.length)
-
-    val hasUrlSpans = SpannableStringUtils.hasUrlSpans(before, startIndexInBefore, before.length)
-        || SpannableStringUtils.hasUrlSpans(after, 0, endIndex - before.length)
-
-    // We don't use TextUtils#concat because it copies all spans without respect to their
-    // nature. If the text includes a PARAGRAPH span and it has been split, then
-    // TextUtils#concat will crash when it tries to concat both sides of it.
-    return TextRange(
-        SpannableStringUtils.concatWithNonParagraphSuggestionSpansOnly(before, after),
-        startIndexInBefore, endIndex, before.length,
-        hasUrlSpans
-    )
 }
 
 /** split the string on the first of consecutive space only, further consecutive spaces are added to the next split */

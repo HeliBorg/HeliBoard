@@ -18,7 +18,6 @@ import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.StringUtils
-import helium314.keyboard.latin.common.getTouchedWordRange
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
@@ -119,16 +118,16 @@ object BackgroundGatheringCache {
 
         if (DEBUG) Log.i(TAG, "replace selection \"$selection\", before: \"$before\", after: \"$after\"")
         val spacingAndPunctuations = Settings.getValues().mSpacingAndPunctuations
-        val wordAtStart = getTouchedWordRange(before, "$selection$after", spacingAndPunctuations)
-        val wordAtEnd = getTouchedWordRange("$before$selection", after, spacingAndPunctuations)
-        if (DEBUG) Log.i(TAG, "at start \"${wordAtStart.mWord}\", at end \"${wordAtEnd.mWord}\"")
+        val wordAtStart = TextAtCursor(before, "$selection$after").getWordAtCursor(spacingAndPunctuations)
+        val wordAtEnd = TextAtCursor("$before$selection", after).getWordAtCursor(spacingAndPunctuations)
+        if (DEBUG) Log.i(TAG, "at start \"${wordAtStart.word}\", at end \"${wordAtEnd.word}\"")
         val trimmed = selection.trim()
         if (
-            (wordAtEnd.mWord == wordAtStart.mWord && selection in wordAtStart.mWord)
+            (wordAtEnd.word == wordAtStart.word && selection in wordAtStart.word)
             || (trimmed != selection && (wordAtStart == trimmed || wordAtEnd == trimmed)) // treat word + space like word
         ) {
             if (DEBUG) Log.i(TAG, "word or part of word selected, removing word")
-            cachedWords.removeAll { it.topSuggestion == wordAtStart.mWord || it.targetWord == wordAtStart.mWord }
+            cachedWords.removeAll { it.topSuggestion == wordAtStart.word || it.targetWord == wordAtStart.word }
         } else {
             // more than one word selected, we do nothing because deleting much is unlikely to happen because of bad gesture typing
         }
