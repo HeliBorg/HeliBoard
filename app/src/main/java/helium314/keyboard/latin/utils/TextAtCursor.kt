@@ -32,12 +32,13 @@ data class TextAtCursor(val text: CharSequence, val cursorPosition: Int) {
     fun getAsWord() = WordAtCursor(0, text.length)
 
     inner class WordAtCursor(val start: Int, val end: Int) {
-        val word = text.subSequence(start, end) // do we need it? getter?
+        val word = text.subSequence(start, end)
         val hasUrlSpans get() = SpannableStringUtils.hasUrlSpans(text, start, end)
 
-        // no getters, we always need it
         val numberOfCharsBeforeCursor get() = cursorPosition - start
         val numberOfCharsAfterCursor get() = end - cursorPosition
+
+        fun getText() = this@TextAtCursor
 
         /**
          * Gets the suggestion spans that are put squarely on the word, with the exact start
@@ -100,5 +101,7 @@ data class TextAtCursor(val text: CharSequence, val cursorPosition: Int) {
             }
             return if (writeIndex == readIndex) spans else spans.copyOfRange(0, writeIndex)
         }
+
+        override fun toString() = "$word in $text"
     }
 }

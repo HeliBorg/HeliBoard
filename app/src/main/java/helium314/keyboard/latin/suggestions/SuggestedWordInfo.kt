@@ -39,6 +39,12 @@ data class SuggestedWordInfo(
         applicationSpecifiedCompletion
     )
 
+    /**
+     * Word that should be replaced when this suggestíon is selected.
+     * If the [wordToReplace] is null or not found at the cursor, the [word] will be committed normally, i.e. replace the current composing span.
+     */
+    var wordToReplace: String? = null
+
     var originalScore = 0 // relevant only for background data gathering, todo: remove when gathering period is over
     val codePointCount by lazy { StringUtils.codePointCount(word) }
 
@@ -47,7 +53,7 @@ data class SuggestedWordInfo(
     val isEligibleForAutoCommit: Boolean
         get() = (isKindOf(KIND_CORRECTION) && NOT_AN_INDEX != indexOfTouchPointOfSecondWord)
 
-    val kind: Int
+    val kind: Int // kindAndFlags is returned by the native library, so we keep the original int-kind instead of an enum
         get() = (kindAndFlags and KIND_MASK_KIND)
 
     fun isKindOf(kind: Int): Boolean {

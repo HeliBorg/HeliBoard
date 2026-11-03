@@ -341,7 +341,7 @@ public final class InputLogic {
             return inputTransaction;
         }
 
-        commitChosenWord(settingsValues, suggestion, LastComposedWord.COMMIT_TYPE_MANUAL_PICK, LastComposedWord.NOT_A_SEPARATOR);
+        commitChosenWord(settingsValues, suggestion, suggestionInfo, LastComposedWord.COMMIT_TYPE_MANUAL_PICK, LastComposedWord.NOT_A_SEPARATOR);
         mConnection.endBatchEdit();
         // Don't allow cancellation of manual pick
         mLastComposedWord.deactivate();
@@ -1723,12 +1723,13 @@ public final class InputLogic {
             return;
         }
 
-        final AsyncResultHolder<SuggestedWords> holder = new AsyncResultHolder<>("Suggest");
+        AsyncResultHolder<SuggestedWords> holder = new AsyncResultHolder<>("Suggest");
+        TextAtCursor textAtCursor = mConnection.getTextAtCursor(); // get it now, because in callback we time out (thread issue with InputConnection?)
+        String typedWordString = mWordComposer.getTypedWord(); // get it now, because in edge cases it might have changed by the time we execute the callback
         mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(
-            inputStyle, SuggestedWords.NOT_A_SEQUENCE_NUMBER,
+            inputStyle, textAtCursor, SuggestedWords.NOT_A_SEQUENCE_NUMBER,
             suggestedWords -> {
-                final String typedWordString = mWordComposer.getTypedWord();
-                final SuggestedWordInfo typedWordInfo = new SuggestedWordInfo(
+                SuggestedWordInfo typedWordInfo = new SuggestedWordInfo(
                     typedWordString, "", SuggestedWordInfo.MAX_SCORE, SuggestedWordInfo.KIND_TYPED,
                     Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE, null
                 );
@@ -1854,7 +1855,7 @@ public final class InputLogic {
             // If there weren't any suggestion spans on this word, suggestions#size() will be 1
             // if shouldIncludeResumedWordInSuggestions is true, 0 otherwise. In this case, we
             // have no useful suggestions, so we will try to compute some for it instead.
-            mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(InputStyle.TYPING,
+            mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(InputStyle.TYPING, word.getText(),
                 SuggestedWords.NOT_A_SEQUENCE_NUMBER, this::doShowSuggestionsAndClearAutoCorrectionIndicator));
         } else {
             // We found suggestion spans in the word. We'll create the SuggestedWords out of
@@ -2293,12 +2294,12 @@ public final class InputLogic {
      * @param settingsValues the current values of the settings.
      * @param separatorString the separator that's causing the commit, or NOT_A_SEPARATOR if none.
      */
-    public void commitTyped(final SettingsValues settingsValues, final String separatorString) {
+    public void commitTyped(SettingsValues settingsValues, String separatorString) {
         if (!mWordComposer.isComposingWord()) return;
-        final String typedWord = mWordComposer.getTypedWord();
+        String typedWord = mWordComposer.getTypedWord();
         if (typedWord.length() > 0) {
-            final boolean isBatchMode = mWordComposer.isBatchMode();
-            commitChosenWord(settingsValues, typedWord, LastComposedWord.COMMIT_TYPE_USER_TYPED_WORD, separatorString);
+            boolean isBatchMode = mWordComposer.isBatchMode();
+            commitChosenWord(settingsValues, typedWord, null, LastComposedWord.COMMIT_TYPE_USER_TYPED_WORD, separatorString);
             StatsUtils.onWordCommitUserTyped(typedWord, isBatchMode);
         }
     }
@@ -2319,8 +2320,7 @@ public final class InputLogic {
      * @param settingsValues the current value of the settings.
      * @param separator the separator that's causing the commit to happen.
      */
-    private void commitCurrentAutoCorrection(final SettingsValues settingsValues,
-            final String separator, final LatinIME.UIHandler handler) {
+    private void commitCurrentAutoCorrection(SettingsValues settingsValues, String separator, LatinIME.UIHandler handler) {
         // Complete any pending suggestions query first
         if (handler.hasPendingUpdateSuggestions()) {
             handler.cancelUpdateSuggestionStrip();
@@ -2334,31 +2334,27 @@ public final class InputLogic {
             // INPUT_STYLE_TYPING.
             performUpdateSuggestionStripSync(settingsValues, InputStyle.TYPING);
         }
-        final SuggestedWordInfo autoCorrectionOrNull = mWordComposer.getAutoCorrectionOrNull();
-        final String typedWord = mWordComposer.getTypedWord();
-        final String stringToCommit = (autoCorrectionOrNull != null) ? autoCorrectionOrNull.getWord() : typedWord;
-        if (stringToCommit != null) {
-            final boolean isBatchMode = mWordComposer.isBatchMode();
-            commitChosenWord(settingsValues, stringToCommit, LastComposedWord.COMMIT_TYPE_DECIDED_WORD, separator);
-            if (!typedWord.equals(stringToCommit)) {
-                // This will make the correction flash for a short while as a visual clue
-                // to the user that auto-correction happened. It has no other effect; in particular
-                // note that this won't affect the text inside the text field AT ALL: it only makes
-                // the segment of text starting at the supplied index and running for the length
-                // of the auto-correction flash. At this moment, the "typedWord" argument is
-                // ignored by TextView.
-                mConnection.commitCorrection(new CorrectionInfo(
-                        mConnection.getExpectedSelectionEnd() - stringToCommit.length(),
-                        typedWord, stringToCommit));
-                final String prevWordsContext = (autoCorrectionOrNull != null)
-                        ? autoCorrectionOrNull.getPrevWordsContext()
-                        : "";
-                StatsUtils.onAutoCorrection(typedWord, stringToCommit, isBatchMode,
-                        mDictionaryFacilitator, prevWordsContext);
-                StatsUtils.onWordCommitAutoCorrect(stringToCommit, isBatchMode);
-            } else {
-                StatsUtils.onWordCommitUserTyped(stringToCommit, isBatchMode);
-            }
+        SuggestedWordInfo autoCorrectionOrNull = mWordComposer.getAutoCorrectionOrNull();
+        String typedWord = mWordComposer.getTypedWord();
+        String stringToCommit = (autoCorrectionOrNull != null) ? autoCorrectionOrNull.getWord() : typedWord;
+        boolean isBatchMode = mWordComposer.isBatchMode();
+        commitChosenWord(settingsValues, stringToCommit, autoCorrectionOrNull, LastComposedWord.COMMIT_TYPE_DECIDED_WORD, separator);
+        if (!typedWord.equals(stringToCommit)) {
+            // This will make the correction flash for a short while as a visual clue
+            // to the user that auto-correction happened. It has no other effect; in particular
+            // note that this won't affect the text inside the text field AT ALL: it only makes
+            // the segment of text starting at the supplied index and running for the length
+            // of the auto-correction flash. At this moment, the "typedWord" argument is
+            // ignored by TextView.
+            mConnection.commitCorrection(new CorrectionInfo(mConnection.getExpectedSelectionEnd() - stringToCommit.length(),
+                    typedWord, stringToCommit));
+            String prevWordsContext = (autoCorrectionOrNull != null)
+                    ? autoCorrectionOrNull.getPrevWordsContext()
+                    : "";
+            StatsUtils.onAutoCorrection(typedWord, stringToCommit, isBatchMode, mDictionaryFacilitator, prevWordsContext);
+            StatsUtils.onWordCommitAutoCorrect(stringToCommit, isBatchMode);
+        } else {
+            StatsUtils.onWordCommitUserTyped(stringToCommit, isBatchMode);
         }
     }
 
@@ -2367,11 +2363,12 @@ public final class InputLogic {
      *
      * @param settingsValues the current values of the settings.
      * @param chosenWord the word we want to commit.
+     * @param chosenWordInfo SuggestedWordInfo with the word we want to commit.
      * @param commitType the type of the commit, as one of LastComposedWord.COMMIT_TYPE_*
      * @param separatorString the separator that's causing the commit, or NOT_A_SEPARATOR if none.
      */
-    private void commitChosenWord(final SettingsValues settingsValues, final String chosenWord,
-            final int commitType, final String separatorString) {
+    private void commitChosenWord(SettingsValues settingsValues, String chosenWord,
+                                  @Nullable SuggestedWordInfo chosenWordInfo, int commitType, String separatorString) {
         long startTimeMillis = 0;
         if (DebugFlags.DEBUG_ENABLED) {
             startTimeMillis = SystemClock.elapsedRealtime();
@@ -2399,7 +2396,13 @@ public final class InputLogic {
             Log.d(TAG, "commitChosenWord() : NgramContext = " + ngramContext);
             startTimeMillis = SystemClock.elapsedRealtime();
         }
-        mConnection.commitText(chosenWordWithSuggestions, 1);
+
+        if (chosenWordInfo != null && chosenWordInfo.getWordToReplace() != null) {
+            // we want to replace more than just the composing span
+            mConnection.replaceTextAtCursor(chosenWordInfo.getWordToReplace(), chosenWordWithSuggestions, 1);
+        } else
+            mConnection.commitText(chosenWordWithSuggestions, 1);
+
         if (DebugFlags.DEBUG_ENABLED) {
             long runTimeMillis = SystemClock.elapsedRealtime() - startTimeMillis;
             Log.d(TAG, "commitChosenWord() : " + runTimeMillis + " ms to run "
@@ -2477,8 +2480,11 @@ public final class InputLogic {
         return true;
     }
 
-    // we used to provide keyboard, settingsValues and keyboardShiftMode, but every time read it from current instance anyway
     void getSuggestedWords(InputStyle inputStyle, int sequenceNumber, OnGetSuggestedWordsCallback callback) {
+        getSuggestedWords(inputStyle, null, sequenceNumber, callback);
+    }
+
+    void getSuggestedWords(InputStyle inputStyle, @Nullable TextAtCursor textAtCursor, int sequenceNumber, OnGetSuggestedWordsCallback callback) {
         Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
         if (keyboard == null) {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
@@ -2493,13 +2499,15 @@ public final class InputLogic {
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
                 getActualCapsMode(settingsValues, KeyboardSwitcher.getInstance().getKeyboardCapsMode()));
         try {
-            SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer.copy(),
+            SuggestedWords suggestedWords = mSuggest.getSuggestedWords(
+                    mWordComposer.copy(),
+                    textAtCursor,
                     getNgramContextFromNthPreviousWordForSuggestion(
-                    settingsValues.mSpacingAndPunctuations,
-                    // Get the word on which we should search the bigrams. If we are composing
-                    // a word, it's whatever is *before* the half-committed word in the buffer,
-                    // hence 2; if we aren't, we should just skip whitespace if any, so 1.
-                    mWordComposer.isComposingWord() ? 2 : 1),
+                        settingsValues.mSpacingAndPunctuations,
+                        // Get the word on which we should search the bigrams. If we are composing
+                        // a word, it's whatever is *before* the half-committed word in the buffer,
+                        // hence 2; if we aren't, we should just skip whitespace if any, so 1.
+                        mWordComposer.isComposingWord() ? 2 : 1),
                     keyboard,
                     settingsValues.mSettingsValuesForSuggestion,
                     settingsValues.mAutoCorrectEnabled,

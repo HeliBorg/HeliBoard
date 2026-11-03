@@ -7,6 +7,8 @@
 package com.android.inputmethod.latin;
 
 import android.text.TextUtils;
+
+import helium314.keyboard.latin.define.DecoderSpecificConstants;
 import helium314.keyboard.latin.utils.ChecksumCalculator;
 import helium314.keyboard.latin.utils.Log;
 import android.util.SparseArray;
@@ -48,7 +50,7 @@ public final class BinaryDictionary extends Dictionary {
     // Must be equal to CONFIDENCE_TO_AUTO_COMMIT in native/jni/src/defines.h
     private static final int CONFIDENCE_TO_AUTO_COMMIT = 1000000;
 
-    public static final int DICTIONARY_MAX_WORD_LENGTH = 48;
+    public static final int DICTIONARY_MAX_WORD_LENGTH = DecoderSpecificConstants.DICTIONARY_MAX_WORD_LENGTH;
     public static final int MAX_PREV_WORD_COUNT_FOR_N_GRAM = 3;
 
     public static final String UNIGRAM_COUNT_QUERY = "UNIGRAM_COUNT";

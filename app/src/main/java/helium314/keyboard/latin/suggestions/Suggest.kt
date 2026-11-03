@@ -7,6 +7,7 @@ package helium314.keyboard.latin.suggestions
 
 import android.text.TextUtils
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
+import helium314.keyboard.compat.CompatBreakIterator
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiDefaultVersion
 import helium314.keyboard.latin.CapsMode
@@ -27,6 +28,7 @@ import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.utils.AutoCorrectionUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.BackgroundGatheringCache
+import helium314.keyboard.latin.utils.TextAtCursor
 import helium314.keyboard.latin.utils.WordData
 import helium314.keyboard.latin.utils.useBackgroundGathering
 import java.util.Locale
@@ -56,23 +58,23 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
     // todo: remove when InputLogic is ready
     interface OnGetSuggestedWordsCallback {
-        fun onGetSuggestedWords(suggestedWords: SuggestedWords?)
+        fun onGetSuggestedWords(suggestedWords: SuggestedWords)
     }
 
-    fun getSuggestedWords(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
+    fun getSuggestedWords(wordComposer: WordComposer, textAtCursor: TextAtCursor?, ngramContext: NgramContext, keyboard: Keyboard,
                           settingsValuesForSuggestion: SettingsValuesForSuggestion, isCorrectionEnabled: Boolean,
                           inputStyle: InputStyle, sequenceNumber: Int): SuggestedWords =
         if (wordComposer.isBatchMode) {
             getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
                 inputStyle, isCorrectionEnabled, sequenceNumber)
         } else {
-            getSuggestedWordsForNonBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
+            getSuggestedWordsForNonBatchInput(wordComposer, textAtCursor, ngramContext, keyboard, settingsValuesForSuggestion,
                 inputStyle, isCorrectionEnabled, sequenceNumber)
         }
 
     // Retrieves suggestions for non-batch input (typing, recorrection, predictions...)
     // and calls the callback function with the suggestions.
-    private fun getSuggestedWordsForNonBatchInput(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
+    private fun getSuggestedWordsForNonBatchInput(wordComposer: WordComposer, textAtCursor: TextAtCursor?, ngramContext: NgramContext, keyboard: Keyboard,
                       settingsValuesForSuggestion: SettingsValuesForSuggestion, inputStyleIfNotPrediction: InputStyle,
                       isCorrectionEnabled: Boolean, sequenceNumber: Int): SuggestedWords {
         val typedWordString = wordComposer.typedWord
@@ -84,6 +86,25 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
         val capsMode = getCapsModeForTyping(wordComposer, keyboard)
         val suggestionsContainer = ArrayList(suggestionResults)
+
+        // add suggestions for the "extended word" at cursor
+        // using a different iterator that also includes digits and maybe more
+        val extendedWord = textAtCursor?.getWordAtCursor(CompatBreakIterator.getWordInstance(keyboard.mId.locale))?.word
+        if (extendedWord != null && extendedWord.length > typedWordString.length) {
+            // ideally we'd extendComposed data for better suggestions, but that's for later (if ever)
+            val extendedWord = textAtCursor.getWordAtCursor(CompatBreakIterator.getWordInstance(keyboard.mId.locale)).word.toString()
+            val altSuggestions = mDictionaryFacilitator.getSuggestionResults(ComposedData.createForWord(extendedWord), ngramContext, keyboard,
+                settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction)
+            val extendingPart = extendedWord.substring(0, extendedWord.length - typedWordString.length)
+            altSuggestions.forEach {
+                if (it.word.startsWith(extendingPart) || (it.kind == SuggestedWordInfo.KIND_SHORTCUT && it.score > 0)) {
+                    it.wordToReplace = extendedWord
+                    suggestionsContainer.add(it)
+                }
+            }
+            suggestionsContainer.sortByDescending { it.score }
+        }
+
         capitalizeAndAddTrailingSingleQuotes(suggestionsContainer, capsMode, trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale)
         val capitalizedTypedWord = capitalize(typedWordString, capsMode, mDictionaryFacilitator.mainLocale)
 
