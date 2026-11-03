@@ -635,8 +635,8 @@ public class LatinIME extends InputMethodService implements
     }
 
     private boolean isImeSuppressedByHardwareKeyboard() {
-        return !onEvaluateInputViewShown() && mKeyboardSwitcher.isImeSuppressedByHardwareKeyboard(
-                mSettings.getCurrent(), mKeyboardSwitcher.getKeyboardSwitchState());
+        return !onEvaluateInputViewShown()
+            && KeyboardSwitcher.isImeSuppressedByHardwareKeyboard(mSettings.getCurrent(), mKeyboardSwitcher.getKeyboardSwitchState());
     }
 
     @Override
@@ -691,8 +691,9 @@ public class LatinIME extends InputMethodService implements
     }
 
     public void updateSuggestionStripView(View view) {
-        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN || isEmojiSearch()?
-                        null : view.findViewById(R.id.suggestion_strip_view);
+        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN || isEmojiSearch()
+                               ? null
+                               : view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
             mSuggestionStripView.setListener(this, view);
@@ -1106,9 +1107,6 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         final View visibleKeyboardView = mKeyboardSwitcher.getWrapperView();
-        if (visibleKeyboardView == null) {
-            return;
-        }
         final int inputHeight = mInputView.getHeight();
         if (isImeSuppressedByHardwareKeyboard() && !visibleKeyboardView.isShown()) {
             // If there is a hardware keyboard and a visible software keyboard view has been hidden,
@@ -1201,7 +1199,7 @@ public class LatinIME extends InputMethodService implements
             final boolean noExtractUi = (ei.imeOptions & EditorInfo.IME_FLAG_NO_EXTRACT_UI) != 0;
             final boolean noFullscreen = (ei.imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) != 0;
             if (noExtractUi || noFullscreen) return false;
-            if (mKeyboardSwitcher.getVisibleKeyboardView() == null || mSuggestionStripView == null) return false;
+            if (mSuggestionStripView == null) return false;
             final int usedHeight = mKeyboardSwitcher.getVisibleKeyboardView().getHeight() + mSuggestionStripView.getHeight();
             final int availableHeight = getResources().getDisplayMetrics().heightPixels;
             return usedHeight > availableHeight * 0.6; // if we have less than 40% available, use fullscreen mode

@@ -95,7 +95,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (event.isHandled) {
             inputLogic.onCodeInput(
                 settings.current, event,
-                keyboardSwitcher.getKeyboardCapsMode(), // TODO: this is not necessarily correct for a hardware keyboard right now
+                keyboardSwitcher.keyboardCapsMode, // TODO: this is not necessarily correct for a hardware keyboard right now
                 latinIME.mHandler
             )
             return true
@@ -138,7 +138,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
         // checking if the character is a combining accent
         val event = if (primaryCode in combiningRange) { // todo: should this be done later, maybe in inputLogic?
-            Event.createSoftwareDeadEvent(primaryCode, 0, metaState, mkv.getKeyX(x), mkv.getKeyY(y), null)
+            Event.createSoftwareDeadEvent(primaryCode, 0, metaState,
+                mkv?.getKeyX(x) ?: Constants.NOT_A_COORDINATE, mkv?.getKeyY(y) ?: Constants.NOT_A_COORDINATE, null)
         } else {
             // todo:
             //  setting meta shift should only be done for arrow and similar cursor movement keys
@@ -146,7 +147,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 //            if (mkv.keyboard?.mId?.isAlphabetShiftedManually == true)
 //                Event.createSoftwareKeypressEvent(primaryCode, metaState or KeyEvent.META_SHIFT_ON, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
 //            else Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
-            Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
+            Event.createSoftwareKeypressEvent(primaryCode, metaState,
+                mkv?.getKeyX(x) ?: Constants.NOT_A_COORDINATE, mkv?.getKeyY(y) ?: Constants.NOT_A_COORDINATE, isKeyRepeat)
         }
         latinIME.onEvent(event)
         metaAfterCodeInput(primaryCode)
