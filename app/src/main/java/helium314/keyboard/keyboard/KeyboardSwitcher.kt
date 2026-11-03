@@ -50,6 +50,8 @@ import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.dpToPx
 import helium314.keyboard.latin.utils.prefs
 import androidx.core.view.isVisible
+import helium314.keyboard.keyboard.clipboard.ClipboardHistoryView
+import helium314.keyboard.keyboard.emoji.EmojiPalettesView
 
 class KeyboardSwitcher private constructor() {
     // created in onCreateInputView (called by LatinIME before starting input), i.e. might not exist initially
@@ -62,14 +64,33 @@ class KeyboardSwitcher private constructor() {
     private val mainKeyboardFrame get() = inputView.mainKeyboardFrame.root
     private val keyboardView get() = inputView.mainKeyboardFrame.keyboardView
     val mainKeyboardView get() = if (hasInputView) keyboardView else null // might be called from LatinIME before we have an inputView
-    private val emojiPalettesView get() = inputView.mainKeyboardFrame.emojiPalettesView.root
     val emojiTabStrip get() = inputView.mainKeyboardFrame.stripContainer.emojiTabStrip
     val clipboardStrip get() = inputView.mainKeyboardFrame.stripContainer.clipboardStrip
     private val clipboardStripScrollView get() = inputView.mainKeyboardFrame.stripContainer.clipboardStripScrollView
     private val suggestionStripView get() = inputView.mainKeyboardFrame.stripContainer.suggestionStripView
     val stripContainer get() = inputView.mainKeyboardFrame.stripContainer.root
-    private val clipboardHistoryView get() = inputView.mainKeyboardFrame.clipboardHistoryView.root
     private val backgroundGatheringIndicator get() = inputView.mainKeyboardFrame.backgroundGatheringIndicator
+
+    // clipboard & emoji views are initially view stubs, and only created when needed
+    private val clipboardHistoryView: ClipboardHistoryView get() {
+        if (clipboardHistory == null) {
+            clipboardHistory = inputView.mainKeyboardFrame.clipboardHistoryStub.inflate() as ClipboardHistoryView
+            clipboardHistory!!.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled)
+            clipboardHistory!!.keyboardActionListener = latinIME.mKeyboardActionListener
+            latinIME.prefs().registerOnSharedPreferenceChangeListener(clipboardHistory!!)
+        }
+        return clipboardHistory!!
+    }
+    private var clipboardHistory: ClipboardHistoryView? = null
+    private val emojiPalettesView: EmojiPalettesView get() {
+        if (emojiPalettes == null) {
+            emojiPalettes = inputView.mainKeyboardFrame.emojiPalettesStub.inflate() as EmojiPalettesView
+            emojiPalettes!!.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled)
+            emojiPalettes!!.setKeyboardActionListener(latinIME.mKeyboardActionListener)
+        }
+        return emojiPalettes!!
+    }
+    private var emojiPalettes: EmojiPalettesView? = null
 
     // created on init, i.e. only available when set as active input method
     private lateinit var latinIME: LatinIME
@@ -83,21 +104,21 @@ class KeyboardSwitcher private constructor() {
     private var keyboardLayoutSet: KeyboardLayoutSet? = null
 
     val keyboard get() = mainKeyboardView?.keyboard
-    val isShowingEmojiPalettes get() = hasInputView && emojiPalettesView.isShown
-    val isShowingClipboardHistory get() = hasInputView && clipboardHistoryView.isShown
-    val isShowingPopupKeysPanel get () = !emojiPalettesView.isShown && !clipboardHistoryView.isShown && keyboardView.isShowingPopupKeysPanel
+    val isShowingEmojiPalettes get() = hasInputView && emojiPalettes?.isShown == true
+    val isShowingClipboardHistory get() = hasInputView && clipboardHistory?.isShown == true
+    val isShowingPopupKeysPanel get () = !isShowingEmojiPalettes && !isShowingClipboardHistory && keyboardView.isShowingPopupKeysPanel
     val isShowingStripContainer get() = hasInputView && stripContainer.isShown
     val visibleKeyboardView get() = when {
-        emojiPalettesView.isShown -> emojiPalettesView
-        clipboardHistoryView.isShown -> clipboardHistoryView
+        isShowingEmojiPalettes -> emojiPalettesView
+        isShowingClipboardHistory -> clipboardHistoryView
         else -> keyboardView
     }
     val keyboardCapsMode get() = keyboard?.mId?.element?.capsMode ?: CapsMode.OFF
     val localeAndConfidenceInfo: String? get() = latinIME.localeAndConfidenceInfo // used for debug
     val keyboardSwitchState: KeyboardSwitchState get() = when {
         !hasInputView -> KeyboardSwitchState.HIDDEN
-        emojiPalettesView.isShown -> KeyboardSwitchState.EMOJI
-        clipboardHistoryView.isShown -> KeyboardSwitchState.CLIPBOARD
+        isShowingEmojiPalettes -> KeyboardSwitchState.EMOJI
+        isShowingClipboardHistory -> KeyboardSwitchState.CLIPBOARD
         (keyboardLayoutSet == null || !keyboardView.isShown) -> KeyboardSwitchState.HIDDEN
         isShowingKeyboardId(KeyboardElement.SYMBOLS_SHIFTED) -> KeyboardSwitchState.SYMBOLS_SHIFTED
         else -> KeyboardSwitchState.OTHER
@@ -116,8 +137,9 @@ class KeyboardSwitcher private constructor() {
         val prefs = displayContext.prefs()
         if (hasInputView) {
             keyboardView.closing()
+            if (clipboardHistory != null)
+                prefs.unregisterOnSharedPreferenceChangeListener(clipboardHistory!!)
             prefs.unregisterOnSharedPreferenceChangeListener(suggestionStripView)
-            prefs.unregisterOnSharedPreferenceChangeListener(clipboardHistoryView)
         }
         PointerTracker.clearOldViewData()
         if (themeNeedsReload) // necessary in some cases (e.g. theme switch) when themeNeedsReload is set before first keyboard load
@@ -125,18 +147,14 @@ class KeyboardSwitcher private constructor() {
 
         updateKeyboardThemeAndContextThemeWrapper(displayContext, getKeyboardTheme(displayContext))
         inputView = InputViewBinding.inflate(LayoutInflater.from(themeContext))
+        emojiPalettes = null
+        clipboardHistory = null
         wrapperView.keyboardActionListener = latinIME.mKeyboardActionListener
         keyboardView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled)
         keyboardView.setKeyboardActionListener(latinIME.mKeyboardActionListener)
-        emojiPalettesView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled)
-        emojiPalettesView.setKeyboardActionListener(latinIME.mKeyboardActionListener)
-        clipboardHistoryView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled)
-        clipboardHistoryView.keyboardActionListener = latinIME.mKeyboardActionListener
 
         prefs.registerOnSharedPreferenceChangeListener(suggestionStripView)
-        prefs.registerOnSharedPreferenceChangeListener(clipboardHistoryView)
         PointerTracker.switchTo(keyboardView)
-        Log.d(TAG, "create new input view done")
         return inputView.root
     }
 
@@ -236,13 +254,13 @@ class KeyboardSwitcher private constructor() {
         keyboardView.isGone = isGone
         mainKeyboardFrame.isGone = isGone
         wrapperView.isGone = Settings.getInstance().readShowToolbarOnly()
-        emojiPalettesView.isGone = true
-        emojiPalettesView.stopEmojiPalettes()
+        emojiPalettes?.isGone = true
+        emojiPalettes?.stopEmojiPalettes()
         emojiTabStrip.isGone = true
         clipboardStripScrollView.isGone = true
         suggestionStripView.isVisible = latinIME.hasSuggestionStripView()
-        clipboardHistoryView.isGone = true
-        clipboardHistoryView.stopClipboardHistory()
+        clipboardHistory?.isGone = true
+        clipboardHistory?.stopClipboardHistory()
     }
 
     fun onToggleKeyboard(toggleState: KeyboardSwitchState) {
@@ -259,11 +277,11 @@ class KeyboardSwitcher private constructor() {
             } else if (toggleState == KeyboardSwitchState.CLIPBOARD) {
                 setClipboardKeyboard()
             } else {
-                emojiPalettesView.stopEmojiPalettes()
-                emojiPalettesView.isGone = true
+                emojiPalettes?.stopEmojiPalettes()
+                emojiPalettes?.isGone = true
 
-                clipboardHistoryView.stopClipboardHistory()
-                clipboardHistoryView.isGone = true
+                clipboardHistory?.stopClipboardHistory()
+                clipboardHistory?.isGone = true
 
                 mainKeyboardFrame.isGone = false
                 keyboardView.isGone = false
@@ -301,7 +319,7 @@ class KeyboardSwitcher private constructor() {
 
     fun reloadKeyboard() {
         if (!hasInputView) return
-        emojiPalettesView.clearKeyboardCache()
+        emojiPalettes?.clearKeyboardCache()
         reloadMainKeyboard()
     }
 
@@ -395,13 +413,13 @@ class KeyboardSwitcher private constructor() {
         if (!hasInputView) return
         keyboardView.cancelAllOngoingEvents()
         keyboardView.deallocateMemory()
-        emojiPalettesView.stopEmojiPalettes()
-        clipboardHistoryView.stopClipboardHistory()
+        emojiPalettes?.stopEmojiPalettes()
+        clipboardHistory?.stopClipboardHistory()
     }
 
     fun trimMemory() {
         if (!hasInputView) return
-        emojiPalettesView.clearKeyboardCache()
+        emojiPalettes?.clearKeyboardCache()
     }
 
     fun switchToSubtype(subtype: InputMethodSubtype?) {
@@ -489,7 +507,7 @@ class KeyboardSwitcher private constructor() {
             stripContainer.isVisible = Settings.getValues().isSecondaryStripVisible
             clipboardStripScrollView.isGone = true
             emojiTabStrip.isGone = false
-            clipboardHistoryView.isGone = true
+            clipboardHistory?.isGone = true
             emojiPalettesView.startEmojiPalettes(
                 keyboardView.keyVisualAttribute,
                 latinIME.currentInputEditorInfo, latinIME.mKeyboardActionListener
@@ -508,7 +526,7 @@ class KeyboardSwitcher private constructor() {
             stripContainer.isVisible = Settings.getValues().isSecondaryStripVisible
             clipboardStripScrollView.post { clipboardStripScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT) }
             clipboardStripScrollView.isGone = false
-            emojiPalettesView.isGone = true
+            emojiPalettes?.isGone = true
             clipboardHistoryView.startClipboardHistory(
                 latinIME.clipboardHistoryManager, keyboardView.keyVisualAttribute,
                 latinIME.currentInputEditorInfo, latinIME.mKeyboardActionListener

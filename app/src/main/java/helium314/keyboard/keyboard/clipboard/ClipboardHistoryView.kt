@@ -69,8 +69,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val keyboardViewAttr = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         keyboardViewAttr.recycle()
-        getEnabledClipboardToolbarKeys(context.prefs())
-            .forEach { toolbarKeys.add(createToolbarKey(context, it)) }
         fitsSystemWindows = true
     }
 
@@ -101,12 +99,14 @@ class ClipboardHistoryView @JvmOverloads constructor(
             placeholderView = this@ClipboardHistoryView.placeholderView
         }
         val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip
-        toolbarKeys.forEach {
-            clipboardStrip.addView(it)
-            it.setOnClickListener(this@ClipboardHistoryView)
-            it.setOnLongClickListener(this@ClipboardHistoryView)
-            colors.setColor(it, ColorType.TOOL_BAR_KEY)
-            colors.setBackground(it, ColorType.STRIP_BACKGROUND)
+        getEnabledClipboardToolbarKeys(context.prefs()).forEach {
+            val key = createToolbarKey(context, it)
+            clipboardStrip.addView(key)
+            key.setOnClickListener(this@ClipboardHistoryView)
+            key.setOnLongClickListener(this@ClipboardHistoryView)
+            colors.setColor(key, ColorType.TOOL_BAR_KEY)
+            colors.setBackground(key, ColorType.STRIP_BACKGROUND)
+            toolbarKeys.add(key)
         }
     }
 
