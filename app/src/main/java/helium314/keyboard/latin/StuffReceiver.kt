@@ -51,7 +51,7 @@ class StuffReceiver(latinIME: LatinIME) {
                 TAG, "after activity closing. isEmojiSearch: ${isEmojiSearch()}. Intent: $intent" +
                     intent?.let { ". imeClosed: ${isImeClosed(intent)}. selected emoji: ${getSelectedEmoji(intent)}" }
             )
-            if (intent?.action != EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION || !isEmojiSearch()) return
+            if (intent?.action != EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION || isEmojiSearch()) return
             if (isImeClosed(intent)) {
                 latinIME.requestHideSelf(0)
             } else {
