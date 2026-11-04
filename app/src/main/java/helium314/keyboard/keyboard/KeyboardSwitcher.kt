@@ -9,6 +9,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.inputmethodservice.InputMethodService
 import android.os.Build
 import android.view.ContextThemeWrapper
 import android.view.Gravity
@@ -21,9 +22,12 @@ import android.view.inputmethod.InputMethodSubtype
 import android.widget.HorizontalScrollView
 import android.widget.Toast
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import helium314.keyboard.event.Event
 import helium314.keyboard.keyboard.KeyboardLayoutSet.Companion.KeyboardLayoutSetException
 import helium314.keyboard.keyboard.KeyboardTheme.Companion.getKeyboardTheme
+import helium314.keyboard.keyboard.clipboard.ClipboardHistoryView
+import helium314.keyboard.keyboard.emoji.EmojiPalettesView
 import helium314.keyboard.keyboard.internal.KeyboardState
 import helium314.keyboard.keyboard.internal.LayoutDirective
 import helium314.keyboard.keyboard.internal.ShiftMode
@@ -33,13 +37,13 @@ import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.RichInputMethodSubtype
+import helium314.keyboard.latin.common.InsetsOutlineProvider
 import helium314.keyboard.latin.databinding.InputViewBinding
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValues
 import helium314.keyboard.latin.settings.setFloatingKeyboardEnabled
 import helium314.keyboard.latin.utils.CapsModeUtils
-import helium314.keyboard.latin.utils.FloatingKeyboardUtils.disableFloating
-import helium314.keyboard.latin.utils.FloatingKeyboardUtils.setFloating
+import helium314.keyboard.latin.utils.FloatingKeyboardUtils
 import helium314.keyboard.latin.utils.FoldableUtils.isFolded
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils
 import helium314.keyboard.latin.utils.Log
@@ -49,14 +53,14 @@ import helium314.keyboard.latin.utils.SubtypeUtilsAdditional.createDefaultSubtyp
 import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.dpToPx
 import helium314.keyboard.latin.utils.prefs
-import androidx.core.view.isVisible
-import helium314.keyboard.keyboard.clipboard.ClipboardHistoryView
-import helium314.keyboard.keyboard.emoji.EmojiPalettesView
+import helium314.keyboard.latin.utils.updateSoftInputWindowLayoutParameters
 
 class KeyboardSwitcher private constructor() {
     // created in onCreateInputView (called by LatinIME before starting input), i.e. might not exist initially
     // when using a hardware keyboard onCreateInputView might not get called at all
     private var inputView: InputViewBinding? = null
+
+    private val insetsUpdater: InsetsOutlineProvider = InsetsOutlineProvider()
 
     // clipboard & emoji views are initially view stubs, and only created when needed
     // the inflated views are not accessible from the binding (really?), so we manage them separately
@@ -122,7 +126,6 @@ class KeyboardSwitcher private constructor() {
         isHardwareAcceleratedDrawingEnabled = latinIME.enableHardwareAcceleration()
     }
 
-    @SuppressLint("InflateParams")
     fun onCreateInputView(displayContext: Context, isHardwareAcceleratedDrawingEnabled: Boolean): View {
         Log.d(TAG, "create new input view")
         val prefs = displayContext.prefs()
@@ -141,6 +144,7 @@ class KeyboardSwitcher private constructor() {
         inputView.wrapperView.keyboardActionListener = latinIME.mKeyboardActionListener
         inputView.keyboardView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled)
         inputView.keyboardView.setKeyboardActionListener(latinIME.mKeyboardActionListener)
+        inputView.root.outlineProvider = insetsUpdater
 
         prefs.registerOnSharedPreferenceChangeListener(inputView.suggestionStripView)
         PointerTracker.switchTo(inputView.keyboardView)
@@ -205,6 +209,60 @@ class KeyboardSwitcher private constructor() {
         return false
     }
 
+    fun updateInsets(outInsets: InputMethodService.Insets) {
+        // This method may be called before onCreateInputView.
+        val inputView = inputView ?: return
+
+        val visibleKeyboardView = inputView.wrapperView
+        val inputHeight = inputView.root.height
+        if (isImeSuppressedByHardwareKeyboard(Settings.getValues(), keyboardSwitchState) && !visibleKeyboardView.isShown) {
+            // If there is a hardware keyboard and a visible software keyboard view has been hidden,
+            // no visual element will be shown on the screen.
+            // for some reason setting contentTopInsets and visibleTopInsets broke somewhere along the
+            // way from OpenBoard to HeliBoard (GH-702, GH-1455), but not setting anything seems to work
+            insetsUpdater.setInsets(outInsets, inputView.root)
+            return
+        }
+        val stripContainer = inputView.stripContainer
+        val stripHeight = if (stripContainer.isShown) stripContainer.height else 0
+        var visibleTopY = inputHeight - (if (visibleKeyboardView.isShown) visibleKeyboardView.height else 0) - stripHeight
+        if (Settings.getValues().mIsFloatingKeyboard)
+            visibleTopY = themeContext.resources.displayMetrics.heightPixels
+
+        if (hasSuggestionStripView()) {
+            inputView.suggestionStripView.setMoreSuggestionsHeight(visibleTopY)
+        }
+
+
+        // Need to set expanded touchable region only if a keyboard view is being shown.
+        // When using a floating keyboard and the showToolbarOnly setting, the wrapper view may be hidden but we still have a view
+        if (visibleKeyboardView.isShown || (Settings.getValues().mIsFloatingKeyboard && inputView.root.isShown)) {
+            var touchLeft = 0
+            var touchTop = if (isShowingPopupKeysPanel) 0 else visibleTopY
+            var touchRight = visibleKeyboardView.width
+            var touchBottom = inputHeight + EXTENDED_TOUCHABLE_REGION_HEIGHT // Extend touchable region below the keyboard.
+            if (Settings.getValues().mIsFloatingKeyboard) {
+                val xy = FloatingKeyboardUtils.readPosition(themeContext, Int.MAX_VALUE, Int.MAX_VALUE)
+                touchLeft = xy.first
+                touchTop = xy.second
+                touchRight = touchLeft + Settings.getValues().mFloatingWidth
+                touchBottom = touchTop + inputHeight
+            }
+            outInsets.touchableInsets = InputMethodService.Insets.TOUCHABLE_INSETS_REGION
+            outInsets.touchableRegion.set(touchLeft, touchTop, touchRight, touchBottom)
+        }
+
+
+        // Has to be subtracted after calculating touchableRegion
+        visibleTopY -= latinIME.emojiSearchActivityHeight
+
+        outInsets.contentTopInsets = visibleTopY
+        outInsets.visibleTopInsets = visibleTopY
+        insetsUpdater.setInsets(outInsets, inputView.root)
+    }
+
+    private fun hasSuggestionStripView() = Settings.getValues().mToolbarMode != ToolbarMode.HIDDEN && !latinIME.isEmojiSearch
+
     fun loadKeyboard(
         editorInfo: EditorInfo?, settingsValues: SettingsValues, currentAutoCapsState: Int,
         currentRecapitalizeState: RecapitalizeMode?, internalAction: KeyboardLayoutSet.InternalAction?
@@ -235,6 +293,13 @@ class KeyboardSwitcher private constructor() {
     fun onHideWindow() {
         inputView?.keyboardView?.onHideWindow()
     }
+
+    fun onWindowShown() {
+        if (Settings.getValues().mIsFloatingKeyboard)
+            inputView?.let { FloatingKeyboardUtils.setFloating(it.root) }
+    }
+
+    fun updateSoftInputWindowLayoutParameters() = latinIME.updateSoftInputWindowLayoutParameters(inputView?.root)
 
     private fun setMainKeyboardFrame(settingsValues: SettingsValues, toggleState: KeyboardSwitchState) {
         val inputView = inputView ?: return
@@ -574,8 +639,8 @@ class KeyboardSwitcher private constructor() {
             if (enabled != Settings.getValues().mIsFloatingKeyboard)
                 // mIsFloatingKeyboard is always disabled when device is locked, and we shouldn't mess up the setting
                 setFloatingKeyboardEnabled(themeContext, enabled)
-            if (enabled) setFloating(inputView.root)
-            else disableFloating(inputView.root)
+            if (enabled) FloatingKeyboardUtils.setFloating(inputView.root)
+            else FloatingKeyboardUtils.disableFloating(inputView.root)
             setBackgroundGatheringIndicatorPosition()
         }
 
@@ -624,6 +689,7 @@ class KeyboardSwitcher private constructor() {
 
     companion object {
         private val TAG = KeyboardSwitcher::class.java.simpleName
+        private const val EXTENDED_TOUCHABLE_REGION_HEIGHT = 100
 
         @SuppressLint("StaticFieldLeak") // todo: actually we would want the instance to go down with LatinIME
         private val instance = KeyboardSwitcher()

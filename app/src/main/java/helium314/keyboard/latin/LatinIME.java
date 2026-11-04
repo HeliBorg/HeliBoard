@@ -39,7 +39,6 @@ import helium314.keyboard.keyboard.emoji.EmojiSearchActivity;
 import helium314.keyboard.keyboard.emoji.EmojiSearchActivityKt;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.common.InsetsOutlineProvider;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.KeyboardId;
@@ -49,7 +48,6 @@ import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
-import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.dictionary.history.UserHistoryDictUtils;
 import helium314.keyboard.latin.inputlogic.InputLogic;
@@ -63,7 +61,6 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
-import helium314.keyboard.latin.utils.FloatingKeyboardUtils;
 import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
@@ -101,7 +98,6 @@ public class LatinIME extends InputMethodService implements
     static final String TAG = LatinIME.class.getSimpleName();
     private static final boolean TRACE = false;
 
-    private static final int EXTENDED_TOUCHABLE_REGION_HEIGHT = 100;
     private static final int PERIOD_FOR_AUDIO_AND_HAPTIC_FEEDBACK_IN_KEY_REPEAT = 2;
     private static final int PENDING_IMS_CALLBACK_DURATION_MILLIS = 800;
     static final long DELAY_WAIT_FOR_DICTIONARY_LOAD_MILLIS = TimeUnit.SECONDS.toMillis(2);
@@ -120,8 +116,6 @@ public class LatinIME extends InputMethodService implements
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
 
     // TODO: Move these {@link View}s to {@link KeyboardSwitcher}.
-    private View mInputView;
-    private InsetsOutlineProvider mInsetsUpdater;
     private SuggestionStripView mSuggestionStripView;
 
     private RichInputMethodManager mRichImm;
@@ -680,9 +674,8 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void setInputView(final View view) {
         super.setInputView(view);
-        mInputView = view;
-        mInsetsUpdater = ViewOutlineProviderUtilsKt.setInsetsOutlineProvider(view);
-        KtxKt.updateSoftInputWindowLayoutParameters(this, mInputView);
+        // updateSoftInputWindowLayoutParameters needs to happen after setInputView
+        mKeyboardSwitcher.updateSoftInputWindowLayoutParameters();
         updateSuggestionStripView(view);
     }
 
@@ -927,8 +920,7 @@ public class LatinIME extends InputMethodService implements
     public void onWindowShown() {
         super.onWindowShown();
         if (isInputViewShown()) {
-            if (mInputView != null && Settings.getValues().mIsFloatingKeyboard)
-                FloatingKeyboardUtils.setFloating(mInputView);
+            mKeyboardSwitcher.onWindowShown();
             setNavigationBarColor();
             workaroundForHuaweiStatusBarIssue();
         }
@@ -1086,55 +1078,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onComputeInsets(InputMethodService.Insets outInsets) {
         super.onComputeInsets(outInsets);
-        // This method may be called before {@link #setInputView(View)}.
-        if (mInputView == null) {
-            return;
-        }
-        // we have an inputView, so we can ignore the null warnings below
-        View visibleKeyboardView = mKeyboardSwitcher.getWrapperView();
-        int inputHeight = mInputView.getHeight();
-        if (isImeSuppressedByHardwareKeyboard() && !visibleKeyboardView.isShown()) {
-            // If there is a hardware keyboard and a visible software keyboard view has been hidden,
-            // no visual element will be shown on the screen.
-            // for some reason setting contentTopInsets and visibleTopInsets broke somewhere along the
-            // way from OpenBoard to HeliBoard (GH-702, GH-1455), but not setting anything seems to work
-            mInsetsUpdater.setInsets(outInsets);
-            return;
-        }
-        View stripContainer = mKeyboardSwitcher.getStripContainer();
-        int stripHeight = stripContainer.isShown() ? stripContainer.getHeight() : 0;
-        int visibleTopY = inputHeight - (visibleKeyboardView.isShown() ? visibleKeyboardView.getHeight() : 0) - stripHeight;
-        if (Settings.getValues().mIsFloatingKeyboard)
-            visibleTopY = getResources().getDisplayMetrics().heightPixels;
-
-        if (hasSuggestionStripView()) {
-            mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
-        }
-
-        // Need to set expanded touchable region only if a keyboard view is being shown.
-        // When using a floating keyboard and the showToolbarOnly setting, the wrapper view may be hidden but we still have a view
-        if (visibleKeyboardView.isShown() || (mSettings.getCurrent().mIsFloatingKeyboard && mInputView.isShown())) {
-            int touchLeft = 0;
-            int touchTop = mKeyboardSwitcher.isShowingPopupKeysPanel() ? 0 : visibleTopY;
-            int touchRight = visibleKeyboardView.getWidth();
-            int touchBottom = inputHeight + EXTENDED_TOUCHABLE_REGION_HEIGHT; // Extend touchable region below the keyboard.
-            if (mSettings.getCurrent().mIsFloatingKeyboard) {
-                var xy = FloatingKeyboardUtils.readPosition(this, Integer.MAX_VALUE, Integer.MAX_VALUE);
-                touchLeft = xy.component1();
-                touchTop = xy.component2();
-                touchRight = touchLeft + mSettings.getCurrent().mFloatingWidth;
-                touchBottom = touchTop + inputHeight;
-            }
-            outInsets.touchableInsets = InputMethodService.Insets.TOUCHABLE_INSETS_REGION;
-            outInsets.touchableRegion.set(touchLeft, touchTop, touchRight, touchBottom);
-        }
-
-        // Has to be subtracted after calculating touchableRegion
-        visibleTopY -= getEmojiSearchActivityHeight();
-
-        outInsets.contentTopInsets = visibleTopY;
-        outInsets.visibleTopInsets = visibleTopY;
-        mInsetsUpdater.setInsets(outInsets);
+        mKeyboardSwitcher.updateInsets(outInsets);
     }
 
     public void startShowingInputView(final boolean needsToLoadKeyboard) {
@@ -1196,7 +1140,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void updateFullscreenMode() {
         super.updateFullscreenMode();
-        KtxKt.updateSoftInputWindowLayoutParameters(this, mInputView);
+        mKeyboardSwitcher.updateSoftInputWindowLayoutParameters();
     }
 
     @Override
@@ -1603,7 +1547,7 @@ public class LatinIME extends InputMethodService implements
         return getEmojiSearchActivityHeight() > 0;
     }
 
-    private int getEmojiSearchActivityHeight() {
+    public int getEmojiSearchActivityHeight() {
         return EmojiSearchActivity.Companion.decodePrivateImeOptions(getCurrentInputEditorInfo()).height();
     }
 
