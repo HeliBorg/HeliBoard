@@ -110,7 +110,7 @@ class KeyboardSwitcher private constructor() {
     val keyboardSwitchState: KeyboardSwitchState get() = when {
         isShowingEmojiPalettes -> KeyboardSwitchState.EMOJI
         isShowingClipboardHistory -> KeyboardSwitchState.CLIPBOARD
-        (keyboardLayoutSet == null || inputView?.keyboardView?.isShown != true) -> KeyboardSwitchState.HIDDEN
+        (keyboardLayoutSet == null || inputView?.keyboardView?.isShown != true) && stripContainer?.isShown != true -> KeyboardSwitchState.HIDDEN
         isShowingKeyboardId(KeyboardElement.SYMBOLS_SHIFTED) -> KeyboardSwitchState.SYMBOLS_SHIFTED
         else -> KeyboardSwitchState.OTHER
     }
@@ -243,7 +243,7 @@ class KeyboardSwitcher private constructor() {
         PointerTracker.switchTo(inputView.keyboardView)
         inputView.keyboardView.isGone = isGone
         inputView.keyboardFrame.isGone = isGone
-        inputView.wrapperView.isGone = Settings.getInstance().readShowToolbarOnly()
+        inputView.wrapperView.isGone = Settings.getInstance().readShowToolbarOnly() && toggleState == KeyboardSwitchState.OTHER
         emojiPalettes?.isGone = true
         emojiPalettes?.stopEmojiPalettes()
         inputView.emojiTabStrip.isGone = true
@@ -257,8 +257,10 @@ class KeyboardSwitcher private constructor() {
         val currentState = keyboardSwitchState
         Log.w(TAG, "onToggleKeyboard() : Current = $currentState : Toggle = $toggleState")
         if (currentState == toggleState) {
-            latinIME.stopShowingInputView()
-            latinIME.hideWindow()
+            if (!Settings.getInstance().readShowToolbarOnly()) {
+                latinIME.stopShowingInputView()
+                latinIME.hideWindow()
+            }
             resetKeyboardStateToAlphabet()
         } else {
             latinIME.startShowingInputView(true)
@@ -493,6 +495,7 @@ class KeyboardSwitcher private constructor() {
             if (KeyboardState.SwitchActions.DEBUG_ACTION) {
                 Log.d(TAG, "setEmojiKeyboard")
             }
+            inputView.wrapperView.isGone = false
             inputView.keyboardFrame.isGone = false
             inputView.keyboardView.isGone = true
             inputView.suggestionStripView.isGone = true
@@ -512,6 +515,7 @@ class KeyboardSwitcher private constructor() {
             if (KeyboardState.SwitchActions.DEBUG_ACTION) {
                 Log.d(TAG, "setClipboardKeyboard")
             }
+            inputView.wrapperView.isGone = false
             inputView.keyboardFrame.isGone = false
             inputView.keyboardView.isGone = true
             inputView.emojiTabStrip.isGone = true

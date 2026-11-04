@@ -1119,7 +1119,7 @@ public class LatinIME extends InputMethodService implements
         }
         View stripContainer = mKeyboardSwitcher.getStripContainer();
         int stripHeight = stripContainer.isShown() ? stripContainer.getHeight() : 0;
-        int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
+        int visibleTopY = inputHeight - (visibleKeyboardView.isShown() ? visibleKeyboardView.getHeight() : 0) - stripHeight;
         if (Settings.getValues().mIsFloatingKeyboard)
             visibleTopY = getResources().getDisplayMetrics().heightPixels;
 
