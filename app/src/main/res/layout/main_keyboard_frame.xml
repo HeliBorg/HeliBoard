@@ -28,14 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <ViewStub
-            android:inflatedId="@+id/emoji_palettes_view"
-            android:id="@+id/emoji_palettes_stub"
+            android:id="@+id/emoji_palettes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout="@layout/emoji_palettes_view" />
         <ViewStub
-            android:inflatedId="@+id/clipboard_history_view"
-            android:id="@+id/clipboard_history_stub"
+            android:id="@+id/clipboard_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout="@layout/clipboard_history_view" />

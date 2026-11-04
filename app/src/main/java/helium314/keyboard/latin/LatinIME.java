@@ -1100,14 +1100,15 @@ public class LatinIME extends InputMethodService implements
     }
 
     @Override
-    public void onComputeInsets(final InputMethodService.Insets outInsets) {
+    public void onComputeInsets(InputMethodService.Insets outInsets) {
         super.onComputeInsets(outInsets);
         // This method may be called before {@link #setInputView(View)}.
         if (mInputView == null) {
             return;
         }
-        final View visibleKeyboardView = mKeyboardSwitcher.getWrapperView();
-        final int inputHeight = mInputView.getHeight();
+        // we have an inputView, so we can ignore the null warnings below
+        View visibleKeyboardView = mKeyboardSwitcher.getWrapperView();
+        int inputHeight = mInputView.getHeight();
         if (isImeSuppressedByHardwareKeyboard() && !visibleKeyboardView.isShown()) {
             // If there is a hardware keyboard and a visible software keyboard view has been hidden,
             // no visual element will be shown on the screen.
@@ -1116,7 +1117,8 @@ public class LatinIME extends InputMethodService implements
             mInsetsUpdater.setInsets(outInsets);
             return;
         }
-        final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
+        View stripContainer = mKeyboardSwitcher.getStripContainer();
+        int stripHeight = stripContainer.isShown() ? stripContainer.getHeight() : 0;
         int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
         if (Settings.getValues().mIsFloatingKeyboard)
             visibleTopY = getResources().getDisplayMetrics().heightPixels;

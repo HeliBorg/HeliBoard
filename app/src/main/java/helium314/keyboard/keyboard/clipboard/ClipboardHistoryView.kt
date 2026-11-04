@@ -98,7 +98,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             clipboardLayoutParams.setListProperties(this)
             placeholderView = this@ClipboardHistoryView.placeholderView
         }
-        val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip
+        val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip!!
         getEnabledClipboardToolbarKeys(context.prefs()).forEach {
             val key = createToolbarKey(context, it)
             clipboardStrip.addView(key)
@@ -242,7 +242,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
-        setToolbarButtonsActivatedStateOnPrefChange(KeyboardSwitcher.getInstance().clipboardStrip, key)
+        setToolbarButtonsActivatedStateOnPrefChange(KeyboardSwitcher.getInstance().clipboardStrip!!, key)
 
         // The setting can only be changed from a settings screen, but adding it to this listener seems necessary: https://github.com/HeliBorg/HeliBoard/pull/1903#issuecomment-3478424606
         if (::clipboardHistoryManager.isInitialized && key == Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST) {
