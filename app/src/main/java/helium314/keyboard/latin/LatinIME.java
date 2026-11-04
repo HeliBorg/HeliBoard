@@ -1128,7 +1128,8 @@ public class LatinIME extends InputMethodService implements
         }
 
         // Need to set expanded touchable region only if a keyboard view is being shown.
-        if (visibleKeyboardView.isShown()) {
+        // When using a floating keyboard and the showToolbarOnly setting, the wrapper view may be hidden but we still have a view
+        if (visibleKeyboardView.isShown() || (mSettings.getCurrent().mIsFloatingKeyboard && mInputView.isShown())) {
             int touchLeft = 0;
             int touchTop = mKeyboardSwitcher.isShowingPopupKeysPanel() ? 0 : visibleTopY;
             int touchRight = visibleKeyboardView.getWidth();

@@ -39,10 +39,10 @@ object FloatingKeyboardUtils {
         val (x, y) = readPosition(
             view.context,
             windowFrame.right - windowFrame.left - Settings.getValues().mFloatingWidth,
-            windowFrame.bottom - windowFrame.top - extraHeight.toInt() - Settings.getValues().mFloatingHeight
+            windowFrame.bottom - windowFrame.top - extraHeight.toInt() - actualFloatingHeight
         )
         if (DebugFlags.DEBUG_ENABLED)
-            Log.d(TAG, "place floating view at $x, $y, width ${Settings.getValues().mFloatingWidth}, height ${Settings.getValues().mFloatingHeight}")
+            Log.d(TAG, "place floating view at $x, $y, width ${Settings.getValues().mFloatingWidth}, height $actualFloatingHeight")
         ViewLayoutUtils.placeViewAt(view, x, y, Settings.getValues().mFloatingWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
         if (view.findViewById<View>(R.id.float_handle_container)?.isVisible == true)
             return
@@ -115,7 +115,7 @@ object FloatingKeyboardUtils {
                     val availableWidth = windowFrame.right - windowFrame.left
                     val availableHeight = windowFrame.bottom - windowFrame.top
                     positionX = (positionX + dx).coerceIn(0f, (availableWidth - sv.mFloatingWidth).toFloat())
-                    positionY = (positionY + dy).coerceIn(0f, availableHeight - extraHeight - sv.mFloatingHeight)
+                    positionY = (positionY + dy).coerceIn(0f, availableHeight - extraHeight - actualFloatingHeight)
                     lp.leftMargin = positionX.toInt()
                     lp.topMargin = positionY.toInt()
                     savePosition(context, lp.leftMargin, lp.topMargin)
@@ -156,7 +156,7 @@ object FloatingKeyboardUtils {
                     val newWidth = (Settings.getValues().mFloatingWidth + dx / scale).toInt()
                         .coerceIn(minWidth, maxWidth)
                         .coerceAtMost(availableWidth - lp.leftMargin)
-                    val newHeight = (Settings.getValues().mFloatingHeight + dy / scale).toInt()
+                    val newHeight = (actualFloatingHeight + dy / scale).toInt()
                         .coerceIn(minHeight, maxHeight)
                         .coerceAtMost(availableHeight - extraHeight.toInt() - lp.topMargin)
                     setFloatingSize(context, newWidth, newHeight)
@@ -168,4 +168,7 @@ object FloatingKeyboardUtils {
             }
         }
     }
+
+    // mFloatingHeight does not consider whether everything or only the toolbar is shown
+    private val actualFloatingHeight get() = if (Settings.getInstance().readShowToolbarOnly()) 0 else Settings.getValues().mFloatingHeight
 }
