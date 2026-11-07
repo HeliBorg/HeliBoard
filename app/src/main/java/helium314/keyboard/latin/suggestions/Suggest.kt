@@ -90,7 +90,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // add suggestions for the "extended word" at cursor
         // using a different iterator that also includes digits and maybe more
         val extendedWord = textAtCursor?.getWordAtCursor(CompatBreakIterator.getWordInstance(keyboard.mId.locale))?.word
-        if (extendedWord != null && extendedWord.length > typedWordString.length) {
+        if (extendedWord != null && typedWordString.isNotEmpty() && extendedWord.length > typedWordString.length) {
             // ideally we'd extendComposed data for better suggestions, but that's for later (if ever)
             val extendedWord = textAtCursor.getWordAtCursor(CompatBreakIterator.getWordInstance(keyboard.mId.locale)).word.toString()
             val altSuggestions = mDictionaryFacilitator.getSuggestionResults(ComposedData.createForWord(extendedWord), ngramContext, keyboard,
