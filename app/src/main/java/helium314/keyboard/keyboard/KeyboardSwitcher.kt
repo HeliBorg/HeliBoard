@@ -676,6 +676,9 @@ class KeyboardSwitcher private constructor() {
             ) {
                 loadEmojiDefaultVersionsAndPopupSpecs(themeContext)
             }
+
+            // the mode changed (e.g. numpad/dpad), so refresh the toolbar toggle highlights
+            inputView.suggestionStripView.updateToolbarButtonStates()
         }
     }
 

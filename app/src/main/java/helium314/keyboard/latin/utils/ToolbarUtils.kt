@@ -3,6 +3,8 @@ package helium314.keyboard.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.os.Build
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
@@ -11,6 +13,8 @@ import android.widget.ImageView
 import androidx.core.content.edit
 import androidx.core.view.forEach
 import helium314.keyboard.event.HapticEvent
+import helium314.keyboard.keyboard.KeyboardElement
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
@@ -19,9 +23,6 @@ import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.util.EnumMap
 import java.util.Locale
 
@@ -30,8 +31,11 @@ fun createToolbarKey(context: Context, key: ToolbarKey): ImageButton {
     button.scaleType = ImageView.ScaleType.CENTER
     button.tag = key
     button.contentDescription = key.name.lowercase().getStringResourceOrName("", context)
-    setToolbarButtonActivatedState(button)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        button.tooltipText = button.contentDescription // long-press shows what the key does
+
     button.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(key.name, context))
+    setToolbarButtonActivatedState(button)
     return button
 }
 
@@ -41,23 +45,46 @@ fun setToolbarButtonsActivatedStateOnPrefChange(buttonsGroup: ViewGroup, key: St
         && key != Settings.PREF_ALWAYS_INCOGNITO_MODE
         && key != GestureDataGatheringSettings.PREF_BACKGROUND_GATHERING_ENABLED
         && key != GestureDataGatheringSettings.PREF_BACKGROUND_DISABLED_BEFORE_TIME_MILLIS
-        && key?.startsWith(Settings.PREF_ONE_HANDED_MODE_PREFIX) == false)
+        && key?.startsWith(Settings.PREF_ONE_HANDED_MODE_PREFIX) == false
+        && key?.startsWith(Settings.PREF_ENABLE_SPLIT_KEYBOARD) == false)
         return
 
-    GlobalScope.launch {
-        delay(10) // need to wait until SettingsValues are reloaded
-        buttonsGroup.forEach { if (it is ImageButton) setToolbarButtonActivatedState(it) }
-    }
+    // states are read straight from prefs (which are already written at this point), so no wait for
+    // a SettingsValues reload is needed; post only to make sure we touch the views on the UI thread
+    buttonsGroup.post { buttonsGroup.forEach { if (it is ImageButton) setToolbarButtonActivatedState(it) } }
+}
+
+/** refresh the activated state of all toolbar buttons, e.g. after the keyboard mode changed */
+fun refreshToolbarButtonActivatedStates(buttonsGroup: ViewGroup) {
+    buttonsGroup.forEach { if (it is ImageButton) setToolbarButtonActivatedState(it) }
 }
 
 private fun setToolbarButtonActivatedState(button: ImageButton) {
+    // read the current values straight from prefs instead of the cached SettingsValues: that cache is
+    // only reloaded asynchronously after a pref change, which previously made the toggle color lag or
+    // show the previous state (and split was never refreshed at all)
+    val prefs = button.context.prefs()
+    val landscape = button.context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val folded = FoldableUtils.isFolded
+    val split = Settings.readSplitKeyboardEnabled(prefs, landscape, folded)
     button.isActivated = when (button.tag) {
-        INCOGNITO -> button.context.prefs().getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE)
-        ONE_HANDED -> Settings.getValues().mOneHandedModeEnabled
-        SPLIT -> Settings.getValues().mIsSplitKeyboardEnabled
-        AUTOCORRECT -> Settings.getValues().mAutoCorrectionEnabledPerUserSettings
+        // incognito is highlighted like any other toggle (accent when force-incognito is on); it keeps a
+        // single plain glasses icon and is only re-tinted, not swapped/crossed out, to match the toolbar
+        INCOGNITO -> prefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE)
+        // floating keyboard force-disables one-handed mode (see SettingsValues.mOneHandedModeEnabled),
+        // so mirror that guard here, otherwise the toggle would light up while floating
+        ONE_HANDED -> !Settings.getValues().mIsFloatingKeyboard && Settings.readOneHandedModeEnabled(prefs, landscape, split, folded)
+        SPLIT -> split
+        AUTOCORRECT -> prefs.getBoolean(Settings.PREF_AUTO_CORRECTION, Defaults.PREF_AUTO_CORRECTION)
+        // mode keys: highlighted while their panel/mode is the one currently active (not a fleeting action)
+        NUMPAD -> KeyboardSwitcher.getInstance().isShowingKeyboardId(KeyboardElement.NUMPAD)
+        DPAD -> KeyboardSwitcher.getInstance().isShowingKeyboardId(KeyboardElement.DPAD)
+        FLOATING -> Settings.getValues().mIsFloatingKeyboard
         BACKGROUND_GATHERING -> useBackgroundGathering
-        else -> true
+        // non-toggle keys have no on/off state; keep them neutral so only enabled toggles get
+        // the activated highlight (previously they were all "activated", which highlighted the
+        // idle toggles instead of the active ones)
+        else -> false
     }
 }
 
