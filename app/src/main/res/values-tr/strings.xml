@@ -175,6 +175,15 @@
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">İşlevsel tuşlar (Semboller)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">İşlevsel tuşlar (Daha fazla sembol)</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Semboller (Arapça)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Semboller (Almanca)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Semboller (İskandinav)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Semboller (Birleşik Krallık)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Semboller (İspanyolca)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Semboller (İtalyanca)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Semboller (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Semboller (Brezilya)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Semboller (Türkçe)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Semboller (İsviçre)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Daha fazla sembol</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefon sembolleri</string>

@@ -301,6 +301,15 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funkcionalne tipke (više simbola)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Simboli</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simboli (arapski)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Simboli (njemački)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Simboli (nordijski)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Simboli (britanski)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Simboli (španjolski)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Simboli (talijanski)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Simboli (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Simboli (brazilski)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Simboli (turski)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Simboli (švicarski)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Više simbola</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefonski raspored</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Simboli telefona</string>
