@@ -194,6 +194,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
     public static final String PREF_SPACE_BAR_TEXT = "space_bar_text";
     public static final String PREF_TIMESTAMP_FORMAT = "timestamp_format";
+    public static final String PREF_TOOLBAR_CONTENTS = "toolbar_contents";
+    // replaced by PREF_TOOLBAR_CONTENTS, only read to take over existing settings
     public static final String PREF_TOOLBAR_MODE = "toolbar_mode";
     public static final String PREF_TOOLBAR_HIDING_GLOBAL = "toolbar_hiding_global";
     public static final String PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE = "toolbar_swipe_down_to_hide";
@@ -353,7 +355,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static ToolbarMode readToolbarMode(final SharedPreferences prefs) {
-        return ToolbarMode.valueOf(prefs.getString(PREF_TOOLBAR_MODE, Defaults.PREF_TOOLBAR_MODE));
+        return ToolbarUtilsKt.toolbarModeOf(ToolbarUtilsKt.readToolbarContents(prefs));
     }
 
     public static KeyboardActionListener.SwipeAction readHorizontalSpaceSwipe(SharedPreferences prefs) {

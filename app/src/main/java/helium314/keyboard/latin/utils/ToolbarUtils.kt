@@ -23,6 +23,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.EnumMap
+import java.util.EnumSet
 import java.util.Locale
 
 fun createToolbarKey(context: Context, key: ToolbarKey): ImageButton {
@@ -126,6 +127,93 @@ enum class ToolbarKey {
 
 enum class ToolbarMode {
     EXPANDABLE, TOOLBAR_KEYS, SUGGESTION_STRIP, HIDDEN,
+}
+
+/** What the strip above the keyboard is shown for. Each one is chosen on its own. */
+enum class ToolbarContent {
+    TOOLBAR_KEYS, SUGGESTIONS, CLIPBOARD, EMOJI_CATEGORIES,
+}
+
+/** How the strip above the main keyboard behaves for the chosen [contents]. */
+fun toolbarModeOf(contents: Set<ToolbarContent>): ToolbarMode {
+    val keys = ToolbarContent.TOOLBAR_KEYS in contents
+    val suggestions = ToolbarContent.SUGGESTIONS in contents
+    return when {
+        keys && suggestions -> ToolbarMode.EXPANDABLE
+        keys -> ToolbarMode.TOOLBAR_KEYS
+        suggestions -> ToolbarMode.SUGGESTION_STRIP
+        else -> ToolbarMode.HIDDEN
+    }
+}
+
+/**
+ * What the strip above the keyboard is shown for. Suggestions are not stored with the other contents:
+ * they are shown exactly when "show suggestions" is on, so both settings always agree.
+ */
+fun readToolbarContents(prefs: SharedPreferences): Set<ToolbarContent> {
+    val contents = EnumSet.noneOf(ToolbarContent::class.java)
+    contents.addAll(prefs.getString(Settings.PREF_TOOLBAR_CONTENTS, null)?.let { parseToolbarContents(it) }
+        ?: DEFAULT_TOOLBAR_CONTENTS)
+    contents.remove(ToolbarContent.SUGGESTIONS)
+    if (prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, Defaults.PREF_SHOW_SUGGESTIONS))
+        contents.add(ToolbarContent.SUGGESTIONS)
+    return contents
+}
+
+fun writeToolbarContents(prefs: SharedPreferences, contents: Collection<ToolbarContent>) = prefs.edit {
+    putString(Settings.PREF_TOOLBAR_CONTENTS, toolbarContentsToPref(contents.filter { it != ToolbarContent.SUGGESTIONS }))
+    putBoolean(Settings.PREF_SHOW_SUGGESTIONS, ToolbarContent.SUGGESTIONS in contents)
+}
+
+/**
+ * Takes over the former toolbar mode and the switch for hiding the clipboard and emoji strips, if they
+ * were set. Suggestions used to need both a mode that shows them and "show suggestions", so that switch
+ * is turned off where the mode did not show suggestions.
+ */
+fun migrateLegacyToolbarSettings(prefs: SharedPreferences) {
+    if (!prefs.contains(Settings.PREF_TOOLBAR_MODE) && !prefs.contains(Settings.PREF_TOOLBAR_HIDING_GLOBAL))
+        return
+    val contents = toolbarContentsFromLegacy(
+        prefs.getString(Settings.PREF_TOOLBAR_MODE, null),
+        prefs.getBoolean(Settings.PREF_TOOLBAR_HIDING_GLOBAL, true)
+    )
+    val suggestions = ToolbarContent.SUGGESTIONS in contents
+            && prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, Defaults.PREF_SHOW_SUGGESTIONS)
+    prefs.edit {
+        putString(Settings.PREF_TOOLBAR_CONTENTS, toolbarContentsToPref(contents.filter { it != ToolbarContent.SUGGESTIONS }))
+        putBoolean(Settings.PREF_SHOW_SUGGESTIONS, suggestions)
+        remove(Settings.PREF_TOOLBAR_MODE)
+        remove(Settings.PREF_TOOLBAR_HIDING_GLOBAL)
+    }
+}
+
+/** contents other than suggestions on a fresh install, matching the former default mode */
+private val DEFAULT_TOOLBAR_CONTENTS = listOf(ToolbarContent.TOOLBAR_KEYS, ToolbarContent.CLIPBOARD, ToolbarContent.EMOJI_CATEGORIES)
+
+fun toolbarContentsToPref(contents: Collection<ToolbarContent>): String =
+    ToolbarContent.entries.filter { it in contents }.joinToString(Separators.ENTRY) { it.name }
+
+fun parseToolbarContents(value: String): Set<ToolbarContent> =
+    value.split(Separators.ENTRY).mapNotNullTo(EnumSet.noneOf(ToolbarContent::class.java)) { name ->
+        ToolbarContent.entries.firstOrNull { it.name == name }
+    }
+
+/**
+ * Contents equivalent to the former settings: a toolbar mode, plus a switch that decided whether the
+ * clipboard and emoji strips were hidden too when the mode was hidden. Missing values are the old defaults.
+ */
+fun toolbarContentsFromLegacy(mode: String?, hidingGlobal: Boolean): Set<ToolbarContent> {
+    val toolbarMode = ToolbarMode.entries.firstOrNull { it.name == mode } ?: ToolbarMode.EXPANDABLE
+    val contents = EnumSet.noneOf(ToolbarContent::class.java)
+    if (toolbarMode == ToolbarMode.EXPANDABLE || toolbarMode == ToolbarMode.TOOLBAR_KEYS)
+        contents.add(ToolbarContent.TOOLBAR_KEYS)
+    if (toolbarMode == ToolbarMode.EXPANDABLE || toolbarMode == ToolbarMode.SUGGESTION_STRIP)
+        contents.add(ToolbarContent.SUGGESTIONS)
+    if (toolbarMode != ToolbarMode.HIDDEN || !hidingGlobal) {
+        contents.add(ToolbarContent.CLIPBOARD)
+        contents.add(ToolbarContent.EMOJI_CATEGORIES)
+    }
+    return contents
 }
 
 val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
