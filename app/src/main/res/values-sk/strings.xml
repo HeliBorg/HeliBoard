@@ -550,4 +550,7 @@
     <string name="recent_emojis_cleared">Vyčistené nedávne emodži</string>
     <string name="prefs_enable_hardware_keyboard">Podpora hardvérovej klávesnice</string>
     <string name="accent_shifted_icon">Ikona klávesy Shift s zvýraznením</string>
+    <string name="gesture_data_single_instance_per_word">Zobraziť len jeden záznam na slovo</string>
+    <string name="delete_swipe_words">Slová</string>
+    <string name="delete_swipe_letters">Písmená</string>
 </resources>

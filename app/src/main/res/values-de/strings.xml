@@ -550,4 +550,7 @@
     <string name="recent_emojis_cleared">Zuletzt verwendete Emojis gelöscht</string>
     <string name="prefs_enable_hardware_keyboard">Unterstützung für Hardwaretastaturen</string>
     <string name="accent_shifted_icon">Akzentfarbe für das Umschaltsymbol</string>
+    <string name="delete_swipe_letters">Buchstaben</string>
+    <string name="delete_swipe_words">Wörter</string>
+    <string name="gesture_data_single_instance_per_word">Nur einen Eintrag pro Wort anzeigen</string>
 </resources>

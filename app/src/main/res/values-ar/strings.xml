@@ -559,4 +559,7 @@
     <string name="recent_emojis_cleared">مُحت الرموز التعبيرية الحديثة</string>
     <string name="prefs_enable_hardware_keyboard">دعم لوحات المفاتيح المادية</string>
     <string name="accent_shifted_icon">رمز «shift» مع علامة التشديد</string>
+    <string name="delete_swipe_letters">أحرف</string>
+    <string name="delete_swipe_words">كلمات</string>
+    <string name="gesture_data_single_instance_per_word">أظهر فقط مدخل واحد لكل كلمة</string>
 </resources>

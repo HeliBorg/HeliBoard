@@ -552,4 +552,7 @@
     <string name="show_dpad_key">מקש D-pad (מקשי כיוון)</string>
     <string name="accent_shifted_icon">סמל shift מודגש</string>
     <string name="prefs_enable_hardware_keyboard">תמיכה במקלדת חומרה</string>
+    <string name="gesture_data_single_instance_per_word">הצגת מופע יחיד לכל מילה</string>
+    <string name="delete_swipe_words">מילים</string>
+    <string name="delete_swipe_letters">אותיות</string>
 </resources>

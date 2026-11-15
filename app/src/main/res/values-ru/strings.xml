@@ -550,4 +550,7 @@
     <string name="recent_emojis_cleared">Недавние эмодзи очищены</string>
     <string name="prefs_enable_hardware_keyboard">Поддержка аппаратной клавиатуры</string>
     <string name="accent_shifted_icon">Акцентный цвет значка Shift</string>
+    <string name="gesture_data_single_instance_per_word">Только один экземпляр каждого слова</string>
+    <string name="delete_swipe_letters">Буквы</string>
+    <string name="delete_swipe_words">Слова</string>
 </resources>

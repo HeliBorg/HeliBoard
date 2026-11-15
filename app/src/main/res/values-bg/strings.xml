@@ -552,4 +552,7 @@
     <string name="recent_emojis_cleared">Изчистени са скорошни емоджита</string>
     <string name="prefs_enable_hardware_keyboard">Поддръжка на хардуерна клавиатура</string>
     <string name="accent_shifted_icon">Икона за акцентирана смяна</string>
+    <string name="delete_swipe_letters">Букви</string>
+    <string name="delete_swipe_words">Думи</string>
+    <string name="gesture_data_single_instance_per_word">Показване само на един запис на дума</string>
 </resources>

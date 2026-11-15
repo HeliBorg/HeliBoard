@@ -555,4 +555,7 @@ Nouveau dictionnaire:
     <string name="recent_emojis_cleared">Émojis récents effacés</string>
     <string name="prefs_enable_hardware_keyboard">Prise en charge du clavier physique</string>
     <string name="accent_shifted_icon">Icône de majuscule accentuée</string>
+    <string name="delete_swipe_letters">Lettres</string>
+    <string name="delete_swipe_words">Mots</string>
+    <string name="gesture_data_single_instance_per_word">Afficher uniquement une entrée par mot</string>
 </resources>

@@ -550,4 +550,7 @@
     <string name="recent_emojis_cleared">Apagou emojis recentes</string>
     <string name="prefs_enable_hardware_keyboard">Suporte para teclado físico</string>
     <string name="accent_shifted_icon">Ícone de Maiús destacado</string>
+    <string name="delete_swipe_letters">Letras</string>
+    <string name="delete_swipe_words">Palavras</string>
+    <string name="gesture_data_single_instance_per_word">Mostrar apenas uma entrada por palavra</string>
 </resources>

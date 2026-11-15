@@ -482,4 +482,10 @@
     <string name="custom_subtype">사용자 지정 서브타입</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">방향 패드</string>
     <string name="space_swipe_toggle_dpad_entry">방향 패드 전환</string>
+    <string name="delete_swipe_letters">글자</string>
+    <string name="delete_swipe_words">단어</string>
+    <string name="recent_emojis_cleared">최근 이모지 지움</string>
+    <string name="prefs_enable_hardware_keyboard">하드웨어 키보드 지원</string>
+    <string name="accent_shifted_icon">Shift 아이콘 강조</string>
+    <string name="show_dpad_key">방향키</string>
 </resources>

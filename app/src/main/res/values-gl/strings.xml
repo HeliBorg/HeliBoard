@@ -558,4 +558,7 @@
     <string name="show_dpad_key">Tecla D-pad</string>
     <string name="prefs_enable_hardware_keyboard">Compatibilidade con teclado físico</string>
     <string name="accent_shifted_icon">Icona das maiúsculas destacada</string>
+    <string name="delete_swipe_letters">Letras</string>
+    <string name="delete_swipe_words">Palabras</string>
+    <string name="gesture_data_single_instance_per_word">Mostrar só unha entrada por palabra</string>
 </resources>

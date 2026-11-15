@@ -551,4 +551,7 @@
     <string name="recent_emojis_cleared">সম্প্রতিক ইমোজি পরিষ্কৃত</string>
     <string name="prefs_enable_hardware_keyboard">হার্ডওয়্যার কিবোর্ড সমর্থন</string>
     <string name="accent_shifted_icon">প্রধানীকৃত শিফট আইকন</string>
+    <string name="delete_swipe_letters">বর্ণ</string>
+    <string name="delete_swipe_words">শব্দ</string>
+    <string name="gesture_data_single_instance_per_word">প্রতি শব্দের জন্য কেবল একটি অন্তর্ভুক্তি প্রদর্শন</string>
 </resources>
