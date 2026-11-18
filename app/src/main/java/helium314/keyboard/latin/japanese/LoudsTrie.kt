@@ -1,0 +1,142 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
+package helium314.keyboard.latin.japanese
+
+/**
+ * Level-Order Unary Degree Sequence (LOUDS) Trie Kotlin implementation
+ *
+ * inspired by:
+ * https://github.com/KazumaProject/JapaneseKeyboard/blob/dev/app/src/main/java/com/kazumaproject/markdownhelperkeyboard/converter/louds/LOUDS.kt
+ * https://github.com/KazumaProject/JapaneseKeyboard/blob/dev/app/src/main/java/com/kazumaproject/markdownhelperkeyboard/converter/bitset/SuccinctBitVector.kt
+ * https://github.com/KazumaProject/JapaneseKeyboard/blob/dev/app/src/main/java/com/kazumaproject/markdownhelperkeyboard/converter/louds/with_term_id/LOUDSWithTermId.kt
+ *
+ * Packs the whole tree into a handful of arrays, computed once when the dictionary is loaded.
+ *
+ * each step "down" consumes one char of the string being looked up,
+ * so you can find every dictionary word starting without scanning the whole dictionary.
+ *
+ * Each key's position in the sorted list it was built from is its "term id", returned by
+ * [exactMatch] and [commonPrefixSearch] so callers can look up the actual word data (kanji, cost,
+ * part of speech) in a separate, parallel array.
+ *
+ */
+class LoudsTrie private constructor(
+    private val lbs: BooleanArray,
+    private val firstChildId: IntArray,
+    private val childCount: IntArray,
+    private val childLabel: CharArray,
+    private val termId: IntArray
+) {
+    /**
+     * Start at root, follow one child per character. If a character doesn't have a matching child
+     * return null. If it matches completly, return likely node
+     */
+    fun exactMatch(s: String): Int? {
+        var node = 0
+        for (c in s) {
+            node = child(node, c) ?: return null
+        }
+        val t = termId[node]
+        return if (t >= 0) t else null
+    }
+
+    /**
+     * very similar to [exactMatch()], but checks every node. Every step that matches a word gets returned.
+     */
+    fun commonPrefixSearch(s: String, from: Int): List<Pair<Int, Int>> {
+        val results = mutableListOf<Pair<Int, Int>>()
+        var node = 0
+        for (i in from until s.length) {
+            node = child(node, s[i]) ?: break
+            val t = termId[node]
+            if (t >= 0) results.add((i + 1) to t)
+        }
+        return results
+    }
+
+    /**
+     * binary search node's children
+     */
+    private fun child(node: Int, c: Char): Int? {
+        val count = childCount[node]
+        if (count == 0) return null
+        val first = firstChildId[node]
+        var lo = 0
+        var hi = count - 1
+        while (lo <= hi) {
+            val mid = (lo + hi) ushr 1
+            val id = first + mid
+            val label = childLabel[id]
+            when {
+                label == c -> return id
+                label < c -> lo = mid + 1
+                else -> hi = mid - 1
+            }
+        }
+        return null
+    }
+
+    companion object {
+        /**
+         * builds a trie from [sortedKeys]; each key's index in that list becomes its term id
+         */
+        fun build(sortedKeys: List<String>): LoudsTrie {
+            val root = TrieNode()
+            for ((index, key) in sortedKeys.withIndex()) {
+                var cur = root
+                for (c in key) {
+                    cur = cur.children.getOrPut(c) { TrieNode() }
+                }
+                cur.termId = index
+            }
+
+            val lbsBits = ArrayList<Boolean>()
+            val blockStart = ArrayList<Int>()
+            val childCountList = ArrayList<Int>()
+
+            // flatten tree into arrays
+            val childLabelList = ArrayList<Char>().apply { add('\u0000') }
+            val termIdList = ArrayList<Int>().apply { add(root.termId) }
+
+            val queue = ArrayDeque<TrieNode>()
+            queue.add(root)
+            while (queue.isNotEmpty()) {
+                val node = queue.removeFirst()
+                blockStart.add(lbsBits.size)
+                val children = node.children.entries.sortedBy { it.key }
+                childCountList.add(children.size)
+                for ((label, child) in children) {
+                    lbsBits.add(true)
+                    childLabelList.add(label)
+                    termIdList.add(child.termId)
+                    queue.add(child)
+                }
+                lbsBits.add(false)
+            }
+
+            val lbs = lbsBits.toBooleanArray()
+            // succinct navigation; compute only once
+            val rank1Prefix = IntArray(lbs.size + 1)
+            for (i in lbs.indices) rank1Prefix[i + 1] = rank1Prefix[i] + if (lbs[i]) 1 else 0
+
+            val nodeCount = blockStart.size
+            val firstChildId = IntArray(nodeCount)
+            for (id in 0 until nodeCount) {
+                firstChildId[id] = if (childCountList[id] == 0) -1 else rank1Prefix[blockStart[id] + 1]
+            }
+
+            return LoudsTrie(
+                lbs,
+                firstChildId,
+                childCountList.toIntArray(),
+                childLabelList.toCharArray(),
+                termIdList.toIntArray()
+            )
+        }
+    }
+
+    private class TrieNode {
+        val children = HashMap<Char, TrieNode>()
+        var termId = -1
+    }
+}

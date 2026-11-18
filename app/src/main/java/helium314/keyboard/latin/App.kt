@@ -7,6 +7,7 @@ import android.os.Build
 import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.dictionary.ExpandableDictionaryUtils
+import helium314.keyboard.latin.japanese.JapaneseKanaKanjiConverter
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.FoldableUtils
@@ -27,7 +28,7 @@ class App : Application() {
         app = this
         val ctx: Context = this
         DebugFlags.init(this) // needed by several other inits, so do it first
-
+        JapaneseKanaKanjiConverter.init(ctx)
         val scope = CoroutineScope(Dispatchers.Default)
         // other inits can be in parallel, except what depends on SubtypeSettings
         val jobs = listOf(

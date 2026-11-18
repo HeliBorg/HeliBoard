@@ -43,6 +43,10 @@ class CombinerChain(initialText: String, combiningSpec: String) {
             mCombiners.add(HangulCombiner())
         else if (combiningSpec == "bn_khipro")
             mCombiners.add(BnKhiproCombiner())
+        else if (combiningSpec == "kana")
+            mCombiners.add(KanaCombiner())
+        else if (combiningSpec == "kana_flick")
+            mCombiners.add(FlickDakutenCombiner())
     }
 
     fun reset() {
@@ -90,7 +94,9 @@ class CombinerChain(initialText: String, combiningSpec: String) {
      */
     fun applyProcessedEvent(event: Event?) {
         if (null != event) { // TODO: figure out the generic way of doing this
-            if (KeyCode.DELETE == event.keyCode) {
+            // deleting from mCombinedText here would wrongly delete the character in front of it
+            // this is necessary for japanese, but is this intended behaviour for Hangul?
+            if (KeyCode.DELETE == event.keyCode && !event.isConsumed) {
                 val length = mCombinedText.length
                 if (length > 0) {
                     val lastCodePoint = mCombinedText.codePointBefore(length)

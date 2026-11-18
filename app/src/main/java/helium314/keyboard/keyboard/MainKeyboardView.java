@@ -90,6 +90,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     // The minimum x-scale to fit the language name on spacebar.
     private static final float MINIMUM_XSCALE_OF_LANGUAGE_NAME = 0.8f;
 
+    // Japanese flick layout space key is 1/5 of a row and uses "␣" for better visibility
+    private static final float NARROW_SPACE_KEY_WIDTH_TO_HEIGHT_RATIO = 2.0f;
+    private static final float NARROW_SPACE_KEY_TEXT_SCALE = 0.7f;
+    private static final float NARROW_SPACE_KEY_ALPHA_SCALE = 0.6f;
+
     // Stuff to draw altCodeWhileTyping keys.
     private final ObjectAnimator mAltCodeKeyWhileTypingFadeoutAnimator;
     private final ObjectAnimator mAltCodeKeyWhileTypingFadeinAnimator;
@@ -485,6 +490,15 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         if (popupKeys == null) {
             return null;
         }
+        // 12-key flick requires some specialized coordinates
+        if (FlickKeysPanel.isFlickKey(key)) {
+            final FlickKeysPanel flickPanel = new FlickKeysPanel(getContext());
+            flickPanel.setKey(key);
+            final int pointX = key.getX() + key.getWidth() / 2;
+            final int pointY = key.getY() + key.getHeight() / 2;
+            flickPanel.showPopupKeysPanel(this, this, pointX, pointY, mKeyboardActionListener);
+            return flickPanel;
+        }
         Keyboard popupKeysKeyboard = mPopupKeysKeyboardCache.get(key);
         if (popupKeysKeyboard == null) {
             // {@link KeyPreviewDrawParams#mPreviewVisibleWidth} should have been set at
@@ -810,8 +824,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         }
         final int width = key.getWidth();
         final int height = key.getHeight();
+        final boolean isNarrowSpaceKey = width < height * NARROW_SPACE_KEY_WIDTH_TO_HEIGHT_RATIO;
         paint.setTextAlign(Align.CENTER);
-        paint.setTextSize(mLanguageOnSpacebarTextSize);
+        paint.setTextSize(isNarrowSpaceKey
+                ? mLanguageOnSpacebarTextSize * NARROW_SPACE_KEY_TEXT_SCALE
+                : mLanguageOnSpacebarTextSize);
         final String customText = Settings.getValues().mSpaceBarText;
         final String spaceText;
         if (!customText.isEmpty()) {
@@ -834,7 +851,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             paint.clearShadowLayer();
         }
         paint.setColor(mLanguageOnSpacebarTextColor);
-        paint.setAlpha(mLanguageOnSpacebarAnimAlpha);
+        paint.setAlpha(isNarrowSpaceKey
+                ? (int) (mLanguageOnSpacebarAnimAlpha * NARROW_SPACE_KEY_ALPHA_SCALE)
+                : mLanguageOnSpacebarAnimAlpha);
         if (!fitsTextIntoWidth(width, spaceText, paint)) {
             final float textWidth = TypefaceUtils.getStringWidth(spaceText, paint);
             paint.setTextScaleX((width - mLanguageOnSpacebarHorizontalMargin * 2) / textWidth);
