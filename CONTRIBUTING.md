@@ -1,3 +1,8 @@
+# NOTICE
+
+**Currently it's not possible to open PRs. This is because I want to deal with existing PRs before migrating to Codeberg (https://github.com/HeliBorg/HeliBoard/issues/378), and this doesn't work for me while new PRs are coming in.**
+Will re-open probably in (late) October or November.
+
 # Getting Started
 
 HeliBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/HeliBorg/HeliBoard) (or git SSH [URL](git@github.com:Helium314/heliboard.git)).

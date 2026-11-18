@@ -276,6 +276,6 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView>(
 
     init {
         // Ensure that the view has an accessibility delegate.
-        ViewCompat.setAccessibilityDelegate(mKeyboardView, this) // todo: see the warning, this may be bad
+        ViewCompat.setAccessibilityDelegate(mKeyboardView, this)
     }
 }

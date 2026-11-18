@@ -88,6 +88,7 @@ fun AdvancedSettingsScreen(
         R.string.settings_category_experimental,
         Settings.PREF_EMOJI_MAX_SDK,
         Settings.PREF_URL_DETECTION,
+        Settings.PREF_ENABLE_HARDWARE_KEYBOARD,
         if (BuildConfig.BUILD_TYPE != "nouserlib") SettingsWithoutKey.LOAD_GESTURE_LIB else null
     )
     SearchSettingsScreen(
@@ -150,14 +151,19 @@ fun createAdvancedSettings(context: Context) = listOf(
             key = it.key,
             default = Defaults.PREF_TOUCHPAD_SENSITIVITY,
             range = 0f..100f,
-            description = { value -> value.toInt().toString() }
+            description = { value -> value.toString() }
         )
     },
     Setting(context, Settings.PREF_TOUCHPAD_EDGE_SCROLL, R.string.touchpad_edge_scroll, R.string.touchpad_edge_scroll_description) {
         SwitchPreference(it, Defaults.PREF_TOUCHPAD_EDGE_SCROLL)
     },
-    Setting(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe, R.string.delete_swipe_summary) {
-        SwitchPreference(it, Defaults.PREF_DELETE_SWIPE)
+    Setting(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe) {
+        val items = listOf(
+            stringResource(R.string.auto_correction_threshold_mode_off) to 0,
+            stringResource(R.string.delete_swipe_letters) to 1,
+            stringResource(R.string.delete_swipe_words) to 2
+        )
+        ListPreference(it, items, Defaults.PREF_DELETE_SWIPE, description = stringResource(R.string.delete_swipe_summary))
     },
     Setting(context, Settings.PREF_SPACE_TO_CHANGE_LANG,
         R.string.prefs_long_press_keyboard_to_change_lang,
@@ -272,6 +278,9 @@ fun createAdvancedSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_URL_DETECTION, R.string.url_detection_title, R.string.url_detection_summary) {
         SwitchPreference(it, Defaults.PREF_URL_DETECTION)
+    },
+    Setting(context, Settings.PREF_ENABLE_HARDWARE_KEYBOARD, R.string.prefs_enable_hardware_keyboard) {
+        SwitchPreference(it, Defaults.PREF_ENABLE_HARDWARE_KEYBOARD)
     },
     Setting(context, SettingsWithoutKey.LOAD_GESTURE_LIB, R.string.load_gesture_library, R.string.load_gesture_library_summary) {
         LoadGestureLibPreference(it)

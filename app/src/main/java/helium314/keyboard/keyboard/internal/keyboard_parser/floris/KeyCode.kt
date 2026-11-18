@@ -30,7 +30,7 @@ object KeyCode {
     const val FN =                            -5
     const val FN_LOCK =                       -6
     const val DELETE =                        -7
-    //const val DELETE_WORD =                   -8
+    const val DELETE_WORD =                   -8
     //const val FORWARD_DELETE =                -9
     //const val FORWARD_DELETE_WORD =          -10
     const val SHIFT =                        -11
@@ -197,7 +197,7 @@ object KeyCode {
     fun Int.checkAndConvertCode(longPress: Boolean = false): Int = if (this > 0) this else when (this) {
         // working
         CURRENCY_SLOT_1, CURRENCY_SLOT_2, CURRENCY_SLOT_3, CURRENCY_SLOT_4, CURRENCY_SLOT_5, CURRENCY_SLOT_6,
-        VOICE_INPUT, LANGUAGE_SWITCH, SETTINGS, DELETE, ALPHA, SYMBOL, EMOJI, CLIPBOARD, CLIPBOARD_CUT, UNDO,
+        VOICE_INPUT, LANGUAGE_SWITCH, SETTINGS, DELETE, DELETE_WORD, ALPHA, SYMBOL, EMOJI, CLIPBOARD, CLIPBOARD_CUT, UNDO,
         REDO, ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT, CLIPBOARD_COPY, CLIPBOARD_PASTE, CLIPBOARD_SELECT_ALL,
         CLIPBOARD_SELECT_WORD, TOGGLE_INCOGNITO_MODE, TOGGLE_AUTOCORRECT, MOVE_START_OF_LINE, MOVE_END_OF_LINE,
         MOVE_START_OF_PAGE, MOVE_END_OF_PAGE, SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED, CTRL, ALT,

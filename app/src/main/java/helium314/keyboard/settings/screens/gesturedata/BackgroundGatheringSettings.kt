@@ -62,7 +62,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.edit
 import androidx.core.graphics.drawable.toBitmap
-import helium314.keyboard.latin.AppsManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.DeleteButton
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings
@@ -79,6 +78,7 @@ import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.AppsUtils
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppExclusions
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppIncludeByDefault
 import helium314.keyboard.latin.utils.ToolbarKey
@@ -219,7 +219,7 @@ fun BackgroundGatheringSettings() {
     val scope = rememberCoroutineScope()
     LaunchedEffect(packageInfos) {
         if (packageInfos.isEmpty())
-            scope.launch(Dispatchers.IO) { packageInfos = AppsManager(ctx).getPackagesWithNameAndIcon() }
+            scope.launch(Dispatchers.IO) { packageInfos = AppsUtils.getPackagesWithNameAndIcon(ctx.packageManager) }
     }
     if (showIncludedAppsDialog) {
         var defaultInclude by remember { mutableStateOf(getAppIncludeByDefault(ctx)) }

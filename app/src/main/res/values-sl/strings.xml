@@ -3,7 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources>
     <string name="use_contacts_dict">"Iskanje imen stikov"</string>
     <string name="vibrate_on_keypress">"Vibriranje ob pritisku tipke"</string>
     <string name="sound_on_keypress">"Zvok ob pritisku tipke"</string>
@@ -104,7 +104,7 @@
     <string name="settings_category_suggestions">Predlogi</string>
     <string name="settings_category_miscellaneous">Razno</string>
     <string name="settings_no_limit">Brez omejitve</string>
-    <string name="abbreviation_unit_minutes">%smin.</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <string name="enable_clipboard_history">Omogoči tipko odložišča</string>
     <string name="clipboard_history_retention_time">Čas shranjevanja zgodovine</string>
     <string name="enable_clipboard_history_summary">Onemogočite, da boste s tipko odložišča lahko prilepili vsebino</string>
@@ -137,4 +137,16 @@
     <string name="label_search_key">"Iskanje"</string>
     <string name="label_pause_key">"Zaus."</string>
     <string name="label_wait_key">"Čakaj"</string>
+    <string name="vibrate_in_dnd_mode">Vibriraj v načinu ne moti</string>
+    <string name="suggest_emojis">Predlagaj emotikon</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Podrsaj navzdol na orodni vrstici da zaprete tipkovnico</string>
+    <string name="settings_category_space">Preslednica</string>
+    <string name="switch_language">Zamenjaj jezik</string>
+    <string name="language_switch_key_switch_both">Zamenjaj oba</string>
+    <string name="language_switch_key_behavior">Obnašanje tipke za preklop med jeziki</string>
+    <string name="use_apps_dict">Poglej imena aplikacij</string>
+    <string name="use_apps_dict_summary">Uporabite imena nameščenih aplikacij za predloge in popravke</string>
+    <string name="disable_personalized_dicts_message">Opozorilo: Onemogočanje te nastavitve bo izbrisalo naučene podatke</string>
+    <string name="add_to_personal_dictionary_summary">Uporabite osebni slovar naprave za shranjevanje naučenih besed</string>
+    <string name="add_to_personal_dictionary">Dodaj besede v osebni slovar</string>
 </resources>

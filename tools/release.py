@@ -78,19 +78,12 @@ def update_dict_list():
         split = line.split("|")
         dict_name = split[2].split("]")[1].split("(")[1].split(")")[0].split("/")[-1].split(".dict")[0]
         (dict_type, locale) = dict_name.split("_", 1)
-        if "_" in locale:
-            sp = locale.split("_")
-            locale = sp[0]
-            for s in sp[1:]:
-                locale = locale + "_" + s.upper()
-        if split[3].strip() == "yes":
-            extra = "exp"
-        elif "UNICODE LICENSE V3 (CLDR)" in split[7]:
-            extra = "cldr"
+        if "UNICODE LICENSE V3 (CLDR)" in split[7]:
+            dicts.append(f"cldr,{locale}\n")
         else:
-            extra = ""
-        dicts.append(f"{dict_type},{locale},{extra}\n")
-    target_file = "app/src/main/assets/dictionaries_in_dict_repo.csv"
+            dicts.append(dict_name + "\n")
+    target_file = "app/src/main/assets/dictionaries_in_dict_repo.txt"
+    dicts.sort()
     with open(target_file, 'w') as f:
         f.writelines(dicts)
 
@@ -130,12 +123,6 @@ def update_dict_hashes():
             continue
         with open(normal_dicts_dir + file, "rb") as f:
             hashes.append(hashlib.sha256(f.read()).hexdigest())
-    experimental_dicts_dir = dicts_dir + "/dictionaries_experimental/"
-    for file in os.listdir(experimental_dicts_dir):
-        if not file.startswith("main_"):
-            continue
-        with open(experimental_dicts_dir + file, "rb") as f:
-            hashes.append(hashlib.sha256(f.read()).hexdigest())
     hashes_file = "app/src/main/assets/known_dict_hashes.txt"
     with open(hashes_file) as f:
         for line in f:
@@ -150,7 +137,10 @@ def update_dict_hashes():
 def update_khipro_mappings():
     source = "https://raw.githubusercontent.com/KhiproTeam/khipro-MIM-touchscreen/main/bn-khipro.mim"
     target = "app/src/main/assets/bn-khipro.mim"
-    urlretrieve(source, target)
+    try:
+        urlretrieve(source, target)
+    except:
+        print("could not download khipro mappings")
 
 
 # update localesWithLocalizedNumberRow
@@ -168,6 +158,7 @@ def update_localized_number_row():
     for i, line in enumerate(lines):
         if not line.startswith("private val localesWithLocalizedNumberRow"):
             continue
+        locales.sort()
         localetext = "\", \"".join(locales)
         lines[i] = "private val localesWithLocalizedNumberRow = listOf(\"" + localetext + "\")\n"
     with open(prefs, "w") as f:

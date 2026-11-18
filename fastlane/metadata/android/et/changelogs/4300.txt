@@ -1,0 +1,7 @@
+* võimalus viipamisega kustutamisel valida tähtede asemel sõnu
+* lisadandus võimalus näidata viipeandmete ülevaateekraanil ainult sõna esimest esinemist
+* lisandus `KeyCode.DELETE_WORD` (-8)
+* parandasime .combined sõnastikufailide importimist
+* vähendasime soovimatute sõnade lisandumist sisestatu ajalukku
+* parandaasime jagatud klahvistiku mittetoimimie
+* suurendasime hiljutiste emojide arvu

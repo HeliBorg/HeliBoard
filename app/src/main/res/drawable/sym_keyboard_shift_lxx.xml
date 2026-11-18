@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    icon available in Android Studio
-    modified for rotation
+    SPDX-FileCopyrightText: Material Design Authors / Google LLC
     SPDX-License-Identifier: Apache-2.0
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
-    android:viewportHeight="24"
-    android:viewportWidth="24">
-    <group
-        android:translateX="24"
-        android:rotation="90">
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
     <path android:fillColor="#FFF"
-        android:pathData="M15.41,16.59L10.83,12l4.58,-4.59L14,6l-6,6 6,6 1.41,-1.41z"/>
-    </group>
+        android:pathData="M320,840L320,520L120,520L480,80L840,520L640,520L640,840L320,840ZM400,760L560,760L560,440L671,440L480,206L289,440L400,440L400,760ZM480,440L480,440L480,440L480,440L480,440L480,440L480,440Z"/>
 </vector>

@@ -557,4 +557,8 @@
     <string name="gesture_data_add_key">Gehitu tresna-barrako tekla</string>
     <string name="gesture_data_no_known_dict">Bigarren planoko bilketak integratutako hiztegietatik edo &lt;a href=%s&gt;hiztegien biltegian&lt;/a&gt; eskuragarri daudenetatik datozen hitzak soilik biltzen ditu. Une honetan ez duzu horrelako hiztegirik gaituta.</string>
     <string name="gesture_data_swipe_o_scope">Keinu-datuak bistaratzeko tresna: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="delete_swipe_letters">Letrak</string>
+    <string name="delete_swipe_words">Hitzak</string>
+    <string name="recent_emojis_cleared">Azken emojiak garbitu dira</string>
+    <string name="prefs_enable_hardware_keyboard">Hardware teklatuaren euskarria</string>
 </resources>

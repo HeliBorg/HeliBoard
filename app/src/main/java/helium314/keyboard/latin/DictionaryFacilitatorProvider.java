@@ -6,11 +6,16 @@
 
 package helium314.keyboard.latin;
 
+import android.util.LruCache;
+
 /**
  * Factory for instantiating DictionaryFacilitator objects.
  */
 public class DictionaryFacilitatorProvider {
     public static DictionaryFacilitator getDictionaryFacilitator(boolean isNeededForSpellChecking) {
-        return new DictionaryFacilitatorImpl();
+        DictionaryFacilitator facilitator = new DictionaryFacilitatorImpl();
+//        if (isNeededForSpellChecking)
+//            facilitator.setValidSpellingWordReadCache(new LruCache<>(200));
+        return facilitator;
     }
 }

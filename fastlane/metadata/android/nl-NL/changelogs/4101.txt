@@ -1,0 +1,10 @@
+* D-pad toevoegen
+* toetsherhaling toestaan als langdrukcode voor werkbalktoetsen en pop-ups
+* verbeterde suggestie van klembord
+* instellingenpictogrammen bijwerken
+* consistentere weergave van pop-uphints
+* numpad-toetsen afstemmen met de nummerindeling
+* fix soms verdwijnende werkbalktoetsen
+* voeg apart ColorType toe voor klembord suggestie
+* schakelstatus correct bijwerken bij verplaatsen van cursor met pijltoetsen
+* (nacht) instelling naast kleureninstelling

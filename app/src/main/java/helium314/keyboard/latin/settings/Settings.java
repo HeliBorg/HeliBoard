@@ -27,11 +27,11 @@ import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
-import helium314.keyboard.latin.PunctuationSuggestions;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.common.StringUtils;
+import helium314.keyboard.latin.suggestions.PunctuationSuggestions;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.FoldableUtils;
 import helium314.keyboard.latin.utils.KtxKt;
@@ -56,6 +56,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // theme-related stuff
     public static final String PREF_THEME_STYLE = "theme_style";
     public static final String PREF_ICON_STYLE = "icon_style";
+    public static final String PREF_ACCENT_SHIFTED_ICON = "accent_shifted_icon";
     public static final String PREF_THEME_COLORS = "theme_colors";
     public static final String PREF_THEME_COLORS_NIGHT = "theme_colors_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
@@ -92,7 +93,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHOW_LANGUAGE_SWITCH_KEY = "show_language_switch_key";
     public static final String PREF_LANGUAGE_SWITCH_KEY = "language_switch_key";
     public static final String PREF_SHOW_EMOJI_KEY = "show_emoji_key";
-    public static final String PREF_VARIABLE_TOOLBAR_DIRECTION = "var_toolbar_direction";
+    public static final String PREF_SHOW_DPAD_KEY = "show_dpad_key";
+   public static final String PREF_VARIABLE_TOOLBAR_DIRECTION = "var_toolbar_direction";
     public static final String PREF_ADDITIONAL_SUBTYPES = "additional_subtypes";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "split_keyboard";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = "split_keyboard_landscape";
@@ -116,7 +118,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_EMOJI_SKIN_TONE = "emoji_skin_tone";
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
-    public static final String PREF_DELETE_SWIPE = "delete_swipe";
+    public static final String PREF_DELETE_SWIPE = "delete_swipe_type";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "autospace_after_punctuation";
     public static final String PREF_AUTOSPACE_AFTER_SUGGESTION = "autospace_after_suggestion";
     public static final String PREF_AUTOSPACE_AFTER_GESTURE_TYPING = "autospace_after_gesture_typing";
@@ -132,6 +134,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_KEYPRESS_SOUND_VOLUME = "keypress_sound_volume";
     public static final String PREF_KEY_LONGPRESS_TIMEOUT = "key_longpress_timeout";
     public static final String PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = "enable_emoji_alt_physical_key";
+    public static final String PREF_ENABLE_HARDWARE_KEYBOARD = "enable_hardware_keyboard";
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "gesture_preview_trail";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "gesture_floating_preview_text";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC = "gesture_floating_preview_dynamic";
@@ -310,7 +313,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mPrefs.registerOnSharedPreferenceChangeListener(this);
     }
 
-    // TODO: Remove this method and add proxy method to SettingsValues.
     public SettingsValues getCurrent() {
         return mSettingsValues;
     }

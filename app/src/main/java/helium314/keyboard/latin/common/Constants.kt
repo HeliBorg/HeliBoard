@@ -5,7 +5,6 @@ object Links {
     const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"
     const val DICTIONARY_DOWNLOAD_SUFFIX = "/raw/branch/main/"
     const val DICTIONARY_NORMAL_SUFFIX = "dictionaries/"
-    const val DICTIONARY_EXPERIMENTAL_SUFFIX = "dictionaries_experimental/"
     const val DICTIONARY_EMOJI_CLDR_SUFFIX = "emoji_cldr_signal_dictionaries/"
     const val GITHUB = "https://github.com/HeliBorg/HeliBoard"
     const val LICENSE = "$GITHUB/blob/main/LICENSE"

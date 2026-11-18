@@ -227,7 +227,7 @@
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">লেআউট</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">প্রতীক</string>
     <string name="clipboard" tools:keep="@string/clipboard">ক্লিপবোর্ড</string>
-    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">ক্লিপবোর্ড নিকাশ</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">ক্লিপবোর্ড পরিষ্কারকরণ</string>
     <string name="voice" tools:keep="@string/voice">ভয়েস ইনপুট</string>
     <string name="select_word" tools:keep="@string/select_word">শব্দ নির্বাচন</string>
     <string name="one_handed" tools:keep="@string/one_handed">এক-হস্ত মোড</string>
@@ -450,7 +450,7 @@
     <string name="gesture_data_description_privacy">গোপনীয়তা\n\n আপনি যে তথ্য জমা দেন তা অন্তর্ভুক্ত করে: লক্ষ্য শব্দ, কিবোর্ডের লেআউট ও মাত্রা, অঙ্গুলিহেলন (সময় ও স্থানাঙ্ক), বর্তমান লাইব্রেরি প্রদত্ত প্রস্তাবনা, ব্যবহৃত অভিধানগুলোর হ্যাশ, অ্যাপের সংস্করণ, তথ্য সংগ্রহ মোড, অঙ্গুলিহেলন টাইপিং লাইব্রেরিটি ডিফল্ট Google লাইব্রেরি কিনা, এবং প্রতিটি অঙ্গুলিহেলনের সাথে যুক্ত একটি আইডি।\n জমা দেওয়া তথ্য আমাদের সুবিধাজনক প্রথম সুযোগেই যে ProtonMail মেইলবক্সে সংরক্ষিত থাকে সেখান থেকে ডাউনলোড করে মুছে ফেলা হবে। অঙ্গুলিহেলন ডেটা সংগ্রহ পর্যায় শেষ হওয়ার পর, সকল ব্যবহারকারীর সংগৃহীত ডেটাসেট Creative Commons BY-SA 4.0 লাইসেন্সের অধীনে প্রকাশ করা হবে।\n\n আপনার গোপনীয়তা রক্ষার প্রচেষ্টার অংশ হিসেবে, আপনাকে স্পষ্টভাবে লেখক হিসেবে তালিকাভুক্ত করা হবে না। আপনার স্বীকৃতি থাকবে “The HeliBoard Gesture Data Project Contributors” হিসেবে। এই স্ক্রিনে আপনি যে তথ্য তৈরি করেন তা আপনার পরিচয়ের সাথে সরাসরি যুক্ত করা সম্ভব হওয়ার কথা নয়। তবে, কোনগুলো অঙ্গুলিহেলন একই ব্যক্তির দ্বারা করা হয়েছে তা নির্ধারণ করা সম্ভব হতে পারে। উদাহরণস্বরূপ, একটি কাস্টম কিবোর্ড লেআউট, কিবোর্ডের মাত্রা, ভাষা, অথবা ব্যক্তিগত অঙ্গুলিহেলনের ধরন থেকে এটি অনুমান করা যেতে পারে।</string>
     <string name="gesture_data_privacy">গোপনীয়তা</string>
     <string name="gesture_data_get_data">অঙ্গুলিহেলন তথ্য ফাইল শেয়ার</string>
-    <string name="gesture_data_delete_data">অঙ্গুলিহেলন তথ্য নিকাশ</string>
+    <string name="gesture_data_delete_data">অঙ্গুলিহেলন তথ্য পরিষ্কারকরণ</string>
     <string name="gesture_data_send_mail">ইমেইলের মাধ্যমে তথ্য প্রেরণ</string>
     <string name="gesture_data_copy_mail">ইমেইল ঠিকানা অনুলিপি</string>
     <string name="gesture_data_mail_use">মনে রাখবেন, ইমেইল ঠিকানাটি তথ্য জমার জন্য নির্ধারিত; আপনি দ্রুত বা নিয়মিত উত্তর পাবেন না।</string>
@@ -547,4 +547,11 @@
     <string name="subtype_tok">টোকি পোনা</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">ডি-প্যাড</string>
     <string name="space_swipe_toggle_dpad_entry">ডি-প্যাডে অবস্থান্তর</string>
+    <string name="show_dpad_key">ডি-প্যাড বোতাম</string>
+    <string name="recent_emojis_cleared">সম্প্রতিক ইমোজি পরিষ্কৃত</string>
+    <string name="prefs_enable_hardware_keyboard">হার্ডওয়্যার কিবোর্ড সমর্থন</string>
+    <string name="accent_shifted_icon">প্রধানীকৃত শিফট আইকন</string>
+    <string name="delete_swipe_letters">বর্ণ</string>
+    <string name="delete_swipe_words">শব্দ</string>
+    <string name="gesture_data_single_instance_per_word">প্রতি শব্দের জন্য কেবল একটি অন্তর্ভুক্তি প্রদর্শন</string>
 </resources>

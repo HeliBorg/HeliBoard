@@ -83,7 +83,7 @@
     <string name="dictionary_available">Ordlista tillgänglig</string>
     <string name="settings">"Inställningar"</string>
     <string name="delete">"Ta bort"</string>
-    <string name="version_text">Version %1$s</string>
+    <string name="version_text">Version %s</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Genväg:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Språk:"</string>
     <string name="user_dict_settings_add_word_hint">"Skriv ett ord"</string>
@@ -224,7 +224,7 @@
     <string name="toolbar_keys">Välj verktygsfältstangenter</string>
     <string name="close_history" tools:keep="@string/close_history">Stäng urklippshistorik</string>
     <string name="clipboard_toolbar_keys">Välj verktygsfältstangenter för urklipp</string>
-    <string name="show_popup_hints_summary">Visa tips om långtryck på en tangent aktiverar ytterligare funktionalitet</string>
+    <string name="show_popup_hints_summary">Visa ett tips om långtryck på en funktionstangent öppnar en popup</string>
     <string name="show_popup_hints">Visa funktionalitetstips</string>
     <string name="clipboard" tools:keep="@string/clipboard">Urklipp</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Rensa urklipp</string>
@@ -255,7 +255,7 @@
     <string name="setup_step3_action">Konfigurera tangentbordet</string>
     <string name="page_down" tools:keep="@string/page_down">Sida ner</string>
     <string name="remove_redundant_popups">Ta bort överflödiga popuper</string>
-    <string name="remove_redundant_popups_summary">Dämpa popup-tangenter som finns i grundlayouten</string>
+    <string name="remove_redundant_popups_summary">Dölj popup-tangenter som redan finns i grundlayouten</string>
     <string name="action_none">Ingen</string>
     <string name="vibrate_in_dnd_mode">Vibrera i Stör ej-läge</string>
     <string name="suggest_emojis">Föreslå emojis</string>
@@ -270,4 +270,284 @@
     <string name="gesture_fast_typing_cooldown_instant">Börja alltid omedelbart</string>
     <string name="clipboard_history_pinned_first">Visa fastnålade objekt överst</string>
     <string name="backup_restored">Säkerhetskopia återställd</string>
+    <string name="backup_error">Säkerhetskopieringsfel: %s</string>
+    <string name="restore_error">Fel vid återställning av säkerhetskopian: %s</string>
+    <string name="load_gesture_library_message">Du behöver biblioteket för ”%s”. Inkompatibla bibliotek kan krascha vid användning av gestinmatning. \n\nVarning: att läsa in extern kod kan innebära en säkerhetsrisk. Använd endast ett bibliotek från en källa som du litar på.</string>
+    <string name="checksum_mismatch_message">Okänd biblioteksfil. Är du säker på att den kommer från en betrodd källa och är avsedd för ”%s”?</string>
+    <string name="load_gesture_library_button_load">Läs in bibliotek</string>
+    <string name="load_gesture_library_button_delete">Ta bort bibliotek</string>
+    <string name="localized_number_row">Anpassa sifferraden till språket</string>
+    <string name="localized_number_row_summary">Föredra lokalanpassade siffror framför latinska siffror</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <string name="button_title_add_custom_layout">Lägg till egen layout</string>
+    <string name="message_add_custom_layout">Välj en fil i ett kompatibelt format. Information om formaten finns %s.</string>
+    <string name="button_load_custom">Läs in fil</string>
+    <string name="file_read_error">Kan inte läsa filen</string>
+    <string name="delete_layout">Vill du verkligen ta bort den egna layouten %s?</string>
+    <string name="layout_error">Layoutfel: %s</string>
+    <string name="edit_layout">Tryck för att redigera rålayouten</string>
+    <string name="day_or_night_image">Ställa in bild för dag- eller nattläge?</string>
+    <string name="replace_dictionary_message">Vill du verkligen ersätta den användarskapade ordboken ”%1$s”?\n\nAktuell ordbok:\n%2$s\n\nNy ordbok:\n%3$s</string>
+    <string name="replace_dictionary">Ersätt ordbok</string>
+    <string name="remove_dictionary_message">Vill du verkligen ta bort den användarskapade ordboken ”%s”?</string>
+    <string name="no_dictionary_message">"Utan en ordbok får du endast förslag på text som du tidigare har skrivit.&lt;br&gt;\n        Du kan hämta ordböcker %1$s eller kontrollera om en ordbok för ”%2$s” kan hämtas direkt %3$s."</string>
+    <string name="no_dictionary_dont_show_again_button">Visa inte igen</string>
+    <string name="dictionary_file_error">Fel: Den valda filen är inte en giltig ordboksfil</string>
+    <string name="dictionary_file_wrong_script">Fel: Skriptet är inte kompatibelt med det här tangentbordet</string>
+    <string name="dictionary_load_error">Fel vid inläsning av ordboksfil</string>
+    <string name="user_dict_settings_add_weight_value">Vikt:</string>
+    <string name="user_dict_word_already_present">Det här ordet finns redan i användarordboken %s. Skriv ett annat.</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo White</string>
+    <string name="auto_user_color">Välj färg automatiskt</string>
+    <string name="select_color_background">Tangentbordets bakgrund</string>
+    <string name="select_color_key">Tangenttext</string>
+    <string name="select_color_suggestion">Text på förslagsraden</string>
+    <string name="select_color_key_background">Tangentbakgrund</string>
+    <string name="select_color_functional_key_background">Bakgrund för funktionstangenter</string>
+    <string name="select_color_spacebar_background">Bakgrund för blankstegstangent</string>
+    <string name="select_color_spacebar_text">Text på blankstegstangent</string>
+    <string name="select_color_accent">Accent</string>
+    <string name="select_color_gesture">Gestinmatning</string>
+    <string name="hidden_features_text">enhetsskyddad lagring</string>
+    <string name="available_dictionary_experimental">%s (experimentell)</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Siffror</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Numeriskt tangentbord</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numeriskt tangentbord (liggande)</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="show_horizontal_space_swipe">Horisontell svepgest på blankstegstangenten</string>
+    <string name="show_vertical_space_swipe">Vertikal svepgest på blankstegstangenten</string>
+    <string name="space_swipe_move_cursor_entry">Flytta markören</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <string name="subtype_generic_student">%s (Student)</string>
+    <string name="prefs_long_press_symbol_for_numpad">Långtryck på symboltangenten för numeriskt tangentbord</string>
+    <string name="subtype_generic_extended">%s (utökad)</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="more_colors">Visa fler färger</string>
+    <string name="all_colors_warning">Den här inställningen visar alla färger som används internt. Färglistan kan ändras när som helst. Standardvärdet härleds från de vanliga färgerna och namnen översätts inte.</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktionstangenter</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktionstangenter (symboler)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktionstangenter (fler symboler)</string>
+    <string name="toast_msg_clipboard_copy">Innehållet har kopierats</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="gesture_fast_typing_cooldown">Fördröjning vid snabb inmatning</string>
+    <string name="customize_currencies">Anpassa valutor</string>
+    <string name="customize_currencies_detail">Ange huvudsymbol och upp till 6 sekundära valutasymboler, avgränsade med blanksteg</string>
+    <string name="load">Läs in</string>
+    <string name="button_save_file">Spara till fil</string>
+    <string name="copy_to_clipboard">Kopiera till urklipp</string>
+    <string name="suggest_clipboard_content_summary">Visa nyligen kopierat urklippsinnehåll som förslag</string>
+    <string name="space_swipe_toggle_numpad_entry">Växla numeriskt tangentbord</string>
+    <string name="switch_keyboard_after">Växla till huvudtangentbordet efter …</string>
+    <string name="after_emoji">Val av emoji i emojivyn</string>
+    <string name="after_clip">Val av post i urklippshistoriken</string>
+    <string name="after_symbol_and_space">Tryck på Retur eller blanksteg efter andra tangenter i symbolvyn</string>
+    <string name="gesture_floating_preview_static">Flytande förhandsvisning</string>
+    <string name="gesture_floating_preview_static_summary">Se det föreslagna ordet under gestinmatning</string>
+    <string name="gesture_floating_preview_dynamic_summary">Flytta förhandsvisningen under en gest</string>
+    <string name="gesture_trail_fadeout_duration">Visningstid för gestspår</string>
+    <string name="icon_style">Ikonstil</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Sifferrad</string>
+    <string name="prefs_space_bar_text">Egen text på blankstegstangenten</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emojivyns nedre rad</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Urklippsvyns nedre rad</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Retur</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabb</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Radera</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Skift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Skift (aktiverat)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps Lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Blanksteg (sifferlayout)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Avsluta enhandsläge</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Ändra storlek på enhandsläge</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Byt sida för enhandsläge</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Röstinmatning inaktiverad</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Visa/dölj verktygsfältet</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Nollbreddssammanfogare</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Nollbreddsicke-sammanfogare</string>
+    <string name="customize_toolbar_key_codes">Anpassa tangentkoder för verktygsfältet</string>
+    <string name="key_code">Tangentkod</string>
+    <string name="long_press_code">Kod för långt tryck</string>
+    <string name="customize_icons">Anpassa ikoner</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Papperskorg</string>
+    <string name="customize_icons_reset_message">Vill du verkligen återställa alla anpassade ikoner?</string>
+    <string name="subtype_generic_phonetic">%s (fonetisk)</string>
+    <string name="prefs_key_emoji_max_sdk">Åsidosätt emoji-version</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="auto_correct_shortcuts">Autokorrigeringsgenvägar</string>
+    <string name="auto_correct_shortcuts_summary">När funktionen är aktiverad kan genvägar utökas av autokorrigering</string>
+    <string name="customize_background_image_landscape">Ange bakgrundsbild (liggande)</string>
+    <string name="summary_customize_background_image_landscape">Om ingen anges används bilden för stående läge</string>
+    <string name="custom_font">Ange eget teckensnitt från fil</string>
+    <string name="customize_toolbar_key_code_reset_message">Vill du verkligen rensa alla anpassade tangentkoder?</string>
+    <string name="prefs_font_scale">Skala för tangentbordets teckensnitt</string>
+    <string name="prefs_emoji_font_scale">Skala för emojivyns teckensnitt</string>
+    <string name="prefs_side_padding_scale">Skala för sidutfyllnad</string>
+    <string name="number_row_hints">Visa tips på sifferraden</string>
+    <string name="prefs_language_swipe_distance">Svepavstånd för språkbyte</string>
+    <string name="split" tools:keep="@string/split">Delat tangentbord</string>
+    <string name="delete_confirmation">Vill du verkligen ta bort %s?</string>
+    <string name="settings_screen_secondary_layouts">Sekundära layouter</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktionstangenter (stor skärm)</string>
+    <string name="name_invalid">Ogiltigt namn</string>
+    <string name="locales_with_dict">Språk med ordböcker</string>
+    <string name="layout_in_use">Varning: layouten används just nu</string>
+    <string name="get_colors_message">Du kan hitta och dela färger i %s.</string>
+    <string name="get_layouts_message">Du kan hitta och dela layouter i %s.</string>
+    <string name="discussion_section_link">diskussionsavsnittet</string>
+    <string name="custom_subtype">Egen undertyp</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="show_tld_popup_keys">Visa popup-tangenter för toppdomäner</string>
+    <string name="show_tld_popup_keys_summary">Ersätt popup-funktioner för punkttangenten med toppdomäner vid inmatning av webbadresser och e-postadresser</string>
+    <string name="after_numpad_and_space">Tryck på Retur eller blanksteg efter andra tangenter på det numeriska tangentbordet</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Visa inte alltid förslag i redigeringsfält på webben</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Redigeringsfält på webben (som främst finns i webbläsare) orsakar ofta problem med inställningen för att alltid visa förslag</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Sifferrad (grundläggande)</string>
+    <string name="autospace_after_suggestion">Automatiskt blanksteg efter val av förslag</string>
+    <string name="autospace_before_gesture_typing">Automatiskt blanksteg före gestinmatning av ett ord</string>
+    <string name="autospace_after_gesture_typing">Automatiskt blanksteg efter gestinmatning av ett ord</string>
+    <string name="shift_removes_autospace">Inget automatiskt blanksteg vid tryck på skift</string>
+    <string name="shift_removes_autospace_summary">Skift tar bort väntande automatiskt blanksteg</string>
+    <string name="backspace_reverts_autocorrect">Backsteg återställer autokorrigering</string>
+    <string name="timestamp_format_title">Format för tidsstämpeltangent</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="prefs_emoji_key_fit">Skala emojitangentens storlek med teckenstorleken</string>
+    <string name="use_apps_dict">Slå upp appnamn</string>
+    <string name="use_apps_dict_summary">Använd namn på installerade appar för förslag och rättelser</string>
+    <string name="prefs_emoji_skin_tone">Standardhudton för emoji</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">Verktygsfältsläge</string>
+    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Verktygsfältstangenter och förslag</string>
+    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Endast verktygsfältstangenter</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Endast förslag</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Dold</string>
+    <string name="toolbar_hiding_global">Dölj även verktygsfält för urklipp och emoji</string>
+    <string name="popup_order_and_hint_source">Källa för popup-tangentordning och tips</string>
+    <string name="landscape">Liggande</string>
+    <string name="suggest_emojis_summary">Använd emojiordbok i vanliga förslag</string>
+    <string name="space_swipe_hide_keyboard_entry">Dölj tangentbordet</string>
+    <string name="about_wiki_link">Gå till wikin</string>
+    <string name="about_wiki_link_description">Wikin kan förbättras av alla GitHub-användare!</string>
+    <string name="save_subtype_per_app">Kom ihåg språk per app</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="inline_emoji_search">Infogad emojisökning</string>
+    <string name="emoji_dictionary_required">En emojiordbok krävs för att funktionen ska fungera. Ordböcker i .dict-format kan hämtas %s.</string>
+    <string name="subtype_mhr">Mari (östra)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emojivyns nedre rad med åtgärdstangent</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Urklippsvyns nedre rad med åtgärdstangent</string>
+    <string name="number_row_in_symbols">Visa sifferraden i symbolvyn</string>
+    <string name="custom_emoji_font">Ange eget emoji-teckensnitt från fil</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funktionstangenter (Khipro)</string>
+    <string name="gesture_data_screen">Insamling av gestdata</string>
+    <string name="gesture_data_info">Vad är det här?</string>
+    <string name="gesture_data_privacy">Integritet</string>
+    <string name="gesture_data_get_data">Dela gestdatafil</string>
+    <string name="gesture_data_delete_data">Rensa gestdata</string>
+    <string name="gesture_data_send_mail">Skicka data via e-post</string>
+    <string name="gesture_data_copy_mail">Kopiera e-postadress</string>
+    <string name="gesture_data_mail_use">Observera att e-postadressen är avsedd för datainskick; du får kanske inte snabba eller konsekventa svar.</string>
+    <string name="gesture_data_please_type">Skriv med gest:</string>
+    <string name="gesture_data_next_save">Fick %s. Tryck om du är säker på att du gjorde rätt gest</string>
+    <string name="gesture_data_next">Hoppa över ord</string>
+    <string name="gesture_data_active_count">%1$s ord i den här sessionen, %2$s ord totalt (%3$s har redan skickats eller tagits bort)</string>
+    <string name="gesture_data_review_screen_title">Granska och dela gestdata</string>
+    <string name="gesture_data_words_selected">%s ord</string>
+    <string name="gesture_data_date_range">Datumintervall</string>
+    <string name="gesture_data_much_data">Du har mycket data som inte har skickats in. Skicka den och ta sedan bort den gamla datan.</string>
+    <string name="gesture_data_how_to_use">Så här använder du funktionen</string>
+    <string name="gesture_data_active_start">Starta aktiv insamling</string>
+    <string name="gesture_data_active_stop">Stoppa aktiv insamling</string>
+    <string name="gesture_data_ends_at">Insamlingsfasen för gestdata slutar %s. Skicka in din data före det datumet.</string>
+    <string name="gesture_data_ended">Insamlingsfasen för gestdata slutade %s. Du kan dela befintlig data men inte lägga till ny.</string>
+    <string name="gesture_data_share_all">Dela alla %s ord</string>
+    <string name="gesture_data_share_new">Dela %s ord som inte tidigare har skickats in</string>
+    <string name="gesture_data_delete_dialog">Du har data för %1$s nya och %2$s redan delade ord.</string>
+    <string name="gesture_data_delete_dialog_all">Ta bort alla %s ord</string>
+    <string name="gesture_data_delete_dialog_confirm">Är du säker? Detta tar bort %s ord. Kontrollera att din delade data har skickats in!</string>
+    <string name="gesture_data_delete_dialog_submitted">Ta bort %s inskickade ord</string>
+    <string name="gesture_data_many_not_shared_words">Du har fler än %s ord som väntar på att skickas in</string>
+    <string name="emoji_search_title">Sök emoji</string>
+    <string name="search_field_placeholder">Sök</string>
+    <string name="gesture_data_promotion_message">Hej!\n Eftersom du installerade biblioteket för gestinmatning kanske du är intresserad av HeliBoards projekt för att skapa ett helt öppet bibliotek för gestinmatning. Du kan hjälpa till genom att bidra med gestdata. Mer information finns på skärmen för insamling av gestdata.</string>
+    <string name="gesture_data_reminder_message">Hej!\n Du använde tidigare insamlingen av gestdata, men har inte lagt till data på ett tag. Vill du bidra igen?</string>
+    <string name="ask_later">Fråga mig senare</string>
+    <string name="gesture_data_take_me_there">Ta mig dit</string>
+    <string name="timestamp_description">Du kan lägga till tidsstämpeltangenten med en egen layout som har tangenten ”timestamp”, eller tangentkod -10043</string>
+    <string name="prefs_bottom_row_scale">Skala för nedre raden</string>
+    <string name="gesture_data_links">Information om aktiv insamling:</string>
+    <string name="toolbar_swipe_down_to_hide">Dölj tangentbordet med ett svep</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Svep nedåt på verktygsfältet för att stänga tangentbordet</string>
+    <string name="gesture_data_please_switch_keyboard">Byt till %s</string>
+    <string name="gesture_data_share_limit">För att undvika att storleksgränser överskrids exporteras endast de första %s orden</string>
+    <string name="folded">Vikt</string>
+    <string name="custom_punctuation_suggestions">Ange skiljeteckensförslag</string>
+    <string name="space_swipe_touchpad_mode_entry">Pekplatteläge</string>
+    <string name="touchpad_sensitivity">Pekplattans känslighet</string>
+    <string name="touchpad_edge_scroll">Kantskrollning på pekplattan</string>
+    <string name="touchpad_edge_scroll_description">Rulla automatiskt när du glider till tangentbordets kant</string>
+    <string name="spell_check_suggestions">Visa förslag från stavningskontrollen</string>
+    <string name="spell_check_suggestions_summary">Visa förslag när du väljer ett ord med röd understrykning. Kräver att appen är inställd som standardstavningskontroll.</string>
+    <string name="prefs_key_gap_scale">Skala för tangentmellanrum</string>
+    <string name="toolbar_only_with_hw_keyboard">Visa endast verktygsfältet med fysiskt tangentbord</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Du måste fortfarande aktivera visning av virtuellt tangentbord i systeminställningarna</string>
+    <string name="floating" tools:keep="@string/floating">Flytande tangentbord</string>
+    <string name="clipboard_history_files">Lägg till bilder och andra filer i urklippshistoriken</string>
+    <string name="clipboard_history_max_file_size">Storleksgräns för urklipp</string>
+    <string name="item_description">Beskrivning: %s</string>
+    <string name="item_type">Typ: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="gesture_data_share_duplicate">Du kan dela redan inskickad data igen om du är osäker på att den togs emot korrekt. Dubbletter identifieras och tas bort när datan behandlas.</string>
+    <string name="gesture_data_active">Aktiv insamling</string>
+    <string name="background_gesture_data_links">Information om insamling i bakgrunden:</string>
+    <string name="gesture_data_background_gathering_switch">Använd insamling av bakgrundsdata</string>
+    <string name="gesture_data_background_gathering_allowed_apps">Tillåtna appar: %s</string>
+    <string name="gesture_data_background_gathering_manual_save">Kasta bort som standard</string>
+    <string name="gesture_data_background_gathering_manual_save_summary">Data sparas manuellt med verktygsfältstangenten</string>
+    <string name="gesture_data_background_gathering_info">Mer information</string>
+    <string name="gesture_data_background_gathering_indicator">Indikator för datainsamling</string>
+    <string name="gesture_data_background_gathering_control">Så styr du vad som sparas</string>
+    <string name="gesture_data_background_apps_button">Hantera tillåtna appar</string>
+    <string name="gesture_data_background_apps">Välj appar som ska ingå i insamlingen av bakgrundsdata</string>
+    <string name="gesture_data_background_apps_include_default">Inkludera appar som standard</string>
+    <string name="gesture_data_background_excluded_words_button">Hantera uteslutna ord</string>
+    <string name="gesture_data_background_dictionary">Ordbok: %s</string>
+    <string name="gesture_data_background_position">Position: %s</string>
+    <string name="gesture_data_background_exclude_words">Uteslut ord från insamling i bakgrunden</string>
+    <string name="gesture_data_long_press_select_hint">Långtryck för att välja</string>
+    <string name="background_gathering" tools:keep="@string/background_gathering">Insamling av bakgrundsdata</string>
+    <string name="gesture_data_show_active">Visa aktivt insamlad data</string>
+    <string name="gesture_data_show_background">Visa bakgrundsdata</string>
+    <string name="gesture_data_include_shared">Inkludera redan inskickad data</string>
+    <string name="gesture_data_shared">inskickad</string>
+    <string name="gesture_data_saving">Sparar … %s%%</string>
+    <string name="gesture_data_add_key">Lägg till verktygsfältstangent</string>
+    <string name="gesture_data_swipe_o_scope">Verktyg för att visualisera gestdata: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="subtype_generic_4row">%s (4 rader)</string>
+    <string name="about_community_links">Gemenskapslänkar</string>
+    <string name="about_community_links_description">Teman, layoutredigerare, diskussioner, …</string>
+    <string name="auto_correct_capitalized_suggestions">Autokorrigera förslag med versal</string>
+    <string name="auto_correct_capitalized_suggestions_description">Efter att du tryckt på Skift för att skriva förslag med versal utlöses autokorrigering</string>
+    <string name="prefs_hint_font_scale">Skala för tangenttipsens teckensnitt</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">Styrkors</string>
+    <string name="space_swipe_toggle_dpad_entry">Växla styrkors</string>
+    <string name="recent_emojis_cleared">Senaste emoji rensade</string>
+    <string name="show_dpad_key">Styrkorstangent</string>
+    <string name="gesture_data_description">&lt;b&gt;Välkommen till skärmen för insamling av gestdata!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Detta ingår i ett &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-finansierat projekt&lt;/a&gt; som strävar efter att skapa ett helt öppet bibliotek för gestinmatning som kan ersätta Googles slutna bibliotek.&lt;br/&gt; Resultatet är tänkt som en enkel ersättning för AOSP-baserade tangentbord, men kan även användas med andra tangentbord, till exempel FlorisBoard.&lt;br/&gt;&lt;br/&gt; För att utveckla biblioteket är det mycket värdefullt med detaljerad gestdata från olika språk och användare.&lt;br/&gt; Genom att samla in och skicka gestdata kan du bidra till en öppen datamängd som används för att utveckla biblioteket. Datamängden publiceras under licensen CC BY-SA 4.0 en tid efter att insamlingsfasen är klar den %s. När du har samlat data kan du skicka den med delningsikonen längst ned på skärmen.</string>
+    <string name="gesture_data_description_modes">Det ”säkra” sättet att bidra är läget &lt;i&gt;aktiv insamling&lt;/i&gt;, där du får se ett visst ord och skriver det med gestinmatning.&lt;br&gt; Du kan även använda läget &lt;i&gt;insamling i bakgrunden&lt;/i&gt;, där du kan lämna exempel från din vanliga gestinmatning i andra appar. Eftersom detta är känsligt är funktionen frivillig, konfigurerbar och har en granskningsskärm för data som du tänker skicka.</string>
+    <string name="gesture_data_description_privacy">Integritet\n\n Datan du skickar består av målord, tangentbordslayout och dimensioner, gest (tider och koordinater), förslag från det aktuella biblioteket, hashvärde för använda ordböcker, appversion, insamlingsläge, om biblioteket för gestinmatning är Googles standardbibliotek samt ett ID för varje gest.\n Inskickad data hämtas och raderas från ProtonMail-brevlådan där den lagras så snart som möjligt. När insamlingsfasen för gestdata har avslutats publiceras den samlade datamängden från alla användare under licensen Creative Commons BY-SA 4.0.\n\n För att skydda din integritet anges du inte uttryckligen som upphovsperson. Ditt erkännande blir ”The HeliBoard Gesture Data Project Contributors”. Det ska inte gå att koppla data som du skapar på den här skärmen till din identitet. Det kan dock gå att avgöra vilka gester som gjordes av samma person, exempelvis utifrån en egen tangentbordslayout, tangentbordets dimensioner, språk eller individuell geststil.</string>
+    <string name="gesture_data_active_description">Tryck på &lt;i&gt;Starta aktiv insamling&lt;/i&gt;, byt vid behov ordbok och börja skriva det visade ordet med gestinmatning.&lt;br/&gt; Om din gest motsvarar ordet sparas datan och nästa ord visas. Annars kan du försöka igen, hoppa över ordet eller bekräfta att du gjorde rätt gest.&lt;br/&gt; Du kan bara använda ordböcker som ingår i appen eller finns i &lt;a href=%s&gt;ordboksförrådet&lt;/a&gt;; inga andra ord används.</string>
+    <string name="gesture_data_email_body">VIKTIGT:\n\n Hej!\n Som en påminnelse delas denna data offentligt under licensen CC BY-SA 4.0 och du anges inte som upphovsperson för att skydda din integritet.\n\n Tack för att du delar rättigheterna till din data med oss. Den kommer till användning!\n\n Observera att en ändring av formuleringen i detta meddelande inte ändrar vad vi gör med din data. Det är inte ett avtal som kan ändras, utan bara en vänlig påminnelse!\n Om du vill skicka ett meddelande tillsammans med din data skriver du det under raden här.\n ---------------------------------------------</string>
+    <string name="gesture_data_background_gathering_info_message">När du aktiverar insamling av bakgrundsdata kan HeliBoard registrera gester du skriver i andra appar. Det är mycket användbart för projektet med gestinmatning eftersom det kan ge stora mängder data, om än med lägre kvalitet än aktiv insamling. Insamling i bakgrunden ersätter inte aktivt insamlad data utan är ett komplement, eftersom datakvalitet är viktigare än mängd.\n\n Insamling i bakgrunden kan samla in data som du kan anse vara för privat för att dela, även om den publiceras anonymt. Därför vill vi förklara när gestdata samlas in och hur du kan påverka det.\n\n I länkdelen längst ned till höger på skärmen finns en video med mer information om insamling av bakgrundsdata.</string>
+    <string name="gesture_data_background_gathering_indicator_message">När gestdata kan registreras ser du en indikatorikon längst ned till vänster på tangentbordet. När cirkeln är fylld har minst en gest samlats in och väntar på att sparas. Data sparas antingen med verktygsfältstangenten (se &lt;i&gt;%1$s&lt;/i&gt;) eller automatiskt (när &lt;i&gt;%2$s&lt;/i&gt; är inaktiverad). Automatisk sparning sker vanligen när du byter textfält eller stänger tangentbordet, men kan också ske om textfältet ändras av någon annan anledning. När data sparas blir indikatorn grön en kort stund.</string>
+    <string name="gesture_data_first_enable_dialog">Välkommen till insamling av bakgrundsdata!&lt;br&gt; Vill du lägga till tangenten &lt;i&gt;%1$s&lt;/i&gt; i verktygsfältet? Du kan använda den för att styra datainsamlingen och läsa mer med knappen &lt;i&gt;%2$s&lt;/i&gt;. &lt;br&gt;&lt;br&gt; Insamling i bakgrunden är som standard inaktiverad för alla appar. Det innebär att inget samlas in förrän du väljer vilka appar som tillåts. Du kan ändra detta %3$s.</string>
+    <string name="gesture_data_no_known_dict">Insamling i bakgrunden samlar endast ord från ordböcker som ingår i appen eller finns i &lt;a href=%s&gt;ordboksförrådet&lt;/a&gt;. Du har för närvarande ingen sådan ordbok aktiverad.</string>
+    <string name="hidden_features_message">► Långtryck på fästa verktygsfältstangenter ger ytterligare funktioner: &lt;br&gt; \n\t• urklipp &amp;#65515; klistra in &lt;br&gt; \n\t• flytta vänster/höger &amp;#65515; ord vänster/höger &lt;br&gt; \n\t• flytta upp/ned &amp;#65515; sida upp/ned &lt;br&gt; \n\t• ord vänster/höger &amp;#65515; radens början/slut &lt;br&gt; \n\t• sida upp/ned &amp;#65515; sidans början/slut &lt;br&gt; \n\t• kopiera &amp;#65515; klipp ut &lt;br&gt; \n\t• markera ord &amp;#8596; markera allt &lt;br&gt; \n\t• ångra &amp;#8596; gör om &lt;br&gt; &lt;br&gt; \n► Långtryck på tangenter i förslagsradens verktygsfält fäster dem på förslagsraden. &lt;br&gt; &lt;br&gt; \n► Långtryck på kommatangenten för att öppna urklippsvyn, emojivyn, enhandsläge, inställningar eller språkbyte: &lt;br&gt; \n\t• Emojivyn och språkbyte försvinner om motsvarande tangent är aktiverad; &lt;br&gt; \n\t• I vissa layouter är det inte kommatangenten utan tangenten på samma plats (t.ex. ”q” i Dvorak-layouten). &lt;br&gt; &lt;br&gt; \n► I inkognitoläge lärs inga ord in och inga emoji läggs till bland senaste. &lt;br&gt; &lt;br&gt; \n► Tryck på inkognitoikonen för att öppna verktygsfältet. &lt;br&gt; &lt;br&gt; \n► Svepande tangentinmatning: svep från skift till en annan tangent för att skriva en enskild versal: &lt;br&gt; \n\t• Detta fungerar även för tangenten ”?123” för att skriva en enskild symbol från symboltangentbordet samt för relaterade tangenter. &lt;br&gt; &lt;br&gt; \n► Håll ned skift- eller symboltangenten, tryck på en eller flera tangenter och släpp sedan skift- eller symboltangenten för att återgå till föregående tangentbord. &lt;br&gt; &lt;br&gt; \n► Långtryck på ett förslag på förslagsraden för att visa fler förslag och en raderingsknapp som tar bort förslaget. &lt;br&gt; &lt;br&gt; \n► Svep uppåt från ett förslag för att öppna fler förslag och släpp på förslaget för att välja det. &lt;br&gt; &lt;br&gt; \n► Långtryck på en post i urklippshistoriken för att fästa den (behåll den i urklippet tills du lossar den). &lt;br&gt; &lt;br&gt; \n► Svep åt vänster i urklippsvyn för att ta bort en post (utom när den är fäst). &lt;br&gt; &lt;br&gt; \n► Markera text och tryck på skift för att växla mellan versaler, gemener och stor bokstav i ord. &lt;br&gt; &lt;br&gt; \n► Du kan lägga till ordböcker genom att öppna dem i en filhanterare: &lt;br&gt; \n\t• Detta fungerar endast med &lt;i&gt;content-URI:er&lt;/i&gt;, inte &lt;i&gt;file-URI:er&lt;/i&gt;, vilket innebär att det kanske inte fungerar med vissa filhanterare. &lt;br&gt; &lt;br&gt; \n► För användare som gör manuella säkerhetskopior med rootåtkomst: &lt;br&gt; \n\t• Från Android 7 finns filen med delade inställningar inte på standardplatsen eftersom appen använder %s. Det krävs för att inställningarna ska kunna läsas innan enheten låses upp, till exempel vid start; &lt;br&gt; \n\t• Filen finns i /data/user_de/0/package_id/shared_prefs/, men detta kan bero på enhet och Android-version. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Felsökningsläge/felsöknings-APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Långtryck på ett förslag för att visa källordboken. &lt;br&gt; &lt;br&gt; \n► Med felsöknings-APK finns felsökningsinställningar under avancerade inställningar, även om de främst är användbara för att skriva ordböcker till loggen. &lt;br&gt; \n\t• Med en utgivnings-APK måste du trycka flera gånger på versionen i &lt;i&gt;Om&lt;/i&gt;; därefter finns felsökningsinställningarna under &lt;i&gt;Avancerade inställningar&lt;/i&gt;. &lt;br&gt; \n\t• När &lt;i&gt;Visa förslagsinformation&lt;/i&gt; aktiveras visas små siffror över förslagen med intern poäng och källordbok. &lt;br&gt; &lt;br&gt; \n► Vid en appkrasch får du frågan om du vill ha kraschloggarna när du öppnar inställningarna. &lt;br&gt; &lt;br&gt; \n► Vid flerspråkig inmatning visar blankstegstangenten ett konfidensvärde som används för att avgöra vilket språk som används. &lt;br&gt; &lt;br&gt; \n► Förslag visar små siffror över sig med intern poäng och källordbok (kan inaktiveras).</string>
+    <string name="gesture_data_background_gathering_control_message">Oberoende av inställningarna är insamling av bakgrundsdata inaktiverad i inkognitoläge. Den är också inaktiverad för inmatningsfält som är markerade som känsliga (lösenord, e-post eller när inmatningsfältet ber tangentbordet att inte lära sig orden). Endast ord som finns i en huvudordbok (inbyggd eller från &lt;a href=%5$s&gt;ordboksförrådet&lt;/a&gt;) samlas in. &lt;br&gt;&lt;br&gt; Med &lt;i&gt;%1$s&lt;/i&gt; kan du välja vilka appar som får använda insamling av bakgrundsdata. Standardinställningen inaktiverar alla appar och kräver opt-in per app. Du kan i stället aktivera alla appar och välja bort enskilda appar. Det är bekvämare, men tillåter automatiskt insamling från nyinstallerade appar och kan samla data som du inte förväntade dig. &lt;br&gt;&lt;br&gt; Med &lt;i&gt;%2$s&lt;/i&gt; kan du utesluta särskilda känsliga ord. När du gör en gest för ett uteslutet ord visar indikatorn fortfarande den fyllda ikonen (”data väntar på att sparas”), men datan kastas bort när den annars skulle ha sparats. Blockerade ord som redan sparats innan de blockerades kastas bort vid export.&lt;br&gt; Obs! Insamling i bakgrunden samlar bara ord som redan finns i en huvudordbok, så de ord som normalt behöver blockeras är vanliga ord som kan identifiera dig personligen, till exempel ditt namn, gata, stad eller område. &lt;br&gt;&lt;br&gt; När &lt;i&gt;%3$s&lt;/i&gt; är aktiverad sparas data endast om du väljer att göra det manuellt med verktygsfältstangenten &lt;i&gt;%4$s&lt;/i&gt; (se nedan). Om data inte sparas raderas väntande data när inmatningsfältet ändras eller tangentbordet stängs.&lt;br&gt; App- och orduteslutningar gäller fortfarande i detta läge. &lt;br&gt;&lt;br&gt; Verktygsfältstangenten &lt;i&gt;%4$s&lt;/i&gt; kan användas för att styra datainsamlingen. Effekten av ett tryck beror på aktuellt tillstånd: när insamling i bakgrunden är inaktiverad aktiveras den.&lt;br&gt; Ett långt tryck inaktiverar insamlingen i fem minuter.&lt;br&gt; Du kan aktivera insamlingen i bakgrunden tidigare med ett vanligt tangenttryck.&lt;br&gt; När &lt;i&gt;%3$s&lt;/i&gt; är aktiverad sparas väntande data.&lt;br&gt; I annat fall kastas väntande data bort.&lt;br&gt;</string>
+    <string name="gesture_data_background_gathering_review_message">På skärmen &lt;i&gt;%1$s&lt;/i&gt; kan du kontrollera och filtrera insamlad data, radera data som du anser vara för känslig och dela data. Knapparna för radering och delning används för filtrerad data eller markeringen om du använder långtryck för att välja ord. (Observera att den ”vanliga” delningsikonen utanför skärmen &lt;i&gt;%1$s&lt;/i&gt; endast delar data från aktiv insamling.)&lt;br&gt; Ordningen på delad data slumpas, så inget mer än de enskilda orden kan härledas.&lt;br&gt; Om du vill visa fullständig data som lagras för en gest kan du dela den till en fil och läsa in filen i &lt;a href=%2$s&gt;Swipe-O-Scope&lt;a&gt;.</string>
+    <string name="prefs_enable_hardware_keyboard">Stöd för hårdvarutangentbord</string>
+    <string name="accent_shifted_icon">Accentmarkerad skift ikon</string>
 </resources>

@@ -60,7 +60,6 @@
     <fraction name="config_emoji_keyboard_row_height">41%p</fraction>
     <fraction name="config_emoji_keyboard_key_letter_size">78%p</fraction>
     <fraction name="config_emoji_keyboard_key_label_size">78%p</fraction>
-    <integer name="config_emoji_keyboard_max_recents_key_count">32</integer>
 
     <!-- Clipboard keyboard -->
     <integer name="config_clipboard_keyboard_col_count">3</integer>

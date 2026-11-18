@@ -7,7 +7,7 @@
     <string name="use_contacts_dict">Procurar nomes de contactos</string>
     <string name="vibrate_on_keypress">Vibrar ao premir as teclas</string>
     <string name="sound_on_keypress">Som ao premir as teclas</string>
-    <string name="popup_on_keypress">Mostrar popup ao premir as teclas</string>
+    <string name="popup_on_keypress">Indicador ao premir as teclas</string>
     <string name="settings_screen_preferences">"Preferências"</string>
     <string name="settings_screen_appearance">Aparência</string>
     <string name="settings_screen_gesture">Escrita ao deslizar</string>
@@ -44,7 +44,7 @@
     <string name="gesture_preview_trail">"Mostrar percurso do gesto"</string>
     <string name="gesture_floating_preview_text">"Pré-visual. flutuante dinâmica"</string>
     <string name="gesture_space_aware">Gesto multi-termo</string>
-    <string name="gesture_space_aware_summary">"Deslize p/ a tecla de espaço p/ introduzir espaços durante toques"</string>
+    <string name="gesture_space_aware_summary">Deslize p/ a barra de espaço p/ introduzir espaços durante toques</string>
     <string name="subtype_en_GB">Inglês (Reino Unido)</string>
     <string name="subtype_en_US">"Inglês (EUA)"</string>
     <string name="subtype_es_US">"Espanhol (EUA)"</string>
@@ -62,8 +62,8 @@
     <string name="prefs_keypress_vibration_duration_settings">"Duração vibr. ao premir teclas"</string>
     <string name="prefs_keypress_sound_volume_settings">"Volume do som ao premir teclas"</string>
     <string name="prefs_key_longpress_timeout_settings">"Atraso ao manter tecla premida"</string>
-    <string name="prefs_enable_emoji_alt_physical_key">"Emoji para teclado físico"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">"A tecla Alt física mostra a paleta de emoji"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">Emoji com teclado físico</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">A tecla Alt física mostra o ecrã de emojis</string>
     <string name="button_default">"Predefinido"</string>
     <string name="setup_welcome_title">Bem-vindo ao %s</string>
     <string name="setup_welcome_additional_description">com a Escrita ao deslizar</string>
@@ -93,8 +93,8 @@
     <string name="user_dict_settings_all_languages">"Em todos os idiomas"</string>
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
-    <string name="delete_swipe">Deslize para eliminar</string>
-    <string name="delete_swipe_summary">Pode deslizar desde a tecla \'Apagar\' para selecionar e remover grandes porções de texto de uma vez</string>
+    <string name="delete_swipe">Deslizar para eliminar</string>
+    <string name="delete_swipe_summary">Deslize desde a tecla Apagar para selecionar e remover grandes porções de texto de uma vez</string>
     <string name="show_emoji_key">Tecla de emoji</string>
     <string name="incognito">Impor modo incógnito</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
@@ -111,9 +111,9 @@
     <string name="more_keys_strip_description">Mais teclas</string>
     <string name="number_row">Linha de números</string>
     <string name="number_row_summary">Mostrar sempre linha de números</string>
-    <string name="show_hints">Mostrar dicas de teclas</string>
-    <string name="prefs_long_press_keyboard_to_change_lang">Alterar método de entrada com a tecla de Espaço</string>
-    <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla de Espaço abre o menu de seleção do método de entrada</string>
+    <string name="show_hints">Mostrar dicas nas teclas</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Alterar método de entrada com a barra de Espaço</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na barra de Espaço abre o menu de seleção do método de entrada</string>
     <string name="prefs_keyboard_height_scale">Altura do teclado</string>
     <string name="key_borders">Limite das teclas</string>
     <string name="android_spell_checker_settings">Definições do corretor ortográfico HeliBoard</string>
@@ -145,7 +145,7 @@
     <string name="load_gesture_library_summary">Fornecer uma biblioteca nativa para permitir a escrita por gestos</string>
     <string name="load_gesture_library_button_load">Carregar biblioteca</string>
     <string name="gesture_fast_typing_cooldown">Tempo de espera da escrita rápida</string>
-    <string name="language_switch_key_behavior">Comportamento da tecla de alteração de idioma</string>
+    <string name="language_switch_key_behavior">Ação da tecla de alteração de idioma</string>
     <string name="add_to_personal_dictionary">Adicionar palavras ao dicionário pessoal</string>
     <string name="add_to_personal_dictionary_summary">Usar o dicionário pessoal do dispositivo para guardar novas palavras</string>
     <string name="more_autocorrect">Mais correção automática</string>
@@ -156,7 +156,7 @@
     <string name="center_suggestion_text_to_enter_summary">Ao pressionar espaço ou pontuação, a sugestão do meio será introduzida</string>
     <string name="backup_error">Erro na cópia de segurança: %s</string>
     <string name="show_popup_keys_normal">Mostrar variantes definidas nos idiomas do teclado</string>
-    <string name="show_popup_keys_title">Mostrar mais letras com acentos numa janela</string>
+    <string name="show_popup_keys_title">Mostrar mais letras com acentos em menu</string>
     <string name="prefs_always_show_suggestions_summary">Ignorar o pedido de outras apps para desativar as sugestões (pode causar problemas)</string>
     <string name="switch_language">Mudar de idioma</string>
     <string name="backup_restore_title">Cópia de segurança e restauro</string>
@@ -166,13 +166,13 @@
     <string name="suggest_clipboard_content">Sugerir conteúdo da área de transferência</string>
     <string name="suggest_clipboard_content_summary">Mostrar o conteúdo da área de transferência recentemente copiado como uma sugestão</string>
     <string name="gesture_fast_typing_cooldown_instant">Iniciar sempre instantaneamente</string>
-    <string name="load_gesture_library_message">Necessita da biblioteca para \'%s\'. As bibliotecas incompatíveis podem falhar ao usar a escrita por gestos. \n\nAviso: carregar código externo pode ser um risco de segurança. Use apenas uma biblioteca de uma fonte em que confie.</string>
+    <string name="load_gesture_library_message">Necessita da biblioteca para \'%s\'. As bibliotecas incompatíveis podem falhar ao usar a escrita por gestos. \n\nAviso: carregar código externo pode ser um risco de segurança. Use apenas uma biblioteca de uma fonte fiável.</string>
     <string name="gesture_floating_preview_static">Pré-visualização flutuante</string>
     <string name="gesture_floating_preview_static_summary">Ver a palavra sugerida ao usar gestos</string>
     <string name="prefs_always_show_suggestions">Mostrar sempre sugestões</string>
     <string name="restore_error">Erro ao restaurar a cópia de segurança: %s</string>
     <string name="load_gesture_library_button_delete">Eliminar biblioteca</string>
-    <string name="more_autocorrect_summary">Correção automática mesmo quando não é explicitamente solicitada pelo campo de entrada</string>
+    <string name="more_autocorrect_summary">Correção automática mesmo sem solicitação explícita do campo de entrada</string>
     <string name="gesture_trail_fadeout_duration">Tempo de vida do rasto do gesto</string>
     <string name="checksum_mismatch_message">Ficheiro de biblioteca desconhecido. Tem a certeza de que o obteve de uma fonte fiável e que é para \'%s\'?</string>
     <string name="vibrate_in_dnd_mode">Vibrar no modo \'Não Incomodar\'</string>
@@ -182,7 +182,7 @@
     <string name="auto_correct_shortcuts">Atalhos de correção automática</string>
     <string name="auto_correct_shortcuts_summary">Quando ativado, os atalhos podem ser expandidos pela correção automática</string>
     <string name="customize_background_image_landscape">Definir imagem de fundo (horizontal)</string>
-    <string name="custom_font">Definir fonte a partir de um ficheiro</string>
+    <string name="custom_font">Definir fonte a partir de ficheiro</string>
     <string name="summary_customize_background_image_landscape">Se não for definido, será usada a imagem vertical</string>
     <string name="customize_toolbar_key_code_reset_message">Limpar mesmo todos os códigos de teclas personalizados?</string>
     <string name="number_row_hints">Mostrar dicas na linha de números</string>
@@ -202,7 +202,7 @@
     <string name="right" tools:keep="@string/right">Direita</string>
     <string name="locales_with_dict">Idiomas com dicionários</string>
     <string name="clipboard" tools:keep="@string/clipboard">Área de transferência</string>
-    <string name="quick_pin_toolbar_keys">Fixar tecla da barra de ferramentas em toque longo</string>
+    <string name="quick_pin_toolbar_keys">Fixar tecla da barra de ferramentas com toque longo</string>
     <string name="pinned_toolbar_keys">Selecionar teclas fixadas da barra de ferramentas</string>
     <string name="toast_msg_clipboard_copy">Conteúdo copiado</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Mudar o lado do modo de uma mão</string>
@@ -253,11 +253,11 @@
     <string name="button_select_language">Selecionar idioma</string>
     <string name="replace_dictionary_message">Substituir mesmo o dicionário \"%1$s\" adicionado pelo utilizador?\n\nDicionário atual:\n%2$s \n\nDicionário novo:\n%3$s</string>
     <string name="add_dictionary">Selecione um dicionário para adicionar. Dicionários no formato .dict podem ser descarregados %s.</string>
-    <string name="var_toolbar_direction_summary">Inverter a direção quando um teclado do subtipo direita-para-esquerda é selecionado</string>
-    <string name="var_toolbar_direction">Direção da barra de ferramentas variável</string>
+    <string name="var_toolbar_direction_summary">Inverter a direção quando um teclado do subtipo dir.-para-esq. é selecionado</string>
+    <string name="var_toolbar_direction">Direção variável da barra de ferramentas</string>
     <string name="show_vertical_space_swipe">Deslizar vertical na barra de espaço</string>
     <string name="hidden_features_summary">Mostrar funções que podem ser desconhecidas</string>
-    <string name="popup_order">Selecionar ordem do popup de teclas</string>
+    <string name="popup_order">Selecionar ordem no menu da tecla</string>
     <string name="copy_to_clipboard">Copiar para a Área de Transferência</string>
     <string name="layout_in_use">Aviso: o esquema está agora em uso</string>
     <string name="layout_error">Erro de esquema: %s</string>
@@ -271,7 +271,7 @@
     <string name="dictionary_file_error">Erro: O ficheiro selecionado não é um ficheiro de dicionário válido</string>
     <string name="user_dict_settings_add_weight_value">Peso:</string>
     <string name="select_color_spacebar_background">Fundo da barra de espaço</string>
-    <string name="hidden_features_message">► Premir continuamente teclas fixadas da barra de ferramentas resulta em funcionalidades adicionais: &lt;br&gt; \n\t• área de transferência &amp;#65515; colar &lt;br&gt; \n\t• mover para esquerda/direita &amp;#65515; palavra para esquerda/direita &lt;br&gt; \n\t• mover para cima/baixo &amp;#65515; página para cima/baixo &lt;br&gt; \n\t• palavra para esquerda/direita &amp;#65515; linha início/fim &lt;br&gt; \n\t• página para cima/baixo &amp;#65515; página início/fim &lt;br&gt; \n\t• copiar &amp;#65515; cortar &lt;br&gt; \n\t• selecionar palavra &amp;#8596; selecionar tudo &lt;br&gt; \n\t• desfazer &amp;#8596; refazer &lt;br&gt; &lt;br&gt; \n► Premir continuamente as teclas da barra de sugestões fixam as mesmas. &lt;br&gt; &lt;br&gt; \n► Premir continuamente a tecla da vírgula para aceder à visualização da área de transferência, modo de uma mão, definições, ou mudar de idioma: &lt;br&gt; \n\t• A Visualização de Emojis e Mudança de Idioma vão desaparecer se tiver a tecla correspondente ativada; &lt;br&gt; \n\t• Para alguns esquemas, não é a tecla de vírgula, mas a tecla que seria no mesmo sítio. (ex: \\\'q\'\\ para o esquema Dvorak). &lt;br&gt; &lt;br&gt; \n► Quando o modo privado está ativado, nenhuma palavra será aprendida, e nenhum emoji será adicionado aos recentes. &lt;br&gt; &lt;br&gt; \n► Prima o botão do modo privado para aceder à barra de ferramentas. &lt;br&gt; &lt;br&gt; \n► Entrada por gestos: Deslize do shift até outra tecla para escrevê-la em maiúscula: &lt;br&gt; \n\t• Funciona também para as tecla \\\'?123\\\' para escrever um único símbolo do teclado de símbolos, e para teclas relacionadas. &lt;br&gt; &lt;br&gt; \n► Mantenha premida a tecla shift ou de símbolos, prima uma ou mais teclas, e depois solte a tecla shift ou de símbolos para voltar ao teclado anterior. &lt;br&gt; &lt;br&gt; \n► Prima continuamente uma sugestão na barra de sugestões para mostrar mais sugestões, e um botão para apagar essa sugestão. &lt;br&gt; &lt;br&gt; \n► Deslize para cima a partir de uma sugestão para abrir mais sugestões, e solte na sugestão que selecionar para usá-la. &lt;br&gt; &lt;br&gt; \n► Prima continuamente um item no histórico da área de transferência para fixá-lo (mantem na área de transferência até o desafixar). &lt;br&gt; &lt;br&gt; \n► Deslize para a esquerda na visualização da área de transferência para remover um item (exceto quando estiver fixado). &lt;br&gt; &lt;br&gt; \n► Selecione texto e pressione shift para alternar entre maiúscula, minúscula, e escrever palavras com letra maiúscula. &lt;br&gt; &lt;br&gt; \n► Pode adicionar dicionários abrindo-os em um explorador de ficheiros: &lt;br&gt; \n\t• Suporta apenas &lt;i&gt;content-uri&lt;/i&gt;, não &lt;i&gt;file-uri&lt;/i&gt;: pode não funcionar com alguns exploradores de ficheiros. &lt;br&gt; &lt;br&gt; \n► Para utilizadores a fazer backups manuais com acesso root: &lt;br&gt; \n\t• A partir do Android 7, o ficheiro de preferências compartilhadas não está na localização padrão, porque a app usa o %s. Para que as definições sejam lidas antes do dispositivo ser desbloqueado, como por exemplo no boot; &lt;br&gt; \n\t• O ficheiros está localizado em /data/user_de/0/package_id/shared_prefs/ porém pode depender do dispositivo e versão do Android. &lt;br&gt; &lt;br&gt;\n&lt;i&gt;&lt;b&gt;Modo de depuração / APK de depuração&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Prima continuamente uma sugestão para mostrar o dicionário de origem. &lt;br&gt; &lt;br&gt; \n► Ao usar o APK de depuração, pode encontrar definições de depuração dentro das opções avançadas, porém a utilidade é limitada exceto a exportar dicionários para o log. &lt;br&gt; \n\t• Para o APK de lançamento, é preciso tocar na versão em &lt;i&gt;Sobre&lt;/i&gt; várias vezes, assim irá encontrar as opções de depuração em &lt;i&gt;Preferências Avançadas&lt;/i&gt;. &lt;br&gt; \n\t• Ao ativar &lt;i&gt;Mostrar informações de sugestão&lt;/i&gt;, as sugestões terão pequenos números em cima a mostrar a sua pontuação interna e dicionário de origem. &lt;br&gt; &lt;br&gt; \n► Num eventual crash da aplicação, é perguntado caso queira o log do crash quando abrir as Definições. &lt;br&gt; &lt;br&gt; \n► Ao usar digitação multi-linguagem, a barra de espaço irá mostrar um número de confiança para determinar a linguagem atualmente em uso. &lt;br&gt; &lt;br&gt; \n► Sugestões terão pequenos números em cima a mostrar a sua pontuação interna e dicionário de origem (pode ser desativado).</string>
+    <string name="hidden_features_message">► Premir sem soltar teclas fixadas da barra de ferramentas resulta em funcionalidades adicionais: &lt;br&gt; \n\t• área de transferência &amp;#65515; colar &lt;br&gt; \n\t• mover para esquerda/direita &amp;#65515; palavra para esquerda/direita &lt;br&gt; \n\t• mover para cima/baixo &amp;#65515; página para cima/baixo &lt;br&gt; \n\t• palavra para esquerda/direita &amp;#65515; linha início/fim &lt;br&gt; \n\t• página para cima/baixo &amp;#65515; página início/fim &lt;br&gt; \n\t• copiar &amp;#65515; cortar &lt;br&gt; \n\t• selecionar palavra &amp;#8596; selecionar tudo &lt;br&gt; \n\t• desfazer &amp;#8596; refazer &lt;br&gt; &lt;br&gt; \n► Premir sem soltar as teclas da barra de sugestões fixam as mesmas. &lt;br&gt; &lt;br&gt; \n► Premir sem soltar a tecla da vírgula para aceder ao ecrã da área de transferência, ecrã de emojis, modo de uma mão, definições, ou mudar de idioma: &lt;br&gt; \n\t• Vista de emojis e Alterar idioma vão desaparecer se tiver a tecla correspondente ativada; &lt;br&gt; \n\t• Para alguns esquemas, não é a tecla de vírgula, mas a tecla que seria no mesmo sítio. (ex: \\\'q\'\\ para o esquema Dvorak). &lt;br&gt; &lt;br&gt; \n► Quando o modo privado está ativado, nenhuma palavra será aprendida, e nenhum emoji será adicionado aos recentes. &lt;br&gt; &lt;br&gt; \n► Prima o botão do modo privado para aceder à barra de ferramentas. &lt;br&gt; &lt;br&gt; \n► Entrada por gestos: Deslize do shift até outra tecla para escrevê-la em maiúscula: &lt;br&gt; \n\t• Funciona também para as tecla \\\'?123\\\' para escrever um único símbolo do teclado de símbolos, e para teclas relacionadas. &lt;br&gt; &lt;br&gt; \n► Mantenha premida a tecla shift ou de símbolos, prima uma ou mais teclas, e depois solte a tecla shift ou de símbolos para voltar ao teclado anterior. &lt;br&gt; &lt;br&gt; \n► Prima sem soltar uma sugestão na barra de sugestões para mostrar mais sugestões, e um botão para apagar essa sugestão. &lt;br&gt; &lt;br&gt; \n► Deslize para cima a partir de uma sugestão para abrir mais sugestões, e solte na sugestão que selecionar para usá-la. &lt;br&gt; &lt;br&gt; \n► Prima sem soltar um item no histórico da área de transferência para fixá-lo (mantem na área de transferência até o desafixar). &lt;br&gt; &lt;br&gt; \n► Deslize para a esquerda na visualização da área de transferência para remover um item (exceto quando estiver fixado). &lt;br&gt; &lt;br&gt; \n► Selecione texto e pressione shift para alternar entre maiúscula, minúscula, e escrever palavras com letra maiúscula. &lt;br&gt; &lt;br&gt; \n► Pode adicionar dicionários abrindo-os em um explorador de ficheiros: &lt;br&gt; \n\t• Suporta apenas &lt;i&gt;content-uri&lt;/i&gt;, não &lt;i&gt;file-uri&lt;/i&gt;: pode não funcionar com alguns exploradores de ficheiros. &lt;br&gt; &lt;br&gt; \n► Para utilizadores a fazer backups manuais com acesso root: &lt;br&gt; \n\t• A partir do Android 7, o ficheiro de preferências compartilhadas não está na localização padrão, porque a app usa o %s. Para que as definições sejam lidas antes do dispositivo ser desbloqueado, como por exemplo no boot; &lt;br&gt; \n\t• O ficheiros está localizado em /data/user_de/0/package_id/shared_prefs/ porém pode depender do dispositivo e versão do Android. &lt;br&gt; &lt;br&gt;\n&lt;i&gt;&lt;b&gt;Modo de depuração / APK de depuração&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Prima sem soltar uma sugestão para mostrar o dicionário de origem. &lt;br&gt; &lt;br&gt; \n► Ao usar o APK de depuração, pode encontrar definições de depuração dentro das opções avançadas, porém a utilidade é limitada exceto a exportar dicionários para o log. &lt;br&gt; \n\t• Para o APK de lançamento, é preciso tocar na versão em &lt;i&gt;Sobre&lt;/i&gt; várias vezes, assim irá encontrar as opções de depuração em &lt;i&gt;Preferências Avançadas&lt;/i&gt;. &lt;br&gt; \n\t• Ao ativar &lt;i&gt;Mostrar informações de sugestão&lt;/i&gt;, as sugestões terão pequenos números em cima a mostrar a sua pontuação interna e dicionário de origem. &lt;br&gt; &lt;br&gt; \n► Num eventual crash da aplicação, é perguntado caso queira o log do crash quando abrir as Definições. &lt;br&gt; &lt;br&gt; \n► Ao usar digitação multi-linguagem, a barra de espaço irá mostrar um número de confiança para determinar a linguagem atualmente em uso. &lt;br&gt; &lt;br&gt; \n► Sugestões terão pequenos números em cima a mostrar a sua pontuação interna e dicionário de origem (pode ser desativado).</string>
     <string name="key_code">Código de tecla</string>
     <string name="dictionary_settings_category">Dicionários</string>
     <string name="word_left" tools:keep="@string/word_left">Palavra para a esquerda</string>
@@ -283,7 +283,7 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Areia</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nublado</string>
-    <string name="prefs_long_press_symbol_for_numpad">Prima continuamente a tecla de símbolos para o teclado numérico</string>
+    <string name="prefs_long_press_symbol_for_numpad">Prima sem soltar a tecla de símbolos para o teclado numérico</string>
     <string name="load">Carregar</string>
     <string name="settings_category_space">Espaço</string>
     <string name="backspace_reverts_autocorrect">Retrocesso reverte a correção automática</string>
@@ -295,15 +295,15 @@
     <string name="autospace_before_gesture_typing">Espaço automático antes de digitar uma palavra ao deslizar</string>
     <string name="autospace_after_gesture_typing">Espaço automática após digitar uma palavra com gestos</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Linha de números</string>
-    <string name="show_tld_popup_keys">Mostrar teclas de TLD</string>
-    <string name="show_tld_popup_keys_summary">Substituir popups de ponto final por domínios de topo ao digitar URLs e endereços de e-mail</string>
+    <string name="show_tld_popup_keys">Mostrar menu de TLD</string>
+    <string name="show_tld_popup_keys_summary">Substituir menu do ponto final por domínios de topo ao digitar URLs e endereços de e-mail</string>
     <string name="split" tools:keep="@string/split">Teclado dividido</string>
     <string name="page_down" tools:keep="@string/page_down">Página para baixo</string>
     <string name="clipboard_toolbar_keys">Selecionar teclas da barra de ferramentas de área de transferência</string>
     <string name="quick_pin_toolbar_keys_summary">Desativa outras ações de toque longo para teclas da barra de ferramentas desafixadas</string>
     <string name="show_popup_hints">Mostrar dicas funcionais</string>
-    <string name="show_popup_hints_summary">Mostrar dicas se um toque longo numa tecla funcional abre um popup</string>
-    <string name="after_numpad_and_space">Premir Enter ou Espaço após outras teclas no teclado de números</string>
+    <string name="show_popup_hints_summary">Mostrar dicas se um toque longo numa tecla funcional abre um menu</string>
+    <string name="after_numpad_and_space">Premir Enter ou Espaço após outras teclas no teclado númerico</string>
     <string name="all_colors_warning">Esta configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é derivada das cores normais, e os nomes não são traduzidos.</string>
     <string name="select_color_gesture">Entrada de gesto</string>
     <string name="discussion_section_link">seção de discussão</string>
@@ -317,7 +317,7 @@
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
     <string name="user_dict_word_already_present">Esta palavra já está presente no dicionário do utilizador %s. Digite outra.</string>
     <string name="select_color_spacebar_text">Texto da barra de espaço</string>
-    <string name="auto_show_toolbar_summary">Mostrar a barra de ferramentas se a entrada começar ou o texto for selecionado</string>
+    <string name="auto_show_toolbar_summary">Mostrar a barra de ferramentas ao introduzir texto ou selecionar</string>
     <string name="delete_confirmation">Apagar mesmo %s?</string>
     <string name="button_load_custom">Carregar ficheiro</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido pelo utilizador</string>
@@ -355,12 +355,12 @@
     <string name="customize_toolbar_key_codes">Personalizar códigos de teclas da barra de ferramentas</string>
     <string name="hidden_features_text">armazenamento protegido pelo dispositivo</string>
     <string name="show_popup_keys_main">Adicionar variantes muito comuns (padrão)</string>
-    <string name="remove_redundant_popups">Remover popups redundantes</string>
-    <string name="remove_redundant_popups_summary">Remove popups de teclas já presentes no esquema padrão</string>
-    <string name="customize_currencies_detail">Defina um símbolo principal e até 6 secundários para moedas, separado com espaço</string>
+    <string name="remove_redundant_popups">Remover menus redundantes</string>
+    <string name="remove_redundant_popups_summary">Remove menus das teclas já presentes no esquema padrão</string>
+    <string name="customize_currencies_detail">Defina um símbolo principal e até 6 secundários para moedas, separados com espaço</string>
     <string name="customize_icons_reset_message">Repor mesmo todos os ícones personalizados?</string>
     <string name="long_press_code">Código de pressão contínua</string>
-    <string name="auto_show_toolbar">Mostrar automaticamente a barra de ferramentas</string>
+    <string name="auto_show_toolbar">Mostrar barra de ferramentas automaticamente</string>
     <string name="settings_screen_secondary_layouts">Esquemas secundários</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Teclas funcionais (ecrã grande)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefone</string>
@@ -385,8 +385,8 @@
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Entrada de voz desativada</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostrar / ocultar barra de ferramentas</string>
     <string name="icon_style">Estilo do ícone</string>
-    <string name="prefs_font_scale">Escala da fonte do teclado</string>
-    <string name="prefs_emoji_font_scale">Escala da fonte na visualização de emoji</string>
+    <string name="prefs_font_scale">Escala de fonte do teclado</string>
+    <string name="prefs_emoji_font_scale">Escala de fonte dos emojis</string>
     <string name="replace_dictionary">Substituir dicionário</string>
     <string name="gnu_gpl">Licença Pública Geral GNU v3.0</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Espaço (teclado numérico)</string>
@@ -401,14 +401,14 @@
     <string name="get_colors_message">Pode encontrar e partilhar cores em %s.</string>
     <string name="get_layouts_message">Pode encontrar e partilhar esquemas em %s.</string>
     <string name="setup_step3_action">Configurar o teclado</string>
-    <string name="prefs_emoji_key_fit">Escalar tamanho da tecla emoji com o do tipo de letra</string>
+    <string name="prefs_emoji_key_fit">Escalar tamanho da tecla emoji com a fonte</string>
     <string name="suggest_punctuation">Sugestões de pontuação</string>
     <string name="suggest_punctuation_summary">Mostrar pontuação quando não há outras sugestões</string>
     <string name="backup_restored">A cópia de segurança foi restaurada</string>
     <string name="toolbar_mode_toolbar_keys">Apenas teclas da barra de ferramentas</string>
     <string name="toolbar_mode_suggestion_strip">Apenas sugestões</string>
     <string name="toolbar_mode_hidden">Oculto</string>
-    <string name="prefs_emoji_skin_tone">Cor de pele padrão para os emojis</string>
+    <string name="prefs_emoji_skin_tone">Cor de pele padrão dos emojis</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutra</string>
     <string name="about_wiki_link">Ir para a Wiki</string>
     <string name="about_wiki_link_description">Qualquer pessoa pode melhorar a wiki no Github!</string>
@@ -418,11 +418,11 @@
     <string name="use_apps_dict_summary">Usar nomes de apps instaladas para sugestões e correções</string>
     <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>
     <string name="suggest_emojis_summary">Usar o dicionário de emojis nas sugestões normais</string>
-    <string name="show_emoji_descriptions">Mostrar descrição do emoji ao premir continuamente</string>
+    <string name="show_emoji_descriptions">Mostrar descrição de emoji ao premir sem soltar</string>
     <string name="toolbar_mode">Modo da barra de ferramentas</string>
-    <string name="popup_order_and_hint_source">Ordem das teclas de popup e fonte de dicas</string>
+    <string name="popup_order_and_hint_source">Ordem no menu da tecla e fonte de dicas</string>
     <string name="toolbar_mode_expandable">Teclas da barra de ferramentas e sugestões</string>
-    <string name="toolbar_hiding_global">Ocultar a área de transferência e as barras de ferramentas de emoji</string>
+    <string name="toolbar_hiding_global">Ocultar também as barras de ferramentas da área de transferência e de emoji</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="subtype_generic_extended">%s (Extendido)</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
@@ -433,13 +433,13 @@
     <string name="inline_emoji_search">Pesquisa de emoji embutida</string>
     <string name="inline_emoji_search_summary">Apenas sugerir emojis quando uma palavra é precedida por dois pontos</string>
     <string name="emoji_dictionary_required">É necessário um dicionário de emojis para esta funcionalidade. Os dicionários no formato .dict podem ser descarregados %s.</string>
-    <string name="clipboard_history_pinned_first">Mostrar items afixados no topo</string>
+    <string name="clipboard_history_pinned_first">Mostrar items fixados no topo</string>
     <string name="save_subtype_per_app">Lembrar idioma por app</string>
     <string name="subtype_mhr">Mai (Oriental)</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emoji com tecla de ação</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
-    <string name="custom_emoji_font">Definir fonte de emoji a partir de ficheiro</string>
+    <string name="custom_emoji_font">Definir fonte de emojis a partir de ficheiro</string>
     <string name="number_row_in_symbols">Mostrar linha de números no ecrã de símbolos</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas funcionais (Khipro)</string>
     <string name="emoji_search_title">Pesquisar emoji</string>
@@ -539,11 +539,18 @@
     <string name="gesture_data_swipe_o_scope">Ferramenta para visualizar dados de gestos: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
     <string name="auto_correct_capitalized_suggestions">Correção automática de sugestões em maiúsculas</string>
     <string name="auto_correct_capitalized_suggestions_description">Após pressionar Maiús. para capitalizar sugestões, a correção automática será ativada</string>
-    <string name="prefs_hint_font_scale">Escala da fonte das dicas</string>
+    <string name="prefs_hint_font_scale">Escala de fonte das dicas</string>
     <string name="subtype_tok">Toki Pona</string>
     <string name="subtype_generic_4row">%s (4 filas)</string>
     <string name="about_community_links">Ligações da comunidade</string>
     <string name="about_community_links_description">Temas, editor de esquema, discussões…</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Teclas direcionais</string>
     <string name="space_swipe_toggle_dpad_entry">Mudar para teclas direcionais</string>
+    <string name="show_dpad_key">Tecla direcional</string>
+    <string name="recent_emojis_cleared">Apagou emojis recentes</string>
+    <string name="prefs_enable_hardware_keyboard">Suporte para teclado físico</string>
+    <string name="accent_shifted_icon">Ícone de Maiús destacado</string>
+    <string name="delete_swipe_letters">Letras</string>
+    <string name="delete_swipe_words">Palavras</string>
+    <string name="gesture_data_single_instance_per_word">Mostrar apenas uma entrada por palavra</string>
 </resources>

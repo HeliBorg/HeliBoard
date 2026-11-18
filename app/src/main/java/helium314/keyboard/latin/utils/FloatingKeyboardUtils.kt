@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Rect
+import android.os.Build
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.edit
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -17,7 +20,6 @@ import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.setFloatingSize
 
-// todo: add a frame around the keyboard (because other people care more about optics than I do)
 object FloatingKeyboardUtils {
     private val TAG = this::class.java.simpleName
     private val windowFrame = Rect()
@@ -27,14 +29,20 @@ object FloatingKeyboardUtils {
     fun setFloating(view: View?) {
         val lp = view?.layoutParams as? ViewGroup.MarginLayoutParams ?: return
         view.getWindowVisibleDisplayFrame(windowFrame)
+        // On Android 15+ (edge-to-edge) getWindowVisibleDisplayFrame includes the area behind the navbar, so we remove it here
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            val navBarBottom = ViewCompat.getRootWindowInsets(view)
+                ?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
+            windowFrame.bottom -= navBarBottom
+        }
         extraHeight = getSuggestionStripHeight(view.resources) + getFloatingHandleHeight(view.resources)
         val (x, y) = readPosition(
             view.context,
             windowFrame.right - windowFrame.left - Settings.getValues().mFloatingWidth,
-            windowFrame.bottom - windowFrame.top - extraHeight.toInt() - Settings.getValues().mFloatingHeight
+            windowFrame.bottom - windowFrame.top - extraHeight.toInt() - actualFloatingHeight
         )
         if (DebugFlags.DEBUG_ENABLED)
-            Log.d(TAG, "place floating view at $x, $y, width ${Settings.getValues().mFloatingWidth}, height ${Settings.getValues().mFloatingHeight}")
+            Log.d(TAG, "place floating view at $x, $y, width ${Settings.getValues().mFloatingWidth}, height $actualFloatingHeight")
         ViewLayoutUtils.placeViewAt(view, x, y, Settings.getValues().mFloatingWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
         if (view.findViewById<View>(R.id.float_handle_container)?.isVisible == true)
             return
@@ -107,7 +115,7 @@ object FloatingKeyboardUtils {
                     val availableWidth = windowFrame.right - windowFrame.left
                     val availableHeight = windowFrame.bottom - windowFrame.top
                     positionX = (positionX + dx).coerceIn(0f, (availableWidth - sv.mFloatingWidth).toFloat())
-                    positionY = (positionY + dy).coerceIn(0f, availableHeight - extraHeight - sv.mFloatingHeight)
+                    positionY = (positionY + dy).coerceIn(0f, availableHeight - extraHeight - actualFloatingHeight)
                     lp.leftMargin = positionX.toInt()
                     lp.topMargin = positionY.toInt()
                     savePosition(context, lp.leftMargin, lp.topMargin)
@@ -140,10 +148,16 @@ object FloatingKeyboardUtils {
                     val availableHeight = windowFrame.bottom - windowFrame.top
                     val maxWidth = (availableWidth * 0.9f).toInt()
                     val maxHeight = (availableHeight * 0.9f).toInt()
+                    // min size should be independent of orientation
+                    val minWidth = (minOf(resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels) * 0.2)
+                        .toInt().coerceAtLeast(200)
+                    val minHeight = (minWidth * 0.75).toInt()
                     // avoid setting window outside windowFrame, view behaves strange otherwise
-                    val newWidth = (Settings.getValues().mFloatingWidth + dx / scale).toInt().coerceIn(150, maxWidth)
+                    val newWidth = (Settings.getValues().mFloatingWidth + dx / scale).toInt()
+                        .coerceIn(minWidth, maxWidth)
                         .coerceAtMost(availableWidth - lp.leftMargin)
-                    val newHeight = (Settings.getValues().mFloatingHeight + dy / scale).toInt().coerceIn(100, maxHeight)
+                    val newHeight = (actualFloatingHeight + dy / scale).toInt()
+                        .coerceIn(minHeight, maxHeight)
                         .coerceAtMost(availableHeight - extraHeight.toInt() - lp.topMargin)
                     setFloatingSize(context, newWidth, newHeight)
                     KeyboardSwitcher.getInstance().reloadKeyboard()
@@ -154,4 +168,7 @@ object FloatingKeyboardUtils {
             }
         }
     }
+
+    // mFloatingHeight does not consider whether everything or only the toolbar is shown
+    private val actualFloatingHeight get() = if (Settings.getInstance().readShowToolbarOnly()) 0 else Settings.getValues().mFloatingHeight
 }

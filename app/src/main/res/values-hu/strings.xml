@@ -546,4 +546,11 @@
     <string name="subtype_tok">Toki Pona</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
     <string name="space_swipe_toggle_dpad_entry">D-pad be/ki</string>
+    <string name="show_dpad_key">D-pad-gomb</string>
+    <string name="recent_emojis_cleared">Legutóbbi emodzsik törlése</string>
+    <string name="prefs_enable_hardware_keyboard">Hardveres billentyűzet-támogatás</string>
+    <string name="accent_shifted_icon">Kiemelt Shift billentyűikon</string>
+    <string name="delete_swipe_letters">Betűk</string>
+    <string name="delete_swipe_words">Szavak</string>
+    <string name="gesture_data_single_instance_per_word">Szavanként csak egy bejegyzést megjelenítése</string>
 </resources>

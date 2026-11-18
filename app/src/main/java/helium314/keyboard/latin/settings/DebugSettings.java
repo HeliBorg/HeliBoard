@@ -14,7 +14,7 @@ public final class DebugSettings {
     public static final String PREF_FORCE_NON_DISTINCT_MULTITOUCH = "force_non_distinct_multitouch";
     public static final String PREF_SLIDING_KEY_INPUT_PREVIEW = "sliding_key_input_preview";
     public static final String PREF_SHOW_DEBUG_SETTINGS = "show_debug_settings";
-    public static final String PREF_KEY_DUMP_DICT_PREFIX = "dump_dictionaries";
+    public static final String PREF_EXPORT_DICTIONARY = "export_dictionary";
 
     public static final String PREF_SHOW_SUGGESTION_INFOS = "show_suggestion_infos";
     private DebugSettings() {

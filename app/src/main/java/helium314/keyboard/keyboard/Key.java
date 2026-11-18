@@ -124,7 +124,6 @@ public class Key implements Comparable<Key> {
     private static final int POPUP_KEYS_FLAGS_HAS_LABELS = 0x40000000;
     private static final int POPUP_KEYS_FLAGS_NEEDS_DIVIDERS = 0x20000000;
     private static final int POPUP_KEYS_FLAGS_NO_PANEL_AUTO_POPUP_KEY = 0x10000000;
-    // TODO: Rename these specifiers to !autoOrder! and !fixedOrder! respectively.
     public static final String POPUP_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
     public static final String POPUP_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
     public static final String POPUP_KEYS_HAS_LABELS = "!hasLabels!";
@@ -1117,7 +1116,7 @@ public class Key implements Comparable<Key> {
             final String[] popupKeys = PopupKeysUtilsKt.createPopupKeysArray(popupSet, mKeyboardParams, label != null ? label : keySpec);
             mPopupKeysColumnAndFlags = getPopupKeysColumnAndFlagsAndSetNullInArray(params, popupKeys);
             final String[] finalPopupKeys = popupKeys == null ? null : PopupKeySpec.filterOutEmptyString(popupKeys);
-            if (finalPopupKeys != null) {
+            if (finalPopupKeys != null && finalPopupKeys.length > 0) {
                 PopupKeySpec[] tempPopupKeys = new PopupKeySpec[finalPopupKeys.length];
                 boolean hasRepeatPopup = false;
                 for (int i = 0; i < finalPopupKeys.length; i++) {

@@ -21,7 +21,7 @@
     { "label": "space" },
     { "$": "keyboard_state_selector",
       "alphabet": { "label": ";" },
-      "symbols": { "label": "dpad" },
+      "symbols": { "$": "keyboard_state_selector", "dpadKeyEnabled": { "label": "dpad" } },
       "dpad": { "label": "symbol" }
     },
     { "label": "period", "labelFlags": 1073741824 },

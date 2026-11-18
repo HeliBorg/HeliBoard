@@ -30,8 +30,6 @@ import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
-import helium314.keyboard.latin.utils.DictionaryInfoUtils
-import helium314.keyboard.latin.utils.createDictionaryTextAnnotated
 import helium314.keyboard.latin.utils.DeleteButton
 import helium314.keyboard.latin.utils.ExpandButton
 import helium314.keyboard.latin.utils.Theme
@@ -43,6 +41,9 @@ import java.util.Locale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalResources
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
+import helium314.keyboard.latin.dictionary.DictionaryInfoUtils
+import helium314.keyboard.latin.dictionary.createDictionaryTextAnnotated
+import helium314.keyboard.latin.utils.IntentUtils
 
 @Composable
 fun DictionaryDialog(
@@ -98,9 +99,8 @@ fun DictionaryDialog(
         scrollContent = true,
         neutralButtonText = stringResource(R.string.add_new_dictionary_title),
         onNeutral = {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .setType("application/octet-stream")
+            val intent = IntentUtils.getResolvableTypeIntent(ctx, "*/*")
+                .setAction(Intent.ACTION_OPEN_DOCUMENT)
             picker.launch(intent)
         }
     )

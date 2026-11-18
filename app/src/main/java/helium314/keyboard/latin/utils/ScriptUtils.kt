@@ -168,32 +168,34 @@ object ScriptUtils {
             Log.w("ScriptUtils", "old _ZZ locale found: $this")
             return SCRIPT_LATIN
         }
-        return when (language) {
-            "ar", "ckb", "ur", "fa" -> SCRIPT_ARABIC
-            "hy" -> SCRIPT_ARMENIAN
-            "bn" -> SCRIPT_BENGALI
-            "sr", "mk", "ru", "uk", "mn", "be", "kk", "ky", "bg", "xdq", "cv", "mhr", "mns", "dru" -> SCRIPT_CYRILLIC
-            "ka" -> SCRIPT_GEORGIAN
-            "el" -> SCRIPT_GREEK
-            "iw", "he" -> SCRIPT_HEBREW
-            "km" -> SCRIPT_KHMER
-            "lo" -> SCRIPT_LAO
-            "ml" -> SCRIPT_MALAYALAM
-            "my" -> SCRIPT_MYANMAR
-            "si" -> SCRIPT_SINHALA
-            "ta" -> SCRIPT_TAMIL
-            "te" -> SCRIPT_TELUGU
-            "th" -> SCRIPT_THAI
-            "ko" -> SCRIPT_HANGUL
-            "ja" -> SCRIPT_KATAKANA_HIRAGANA
-            "hi", "mr", "ne" -> SCRIPT_DEVANAGARI
-            "kn" -> SCRIPT_KANNADA
-            "gu" -> SCRIPT_GUJARATI
-            // "no language" is a latin keyboard.
-            // setting to different script breaks editing existing keyboards, and hides the shift key on new custom layouts
-            //"zz" -> SCRIPT_UNKNOWN
-            else -> SCRIPT_LATIN // use as fallback
-        }
+        return defaultScript
+    }
+
+    val Locale.defaultScript get() = when (language) {
+        "ar", "ckb", "ur", "fa" -> SCRIPT_ARABIC
+        "hy" -> SCRIPT_ARMENIAN
+        "bn" -> SCRIPT_BENGALI
+        "sr", "mk", "ru", "uk", "mn", "be", "kk", "ky", "bg", "xdq", "cv", "mhr", "mns", "dru" -> SCRIPT_CYRILLIC
+        "ka" -> SCRIPT_GEORGIAN
+        "el" -> SCRIPT_GREEK
+        "iw", "he" -> SCRIPT_HEBREW
+        "km" -> SCRIPT_KHMER
+        "lo" -> SCRIPT_LAO
+        "ml" -> SCRIPT_MALAYALAM
+        "my" -> SCRIPT_MYANMAR
+        "si" -> SCRIPT_SINHALA
+        "ta" -> SCRIPT_TAMIL
+        "te" -> SCRIPT_TELUGU
+        "th" -> SCRIPT_THAI
+        "ko" -> SCRIPT_HANGUL
+        "ja" -> SCRIPT_KATAKANA_HIRAGANA
+        "hi", "mr", "ne" -> SCRIPT_DEVANAGARI
+        "kn" -> SCRIPT_KANNADA
+        "gu" -> SCRIPT_GUJARATI
+        // "no language" is a latin keyboard.
+        // setting to different script breaks editing existing keyboards, and hides the shift key on new custom layouts
+        //"zz" -> SCRIPT_UNKNOWN
+        else -> SCRIPT_LATIN // use as fallback
     }
 
     @JvmStatic

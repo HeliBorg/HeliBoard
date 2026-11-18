@@ -2,18 +2,14 @@
 
 package helium314.keyboard.latin.common
 
+import helium314.keyboard.compat.CompatBreakIterator
 import helium314.keyboard.latin.common.StringUtils.mightBeEmoji
 import helium314.keyboard.latin.common.StringUtils.newSingleCodePointString
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
-import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.SpacedTokens
-import helium314.keyboard.latin.utils.SpannableStringUtils
-import helium314.keyboard.latin.utils.TextRange
 import java.math.BigInteger
-import java.text.BreakIterator
 import java.util.Locale
-import kotlin.math.max
-import kotlin.text.indexOfFirst
+import kotlin.text.codePointAt
 
 fun CharSequence.codePointAt(offset: Int) = Character.codePointAt(this, offset)
 fun CharSequence.codePointBefore(offset: Int) = Character.codePointBefore(this, offset)
@@ -63,13 +59,6 @@ fun hasLetterBeforeLastSpaceBeforeCursor(text: CharSequence): Boolean {
     return false
 }
 
-/** get the complete emoji at end of [text], considering that emojis can be joined with ZWJ resulting in different emojis */
-// todo: this is now only used for tests, do we actually need it?
-fun getFullEmojiAtEnd(text: CharSequence): String {
-    val lastGrapheme = text.toString().lastGrapheme
-    return if (isEmoji(lastGrapheme)) lastGrapheme else ""
-}
-
 /**
  *  Returns whether the [text] ends with word codepoint, ignoring all word connectors.
  *  If the [text] is empty (after ignoring word connectors), the method returns false.
@@ -85,96 +74,6 @@ fun endsWithWordCodepoint(text: String, spacingAndPunctuations: SpacingAndPunctu
     }
     return codePoint != Constants.NOT_A_CODE && spacingAndPunctuations.isWordCodePoint(codePoint)
 }
-
-// todo: simplify... maybe compare with original code?
-// todo: this breaks at e.g. э́, but should not
-fun getTouchedWordRange(before: CharSequence, after: CharSequence, script: String, spacingAndPunctuations: SpacingAndPunctuations): TextRange {
-    // Going backward, find the first breaking point (separator)
-    var startIndexInBefore = before.length
-    var endIndexInAfter = -1 // todo: clarify why might we want to set it when checking before
-    loopOverCodePointsBackwards(before) { codePoint, cpLength ->
-        if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
-            if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
-                return@loopOverCodePointsBackwards true
-            // continue to the next whitespace and see whether this contains a sometimesWordConnector
-            for (i in startIndexInBefore - 1 downTo 0) {
-                val c = before[i]
-                if (spacingAndPunctuations.isSometimesWordConnector(c.code)) {
-                    // if yes -> whitespace is the index
-                    startIndexInBefore = max(StringUtils.charIndexOfLastWhitespace(before).toDouble(), 0.0).toInt()
-                    val firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after)
-                    endIndexInAfter = if (firstSpaceAfter == -1) after.length else firstSpaceAfter - 1
-                    return@loopOverCodePointsBackwards true
-                } else if (Character.isWhitespace(c)) {
-                    // if no, just break normally
-                    return@loopOverCodePointsBackwards true
-                }
-            }
-            return@loopOverCodePointsBackwards true
-        }
-        startIndexInBefore -= cpLength
-        false
-    }
-
-    // Find last word separator after the cursor
-    if (endIndexInAfter == -1) {
-        endIndexInAfter = 0
-        loopOverCodePoints(after) { codePoint, cpLength ->
-            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
-                if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
-                    return@loopOverCodePoints true
-                // continue to the next whitespace and see whether this contains a sometimesWordConnector
-                for (i in endIndexInAfter..<after.length) {
-                    val c = after[i]
-                    if (spacingAndPunctuations.isSometimesWordConnector(c.code)) {
-                        // if yes -> whitespace is next to the index
-                        startIndexInBefore = max(StringUtils.charIndexOfLastWhitespace(before), 0)
-                        val firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after)
-                        endIndexInAfter = if (firstSpaceAfter == -1) after.length else firstSpaceAfter - 1
-                        return@loopOverCodePoints true
-                    } else if (Character.isWhitespace(c)) {
-                        // if no, just break normally
-                        return@loopOverCodePoints true
-                    }
-                }
-                return@loopOverCodePoints true
-            }
-            endIndexInAfter += cpLength
-            false
-        }
-    }
-
-    // strip text before "//" (i.e. ignore http and other protocols)
-    val beforeConsideringStart = before.substring(startIndexInBefore, before.length)
-    val protocolEnd = beforeConsideringStart.lastIndexOf("//")
-    if (protocolEnd != -1) startIndexInBefore += protocolEnd + 1
-
-    // we don't want the end characters to be word separators
-    while (endIndexInAfter > 0 && spacingAndPunctuations.isWordSeparator(after[endIndexInAfter - 1].code)) {
-        --endIndexInAfter
-    }
-    while (startIndexInBefore < before.length && spacingAndPunctuations.isWordSeparator(before[startIndexInBefore].code)) {
-        ++startIndexInBefore
-    }
-
-    val hasUrlSpans = SpannableStringUtils.hasUrlSpans(before, startIndexInBefore, before.length)
-        || SpannableStringUtils.hasUrlSpans(after, 0, endIndexInAfter)
-
-    // We don't use TextUtils#concat because it copies all spans without respect to their
-    // nature. If the text includes a PARAGRAPH span and it has been split, then
-    // TextUtils#concat will crash when it tries to concat both sides of it.
-    return TextRange(
-        SpannableStringUtils.concatWithNonParagraphSuggestionSpansOnly(before, after),
-        startIndexInBefore, before.length + endIndexInAfter, before.length,
-        hasUrlSpans
-    )
-}
-
-// actually this should not be in STRING Utils, but only used for getTouchedWordRange
-private fun isPartOfCompositionForScript(codePoint: Int, spacingAndPunctuations: SpacingAndPunctuations, script: String) =
-    spacingAndPunctuations.isWordConnector(codePoint) // We always consider word connectors part of compositions.
-        // Otherwise, it's part of composition if it's part of script and not a separator.
-        || (!spacingAndPunctuations.isWordSeparator(codePoint) && ScriptUtils.isLetterPartOfScript(codePoint, script))
 
 /** split the string on the first of consecutive space only, further consecutive spaces are added to the next split */
 fun String.splitOnFirstSpacesOnly(): List<String> {
@@ -204,8 +103,14 @@ fun CharSequence.isValidNumber(): Boolean {
 }
 
 fun String.decapitalize(locale: Locale): String {
-    if (isEmpty() || !this[0].isUpperCase()) return this
-    return replaceFirstChar { it.lowercase(locale) }
+    val firstCp = codePointAt(0)
+    if (isEmpty() || !Character.isUpperCase(firstCp)) return this
+    if (firstCp < 0xffff)
+        return replaceFirstChar { it.lowercase(locale) }
+    // this doesn't consider locale, while String.lowercase would
+    // but anyway were unlikely to arrive here...
+    return String(Character.toChars(Character.toLowerCase(firstCp)))+
+        substring(Character.charCount(firstCp))
 }
 
 fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)
@@ -245,64 +150,47 @@ fun mightBeEmoji(text: CharSequence): Boolean {
 
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
-/** returns whether the text is a single emoji */
-fun isEmoji(text: CharSequence): Boolean = text.toString().isSingleGrapheme && mightBeEmoji(text) && text.matches(singleEmojiRegex)
+/** returns whether the text is a single emoji or a single regional indicator */
+fun isEmoji(text: CharSequence): Boolean = text.isSingleOrDoubleRegionalIndicator // not recognized by singleEmojiRegex
+        || (text.toString().isSingleGrapheme && mightBeEmoji(text) && text.matches(singleEmojiRegex))
 
-// from https://github.com/chattymin/Pebble/blob/main/pebble/src/main/java/com/chattymin/pebble/LocalBreakIterator.kt, Apache-2.0 license
-// there is more potentially useful code like String.graphemeLength (should be graphemeCount though)
-private val LocalBreakIterator = ThreadLocal<BreakIterator>().apply {
-    // this is always Locale.ROOT, but (Android Studio) testing on all available key labels showed no difference by locale
-    // maybe this works better with android.icu.text.BreakIterator, but that one requires API24
-    set(BreakIterator.getCharacterInstance(Locale.ROOT))
+private inline val CharSequence.isSingleOrDoubleRegionalIndicator get() =
+    (length == 2 && Character.codePointAt(this, 0).isRegionalIndicator)
+        || (length == 4 && Character.codePointAt(this, 0).isRegionalIndicator
+                && Character.codePointAt(this, 2).isRegionalIndicator
+           )
+
+inline val Int.isRegionalIndicator get() = this in 0x1F1E6..0x1F1FF
+//inline val Int.isSkinTone get() = this in 0x1F3FB..0x1F3FF
+
+inline val String.isSingleGrapheme: Boolean get() = length > 0 && lastGraphemeLength == length
+
+val CharSequence.lastGraphemeLength: Int get() {
+    if (length <= 1) return length
+    val iterator = CompatBreakIterator.graphemeInstance
+    iterator.text = this
+    return length - iterator.preceding(length)
 }
 
-private val localBreakIterator: BreakIterator = LocalBreakIterator.get() ?: initBreakIterator()
-
-private fun initBreakIterator() = BreakIterator.getCharacterInstance(Locale.ROOT).also {
-    LocalBreakIterator.set(it)
+fun CharSequence.getLastWordLength(sp: SpacingAndPunctuations): Int {
+    if (length <= 1) return length
+    val iterator = WordBreakIterator.getForSpacingAndPunctuations(sp)
+    iterator.text = this
+    return length - iterator.preceding(length)
 }
 
-val String.isSingleGrapheme: Boolean get() {
-    if (isEmpty()) return false
-    if (length == 1) return true
-
-    runCatching {
-        val iterator = localBreakIterator
-        iterator.setText(this)
-        iterator.next()
-        if (iterator.next() != BreakIterator.DONE) return false
-        // we have a single grapheme, but " 🏼" is detected as single grapheme which we don't want
-        return if ('\uD83C' !in this) true // does not contain skin tone
-        else singleEmojiRegex.matches(this) // single grapheme only if it's a single emoji
-    }
-    // got IllegalArgumentException: Invalid index on iterator.next()
-    return false
-}
-
-val String.lastGrapheme: String get() {
-    if (length <= 1) return this
-
-    val iterator = localBreakIterator
-    iterator.setText(this)
-    val res = substring(iterator.preceding(length))
-    val tone = res.indexOfFirst { it == '\uD83C' }
-    return if (tone == -1 || singleEmojiRegex.matches(res)) res
-    else res.substring(tone) // " 🏼" is detected as single grapheme, but we don't want this
-}
-
-/** translates a move of [steps] graphemes in [text] to character count */
-fun moveStepsToCharCount(text: CharSequence, steps: Int): Int {
+/** translates a move of [steps] in [text] as defined by [iterator] to character count */
+fun stepsToCharCount(text: CharSequence, steps: Int, iterator: CompatBreakIterator): Int {
     if (steps == 0) return 0
-    val iterator = localBreakIterator
-    iterator.setText(text.toString())
+    iterator.text = text
     if (steps > 0) {
         repeat(steps) { iterator.next() }
-        return if (iterator.current() == BreakIterator.DONE) text.length
+        return if (iterator.current() == -1) text.length
         else iterator.current()
     } else {
         iterator.last()
         repeat(-steps) { iterator.previous() }
-        return if (iterator.current() == BreakIterator.DONE) -text.length
+        return if (iterator.current() == -1) -text.length
         else iterator.current() - text.length
     }
 }

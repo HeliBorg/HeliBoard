@@ -3912,5 +3912,31 @@ U+1F532 # black square button
 U+1F3C1 # chequered flag
 U+1F6A9 # triangular flag
 U+1F38C # crossed flags
+U+1F1E6 # regional indicator symbol letter a
+U+1F1E7 # regional indicator symbol letter b
+U+1F1E8 # regional indicator symbol letter c
+U+1F1E9 # regional indicator symbol letter d
+U+1F1EA # regional indicator symbol letter e
+U+1F1EB # regional indicator symbol letter f
+U+1F1EC # regional indicator symbol letter g
+U+1F1ED # regional indicator symbol letter h
+U+1F1EE # regional indicator symbol letter i
+U+1F1EF # regional indicator symbol letter j
+U+1F1F0 # regional indicator symbol letter k
+U+1F1F1 # regional indicator symbol letter l
+U+1F1F2 # regional indicator symbol letter m
+U+1F1F3 # regional indicator symbol letter n
+U+1F1F4 # regional indicator symbol letter o
+U+1F1F5 # regional indicator symbol letter p
+U+1F1F6 # regional indicator symbol letter q
+U+1F1F7 # regional indicator symbol letter r
+U+1F1F8 # regional indicator symbol letter s
+U+1F1F9 # regional indicator symbol letter t
+U+1F1FA # regional indicator symbol letter u
+U+1F1FB # regional indicator symbol letter v
+U+1F1FC # regional indicator symbol letter w
+U+1F1FD # regional indicator symbol letter x
+U+1F1FE # regional indicator symbol letter y
+U+1F1FF # regional indicator symbol letter z
 # Above emojis are supported from Android 4.4 (API level 19)
 

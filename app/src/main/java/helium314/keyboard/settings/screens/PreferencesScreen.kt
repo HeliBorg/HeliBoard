@@ -74,6 +74,7 @@ fun PreferencesScreen(
         Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY,
         Settings.PREF_LANGUAGE_SWITCH_KEY,
         Settings.PREF_SHOW_EMOJI_KEY,
+        Settings.PREF_SHOW_DPAD_KEY,
         Settings.PREF_REMOVE_REDUNDANT_POPUPS,
         R.string.settings_category_clipboard_history,
         Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
@@ -159,6 +160,9 @@ fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_SHOW_EMOJI_KEY, R.string.show_emoji_key) {
         SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_KEY) { KeyboardSwitcher.getInstance().reloadKeyboard() }
     },
+    Setting(context, Settings.PREF_SHOW_DPAD_KEY, R.string.show_dpad_key) {
+        SwitchPreference(it, Defaults.PREF_SHOW_DPAD_KEY) { KeyboardSwitcher.getInstance().reloadKeyboard() }
+    },
     Setting(context, Settings.PREF_REMOVE_REDUNDANT_POPUPS,
         R.string.remove_redundant_popups, R.string.remove_redundant_popups_summary)
     {
@@ -234,7 +238,7 @@ fun createPreferencesSettings(context: Context) = listOf(
     },
 )
 
-private val localesWithLocalizedNumberRow = listOf("bn", "ckb", "gu", "hi", "kn", "mr", "ne", "th", "ur", "ar", "fa")
+private val localesWithLocalizedNumberRow = listOf("ar", "bn", "ckb", "fa", "gu", "hi", "kn", "mr", "ne", "th", "ur")
 
 @Preview
 @Composable

@@ -34,6 +34,7 @@ import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.GestureDataDao
+import helium314.keyboard.latin.utils.IntentUtils
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.filePicker
@@ -111,7 +112,7 @@ fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Un
         }
         // get file
         ButtonWithText(stringResource(R.string.gesture_data_get_data), enabled = hasData) {
-            getDataPicker.launch(getDataIntent)
+            getDataPicker.launch(getDataIntent(ctx))
             exportStarted = true
         }
         // copy mail address to clipboard, in case user doesn't use the mail intent
@@ -127,10 +128,9 @@ fun ShareGestureData(ids: List<Long>, onShared: () -> Unit,  onDeleted: () -> Un
     }
 }
 
-private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-    .addCategory(Intent.CATEGORY_OPENABLE)
+private fun getDataIntent(ctx: Context) = IntentUtils.getResolvableTypeIntent(ctx, "application/zip")
+    .setAction(Intent.ACTION_CREATE_DOCUMENT)
     .putExtra(Intent.EXTRA_TITLE, "gesture_data_${SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Calendar.getInstance().time)}.zip")
-    .setType("application/zip")
 
 private fun deobfuscateEmail(context: Context): String {
     return context.getString(R.string.gesture_data_mail)

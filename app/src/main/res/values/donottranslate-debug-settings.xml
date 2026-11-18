@@ -16,6 +16,6 @@
     <string name="sliding_key_input_preview" translatable="false">Show slide indicator</string>
     <!-- Option summary to enable sliding key input indicator. The user can see a rubber band-like effect during sliding key input. [CHAR LIMIT=66]-->
     <string name="sliding_key_input_preview_summary" translatable="false">Display visual cue while sliding from Shift or Symbol keys</string>
-    <!-- Title of the settings group for dumping dictionary files that have been created on the device [CHAR LIMIT=35] -->
-    <string name="prefs_dump_dynamic_dicts" translatable="false">Dump dictionary</string>
+    <!-- Title of the setting for exporting dictionary files that have been created on the device [CHAR LIMIT=35] -->
+    <string name="prefs_export_dynamic_dicts" translatable="false">Export dictionary</string>
 </resources>

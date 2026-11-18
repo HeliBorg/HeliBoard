@@ -41,6 +41,7 @@ import helium314.keyboard.settings.initPreview
 import helium314.keyboard.latin.utils.previewDark
 import kotlinx.serialization.json.Json
 import androidx.core.content.edit
+import helium314.keyboard.latin.utils.DefaultButton
 import helium314.keyboard.settings.GetIconOrEmpty
 import helium314.keyboard.settings.painterResourceCompat
 
@@ -49,26 +50,43 @@ fun CustomizeIconsDialog(
     prefKey: String,
     onDismissRequest: () -> Unit,
 ) {
+    class KeyIcon(val iconName: String, val displayName: String, val isCustom: Boolean)
     val state = rememberLazyListState()
     val ctx = LocalContext.current
-    var iconsAndNames by remember { mutableStateOf(
+    val prefs = ctx.prefs()
+    var showIconDialog: KeyIcon? by rememberSaveable { mutableStateOf(null) }
+    var showDeletePrefConfirmDialog by rememberSaveable { mutableStateOf(false) }
+    var customIconNames = remember(showIconDialog) { customIconNames(prefs) }
+    var keyIcons by remember { mutableStateOf(
         KeyboardIconsSet.getAllIcons(ctx).keys.map { iconName ->
             val name = iconName.getStringResourceOrName("", ctx)
-            if (name == iconName) iconName to iconName.getStringResourceOrName("label_", ctx)
-            else iconName to name
-        }.sortedBy { it.second }
+                .takeIf { it != iconName } ?: iconName.getStringResourceOrName("label_", ctx)
+            val custom = iconName in customIconNames.keys
+            KeyIcon(iconName, name, custom)
+        }.sortedBy { it.displayName }.sortedWith(compareBy({ !it.isCustom }, { it.displayName }))
     ) }
+
     fun reloadItem(iconName: String) {
-        iconsAndNames = iconsAndNames.map { item ->
-            if (item.first == iconName) {
-                item.first to if (item.second.endsWith(" ")) item.second.trimEnd() else item.second + " "
+        customIconNames = customIconNames(prefs)
+        keyIcons = keyIcons.map { item ->
+            if (item.iconName == iconName) {
+                // this is to trigger reload in the LazyColumn
+                KeyIcon(item.iconName, if (item.displayName.endsWith(" ")) item.displayName.trimEnd() else item.displayName + " ", iconName in customIconNames)
             }
             else item
         }
     }
-    var showIconDialog: Pair<String, String>? by rememberSaveable { mutableStateOf(null) }
-    var showDeletePrefConfirmDialog by rememberSaveable { mutableStateOf(false) }
-    val prefs = ctx.prefs()
+    fun resetIcon(iconName: String) {
+        runCatching {
+            val icons2 = customIconNames.toMutableMap()
+            icons2.remove(iconName)
+            if (icons2.isEmpty()) prefs.edit { remove(prefKey) }
+            else prefs.edit { putString(prefKey, Json.encodeToString(icons2)) }
+            KeyboardIconsSet.instance.loadIcons(ctx)
+        }
+        reloadItem(iconName)
+    }
+
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = { },
@@ -79,20 +97,22 @@ fun CustomizeIconsDialog(
         title = { Text(stringResource(R.string.customize_icons)) },
         content = {
             LazyColumn(state = state) {
-                items(iconsAndNames, key = { it.second }) { (iconName, displayName) ->
+                items(keyIcons, key = { it.displayName }) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.clickable { showIconDialog = iconName to displayName }
+                        modifier = Modifier.clickable { showIconDialog = it }
                     ) {
-                        KeyboardIconsSet.instance.GetIconOrEmpty(iconName)
-                        Text(displayName, Modifier.weight(1f))
+                        KeyboardIconsSet.instance.GetIconOrEmpty(it.iconName)
+                        Text(it.displayName, Modifier.weight(1f))
+                        if (it.isCustom)
+                            DefaultButton(false) { resetIcon(it.iconName) }
                     }
                 }
             }
         },
     )
     if (showIconDialog != null) {
-        val iconName = showIconDialog!!.first
+        val iconName = showIconDialog!!.iconName
         val allIcons = KeyboardIconsSet.getAllIcons(ctx)
         val iconsForName = allIcons[iconName].orEmpty()
         val iconsSet = mutableSetOf<Int>()
@@ -111,26 +131,19 @@ fun CustomizeIconsDialog(
             onDismissRequest = { showIconDialog = null },
             onConfirmed = {
                 runCatching {
-                    val newIcons = customIconNames(prefs).toMutableMap()
+                    val newIcons = customIconNames.toMutableMap()
                     newIcons[iconName] = selectedIcon?.let { ctx.resources.getResourceEntryName(it) } ?: return@runCatching
                     prefs.edit { putString(prefKey, Json.encodeToString(newIcons)) }
                     KeyboardIconsSet.instance.loadIcons(ctx)
                 }
                 reloadItem(iconName)
             },
-            neutralButtonText = if (customIconNames(prefs).contains(iconName)) stringResource(R.string.button_default) else null,
+            neutralButtonText = if (customIconNames.contains(iconName)) stringResource(R.string.button_default) else null,
             onNeutral = {
                 showIconDialog = null
-                runCatching {
-                    val icons2 = customIconNames(prefs).toMutableMap()
-                    icons2.remove(iconName)
-                    if (icons2.isEmpty()) prefs.edit { remove(prefKey) }
-                    else prefs.edit { putString(prefKey, Json.encodeToString(icons2)) }
-                    KeyboardIconsSet.instance.loadIcons(ctx)
-                }
-                reloadItem(iconName)
+                resetIcon(iconName)
             },
-            title = { Text(showIconDialog!!.second) },
+            title = { Text(showIconDialog!!.displayName) },
             content = {
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(minSize = 64.dp),

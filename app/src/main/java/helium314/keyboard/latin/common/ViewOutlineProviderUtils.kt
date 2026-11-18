@@ -10,22 +10,14 @@ import android.inputmethodservice.InputMethodService
 import android.view.View
 import android.view.ViewOutlineProvider
 
-fun setInsetsOutlineProvider(view: View): InsetsOutlineProvider {
-    val provider = InsetsOutlineProvider(view)
-    view.outlineProvider = provider
-    return provider
-}
-
-class InsetsOutlineProvider(private val mView: View) : ViewOutlineProvider() {
+class InsetsOutlineProvider : ViewOutlineProvider() {
     private var mLastVisibleTopInsets = NO_DATA
-    init {
-        mView.outlineProvider = this
-    }
-    fun setInsets(insets: InputMethodService.Insets) {
+
+    fun setInsets(insets: InputMethodService.Insets, view: View) {
         val visibleTopInsets = insets.visibleTopInsets
         if (mLastVisibleTopInsets != visibleTopInsets) {
             mLastVisibleTopInsets = visibleTopInsets
-            mView.invalidateOutline()
+            view.invalidateOutline()
         }
     }
 
@@ -34,8 +26,6 @@ class InsetsOutlineProvider(private val mView: View) : ViewOutlineProvider() {
             BACKGROUND.getOutline(view, outline)
             return
         }
-        // todo: this is now, but it's just fine??
-        // TODO: Revisit this when floating/resize keyboard is supported.
         outline.setRect(view.left, mLastVisibleTopInsets, view.right, view.bottom)
     }
 

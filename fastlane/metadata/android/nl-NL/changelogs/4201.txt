@@ -1,0 +1,10 @@
+* bijgewerkt pictogram shift-toets
+* herschiking Arabische interpunctiepop-ups met stippellijnmarkeringen
+* optie voor hardwaretoetsenbord (buggy)
+* wissen van recente emoji's
+* toevoeging regionale indicatorpictogrammen ter marketing van emoji's
+* instelling voor d-pad toets (zoals emoji-toets)
+* emoji's vanuit suggestie toegevoegd aan recente emoji's
+* reparatie onbereikbare zwevende toetsenbordhandvatten
+* reparatie emoji-zoekopdracht
+* kleine oplossingen en verbeteringen

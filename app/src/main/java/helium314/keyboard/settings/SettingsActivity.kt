@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -25,7 +26,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.lifecycleScope
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
@@ -34,33 +37,32 @@ import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
+import helium314.keyboard.latin.dictionary.cleanUnusedMainDicts
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.BackButton
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
-import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings
+import helium314.keyboard.latin.utils.IntentUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
-import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.NewDictionaryDialog
 import helium314.keyboard.settings.screens.gesturedata.END_DATE_EPOCH_MILLIS
 import helium314.keyboard.settings.screens.gesturedata.TWO_WEEKS_IN_MILLIS
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-// todo: with compose, app startup is slower and UI needs some "warmup" time to be snappy
-//  maybe baseline profiles help?
-//  https://developer.android.com/codelabs/android-baseline-profiles-improve
-//  https://developer.android.com/codelabs/jetpack-compose-performance#2
-//  https://developer.android.com/topic/performance/baselineprofiles/overview
-// todo: consider viewModel, at least for LanguageScreen and ColorsScreen it might help making them less awkward and complicated
 open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
@@ -73,22 +75,29 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Settings.getValues() == null) {
-            val inputAttributes = InputAttributes(EditorInfo(), false, packageName)
-            Settings.getInstance().loadSettings(this, resources.configuration.locale(), inputAttributes)
-        }
-        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
-        crashReportFiles.value = findCrashReports(!BuildConfig.DEBUG && !DebugFlags.DEBUG_ENABLED)
+        val ctx: Context = this
+        val cvDeferred = lifecycleScope.async(Dispatchers.Default) { ComposeView(context = ctx) }
+        val jobs = mutableListOf(
+            lifecycleScope.launch(Dispatchers.Default) { settingsContainer = SettingsContainer(ctx) },
+            lifecycleScope.launch(Dispatchers.Default) {
+                if (Settings.getValues() != null) return@launch
+                val inputAttributes = InputAttributes(EditorInfo(), false, packageName)
+                Settings.getInstance().loadSettings(ctx, resources.configuration.locale(), inputAttributes)
+            },
+            lifecycleScope.launch(Dispatchers.Default) { setContentView(cvDeferred.await()) },
+            lifecycleScope.launch(Dispatchers.IO) { cleanUnusedMainDicts(ctx) },
+            lifecycleScope.launch(Dispatchers.IO) {
+                crashReportFiles.value = findCrashReports(!BuildConfig.DEBUG && !DebugFlags.DEBUG_ENABLED)
+            }
+        )
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         if (!UncachedInputMethodManagerUtils.isThisImeCurrent(this, imm))
-            KeyboardIconsSet.instance.loadIcons(this) // otherwise we may crash when displaying toolbar keys
-
-        settingsContainer = SettingsContainer(this)
+            jobs.add(lifecycleScope.launch(Dispatchers.Default) { KeyboardIconsSet.instance.loadIcons(ctx) }) // otherwise we may crash when displaying toolbar keys
 
         val spellchecker = intent?.getBooleanExtra("spellchecker", false) ?: false
 
-        val cv = ComposeView(context = this)
-        setContentView(cv)
+        val cv = runBlocking { cvDeferred.await() }
+        runBlocking { jobs.joinAll() }
         cv.setContent {
             Theme {
                 Surface {
@@ -115,11 +124,12 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                                 settingsContainer[Settings.PREF_SPELLCHECK_SUGGEST]!!.Preference()
                             }
                         }
-                    else {
+                    else if (showWelcomeWizard) {
+                        WelcomeWizard(close = { showWelcomeWizard = false }, finish = this::finish)
+                    } else {
                         SettingsNavHost(onClickBack = { this.finish() })
-                        if (showWelcomeWizard) {
-                            WelcomeWizard(close = { showWelcomeWizard = false }, finish = this::finish)
-                        } else if (crashReports.isNotEmpty()) {
+                        if (crashReports.isNotEmpty()) {
+                            val ctx = LocalContext.current
                             ConfirmationDialog(
                                 cancelButtonText = "ignore",
                                 onDismissRequest = { crashReportFiles.value = emptyList() },
@@ -127,10 +137,9 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                                 onNeutral = { crashReports.forEach { it.delete() }; crashReportFiles.value = emptyList() },
                                 confirmButtonText = "get",
                                 onConfirmed = {
-                                    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                                    intent.addCategory(Intent.CATEGORY_OPENABLE)
-                                    intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
-                                    intent.type = "application/zip"
+                                    val intent = IntentUtils.getResolvableTypeIntent(ctx, "application/zip")
+                                        .setAction(Intent.ACTION_CREATE_DOCUMENT)
+                                        .putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
                                     crashFilePicker.launch(intent)
                                 },
                                 content = { Text("Crash report files found") },

@@ -1,0 +1,8 @@
+* Shift billentyűikon frissítése
+* Arab írásjelek felugró ablakainak átrendezése és pontozott körjelölők hozzáadása
+* Hardveres billentyűzet-támogatás ki-/bekapcsolásának lehetősége (még mindig hibás)
+* Legutóbbi emodzsik törlésének engedélyezése (hosszan nyomva emodzsi vagy legutóbbi ikon)
+* Regionális jelölő ikonok hozzáadása az emodzsik megjelöléséhez
+* D-pad billentyű beállításának hozzáadása (mint az emodzsi-billentyűnél)
+
+* És még több hibajavítás - további részletek a bejelentésben

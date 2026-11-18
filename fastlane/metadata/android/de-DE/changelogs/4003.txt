@@ -1,4 +1,4 @@
-* Erfassung von Hintergrund-Gesten-Daten hinzufügt
+* Hintergrunderfassung von Gestendaten hinzufügt
 * Datei-/Bildfunktionen zum Zwischenablageverlauf hinzufügt
 * Schwebende-Tastatur hinzufügt
 * Unicode 17.0-Emojis hinzufügt

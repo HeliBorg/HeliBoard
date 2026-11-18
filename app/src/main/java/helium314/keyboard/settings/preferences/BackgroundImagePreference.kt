@@ -23,6 +23,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.IntentUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
@@ -58,9 +59,8 @@ fun BackgroundImagePref(setting: Setting, isLandscape: Boolean) {
                 showErrorDialog = true
         }
     }
-    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-        .addCategory(Intent.CATEGORY_OPENABLE)
-        .setType("image/*")
+    val intent = IntentUtils.getResolvableTypeIntent(ctx, "image/*")
+        .setAction(Intent.ACTION_OPEN_DOCUMENT)
     Preference(
         name = setting.title,
         onClick = {

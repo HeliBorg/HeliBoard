@@ -1,8 +1,8 @@
-* verzameling van achtergrondgebarengegevens
+* achtergrondgebarengegevens verzamelen
 * bestand/afbeeldingsfunctionaliteit in klembordgeschiedenis
 * zwevend toetsenbord
 * Unicode 17.0 emoji's
-* afzonderlijke schaalinstellingen voor opvouwbare telefoons
+* schaalinstellingen voor opvouwbare telefoons
 * touchpad-modus op space slide
 * optie tbv popup spellingcontrole suggestie
 * schuifregelaar vertrouwen van autocorrectie

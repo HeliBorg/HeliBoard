@@ -11,7 +11,6 @@ import android.net.Uri;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -34,23 +33,6 @@ public class FileUtils {
             }
         }
         return path.delete();
-    }
-
-    public static boolean deleteFilteredFiles(final File dir, final FilenameFilter fileNameFilter) {
-        if (!dir.isDirectory()) {
-            return false;
-        }
-        final File[] files = dir.listFiles(fileNameFilter);
-        if (files == null) {
-            return false;
-        }
-        boolean hasDeletedAllFiles = true;
-        for (final File file : files) {
-            if (!deleteRecursively(file)) {
-                hasDeletedAllFiles = false;
-            }
-        }
-        return hasDeletedAllFiles;
     }
 
     /**

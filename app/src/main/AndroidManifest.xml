@@ -102,12 +102,6 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </receiver>
 
-        <receiver android:name="DictionaryPackInstallBroadcastReceiver" android:exported="false">
-            <intent-filter>
-                <action android:name="helium314.keyboard.dictionarypack.aosp.UNKNOWN_CLIENT" />
-            </intent-filter>
-        </receiver>
-
         <!-- for pasting files from internal clipboard -->
         <provider android:name="helium314.keyboard.latin.database.ClipboardContentProvider"
             android:authorities="@string/clipboard_provider_authority"

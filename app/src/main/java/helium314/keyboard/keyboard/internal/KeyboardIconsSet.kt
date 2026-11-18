@@ -163,7 +163,7 @@ class KeyboardIconsSet private constructor() {
 
         private val keyboardIconsMaterial by lazy { hashMapOf(
             NAME_SHIFT_KEY to                   R.drawable.sym_keyboard_shift_lxx,
-            NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shift_lxx,
+            NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shifted_lxx,
             NAME_SHIFT_KEY_LOCKED to            R.drawable.sym_keyboard_shift_lock_lxx,
             NAME_DELETE_KEY to                  R.drawable.sym_keyboard_delete_lxx,
 //            NAME_SPACE_KEY to                   null,
@@ -227,7 +227,7 @@ class KeyboardIconsSet private constructor() {
 
         private val keyboardIconsRounded by lazy { hashMapOf(
             NAME_SHIFT_KEY to                   R.drawable.sym_keyboard_shift_rounded,
-            NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shift_rounded,
+            NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shifted_rounded,
             NAME_SHIFT_KEY_LOCKED to            R.drawable.sym_keyboard_shift_lock_rounded,
             NAME_DELETE_KEY to                  R.drawable.sym_keyboard_delete_rounded,
 //            NAME_SPACE_KEY to                   null,
@@ -292,13 +292,19 @@ class KeyboardIconsSet private constructor() {
         fun getAllIcons(context: Context): Map<String, List<Int>> {
             // currently active style first
             val iconStyle = context.prefs().getString(Settings.PREF_ICON_STYLE, Defaults.PREF_ICON_STYLE(context.prefs()))
-            return keyboardIconsMaterial.entries.associate { (name, id) ->
+            val iconsMap = keyboardIconsMaterial.entries.associateTo(HashMap()) { (name, id) ->
                 name to when (iconStyle) {
                     KeyboardTheme.STYLE_HOLO -> listOfNotNull(keyboardIconsHolo[name], keyboardIconsRounded[name], id)
                     KeyboardTheme.STYLE_ROUNDED -> listOfNotNull(keyboardIconsRounded[name], id, keyboardIconsHolo[name])
                     else -> listOfNotNull(id, keyboardIconsRounded[name], keyboardIconsHolo[name])
                 }
             }
+
+            // add legacy shift icons
+            iconsMap[NAME_SHIFT_KEY] = iconsMap[NAME_SHIFT_KEY]!! + R.drawable.sym_keyboard_shift_legacy + R.drawable.sym_keyboard_shift_legacy_rounded
+            iconsMap[NAME_SHIFT_KEY_SHIFTED] = iconsMap[NAME_SHIFT_KEY_SHIFTED]!! + R.drawable.sym_keyboard_shift_legacy + R.drawable.sym_keyboard_shift_legacy_rounded
+            iconsMap[NAME_SHIFT_KEY_LOCKED] = iconsMap[NAME_SHIFT_KEY_LOCKED]!! + R.drawable.sym_keyboard_shift_lock_legacy + R.drawable.sym_keyboard_shift_lock_legacy_rounded
+            return iconsMap
         }
 
         val instance = KeyboardIconsSet()

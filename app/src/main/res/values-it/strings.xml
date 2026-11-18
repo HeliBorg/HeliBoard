@@ -554,4 +554,8 @@
     <string name="about_community_links">Link della community</string>
     <string name="about_community_links_description">Temi, editor di layout, discussioni, …</string>
     <string name="space_swipe_toggle_dpad_entry">Passa al D-pad</string>
+    <string name="show_dpad_key">Tasto d-pad</string>
+    <string name="recent_emojis_cleared">Emoji recenti cancellate</string>
+    <string name="prefs_enable_hardware_keyboard">Supporto tastiera fisica</string>
+    <string name="accent_shifted_icon">Icona shift con accento</string>
 </resources>

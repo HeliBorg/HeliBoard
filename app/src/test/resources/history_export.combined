@@ -1,0 +1,293 @@
+dictionary=UserHistoryDictionary.en-US,date=1792254515,EXTENDED_REGION_SIZE=402,TRIGRAM_COUNT=46,LAST_DECAYED_TIME=1792252981,BIGRAM_COUNT=47,UNIGRAM_COUNT=35,HAS_HISTORICAL_INFO=1,locale=en_US,version=1791399208,USES_FORGETTING_CURVE=1
+# output by CombinedFormatUtils
+# additional newlines for readability
+
+ word=hello,f=135,historicalInfo=1792254508:0:7
+ ngram=thirds,f=247,historicalInfo=1792254407:0:5
+  prev_word[0]=hello
+ ngram=thirds,f=253,historicalInfo=1792254407:0:5
+  prev_word[0]=hello
+  prev_word[1]=,beginning_of_sentence=true
+ ngram=yes,f=253,historicalInfo=1792254508:0:5
+  prev_word[0]=hello
+  prev_word[1]=,beginning_of_sentence=true
+ ngram=and,f=233,historicalInfo=1792253207:0:1
+  prev_word[0]=hello
+  prev_word[1]=,beginning_of_sentence=true
+ ngram=yes,f=247,historicalInfo=1792254508:0:5
+  prev_word[0]=hello
+ ngram=and,f=227,historicalInfo=1792253207:0:1
+  prev_word[0]=hello
+
+ word=here,f=129,historicalInfo=1792065802:0:4
+
+ word=hour,f=111,historicalInfo=1792253157:0:1
+
+ word=,f=140,historicalInfo=1792254508:0:10,beginning_of_sentence=true,not_a_word=true
+ ngram=hello,f=247,historicalInfo=1792254508:0:7
+  prev_word[0]=,beginning_of_sentence=true
+ ngram=don't,f=-1,historicalInfo=1792065798:0:1
+  prev_word[0]=,beginning_of_sentence=true
+ ngram=yes,f=231,historicalInfo=1792085473:0:2
+  prev_word[0]=,beginning_of_sentence=true
+
+ word=thirds,f=131,historicalInfo=1792254407:0:5
+ ngram=so,f=251,historicalInfo=1792253311:0:3
+  prev_word[0]=thirds
+  prev_word[1]=hello
+ ngram=so,f=252,historicalInfo=1792253311:0:2
+  prev_word[0]=thirds
+  prev_word[1]=hello
+  prev_word[2]=,beginning_of_sentence=true
+ ngram=so,f=245,historicalInfo=1792253311:0:3
+  prev_word[0]=thirds
+
+ word=this,f=120,historicalInfo=1792066287:0:2
+ ngram=is,f=251,historicalInfo=1792066288:0:2
+  prev_word[0]=this
+ ngram=is,f=255,historicalInfo=1792066288:0:2
+  prev_word[0]=this
+  prev_word[1]=yes
+
+ word=think,f=111,historicalInfo=1792254503:0:1
+
+ word=these,f=120,historicalInfo=1792254115:0:2
+ ngram=are,f=242,historicalInfo=1792253344:0:1
+  prev_word[0]=these
+ ngram=are,f=248,historicalInfo=1792253344:0:1
+  prev_word[0]=these
+  prev_word[1]=of
+
+ word=then,f=120,historicalInfo=1792254512:0:2
+ ngram=they,f=242,historicalInfo=1792254509:0:1
+  prev_word[0]=then
+ ngram=they,f=248,historicalInfo=1792254509:0:1
+  prev_word[0]=then
+  prev_word[1]=and
+ ngram=they,f=255,historicalInfo=1792254509:0:1
+  prev_word[0]=then
+  prev_word[1]=and
+  prev_word[2]=yes
+
+ word=they,f=120,historicalInfo=1792254512:0:2
+ ngram=are,f=255,historicalInfo=1792254509:0:1
+  prev_word[0]=they
+  prev_word[1]=then
+  prev_word[2]=and
+ ngram=are,f=248,historicalInfo=1792254509:0:1
+  prev_word[0]=they
+  prev_word[1]=then
+ ngram=are,f=242,historicalInfo=1792254509:0:1
+  prev_word[0]=they
+
+ word=yes,f=139,historicalInfo=1792254513:0:9
+ ngram=this,f=237,historicalInfo=1792066287:0:1
+  prev_word[0]=yes
+  prev_word[1]=hello
+ ngram=I,f=252,historicalInfo=1792254503:0:2
+  prev_word[0]=yes
+  prev_word[1]=hello
+  prev_word[2]=,beginning_of_sentence=true
+ ngram=and,f=243,historicalInfo=1792254508:0:1
+  prev_word[0]=yes
+  prev_word[1]=hello
+  prev_word[2]=,beginning_of_sentence=true
+ ngram=I,f=246,historicalInfo=1792254503:0:2
+  prev_word[0]=yes
+  prev_word[1]=hello
+ ngram=and,f=237,historicalInfo=1792254508:0:1
+  prev_word[0]=yes
+  prev_word[1]=hello
+ ngram=this,f=232,historicalInfo=1792066287:0:2
+  prev_word[0]=yes
+ ngram=this,f=248,historicalInfo=1791746064:0:1
+  prev_word[0]=yes
+  prev_word[1]=,beginning_of_sentence=true
+ ngram=I,f=232,historicalInfo=1792254503:0:2
+  prev_word[0]=yes
+ ngram=and,f=224,historicalInfo=1792254508:0:1
+  prev_word[0]=yes
+
+ word=y,f=-1,historicalInfo=1792253197:0:0
+
+ word=is,f=120,historicalInfo=1792066288:0:2
+
+ word=it's,f=120,historicalInfo=1792253194:0:2
+ ngram=just,f=248,historicalInfo=1792252854:0:1
+  prev_word[0]=it's
+  prev_word[1]=mean
+ ngram=just,f=242,historicalInfo=1792252854:0:1
+  prev_word[0]=it's
+
+ word=don't,f=125,historicalInfo=1792066345:0:3
+ ngram=GI,f=248,historicalInfo=1792065800:0:1
+  prev_word[0]=don't
+  prev_word[1]=,beginning_of_sentence=true
+ ngram=GI,f=237,historicalInfo=1792065800:0:1
+  prev_word[0]=don't
+
+ word=go,f=111,historicalInfo=1792065788:0:1
+ ngram=here,f=242,historicalInfo=1792065789:0:1
+  prev_word[0]=go
+
+ word=g,f=-1,historicalInfo=1792254408:0:0
+
+ word=GI,f=120,historicalInfo=1792065800:0:2
+ ngram=here,f=242,historicalInfo=1792065802:0:1
+  prev_word[0]=GI
+ ngram=here,f=248,historicalInfo=1792065802:0:1
+  prev_word[0]=GI
+  prev_word[1]=don't
+
+ word=so,f=125,historicalInfo=1792253311:0:3
+ ngram=much,f=255,historicalInfo=1792253311:0:2
+  prev_word[0]=so
+  prev_word[1]=thirds
+  prev_word[2]=hello
+ ngram=I,f=243,historicalInfo=1792066343:0:1
+  prev_word[0]=so
+  prev_word[1]=thirds
+ ngram=much,f=252,historicalInfo=1792253311:0:2
+  prev_word[0]=so
+  prev_word[1]=thirds
+ ngram=I,f=237,historicalInfo=1792066343:0:1
+  prev_word[0]=so
+ ngram=much,f=246,historicalInfo=1792253311:0:2
+  prev_word[0]=so
+
+ word=s,f=111,historicalInfo=1792253315:0:1
+
+ word=I,f=137,historicalInfo=1792254505:0:8
+ ngram=mean,f=242,historicalInfo=1792253193:0:4
+  prev_word[0]=I
+ ngram=mean,f=248,historicalInfo=1792066344:0:1
+  prev_word[0]=I
+  prev_word[1]=mean
+ ngram=don't,f=248,historicalInfo=1792066345:0:1
+  prev_word[0]=I
+  prev_word[1]=mean
+ ngram=think,f=225,historicalInfo=1792254503:0:1
+  prev_word[0]=I
+ ngram=mean,f=248,historicalInfo=1792066343:0:1
+  prev_word[0]=I
+  prev_word[1]=so
+ ngram=don't,f=225,historicalInfo=1792066345:0:1
+  prev_word[0]=I
+ ngram=mean,f=254,historicalInfo=1792253193:0:1
+  prev_word[0]=I
+  prev_word[1]=yes
+  prev_word[2]=hello
+ ngram=think,f=254,historicalInfo=1792254503:0:1
+  prev_word[0]=I
+  prev_word[1]=yes
+  prev_word[2]=hello
+ ngram=mean,f=248,historicalInfo=1792253193:0:1
+  prev_word[0]=I
+  prev_word[1]=yes
+ ngram=think,f=248,historicalInfo=1792254503:0:1
+  prev_word[0]=I
+  prev_word[1]=yes
+
+ word=mean,f=129,historicalInfo=1792253193:0:4
+ ngram=it's,f=242,historicalInfo=1792253194:0:2
+  prev_word[0]=mean
+ ngram=I,f=242,historicalInfo=1792066345:0:2
+  prev_word[0]=mean
+ ngram=it's,f=248,historicalInfo=1792253194:0:2
+  prev_word[0]=mean
+  prev_word[1]=I
+ ngram=it's,f=255,historicalInfo=1792253194:0:1
+  prev_word[0]=mean
+  prev_word[1]=I
+  prev_word[2]=yes
+ ngram=I,f=248,historicalInfo=1792066345:0:2
+  prev_word[0]=mean
+  prev_word[1]=I
+
+ word=much,f=120,historicalInfo=1792253311:0:2
+ ngram=as,f=255,historicalInfo=1792253312:0:2
+  prev_word[0]=much
+  prev_word[1]=so
+  prev_word[2]=thirds
+ ngram=as,f=255,historicalInfo=1792253312:0:2
+  prev_word[0]=much
+  prev_word[1]=so
+ ngram=as,f=251,historicalInfo=1792253312:0:2
+  prev_word[0]=much
+
+ word=m,f=120,historicalInfo=1792253315:0:2
+
+ word=MBL,f=111,historicalInfo=1792070815:0:1
+
+ word=just,f=111,historicalInfo=1792252854:0:1
+ ngram=a,f=248,historicalInfo=1792252854:0:1
+  prev_word[0]=just
+  prev_word[1]=it's
+ ngram=a,f=242,historicalInfo=1792252854:0:1
+  prev_word[0]=just
+
+ word=as,f=120,historicalInfo=1792253312:0:2
+ ngram=an,f=251,historicalInfo=1792253312:0:2
+  prev_word[0]=as
+ ngram=an,f=255,historicalInfo=1792253312:0:2
+  prev_word[0]=as
+  prev_word[1]=much
+  prev_word[2]=so
+ ngram=an,f=255,historicalInfo=1792253312:0:2
+  prev_word[0]=as
+  prev_word[1]=much
+
+ word=and,f=125,historicalInfo=1792254512:0:3
+ ngram=then,f=237,historicalInfo=1792254509:0:1
+  prev_word[0]=and
+ ngram=then,f=255,historicalInfo=1792254509:0:1
+  prev_word[0]=and
+  prev_word[1]=yes
+  prev_word[2]=hello
+ ngram=then,f=248,historicalInfo=1792254509:0:1
+  prev_word[0]=and
+  prev_word[1]=yes
+
+ word=an,f=120,historicalInfo=1792253312:0:2
+ ngram=hour,f=248,historicalInfo=1792253157:0:1
+  prev_word[0]=an
+  prev_word[1]=as
+ ngram=hour,f=254,historicalInfo=1792253157:0:1
+  prev_word[0]=an
+  prev_word[1]=as
+  prev_word[2]=much
+ ngram=hour,f=242,historicalInfo=1792253157:0:1
+  prev_word[0]=an
+
+ word=are,f=125,historicalInfo=1792254511:0:3
+ ngram=not,f=248,historicalInfo=1792253345:0:1
+  prev_word[0]=are
+  prev_word[1]=these
+ ngram=not,f=255,historicalInfo=1792253345:0:1
+  prev_word[0]=are
+  prev_word[1]=these
+  prev_word[2]=of
+ ngram=not,f=237,historicalInfo=1792253345:0:1
+  prev_word[0]=are
+
+ word=a,f=131,historicalInfo=1792253350:0:5
+ ngram=little,f=248,historicalInfo=1792252855:0:1
+  prev_word[0]=a
+  prev_word[1]=just
+ ngram=little,f=231,historicalInfo=1792252855:0:1
+  prev_word[0]=a
+
+ word=little,f=111,historicalInfo=1792252855:0:1
+ ngram=bit,f=248,historicalInfo=1792252855:0:1
+  prev_word[0]=little
+  prev_word[1]=a
+ ngram=bit,f=242,historicalInfo=1792252855:0:1
+  prev_word[0]=little
+
+ word=bit,f=111,historicalInfo=1792252855:0:1
+
+ word=of,f=120,historicalInfo=1792254112:0:2
+ ngram=these,f=251,historicalInfo=1792254115:0:2
+  prev_word[0]=of
+
+ word=not,f=111,historicalInfo=1792253345:0:1

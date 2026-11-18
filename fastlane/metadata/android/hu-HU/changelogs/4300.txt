@@ -1,0 +1,7 @@
+* hozzáadva egy beállítás, amely lehetővé teszi szavak választását betűk helyett törléskor
+* hozzáadva egy beállítás, amely az ujjmozdulat-adatok áttekintő képernyőjén csak a szó első előfordulását jeleníti meg
+* hozzáadva / engedélyezve a `KeyCode.DELETE_WORD` (-8)
+* javítva a .combined szótárfájlok importálása
+* csökkentve a beírt szövegek előzményeihez történő szükségtelen szavak hozzáadása
+* kijavítva a megosztott billentyűzet működési hibája
+* legutóbbi emodzsik számának korlátja megnövelve

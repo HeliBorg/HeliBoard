@@ -22,14 +22,9 @@ object DictionaryPackConstants {
     /**
      * Authority for the ContentProvider protocol.
      */
-    // TODO: find some way to factorize this string with the one in the resources
     const val AUTHORITY = DICTIONARY_DOMAIN
     /**
      * The action of the intent for publishing that new dictionary data is available.
      */
-    // TODO: make this different across different packages. A suggested course of action is
-    // to use the package name inside this string.
-    // NOTE: The appended string should be uppercase like all other actions, but it's not for
-    // historical reasons.
     const val NEW_DICTIONARY_INTENT_ACTION = "$DICTIONARY_DOMAIN.newdict"
 }

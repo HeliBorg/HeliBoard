@@ -149,9 +149,6 @@ public final class Constants {
     // right for this.
     public static final int MAX_CHARACTERS_FOR_RECAPITALIZATION = 1024 * 100;
 
-    // Key events coming any faster than this are long-presses.
-    public static final int LONG_PRESS_MILLISECONDS = 200;
-    // TODO: Set this value appropriately.
     public static final int GET_SUGGESTED_WORDS_TIMEOUT = BuildConfig.DEBUG ? 500 : 200; // debug build is slow, and timeout is annoying for testing
     // How many continuous deletes at which to start deleting at a higher speed.
     public static final int DELETE_ACCELERATE_AT = 20;

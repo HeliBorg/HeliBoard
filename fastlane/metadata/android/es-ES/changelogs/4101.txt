@@ -1,0 +1,10 @@
+* añadir D-Pad
+* repetición de tecla como pulsación larga en barra y popups (por defecto en flechas)
+* mejorar sugerencia de portapapeles
+* actualizar iconos de ajustes
+* avisos emergentes más coherentes
+* alinear ancho de teclas numéricas
+* arreglar desaparición de teclas en barra
+* añadir ColorType para portapapeles
+* actualizar Shift al usar flechas
+* juntar ajustes de color (día/noche)

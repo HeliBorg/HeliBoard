@@ -44,6 +44,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import androidx.core.content.edit
+import helium314.keyboard.latin.utils.IntentUtils
 import java.util.Locale
 
 @Composable
@@ -195,14 +196,13 @@ fun createAboutSettings(context: Context) = listOf(
             description = setting.description,
             onClick = {
                 val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US).format(Calendar.getInstance().time)
-                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
+                val intent = IntentUtils.getResolvableTypeIntent(ctx, "text/plain")
+                    .setAction(Intent.ACTION_CREATE_DOCUMENT)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         ctx.getString(R.string.english_ime_name)
                             .replace(" ", "_") + "_log_$date.txt"
                     )
-                    .setType("text/plain")
                 launcher.launch(intent)
             },
             icon = R.drawable.ic_settings_about_log

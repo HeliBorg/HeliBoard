@@ -11,6 +11,8 @@ import static helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This is a Keyboard class where you can add keys dynamically shown in a grid layout
@@ -136,6 +139,22 @@ final class DynamicGridKeyboard extends Keyboard {
         }
     }
 
+    public boolean isRecents() {
+        return mIsRecents;
+    }
+
+    public void removeRecentsKey(Key key) {
+        String outputText = key.getOutputText();
+        if (outputText != null) RecentEmojis.remove(outputText);
+        else RecentEmojis.removeCodepoint(key.getCode());
+        if (!(key instanceof GridKey)) return;
+        synchronized (mLock) {
+            mGridKeys.remove(key);
+            mCachedGridKeys = null;
+            updateCoordinates();
+        }
+    }
+
     public void flushPendingRecentKeys() {
         synchronized (mLock) {
             while (!mPendingKeys.isEmpty()) {
@@ -147,6 +166,7 @@ final class DynamicGridKeyboard extends Keyboard {
     }
 
     public void addKeyFirst(Key usedKey) {
+        if (usedKey.getCode() == KeyCode.UNSPECIFIED) return;
         addKey(usedKey, true);
         if (mIsRecents) {
             saveRecentKey(usedKey);
@@ -160,6 +180,7 @@ final class DynamicGridKeyboard extends Keyboard {
     public void removeAllKeys() {
         synchronized (mLock) {
             mGridKeys.clear();
+            mPendingKeys.clear();
             mCachedGridKeys = null;
         }
     }
@@ -173,11 +194,10 @@ final class DynamicGridKeyboard extends Keyboard {
             // When a key is added to recents keyboard, we don't want to keep its popup keys
             // neither its hint label. Also, we make sure its background type is matching our keyboard
             // if key comes from another keyboard (ie. a {@link PopupKeysKeyboard}).
-            final boolean dropPopupKeys = mIsRecents;
             // Check if hint was a more emoji indicator and prevent its copy if popup keys aren't copied
-            final boolean dropHintLabel = dropPopupKeys && EMOJI_HINT_LABEL.equals(usedKey.getHintLabel());
-            final GridKey key = new GridKey(usedKey,
-                    dropPopupKeys ? null : usedKey.getPopupKeys(),
+            boolean dropHintLabel = mIsRecents && EMOJI_HINT_LABEL.equals(usedKey.getHintLabel());
+            GridKey key = new GridKey(usedKey,
+                    mIsRecents ? REMOVE_RECENT_POPUP_KEYS : usedKey.getPopupKeys(),
                     dropHintLabel ? null : usedKey.getHintLabel(),
                     mIsRecents ? Key.BACKGROUND_TYPE_EMPTY : usedKey.getBackgroundType());
             while (mGridKeys.remove(key)) {
@@ -191,18 +211,22 @@ final class DynamicGridKeyboard extends Keyboard {
             while (mGridKeys.size() > mMaxKeyCount) {
                 mGridKeys.removeLast();
             }
-            int index = 0;
-            for (final GridKey gridKey : mGridKeys) {
-                while (mEmptyColumnIndices.contains(index % mColumnsNum)) {
-                    index++;
-                }
-                final int keyX0 = getKeyX0(index);
-                final int keyY0 = getKeyY0(index);
-                final int keyX1 = getKeyX1(index);
-                final int keyY1 = getKeyY1(index);
-                gridKey.updateCoordinates(keyX0, keyY0, keyX1, keyY1);
+            updateCoordinates();
+        }
+    }
+
+    private void updateCoordinates() {
+        int index = 0;
+        for (GridKey gridKey : mGridKeys) {
+            while (mEmptyColumnIndices.contains(index % mColumnsNum)) {
                 index++;
             }
+            int keyX0 = getKeyX0(index);
+            int keyY0 = getKeyY0(index);
+            int keyX1 = getKeyX1(index);
+            int keyY1 = getKeyY1(index);
+            gridKey.updateCoordinates(keyX0, keyY0, keyX1, keyY1);
+            index++;
         }
     }
 
@@ -242,7 +266,7 @@ final class DynamicGridKeyboard extends Keyboard {
     }
 
     public void loadRecentKeys(Collection<DynamicGridKeyboard> keyboards) {
-        List<String> emojis = RecentEmojis.INSTANCE.get();
+        List<String> emojis = RecentEmojis.get();
         for (String emoji : emojis) {
             Key key;
             if (StringUtils.codePointCount(emoji) == 1) {
@@ -287,6 +311,12 @@ final class DynamicGridKeyboard extends Keyboard {
             return mCachedGridKeys;
         }
     }
+
+    // Single delete button shown when long-pressing a key in the recents category.
+    private static final PopupKeySpec[] REMOVE_RECENT_POPUP_KEYS = {
+        new PopupKeySpec(KeyboardIconsSet.PREFIX_ICON + KeyboardIconsSet.NAME_BIN
+            + "|!code/" + KeyCode.UNSPECIFIED, false, Locale.ROOT)
+    };
 
     @NonNull
     @Override

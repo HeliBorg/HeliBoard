@@ -18,7 +18,6 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.prefs
-import java.util.Collections
 import java.util.concurrent.ConcurrentHashMap
 import androidx.core.content.edit
 
@@ -73,7 +72,7 @@ internal class EmojiCategory(private val context: Context, private val layoutSet
         currentCategory = Category.entries[prefs.getInt(Settings.PREF_LAST_SHOWN_EMOJI_CATEGORY_ID, defaultCategory.ordinal)]
         currentCategoryPageId =
             prefs.getInt(Settings.PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, Defaults.PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID)
-        if (!isShownCategory(currentCategory)) {
+        if (shownCategories.none { it.category == currentCategory }) {
             currentCategory = defaultCategory
         } else if (currentCategory == Category.RECENTS && recentsKbd.sortedKeys.isEmpty()) {
             currentCategory = defaultCategory
@@ -89,15 +88,6 @@ internal class EmojiCategory(private val context: Context, private val layoutSet
         for (props in shownCategories) props.mPageCount = -1 // reset page count in case size (number of keys per row) changed
     }
 
-    private fun isShownCategory(category: Category): Boolean {
-        for (prop in shownCategories) {
-            if (prop.category == category) {
-                return true
-            }
-        }
-        return false
-    }
-
     fun getCategoryTabIcon(category: Category) = categoryTabIconId[category.ordinal]
 
     fun getAccessibilityDescription(category: Category) = context.getString(category.element.descriptionResId)
@@ -105,11 +95,7 @@ internal class EmojiCategory(private val context: Context, private val layoutSet
     val currentCategoryPageCount get() = getCategoryPageCount(currentCategory)
 
     fun getCategoryPageCount(category: Category): Int {
-        for (prop in shownCategories) {
-            if (prop.category == category) {
-                return prop.pageCount
-            }
-        }
+        shownCategories.firstOrNull { it.category == category }?.let { return it.pageCount }
         Log.w(TAG, "Invalid category: $category")
         // Should not reach here.
         return 0
@@ -130,13 +116,15 @@ internal class EmojiCategory(private val context: Context, private val layoutSet
     }
 
     // Returns a keyboard from the recycler view's adapter position.
-    fun getKeyboardFromAdapterPosition(category: Category, position: Int): DynamicGridKeyboard? {
+    fun getKeyboardFromAdapterPosition(category: Category, position: Int): DynamicGridKeyboard {
         if (position >= 0 && position < getCategoryPageCount(category)) {
             return getKeyboard(category, position)
         }
         Log.w(TAG, "invalid position for category : $category")
-        return null
+        return getKeyboard(category, 0)
     }
+
+    fun reloadRecents() = categoryKeyboardMap[getCategoryKeyboardMapKey(Category.RECENTS, 0)]?.loadRecentKeys(categoryKeyboardMap.values)
 
     fun getKeyboard(category: Category, id: Int): DynamicGridKeyboard {
         synchronized(categoryKeyboardMap) {
@@ -205,34 +193,14 @@ internal class EmojiCategory(private val context: Context, private val layoutSet
         private fun getCategoryKeyboardMapKey(category: Category, id: Int) =
             ((category.ordinal.toLong()) shl Integer.SIZE) or id.toLong()
 
-        private val EMOJI_KEY_COMPARATOR = Comparator { lhs: Key, rhs: Key ->
-            val lHitBox = lhs.hitBox
-            val rHitBox = rhs.hitBox
-            if (lHitBox.top < rHitBox.top) {
-                return@Comparator -1
-            } else if (lHitBox.top > rHitBox.top) {
-                return@Comparator 1
-            }
-            if (lHitBox.left < rHitBox.left) {
-                return@Comparator -1
-            } else if (lHitBox.left > rHitBox.left) {
-                return@Comparator 1
-            }
-            if (lhs.code == rhs.code) {
-                return@Comparator 0
-            }
-            if (lhs.code < rhs.code) -1 else 1
-        }
-
         private fun sortKeysGrouped(inKeys: MutableList<Key>, maxPageCount: Int): Array<Array<Key?>> {
-            val keys = ArrayList(inKeys)
-            Collections.sort(keys, EMOJI_KEY_COMPARATOR)
+            val keys = inKeys.sortedWith(compareBy({ it.hitBox.top }, { it.hitBox.left }, { it.code }))
             val pageCount = (keys.size - 1) / maxPageCount + 1
-            val retval = Array<Array<Key?>>(pageCount) { arrayOfNulls(maxPageCount) }
+            val grouped = Array<Array<Key?>>(pageCount) { arrayOfNulls(maxPageCount) }
             for (i in keys.indices) {
-                retval[i / maxPageCount][i % maxPageCount] = keys[i]
+                grouped[i / maxPageCount][i % maxPageCount] = keys[i]
             }
-            return retval
+            return grouped
         }
 
         private fun canShowFlagEmoji(): Boolean {

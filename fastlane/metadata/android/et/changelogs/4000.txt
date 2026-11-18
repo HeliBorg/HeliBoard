@@ -1,4 +1,4 @@
-* lisandus viipeandmete kogumisne
+* lisandus viipeandmete kogumine
 * lõikelaua ajaloost saab nüüd lisada faile+pilte
 * lisandus ujuv klahvistik
 * lisandusid Unicode 17.0 emojid

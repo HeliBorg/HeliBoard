@@ -18,13 +18,12 @@ import helium314.keyboard.latin.RichInputMethodManager.Companion.getInstance
 import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.RichInputMethodSubtype.Companion.emojiSubtype
 import helium314.keyboard.latin.RichInputMethodSubtype.Companion.noLanguageSubtype
+import helium314.keyboard.latin.dictionary.DictionaryInfoUtils.getLocalesWithEmojiDicts
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DictionaryInfoUtils.getLocalesWithEmojiDicts
+import helium314.keyboard.latin.settings.SettingsValues
 import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
-import helium314.keyboard.latin.utils.ScriptUtils
-import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils.clearSubtypeDisplayNameCache
 import java.lang.ref.SoftReference
 
@@ -36,8 +35,6 @@ import java.lang.ref.SoftReference
  * [EditorInfo].
  */
 class KeyboardLayoutSet internal constructor(private val mContext: Context, private val mParams: Params) {
-    val script = mParams.script
-
     /**
      * Represents an internal action that overrides the action provided by the input field.
      * @param code to send on action key press
@@ -108,36 +105,26 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
         var mode = KeyboardMode.TEXT
         var disableTouchPositionCorrectionDataForTest: Boolean = false // remove
 
-        // TODO: Use {@link InputAttributes} instead of these variables.
         lateinit var editorInfo: EditorInfo
         lateinit var subtype: RichInputMethodSubtype
-        var voiceInputKeyEnabled = false
+        var settingsValues: SettingsValues? = null
         // When the device is still locked, features like showing the IME setting app need to be locked down.
         var deviceLocked = Settings.getValues().mIsLocked
-        var numberRowEnabled = false
-        var numberRowInSymbols = false
-        var languageSwitchKeyEnabled = false
-        var emojiKeyEnabled = false
-        var oneHandedModeEnabled = false
         var isSpellChecker = false
         var keyboardWidth = 0
         var keyboardHeight = 0
-        var script = ScriptUtils.SCRIPT_LATIN
         var internalAction: InternalAction? = null
         var emojiSearchAvailable = false
 
-        // Indicates if the user has enabled the split-layout preference and the required ProductionFlags are enabled.
-        var isSplitLayoutEnabled = false
     }
 
-    class Builder(private val mContext: Context, ei: EditorInfo?) {
+    class Builder(private val mContext: Context, ei: EditorInfo?, settingsValues: SettingsValues?) {
         private val params = Params()
 
         init {
-            val editorInfo = ei ?: EMPTY_EDITOR_INFO
-            params.mode = getKeyboardMode(editorInfo)
-            // TODO: Consolidate those with {@link InputAttributes}.
-            params.editorInfo = editorInfo
+            params.mode = getKeyboardMode(settingsValues?.mInputAttributes?.mInputType ?: ei?.inputType ?: InputType.TYPE_NULL)
+            params.editorInfo = ei ?: EMPTY_EDITOR_INFO
+            params.settingsValues = settingsValues
         }
 
         fun setKeyboardGeometry(keyboardWidth: Int, keyboardHeight: Int): Builder {
@@ -159,43 +146,8 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
             return this
         }
 
-        fun setVoiceInputKeyEnabled(enabled: Boolean): Builder {
-            params.voiceInputKeyEnabled = enabled
-            return this
-        }
-
-        fun setNumberRowEnabled(enabled: Boolean): Builder {
-            params.numberRowEnabled = enabled
-            return this
-        }
-
-        fun setNumberRowInSymbolsEnabled(enabled: Boolean): Builder {
-            params.numberRowInSymbols = enabled
-            return this
-        }
-
-        fun setLanguageSwitchKeyEnabled(enabled: Boolean): Builder {
-            params.languageSwitchKeyEnabled = enabled
-            return this
-        }
-
-        fun setEmojiKeyEnabled(enabled: Boolean): Builder {
-            params.emojiKeyEnabled = enabled
-            return this
-        }
-
         fun disableTouchPositionCorrectionData(): Builder {
             params.disableTouchPositionCorrectionDataForTest = true
-            return this
-        }
-
-        fun setSplitLayoutEnabled(enabled: Boolean): Builder {
-            params.isSplitLayoutEnabled = enabled
-            return this
-        }
-
-        fun setOneHandedModeEnabled(enabled: Boolean): Builder {
-            params.oneHandedModeEnabled = enabled
             return this
         }
 
@@ -205,7 +157,6 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
         }
 
         fun build(): KeyboardLayoutSet {
-            params.script = params.subtype.locale.script()
             return KeyboardLayoutSet(mContext, params)
         }
 
@@ -213,19 +164,20 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
             private val EMPTY_EDITOR_INFO = EditorInfo()
 
             fun buildEmojiClipBottomRow(context: Context, ei: EditorInfo?): KeyboardLayoutSet {
-                val builder = Builder(context, ei)
+                val builder = Builder(context, ei, null)
                 builder.params.mode = KeyboardMode.TEXT
-                builder.params.emojiSearchAvailable = getLocalesWithEmojiDicts(context).isNotEmpty()
-                val width = ResourceUtils.getKeyboardWidth(context, Settings.getValues())
+                val sv = Settings.getValues()
+                val dictLocales = getLocalesWithEmojiDicts(context)
+                builder.params.emojiSearchAvailable = sv.mLocale in dictLocales || sv.mSecondaryLocales.any { it in dictLocales }
+                val width = ResourceUtils.getKeyboardWidth(context, sv)
                 // actually the keyboard does not have full height, but at this point we use it to get correct key heights
-                val height = ResourceUtils.getKeyboardHeight(context.resources, Settings.getValues())
+                val height = ResourceUtils.getKeyboardHeight(context.resources, sv)
                 builder.setKeyboardGeometry(width, height)
                 builder.setSubtype(getInstance().currentSubtype)
                 return builder.build()
             }
 
-            private fun getKeyboardMode(editorInfo: EditorInfo): KeyboardMode {
-                val inputType = editorInfo.inputType
+            private fun getKeyboardMode(inputType: Int): KeyboardMode {
                 val variation = inputType and InputType.TYPE_MASK_VARIATION
 
                 return when (inputType and InputType.TYPE_MASK_CLASS) {

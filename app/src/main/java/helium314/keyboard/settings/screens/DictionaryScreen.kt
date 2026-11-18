@@ -32,10 +32,10 @@ import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.common.splitOnWhitespace
-import helium314.keyboard.latin.utils.DictionaryInfoUtils
-import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.dictionary.DictionaryInfoUtils
+import helium314.keyboard.latin.dictionary.getDictionaryLocales
+import helium314.keyboard.latin.utils.IntentUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.htmlToAnnotated
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.withHtmlLink
@@ -112,9 +112,8 @@ fun DictionaryScreen(
         ConfirmationDialog(
             onDismissRequest = { showAddDictDialog = false },
             onConfirmed = {
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType("application/octet-stream")
+                val intent = IntentUtils.getResolvableTypeIntent(ctx, "*/*")
+                    .setAction(Intent.ACTION_OPEN_DOCUMENT)
                 dictPicker.launch(intent)
             },
             title = { Text(stringResource(R.string.add_new_dictionary_title)) },

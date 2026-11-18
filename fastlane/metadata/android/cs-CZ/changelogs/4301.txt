@@ -1,0 +1,7 @@
+* přidána možnost vybírat při smazání přejetím slova namísto písmen
+* přidána možnost zobrazovat na obrazovce s přehledem gest pouze první výskyt slova
+* přidáno / povoleno `KeyCode.DELETE_WORD` (-8)
+* vylepšen import slovníkových souborů .combined
+* omezeno nežádoucí přidávání slov do historie psaní
+* opravena nefunkčnost rozdělené klávesnice
+* zvýšen limit pro nedávno použité emodži

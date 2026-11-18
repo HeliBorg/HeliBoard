@@ -1,0 +1,10 @@
+* Actualizado el icono de mayúsculas
+* Reorganizadas puntuaciones árabes y añadidos círculos punteados
+* Añadido soporte para teclado físico (experimental)
+* Añadida opción para borrar emojis recientes
+* Añadidos indicadores regionales a banderas emoji
+* Añadido ajuste para la tecla de cruceta (D-pad)
+* Los emojis sugeridos ahora se guardan en recientes
+* Corregidos los controles inaccesibles del teclado flotante
+* Corregido el cierre inesperado al buscar emojis
+* Correcciones y mejoras menores

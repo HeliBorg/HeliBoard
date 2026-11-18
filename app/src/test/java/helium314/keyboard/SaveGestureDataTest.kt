@@ -4,13 +4,14 @@ import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.latin.InputStyle
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.NgramContext
-import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.dictionary.Dictionary
-import helium314.keyboard.latin.utils.SuggestionResults
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo
+import helium314.keyboard.latin.suggestions.SuggestionResults
 import helium314.keyboard.latin.utils.WordData
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -32,25 +33,25 @@ class SaveGestureDataTest {
         wd.targetWord = "ok"
         val filtered = wd.filterSuggestions(emptyList())
         assert(filtered.size == 2)
-        assert(filtered[0].mWord == "")
+        assert(filtered[0].word == "")
     }
 
     @Test fun blockedWordIsFiltered() {
         val wd = wordData(suggestion("hello", 15, "main"), suggestion("ok", 1, "main"))
-        assert(wd.filterSuggestions(listOf("hello")).none { it.mWord.equals("hello", true) })
+        assert(wd.filterSuggestions(listOf("hello")).none { it.word.equals("hello", true) })
         assert(!wd.isSavingOk(latinIME)) // always fails because dict hash doesn't match
     }
 
     private fun suggestion(word: String, score: Int = 0, dict: String = "") =
-        SuggestedWords.SuggestedWordInfo(word, "", score, 0, Dictionary.PhonyDictionary(dict), 0, 0)
+        SuggestedWordInfo(word, "", score, 0, Dictionary.PhonyDictionary(dict), 0, 0)
 
-    private fun wordData(vararg suggestions: SuggestedWords.SuggestedWordInfo) =
+    private fun wordData(vararg suggestions: SuggestedWordInfo) =
         WordData(
             null,
-            SuggestionResults(18, false, false).apply {
+            SuggestionResults(18, NgramContext.EMPTY_PREV_WORDS_INFO, false).apply {
                 suggestions.forEach { add(it) }
             },
-            cd, NgramContext.EMPTY_PREV_WORDS_INFO, kb, 0, false,
+            cd, NgramContext.EMPTY_PREV_WORDS_INFO, kb, InputStyle.NONE, false,
             suggestions.firstOrNull()
         )
 

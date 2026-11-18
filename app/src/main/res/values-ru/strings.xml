@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_dict">Поиск в именах контактов</string>
-    <string name="vibrate_on_keypress">Вибрировать при нажатии клавиш</string>
+    <string name="vibrate_on_keypress">Вибрация при нажатии клавиш</string>
     <string name="sound_on_keypress">Звук при нажатии клавиш</string>
     <string name="popup_on_keypress">Увеличивать при нажатии на клавишу</string>
     <string name="settings_screen_preferences">"Настройки"</string>
@@ -70,8 +70,8 @@
     <string name="setup_welcome_title">Добро пожаловать в %s</string>
     <string name="setup_welcome_additional_description">с непрерывным вводом</string>
     <string name="setup_start_action">Начать работу</string>
-    <string name="setup_steps_title">Настроить %s</string>
-    <string name="setup_step1_title">Включить %s</string>
+    <string name="setup_steps_title">Настройка %s</string>
+    <string name="setup_step1_title">Включение %s</string>
     <string name="setup_step1_instruction">Убедитесь, что приложение \"%s\" включено в настройках языка и ввода. Это позволит ему работать на вашем устройстве.</string>
     <string name="setup_step1_action">Включить в настройках</string>
     <string name="setup_step2_title">Переключитесь на %s</string>
@@ -101,7 +101,7 @@
     <string name="prefs_narrow_key_gaps">Увеличенные клавиши</string>
     <string name="prefs_keyboard_height_scale">Масштаб высоты клавиатуры</string>
     <string name="url_detection_title">Обнаружение URL-адресов</string>
-    <string name="url_detection_summary">Попытаться обнаружить URL-адреса и схожие конструкции как единое целое</string>
+    <string name="url_detection_summary">Пытаться определить URL-адреса и схожие конструкции как единое целое</string>
     <string name="delete_swipe">Удаление смахиванием</string>
     <string name="delete_swipe_summary">Смахните от клавиши удаления, чтобы выделить и сразу удалить большие фрагменты текста</string>
     <string name="backup_restore_title">Резервное копирование и восстановление</string>
@@ -114,7 +114,7 @@
     <string name="load_gesture_library">Загрузить библиотеку ввода жестами</string>
     <string name="load_gesture_library_summary">Предоставьте встроенную библиотеку для обеспечения поддержки ввода с помощью жестов</string>
     <string name="more_keys_strip_description">Больше клавиш</string>
-    <string name="incognito">Включить режим инкогнито</string>
+    <string name="incognito">Режим инкогнито</string>
     <string name="prefs_force_incognito_mode_summary">Отключить запоминание новых слов</string>
     <string name="show_emoji_key">Клавиша эмодзи</string>
     <string name="settings_category_clipboard_history">История буфера обмена</string>
@@ -135,7 +135,7 @@
     <string name="theme_colors_night">Цвета (ночная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет соответствовать настройкам системы</string>
     <string name="autospace_after_punctuation_summary">Автоматически вставлять пробел после знаков препинания при наборе нового слова</string>
-    <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена вставит содержимое буфера обмена, если оно есть</string>
+    <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена вставит содержимое буфера обмена, при его наличии</string>
     <string name="autospace_after_punctuation">Пробел автоматически после знаков препинания</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Изменять метод ввода с помощью пробела</string>
     <string name="settings_category_experimental">Экспериментальные</string>
@@ -188,7 +188,7 @@
     <string name="voice" tools:keep="@string/voice">Голосовой ввод</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамические цвета</string>
     <string name="show_popup_hints">Показать функциональные подсказки</string>
-    <string name="message_add_custom_layout">Выберите файл в поддерживаемом формате. Информация о форматах доступна по адресу %s.</string>
+    <string name="message_add_custom_layout">Выберите файл в поддерживаемом формате. Информация о форматах доступна %s.</string>
     <string name="subtype_generic_sebeolsik_390">%s (Себольсик 390)</string>
     <string name="add_to_personal_dictionary_summary">Использовать личный словарь устройства для хранения изученных слов</string>
     <string name="subtype_generic_sebeolsik_final">%s (Себольсик финальная)</string>
@@ -365,7 +365,7 @@
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Выход из режима работы одной рукой</string>
     <string name="customize_icons_reset_message">Вы действительно хотите сбросить все пользовательские значки?</string>
     <string name="label_bin" tools:keep="@string/label_bin">Корзина</string>
-    <string name="vibrate_in_dnd_mode">Вибрировать в режиме \"Не беспокоить\"</string>
+    <string name="vibrate_in_dnd_mode">Вибрация в режиме \"Не беспокоить\"</string>
     <string name="subtype_generic_phonetic">%s (Фонетика)</string>
     <string name="auto_correct_shortcuts">Автоисправление сокращений</string>
     <string name="custom_font">Установить пользовательский шрифт из файла</string>
@@ -546,4 +546,11 @@
     <string name="subtype_tok">Токи пона</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
     <string name="space_swipe_toggle_dpad_entry">Переключить D-pad</string>
+    <string name="show_dpad_key">Клавиша D-pad</string>
+    <string name="recent_emojis_cleared">Недавние эмодзи очищены</string>
+    <string name="prefs_enable_hardware_keyboard">Поддержка аппаратной клавиатуры</string>
+    <string name="accent_shifted_icon">Акцентный цвет значка Shift</string>
+    <string name="gesture_data_single_instance_per_word">Только один экземпляр каждого слова</string>
+    <string name="delete_swipe_letters">Буквы</string>
+    <string name="delete_swipe_words">Слова</string>
 </resources>

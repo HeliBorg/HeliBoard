@@ -1,0 +1,10 @@
+* aktualizována ikona Shift
+* změna okének s arabskou interpunkcí a přidány značky (tečkované kruhy)
+* možnost zapnout/vypnout podporu hardwarové klávesnice (stále s chybami)
+* možnost vymazat nedávno použité emodži
+* přidány ikony regionálních indikátorů k emodži s vlajkami
+* přidáno nastavení pro směrové tlačítko
+* přidány emodži zadaných z návrhů do seznamu nedávno použitých
+* oprava nedostupných úchytů plovoucí klávesnice
+* oprava pádu při vyhledávání emodži
+* drobné opravy a vylepšení

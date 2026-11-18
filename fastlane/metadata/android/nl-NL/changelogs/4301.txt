@@ -1,0 +1,7 @@
+* optie toevoegen om woorden te selecteren in plaats van letters bij delete-swiping
+* optie toevoegen om alleen de eerste instantie van een woord te tonen in het scherm voor het beoordelen van gebarengegevens
+* toevoegen /inschakelen `KeyCode.DELETE_WORD` (-8)
+* verbeter de import van.gecombineerde woordenboekbestanden
+* verminder ongewenste toevoeging van woorden aan getypte geschiedenis
+* fix split keyboad werkt niet
+* limiet verhogen voor recente emoji's

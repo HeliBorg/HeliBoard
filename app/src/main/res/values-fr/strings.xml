@@ -551,4 +551,11 @@ Nouveau dictionnaire:
     <string name="subtype_tok">Toki Pona</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Pavé directionnel</string>
     <string name="space_swipe_toggle_dpad_entry">Basculer vers le pavé directionnel</string>
+    <string name="show_dpad_key">Touche D-pad</string>
+    <string name="recent_emojis_cleared">Émojis récents effacés</string>
+    <string name="prefs_enable_hardware_keyboard">Prise en charge du clavier physique</string>
+    <string name="accent_shifted_icon">Icône de majuscule accentuée</string>
+    <string name="delete_swipe_letters">Lettres</string>
+    <string name="delete_swipe_words">Mots</string>
+    <string name="gesture_data_single_instance_per_word">Afficher uniquement une entrée par mot</string>
 </resources>

@@ -75,25 +75,25 @@ import androidx.compose.ui.unit.dp
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
+import helium314.keyboard.latin.InputStyle
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
-import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.dictionary.DictionaryInfoUtils
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.suggestions.SuggestionResults
 import helium314.keyboard.latin.utils.ChecksumCalculator
-import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings
 import helium314.keyboard.latin.utils.NextScreenIcon
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.WordData
@@ -225,13 +225,13 @@ fun GestureDataScreen(
                     composedData: ComposedData,
                     ngramContext: NgramContext,
                     keyboard: Keyboard,
-                    inputStyle: Int
+                    inputStyle: InputStyle
                 ) {
-                    if (!composedData.mIsBatchMode || inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) return
+                    if (!composedData.mIsBatchMode || inputStyle != InputStyle.TAIL_BATCH) return
                     val target = wordFromDict ?: return
                     val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
-                    if (suggestions.any { it.mWord == target && it.mScore >= 0 } // just not negative should be fine
-                            || suggestions.first().mWord == target) { // or the target word first (but negative), which can happen in some cases
+                    if (suggestions.any { it.word == target && it.score >= 0 } // just not negative should be fine
+                            || suggestions.first().word == target) { // or the target word first (but negative), which can happen in some cases
                         scope.launch {
                             ++sessionWordCount
                             newData.save(ctx)
@@ -761,7 +761,9 @@ private fun <T> List<Pair<T, Double>>.searchFirstExceedingScore(scoreToExceed: D
     return null
 }
 
-const val END_DATE_EPOCH_MILLIS = 1796079600000L // Dec 1st 2026
+// background gathering will end and code will be removed
+// active gathering might remain in some special mode for debugging purpose
+const val END_DATE_EPOCH_MILLIS = 1798758000000L // Jan 1st 2027
 const val TWO_WEEKS_IN_MILLIS = 14L * 24 * 3600 * 1000
 
 @Preview

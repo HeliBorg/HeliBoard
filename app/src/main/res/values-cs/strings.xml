@@ -548,4 +548,11 @@
     <string name="subtype_tok">Toki pona</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Směrové klávesy</string>
     <string name="space_swipe_toggle_dpad_entry">Přepnout směrové klávesy</string>
+    <string name="show_dpad_key">Klávesa pro D-pad</string>
+    <string name="recent_emojis_cleared">Vymazané nedávné emodži</string>
+    <string name="prefs_enable_hardware_keyboard">Podpora hardwarové klávesnice</string>
+    <string name="accent_shifted_icon">Zvýrazněná ikona Shift</string>
+    <string name="delete_swipe_letters">Písmena</string>
+    <string name="delete_swipe_words">Slova</string>
+    <string name="gesture_data_single_instance_per_word">Zobrazit pouze jednu položku na slovo</string>
 </resources>

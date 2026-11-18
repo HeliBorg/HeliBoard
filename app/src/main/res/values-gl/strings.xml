@@ -69,7 +69,7 @@
     <string name="setup_start_action">"Comezar"</string>
     <string name="setup_steps_title">"Configurando %s"</string>
     <string name="setup_step1_title">"Activar %s"</string>
-    <string name="setup_step1_instruction">Comproba a aplicación%s\" na configuración Idioma e introdución de texto para que se poida executar no teu dispositivo.\"</string>
+    <string name="setup_step1_instruction">Selecciona a «%s» nos axustes de Idioma e entrada. Así permitirás que se execute no teu dispositivo.</string>
     <string name="setup_step1_action">"Activar en Configuración"</string>
     <string name="setup_step2_title">"Cambiar a %s"</string>
     <string name="setup_step2_instruction">"A continuación, selecciona \"%s\" como o método de introdución de texto activo."</string>
@@ -83,7 +83,7 @@
     <string name="dictionary_available">"Dicionario dispoñible"</string>
     <string name="settings">"Configuración"</string>
     <string name="delete">"Eliminar"</string>
-    <string name="version_text">"Versión %1$s"</string>
+    <string name="version_text">Versión %s</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Atallo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Escribe unha palabra"</string>
@@ -224,7 +224,7 @@
     <string name="up" tools:keep="@string/up">Arriba</string>
     <string name="down" tools:keep="@string/down">Abaixo</string>
     <string name="show_popup_hints">Mostrar suxestión de funcións</string>
-    <string name="show_popup_hints_summary">Mostra suxestión a manter presa unha tecla que teña funcións adicionais</string>
+    <string name="show_popup_hints_summary">Mostra suxestión ao manter premida unha tecla que teña función asignada</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Cambiar o método de escritura coa tecla espazo</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Manter presa a tecla espazo para abrir o menú de selección de método de entrada</string>
     <string name="prefs_narrow_key_gaps">Espazo reducido entre teclas</string>
@@ -277,8 +277,7 @@
 \nAviso: a carga de código externo é un risco de seguridade. Usa só bibliotecas de fontes de confianza.</string>
     <string name="url_detection_summary">Intentar detectar URLs e equivalentes como unha soa palabra</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Bosque</string>
-    <string name="no_dictionary_message">"Sen un dicionario, só terás suxestións procedentes de texto que escribises con anterioridade.&lt;br&gt;
-\n        Podes descargar dicionarios %1$s, ou comprobar se podes decargar directamente %3$s un dicionario para \"%2$s\"."</string>
+    <string name="no_dictionary_message">"Sen un dicionario, só terás suxestións procedentes de texto que escribises con anterioridade.&lt;br&gt;\n        Podes descargar dicionarios %1$s, ou comprobar se podes decargar directamente %3$s un dicionario para \"%2$s\"."</string>
     <string name="dialog_close">Pechar</string>
     <string name="hidden_features_summary">Mostar características que igual non coñeces</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
@@ -457,9 +456,9 @@
     <string name="search_field_placeholder">Buscar</string>
     <string name="ask_later">Preguntar máis tarde</string>
     <string name="gesture_data_screen">Obtendo datos dos xestos</string>
-    <string name="gesture_data_description">Esta é a pantalla de obtención dos datos para os xestos de escritura!&lt;br/&gt;&lt;br/&gt; É parte dun &lt;a href=https://nlnet.nl/project/GestureTyping&gt;proxecto financiado por NLnet&lt;/a&gt; que intenta producir unha biblioteca de escritura por xestos totalmente de código aberto e capaz de substituír a biblioteca de código oculto de Google.&lt;b/&gt; O resultado proxectado pretende ser unha substitución simple para teclados baseados en AOSP, pero tamén utilizable por outros teclados, ex. FloriBoard.&lt;br/&gt;&lt;br/&gt; Para desenvolver a biblioteca, é tremendamente útil ter datos de xestos en diferentes idiomas e diferentes persoas usuarias.&lt;br/&gt; Ao obter e enviar datos de xestos ao escribir contribúes ao conxunto de datos aberto que se usarán para o desenvolvemento. O conxunto de datos vaise publicar con licenza CC BY-SA 4.0 cando finalice a etapa de obtención de datos en %s. Unha vez recollidos os datos, podes envialos usando a icona compartir ao pé desta pantalla.</string>
+    <string name="gesture_data_description">&lt;b&gt;Esta é a pantalla de obtención dos datos para os xestos de escritura!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; É parte dun &lt;a href=https://nlnet.nl/project/GestureTyping&gt;proxecto financiado por NLnet&lt;/a&gt; que intenta producir unha biblioteca de escritura por xestos totalmente de código aberto e capaz de substituír a biblioteca de código oculto de Google.&lt;b/&gt; O resultado proxectado pretende ser unha substitución simple para teclados baseados en AOSP, pero tamén utilizable por outros teclados, ex. FloriBoard.&lt;br/&gt;&lt;br/&gt; Para desenvolver a biblioteca, é tremendamente útil ter datos de xestos en diferentes idiomas e diferentes persoas usuarias.&lt;br/&gt; Ao obter e enviar datos de xestos ao escribir contribúes ao conxunto de datos aberto que se usarán para o desenvolvemento. O conxunto de datos vaise publicar con licenza CC BY-SA 4.0 cando finalice a etapa de obtención de datos en %s. Unha vez recollidos os datos, podes envialos usando a icona compartir ao pé desta pantalla.</string>
     <string name="gesture_data_info">Que é isto?</string>
-    <string name="gesture_data_description_modes">Actualmente só hai un modo de obtención activo, onde se mostra unha palabra concreta e escribes esta palabra usando a escritura con xestos.\nMáis tarde engadiremos o modo de obtención pasiva, onde podes engadir mostras desde a túa escritura corrente con cestos en outras apps. Debido a sensibilidade desta opción, terás que activar o acceso, será configurable e terá unha pantalla de revisión dos datos que vas a enviar.</string>
+    <string name="gesture_data_description_modes">O xeito «seguro» para colaborar é a &lt;i&gt;obtención activa&lt;/i&gt;, onde se mostra unha palabra concreta e escribes esta palabra usando a escritura con xestos.&lt;br&gt;Tamén podes usar a &lt;i&gt;obtención en segundo plano&lt;/i&gt;, onde podes engadir mostras desde a túa escritura corrente con cestos en outras apps. Debido a sensibilidade desta opción, tes que activar o acceso, é configurable e ten unha pantalla de revisión dos datos que vas a enviar.</string>
     <string name="gesture_data_description_privacy">Privacidade\n\nOs datos enviados consisten nunha palabra clave, disposición do teclado e tamaño, xesto (marca temporal e coordenadas), suxestións da biblioteca actual, suma de comprobación do dicionario usado, versión da app, mode obtención dos datos, se o xesto está na biblioteca predeterminada de Google, así como un ID para cada xesto.\nOs datos enviados vanse descargar e eliminar dunha caixa de correo de ProtonMail onde se almacenan para facilitarnos o traballo. Após rematar a fase de obtención de datos, os datos acumulados durante todo o proceso van ser publicados baixo a licenza Creative Commons BY-SA 4.0.\n\nComo parte do intento de protexer a túa privacidade non se publicará explícitamente a túa autoría. O crédito outorgado vai ser \"Colaboradoras do Proxecto Heliboard de Datos de Xestos\". Non será posible ligar os datos que creaches nesta pantalla coa túa identidade. Emporiso, podería ser posible determinar que xestos foron creados pola mesma persoa. Isto pódese facer por exemplo tendo en conta se é un teclado cunha disposición de teclas persoal, tamaño do teclado, idioma ou estilo propio de xestos.</string>
     <string name="gesture_data_privacy">Privacidade</string>
     <string name="gesture_data_get_data">Compartir ficheiro de datos cos xestos</string>
@@ -476,7 +475,7 @@
     <string name="gesture_data_date_range">Rango de datas</string>
     <string name="gesture_data_much_data">Tes moitos datos sen enviar. Por favor envíaos e despois elimina os datos antigos.</string>
     <string name="gesture_data_how_to_use">Como se utiliza</string>
-    <string name="gesture_data_active_description">Toca en «Comezar a obtención activa», optativamente podes cambiar o dicionario, e comezar a escribir a palabra suxerida.&lt;br/&gt; Se o xesto concorda coa palabra, gárdanse os datos e móstrase a seguinte palabra. Se non, podes volver a intentalo ou omitir a palabra, ou confirmar que o xesto é correcto.&lt;br/&gt; Só podes usar dicionarios que están incluídos na app ou dispoñibles no &lt;a href=%s&gt;repositorio de dicionarios&lt;/a&gt;, non se poden usar outras palabras.</string>
+    <string name="gesture_data_active_description">Toca en &lt;i&gt;Comezar a obtención activa&lt;/i&gt;, optativamente podes cambiar o dicionario, e comezar a escribir a palabra suxerida.&lt;br/&gt; Se o xesto concorda coa palabra, gárdanse os datos e móstrase a seguinte palabra. Se non, podes volver a intentalo ou omitir a palabra, ou confirmar que o xesto é correcto.&lt;br/&gt; Só podes usar dicionarios que están incluídos na app ou dispoñibles no &lt;a href=%s&gt;repositorio de dicionarios&lt;/a&gt;, non se poden usar outras palabras.</string>
     <string name="gesture_data_active_start">Comezar a obtención activa</string>
     <string name="gesture_data_active_stop">Deter a obtención activa</string>
     <string name="gesture_data_ends_at">A fase de obtención de datos remata o %s. Por favor envía os teus datos antes desta data.</string>
@@ -492,7 +491,7 @@
     <string name="gesture_data_promotion_message">Ola!\nComo instalaches a biblioteca de escritura con xestos, pode que che interese colaborar co proxecto de HeliBoard para crear unha biblioteca de código aberto para escritura con xestos. Podes colaborar enviando datos de escritura. Para máis información visita a pantalla de obtención de datos de xestos.</string>
     <string name="gesture_data_reminder_message">Ola!\nCon anterioridade usaches a obtención de datos de xestos, pero non engadiches ningún dato desde hai tempo. Queres volver a colaborar?</string>
     <string name="gesture_data_take_me_there">Imos aló</string>
-    <string name="gesture_data_links">Información sobre a obtención de datos de xestos en:</string>
+    <string name="gesture_data_links">Información sobre a obtención activa:</string>
     <string name="toolbar_swipe_down_to_hide">Ocultar teclado cun desprazamento</string>
     <string name="toolbar_swipe_down_to_hide_summary">Despraza cara abaixo na barra de ferramentas para fechar o teclado</string>
     <string name="custom_punctuation_suggestions">Establecer suxestións para a puntuación</string>
@@ -555,4 +554,11 @@
     <string name="gesture_data_add_key">Engadir tecla á barra de ferramentas</string>
     <string name="gesture_data_no_known_dict">A obtención en segundo plano só recolle palabras procedentes de dicionarios incluídos na app ou dispoñibles no &lt;a href=%s&gt;repositorio de dicionarios&lt;/a&gt;. Actualmente non tes activado ningún dicionario dese tipo.</string>
     <string name="gesture_data_swipe_o_scope">Ferramenta para visualizar os datos de xestos: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
+    <string name="recent_emojis_cleared">Limpáronse os emojis recentes</string>
+    <string name="show_dpad_key">Tecla D-pad</string>
+    <string name="prefs_enable_hardware_keyboard">Compatibilidade con teclado físico</string>
+    <string name="accent_shifted_icon">Icona das maiúsculas destacada</string>
+    <string name="delete_swipe_letters">Letras</string>
+    <string name="delete_swipe_words">Palabras</string>
+    <string name="gesture_data_single_instance_per_word">Mostrar só unha entrada por palabra</string>
 </resources>

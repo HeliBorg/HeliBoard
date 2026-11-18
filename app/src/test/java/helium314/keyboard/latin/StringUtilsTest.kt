@@ -3,136 +3,102 @@ package helium314.keyboard.latin
 
 import androidx.test.core.app.ApplicationProvider
 import helium314.keyboard.ShadowInputMethodManager2
+import helium314.keyboard.compat.CompatBreakIterator
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.common.codePointAt
 import helium314.keyboard.latin.common.codePointBefore
 import helium314.keyboard.latin.common.endsWithWordCodepoint
-import helium314.keyboard.latin.common.getFullEmojiAtEnd
-import helium314.keyboard.latin.common.getTouchedWordRange
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.common.isSingleGrapheme
-import helium314.keyboard.latin.common.moveStepsToCharCount
 import helium314.keyboard.latin.common.nonWordCodePointAndNoSpaceBeforeCursor
+import helium314.keyboard.latin.common.singleEmojiRegex
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.common.stripTrailingSeparatorsAndConnectors
-import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
-import helium314.keyboard.latin.utils.ScriptUtils
-import helium314.keyboard.latin.utils.TextRange
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import java.util.Locale
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
-// todo: actually this test could/should be significantly expanded...
+// many of those tests now actually test the iterators
 @RunWith(RobolectricTestRunner::class)
 @Config(shadows = [
     ShadowInputMethodManager2::class,
 ])
 class StringUtilsTest {
     @Test fun `not inside double quotes without quotes`() {
-        assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello yes"))
+        assertTrue(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello yes"))
     }
 
     @Test fun `inside double quotes after opening a quote`() {
-        assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes"))
+        assertTrue(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes"))
     }
 
     @Test fun `inside double quotes with quote at start`() {
-        assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("\"hello yes"))
+        assertTrue(StringUtils.isInsideDoubleQuoteOrAfterDigit("\"hello yes"))
     }
 
     // maybe this is not that bad, should be correct after entering next text
     @Test fun `not inside double quotes directly after closing quote`() {
-        assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\""))
+        assertTrue(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\""))
     }
 
     @Test fun `not inside double quotes after closing quote`() {
-        assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" "))
+        assertTrue(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" "))
     }
 
     @Test fun `not inside double quotes after closing quote followed by comma`() {
-        assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", "))
+        assertTrue(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", "))
     }
 
     @Test fun `inside double quotes after opening another quote`() {
-        assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" \"h"))
+        assertTrue(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" \"h"))
     }
 
     @Test fun `inside double quotes after opening another quote with closing quote followed by comma`() {
-        assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", \"h"))
+        assertTrue(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", \"h"))
     }
 
     @Test fun `non-word codepoints and no space`() {
-        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false)
-        assert(!nonWordCodePointAndNoSpaceBeforeCursor("this is", sp))
-        assert(!nonWordCodePointAndNoSpaceBeforeCursor("this ", sp))
-        assert(!nonWordCodePointAndNoSpaceBeforeCursor("th.is ", sp))
-        assert(nonWordCodePointAndNoSpaceBeforeCursor("th.is", sp))
+        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT)
+        assertTrue(!nonWordCodePointAndNoSpaceBeforeCursor("this is", sp))
+        assertTrue(!nonWordCodePointAndNoSpaceBeforeCursor("this ", sp))
+        assertTrue(!nonWordCodePointAndNoSpaceBeforeCursor("th.is ", sp))
+        assertTrue(nonWordCodePointAndNoSpaceBeforeCursor("th.is", sp))
     }
 
     @Test fun `is word-like at end`() {
-        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false)
-        assert(!endsWithWordCodepoint("", sp))
-        assert(endsWithWordCodepoint("don'", sp))
-        assert(!endsWithWordCodepoint("hello!", sp))
-        assert(!endsWithWordCodepoint("when ", sp))
-        assert(!endsWithWordCodepoint("3-", sp))
-        assert(!endsWithWordCodepoint("5'", sp))
-        assert(!endsWithWordCodepoint("1", sp))
-        assert(endsWithWordCodepoint("a-", sp))
-        assert(!endsWithWordCodepoint("--", sp))
-        assert(!endsWithWordCodepoint("\uD83D\uDE42", sp))
-    }
-
-    @Test fun `get touched text range`() {
-        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false)
-        val spUrl = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, true)
-        val script = ScriptUtils.SCRIPT_LATIN
-        checkTextRange("blabla this is v", "ery good", sp, script, 15, 19)
-        checkTextRange(".hel", "lo...", sp, script, 1, 6)
-        checkTextRange("(hi", ")", sp, script, 1, 3)
-        checkTextRange("", "word", sp, script, 0, 4)
-
-        checkTextRange("mail: blorb@", "florb.com or", sp, script, 12, 17)
-        checkTextRange("mail: blorb@", "florb.com or", spUrl, script, 6, 21)
-        checkTextRange("mail: blor", "b@florb.com or", sp, script, 6, 11)
-        checkTextRange("mail: blor", "b@florb.com or", spUrl, script, 6, 21)
-        checkTextRange("mail: blorb@f", "lorb.com or", sp, script, 12, 17)
-        checkTextRange("mail: blorb@f", "lorb.com or", spUrl, script, 6, 21)
-
-        checkTextRange("http://exam", "ple.com", sp, script, 7, 14)
-        checkTextRange("http://exam", "ple.com", spUrl, script, 7, 18)
-        checkTextRange("http://example.", "com", sp, script, 15, 18)
-        checkTextRange("http://example.", "com", spUrl, script, 7, 18)
-        checkTextRange("htt", "p://example.com", sp, script, 0, 4)
-        checkTextRange("htt", "p://example.com", spUrl, script, 0, 18)
-        checkTextRange("http:/", "/example.com", sp, script, 6, 6)
-        checkTextRange("http:/", "/example.com", spUrl, script, 0, 18)
-
-        checkTextRange("..", ".", spUrl, script, 2, 2)
-        checkTextRange("...", "", spUrl, script, 3, 3)
-
-        // todo: these are bad cases of url detection
-        //  also: sometimesWordConnectors are for URL and should be named accordingly
-        checkTextRange("@@@", "@@@", spUrl, script, 0, 6)
-        checkTextRange("a...", "", spUrl, script, 0, 4)
-        checkTextRange("@@@", "", spUrl, script, 0, 3)
+        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT)
+        assertTrue(!endsWithWordCodepoint("", sp))
+        assertTrue(endsWithWordCodepoint("don'", sp))
+        assertTrue(!endsWithWordCodepoint("hello!", sp))
+        assertTrue(!endsWithWordCodepoint("when ", sp))
+        assertTrue(!endsWithWordCodepoint("3-", sp))
+        assertTrue(!endsWithWordCodepoint("5'", sp))
+        assertTrue(!endsWithWordCodepoint("1", sp))
+        assertTrue(endsWithWordCodepoint("a-", sp))
+        assertTrue(!endsWithWordCodepoint("--", sp))
+        assertTrue(!endsWithWordCodepoint("\uD83D\uDE42", sp))
     }
 
     @Test fun singleGrapheme() {
-        assert(!"".isSingleGrapheme)
-        assert(",".isSingleGrapheme)
-        assert(!"!!".isSingleGrapheme)
-        assert("э́".isSingleGrapheme)
-        assert(!"\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08".isSingleGrapheme)
-        assert("\uD83C\uDFF3️\u200D\uD83C\uDF08".isSingleGrapheme)
-        assert("\uD83C\uDFF4\u200D☠️".isSingleGrapheme)
-        assert(!" 🏼".isSingleGrapheme)
-        assert(!"a🏼".isSingleGrapheme)
-        assert(!"🏼🏼".isSingleGrapheme)
-        assert("🏼".isSingleGrapheme)
+        assertTrue(!"".isSingleGrapheme)
+        assertTrue(",".isSingleGrapheme)
+        assertTrue(!"!!".isSingleGrapheme)
+        assertTrue("э́".isSingleGrapheme)
+        assertTrue(!"\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08".isSingleGrapheme)
+        assertTrue("\uD83C\uDFF3️\u200D\uD83C\uDF08".isSingleGrapheme)
+        assertTrue("\uD83C\uDFF4\u200D☠️".isSingleGrapheme)
+        assertTrue(!" 🏼".isSingleGrapheme)
+        assertTrue(!"a🏼".isSingleGrapheme)
+        assertTrue(!"🏼🏼".isSingleGrapheme)
+        assertTrue("🏼".isSingleGrapheme)
+        assertTrue("🇦".isSingleGrapheme) // 🇦 standalone regional indicator is a single grapheme
+        assertTrue("🇩🇪".isSingleGrapheme) // 🇩🇪 flag (indicator pair) is still a single grapheme
+        assertTrue(!"🇦🇧🇨".isSingleGrapheme) // 🇦🇧🇨 three indicators are not one grapheme
     }
 
     @Test fun detectEmojisAtEnd() {
@@ -155,44 +121,54 @@ class StringUtilsTest {
         assertEquals("", getFullEmojiAtEnd("\u200D"))
         assertEquals("", getFullEmojiAtEnd("a\u200D"))
         assertEquals("\uD83D\uDE22", getFullEmojiAtEnd(" \u200D\uD83D\uDE22"))
-    }
-
-    @Test fun detectEmojisAtEndFails() {
-        if (BuildConfig.BUILD_TYPE == "runTests") return
-        // fails, but unlikely enough that we leave it unfixed (issue is that 🏼 is not a standalone emoji, but combining with 🎄 doesn't merge)
+        assertEquals("🇨", getFullEmojiAtEnd("🇦🇧🇨"))
+        assertEquals("🇦", getFullEmojiAtEnd(" 🇦"))
+        assertEquals("🇦🇩", getFullEmojiAtEnd("🇦🇩"))
         assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd("\uD83C\uDF84\uD83C\uDFFC")) // 🎄🏼
     }
 
-    @Test fun isEmojiDetectsSingleEmojis() {
-        assert(isEmoji("🎄"))
-        assert(!isEmoji("🎄🎄"))
-        assert(!isEmoji("🎄🏼"))
-        assert(isEmoji("🏼")) // actually this is not a standalone emoji...
-        assert(!isEmoji("a🎄"))
-        assert(isEmoji("🖐️"))
-        assert(isEmoji("🖐🏾"))
-        assert(!isEmoji("🖐🏾🏼"))
+    @Test fun detectEmojisAtStart() {
+        assertEquals("\uD83C\uDF83", getFullEmojiAtStart("\uD83C\uDF83 "))
+        assertEquals("", getFullEmojiAtStart("a"))
+        assertEquals("\uD83C\uDF83", getFullEmojiAtStart("\uD83C\uDF83"))
+        assertEquals("ℹ️", getFullEmojiAtStart("ℹ️"))
+        assertEquals("ℹ️", getFullEmojiAtStart("ℹ️ℹ️"))
+        assertEquals("\uD83D\uDE22", getFullEmojiAtStart("\uD83D\uDE22x"))
+        assertEquals("", getFullEmojiAtStart("x\uD83D\uDE22 "))
+        assertEquals("\uD83C\uDFF4\u200D☠️", getFullEmojiAtStart("\uD83C\uDFF4\u200D☠️ ok"))
+        assertEquals("\uD83C\uDFF3️\u200D\uD83C\uDF08", getFullEmojiAtStart("\uD83C\uDFF3️\u200D\uD83C\uDF08"))
+        assertEquals("\uD83C\uDFF4\u200D☠️", getFullEmojiAtStart("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08"))
+        assertEquals("\uD83C\uDFF3️\u200D⚧️", getFullEmojiAtStart("🏳️‍⚧️hello there"))
+        assertEquals("\uD83D\uDD75\uD83C\uDFFC", getFullEmojiAtStart("🕵🏼 "))
+        assertEquals("\uD83D\uDD75\uD83C\uDFFC", getFullEmojiAtStart("🕵🏼"))
+        assertEquals("\uD83C\uDFFC", getFullEmojiAtStart("\uD83C\uDFFC "))
+        assertEquals("1\uFE0F⃣", getFullEmojiAtStart("1\uFE0F⃣")) // 1️⃣
+        assertEquals("©\uFE0F", getFullEmojiAtStart("©\uFE0F")) // ©️
+        assertEquals("", getFullEmojiAtStart("\u200D"))
+        assertEquals("", getFullEmojiAtStart("\u200Da"))
+        assertEquals("🇦🇧", getFullEmojiAtStart("🇦🇧🇨"))
+        assertEquals("🇨", getFullEmojiAtStart("🇨\uD83C\uDF83"))
+        assertEquals("🇦", getFullEmojiAtStart("🇦 "))
+        assertEquals("🇦🇩", getFullEmojiAtStart("🇦🇩🇨🇩"))
+        assertEquals("\uD83C\uDF84", getFullEmojiAtStart("\uD83C\uDF84\uD83C\uDFFC")) // 🎄🏼
     }
 
-    @Test fun moveStepsToCharCount() {
-        assertEquals(3, moveStepsToCharCount("abcd", 3))
-        assertEquals(-3, moveStepsToCharCount("abcd", -3))
-        assertEquals(4, moveStepsToCharCount("abcd", 10))
-        assertEquals(-4, moveStepsToCharCount("abcd", -10))
-        assertEquals(8, moveStepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", 3))
-        assertEquals(-3, moveStepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", -3))
-        assertEquals(4, moveStepsToCharCount("aэ́cd", 3))
-        assertEquals(-2, moveStepsToCharCount("abcэ́", -1))
-        assertEquals(19, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 1))
-        assertEquals(21, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 2))
-        assertEquals(22, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 3))
-        assertEquals(23, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 4))
-        assertEquals(-2, moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -1))
-        assertEquals(-3, moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -2))
-        assertEquals(-23, moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -4))
-        assertEquals(3, moveStepsToCharCount("abcd", 3))
-        assertEquals(5, moveStepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", 1))
-        assertEquals(-6, moveStepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", -1))
+    @Test fun detectEmojiAtStartFails() {
+        if (BuildConfig.BUILD_TYPE == "runTests") return
+        // fails because first grapheme contains \u200D, which sort of makes sense... but we don't want that
+        assertEquals("😢", getFullEmojiAtStart("😢\u200D "))
+    }
+
+    @Test fun isEmojiDetectsSingleEmojis() {
+        assertTrue(isEmoji("🎄"))
+        assertTrue(!isEmoji("🎄🎄"))
+        assertTrue(!isEmoji("🎄🏼"))
+        assertTrue(isEmoji("🏼")) // actually this is not a standalone emoji...
+        assertTrue(!isEmoji("a🎄"))
+        assertTrue(isEmoji("🖐️"))
+        assertTrue(isEmoji("🖐🏾"))
+        assertTrue(!isEmoji("🖐🏾🏼"))
+        assertTrue(isEmoji("🇦🇧")) // needs special treatment because 🇦🇧 is not an emoji according to the regex (it's not valid, but it's displayed)
     }
 
     @Test fun isEmojiDetectsAllAvailableEmojis() {
@@ -204,16 +180,16 @@ class StringUtilsTest {
 
         val brokenDetectionAtStart = listOf("〰️", "〽️", "©️", "®️", "#️⃣", "*️⃣", "0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "㊗️", "㊙️")
         allEmojis.forEach {
-            assert(isEmoji(it))
-            assert(StringUtils.mightBeEmoji(it.codePointBefore(it.length)))
+            assertTrue(isEmoji(it))
+            assertTrue(StringUtils.mightBeEmoji(it.codePointBefore(it.length)))
             if (it !in brokenDetectionAtStart)
-                assert(StringUtils.mightBeEmoji(it.codePointAt(0)))
+                assertTrue(StringUtils.mightBeEmoji(it.codePointAt(0)))
         }
     }
 
     @Test fun `strip trailing separators and connectors`() {
         val ctx = ApplicationProvider.getApplicationContext<App>()
-        val svfs = SpacingAndPunctuations(ctx.resources, false)
+        val svfs = SpacingAndPunctuations(ctx.resources, false, Locale.ROOT)
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word", svfs))
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word)", svfs))
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word\"", svfs))
@@ -225,9 +201,17 @@ class StringUtilsTest {
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word'-'", svfs))
     }
 
-    private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, script: String, wordStart: Int, wordEnd: Int) {
-        val got = getTouchedWordRange(before, after, script, sp)
-        val wanted = TextRange(before + after, wordStart, wordEnd, before.length, false)
-        assertEquals(wanted, got)
+    private fun getFullEmojiAtStart(text: String): String {
+        val gi = CompatBreakIterator.graphemeInstance
+        gi.text = text
+        val firstGrapheme = text.substring(0, gi.following(0))
+        return if (isEmoji(firstGrapheme)) firstGrapheme else ""
+    }
+
+    private fun getFullEmojiAtEnd(text: CharSequence): String {
+        val gi = CompatBreakIterator.graphemeInstance
+        gi.text = text
+        val lastGrapheme = text.substring(gi.preceding(text.length))
+        return if (isEmoji(lastGrapheme)) lastGrapheme else ""
     }
 }

@@ -1,0 +1,10 @@
+* lisandus D-klahvistik
+* kohendasime klahvikorduse loogikat
+* parandasime lõikelaua soovitusi
+* uuemad seadistuste ikoonid
+* hüpikakende vihjete ühtlasem kuvamine
+* parem numbriklahvistiku klahvide laius, mis on kooskõlas numbripaigutusega
+* parandasimetööriistariba klahvide aeg-ajalt kadumise vea
+* lisasime lõikelaua soovituste jaoks eraldi värvitüübi
+* uuendasime Shift-olekut õigesti, kui kursorit liigutatakse nooleklahvidega
+* paigutasime värvide (öö) seadistuse värvide oma kõrvale

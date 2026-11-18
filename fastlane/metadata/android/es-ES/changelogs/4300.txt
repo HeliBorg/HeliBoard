@@ -1,0 +1,7 @@
+* agregar la opción de seleccionar palabras en lugar de letras cuando se borra
+* agregar la opción de mostrar solo la primera instancia de una palabra en la pantalla de revisión de datos de gestos
+* añadir / activar `KeyCode.DELETE_WORD` (-8)
+* mejorar la importación de . archivos de diccionario combinados
+* reducir la adición de palabras no deseadas al historial escrito
+* corregir el error de la clave dividida
+* aumentar el límite de emojis recientes

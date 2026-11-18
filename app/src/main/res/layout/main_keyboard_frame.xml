@@ -16,8 +16,6 @@
         android:id="@+id/strip_container"
         layout="@layout/strip_container" />
 
-    <!-- To ensure that key preview popup is correctly placed when the current system locale is
-         one of RTL locales, layoutDirection="ltr" is needed in the SDK version 17+. -->
     <helium314.keyboard.latin.KeyboardWrapperView
         android:id="@+id/keyboard_view_wrapper"
         android:layout_width="match_parent"
@@ -29,12 +27,16 @@
             android:layoutDirection="ltr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <include
-            android:id="@+id/emoji_palettes_view"
-            layout="@layout/emoji_palettes_view" />
-        <include
-            android:id="@+id/clipboard_history_view"
-            layout="@layout/clipboard_history_view" />
+        <ViewStub
+            android:id="@+id/emoji_palettes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/emoji_palettes_view" />
+        <ViewStub
+            android:id="@+id/clipboard_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/clipboard_history_view" />
 
         <ImageButton
             android:id="@+id/btn_stop_one_handed_mode"

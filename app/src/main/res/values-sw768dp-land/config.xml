@@ -48,5 +48,4 @@
     <fraction name="config_emoji_keyboard_row_height">33%p</fraction>
     <fraction name="config_emoji_keyboard_key_letter_size">58%p</fraction>
     <fraction name="config_emoji_keyboard_key_label_size">58%p</fraction>
-    <integer name="config_emoji_keyboard_max_recents_key_count">39</integer>
 </resources>

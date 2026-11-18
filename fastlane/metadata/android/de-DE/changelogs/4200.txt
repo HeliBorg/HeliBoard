@@ -1,0 +1,10 @@
+* Umschaltsymbol aktualisiert
+* Arabische Satzzeichen-Pop-ups neu angeordnet und Marker mit gepunktetem Kreis hinzugefügt
+* Option zum Ümschalten der Hardwaretastaturunterstützung hinzugefügt (noch fehlerhaft)
+* Löschen der zuletzt genutzten Emojis ermöglicht (Emoji oder Symbol für zuletzt genutzte lange drücken)
+* Regionalindikator-Symbole zu Flaggen-Emojis hinzugefügt
+* Einstellung für die D-Pad-Taste hinzugefügt (wie für die Emoji-Taste)
+* Über Vorschläge eingegebene Emojis zu den zuletzt verwendeten Emojis hinzugefügt
+* Nicht erreichbare Griffe der schwebenden Tastatur behoben
+* Absturz bei der Emoji-Suche behoben
+* Kleinere Fehlerbehebungen und Verbesserungen

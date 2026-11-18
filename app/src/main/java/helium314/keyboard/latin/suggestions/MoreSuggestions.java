@@ -20,7 +20,6 @@ import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
 public final class MoreSuggestions extends Keyboard {
@@ -162,9 +161,8 @@ public final class MoreSuggestions extends Keyboard {
         }
     }
 
-    static boolean isIndexSubjectToAutoCorrection(final SuggestedWords suggestedWords,
-            final int index) {
-        return suggestedWords.mWillAutoCorrect && index == SuggestedWords.INDEX_OF_AUTO_CORRECTION;
+    static boolean isIndexSubjectToAutoCorrection(SuggestedWords suggestedWords, int index) {
+        return suggestedWords.getWillAutoCorrect() && index == SuggestedWords.INDEX_OF_AUTO_CORRECTION;
     }
 
     public static final class Builder extends KeyboardBuilder<MoreSuggestionsParam> {

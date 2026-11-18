@@ -42,9 +42,11 @@ object FoldableUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
                 && context.packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE))
             return true
+        val sm = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val allSensors = sm.getSensorList(Sensor.TYPE_ALL)
+        if (allSensors.any { it.name == "hinge_angle" }) return true
         if (DebugFlags.DEBUG_ENABLED) {
-            val sm = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            sm.getSensorList(Sensor.TYPE_ALL).forEach {
+            allSensors.forEach {
                 if (it.name.contains("hinge", true) || it.name.contains("fold", true))
                     Log.v(TAG, "no default hinge sensor, but found ${it.name} with range ${it.maximumRange}")
             }
@@ -98,6 +100,7 @@ object FoldableUtils {
     /** Observes changes to [DISPLAY_FEATURES] or hinge angle, and updates [isFolded] on changes */
     class FoldableObserver(context: Context) {
         var sensorForDebug = false
+        var sensorRange = 180f
 
         private val featureStringObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
             override fun onChange(selfChange: Boolean, uri: Uri?) {
@@ -122,7 +125,7 @@ object FoldableUtils {
                 // * 160° is the change between half-open and flat
                 // maybe we should use the sensor range? wait for bug reports + logs
                 if (!sensorForDebug)
-                    isFolded = (angle ?: 180f) < 40
+                    isFolded = (angle ?: 180f) / sensorRange < 40 / 180f
                 if (DebugFlags.DEBUG_ENABLED)
                     Log.v(TAG, "sensor changed: ${event.values?.toList()}")
             }
@@ -141,8 +144,19 @@ object FoldableUtils {
                 // see https://github.com/ryosoftware/folds/blob/master/app/src/main/java/com/ryosoftware/unfolds/UnfoldsCounterService.kt#L67-L83
                 // -> we could try other sensors
                 val sm = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-                sm.registerListener(sensorListener, sm.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE), SensorManager.SENSOR_DELAY_UI)
-                Log.v(TAG, "using sensor, for debugging only: $sensorForDebug")
+                if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE)) {
+                    sm.registerListener(sensorListener, sm.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE), SensorManager.SENSOR_DELAY_UI)
+                    Log.v(TAG, "using default sensor, for debugging only: $sensorForDebug")
+                } else {
+                    // we only come here if we have a sensor with suitable name (atm only hinge_angle)
+                    val sensor = sm.getSensorList(Sensor.TYPE_ALL).firstOrNull { it.name == "hinge_angle" }
+                    if (sensor == null) {
+                        Log.e(TAG, "expected to find sensor, but nothing found")
+                    } else {
+                        sm.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI)
+                        sensorRange = sensor.maximumRange
+                    }
+                }
             }
         }
 

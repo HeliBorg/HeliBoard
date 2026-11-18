@@ -1,0 +1,8 @@
+* Steuerkreuz hinzufügen
+* die Tastenwiederholung als Langdruck-Befehl für Symbolleisten-Tasten und Popups zulassen und als Standard für die Pfeiltasten der Symbolleiste festlegen
+* Vorschläge für die Zwischenablage verbessern
+* Einstellungssymbole aktualisieren
+* einheitlichere Darstellung von Popup-Hinweisen
+* die Breite der Tasten des Ziffernblocks anpassen, um sie an das Zahlenlayout anzupassen
+* das gelegentliche Verschwinden von Symbolleisten-Tasten beheben
+* und mehr

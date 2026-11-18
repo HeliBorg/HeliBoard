@@ -546,4 +546,11 @@
     <string name="subtype_tok">Toki Pona</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Suunaklahvistik</string>
     <string name="space_swipe_toggle_dpad_entry">Lülita suunaklahvistik sisse/välja</string>
+    <string name="show_dpad_key">D-klahvistiku klahv</string>
+    <string name="recent_emojis_cleared">Hiljutikasutatud emojid on eemaldatud</string>
+    <string name="prefs_enable_hardware_keyboard">Raudvaralise klahvistiku tugi</string>
+    <string name="accent_shifted_icon">Rõhutatud Shift-ikoon</string>
+    <string name="delete_swipe_letters">Tähed</string>
+    <string name="delete_swipe_words">Sõnad</string>
+    <string name="gesture_data_single_instance_per_word">Näita vaid üht kirjet sõna kohta</string>
 </resources>

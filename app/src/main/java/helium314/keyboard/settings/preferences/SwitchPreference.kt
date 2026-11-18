@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Links
-import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.htmlToAnnotated
@@ -23,6 +22,7 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.InfoDialog
 import androidx.core.content.edit
+import helium314.keyboard.latin.dictionary.DictionaryInfoUtils
 
 @Composable
 fun SwitchPreference(

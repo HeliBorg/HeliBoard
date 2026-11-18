@@ -22,5 +22,15 @@ object IntentUtils {
         context.sendBroadcast(intent)
         i(TAG, "Sent broadcast for intent number: $intentNumber")
     }
-}
 
+    /** uses [type] with fallback to generic *\* if there is no activity */
+    fun getResolvableTypeIntent(context: Context, type: String): Intent {
+        val intent = Intent()
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = type
+        if (intent.resolveActivity(context.packageManager) != null)
+            return intent
+        intent.type = "*/*"
+        return intent
+    }
+}

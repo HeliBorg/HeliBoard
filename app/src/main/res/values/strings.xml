@@ -80,6 +80,8 @@
     <string name="language_switch_key_behavior">Language switch key behavior</string>
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
+    <!-- Option to show shortcut key to d-pad -->
+    <string name="show_dpad_key">D-pad key</string>
     <!-- Units abbreviation for the duration (milliseconds) -->
     <string name="abbreviation_unit_milliseconds">%s ms</string>
     <!-- Units abbreviation for the duration (minutes) -->
@@ -153,7 +155,7 @@
     <!-- Option to undo auto correction with backspace -->
     <string name="backspace_reverts_autocorrect">Backspace reverts autocorrect</string>
     <!-- Option to disable auto correction. -->
-    <string name="auto_correction_threshold_mode_off">Off</string> <!-- todo: use it or remove it -->
+    <string name="auto_correction_threshold_mode_off">Off</string> <!-- todo: rename to generic_off or sth -->
     <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. -->
     <string name="auto_correction_threshold_mode_modest">Modest</string>
     <!-- Option to suggest auto correction suggestions aggressively. Auto-corrects to a word which has even large edit distance from typed word. -->
@@ -224,6 +226,10 @@
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->
     <string name="delete_swipe_summary">Perform a swipe from the delete key to select and remove bigger portions of text at once</string>
+    <!-- "delete_swipe" option to delete letters by swiping. -->
+    <string name="delete_swipe_letters">Letters</string>
+    <!-- "delete_swipe" option to delete entire words by swiping. -->
+    <string name="delete_swipe_words">Words</string>
     <!-- Preferences item and dialog title for backup and restore -->
     <string name="backup_restore_title">Backup and restore</string>
     <!-- Message for backup and restore dialog -->
@@ -426,6 +432,8 @@
     <string name="custom_font">Set custom font from file</string>
     <!-- Title of the setting for adding / removing custom font file used only for emojis -->
     <string name="custom_emoji_font">Set custom emoji font from file</string>
+    <!-- Message when clearing recent emojis by long pressing the recents tab icon -->
+    <string name="recent_emojis_cleared">Cleared recent emojis</string>
     <!-- Description for English (UK) keyboard subtype
          (UK) should be an abbreviation of United Kingdom. -->
     <string name="subtype_en_GB">English (UK)</string>
@@ -599,6 +607,8 @@ language, hence "No language". -->
     <string name="prefs_enable_emoji_alt_physical_key">Emoji for physical keyboard</string>
     <!-- Description of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards -->
     <string name="prefs_enable_emoji_alt_physical_key_summary">Physical Alt key shows the emoji palette</string>
+    <!-- Title of the setting for enabling hardware keyboard support -->
+    <string name="prefs_enable_hardware_keyboard">Hardware keyboard support</string>
     <!-- Title of the button to revert to the default value of the device in the settings dialog. Preferably 10 characters or less. -->
     <string name="button_default">Default</string>
     <!-- Title of the setup wizard welcome screen. %s is the application name. -->
@@ -711,6 +721,8 @@ New dictionary:
     <string name="theme_colors_night">Colors (night)</string>
     <!-- Option for choosing whether we use a theme that provides borders to keys -->
     <string name="key_borders">Key borders</string>
+    <!-- Option for choosing whether the shift icon should be accent-colored in shift and caps lock modes -->
+    <string name="accent_shifted_icon">Accented shift icon</string>
     <!-- Option for choosing auto day/night theme switch -->
     <string name="day_night_mode">Auto day/night mode</string>
     <!-- Description for "day_night_mode" option. -->
@@ -1273,6 +1285,9 @@ New dictionary:
     <!-- Review screen menu entry to display shared but not deleted gathered data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_include_shared">Include already submitted data</string>
+    <!-- Review screen menu entry to display each word at most once even if it was gestured more often
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_single_instance_per_word">Show only one entry per word</string>
     <!-- Review screen text indicating the word is already submitted
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_shared">submitted</string>

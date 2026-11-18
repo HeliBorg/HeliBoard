@@ -1,0 +1,7 @@
+* add option to select words instead of letters when delete-swiping
+* add option to only show the first instance of a word in gesture data review screen
+* add / enable `KeyCode.DELETE_WORD` (-8)
+* improve import of .combined dictionary files
+* reduce unwanted addition of words to typed history
+* fix split keyboad not working
+* increase limit for recent emojis

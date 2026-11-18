@@ -8,12 +8,10 @@ package helium314.keyboard.latin
 import android.Manifest
 import android.content.Context
 import android.provider.UserDictionary
-import android.util.LruCache
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.latin.DictionaryFacilitator.DictionaryInitializationListener
 import helium314.keyboard.latin.NgramContext.WordInfo
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
@@ -21,24 +19,28 @@ import helium314.keyboard.latin.common.decapitalize
 import helium314.keyboard.latin.common.mightBeEmoji
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.dictionary.AppsBinaryDictionary
-import helium314.keyboard.latin.dictionary.ContactsBinaryDictionary
+import helium314.keyboard.latin.dictionary.contacts.ContactsBinaryDictionary
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.dictionary.DictionaryStats
 import helium314.keyboard.latin.dictionary.ExpandableBinaryDictionary
 import helium314.keyboard.latin.dictionary.UserBinaryDictionary
 import helium314.keyboard.latin.permissions.PermissionsUtil
-import helium314.keyboard.latin.personalization.UserHistoryDictionary
+import helium314.keyboard.latin.dictionary.history.UserHistoryDictionary
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
+import helium314.keyboard.latin.suggestions.SuggestedWords
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo
+import helium314.keyboard.latin.suggestions.SuggestionResults
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
@@ -46,6 +48,7 @@ import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Facilitates interaction with different kinds of dictionaries. Provides APIs
@@ -62,31 +65,22 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     @Volatile
     private var mLatchForWaitingLoadingMainDictionaries = CountDownLatch(0)
 
-    // The library does not deal well with ngram history for auto-capitalized words, so we adjust
-    // the ngram context to store next word suggestions for such cases.
-    // todo: this is awful, find a better solution / workaround
-    //  or remove completely? not sure if it's actually an improvement
-    //  should be fixed in the library, but that's not feasible with current user-provides-library approach
-    //  added in 12cbd43bda7d0f0cd73925e9cf836de751c32ed0 / https://github.com/HeliBorg/HeliBoard/issues/135
-    private var tryChangingWords = false
-    private var changeFrom = ""
-    private var changeTo = ""
-
-    // todo: write cache never set, and never read (only written)
-    //  tried to use read cache for a while, but small performance improvements are not worth the work,
-    //  see https://github.com/HeliBorg/HeliBoard/issues/307
-    private var mValidSpellingWordReadCache: LruCache<String, Boolean>? = null
-    private var mValidSpellingWordWriteCache: LruCache<String, Boolean>? = null
+    /*
+     * Adding words to history is delayed by unlearnDuration.
+     * Waiting words and the jobs actually adding the words are placed in a map, so
+     * "unlearning" (caused by the user correcting a word) may cancel adding that word.
+     * Since the map key is the word, this may only stop adding the most recent instance of a word,
+     * but that's the most likely one to be corrected anyway. If necessary we could improve this by storing ngram context.
+     *
+     * The old way of unlearning was removing the word from history dict (except for UnlearnEvent.BACKSPACE),
+     * or at least massively reducing frequency, which is often excessive when rewriting a sentence
+     * or rejecting otherwise fine autocorrect or gestures.
+     * todo: ideally the native library would allow reverting recent additions
+     */
+    private val wordsWaitingForHistory = hashMapOf<String, Job>()
+    private val unlearnDuration = 25.seconds
 
     private val scope = CoroutineScope(Dispatchers.Default)
-
-    override fun setValidSpellingWordReadCache(cache: LruCache<String, Boolean>) {
-        mValidSpellingWordReadCache = cache
-    }
-
-    override fun setValidSpellingWordWriteCache(cache: LruCache<String, Boolean>) {
-        mValidSpellingWordWriteCache = cache
-    }
 
     // judging by usage before adding multilingual typing, this should check primary group locale only
     override fun isForLocale(locale: Locale?): Boolean {
@@ -169,9 +163,6 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                 dictGroupToCleanup.closeDict(dictType)
             }
         }
-
-        mValidSpellingWordWriteCache?.evictAll()
-        mValidSpellingWordReadCache?.evictAll()
     }
 
     /** creates dictionaryGroups for [newLocales] with given [newSubDictTypes], trying to re-use existing dictionaries.
@@ -293,15 +284,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         suggestion: String, wasAutoCapitalized: Boolean, ngramContext: NgramContext,
         timeStampInSeconds: Long, blockPotentiallyOffensive: Boolean
     ) {
-        // Update the spelling cache before learning. Words that are not yet added to user history
-        // and appear in no other language model are not considered valid.
-        putWordIntoValidSpellingWordCache("addToUserHistory", suggestion)
-
         val words = suggestion.splitOnWhitespace().dropLastWhile { it.isEmpty() }
 
-        // increase / decrease confidence
-        if (words.size == 1) // ignore if more than a single word, which only happens with (badly working) spaceAwareGesture
-            adjustConfidences(suggestion, wasAutoCapitalized)
+        if (wasAutoCapitalized && !ngramContext.isBeginningOfSentenceContext)
+            return // could be word caps text field, too much danger of adding wrong capitalization
 
         // Add word to user dictionary if it is in no other dictionary except user history dictionary (i.e. typed again).
         val sv = Settings.getValues()
@@ -315,20 +301,88 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         }
 
         var ngramContextForCurrentWord = ngramContext
-        val preferredGroup = currentlyPreferredDictionaryGroup
         for (i in words.indices) {
             val currentWord = words[i]
             val wasCurrentWordAutoCapitalized = (i == 0) && wasAutoCapitalized
+            val dictGroup = findDictGroupForAddingWord(currentWord, wasCurrentWordAutoCapitalized, ngramContextForCurrentWord.isBeginningOfSentenceContext)
+                ?: continue
             // add to history for preferred dictionary group, to avoid mixing languages in history
             addWordToUserHistory(
-                preferredGroup, ngramContextForCurrentWord, currentWord,
+                dictGroup, ngramContextForCurrentWord, currentWord,
                 wasCurrentWordAutoCapitalized, timeStampInSeconds.toInt(), blockPotentiallyOffensive
             )
             ngramContextForCurrentWord = ngramContextForCurrentWord.getNextNgramContext(WordInfo(currentWord))
+        }
 
-            // remove manually entered blacklisted words from blacklist for likely matching languages
-            dictionaryGroups.filter { it.confidence == preferredGroup.confidence }.forEach {
-                it.removeFromBlacklist(currentWord)
+        // increase / decrease confidence (at the end, because we use confidence to determine where to add words)
+        if (words.size == 1) // ignore if more than a single word, which only happens with (badly working) spaceAwareGesture
+            adjustConfidences(suggestion, wasAutoCapitalized)
+    }
+
+    private fun findDictGroupForAddingWord(word: String, wasAutoCapitalized: Boolean, isBeginningOfSentence: Boolean): DictionaryGroup? {
+        if (dictionaryGroups.size == 1) return dictionaryGroups[0]
+        val requiredConfidence = currentlyPreferredDictionaryGroup.confidence - 1
+        val maybe = if (isBeginningOfSentence) dictionaryGroups // we expect user is more likely to switch language here, so we consider all groups
+            else dictionaryGroups.filter { it.confidence >= requiredConfidence } // avoid potentially unwanted switches in the middle of a sentence
+        if (maybe.isEmpty()) return null
+
+        // if we're considering only a single locale, use that
+        // this will could be unwanted if we're changing language, but also the user might want a foreign word for that language
+        if (maybe.size == 1) return maybe[0]
+
+        // we could try finding the most suitable dict group if the word was capitalized too,
+        // but that's a lot of effort and danger of adding words incorrectly for little gain (todo: maybe later)
+        return if ((wasAutoCapitalized || isBeginningOfSentence) && Character.isUpperCase(word.codePointAt(0))) null
+        else maybe.filter { isValidWord(word, DictionaryFacilitator.ALL_DICTIONARY_TYPES, it) }
+            .maxByOrNull { it.confidence }
+    }
+
+    private fun determineWordToUse(word: String, wasAutoCapitalizedOrIsBeginningOfSentence: Boolean, dictionaryGroup: DictionaryGroup): String? {
+        // Check for isBeginningOfSentenceContext too, because not all text fields auto-capitalize in this case.
+        // Even if the user capitalizes manually, they most likely don't want the capitalized form suggested.
+        if (wasAutoCapitalizedOrIsBeginningOfSentence && Character.isUpperCase(word.codePointAt(0))) {
+            val decapitalizedWord = word.decapitalize(dictionaryGroup.locale) // try undoing auto-capitalization
+            val wordValid = isValidWord(word, DictionaryFacilitator.ALL_DICTIONARY_TYPES, dictionaryGroup)
+            val decapitalizedValid = isValidWord(decapitalizedWord, DictionaryFacilitator.ALL_DICTIONARY_TYPES, dictionaryGroup)
+            if (wordValid && !decapitalizedValid) {
+                // If the word was auto-capitalized and exists only as a capitalized word in the
+                // dictionary, then we must not downcase it before registering it. For example,
+                // the name of the contacts in start-of-sentence position would come here with the
+                // wasAutoCapitalized flag: if we downcase it, we'd register a lower-case version
+                // of that contact's name which would end up popping in suggestions.
+                return word
+            } else if (!wordValid && decapitalizedValid) {
+                // If however the word is not in the dictionary, but exists as a de-capitalized word
+                // only, then we consider that was a lower-case word that had been auto-capitalized.
+                // todo: in this case the capitalized word will still be in the ngram for the following words, which messes with the next word suggestions
+                //  but this should be improved in the native library once we remove loading the google library
+                return decapitalizedWord
+            } else {
+                // if both or neither are valid, we check whether any of those forms were already typed by the user
+                val histDict = dictionaryGroup.getDict(Dictionary.TYPE_USER_HISTORY) ?: return null
+                val wordInHistory = histDict.isInDictionary(word)
+                val decapitalizedInHistory = histDict.isInDictionary(decapitalizedWord)
+                if (wordInHistory && !decapitalizedInHistory) return word
+                else if (!wordInHistory && decapitalizedInHistory) return decapitalizedWord
+            }
+            return null // can't determine reliably enough, better add nothing (wasAutoCapitalizedOrIsBeginningOfSentence is unusual anyway)
+        } else {
+            val lowerCasedWord = word.lowercase(dictionaryGroup.locale)
+            if (lowerCasedWord == word) return word
+
+            // HACK: We'd like to avoid adding the capitalized form of common words to the User
+            // History dictionary in order to avoid suggesting them until the dictionary
+            // consolidation is done.
+            // TODO: Remove this hack when ready.
+            // todo: this is actually pretty bad for languages with a lot of uppercase words like German
+            val lowerCaseFreqInMainDict = dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.getFrequency(lowerCasedWord)
+                ?: Dictionary.NOT_A_PROBABILITY
+            val mainFreq = dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.getFrequency(word) ?: Dictionary.NOT_A_PROBABILITY
+            return if (mainFreq < lowerCaseFreqInMainDict && lowerCaseFreqInMainDict >= CAPITALIZED_FORM_MAX_PROBABILITY_FOR_INSERT) {
+                // Use lower cased word as the word can be a distracter of the popular word.
+                lowerCasedWord
+            } else {
+                word
             }
         }
     }
@@ -342,52 +396,32 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val mainFreq = dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.getFrequency(word) ?: Dictionary.NOT_A_PROBABILITY
         if (mainFreq == 0 && blockPotentiallyOffensive)
             return
-        if (tryChangingWords)
-            tryChangingWords = ngramContext.changeWordIfAfterBeginningOfSentence(changeFrom, changeTo)
+        val wordToUse = determineWordToUse(
+            word,
+            wasAutoCapitalized || ngramContext.isBeginningOfSentenceContext,
+            dictionaryGroup
+        ) ?: return
 
-        val wordToUse: String
-        // Check for isBeginningOfSentenceContext too, because not all text fields auto-capitalize in this case.
-        // Even if the user capitalizes manually, they most likely don't want the capitalized form suggested.
-        if (wasAutoCapitalized || ngramContext.isBeginningOfSentenceContext) {
-            val decapitalizedWord = word.decapitalize(dictionaryGroup.locale) // try undoing auto-capitalization
-            if (isValidWord(word, DictionaryFacilitator.ALL_DICTIONARY_TYPES, dictionaryGroup)
-                && !isValidWord(decapitalizedWord, DictionaryFacilitator.ALL_DICTIONARY_TYPES, dictionaryGroup)
-            ) {
-                // If the word was auto-capitalized and exists only as a capitalized word in the
-                // dictionary, then we must not downcase it before registering it. For example,
-                // the name of the contacts in start-of-sentence position would come here with the
-                // wasAutoCapitalized flag: if we downcase it, we'd register a lower-case version
-                // of that contact's name which would end up popping in suggestions.
-                wordToUse = word
-            } else {
-                // If however the word is not in the dictionary, or exists as a de-capitalized word
-                // only, then we consider that was a lower-case word that had been auto-capitalized.
-                wordToUse = decapitalizedWord
-                tryChangingWords = true
-                changeFrom = word
-                changeTo = wordToUse
-            }
-        } else {
-            // HACK: We'd like to avoid adding the capitalized form of common words to the User
-            // History dictionary in order to avoid suggesting them until the dictionary
-            // consolidation is done.
-            // TODO: Remove this hack when ready.
-            val lowerCasedWord = word.lowercase(dictionaryGroup.locale)
-            val lowerCaseFreqInMainDict = dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.getFrequency(lowerCasedWord)
-                ?: Dictionary.NOT_A_PROBABILITY
-            wordToUse = if (mainFreq < lowerCaseFreqInMainDict
-                && lowerCaseFreqInMainDict >= CAPITALIZED_FORM_MAX_PROBABILITY_FOR_INSERT
-            ) {
-                // Use lower cased word as the word can be a distracter of the popular word.
-                lowerCasedWord
-            } else {
-                word
-            }
-        }
         // We demote unrecognized words (frequency <= 0) by specifying them as "invalid".
         // We don't add words with 0-frequency (assuming they would be profanity etc.).
         val isValid = mainFreq > 0
-        UserHistoryDictionary.addToDictionary(userHistoryDictionary, ngramContext, wordToUse, isValid, timeStampInSeconds)
+
+        var addJob: Job? = null
+        addJob = scope.launch(Dispatchers.IO) {
+            delay(unlearnDuration)
+            synchronized(wordsWaitingForHistory) {
+                if (wordsWaitingForHistory[word] == addJob)
+                    wordsWaitingForHistory.remove(word)
+            }
+            // remove manually entered blacklisted words from blacklist for likely matching languages
+            dictionaryGroups.filter { it.confidence == dictionaryGroup.confidence }.forEach {
+                it.removeFromBlacklist(word)
+            }
+
+            UserHistoryDictionary.addToDictionary(userHistoryDictionary, ngramContext, wordToUse, isValid, timeStampInSeconds)
+        }
+        // we use the original word, because that's the one that is "unlearned" when the user corrects the word
+        synchronized(wordsWaitingForHistory) { wordsWaitingForHistory[word] = addJob }
     }
 
     private fun addToPersonalDictionaryIfInvalidButInHistory(word: String) {
@@ -406,7 +440,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         // Words added to dictionaries (user and history) seem to be found only after some delay.
         // This is not too bad, but it delays adding in case a user wants to fill a dictionary using this functionality
         if (userHistoryDict.getFrequency(word) > 120) {
-            scope.launch {
+            scope.launch(Dispatchers.IO) {
                 // adding can throw IllegalArgumentException: Unknown URL content://user_dictionary/words
                 // https://stackoverflow.com/q/41474623 https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/490
                 // apparently some devices don't have a dictionary? or it's just sporadic hiccups?
@@ -415,25 +449,14 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         }
     }
 
-    private fun putWordIntoValidSpellingWordCache(caller: String, originalWord: String) {
-        if (mValidSpellingWordWriteCache == null)
-            return
-
-        val lowerCaseWord = originalWord.lowercase(currentLocale)
-        val lowerCaseValid = isValidSpellingWord(lowerCaseWord)
-        mValidSpellingWordWriteCache?.put(lowerCaseWord, lowerCaseValid)
-
-        val capitalWord = StringUtils.capitalizeFirstAndDowncaseRest(originalWord, currentLocale)
-        val capitalValid = if (lowerCaseValid) {
-            true // The lower case form of the word is valid, so the upper case must be valid.
-        } else {
-            isValidSpellingWord(capitalWord)
-        }
-        mValidSpellingWordWriteCache?.put(capitalWord, capitalValid)
-    }
-
     override fun adjustConfidences(word: String, wasAutoCapitalized: Boolean) {
         if (dictionaryGroups.size == 1 || word.contains(Constants.WORD_SEPARATOR))
+            return
+
+        // if the exact word is in contacts or apps, do nothing because it's in all dict groups
+        // increasing all confidences may result in more prominent suggestions for currently unwanted locales
+        // (ideally: same if the word is in the no-language personal dict, but we don't have that information ready)
+        if (isValidWord(word, arrayOf(Dictionary.TYPE_APPS, Dictionary.TYPE_CONTACTS), dictionaryGroups[0]))
             return
 
         // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
@@ -471,20 +494,14 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
 
     override fun unlearnFromUserHistory(word: String, ngramContext: NgramContext,
                     timeStampInSeconds: Long, event: DictionaryFacilitator.UnlearnEvent) {
-        // TODO: Decide whether or not to remove the word on BACKSPACE.
-        if (event != DictionaryFacilitator.UnlearnEvent.BACKSPACE) {
-            currentlyPreferredDictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY)?.removeUnigramEntryDynamically(word)
-        }
-
-        // Update the spelling cache after unlearning. Words that are removed from user history
-        // and appear in no other language model are not considered valid.
-        putWordIntoValidSpellingWordCache("unlearnFromUserHistory", word.lowercase(Locale.getDefault()))
+        val job = synchronized(wordsWaitingForHistory) { wordsWaitingForHistory.remove(word) } ?: return
+        job.cancel()
     }
 
     // TODO: Revise the way to fusion suggestion results.
     override fun getSuggestionResults(
         composedData: ComposedData, ngramContext: NgramContext, keyboard: Keyboard,
-        settingsValuesForSuggestion: SettingsValuesForSuggestion, sessionId: Int, inputStyle: Int
+        settingsValuesForSuggestion: SettingsValuesForSuggestion, sessionId: Int, inputStyle: InputStyle
     ): SuggestionResults {
         val proximityInfoHandle = keyboard.proximityInfo.nativeProximityInfo
         val weightOfLangModelVsSpatialModel = floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
@@ -501,14 +518,13 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         suggestionsArray[0] = getSuggestions(composedData, ngramContext, settingsValuesForSuggestion, sessionId,
             proximityInfoHandle, weightOfLangModelVsSpatialModel, dictionaryGroups[0])
         val suggestionResults = SuggestionResults(
-            SuggestedWords.MAX_SUGGESTIONS, ngramContext.isBeginningOfSentenceContext, false
+            SuggestedWords.MAX_SUGGESTIONS, ngramContext, false
         )
         waitForOtherDicts?.await()
 
         suggestionsArray.forEach {
             if (it == null) return@forEach
             suggestionResults.addAll(it)
-            suggestionResults.mRawSuggestions?.addAll(it)
         }
 
         includeAtLeastTwoWordSuggestions(suggestionResults, suggestionsArray, composedData.mTypedWord)
@@ -544,13 +560,13 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     // consider the user might use custom main dictionary containing shortcuts
                     //  assume this is unlikely to happen, and take care about common shortcuts that are not actual words (emoji, symbols)
                     && word.length > 2 // should exclude most symbol shortcuts
-                    && info.mSourceDict.mDictType == dictType // dictType is always main, but info.mSourceDict.mDictType contains the actual dict (main dict is a dictionary group)
+                    && info.sourceDict.mDictType == dictType // dictType is always main, but info.mSourceDict.mDictType contains the actual dict (main dict is a dictionary group)
                     && !mightBeEmoji(word) // simplified check for performance reasons
                     && !dictionary.isInDictionary(word)
                 )
                     continue
 
-                if (word.length == 1 && info.mSourceDict.mDictType == Dictionary.TYPE_EMOJI && !StringUtils.mightBeEmoji(word[0].code))
+                if (word.length == 1 && info.sourceDict.mDictType == Dictionary.TYPE_EMOJI && !StringUtils.mightBeEmoji(word[0].code))
                     continue
 
                 suggestions.add(info)
@@ -562,12 +578,8 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     // Spell checker is using this, and has its own instance of DictionaryFacilitatorImpl,
     // meaning that it always has default mConfidence. So we cannot choose to only check preferred
     // locale, and instead simply return true if word is in any of the available dictionaries
-    override fun isValidSpellingWord(word: String): Boolean {
-        mValidSpellingWordReadCache?.get(word)?.let { return it }
-        val result = dictionaryGroups.any { isValidWord(word, DictionaryFacilitator.ALL_DICTIONARY_TYPES, it) }
-        mValidSpellingWordReadCache?.put(word, result)
-        return result
-    }
+    override fun isValidSpellingWord(word: String): Boolean =
+        dictionaryGroups.any { isValidWord(word, DictionaryFacilitator.ALL_DICTIONARY_TYPES, it) }
 
     // this is unused, so leave it for now (redirecting to isValidWord seems to defeat the purpose...)
     override fun isValidSuggestionWord(word: String): Boolean {
@@ -599,21 +611,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         return dictionaryGroups.joinToString(", ") { "${it.locale} ${it.confidence}" }
     }
 
-    override fun dumpDictionaryForDebug(dictName: String) {
-        val dictToDump = dictionaryGroups[0].getSubDict(dictName)
-        if (dictToDump == null) {
-            Log.e(TAG, ("Cannot dump $dictName. The dictionary is not being used for suggestion or cannot be dumped."))
-            return
-        }
-        dictToDump.dumpAllWordsForDebug()
-    }
-
     override fun getDictionaryStats(context: Context): List<DictionaryStats> =
         DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.flatMap { dictType ->
             dictionaryGroups.mapNotNull { it.getSubDict(dictType)?.dictionaryStats }
         }
-
-    override fun dump(context: Context) = getDictionaryStats(context).joinToString("\n")
 
     companion object {
         private val TAG = DictionaryFacilitatorImpl::class.java.simpleName
@@ -626,7 +627,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         ): ExpandableBinaryDictionary? {
             try {
                 return when (dictType) {
-                    Dictionary.TYPE_USER_HISTORY -> UserHistoryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
+                    Dictionary.TYPE_USER_HISTORY -> UserHistoryDictionary.getDictionary(context, locale)
                     Dictionary.TYPE_USER -> UserBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
                     Dictionary.TYPE_CONTACTS -> ContactsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
                     Dictionary.TYPE_APPS -> AppsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
@@ -675,7 +676,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                 ++nonEmojiNonTypedWordCount
                 if (nonEmojiNonTypedWordCount >= 2) return
             }
-            val allResults = SuggestionResults(Int.MAX_VALUE, false, false)
+            val allResults = SuggestionResults(Int.MAX_VALUE, NgramContext.EMPTY_PREV_WORDS_INFO, false)
             suggestionsArray.forEach {
                 if (it == null) return@forEach
                 allResults.addAll(it)

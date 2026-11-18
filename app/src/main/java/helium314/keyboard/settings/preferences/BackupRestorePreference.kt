@@ -49,6 +49,7 @@ import java.util.zip.ZipOutputStream
 import androidx.core.content.edit
 import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.transferOldPinnedClips
+import helium314.keyboard.latin.utils.IntentUtils
 
 @Composable
 fun BackupRestorePreference(setting: Setting) {
@@ -67,21 +68,19 @@ fun BackupRestorePreference(setting: Setting) {
             neutralButtonText = stringResource(R.string.button_restore),
             onNeutral = {
                 showDialog = false
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType("application/zip")
+                val intent = IntentUtils.getResolvableTypeIntent(ctx, "application/zip")
+                    .setAction(Intent.ACTION_OPEN_DOCUMENT)
                 restoreLauncher.launch(intent)
             },
             onConfirmed = {
                 val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)
-                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
+                val intent = IntentUtils.getResolvableTypeIntent(ctx, "application/zip")
+                    .setAction(Intent.ACTION_CREATE_DOCUMENT)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         ctx.getString(R.string.english_ime_name)
                             .replace(" ", "_") + "_backup_$currentDate.zip"
                     )
-                    .setType("application/zip")
                 backupLauncher.launch(intent)
             }
         )

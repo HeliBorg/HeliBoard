@@ -170,7 +170,7 @@
     <string name="right" tools:keep="@string/right">Dreapta</string>
     <string name="up" tools:keep="@string/up">Sus</string>
     <string name="down" tools:keep="@string/down">Jos</string>
-    <string name="show_popup_hints_summary">Afișează sugestii dacă apăsarea lungă a unei taste declanșează funcționalități suplimentare</string>
+    <string name="show_popup_hints_summary">Afișează o sugestie dacă apăsarea lungă a unei taste funcționale deschide o fereastră pop-up</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Schimbă metoda de introducere cu tasta spațiu</string>
     <string name="prefs_narrow_key_gaps">Goluri înguste ale tastelor</string>
     <string name="load_gesture_library_message">Vei avea nevoie de biblioteca pentru „%s”. Bibliotecile incompatibile se pot bloca atunci când utilizezi tastarea prin gesturi.
@@ -347,7 +347,7 @@
     <string name="remove_redundant_popups">Elimină ferestrele pop-up redundante</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Arată mai multe culori</string>
-    <string name="all_colors_warning">Această setare expune toate culorile care sunt utilizate intern. Lista de culori se poate schimba în orice moment. Culoarea implicită este aleatorie, iar numele nu vor fi traduse.</string>
+    <string name="all_colors_warning">Această setare expune toate culorile care sunt utilizate intern. Lista de culori se poate schimba în orice moment. Culoarea implicită este derivată din culorile normale, iar numele nu vor fi traduse.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Taste funcționale</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Taste funcționale (Simboluri)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Taste funcționale (Mai multe simboluri)</string>
@@ -428,4 +428,53 @@
     <string name="about_wiki_link_description">Wiki-ul poate fi îmbunătățit de orice utilizator GitHub!</string>
     <string name="landscape">Peisaj</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Separare fără spațiu</string>
+    <string name="inline_emoji_search_summary">Sugerează emojiuri doar când un cuvânt este precedat de două puncte</string>
+    <string name="emoji_dictionary_required">Pentru ca această funcție să funcționeze, este necesar un dicționar de emoji. Dicționarele în format .dict pot fi descărcate de la %s.</string>
+    <string name="toolbar_swipe_down_to_hide">Ascunde tastatura prin glisare</string>
+    <string name="toolbar_swipe_down_to_hide_summary">Glisează în jos pe bara de instrumente pentru a închide tastatura</string>
+    <string name="auto_correct_capitalized_suggestions">Corectează automat sugestiile cu literă mare</string>
+    <string name="auto_correct_capitalized_suggestions_description">După apăsarea tastei shift pentru a scrie sugestiile cu majusculă se va declanșa corectarea automată.</string>
+    <string name="custom_punctuation_suggestions">Configurare sugestii de punctuație</string>
+    <string name="clipboard_history_pinned_first">Afișați întâi elementele fixate</string>
+    <string name="item_description">Descriere: %s</string>
+    <string name="item_type">Tip: %s</string>
+    <string name="abbreviation_unit_mb">%s MB</string>
+    <string name="timestamp_description">Puteți adăuga tasta pentru marcă temporală folosind un format personalizat conținând tasta „timestamp” sau folosind codul -10043</string>
+    <string name="save_subtype_per_app">Reține limba pentru aplicație</string>
+    <string name="floating" tools:keep="@string/floating">Tastatură plutitoare</string>
+    <string name="recent_emojis_cleared">Emojiuri șterse recent</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="subtype_mhr">Mari (estic)</string>
+    <string name="subtype_tok">Toki Pona</string>
+    <string name="subtype_generic_4row">%s (4 rânduri)</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Taste funcționale (Khipro)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Rând de jos emoji cu tastă de acțiune</string>
+    <string name="prefs_enable_hardware_keyboard">Compatibilitate cu tastatură fizică</string>
+    <string name="about_community_links">Linkuri către comunitate</string>
+    <string name="about_community_links_description">Teme, editor aspecte, discuții, …</string>
+    <string name="hidden_features_message">► Apăsarea lungă a tastelor fixe de pe bara de instrumente rezultă în funcționalități suplimentare: &lt;br&gt; \n\t• clipboard &amp;#65515; lipire &lt;br&gt; \n\t• mutare stânga/dreapta &amp;#65515; cuvânt stânga/dreapta &lt;br&gt; \n\t• mutare sus/jos &amp;#65515; pagină sus/jos &lt;br&gt; \n\t• cuvânt stânga/dreaptă &amp;#65515; început/sfârșit rând &lt;br&gt; \n\t• pagină sus/jos &amp;#65515; început/sfârșit pagină &lt;br&gt; \n\t• copiere &amp;#65515; tăiere &lt;br&gt; \n\t• selectare cuvânt &amp;#8596; selectare tot &lt;br&gt; \n\t• înapoi &amp;#8596; refacere &lt;br&gt; &lt;br&gt; \n► Apăsarea lungă a tastelor din bara de instrumente a benzii de sugestii le fixează pe banda de sugestii. &lt;br&gt; &lt;br&gt; \n► Apăsați lung tasta virgulă pentru a accesa Blocul clipboard, Blocul emoji, Modul pentru o singură mână, Setările sau Schimbarea de limbă: &lt;br&gt; \n\t• Blocul Emoji și Schimbarea de Limbă vor dispărea dacă aveți tastele corespunzătoare active; &lt;br&gt; \n\t• Pentru unele aranjamente nu se folosește tasta virgulă, ci tasta din aceeași poziție (de exemplu „q” în aranjamentul Dvorak). &lt;br&gt; &lt;br&gt; \n► În modul incognito nu vor fi reținute cuvinte și nu se vor adăuga emojiuri la recente. &lt;br&gt; &lt;br&gt; \n► Apăsați pictograma Incognito pentru a accesa bara de instrumente. &lt;br&gt; &lt;br&gt; \n► Introducere prin taste glisante: Glisați de la Shift la altă tastă pentru a tasta o singură majusculă: &lt;br&gt; \n\t• Funcționează și cu tasta \'?123\' pentru a tasta un singur simbol din tastatura pentru simboluri și taste conexe. &lt;br&gt; &lt;br&gt; \n► Țineți apăsat Shift sau o tastă simbol, apăsați una sau mai multe taste, iar apoi dați drumul tastei Shift/tastei simbol pentru a vă întoarce la tastatura precedentă. &lt;br&gt; &lt;br&gt; \n► Apăsați lung o sugestie din banda de sugestii pentru a arăta mai multe și butonul ștergere pentru a înlătura sugestia. &lt;br&gt; &lt;br&gt; \n► Glisați în sus dinspre o sugestie pentru a deschide mai multe sugestii și dați drumul sugestiei pentru a o selecta. &lt;br&gt; &lt;br&gt; \n► Apăsați lung un articol din istoricul clipboardului pentru a îl fixa (păstrare în clipboard până la înlăturare). &lt;br&gt; &lt;br&gt; \n► Glisați stânga în blocul clipboard pentru a șterge un articol (mai puțin atunci când este fixat) &lt;br&gt; &lt;br&gt; \n► Selectați text și apăsați Shift pentru a comuta între text cu majuscule, cu minuscule și cu inițiale majuscule. &lt;br&gt; &lt;br&gt; \n► Puteți adăuga dicționare deschizându-le într-un manager de fișiere: &lt;br&gt; \n\t• Această metodă funcționează doar cu &lt;i&gt;content-uris&lt;/i&gt;, nu cu &lt;i&gt;file-uris&lt;/i&gt;, ceea ce înseamnă că se poate ca unii manageri de fișiere să nu funcționeze. &lt;br&gt; &lt;br&gt; \n► Pentru utilizatorii ce fac copii de rezervă cu acces de administrator: &lt;br&gt; \n\t• Începând cu Android 7, fișierul pentru preferințe comune nu se află în locația implicită, deoarece aplicația folosește %s. Acest lucru este necesar pentru ca setările să poată fi citite înaintea deblocării dispozitivului, de exemplu, la inițializare; &lt;br&gt; \n\t• Fișierul se află în /data/user_de/0/package_id/shared_prefs/ deși depinde de dispozitiv și versiunea de Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Modul Debug / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Apăsați lung o sugestie pentru a afișa dicționarul sursă. &lt;br&gt; &lt;br&gt; \n► La folosirea debug APK, setările Debug pot fi găsite în Preferințe Avansate, deși utilitatea lor este limitată cu excepția adăugării dicționarelor în jurnal. &lt;br&gt; \n\t• Pentru un APK lansare, trebuie să apăsați pe versiunea din &lt;i&gt;Despre&lt;/i&gt; de mai multe ori, după care puteți găsi setările de debug în &lt;i&gt;Preferințe Avansate&lt;/i&gt;. &lt;br&gt; \n\t• Când &lt;i&gt;Arată detalii sugestie&lt;/i&gt; este activă, sugestiile vor avea numere mici deasupra indicând un scor intern și dicționarul sursă. &lt;br&gt; &lt;br&gt; \n► În cazul căderii aplicației, veți fi întrebat/ă dacă doriți jurnalul evenimentului când deschideți Setările. &lt;br&gt; &lt;br&gt; \n► La folosirea tastării multilingve, tasta Pauză va arăta un interval de certitudine folosit în determinarea limbii folosite în acel moment. &lt;br&gt; &lt;br&gt; \n► Sugestiile vor avea numere mici deasupra indicând un scor intern și dicționarul sursă (pot fi dezactivate).</string>
+    <string name="space_swipe_touchpad_mode_entry">Mod touchpad</string>
+    <string name="touchpad_sensitivity">Sensibilitate touchpad</string>
+    <string name="touchpad_edge_scroll">Derulare marginală touchpad</string>
+    <string name="touchpad_edge_scroll_description">Derulare automată la glisarea spre marginea tastaturii</string>
+    <string name="toolbar_only_with_hw_keyboard">Afișare doar bară de instrumente la conectarea unei tastaturi fizice</string>
+    <string name="toolbar_only_with_hw_keyboard_summary">Încă trebuie să activați afișarea tastaturii virtuale din setările sistemului</string>
+    <string name="folded">Pliat</string>
+    <string name="emoji_search_title">Căutare emoji</string>
+    <string name="search_field_placeholder">Căutare</string>
+    <string name="ask_later">Întreabă mai târziu</string>
+    <string name="spell_check_suggestions">Afișare sugestii corectare ortografică</string>
+    <string name="spell_check_suggestions_summary">Afișare sugestii la selectarea unui cuvânt subliniat cu roșu. Necesită setarea aplicației drept corector ortografic implicit.</string>
+    <string name="inline_emoji_search">Căutare emoji în text</string>
+    <string name="clipboard_history_files">Adaugă imagini și alte fișiere în istoricul clipboardului</string>
+    <string name="prefs_key_gap_scale">Spațiu între taste</string>
+    <string name="prefs_bottom_row_scale">Dimensiune rând inferior</string>
+    <string name="custom_emoji_font">Alege font personalizat pentru emojiuri din fișier</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_dpad" tools:keep="@string/layout_dpad">Tastatură în cruce</string>
+    <string name="accent_shifted_icon">Accentuare tastă majuscule</string>
+    <string name="space_swipe_toggle_dpad_entry">Activează tastatură în cruce</string>
+    <string name="gesture_data_screen">Colectare date despre gesturi</string>
 </resources>

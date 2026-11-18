@@ -352,7 +352,7 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Cijferregel</string>
     <string name="prefs_space_bar_text">Aangepaste tekst op spatiebalk</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Klembord onderste regel</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji onderste regel</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji onderste rij</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Del</string>
@@ -555,4 +555,11 @@
     <string name="subtype_tok">Toki Pona</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
     <string name="space_swipe_toggle_dpad_entry">D-pad omschakelen</string>
+    <string name="recent_emojis_cleared">Recente emoji\'s gewist</string>
+    <string name="show_dpad_key">D-pad sneltoets</string>
+    <string name="prefs_enable_hardware_keyboard">Ondersteuning voor fysiek toetsenbord</string>
+    <string name="accent_shifted_icon">Geaccentueerd Shift-pictogram</string>
+    <string name="delete_swipe_letters">Letters</string>
+    <string name="delete_swipe_words">Woorden</string>
+    <string name="gesture_data_single_instance_per_word">Slechts één invoer per woord tonen</string>
 </resources>

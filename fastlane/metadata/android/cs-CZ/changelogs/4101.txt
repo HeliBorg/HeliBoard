@@ -1,0 +1,10 @@
+* přidán D-Pad
+* možnost opakování klávesy jako zkratky pro dlouhé stisknutí u kláves na panelu nástrojů
+* zlepšení návrhů schránky
+* aktualizace ikon nastavení
+* zajištění konzistentnějšího zobrazení nápovědy
+* úprava šířky kláves na numerické klávesnici
+* oprava občasného mizení kláves na panelu nástrojů
+* přidán samostatný typ barvy (ColorType) pro návrhy ze schránky
+* správná aktualizace stavu Shift při pohybu kurzoru pomocí šipek
+* přesunutí nastavení barev (noční) vedle nastavení barev

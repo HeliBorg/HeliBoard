@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodSubtype
 import androidx.core.util.forEach
 import androidx.core.view.inputmethod.EditorInfoCompat
 import androidx.core.view.inputmethod.InputContentInfoCompat
+import helium314.keyboard.compat.CompatBreakIterator
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HangulEventDecoder
 import helium314.keyboard.event.HapticEvent
@@ -21,9 +22,9 @@ import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
+import helium314.keyboard.latin.common.WordBreakIterator
 import helium314.keyboard.latin.common.combiningRange
-import helium314.keyboard.latin.common.moveStepsToCharCount
-import helium314.keyboard.latin.define.ProductionFlags
+import helium314.keyboard.latin.common.stepsToCharCount
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.BackgroundGatheringCache
@@ -69,7 +70,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     override fun onKeyUp(keyCode: Int, keyEvent: KeyEvent): Boolean {
         emojiAltPhysicalKeyDetector.onKeyUp(keyEvent)
-        if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED)
+        if (!settings.current.mEnableHardwareKeyboard)
             return false
 
         val keyIdentifier = keyEvent.deviceId.toLong() shl 32 + keyEvent.keyCode
@@ -78,7 +79,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     override fun onKeyDown(keyCode: Int, keyEvent: KeyEvent): Boolean {
         emojiAltPhysicalKeyDetector.onKeyDown(keyEvent)
-        if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED)
+        if (!settings.current.mEnableHardwareKeyboard)
             return false
 
         val event: Event
@@ -94,8 +95,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (event.isHandled) {
             inputLogic.onCodeInput(
                 settings.current, event,
-                keyboardSwitcher.getKeyboardCapsMode(), // TODO: this is not necessarily correct for a hardware keyboard right now
-                keyboardSwitcher.getCurrentKeyboardScript(),
+                keyboardSwitcher.keyboardCapsMode, // TODO: this is not necessarily correct for a hardware keyboard right now
                 latinIME.mHandler
             )
             return true
@@ -138,7 +138,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
         // checking if the character is a combining accent
         val event = if (primaryCode in combiningRange) { // todo: should this be done later, maybe in inputLogic?
-            Event.createSoftwareDeadEvent(primaryCode, 0, metaState, mkv.getKeyX(x), mkv.getKeyY(y), null)
+            Event.createSoftwareDeadEvent(primaryCode, 0, metaState,
+                mkv?.getKeyX(x) ?: Constants.NOT_A_COORDINATE, mkv?.getKeyY(y) ?: Constants.NOT_A_COORDINATE, null)
         } else {
             // todo:
             //  setting meta shift should only be done for arrow and similar cursor movement keys
@@ -146,7 +147,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 //            if (mkv.keyboard?.mId?.isAlphabetShiftedManually == true)
 //                Event.createSoftwareKeypressEvent(primaryCode, metaState or KeyEvent.META_SHIFT_ON, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
 //            else Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
-            Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
+            Event.createSoftwareKeypressEvent(primaryCode, metaState,
+                mkv?.getKeyX(x) ?: Constants.NOT_A_COORDINATE, mkv?.getKeyY(y) ?: Constants.NOT_A_COORDINATE, isKeyRepeat)
         }
         latinIME.onEvent(event)
         metaAfterCodeInput(primaryCode)
@@ -263,9 +265,15 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     private fun actualSteps(steps: Int): Int {
+        val isSwipeWords = settings.current.mDeleteSwipe == 2
+        val multiplier = if (isSwipeWords) 50 else 4 // arbitrary but hopefully high enough numbers
         val text = if (steps > 0) connection.getSelectedText(0) ?: return steps
-        else connection.getTextBeforeCursor(-steps * 4, 0) ?: return steps
-        return moveStepsToCharCount(text, steps)
+        else connection.getTextBeforeCursor(-steps * multiplier, 0) ?: return steps
+
+        // iterator could be customizable, but should be used consistently if reasonably possible
+        val iterator = if (isSwipeWords) WordBreakIterator.getForSpacingAndPunctuations(settings.current.mSpacingAndPunctuations)
+        else CompatBreakIterator.graphemeInstance
+        return stepsToCharCount(text, steps, iterator)
     }
 
     override fun onUpWithDeletePointerActive() {
@@ -327,7 +335,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val moveSteps: Int
         if (steps < 0) {
             val text = connection.getTextBeforeCursor(-steps * 4, 0) ?: return false
-            moveSteps = moveStepsToCharCount(text, steps)
+            moveSteps = stepsToCharCount(text, steps, CompatBreakIterator.graphemeInstance)
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
@@ -343,7 +351,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             gestureMoveBackHaptics()
         } else {
             val text = connection.getTextAfterCursor(steps * 4, 0) ?: return false
-            moveSteps = moveStepsToCharCount(text, steps)
+            moveSteps = stepsToCharCount(text, steps, CompatBreakIterator.graphemeInstance)
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
@@ -380,7 +388,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         inputLogic.finishInput()
         val newPosition = connection.expectedSelectionStart + moveSteps
         connection.setSelection(newPosition, newPosition)
-        inputLogic.restartSuggestionsOnWordTouchedByCursor(settings.current, keyboardSwitcher.currentKeyboardScript)
+        inputLogic.restartSuggestionsOnWordTouchedByCursor(settings.current)
         return true
     }
 

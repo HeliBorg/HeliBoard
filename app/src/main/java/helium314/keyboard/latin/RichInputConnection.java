@@ -36,6 +36,8 @@ import androidx.annotation.Nullable;
 import androidx.core.view.inputmethod.InputConnectionCompat;
 import androidx.core.view.inputmethod.InputContentInfoCompat;
 
+import com.android.inputmethod.latin.BinaryDictionary;
+
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.common.StringUtilsKt;
@@ -46,7 +48,7 @@ import helium314.keyboard.latin.utils.CapsModeUtils;
 import helium314.keyboard.latin.utils.DebugLogUtils;
 import helium314.keyboard.latin.utils.NgramContextUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
-import helium314.keyboard.latin.utils.TextRange;
+import helium314.keyboard.latin.utils.TextAtCursor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -63,8 +65,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     private static final boolean DBG = false;
     private static final boolean DEBUG_PREVIOUS_TEXT = false;
     private static final boolean DEBUG_BATCH_NESTING = false;
-    private static final int NUM_CHARS_TO_GET_BEFORE_CURSOR = 40;
-    private static final int NUM_CHARS_TO_GET_AFTER_CURSOR = 40;
+    private static final int NUM_CHARS_TO_GET_BEFORE_CURSOR = BinaryDictionary.DICTIONARY_MAX_WORD_LENGTH;
+    private static final int NUM_CHARS_TO_GET_AFTER_CURSOR = BinaryDictionary.DICTIONARY_MAX_WORD_LENGTH;
     private static final int INVALID_CURSOR_POSITION = -1;
 
     /**
@@ -177,11 +179,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                         beforeCursor.length()).toString();
         if (et.selectionStart != mExpectedSelStart
                 || !(reference.equals(internal.toString()))) {
-            final String context = "Expected selection start = " + mExpectedSelStart
+            String context = "Expected selection start = " + mExpectedSelStart
                     + "\nActual selection start = " + et.selectionStart
                     + "\nExpected text = " + internal.length() + " " + internal
                     + "\nActual text = " + reference.length() + " " + reference;
-            ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
+            throw new RuntimeException(context);
         } else {
             Log.e(TAG, DebugLogUtils.getStackTrace(2));
             Log.e(TAG, "Exp <> Actual : " + mExpectedSelStart + " <> " + et.selectionStart);
@@ -313,6 +315,45 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public void commitCodePoint(final int codePoint) {
         commitText(StringUtils.newSingleCodePointString(codePoint), 1);
+    }
+
+    /**
+     * Replaces text at the cursor, by first deleting the surrounding text containing textToReplace,
+     * and then calling commitText.
+     * If textToReplace is not found, text is committed without removing anything.
+     *
+     * @param textToReplace The text to be replaced
+     * @param textToCommit The text to commit. This may include styles.
+     * @param newCursorPosition The new cursor position around the text.
+     */
+    public void replaceTextAtCursor(String textToReplace, CharSequence textToCommit, int newCursorPosition) {
+        if (mComposingText.toString().equals(textToReplace)) {
+            commitText(textToReplace, newCursorPosition);
+            return;
+        }
+        // find length to delete before / after cursor, at start assume cursor is after the word
+        int lengthBefore = textToReplace.length();
+        int lengthAfter = 0;
+        CharSequence before = getTextBeforeCursor(textToReplace.length(), 0);
+        if (!TextUtils.equals(before, textToReplace)) { // not actually after the word
+            CharSequence after = getTextAfterCursor(textToReplace.length(), 0);
+            if (before == null || after == null) {
+                commitText(textToReplace, newCursorPosition);
+                return;
+            }
+            String both = before.toString() + after;
+            int startIndex = both.indexOf(textToReplace);
+            if (startIndex == -1) {
+                commitText(textToReplace, newCursorPosition);
+                return;
+            }
+            lengthBefore = textToReplace.length() - startIndex;
+            lengthAfter = startIndex;
+        }
+        beginBatchEdit(); // batch to avoid getting unwanted selection updates
+        mIC.deleteSurroundingText(lengthBefore, lengthAfter);
+        commitText(textToCommit, newCursorPosition);
+        endBatchEdit();
     }
 
     /**
@@ -759,15 +800,16 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         } else mIC.performContextMenuAction(android.R.id.selectAll);
     }
 
-    public void selectWord(final SpacingAndPunctuations spacingAndPunctuations, final String script) {
+    public void selectWord(SpacingAndPunctuations spacingAndPunctuations) {
         if (!isConnected()) return;
         if (mExpectedSelStart != mExpectedSelEnd) { // already something selected
             mIC.setSelection(mExpectedSelEnd, mExpectedSelEnd);
             return;
         }
-        final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, script);
-        if (range == null) return;
-        mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
+        TextAtCursor text = getTextAtCursor();
+        if (text == null) return;
+        TextAtCursor.WordAtCursor wordAtCursor = text.getWordAtCursor(spacingAndPunctuations);
+        mIC.setSelection(mExpectedSelStart - wordAtCursor.getNumberOfCharsBeforeCursor(), mExpectedSelStart + wordAtCursor.getNumberOfCharsAfterCursor());
     }
 
     public void copyText(final boolean getSelection) {
@@ -837,13 +879,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             // TODO: right now the following works because mComposingText holds the part of the
             //  composing text that is before the cursor, but this is very confusing. We should
             //  fix it.
-            final StringBuilder internal = new StringBuilder()
-                    .append(mCommittedTextBeforeComposingText).append(mComposingText);
+            StringBuilder internal = new StringBuilder().append(mCommittedTextBeforeComposingText).append(mComposingText);
             if (internal.length() > checkLength) {
                 internal.delete(0, internal.length() - checkLength);
                 if (!(reference.equals(internal.toString()))) {
-                    final String context = "Expected text = " + internal + "\nActual text = " + reference;
-                    ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
+                    throw new RuntimeException("Expected text = " + internal + "\nActual text = " + reference);
                 }
             }
         }
@@ -851,14 +891,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     /**
-     * Returns the text surrounding the cursor.
-     *
-     * @param spacingAndPunctuations the rules for spacing and punctuation
-     * @param script the script we consider to be writing words, as one of ScriptUtils.SCRIPT_*
-     * @return a range containing the text surrounding the cursor (does NOT include the current selection, if any)
+     * Returns the text surrounding the cursor, without the current selection (if any).
      */
-    @Nullable public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
-            final String script) {
+    @Nullable public TextAtCursor getTextAtCursor() {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return null;
@@ -868,7 +903,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
                 NUM_CHARS_TO_GET_BEFORE_CURSOR,
                 InputConnection.GET_TEXT_WITH_STYLES);
-        final CharSequence after = getTextAfterCursorAndDetectLaggyConnection(
+        CharSequence after = getTextAfterCursorAndDetectLaggyConnection(
                 OPERATION_GET_WORD_RANGE_AT_CURSOR,
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
                 NUM_CHARS_TO_GET_AFTER_CURSOR,
@@ -876,7 +911,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (before == null || after == null) {
             return null;
         }
-        return StringUtilsKt.getTouchedWordRange(before, after, script, spacingAndPunctuations);
+        return new TextAtCursor(before, after);
     }
 
     public boolean isCursorTouchingWord(final SpacingAndPunctuations spacingAndPunctuations,
@@ -1027,14 +1062,20 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return mCommittedTextBeforeComposingText.indexOf(" ") != -1;
     }
 
-    public int getCharCountToDeleteBeforeCursor() {
+    public int getGraphemeLengthBeforeCursor() {
         int lastCodePoint = getCodePointBeforeCursor();
         if (StringUtils.mightBeEmoji(lastCodePoint) || Character.isSupplementaryCodePoint(lastCodePoint) || ConstantsKt.getCombiningRange().contains(lastCodePoint)) {
             CharSequence text = getTextBeforeCursor(NUM_CHARS_TO_GET_BEFORE_CURSOR, 0);
             if (TextUtils.isEmpty(text)) return 1;
-            return StringUtilsKt.getLastGrapheme(text.toString()).length();
+            return StringUtilsKt.getLastGraphemeLength(text);
         }
         return 1;
+    }
+
+    public int getWordLengthBeforeCursor(SpacingAndPunctuations spacingAndPunctuations) {
+        CharSequence text = getTextBeforeCursor(NUM_CHARS_TO_GET_BEFORE_CURSOR, 0);
+        if (TextUtils.isEmpty(text)) return 1;
+        return StringUtilsKt.getLastWordLength(text, spacingAndPunctuations);
     }
 
     public boolean hasLetterBeforeLastSpaceBeforeCursor() {

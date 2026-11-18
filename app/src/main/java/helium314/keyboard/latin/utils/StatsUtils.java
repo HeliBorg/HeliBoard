@@ -10,8 +10,9 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.RichInputMethodManager;
-import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo;
+import helium314.keyboard.latin.suggestions.SuggestedWords;
 
 @SuppressWarnings("unused")
 public final class StatsUtils {
@@ -25,7 +26,7 @@ public final class StatsUtils {
     }
 
     public static void onPickSuggestionManually(final SuggestedWords suggestedWords,
-            final SuggestedWords.SuggestedWordInfo suggestionInfo,
+            final SuggestedWordInfo suggestionInfo,
             final DictionaryFacilitator dictionaryFacilitator) {
     }
 

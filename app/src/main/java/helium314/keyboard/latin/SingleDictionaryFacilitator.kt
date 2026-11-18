@@ -2,7 +2,6 @@
 package helium314.keyboard.latin
 
 import android.content.Context
-import android.util.LruCache
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.emoji.SupportedEmojis
@@ -12,7 +11,9 @@ import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.DictionaryStats
 import helium314.keyboard.latin.makedict.WordProperty
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
-import helium314.keyboard.latin.utils.SuggestionResults
+import helium314.keyboard.latin.suggestions.Suggest
+import helium314.keyboard.latin.suggestions.SuggestedWords
+import helium314.keyboard.latin.suggestions.SuggestionResults
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
@@ -27,18 +28,13 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
      * Other suggestion fields of combined matches are taken from the highest-score one.
      */
     fun getSuggestions(words: List<String>): SuggestionResults {
-        val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, false, false)
+        val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, NgramContext.EMPTY_PREV_WORDS_INFO, false)
         words.flatMap { word -> getSuggestions(word).distinctBy { it.word } } // Filter out duplicate results per word
             .groupBy { it.word }
             .forEach { (_, results) ->
-                val info = results.maxBy { it.mScore }
-                val score = (results.sumOf { it.mScore.toLong() - Int.MIN_VALUE } / words.size + Int.MIN_VALUE).toInt()
-                suggestionResults.add(
-                    SuggestedWords.SuggestedWordInfo(
-                        info.word, info.mPrevWordsContext, score, info.mKindAndFlags,
-                        info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence
-                    )
-                )
+                val info = results.maxBy { it.score }
+                val score = (results.sumOf { it.score.toLong() - Int.MIN_VALUE } / words.size + Int.MIN_VALUE).toInt()
+                suggestionResults.add(info.copy(score = score))
             }
         return suggestionResults
     }
@@ -50,25 +46,21 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
             NgramContext.getEmptyPrevWordsContext(0),
             KeyboardSwitcher.getInstance().keyboard!!, // looks like actual keyboard doesn't matter (composed data doesn't contain coordinates)
             SettingsValuesForSuggestion(false, false),
-            Suggest.SESSION_ID_TYPING, SuggestedWords.INPUT_STYLE_TYPING
+            Suggest.SESSION_ID_TYPING, InputStyle.TYPING
         )
         return suggestionResults
     }
 
     override fun getSuggestionResults(
         composedData: ComposedData, ngramContext: NgramContext, keyboard: Keyboard,
-        settingsValuesForSuggestion: SettingsValuesForSuggestion, sessionId: Int, inputStyle: Int
+        settingsValuesForSuggestion: SettingsValuesForSuggestion, sessionId: Int, inputStyle: InputStyle
     ): SuggestionResults {
-        val suggestionResults = SuggestionResults(
-            SuggestedWords.MAX_SUGGESTIONS, ngramContext.isBeginningOfSentenceContext,
-            false
-        )
-        suggestionResults.addAll(
-            dict.getSuggestions(composedData, ngramContext, keyboard.proximityInfo.nativeProximityInfo,
-                settingsValuesForSuggestion, sessionId, 1f,
-                floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
-            )?.filter { !SupportedEmojis.isUnsupported(it.word) }
-        )
+        val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, ngramContext, false)
+        dict.getSuggestions(composedData, ngramContext, keyboard.proximityInfo.nativeProximityInfo,
+            settingsValuesForSuggestion, sessionId, 1f,
+            floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
+        )?.filter { !SupportedEmojis.isUnsupported(it.word) }
+            ?.let { suggestionResults.addAll(it) }
         suggestionLogger?.onNewSuggestions(suggestionResults, composedData, ngramContext, keyboard, inputStyle)
 
         return suggestionResults
@@ -77,10 +69,6 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
     fun getWordProperty(word: String): WordProperty? = dict.getWordProperty(word, false)
 
     // ------------ dummy functionality ----------------
-
-    override fun setValidSpellingWordReadCache(cache: LruCache<String, Boolean>) {}
-
-    override fun setValidSpellingWordWriteCache(cache: LruCache<String, Boolean>) {}
 
     override fun isForLocale(locale: Locale?): Boolean = locale == dict.mLocale
 
@@ -135,17 +123,13 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
 
     override fun localesAndConfidences(): String? = null
 
-    override fun dumpDictionaryForDebug(dictName: String) {}
-
     override fun getDictionaryStats(context: Context): List<DictionaryStats> = emptyList()
-
-    override fun dump(context: Context) = getDictionaryStats(context).joinToString("\n")
 
     companion object {
         interface SuggestionLogger {
             /** provides input data and suggestions returned by the library */
             fun onNewSuggestions(suggestions: SuggestionResults, composedData: ComposedData,
-                                 ngramContext: NgramContext, keyboard: Keyboard, inputStyle: Int)
+                                 ngramContext: NgramContext, keyboard: Keyboard, inputStyle: InputStyle)
         }
     }
 }

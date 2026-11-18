@@ -82,7 +82,6 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.KeyboardTypeface
 import helium314.keyboard.keyboard.internal.KeyboardBuilder
 import helium314.keyboard.keyboard.internal.KeyboardParams
-import helium314.keyboard.keyboard.internal.ShiftMode
 import helium314.keyboard.keyboard.internal.keyboard_parser.EMOJI_HINT_LABEL
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.getCode
@@ -91,7 +90,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiKeyDimension
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiNeutralVersion
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiPopupSpec
 import helium314.keyboard.keyboard.internal.keyboard_parser.loadEmojiDefaultVersionsAndPopupSpecs
-import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.RichInputMethodSubtype
@@ -99,17 +97,18 @@ import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.dictionary.DictionaryCollection
 import helium314.keyboard.latin.dictionary.DictionaryFactory
+import helium314.keyboard.latin.dictionary.DictionaryInfoUtils
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.CloseIcon
-import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.SearchIcon
 import helium314.keyboard.latin.utils.prefs
 import kotlin.properties.Delegates
 
-private const val TAG = "emoji-search"
+const val TAG = "emoji-search"
 
 /**
  * This activity is displayed in a gap created for it above the keyboard and below the host app, and disables the host app.
@@ -269,19 +268,22 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     override fun onStop() {
-        val intent = Intent(this, LatinIME::class.java).setAction(EMOJI_SEARCH_DONE_ACTION)
+        Log.d(TAG, "search ending. Selected emoji: ${pressedKey?.let { getEmoji(it) }}. imeClosed: $imeClosed")
+        val intent = Intent(EMOJI_SEARCH_DONE_ACTION).setPackage(packageName)
             .putExtra(IME_CLOSED_KEY, imeClosed)
         pressedKey?.let {
-            intent.putExtra(EMOJI_KEY, if (it.code == KeyCode.MULTIPLE_CODE_POINTS)
-                it.getOutputText()
-            else
-                Character.toString(it.code))
-
-            KeyboardSwitcher.getInstance().emojiPalettesView.addRecentKey(it)
+            val emoji = getEmoji(it) ?: return@let
+            intent.putExtra(EMOJI_KEY, emoji)
+            RecentEmojis.add(emoji)
         }
-        startService(intent)
+        sendBroadcast(intent)
         super.onStop()
     }
+
+    private fun getEmoji(key: Key): String? = if (key.code == KeyCode.MULTIPLE_CODE_POINTS)
+        key.getOutputText()
+    else
+        Character.toString(key.code)
 
     private fun init() {
         Log.d(TAG, "init start")
@@ -290,7 +292,7 @@ class EmojiSearchActivity : ComponentActivity() {
         Log.d(TAG, "screenHeight: $screenHeight")
         hintLocales = LocaleList(DictionaryInfoUtils.getLocalesWithEmojiDicts(this).map { Locale(it.toLanguageTag()) })
         val keyboardWidth = ResourceUtils.getKeyboardWidth(this, Settings.getValues())
-        val layoutSet = KeyboardLayoutSet.Builder(this, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
+        val layoutSet = KeyboardLayoutSet.Builder(this, null, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
             .setKeyboardGeometry(keyboardWidth, EmojiLayoutParams(resources).emojiKeyboardHeight).build()
         val keyboard = DynamicGridKeyboard.ofRowCount(prefs(), layoutSet.getKeyboard(KeyboardElement.EMOJI_RECENTS),
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 1 else 2,
@@ -323,8 +325,10 @@ class EmojiSearchActivity : ComponentActivity() {
                 dictionaryFacilitator?.getWordProperty(getEmojiNeutralVersion(emoji))?.let {
                     if (it.mHasShortcuts) it.mShortcutTargets[0]?.mWord else null
                 } else null
+
+            override fun onRemoveRecentsKey(key: Key?) {}
         })
-        KeyboardSwitcher.getInstance().setAlphabetKeyboard(ShiftMode.UNSHIFT)
+        KeyboardSwitcher.getInstance().resetKeyboardStateToAlphabet()
         Log.d(TAG, "init end")
     }
 
@@ -403,9 +407,14 @@ class EmojiSearchActivity : ComponentActivity() {
             val locale = RichInputMethodManager.getInstance().currentSubtype.locale
             if (dictionaryFacilitator?.isForLocale(locale) != true) {
                 dictionaryFacilitator?.closeDictionaries()
-                dictionaryFacilitator = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, Dictionary.TYPE_EMOJI, context)
-                    ?.let { DictionaryFactory.getDictionary(it, locale) }?.let { SingleDictionaryFacilitator(it) }
+                dictionaryFacilitator = createEmojiDictFacilitatorForCurrentSettings(context)
             }
+        }
+
+        @JvmStatic
+        fun createEmojiDictFacilitatorForCurrentSettings(context: Context): SingleDictionaryFacilitator? {
+            val dict = DictionaryFactory.createEmojiDictionaryCollection(context, RichInputMethodManager.getInstance().currentSubtype.locale, Settings.getValues().mSecondaryLocales)
+            return if (dict == null) null else SingleDictionaryFacilitator(dict)
         }
     }
 }

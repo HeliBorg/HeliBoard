@@ -24,7 +24,6 @@ import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.makedict.DictionaryHeader
-import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.locale
@@ -35,6 +34,9 @@ import java.util.Locale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalResources
 import helium314.keyboard.latin.RichInputMethodManager
+import helium314.keyboard.latin.dictionary.DictionaryInfoUtils
+import helium314.keyboard.latin.makedict.CombinedInputOutput
+import helium314.keyboard.latin.makedict.DictIO
 
 @Composable
 fun NewDictionaryDialog(
@@ -42,7 +44,7 @@ fun NewDictionaryDialog(
     cachedFile: File,
     mainLocale: Locale?
 ) {
-    val (error, header) = checkDict(cachedFile)
+    val (error, header) = remember { checkDict(cachedFile) } // todo: this should be done on in background, dict conversion can be slow
     if (error != null) {
         InfoDialog(stringResource(error), onDismissRequest)
         cachedFile.delete()
@@ -123,6 +125,7 @@ fun NewDictionaryDialog(
 }
 
 private fun checkDict(file: File): Pair<Int?, DictionaryHeader?> {
+    convertDictIfNecessary(file)
     val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file)
         ?: return R.string.dictionary_file_error to null
 
@@ -133,4 +136,18 @@ private fun checkDict(file: File): Pair<Int?, DictionaryHeader?> {
         return R.string.dictionary_load_error to null
     }
     return null to newHeader
+}
+
+private fun convertDictIfNecessary(file: File) {
+    if (DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file) != null) return
+    val path = file.absolutePath
+    try {
+        val fusionDict = if (CombinedInputOutput.isCombinedDictionary(path))
+            DictIO.readCombinedDictionary(path)
+        else runCatching { DictIO.readCompressedCombinedDictionary(path) }.getOrNull() ?:
+            DictIO.readXmDictionary(path, null, null)
+        file.delete()
+        DictIO.writeBinaryDictionary(path, fusionDict)
+    } catch (_: Exception) {
+    }
 }

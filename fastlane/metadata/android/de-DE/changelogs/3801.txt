@@ -1,0 +1,6 @@
+* Verwendung des Standard-Emoji-Stils in Vorschlägen und bei der Inline-Emoji-Suche
+* Aktivierung der vorausschauenden Zurück-Geste
+* Behebung des Problems, dass kleine Klammern bei RTL-Schriften nicht umgekehrt wurden
+* Hinzufügen einer Einstellung zum Ändern der Höhe der unteren Zeile
+* Verbesserung der internen Verarbeitung der Cursorposition, vor allem relevant für Kombinatoren, wie sie im Koreanischen verwendet werden
+* Hinzufügen von Links zum Bildschirm zur Erfassung von Gestendaten

@@ -64,8 +64,8 @@ public class SentenceLevelAdapter {
 
     private static class WordIterator {
         private final SpacingAndPunctuations mSpacingAndPunctuations;
-        public WordIterator(final Resources res, final Locale locale) {
-            mSpacingAndPunctuations = RunInLocaleKt.runInLocale(res, locale, r -> new SpacingAndPunctuations(r, false));
+        public WordIterator(Resources res, Locale locale) {
+            mSpacingAndPunctuations = RunInLocaleKt.runInLocale(res, locale, r -> new SpacingAndPunctuations(r, false, locale));
         }
 
         public int getEndOfWord(final CharSequence sequence, final int fromIndex) {

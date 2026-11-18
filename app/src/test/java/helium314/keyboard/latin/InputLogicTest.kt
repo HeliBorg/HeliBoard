@@ -19,13 +19,15 @@ import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.MainKeyboardView
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.ShadowFacilitator2.Companion.lastAddedWord
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.inputlogic.SpaceState
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.suggestions.SuggestedWords
+import helium314.keyboard.latin.suggestions.SuggestedWordInfo
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getTimestampFormatter
@@ -752,7 +754,7 @@ class InputLogicTest {
 
         if (!latinIME.prefs().getString(Settings.PREF_SELECTED_SUBTYPE, "")!!.contains("CombiningRules") // check fails if combiner merges symbols
             && !(codePoint == Constants.CODE_SPACE && oldBefore.lastOrNull() == ' ') // check fails when 2 spaces are converted into a period
-            && !latinIME.mInputLogic.mSuggestedWords.mWillAutoCorrect // autocorrect obviously creates inconsistencies
+            && !latinIME.mInputLogic.mSuggestedWords.willAutoCorrect // autocorrect obviously creates inconsistencies
             ) {
             if (phantomSpaceToInsert.isEmpty())
                 assertEquals(oldBefore + insert, textBeforeCursor)
@@ -792,7 +794,7 @@ class InputLogicTest {
         checkConnectionConsistency()
     }
 
-    private fun getWordAtCursor() = connection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentScript)?.mWord
+    private fun getWordAtCursor() = connection.textAtCursor?.getWordAtCursor(settingsValues.mSpacingAndPunctuations)?.word
 
     private fun setCursorPosition(start: Int, end: Int = start, weirdTextField: Boolean = false) {
         val ei = EditorInfo()
@@ -853,26 +855,27 @@ class InputLogicTest {
         checkConnectionConsistency()
     }
 
+    private val dict = Dictionary.PhonyDictionary("null")
     // like selecting a suggestion from strip
     private fun pickSuggestion(suggestion: String) {
-        val info = SuggestedWordInfo(suggestion, "", 0, 0, null, 0, 0)
+        val info = SuggestedWordInfo(suggestion, "", 0, 0, dict, 0, 0)
         latinIME.pickSuggestionManually(info)
         checkConnectionConsistency()
     }
 
     // only works when autocorrect is on, separator after word is required
-    private fun getAutocorrectedWithSpaceAfter(suggestion: String, typedWord: String?) {
-        val info = SuggestedWordInfo(suggestion, "", 0, 0, null, 0, 0)
-        val typedInfo = SuggestedWordInfo(typedWord, "", 0, 0, null, 0, 0)
-        val sw = SuggestedWords(ArrayList(listOf(typedInfo, info)), null, typedInfo, false, true, false, 0, 0)
+    private fun getAutocorrectedWithSpaceAfter(suggestion: String, typedWord: String) {
+        val info = SuggestedWordInfo(suggestion, "", 0, 0, dict, 0, 0)
+        val typedInfo = SuggestedWordInfo(typedWord, "", 0, 0, dict, 0, 0)
+        val sw = SuggestedWords(ArrayList(listOf(typedInfo, info)), null, typedInfo, false, true, false, InputStyle.NONE, 0)
         latinIME.mInputLogic.setSuggestedWords(sw) // this prepares for autocorrect
         input(' ')
         checkConnectionConsistency()
     }
 
     private fun glideTypingInput(word: String) {
-        val info = SuggestedWordInfo(word, "", 0, 0, null, 0, 0)
-        val sw = SuggestedWords(ArrayList(listOf(info)), null, info, true, false, false, 0, 0)
+        val info = SuggestedWordInfo(word, "", 0, 0, dict, 0, 0)
+        val sw = SuggestedWords(ArrayList(listOf(info)), null, info, true, false, false, InputStyle.NONE, 0)
         latinIME.mInputLogic.onUpdateTailBatchInputCompleted(settingsValues, sw, KeyboardSwitcher.getInstance())
     }
 
@@ -959,7 +962,7 @@ class ShadowKeyboardSwitcher {
     fun setKeyboard(keyboardId: Int, toggleState: KeyboardSwitcher.KeyboardSwitchState) = Unit
     @Implementation
     // only affects view
-    fun setOneHandedModeEnabled(enabled: Boolean) = Unit
+    fun setOneHandedModeEnabled(enabled: Boolean, force: Boolean) = Unit
     @Implementation
     fun getCurrentKeyboardScript() = currentScript
 }

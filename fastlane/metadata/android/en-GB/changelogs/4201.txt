@@ -1,0 +1,10 @@
+* update shift key icon
+* rearrange Arabic punctuation popups and add dotted-circle markers
+* add option to toggle hardware keyboard support (still buggy)
+* allow clearing recent emojis (long-press emoji or recents icon)
+* add regional indicator icons to flag emojis
+* add setting for d-pad key (like for emoji key)
+* add emojis entered from suggestion to recent emojis
+* fix unreachable floating keyboard handles
+* fix crash in emoji search
+* minor fixes and improvements

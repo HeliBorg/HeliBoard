@@ -38,10 +38,8 @@ import androidx.annotation.Nullable;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.keyboard.KeyboardTypeface;
-import helium314.keyboard.latin.PunctuationSuggestions;
+import helium314.keyboard.latin.InputStyle;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.SuggestedWords;
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.settings.Settings;
@@ -186,24 +184,23 @@ final class SuggestionStripLayoutHelper {
         return bitmapDrawable;
     }
 
-    private CharSequence getStyledSuggestedWord(final SuggestedWords suggestedWords,
-            final int indexInSuggestedWords) {
+    private CharSequence getStyledSuggestedWord(SuggestedWords suggestedWords, int indexInSuggestedWords) {
         if (indexInSuggestedWords >= suggestedWords.size()) {
             return null;
         }
-        final String word = suggestedWords.getLabel(indexInSuggestedWords);
+        String word = suggestedWords.getLabel(indexInSuggestedWords);
         // TODO: don't use the index to decide whether this is the auto-correction/typed word, as
         // this is brittle
-        final boolean isAutoCorrection = suggestedWords.mWillAutoCorrect
+        boolean isAutoCorrection = suggestedWords.getWillAutoCorrect()
                 && indexInSuggestedWords == SuggestedWords.INDEX_OF_AUTO_CORRECTION;
-        final boolean isTypedWordValid = suggestedWords.mTypedWordValid
+        boolean isTypedWordValid = suggestedWords.getTypedWordValid()
                 && indexInSuggestedWords == SuggestedWords.INDEX_OF_TYPED_WORD;
         if (!isAutoCorrection && !isTypedWordValid) {
             return word;
         }
 
-        final Spannable spannedWord = new SpannableString(word);
-        final int options = mSuggestionStripOptions;
+        Spannable spannedWord = new SpannableString(word);
+        int options = mSuggestionStripOptions;
         if ((isAutoCorrection && (options & AUTO_CORRECT_BOLD) != 0)
                 || (isTypedWordValid && (options & VALID_TYPED_WORD_BOLD) != 0)) {
             addStyleSpan(spannedWord, BOLD_SPAN);
@@ -221,21 +218,18 @@ final class SuggestionStripLayoutHelper {
      * @return Non-negative integer of the position in the suggestion strip.
      *         Negative integer if the word of the index shouldn't be shown on the suggestion strip.
      */
-    private int getPositionInSuggestionStrip(final int indexInSuggestedWords,
-            final SuggestedWords suggestedWords) {
-        final SettingsValues settingsValues = Settings.getValues();
-        final boolean shouldOmitTypedWord = shouldOmitTypedWord(suggestedWords.mInputStyle,
+    private int getPositionInSuggestionStrip(int indexInSuggestedWords, SuggestedWords suggestedWords) {
+        SettingsValues settingsValues = Settings.getValues();
+        boolean shouldOmitTypedWord = shouldOmitTypedWord(suggestedWords.getInputStyle(),
                 settingsValues.mGestureFloatingPreviewTextEnabled, true);
-        return getPositionInSuggestionStrip(indexInSuggestedWords, suggestedWords.mWillAutoCorrect,
+        return getPositionInSuggestionStrip(indexInSuggestedWords, suggestedWords.getWillAutoCorrect(),
                 shouldOmitTypedWord, mCenterPositionInStrip, mTypedWordPositionWhenAutocorrect);
     }
 
-    static boolean shouldOmitTypedWord(final int inputStyle,
-            final boolean gestureFloatingPreviewTextEnabled,
-            final boolean shouldShowUiToAcceptTypedWord) {
-        final boolean omitTypedWord = (inputStyle == SuggestedWords.INPUT_STYLE_TYPING)
-                || (inputStyle == SuggestedWords.INPUT_STYLE_TAIL_BATCH)
-                || (inputStyle == SuggestedWords.INPUT_STYLE_UPDATE_BATCH && gestureFloatingPreviewTextEnabled);
+    static boolean shouldOmitTypedWord(InputStyle inputStyle, boolean gestureFloatingPreviewTextEnabled, boolean shouldShowUiToAcceptTypedWord) {
+        boolean omitTypedWord = (inputStyle == InputStyle.TYPING)
+                || (inputStyle == InputStyle.TAIL_BATCH)
+                || (inputStyle == InputStyle.UPDATE_BATCH && gestureFloatingPreviewTextEnabled);
         return shouldShowUiToAcceptTypedWord && omitTypedWord;
     }
 
@@ -282,22 +276,21 @@ final class SuggestionStripLayoutHelper {
         return centerPositionInStrip + offsetFromCenter;
     }
 
-    private int getSuggestionTextColor(final SuggestedWords suggestedWords,
-            final int indexInSuggestedWords) {
+    private int getSuggestionTextColor(SuggestedWords suggestedWords, int indexInSuggestedWords) {
         // Use identity for strings, not #equals : it's the typed word if it's the same object
-        final boolean isTypedWord = suggestedWords.getInfo(indexInSuggestedWords).isKindOf(SuggestedWordInfo.KIND_TYPED);
+        boolean isTypedWord = suggestedWords.getInfo(indexInSuggestedWords).isKindOf(SuggestedWordInfo.KIND_TYPED);
 
-        final int color;
-        if (indexInSuggestedWords == SuggestedWords.INDEX_OF_AUTO_CORRECTION && suggestedWords.mWillAutoCorrect) {
+        int color;
+        if (indexInSuggestedWords == SuggestedWords.INDEX_OF_AUTO_CORRECTION && suggestedWords.getWillAutoCorrect()) {
             color = mColorAutoCorrect;
-        } else if (isTypedWord && suggestedWords.mTypedWordValid) {
+        } else if (isTypedWord && suggestedWords.getTypedWordValid()) {
             color = mColorValidTypedWord;
         } else if (isTypedWord) {
             color = mColorTypedWord;
         } else {
             color = mColorSuggested;
         }
-        if (suggestedWords.mIsObsoleteSuggestions && !isTypedWord) {
+        if (suggestedWords.isObsoleteSuggestions() && !isTypedWord) {
             return applyAlpha(color, mAlphaObsoleted);
         }
         return color;
@@ -323,14 +316,10 @@ final class SuggestionStripLayoutHelper {
      * @param placerView the view where the debug info will be placed.
      * @return the start index of more suggestions.
      */
-    public int layoutAndReturnStartIndexOfMoreSuggestions(
-            final Context context,
-            final SuggestedWords suggestedWords,
-            final ViewGroup stripView,
-            final ViewGroup placerView) {
-        if (suggestedWords.isPunctuationSuggestions()) {
-            return layoutPunctuationsAndReturnStartIndexOfMoreSuggestions(
-                    (PunctuationSuggestions)suggestedWords, stripView);
+    public int layoutAndReturnStartIndexOfMoreSuggestions(Context context, SuggestedWords suggestedWords,
+                                                          ViewGroup stripView, ViewGroup placerView) {
+        if (suggestedWords instanceof PunctuationSuggestions punc) {
+            return layoutPunctuationsAndReturnStartIndexOfMoreSuggestions(punc, stripView);
         }
 
         final int wordCountToShow = suggestedWords.getWordCountToShow();
@@ -400,7 +389,6 @@ final class SuggestionStripLayoutHelper {
         final TextView wordView = mWordViews.get(positionInStrip);
         final CharSequence word = wordView.getText();
         if (positionInStrip == mCenterPositionInStrip && mMoreSuggestionsAvailable) {
-            // TODO: This "more suggestions hint" should have a nicely designed icon.
             wordView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, mMoreSuggestionsHint);
             // HACK: Align with other TextViews that have no compound drawables.
             wordView.setCompoundDrawablePadding(-mMoreSuggestionsHint.getIntrinsicHeight());
@@ -451,7 +439,6 @@ final class SuggestionStripLayoutHelper {
         if (positionInStrip == mCenterPositionInStrip) {
             return mCenterSuggestionWeight;
         }
-        // TODO: Revisit this for cases of 5 or more suggestions
         return (1.0f - mCenterSuggestionWeight) / (mSuggestionsCountInStrip - 1);
     }
 

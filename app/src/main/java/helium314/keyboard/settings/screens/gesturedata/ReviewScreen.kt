@@ -104,6 +104,7 @@ fun ReviewScreen(
     var includeActive by rememberSaveable { mutableStateOf(false) }
     var includeBackground by rememberSaveable { mutableStateOf(true) }
     var includeExported by rememberSaveable { mutableStateOf(false) }
+    var singleInstancePerWord by rememberSaveable { mutableStateOf(false) }
     var startDate: Long? by rememberSaveable { mutableStateOf(null) }
     var endDate: Long? by rememberSaveable { mutableStateOf(null) }
     fun setAndSortWords(infos: List<GestureDataInfo>) {
@@ -124,7 +125,8 @@ fun ReviewScreen(
             if (includeActive && includeBackground) null else includeActive
         ).orEmpty()
         selected = emptyList() // unselect on filter changes
-        setAndSortWords(infos)
+        if (singleInstancePerWord) setAndSortWords(infos.distinctBy { it.targetWord })
+        else setAndSortWords(infos)
     }
     LifecycleResumeEffect(Unit) {
         reloadGestureDataInfos()
@@ -218,7 +220,7 @@ fun ReviewScreen(
         }
         @Composable fun controlColumn() {
             Column(Modifier.padding(horizontal = 12.dp)) {
-                LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort, includeActive, includeBackground) {
+                LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort, includeActive, includeBackground, singleInstancePerWord) {
                     reloadGestureDataInfos()
                 }
                 LaunchedEffect(reverseSort, sortByName) {
@@ -231,7 +233,9 @@ fun ReviewScreen(
                     includeBackground,
                     { includeBackground = it },
                     includeExported,
-                    { includeExported = it }
+                    { includeExported = it },
+                    singleInstancePerWord,
+                    { singleInstancePerWord = it },
                 )
                 var showDateRangePicker by remember { mutableStateOf(false) }
                 val df = DateFormat.getDateInstance(DateFormat.SHORT)
@@ -457,6 +461,8 @@ private fun TopBar(
     setIncludeBackground: (Boolean) -> Unit,
     includeExported: Boolean,
     setIncludeExported: (Boolean) -> Unit,
+    singleInstance: Boolean,
+    setSingleInstance: (Boolean) -> Unit
 ) {
     var infoDialog by remember { mutableStateOf(false) }
     TopAppBar( // not in the scaffold, thus will not cover data column in wide screen layout
@@ -499,6 +505,13 @@ private fun TopBar(
                             Text(stringResource(R.string.gesture_data_include_shared))
                         } },
                         onClick = { showMenu = false; setIncludeExported(!includeExported) }
+                    )
+                    DropdownMenuItem(
+                        text = { Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(singleInstance, { setSingleInstance(it) })
+                            Text(stringResource(R.string.gesture_data_single_instance_per_word))
+                        } },
+                        onClick = { setSingleInstance(!singleInstance)}
                     )
                     DropdownMenuItem(
                         text = { Row(verticalAlignment = Alignment.CenterVertically) {

@@ -3,6 +3,7 @@ package helium314.keyboard.settings.dialogs
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -41,6 +42,7 @@ fun <T: Any> ListPickerDialog(
     getItemName: (@Composable (T) -> String) = { it.toString() },
     confirmImmediately: Boolean = true,
     showRadioButtons: Boolean = true,
+    description: String? = null,
     onDefault: (() -> Unit)? = null,
 ) {
     var selected by remember { mutableStateOf(selectedItem) }
@@ -60,40 +62,44 @@ fun <T: Any> ListPickerDialog(
         modifier = modifier,
         title = title,
         content = {
-            CompositionLocalProvider(
-                LocalTextStyle provides MaterialTheme.typography.bodyLarge
-            ) {
-                LazyColumn(state = state) {
-                    items(items) { item ->
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .clickable {
-                                    if (confirmImmediately) {
-                                        onDismissRequest()
-                                        onItemSelected(item)
-                                    }
-                                    selected = item
-                                }
-                                .padding(horizontal = if (showRadioButtons) 8.dp else 16.dp)
-                                .heightIn(min = 40.dp)
-                        ) {
-                            if (showRadioButtons)
-                                RadioButton(
-                                    selected = selected == item,
-                                    onClick = {
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                if (description != null)
+                    Text(description)
+                CompositionLocalProvider(
+                    LocalTextStyle provides MaterialTheme.typography.bodyLarge
+                ) {
+                    LazyColumn(state = state) {
+                        items(items) { item ->
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .clickable {
                                         if (confirmImmediately) {
                                             onDismissRequest()
                                             onItemSelected(item)
                                         }
                                         selected = item
                                     }
+                                    .padding(horizontal = if (showRadioButtons) 8.dp else 16.dp)
+                                    .heightIn(min = 40.dp)
+                            ) {
+                                if (showRadioButtons)
+                                    RadioButton(
+                                        selected = selected == item,
+                                        onClick = {
+                                            if (confirmImmediately) {
+                                                onDismissRequest()
+                                                onItemSelected(item)
+                                            }
+                                            selected = item
+                                        }
+                                    )
+                                Text(
+                                    text = getItemName(item),
+                                    modifier = Modifier.weight(1f),
                                 )
-                            Text(
-                                text = getItemName(item),
-                                modifier = Modifier.weight(1f),
-                            )
+                            }
                         }
                     }
                 }

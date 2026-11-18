@@ -176,8 +176,6 @@ public final class FormatSpec {
     static final int MINIMUM_SUPPORTED_DYNAMIC_VERSION = VERSION4;
     static final int MAXIMUM_SUPPORTED_DYNAMIC_VERSION = VERSION403;
 
-    // TODO: Make this value adaptative to content data, store it in the header, and
-    // use it in the reading code.
     static final int MAX_WORD_LENGTH = DecoderSpecificConstants.DICTIONARY_MAX_WORD_LENGTH;
 
     // These flags are used only in the static dictionary.
@@ -273,6 +271,23 @@ public final class FormatSpec {
                 s.append("\n");
             }
             return s.toString();
+        }
+    }
+
+    /**
+     * Options about file format.
+     */
+    public static final class FormatOptions {
+        public final int mVersion;
+        public final boolean mHasTimestamp;
+
+        public FormatOptions(final int version) {
+            this(version, false /* hasTimestamp */);
+        }
+
+        public FormatOptions(final int version, final boolean hasTimestamp) {
+            mVersion = version;
+            mHasTimestamp = hasTimestamp;
         }
     }
 

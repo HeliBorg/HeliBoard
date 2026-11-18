@@ -1,0 +1,10 @@
+* parem Shift-klahvi ikoon
+* parem viis araabia tähestiku kirjavahemärkide lisamiseks
+* võimalus lülitada raudvaralist klahvistikku sisse/välja (veel veidi vigane)
+* hiljutisi emojsid saab kustutada (pikk vajutus emojil või hiljutiste ikoonil)
+* lipuga emojidele lisandus piirkonna tunnus
+* D-klahvistiku seadistused (nagu emoji-klahv)
+* soovitustest lisatud emojid lähevad nüüd hiljutiste alla
+* ujuva klahvistiku mitteleitavad nurgad said korda
+* emojide otsingu viga sai korda
+* pisiparandused

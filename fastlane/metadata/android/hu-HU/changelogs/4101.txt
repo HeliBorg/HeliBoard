@@ -1,0 +1,8 @@
+* D-Pad hozzáadása
+* Billentyűismétlés engedélyezése hosszú lenyomásként az eszköztár billentyűinél és a felugró ablakoknál, valamint ennek alapértelmezetté tétele az eszköztár nyílbillentyűinél
+* Vágólap-javaslatok továbbfejlesztése
+* Beállítások ikonjainak frissítése
+* Felugró tippek következetesebb megjelenítése
+* Számbillentyűzet billentyűszélességeinek finomhangolása a számelrendezéshez való igazítás érdekében
+
+* És még több hibajavítás - további részletek a bejelentésben

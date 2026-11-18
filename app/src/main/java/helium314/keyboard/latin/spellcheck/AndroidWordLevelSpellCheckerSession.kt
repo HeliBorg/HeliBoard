@@ -25,6 +25,7 @@ import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.suggestions.SuggestionResults
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.isLetterPartOfScript
@@ -32,7 +33,6 @@ import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.StatsUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings.getSelectedSubtype
-import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.prefs
 import java.util.Locale
 import java.util.TreeMap
@@ -325,11 +325,11 @@ abstract class AndroidWordLevelSpellCheckerSession(private val mService: Android
             val suggestionsSet = LinkedHashSet<String?>()
             for (suggestedWordInfo in suggestionResults) {
                 val suggestion: String? = if (StringUtils.CAPITALIZE_ALL == capitalizeType) {
-                    suggestedWordInfo.mWord.uppercase(locale)
+                    suggestedWordInfo.word.uppercase(locale)
                 } else if (StringUtils.CAPITALIZE_FIRST == capitalizeType) {
-                    StringUtils.capitalizeFirstCodePoint(suggestedWordInfo.mWord, locale)
+                    StringUtils.capitalizeFirstCodePoint(suggestedWordInfo.word, locale)
                 } else {
-                    suggestedWordInfo.mWord
+                    suggestedWordInfo.word
                 }
                 suggestionsSet.add(suggestion)
             }
@@ -339,7 +339,7 @@ abstract class AndroidWordLevelSpellCheckerSession(private val mService: Android
             val gatheredSuggestionsList = suggestions.subList(0, min(suggestions.size, suggestionsLimit))
             val gatheredSuggestions = gatheredSuggestionsList.toTypedArray<String?>()
 
-            val bestScore = suggestionResults.first().mScore
+            val bestScore = suggestionResults.first().score
             val bestSuggestion = suggestions[0]
             val normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(originalText, bestSuggestion, bestScore)
             val hasRecommendedSuggestions = normalizedScore > recommendedThreshold
