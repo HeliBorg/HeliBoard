@@ -10,7 +10,6 @@ import android.graphics.RectF
 import android.view.View
 import android.view.ViewGroup
 import helium314.keyboard.event.HapticEvent
-import helium314.keyboard.keyboard.emoji.EmojiViewCallback
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants
@@ -129,7 +128,7 @@ class FlickKeysPanel(context: Context) : View(context), PopupKeysPanel {
     // flick keys never show an emoji popup panel
     override fun showPopupKeysPanel(
         parentView: View, controller: PopupKeysPanel.Controller, pointX: Int, pointY: Int,
-        emojiViewCallback: EmojiViewCallback
+        onReleaseKey: (Key) -> Unit
     ) {}
 
     override fun dismissPopupKeysPanel() {
