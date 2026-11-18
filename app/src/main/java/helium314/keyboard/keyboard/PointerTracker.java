@@ -1321,6 +1321,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private boolean hasMovedBeyondFlickDeadZone(final int x, final int y) {
+        // flick panel's dead zone decides this
+        if (mPopupKeysPanel instanceof FlickKeysPanel flickPanel)
+            return flickPanel.hasFlickSelection();
         final int dx = x - mStartX;
         final int dy = y - mStartY;
         return (dx * dx + dy * dy) >= mKeyDetector.getKeyHysteresisDistanceSquared(false);

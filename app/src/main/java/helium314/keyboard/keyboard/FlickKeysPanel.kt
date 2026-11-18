@@ -134,8 +134,12 @@ class FlickKeysPanel(context: Context) : View(context), PopupKeysPanel {
 
     override fun dismissPopupKeysPanel() {
         removeCallbacks(expandRunnable)
+        if (!isShowingInParent()) return
         controller.onDismissPopupKeysPanel()
     }
+
+    // decide between "tap" and "flick"
+    fun hasFlickSelection(): Boolean = selected in 0..3
 
     override fun onDownEvent(x: Int, y: Int, pointerId: Int, eventTime: Long) {
         downX = x.toFloat()
@@ -254,12 +258,18 @@ class FlickKeysPanel(context: Context) : View(context), PopupKeysPanel {
         const val DIR_RIGHT = 2
         const val DIR_DOWN = 3
 
-        /** whether [key] should show its popup keys instantly (flick) rather than after a long press */
+        /**
+         * whether [key] should show its popup keys instantly (flick) rather than after a long press
+         * Only plain keys on the flick grid itself should follow this
+         */
         @JvmStatic
         fun isFlickKey(key: Key): Boolean {
+            if (key.backgroundType != Key.BACKGROUND_TYPE_NORMAL) return false
             val popupKeys = key.popupKeys
-            return popupKeys != null && popupKeys.isNotEmpty() &&
-                    RichInputMethodManager.getInstance().combiningRulesExtraValueOfCurrentSubtype == "kana_flick"
+            if (popupKeys == null || popupKeys.isEmpty()) return false
+            if (RichInputMethodManager.getInstance().combiningRulesExtraValueOfCurrentSubtype != "kana_flick") return false
+            val id = KeyboardSwitcher.getInstance().keyboard?.mId ?: return false
+            return id.element.isAlphabet && id.subtype.mainLayoutName == "japanese_flick"
         }
     }
 }

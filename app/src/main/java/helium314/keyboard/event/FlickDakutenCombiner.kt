@@ -83,15 +83,15 @@ class FlickDakutenCombiner : Combiner {
             // s-row
             'さ' to 'ざ', 'し' to 'じ', 'す' to 'ず', 'せ' to 'ぜ', 'そ' to 'ぞ',
             'ざ' to 'さ', 'じ' to 'し', 'ず' to 'す', 'ぜ' to 'せ', 'ぞ' to 'そ',
-            // t-row (つ cycles through the sokuon っ rather than a dakuten form)
+            // t-row (つ cycles through both the sokuon and its dakuten form)
             'た' to 'だ', 'ち' to 'ぢ', 'つ' to 'っ', 'て' to 'で', 'と' to 'ど',
-            'だ' to 'た', 'ぢ' to 'ち', 'で' to 'て', 'ど' to 'と', 'っ' to 'つ',
+            'だ' to 'た', 'ぢ' to 'ち', 'っ' to 'づ', 'づ' to 'つ', 'で' to 'て', 'ど' to 'と',
             // h-row: plain -> dakuten -> handakuten -> plain
             'は' to 'ば', 'ひ' to 'び', 'ふ' to 'ぶ', 'へ' to 'べ', 'ほ' to 'ぼ',
             'ば' to 'ぱ', 'び' to 'ぴ', 'ぶ' to 'ぷ', 'べ' to 'ぺ', 'ぼ' to 'ぽ',
             'ぱ' to 'は', 'ぴ' to 'ひ', 'ぷ' to 'ふ', 'ぺ' to 'へ', 'ぽ' to 'ほ',
             // small-kana toggles
-            'あ' to 'ぁ', 'ぁ' to 'あ', 'い' to 'ぃ', 'ぃ' to 'い', 'う' to 'ぅ', 'ぅ' to 'う',
+            'あ' to 'ぁ', 'ぁ' to 'あ', 'い' to 'ぃ', 'ぃ' to 'い', 'う' to 'ぅ', 'ぅ' to 'ゔ', 'ゔ' to 'う',
             'え' to 'ぇ', 'ぇ' to 'え', 'お' to 'ぉ', 'ぉ' to 'お',
             'や' to 'ゃ', 'ゃ' to 'や', 'ゆ' to 'ゅ', 'ゅ' to 'ゆ', 'よ' to 'ょ', 'ょ' to 'よ',
             'わ' to 'ゎ', 'ゎ' to 'わ',
