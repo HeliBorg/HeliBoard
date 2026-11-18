@@ -36,11 +36,14 @@ import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
+import helium314.keyboard.latin.utils.ToolbarContent;
 import helium314.keyboard.latin.utils.ToolbarMode;
+import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * When you call the constructor of this class, you may want to change the current system locale by
@@ -131,7 +134,8 @@ public class SettingsValues {
     public final float mSidePaddingScale;
     public final ToolbarMode mToolbarMode;
     public final boolean mToolbarSwipeDownToHide;
-    public final boolean mToolbarHidingGlobal;
+    public final boolean mShowClipboardStrip;
+    public final boolean mShowEmojiStrip;
     public final boolean mAutoShowToolbar;
     public final boolean mAutoHideToolbar;
     public final boolean mAlphaAfterEmojiInEmojiView;
@@ -187,9 +191,12 @@ public class SettingsValues {
         // Get the settings preferences
         mIsLocked = IsLockedCompatKt.isDeviceLocked(context);
         // we want to hide the toolbar / suggestion strip entirely if device is locked
-        mToolbarMode = mIsLocked ? ToolbarMode.HIDDEN : Settings.readToolbarMode(prefs);
+        final Set<ToolbarContent> toolbarContents = mIsLocked ? EnumSet.noneOf(ToolbarContent.class)
+                : ToolbarUtilsKt.readToolbarContents(prefs);
+        mToolbarMode = ToolbarUtilsKt.toolbarModeOf(toolbarContents);
         mToolbarSwipeDownToHide = prefs.getBoolean(Settings.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE, Defaults.PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE);
-        mToolbarHidingGlobal = mIsLocked || prefs.getBoolean(Settings.PREF_TOOLBAR_HIDING_GLOBAL, Defaults.PREF_TOOLBAR_HIDING_GLOBAL);
+        mShowClipboardStrip = toolbarContents.contains(ToolbarContent.CLIPBOARD);
+        mShowEmojiStrip = toolbarContents.contains(ToolbarContent.EMOJI_CATEGORIES);
         mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, Defaults.PREF_AUTO_CAP) && ScriptUtils.scriptSupportsUppercase(mLocale);
         mVibrateOn = Settings.readVibrationEnabled(prefs);
         mVibrateInDndMode = prefs.getBoolean(Settings.PREF_VIBRATE_IN_DND_MODE, Defaults.PREF_VIBRATE_IN_DND_MODE);
@@ -391,10 +398,6 @@ public class SettingsValues {
 
     public boolean hasSameOrientation(final Configuration configuration) {
         return mDisplayOrientation == configuration.orientation;
-    }
-
-    public boolean isSecondaryStripVisible() {
-        return mToolbarMode != ToolbarMode.HIDDEN || !mToolbarHidingGlobal;
     }
 
     private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context ctx) {

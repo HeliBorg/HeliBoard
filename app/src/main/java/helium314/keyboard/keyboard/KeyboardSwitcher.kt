@@ -564,7 +564,7 @@ class KeyboardSwitcher private constructor() {
             inputView.keyboardFrame.isGone = false
             inputView.keyboardView.isGone = true
             inputView.suggestionStripView.isGone = true
-            inputView.stripContainer.isVisible = Settings.getValues().isSecondaryStripVisible
+            inputView.stripContainer.isVisible = Settings.getValues().mShowEmojiStrip
             inputView.clipboardStripScrollView.isGone = true
             inputView.emojiTabStrip.isGone = false
             clipboardHistory?.isGone = true
@@ -585,7 +585,7 @@ class KeyboardSwitcher private constructor() {
             inputView.keyboardView.isGone = true
             inputView.emojiTabStrip.isGone = true
             inputView.suggestionStripView.isGone = true
-            inputView.stripContainer.isVisible = Settings.getValues().isSecondaryStripVisible
+            inputView.stripContainer.isVisible = Settings.getValues().mShowClipboardStrip
             inputView.clipboardStripScrollView.post { inputView.clipboardStripScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT) }
             inputView.clipboardStripScrollView.isGone = false
             emojiPalettes?.isGone = true

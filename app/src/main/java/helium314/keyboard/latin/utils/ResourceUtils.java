@@ -59,13 +59,12 @@ public final class ResourceUtils {
         return windowBounds.width() - insets.left - insets.right;
     }
 
+    /**
+     * Height of the emoji or clipboard view. The keyboard keeps the same height in every view; the strip
+     * is shown on top of it wherever it is enabled, as it is for the main keyboard.
+     */
     public static int getSecondaryKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
-        final int keyboardHeight = getKeyboardHeight(res, settingsValues);
-        if (settingsValues.mToolbarMode == ToolbarMode.HIDDEN && ! settingsValues.mToolbarHidingGlobal) {
-            // Small adjustment to match the height of the main keyboard which has a hidden strip container.
-            return keyboardHeight - (int) res.getDimension(R.dimen.config_suggestions_strip_height);
-        }
-        return keyboardHeight;
+        return getKeyboardHeight(res, settingsValues);
     }
 
     public static int getKeyboardHeight(Resources res, SettingsValues settingsValues) {
