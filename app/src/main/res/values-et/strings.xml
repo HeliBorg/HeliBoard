@@ -276,6 +276,15 @@
     <string name="version">Versioon</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numbriklahvistik (rõhtne)</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Sümbolid (araabia keele jaoks)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Sümbolid (saksa)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Sümbolid (Põhjamaade)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Sümbolid (briti)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Sümbolid (hispaania)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Sümbolid (itaalia)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Sümbolid (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Sümbolid (Brasiilia)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Sümbolid (türgi)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Sümbolid (Šveitsi)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Sümbolid</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Hologrammi valge</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numbriklahvistik</string>

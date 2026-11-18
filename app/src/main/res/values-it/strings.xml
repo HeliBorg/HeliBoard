@@ -281,6 +281,15 @@
     <string name="available_dictionary_experimental">%s (sperimentale)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Simboli</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simboli (arabo)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Simboli (tedesco)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Simboli (nordico)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Simboli (britannico)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Simboli (spagnolo)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Simboli (italiano)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Simboli (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Simboli (brasiliano)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Simboli (turco)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Simboli (svizzero)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefono</string>
     <string name="layout_number" tools:keep="@string/layout_number">Numeri</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Tastierino numerico (orizzontale)</string>

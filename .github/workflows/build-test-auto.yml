@@ -11,6 +11,9 @@ on:
   pull_request:
     paths:
       - 'app/src/main/java**'
+      - 'app/src/main/assets/**'
+      - 'app/src/main/res/xml/**'
+      - 'app/src/test/**'
   workflow_dispatch:
 
 jobs:

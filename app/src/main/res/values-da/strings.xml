@@ -234,6 +234,15 @@
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Afrundet</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktionelle taster (stor skærm)</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (arabisk)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Symboler (tysk)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Symboler (nordisk)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Symboler (britisk)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Symboler (spansk)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Symboler (italiensk)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Symboler (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Symboler (brasiliansk)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Symboler (tyrkisk)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Symboler (schweizisk)</string>
     <string name="after_emoji">Valg af emoji i emoji-visning</string>
     <string name="after_clip">Valg af post i udklipsholderens historik</string>
     <string name="after_symbol_and_space">Tryk på enter eller mellemrum efter andre taster i symbolvisning</string>

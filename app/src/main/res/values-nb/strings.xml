@@ -185,6 +185,15 @@
     <string name="hidden_features_text">enhetsbeskyttet lagring</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboler</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (Arabisk)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Symboler (Tysk)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Symboler (Nordisk)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Symboler (Britisk)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Symboler (Spansk)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Symboler (Italiensk)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Symboler (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Symboler (Brasiliansk)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Symboler (Tyrkisk)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Symboler (Sveitsisk)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Flere symboler</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonsymboler</string>

@@ -142,6 +142,15 @@
     <string name="customize_background_image">Ställ in bakgrundsbild</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboler</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (arabiska)</string>
+    <string name="layout_symbols_de" tools:keep="@string/layout_symbols_de">Symboler (tyska)</string>
+    <string name="layout_symbols_nordic" tools:keep="@string/layout_symbols_nordic">Symboler (nordiska)</string>
+    <string name="layout_symbols_uk" tools:keep="@string/layout_symbols_uk">Symboler (brittiska)</string>
+    <string name="layout_symbols_es" tools:keep="@string/layout_symbols_es">Symboler (spanska)</string>
+    <string name="layout_symbols_it" tools:keep="@string/layout_symbols_it">Symboler (italienska)</string>
+    <string name="layout_symbols_iso" tools:keep="@string/layout_symbols_iso">Symboler (ISO)</string>
+    <string name="layout_symbols_br" tools:keep="@string/layout_symbols_br">Symboler (brasilianska)</string>
+    <string name="layout_symbols_tr" tools:keep="@string/layout_symbols_tr">Symboler (turkiska)</string>
+    <string name="layout_symbols_ch" tools:keep="@string/layout_symbols_ch">Symboler (schweiziska)</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonsymboler</string>
     <string name="about_github_link">Se på GitHub</string>
     <string name="save_log">Spara logg</string>
